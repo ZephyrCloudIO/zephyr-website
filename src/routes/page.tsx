@@ -1,16 +1,14 @@
-import Hero from '@/components/sections/hero';
+import Hero from '@/components/sections/hero/index';
 import './index.css';
 import Investors from '@/components/sections/investors';
+import ValueProposition from '@/components/sections/value-proposition/index';
 
 export default function App() {
   return (
     <div className="flex flex-col gap-12">
-      <section>
-        <Hero />
-      </section>
-      <section className="flex items-center justify-center">
-        <Investors />
-      </section>
+      <Hero />
+      <Investors />
+      <ValueProposition />
     </div>
   );
 }
