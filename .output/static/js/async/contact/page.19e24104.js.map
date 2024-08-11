@@ -1,0 +1,1 @@
+{"version":3,"file":"static/js/async/contact/page.19e24104.js","sources":["webpack://zephyr-landing/./src/routes/contact/page.tsx"],"sourcesContent":["export default function Page() {\n  return <div>Contact page</div>;\n}\n"],"names":["Page"],"mappings":"oLAAe,SAASA,IACtB,MAAO,UAAC,O,SAAI,c,EACd,C"}

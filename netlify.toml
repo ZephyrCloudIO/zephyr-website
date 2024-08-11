@@ -1,6 +1,6 @@
 [build]
-  publish = "dist"
-  command = "modern build"
+  publish = ".ouput"
+  command = "PORT=3000 node .output/index.js"
 
 [functions]
   directory = "functions"
