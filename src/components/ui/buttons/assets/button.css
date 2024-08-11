@@ -10,74 +10,70 @@
   initial-value: 0;
 }
 
+@property --button-children-width {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 10rem;
+}
+
+@property --button-children-height {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 2.8rem;
+}
+
+@property --button-children-top {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0.4rem;
+}
+
+@property --button-children-right {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0.4rem;
+}
+
 .button-rectangle {
-  width: 176px;
-  height: 50px;
+  width: 10.96rem;
+  height: 3.2rem;
   flex-shrink: 0;
-  border-radius: 111.682px;
-  border: 1.861px solid #000;
+  border-radius: 1000px;
+  border: 2px solid #000;
   background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.1) 0%,
       rgba(0, 0, 0, 0.1) 100%
     ),
     #111317;
-  box-shadow: 4.653px 4.653px 9.307px 0px rgba(255, 255, 255, 0.15) inset;
+  box-shadow: 4.652px 4.652px 9.306px 0px rgba(255, 255, 255, 0.15) inset;
   position: relative;
+  --button-children-width: 10.28rem;
+  --button-children-height: 2.67rem;
+  --button-children-top: 0.4rem;
+  --button-children-right: 0.4rem;
 }
 
 /* Media query for screens wider than 768px */
 @media (max-width: 768px) {
-  .button-rectangle {
-    width: 200px;
-    height: 60px;
-    border-radius: 120px;
-    border: 2px solid #000;
-    background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.2) 0%,
-        rgba(0, 0, 0, 0.2) 100%
-      ),
-      #222;
-    box-shadow: 5px 5px 10px 0px rgba(255, 255, 255, 0.2) inset;
-  }
 }
 
 /* Media query for screens narrower than 480px */
 @media (max-width: 480px) {
-  .button-rectangle {
-    width: 118px;
-    height: 40px;
-    border-radius: 100px;
-    border: 1.5px solid #000;
-    background: linear-gradient(
-        0deg,
-        rgba(0, 0, 0, 0.05) 0%,
-        rgba(0, 0, 0, 0.05) 100%
-      ),
-      #111;
-    box-shadow: 3px 3px 6px 0px rgba(255, 255, 255, 0.1) inset;
-  }
 }
 
 .light-container {
-  width: 118px;
-  height: 38px;
+  width: 10rem;
+  height: 4rem;
   flex-shrink: 0;
   position: absolute;
   z-index: 10;
-  right: 0%;
-  top: 0%;
+  right: -10%;
+  top: -16%;
 }
 
 /* Media query for screens less than 768px */
 @media (max-width: 768px) {
-  .light-container {
-    width: 150px;
-    height: 50px;
-    right: 5%;
-    top: 5%;
-  }
 }
 
 /* Media query for screens narrower than 480px */
@@ -91,33 +87,33 @@
 }
 
 .light-glow {
-  width: 64.022px;
-  height: 26.01px;
+  width: 4rem;
+  height: 2rem;
   position: absolute;
-  right: -12%;
-  top: -12%;
+  right: -4%;
+  top: 22%;
   flex-shrink: 0;
   fill: linear-gradient(263deg, #fff 8.44%, #fff 112.84%);
-  filter: blur(16px);
+  filter: blur(6px);
 }
 
 .med-glow {
-  width: 64.022px;
-  height: 26.01px;
+  width: 5.2rem;
+  height: 2rem;
   position: absolute;
-  right: -8%;
-  top: -8%;
+  right: 14%;
+  top: 16%;
   flex-shrink: 0;
   fill: linear-gradient(263deg, #fff 8.44%, #fff 112.84%);
   filter: blur(6px);
 }
 
 .bold-glow {
-  width: 64.022px;
-  height: 26.01px;
+  width: 6rem;
+  height: 5.6rem;
   position: absolute;
-  right: -10%;
-  top: 10%;
+  right: 6%;
+  top: -24%;
   flex-shrink: 0;
   fill: linear-gradient(263deg, #fff 8.44%, #fff 112.84%);
   filter: blur(6px);
@@ -126,7 +122,7 @@
 .top-layer {
   position: absolute;
   z-index: 40;
-  width: 166.2px;
+  width: 10.2rem;
   height: 42.6px;
   flex-shrink: 0;
   top: 2.4px;
@@ -165,10 +161,10 @@
 .button-children {
   display: flex;
   position: absolute;
-  width: 166px;
-  height: 42px;
+  width: var(--button-children-width);
+  height: var(--button-children-height);
   left: 4px;
-  top: 3px;
+  top: 0.4rem;
   padding: 9px 20px;
   justify-content: center;
   align-items: center;
