@@ -2,6 +2,7 @@
 
 .pnp
 .pnp.js
+.env
 .env.local
 .env.*.local
 .history
@@ -32,3 +33,5 @@ modern.config.local.*
 
 # Local Netlify folder
 .netlify
+
+

@@ -1,32 +1,29 @@
 /* eslint-disable import/no-named-as-default */
 import Balancer from 'react-wrap-balancer';
 import { Link } from '@modern-js/runtime/router';
-import GlowingButton from '@/components/ui/glowing-border-button';
+import GlowingButton from '@/components/ui/buttons/button.glowing-border';
 import { siteConfig } from '@/lib/site.config';
 import { cn } from '@/lib/utils';
-
-const tryAlpha = {
-  name: 'Try Alpha',
-  link: siteConfig.signUp,
-};
 
 export default function Hero() {
   return (
     <div className="grid grid-cols-3 h-[calc(100vh-30vh)] items-center">
       <div className="flex sm:col-span-2 col-span-3 flex-col space-y-4 sm:space-y-10">
-        <h1 className=" text-zinc-300/80 font-semibold leading-10 sm:leading-[5rem] sm:text-7xl text-4xl  tracking-tight">
+        <h1 className=" text-zinc-300/80 font-medium leading-10 sm:leading-[5rem] sm:text-7xl text-4xl font-outfit-medium">
           The only sane way <br /> to do micro-frontends
         </h1>
-        <div className="sm:pr-32 pr-10 ">
+        <div className="sm:pr-80 pr-10 border">
           {' '}
-          <Balancer className="tracking-wider ">
+          <p className="tracking-wider font-outfit-light pr-10 border">
             Zephyr is a cloud-agnostic, framework-agnostic platform for
-            lightning fast deployment with best- in-class support for
+            lightning fast deployment with best-in-class support for
             micro-frontends and module federation.
-          </Balancer>
+          </p>
         </div>
         <div className="flex gap-6">
-          <GlowingButton props={tryAlpha} />
+          <Link to={siteConfig.signUp}>
+            <GlowingButton>Try Alpha</GlowingButton>
+          </Link>
           <Link
             to={siteConfig.headerNav[3].link}
             className={cn(

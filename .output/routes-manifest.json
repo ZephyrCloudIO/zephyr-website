@@ -22,12 +22,12 @@
         "/static/js/lib-react.9be12e82.js",
         "/static/js/lib-polyfill.7b5680aa.js",
         "/static/js/lib-router.57a0e182.js",
-        "/static/js/845.8c42a95b.js",
-        "/static/js/main.a863d7a4.js",
-        "/static/css/main.ddfd395b.css"
+        "/static/js/845.872d33bd.js",
+        "/static/css/main.60a2ba34.css",
+        "/static/js/main.9619b2ee.js"
       ],
       "referenceCssAssets": [
-        "/static/css/main.ddfd395b.css"
+        "/static/css/main.60a2ba34.css"
       ]
     },
     "page": {
@@ -35,7 +35,7 @@
         "484"
       ],
       "assets": [
-        "/static/js/async/page.294ac64e.js"
+        "/static/js/async/page.a6c6dae8.js"
       ],
       "referenceCssAssets": []
     }

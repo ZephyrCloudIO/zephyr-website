@@ -162,27 +162,6 @@
           "name": "@modern-js/plugin-design-token"
         }
       ]
-    },
-    {
-      "_options": {
-        "pluginName": "ZeWebpackPlugin",
-        "isCI": false,
-        "buildEnv": "local",
-        "zeConfig": {},
-        "app": {
-          "name": "zephyr-landing",
-          "version": "0.1.0",
-          "org": "zmzlois",
-          "project": "zephyr-landing"
-        },
-        "git": {
-          "name": "zmzlois",
-          "email": "lois.z@comcord.vision",
-          "branch": "main",
-          "commit": "2a978853277d829ee55c5cd6f778b2c1fa076767"
-        },
-        "application_uid": "zephyr-landing.zephyr-landing.zmzlois"
-      }
     }
   ],
   "builderPlugins": [
@@ -202,8 +181,7 @@
     },
     "plugins": [
       "[Circular 0]",
-      "[Circular 1]",
-      "[Circular 2]"
+      "[Circular 1]"
     ]
   },
   "bff": {},
