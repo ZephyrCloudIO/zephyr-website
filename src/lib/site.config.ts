@@ -15,4 +15,9 @@ export const siteConfig = {
     },
   ],
   signUp: 'https://app.zephyr-cloud.io',
+  investors: {
+    true: 'https://trueventures.com/',
+    stepFunction: '',
+    ninja: '',
+  },
 };

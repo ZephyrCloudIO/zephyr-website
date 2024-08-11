@@ -19,7 +19,7 @@ export default function TopRightGlowButton({
         <div className="top-layer"></div>
         <div className="button-children">
           {' '}
-          <p className="font-outfit-light antialiased font-thin text-sm tracking-wide text-zinc-100">
+          <p className="font-outfit-light antialiased font-thin text-sm tracking-wide text-transparent bg-clip-text bg-gradient-to-b from-zinc-600 via-zinc-400 to-zinc-100">
             {children}
           </p>
         </div>{' '}

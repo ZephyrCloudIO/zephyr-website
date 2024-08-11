@@ -7,6 +7,9 @@ export default defineConfig({
     router: true,
     state: true,
   },
+  server: {
+    port: 3000,
+  },
   plugins: [
     appTools({
       bundler: 'experimental-rspack',

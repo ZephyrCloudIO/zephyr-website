@@ -8,7 +8,7 @@ import { cn } from '@/lib/utils';
 
 export default function Header() {
   return (
-    <div className="rounded-full border border-[#2a2a2a] bg-[#010101] items-center gap-2 justify-between flex p-4">
+    <div className="rounded-full sticky top-5 border border-[#2a2a2a] bg-[#010101] items-center gap-2 backdrop-blur-lg justify-between flex p-4">
       <a
         href="/"
         className="min-w-[220px] items-center flex-shrink-0 pl-3 flex "

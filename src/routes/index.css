@@ -121,6 +121,19 @@
     @apply text-foreground;
     font-feature-settings: 'rlig' 1, 'calt' 1;
   }
+
+  h1::selection,
+  h2::selection,
+  h3::selection,
+  h4::selection,
+  h5::selection,
+  p::selection,
+  a::selection,
+  label::selection,
+  button::selection,
+  span::selection {
+    @apply bg-white text-black;
+  }
 }
 
 @layer utilities {
