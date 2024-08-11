@@ -1,5 +1,3 @@
-import { Link } from '@modern-js/runtime/router';
-import { cn } from '@/lib/utils';
 import './assets/button.css';
 
 export type GlowingButtonProps = {
@@ -9,7 +7,6 @@ export type GlowingButtonProps = {
 };
 export default function GlowingButton({
   children,
-  ...props
 }: {
   children: React.ReactNode;
 }) {

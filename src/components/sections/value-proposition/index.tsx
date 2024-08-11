@@ -27,24 +27,24 @@ export default function ValueProposition() {
   }, [ref]);
 
   return (
-    <section className="flex font-outfit  justify-between items-center w-full">
+    <section className="flex md:flex-row flex-col-reverse font-outfit pt-5 pb-20  justify-between items-center w-full">
       <div className="pr-4">
-        <div className="grid grid-cols-6 grid-rows-4 space-y-10 ">
-          <div className="col-span-3 row-start-1 col-start-2 px-16">
+        <div className="flex flex-col md:grid md:grid-cols-6 md:grid-rows-4 space-y-10 ">
+          <div className="md:col-span-3 md:row-start-1 md:col-start-2 md:px-16">
             <ValuePropositionCard
               divRef={ref}
               text="Auto-deploy on build"
               lottieOptions={cloudUploadOptions}
             />
           </div>
-          <div className="col-span-3 row-start-2 col-start-3 px-6">
+          <div className="md:col-span-3 md:row-start-2 md:col-start-3 md:px-6">
             <ValuePropositionCard
               divRef={ref}
               text="Manage dependencies for micro-frontends"
               lottieOptions={cloudUploadOptions}
             />
           </div>
-          <div className="col-span-3 row-start-3 col-start-1 px-4">
+          <div className="md:col-span-3 md:row-start-3 md:col-start-1 md:px-4">
             {' '}
             <ValuePropositionCard
               divRef={ref}
@@ -52,7 +52,7 @@ export default function ValueProposition() {
               lottieOptions={cloudUploadOptions}
             />
           </div>
-          <div className="col-span-3 col-start-4 px-2 row-start-4">
+          <div className="md:col-span-3 md:col-start-4 md:px-2 md:row-start-4">
             <ValuePropositionCard
               divRef={ref}
               text="Version rollback and roll-forward"
@@ -61,12 +61,12 @@ export default function ValueProposition() {
           </div>
         </div>
       </div>
-      <div className="items-start flex gap-8 px-10 w-[calc(90vw-40vw)] flex-col">
+      <div className="items-start py-6 flex gap-8 md:px-10 md:w-[calc(90vw-40vw)] flex-col">
         <div className="flex flex-col gap-4  font-outfit-medium">
           {' '}
           {ValueTitle.map(item => (
             <h2
-              className="text-5xl text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 via-zinc-100 to-zinc-500 font-outfit-light font-light"
+              className="md:text-5xl text-4xl text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 via-zinc-100 to-zinc-500 font-outfit-light font-light"
               key={item}
             >
               {item}
@@ -74,7 +74,7 @@ export default function ValueProposition() {
           ))}
         </div>
         <div className="pl-2">
-          <p className="text-zinc-100/80 text-sm tracking-wide font-light">
+          <p className="text-zinc-100/80 md:text-sm text-base tracking-wide font-light">
             Bring the power of modern deployment to your cloud.
           </p>
         </div>

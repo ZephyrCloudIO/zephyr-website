@@ -2,11 +2,33 @@
 
 :root {
   background-color: black;
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: OutfitRegular, 'Trebuchet MS', Helvetica, sans-serif;
+  view-transition-name: root;
 }
 
-.text-light {
+.font-outfit-light {
+  font-family: OutfitLight, 'Trebuchet MS', Helvetica, sans-serif;
+  font-weight: 50;
+}
+
+.font-outfit-semibold {
+  font-family: OutfitMedium, 'Trebuchet MS', Helvetica, sans-serif;
+  font-weight: 500;
+}
+
+.font-inter-light {
+  font-family: InterLight, 'Trebuchet MS', Helvetica, sans-serif;
   font-weight: 100;
+}
+
+.font-fira-light {
+  font-family: FiraCodeLight, 'Courier New', Courier, monospace;
+  font-weight: 300;
+}
+
+.font-fira-medium {
+  font-family: FiraCodeMedium, 'Courier New', Courier, monospace;
+  font-weight: 600;
 }
 
 .transform {

@@ -26,6 +26,40 @@
   position: relative;
 }
 
+/* Media query for screens wider than 768px */
+@media (max-width: 768px) {
+  .button-rectangle {
+    width: 200px;
+    height: 60px;
+    border-radius: 120px;
+    border: 2px solid #000;
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.2) 0%,
+        rgba(0, 0, 0, 0.2) 100%
+      ),
+      #222;
+    box-shadow: 5px 5px 10px 0px rgba(255, 255, 255, 0.2) inset;
+  }
+}
+
+/* Media query for screens narrower than 480px */
+@media (max-width: 480px) {
+  .button-rectangle {
+    width: 118px;
+    height: 40px;
+    border-radius: 100px;
+    border: 1.5px solid #000;
+    background: linear-gradient(
+        0deg,
+        rgba(0, 0, 0, 0.05) 0%,
+        rgba(0, 0, 0, 0.05) 100%
+      ),
+      #111;
+    box-shadow: 3px 3px 6px 0px rgba(255, 255, 255, 0.1) inset;
+  }
+}
+
 .light-container {
   width: 118px;
   height: 38px;
@@ -36,12 +70,32 @@
   top: 0%;
 }
 
+/* Media query for screens less than 768px */
+@media (max-width: 768px) {
+  .light-container {
+    width: 150px;
+    height: 50px;
+    right: 5%;
+    top: 5%;
+  }
+}
+
+/* Media query for screens narrower than 480px */
+@media (max-width: 480px) {
+  .light-container {
+    width: 100px;
+    height: 30px;
+    right: 2%;
+    top: 2%;
+  }
+}
+
 .light-glow {
   width: 64.022px;
   height: 26.01px;
   position: absolute;
-  right: -5%;
-  bottom: -10%;
+  right: -12%;
+  top: -12%;
   flex-shrink: 0;
   fill: linear-gradient(263deg, #fff 8.44%, #fff 112.84%);
   filter: blur(16px);
@@ -51,8 +105,8 @@
   width: 64.022px;
   height: 26.01px;
   position: absolute;
-  right: -4%;
-  top: -4%;
+  right: -8%;
+  top: -8%;
   flex-shrink: 0;
   fill: linear-gradient(263deg, #fff 8.44%, #fff 112.84%);
   filter: blur(6px);
@@ -73,61 +127,103 @@
   position: absolute;
   z-index: 40;
   width: 166.2px;
-  height: 38.56px;
+  height: 42.6px;
   flex-shrink: 0;
-  top: 3.6px;
+  top: 2.4px;
   left: 4.4px;
   border-radius: 29px;
   border: 1px solid #ffffffec;
   background-color: #111317;
 }
 
+/* Media query for screens wider than 768px */
+@media (max-width: 768px) {
+  .top-layer {
+    width: 200px;
+    height: 45px;
+    top: 5px;
+    left: 5px;
+    border-radius: 35px;
+    border: 1.5px solid #ffffffec;
+    background-color: #222;
+  }
+}
+
+/* Media query for screens narrower than 480px */
+@media (max-width: 480px) {
+  .top-layer {
+    width: 110.8px;
+    height: 32px;
+    top: 2px;
+    left: 2px;
+    border-radius: 25px;
+    border: 0.8px solid #ffffffec;
+    background-color: #000;
+  }
+}
+
 .button-children {
   display: flex;
   position: absolute;
   width: 166px;
-  height: 38px;
+  height: 42px;
   left: 4px;
-  top: 4px;
-  padding: 9px 24px;
+  top: 3px;
+  padding: 9px 20px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
-  border-radius: 111.682px;
+  border-radius: 1000px;
   background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.1) 0%,
       rgba(0, 0, 0, 0.1) 100%
     ),
     #111317;
-  box-shadow: 4.653px 4.653px 9.307px 0px rgba(255, 255, 255, 0.269) inset;
+  box-shadow: 2px 2px 12px 0px rgba(255, 255, 255, 0.135) inset;
   z-index: 50;
 }
 
-.webkit-mask {
-  --offset: 50%;
+/* Media query for screens wider than 768px */
+@media (max-width: 768px) {
+  .button-children {
+    width: 184px;
+    height: 48px;
+    left: 5px;
+    top: 4px;
+    padding: 12px 30px;
+    border-radius: 120px;
+    box-shadow: 5px 5px 10px 0px rgba(255, 255, 255, 0.3) inset;
+  }
+}
 
-  -webkit-mask-image: linear-gradient(
-      to right,
-      transparent,
-      #000,
-      #000,
-      transparent calc(var(--x) + var(--offset))
-    ),
-    linear-gradient(
-      to bottom,
-      transparent 40px,
-      #000 44px,
-      #000 calc(100% - 44px),
-      transparent calc(100% - 40px)
-    ),
-    linear-gradient(
-      to right,
-      transparent 40px,
-      #000 44px,
-      #000 calc(100% - 44px),
-      transparent calc(100% - 40px)
-    );
-  -webkit-mask-composite: destination-in;
+/* Media query for screens narrower than 480px */
+@media (max-width: 480px) {
+  .button-children {
+    width: 110px;
+    height: 32px;
+    left: 2px;
+    top: 2px;
+    padding: 6px 18px;
+    border-radius: 100px;
+    box-shadow: 3px 3px 6px 0px rgba(255, 255, 255, 0.2) inset;
+  }
+}
+
+.secondary-button {
+  display: flex;
+  height: 50px;
+  padding: 8px 12px;
+  justify-content: center;
+  align-items: center;
+  border-radius: 100px;
+  border: 1px solid #ffffff2b;
+  background: radial-gradient(
+    84.42% 178.17% at 100% 133.82%,
+    rgba(255, 255, 255, 0) 0%,
+    rgba(255, 255, 255, 0.1) 100%
+  );
+  box-shadow: 0px 0px 10px 0px #f1ecff10 inset;
+  backdrop-filter: blur(17px);
 }

@@ -5,7 +5,7 @@ import Header from '@/components/header';
 
 export default function Layout() {
   return (
-    <div className="bg-background min-h-screen dark antialiased text-zinc-200 ">
+    <div className=" min-h-screen dark antialiased text-zinc-200 ">
       <Helmet>
         <title>Zephyr Cloud</title>
       </Helmet>

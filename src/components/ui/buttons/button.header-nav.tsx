@@ -36,12 +36,13 @@ export default function HeaderNav({
     <div className="items-center flex justify-center">
       <a
         href={props.link}
+        target="_blank"
         className=" transition-all group  duration-300 group py-2 px-12"
       >
         <h2
           ref={mainRef}
           className={cn(
-            ' text-transparent relative z-30 w-auto bg-clip-text bg-gradient-to-b from-slate-500 via-slate-400/80 to-slate-200 text-base  tracking-wide duration-300 group:hover:text-gradient-bright group-hover:brightness-150  transform',
+            ' text-transparent relative z-30 w-auto bg-clip-text bg-gradient-to-b from-zinc-500 via-zinc-300/80 to-zinc-100 text-base  tracking-wide duration-300 group:hover:text-gradient-bright group-hover:brightness-150  transform',
             {
               'after:absolute text-gradient-bright after:w-[20px] after:h-[1px]  after:left-1/3 after:-bottom-1 after:bg-zinc-300 ':
                 currentPath.includes(props.link),
