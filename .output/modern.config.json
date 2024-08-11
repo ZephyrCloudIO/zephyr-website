@@ -1,0 +1,213 @@
+{
+  "autoLoadPlugins": false,
+  "source": {
+    "mainEntryName": "main",
+    "enableAsyncEntry": false,
+    "enableCustomEntry": false,
+    "disableDefaultEntries": false,
+    "entriesDir": "./src",
+    "configDir": "./config",
+    "globalVars": {
+      "process.env.MODERN_JS_VERSION": "2.58.0",
+      "process.env.IS_REACT18": "true"
+    },
+    "alias": {
+      "@_modern_js_internal": "/Users/lois/Documents/GitHub/zephyr-landing/node_modules/.modern-js",
+      "@_modern_js_src": "/Users/lois/Documents/GitHub/zephyr-landing/src",
+      "@": "/Users/lois/Documents/GitHub/zephyr-landing/src",
+      "@shared": "/Users/lois/Documents/GitHub/zephyr-landing/shared",
+      "styled-components": "/Users/lois/Documents/GitHub/zephyr-landing/node_modules/.pnpm/styled-components@5.3.11_@babel+core@7.25.2_react-dom@18.2.0_react@18.2.0__react-is@18.3.1_react@18.2.0/node_modules/styled-components/dist/styled-components.cjs.js",
+      "@modern-js/runtime/plugins": "/Users/lois/Documents/GitHub/zephyr-landing/node_modules/.modern-js/.runtime-exports/plugins.js",
+      "@meta/runtime/browser": "@modern-js/runtime/browser",
+      "@meta/runtime/react": "@modern-js/runtime/react",
+      "@meta/runtime/context": "@modern-js/runtime/context",
+      "@meta/runtime": "@modern-js/runtime",
+      "@modern-js/runtime-utils/node$": "/Users/lois/Documents/GitHub/zephyr-landing/node_modules/.pnpm/@modern-js+runtime-utils@2.58.0_react-dom@18.2.0_react@18.2.0__react@18.2.0/node_modules/@modern-js/runtime-utils/dist/cjs/node/index.js"
+    },
+    "include": [
+      {},
+      {},
+      {},
+      "/Users/lois/Documents/GitHub/zephyr-landing/node_modules/.modern-js"
+    ]
+  },
+  "output": {
+    "distPath": {
+      "root": "dist",
+      "html": "html",
+      "js": "static/js",
+      "css": "static/css",
+      "server": "bundles",
+      "worker": "worker"
+    },
+    "cleanDistPath": true,
+    "disableNodePolyfill": true,
+    "enableInlineRouteManifests": true,
+    "disableInlineRouteManifests": false
+  },
+  "server": {
+    "baseUrl": "/",
+    "port": 8080
+  },
+  "dev": {},
+  "html": {
+    "title": "",
+    "mountId": "root",
+    "meta": {
+      "charset": {
+        "charset": "utf-8"
+      },
+      "viewport": "width=device-width, initial-scale=1.0, shrink-to-fit=no, viewport-fit=cover, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no",
+      "http-equiv": {
+        "http-equiv": "x-ua-compatible",
+        "content": "ie=edge"
+      },
+      "renderer": "webkit",
+      "layoutmode": "standard",
+      "imagemode": "force",
+      "wap-font-scale": "no",
+      "format-detection": "telephone=no"
+    }
+  },
+  "tools": {
+    "tsChecker": {
+      "issue": {
+        "exclude": [
+          {
+            "file": "**/api/lambda/**/*"
+          }
+        ]
+      }
+    },
+    "styledComponents": {
+      "topLevelImportPaths": [
+        "@modern-js/runtime/styled"
+      ]
+    }
+  },
+  "plugins": [
+    {
+      "name": "@modern-js/app-tools",
+      "post": [
+        "@modern-js/plugin-initialize",
+        "@modern-js/plugin-analyze",
+        "@modern-js/plugin-ssr",
+        "@modern-js/plugin-document",
+        "@modern-js/plugin-state",
+        "@modern-js/plugin-router",
+        "@modern-js/plugin-router-v5",
+        "@modern-js/plugin-polyfill"
+      ],
+      "registerHook": {
+        "_internalRuntimePlugins": {},
+        "modifyFileSystemRoutes": {},
+        "modifyServerRoutes": {},
+        "modifyEntrypoints": {},
+        "checkEntryPoint": {},
+        "generateEntryCode": {},
+        "htmlPartials": {},
+        "beforeGenerateRoutes": {},
+        "addDefineTypes": {},
+        "collectServerPlugins": {},
+        "_internalServerPlugins": {},
+        "beforeDev": {},
+        "afterDev": {},
+        "beforeCreateCompiler": {},
+        "afterCreateCompiler": {},
+        "beforePrintInstructions": {},
+        "beforeBuild": {},
+        "afterBuild": {},
+        "beforeDeploy": {},
+        "deploy": {},
+        "afterDeploy": {},
+        "beforeRestart": {},
+        "registerDev": {},
+        "beforeDevTask": {},
+        "registerBuildPlatform": {},
+        "beforeBuildPlatform": {}
+      },
+      "usePlugins": [
+        {
+          "name": "@modern-js/plugin-initialize",
+          "post": [
+            "@modern-js/plugin-ssr",
+            "@modern-js/plugin-document",
+            "@modern-js/plugin-state",
+            "@modern-js/plugin-router",
+            "@modern-js/plugin-router-v5",
+            "@modern-js/plugin-polyfill"
+          ]
+        },
+        {
+          "name": "@modern-js/plugin-analyze",
+          "post": [
+            "@modern-js/runtime"
+          ]
+        },
+        {
+          "name": "@modern-js/server-build"
+        },
+        {
+          "name": "@modern-js/plugin-lint"
+        },
+        {
+          "name": "@modern-js/plugin-deploy"
+        }
+      ]
+    },
+    {
+      "name": "@modern-js/plugin-tailwindcss",
+      "usePlugins": [
+        {
+          "name": "@modern-js/plugin-design-token"
+        }
+      ]
+    },
+    {
+      "_options": {
+        "pluginName": "ZeWebpackPlugin",
+        "isCI": false,
+        "buildEnv": "local",
+        "zeConfig": {},
+        "app": {
+          "name": "zephyr-landing",
+          "version": "0.1.0",
+          "org": "zmzlois",
+          "project": "zephyr-landing"
+        },
+        "git": {
+          "name": "zmzlois",
+          "email": "lois.z@comcord.vision",
+          "branch": "main",
+          "commit": "2a978853277d829ee55c5cd6f778b2c1fa076767"
+        },
+        "application_uid": "zephyr-landing.zephyr-landing.zmzlois"
+      }
+    }
+  ],
+  "builderPlugins": [
+    {
+      "name": "@modern-js/builder-plugin-ssr"
+    }
+  ],
+  "runtime": {
+    "router": true,
+    "state": true
+  },
+  "runtimeByEntries": {},
+  "_raw": {
+    "runtime": {
+      "router": true,
+      "state": true
+    },
+    "plugins": [
+      "[Circular 0]",
+      "[Circular 1]",
+      "[Circular 2]"
+    ]
+  },
+  "bff": {},
+  "testing": {},
+  "deploy": {},
+  "performance": {}
+}

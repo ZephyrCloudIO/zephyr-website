@@ -3,6 +3,6 @@
   command = "modern deploy"
 
 [functions]
-  directory = ".netlify/functions"
+  directory = "functions"
   node_bundler = "none"
-  included_files = [".netlify/functions/**"]
+  included_files = ["functions/**"]
