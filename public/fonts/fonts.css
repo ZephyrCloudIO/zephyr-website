@@ -1,0 +1,50 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'InterRegular';
+    src: url('./Inter-Regular.woff2');
+  }
+
+  @font-face {
+    font-family: 'InterMedium';
+    src: url('./Inter-Medium.woff2');
+  }
+
+  @font-face {
+    font-family: 'InterLight';
+    src: url('./Inter-Light.woff2');
+  }
+
+  @font-face {
+    font-family: 'OutfitExtraLight';
+    src: url('./Outfit-ExtraLight.woff2');
+  }
+
+  @font-face {
+    font-family: 'OutfitLight';
+    src: url('./Outfit-Light.woff2');
+  }
+
+  @font-face {
+    font-family: 'OutfitMedium';
+    src: url('./Outfit-Medium.woff2');
+  }
+
+  @font-face {
+    font-family: 'OutfitRegular';
+    src: url('./Outfit-Regular.woff2');
+  }
+
+  @font-face {
+    font-family: 'FiraCodeLight';
+    src: url('./FiraCodeNFM-Light.woff2');
+  }
+
+  @font-face {
+    font-family: 'FiraCodeMedium';
+    src: url('./FiraCodeNFM-Med.woff2');
+  }
+}

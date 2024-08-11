@@ -1,0 +1,133 @@
+@property --nav-length {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0rem;
+}
+
+@property --nav-left-position {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+.button-rectangle {
+  width: 176px;
+  height: 50px;
+  flex-shrink: 0;
+  border-radius: 111.682px;
+  border: 1.861px solid #000;
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.1) 100%
+    ),
+    #111317;
+  box-shadow: 4.653px 4.653px 9.307px 0px rgba(255, 255, 255, 0.15) inset;
+  position: relative;
+}
+
+.light-container {
+  width: 118px;
+  height: 38px;
+  flex-shrink: 0;
+  position: absolute;
+  z-index: 10;
+  right: 0%;
+  top: 0%;
+}
+
+.light-glow {
+  width: 64.022px;
+  height: 26.01px;
+  position: absolute;
+  right: -5%;
+  top: -5%;
+  flex-shrink: 0;
+  fill: linear-gradient(263deg, #fff 8.44%, #fff 112.84%);
+  filter: blur(16px);
+}
+
+.med-glow {
+  width: 64.022px;
+  height: 26.01px;
+  position: absolute;
+  right: -4%;
+  top: -4%;
+  flex-shrink: 0;
+  fill: linear-gradient(263deg, #fff 8.44%, #fff 112.84%);
+  filter: blur(6px);
+}
+
+.bold-glow {
+  width: 64.022px;
+  height: 26.01px;
+  position: absolute;
+  right: -8%;
+  top: 18%;
+  flex-shrink: 0;
+  fill: linear-gradient(263deg, #fff 8.44%, #fff 112.84%);
+  filter: blur(6px);
+}
+
+.top-layer {
+  position: absolute;
+  z-index: 40;
+  width: 166.2px;
+  height: 38.56px;
+  flex-shrink: 0;
+  top: 3.6px;
+  left: 4.4px;
+  border-radius: 29px;
+  border: 1px solid #ffffffec;
+  background-color: #111317;
+}
+
+.button-children {
+  display: flex;
+  position: absolute;
+  width: 166px;
+  height: 38px;
+  left: 4px;
+  top: 4px;
+  padding: 9px 24px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  flex-shrink: 0;
+  border-radius: 111.682px;
+  background: linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.1) 100%
+    ),
+    #111317;
+  box-shadow: 4.653px 4.653px 9.307px 0px rgba(255, 255, 255, 0.269) inset;
+  z-index: 50;
+}
+
+.webkit-mask {
+  --offset: 50%;
+
+  -webkit-mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000,
+      #000,
+      transparent calc(var(--x) + var(--offset))
+    ),
+    linear-gradient(
+      to bottom,
+      transparent 40px,
+      #000 44px,
+      #000 calc(100% - 44px),
+      transparent calc(100% - 40px)
+    ),
+    linear-gradient(
+      to right,
+      transparent 40px,
+      #000 44px,
+      #000 calc(100% - 44px),
+      transparent calc(100% - 40px)
+    );
+  -webkit-mask-composite: destination-in;
+}
