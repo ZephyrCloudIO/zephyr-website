@@ -14,9 +14,9 @@ export default defineConfig({
       return withZephyr()(config);
     },
   },
-  html: {
-    disableHtmlFolder: true,
-  },
+  // html: {
+  //  disableHtmlFolder: true,
+  //  },
   runtime: {
     router: true,
     state: true,
