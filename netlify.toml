@@ -1,6 +1,6 @@
 [build]
-  publish = ".ouput"
-  command = "pnpm run deploy && PORT=3000 node /opt/build/repo/.output/index.js"
+  publish = "dist"
+  command = "modern build"
 
 [functions]
   directory = "functions"
