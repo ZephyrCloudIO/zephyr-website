@@ -1,1 +1,0 @@
-{"main":[{"path":"/","children":[{"_component":"@_modern_js_src/routes/page","index":true,"id":"page","type":"nested"},{"_component":"@_modern_js_src/routes/contact/page","id":"contact/page","type":"nested","path":"contact"}],"isRoot":true,"_component":"@_modern_js_src/routes/layout","id":"layout","type":"nested"}]}
