@@ -2,7 +2,3 @@
   publish = "dist"
   command = "pnpm run deploy"
 
-[functions]
-  directory = "functions"
-  node_bundler = "none"
-  included_files = ["functions/**"]
