@@ -3,10 +3,6 @@ import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
 import { withZephyr } from 'zephyr-webpack-plugin';
 // https://modernjs.dev/en/configure/app/usage
 export default defineConfig({
-  html: {
-    disableHtmlFolder: true,
-  },
-
   runtime: {
     router: true,
     state: true,

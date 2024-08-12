@@ -69,7 +69,7 @@
   position: absolute;
   z-index: 10;
   right: -10%;
-  top: -16%;
+  top: -18%;
 }
 
 /* Media query for screens less than 768px */
@@ -119,21 +119,25 @@
   filter: blur(6px);
 }
 
-.top-layer {
+/* .top-layer {
   position: absolute;
   z-index: 40;
   width: 10.2rem;
-  height: 42.6px;
+  height: 2rem;
   flex-shrink: 0;
-  top: 2.4px;
-  left: 4.4px;
-  border-radius: 29px;
-  border: 1px solid #ffffffec;
-  background-color: #111317;
-}
+  top: 0.28rem;
+  left: 0.52rem;
+  border-radius: 10000px;
+  border-width: 1px;
+  border-style: solid;
+  background-image: linear-gradient(to right, #f7f7f7 0%, #ffffff 100%) 1;
+   border: 1px solid #ffffffec; */
+/* background-origin: border-box;
+  background-clip: content-box, border-box;
+} */
 
 /* Media query for screens wider than 768px */
-@media (max-width: 768px) {
+/* @media (max-width: 768px) {
   .top-layer {
     width: 200px;
     height: 45px;
@@ -143,10 +147,10 @@
     border: 1.5px solid #ffffffec;
     background-color: #222;
   }
-}
+} */
 
 /* Media query for screens narrower than 480px */
-@media (max-width: 480px) {
+/* @media (max-width: 480px) {
   .top-layer {
     width: 110.8px;
     height: 32px;
@@ -156,7 +160,7 @@
     border: 0.8px solid #ffffffec;
     background-color: #000;
   }
-}
+}  */
 
 .button-children {
   display: flex;
@@ -164,13 +168,17 @@
   width: var(--button-children-width);
   height: var(--button-children-height);
   left: 4px;
-  top: 0.4rem;
+  top: 0.2rem;
   padding: 9px 20px;
   justify-content: center;
   align-items: center;
   gap: 10px;
   flex-shrink: 0;
   border-radius: 1000px;
+  border-width: 1px;
+  border-color: linear-gradient(to right, #0000000b 0%, #fff, 100%), #fff;
+  border-radius: 30px;
+  border-image: linear-gradient(to right, #0000000b 0%, #fff 100%), #fff;
   background: linear-gradient(
       0deg,
       rgba(0, 0, 0, 0.1) 0%,
