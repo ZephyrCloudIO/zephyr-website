@@ -7,6 +7,9 @@ export default defineConfig({
     router: true,
     state: true,
   },
+  html: {
+    disableHtmlFolder: true,
+  },
   server: {
     port: 3000,
   },
