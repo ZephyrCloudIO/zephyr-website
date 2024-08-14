@@ -26,6 +26,7 @@ export default defineConfig({
     appTools({
       bundler: 'experimental-rspack',
     }),
+
     tailwindcssPlugin(),
   ],
 });

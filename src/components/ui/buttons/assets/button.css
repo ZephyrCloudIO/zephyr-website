@@ -38,48 +38,78 @@
   flex-shrink: 0;
   border-radius: 1000px;
   border: 2px solid #000;
-  background: linear-gradient(
-      0deg,
-      rgba(0, 0, 0, 0.1) 0%,
-      rgba(0, 0, 0, 0.1) 100%
-    ),
-    #111317;
+  background: transparent;
   box-shadow: 4.652px 4.652px 9.306px 0px rgba(255, 255, 255, 0.15) inset;
   position: relative;
   z-index: 10;
   --button-children-width: 10.28rem;
   --button-children-height: 2.67rem;
-  --button-children-top: 0.2rem;
-  --button-children-right: -0.24rem;
-  width: calc(var(--button-children-width) + 0.8rem);
-  height: calc(var(--button-children-height) + 0.6rem);
+  --button-children-top: calc(var(--button-children-height) * 0.06);
+  --button-children-right: calc(var(--button-children-width) * -0.016);
+  width: calc(var(--button-children-width) * 1.066);
+  height: calc(var(--button-children-height) * 1.24);
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+  animation-duration: 500ms;
+}
+
+.button-rectangle:hover {
+  flex-shrink: 0;
+  border-radius: 1000px;
+  border: 2px solid #000;
+  background: transparent;
+  box-shadow: 4.652px 4.652px 9.306px 0px rgb(255, 255, 255) inset;
+  position: relative;
+  z-index: 10;
+  width: calc(var(--button-children-width) * 1.066);
+  height: calc(var(--button-children-height) * 1.24);
 }
 
 @media (max-width: 768px) {
   .button-rectangle {
-    width: calc(var(--button-children-width) + 0.002rem);
-    height: calc(var(--button-children-height) + 0.04rem);
-    border: 2px solid red;
+    --md-button-children-width: 8rem;
+    --md-button-children-height: 2.67rem;
+    --md-button-children-top: 0.2rem;
+    --md-button-children-right: -0.24rem;
+    width: calc(var(--md-button-children-width) + 0.02rem);
+    height: calc(var(--md-button-children-height) + 0.12rem);
+    border: 3px solid red;
   }
 }
 
-@media (max-width: 386px) {
+@media (max-width: 390px) {
   .button-rectangle {
-    width: calc(var(--button-children-width) / 2);
-    height: calc(var(--button-children-height) + 0.002rem);
-    border: 3px solid blue;
+    --sm-button-children-width: 6rem;
+    --sm-button-children-height: 2rem;
+    --button-children-top: 0.2rem;
+    --button-children-right: -0.24rem;
+    width: calc(var(--sm-button-children-width) + 0.36rem);
+    height: calc(var(--sm-button-children-height) + 0.4rem);
+    border: 1px solid blue;
   }
 }
 
 .light-glow {
-  width: 4rem;
-  height: 2rem;
+  transition-duration: 300ms;
+  transition-timing-function: cubic-bezier(0.165, 0.84, 0.44, 1);
+  transition-property: all;
+  width: calc(var(--button-children-width) * 1.012);
+  height: calc(var(--button-children-height) * 1.04);
   position: absolute;
-  right: -4%;
-  top: 22%;
-  flex-shrink: 0;
-  fill: linear-gradient(263deg, #fff 8.44%, #fff 112.84%);
-  filter: blur(6px);
+  z-index: 30;
+  right: calc(var(--button-children-right) * -1.2);
+  top: calc(var(--button-children-top) * 0.66);
+  border-radius: 1000px;
+  background-image: linear-gradient(
+    to right,
+    #ffffff16 8.44%,
+    #ffffffc5 112.84%
+  );
+}
+
+.button-rectangle:hover .light-glow {
+  display: none;
 }
 
 /* Media query for screens wider than 768px */
@@ -111,10 +141,10 @@
 /* Media query for screens wider than 768px */
 @media (max-width: 768px) {
   .button-children {
-    width: var(--button-children-width);
-    height: var(--button-children-height);
-    right: var(--button-children-right);
-    top: var(--button-children-top);
+    width: var(--md-button-children-width);
+    height: var(--md-button-children-height);
+    right: var(--md-button-children-right);
+    top: var(--md-button-children-top);
     padding: 12px 30px;
     border-radius: 120px;
     box-shadow: 5px 5px 10px 0px rgba(255, 255, 255, 0.3) inset;
@@ -122,12 +152,12 @@
 }
 
 /* Media query for screens narrower than 480px */
-@media (max-width: 480px) {
+@media (max-width: 390px) {
   .button-children {
-    width: 110px;
-    height: 32px;
-    left: 2px;
-    top: 2px;
+    width: var(--sm-button-children-width);
+    height: var(--sm-button-children-height);
+    right: var(--sm-button-children-right);
+    top: var(--sm-button-children-top);
     padding: 6px 18px;
     border-radius: 100px;
     box-shadow: 3px 3px 6px 0px rgba(255, 255, 255, 0.2) inset;
@@ -135,18 +165,38 @@
 }
 .top-layer {
   position: absolute;
-  z-index: 10;
+  z-index: 40;
+  border-radius: 1000px;
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 500ms;
+  animation-duration: 500ms;
+  width: calc(var(--button-children-width) / 3);
+  height: calc(var(--button-children-height) * 0.88);
+  right: calc(var(--button-children-right) * -1.22);
+  top: calc(var(--button-children-top) * 1.02);
+  background: radial-gradient(ellipse at top, #dfdfdfe0, #fefefe),
+    radial-gradient(ellipse at bottom, #ffffff, transparent);
+  box-shadow: 1.2px -2px 10px 1.2px rgba(255, 255, 255, 0.4),
+    0px 0px 2px 0.4px rgba(255, 255, 255, 0.96),
+    1.2px -2px 20px 1.2px rgba(255, 255, 255, 0.586);
+}
+
+.button-rectangle:hover .top-layer {
+  position: absolute;
+  z-index: 40;
   border-radius: 1000px;
   width: calc(var(--button-children-width) / 3);
   height: calc(var(--button-children-height));
-  right: calc(var(--button-children-right) - var(--button-children-right));
-  top: calc(var(--button-children-top) - var(--button-children-top));
-  background: radial-gradient(ellipse at top, #dfdfdf80, transparent),
-    radial-gradient(ellipse at bottom, #ffffff, transparent);
-  box-shadow: 2.2px -6px 20px 1.2px rgba(255, 255, 255, 0.4),
-    1.2px -2.4px 4px 0.4px rgba(255, 255, 255, 0.96),
-    4px -4px 20px 1.2px rgba(255, 255, 255, 0.586);
+  right: calc(var(--button-children-right) * -1.2);
+  top: calc(var(--button-children-top) * 1.02);
+  background: radial-gradient(ellipse at bottom, #dfdfdfe0, #fefefe),
+    radial-gradient(ellipse at top #ffffff, transparent);
+  box-shadow: 4px -6px 14px 1.2px rgba(255, 255, 255, 0.162),
+    2px -3.2px 8px 0.4px rgba(255, 255, 255, 0.96),
+    10px -8px 12px 1.2px rgba(255, 255, 255, 0.586);
 }
+
 .secondary-button {
   display: flex;
   height: 50px;

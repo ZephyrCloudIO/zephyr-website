@@ -1,6 +1,4 @@
-import lightGlow from './assets/light-glow.svg';
-import medGlow from './assets/med-glow.svg';
-import boldGlow from './assets/bold-glow.svg';
+import { cn } from '@/lib/utils';
 import './assets/button.css';
 
 export default function TopRightGlowButton({
@@ -10,11 +8,20 @@ export default function TopRightGlowButton({
 }) {
   return (
     <div>
-      <div className="button-rectangle">
-        {/* <div className="top-layer" /> */}
-        <div className="button-children">
+      <div className="button-rectangle group">
+        <div
+          className={cn('top-layer', {
+            hidden: children === 'Get Started',
+          })}
+        />
+        {children !== 'Get Started' && <div className="light-glow" />}
+        <div
+          className={cn('button-children', {
+            'border border-zinc-100/50': children === 'Get Started',
+          })}
+        >
           {' '}
-          <p className="font-outfit-light antialiased font-thin md:text-sm text-xs tracking-wide text-transparent bg-clip-text bg-gradient-to-b from-zinc-600 via-zinc-400 to-zinc-100">
+          <p className="font-outfit-light antialiased font-thin md:text-sm text-xs tracking-wide text-transparent bg-clip-text bg-gradient-to-b from-zinc-300 via-zinc-200 to-zinc-100">
             {children}
           </p>
         </div>{' '}
