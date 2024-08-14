@@ -8,11 +8,9 @@ const tailwindConfig = require('./tailwind.config');
 export default defineConfig({
   tools: {
     tailwindcss: tailwindConfig,
-    // @ts-expect-error
-    rspack(config) {
-      // @ts-expect-error
-      return withZephyr()(config);
-    },
+    //   rspack(config) {
+    // return withZephyr()(config);
+    //   },
   },
   // html: {
   //  disableHtmlFolder: true,

@@ -1,5 +1,5 @@
 import { Link } from '@modern-js/runtime/router';
-import GlowingButton from '@/components/ui/buttons/button.glowing-border';
+import GlowingButton from '@/components/ui/buttons/button.top-right-glow';
 import { siteConfig } from '@/lib/site.config';
 import { cn } from '@/lib/utils';
 

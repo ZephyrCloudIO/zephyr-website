@@ -17,7 +17,7 @@ export default function Header() {
         ></img>
       </a>
       <Separator className="w-[60px] h-[0.6px] rotate-90 bg-gradient-to-r from-slate-950 via-slate-200 to-slate-950" />
-      <div className="md:flex space-x-1 px-4 hidden">
+      <div className="xl:flex space-x-1 px-4 hidden">
         {siteConfig.headerNav.map(item => {
           return <HeaderNav key={item.link} props={item} />;
         })}
