@@ -1,33 +1,42 @@
 import { Link } from '@modern-js/runtime/router';
-import Separator from './ui/separator';
-import TopRightGlowButton from './ui/buttons/button.top-right-glow';
 import HeaderNav from './ui/buttons/button.header-nav';
-import { siteConfig } from '@/lib/site.config';
+import ZephyrLogo from '@/images/zephyr-logo.svg';
+
+const navigationItems = [
+  { title: 'Features', link: '/features' },
+  { title: 'Pricing', link: '/pricing' },
+  { title: 'About', link: '/about' },
+  { title: 'Contact', link: '/contact' },
+];
 
 export default function Header() {
   return (
-    <div className="rounded-full z-[100] sticky top-5 border border-[#2a2a2a] bg-zinc-950/70 items-center backdrop-filter gap-2 backdrop-blur-2xl justify-between flex p-4">
-      <a
-        href="/"
-        className="sm:min-w-[220px] max-w-[36vw] items-center flex-shrink-0 pl-3 flex "
-      >
-        <img
-          src="https://cdn.prod.website-files.com/669061ee3adb95b628c3acda/66acd2a968324f3e610c1cae_zephyr%20logo.svg"
-          alt="Zephyr Cloud - Logo"
-        ></img>
-      </a>
-      <Separator className="w-[60px] h-[0.6px] rotate-90 bg-gradient-to-r from-slate-950 via-slate-200 to-slate-950" />
-      <div className="xl:flex space-x-1 px-4 hidden">
-        {siteConfig.headerNav.map(item => {
-          return <HeaderNav key={item.link} props={item} />;
-        })}
+    <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-900/75 backdrop-blur-sm border-b border-zinc-800">
+      <div className="container mx-auto">
+        <div className="flex items-center justify-between h-16">
+
+          <div className="flex-shrink-0">
+            <Link to="/" className="text-white font-bold text-xl">
+              <img src={ZephyrLogo} />
+            </Link>
+          </div>
+
+          <nav className="hidden md:flex items-center space-x-1">
+            {navigationItems.map((item) => (
+              <HeaderNav key={item.title} props={item} />
+            ))}
+          </nav>
+
+          <div className="flex items-center">
+            <Link
+              to="/get-started"
+              className="bg-white hover:bg-zinc-100 text-zinc-900 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200"
+            >
+              Get Started
+            </Link>
+          </div>
+        </div>
       </div>
-      <Separator className="w-[60px] h-[0.6px] rotate-90 bg-gradient-to-r from-slate-950 via-slate-200 to-slate-950" />
-      <div className="px-4">
-        <Link to={siteConfig.signUp}>
-          <TopRightGlowButton>Get Started</TopRightGlowButton>
-        </Link>
-      </div>
-    </div>
+    </header>
   );
 }

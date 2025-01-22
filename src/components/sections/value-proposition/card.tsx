@@ -7,6 +7,8 @@ export default function ValuePropositionCard({
   lottieOptions,
   divRef,
   text,
+  onMouseOver,
+  onMouseLeave,
 }: {
   lottieOptions: Options;
   divRef:
@@ -14,14 +16,23 @@ export default function ValuePropositionCard({
     | undefined
     | React.MutableRefObject<HTMLDivElement | null>;
   text: string;
+  onMouseOver?: () => void;
+  onMouseLeave?: () => void;
 }) {
   return (
     <div
-      className="flex start text-zinc-200/80 font-outfit-light tracking-wide items-center border-zinc-100/20 rounded-lg cursor-auto border px-4  gap-2 sm:min-w-[280px]"
+      className="flex flex-row items-center bg-zinc-900/50 text-zinc-200/80
+                 font-outfit-light tracking-wide rounded-[2rem] cursor-auto border border-zinc-800
+                 hover:border-zinc-700 transition-colors duration-300 w-full
+                 backdrop-blur-sm shadow-lg pr-4"
       ref={divRef}
+      onMouseOver={onMouseOver}
+      onMouseLeave={onMouseLeave}
     >
-      <Lottie options={lottieOptions} height={80} width={80} />
-      <p className="text-lg  w-full">{text}</p>
+      <div>
+        <Lottie options={lottieOptions} height={60} width={60} />
+      </div>
+      <p className="tracking-tight sm:text-sm md:text-lg break">{text}</p>
     </div>
   );
 }
