@@ -3,6 +3,11 @@ import ValuePropositionCard from './card';
 import type { Options } from '@/types';
 import cloudUpload from '@/images/lotti/cloud-upload.json';
 import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
+import value1 from '@/images/value-proposition/icon1.svg';
+import value2 from '@/images/value-proposition/icon2.svg';
+import value3 from '@/images/value-proposition/icon3.svg';
+import value4 from '@/images/value-proposition/icon4.svg';
+import graphyBackground from '@/images/graphy.png';
 
 export default function ValueProposition() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -57,19 +62,39 @@ export default function ValueProposition() {
   const cards = [
     {
       text: 'Manage dependencies for micro-frontends',
-      span: 'col-start-auto col-end-10 md:w-max',
+      image:  <div
+                className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E79294] items-center justify-center"
+                style={{ backgroundImage: `url(${graphyBackground})` }}
+              >
+                <img src={value1} className='w-8 h-8' />
+              </div>
     },
     {
       text: 'Generate live preview links in seconds',
-      span: 'col-start-auto col-end-10 md:w-max',
+      image:  <div
+                className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#5DD0A8] items-center justify-center"
+                style={{ backgroundImage: `url(${graphyBackground})` }}
+              >
+                <img src={value2} className='w-6 h-6' />
+              </div>
     },
     {
       text: 'Version roll-back and roll-forward',
-      span: 'col-start-auto col-end-10 md:w-max',
+      image:  <div
+                className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E3B28F] items-center justify-center"
+                style={{ backgroundImage: `url(${graphyBackground})` }}
+              >
+                <img src={value3} className='w-8 h-8' />
+              </div>
     },
     {
       text: 'Auto deploy on build',
-      span: 'col-start-auto col-end-10 md:w-max',
+      image:  <div
+                className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#946AE3] items-center justify-center"
+                style={{ backgroundImage: `url(${graphyBackground})` }}
+              >
+                <img src={value4} className='w-8 h-8' />
+              </div>
     },
   ];
 
@@ -82,7 +107,7 @@ export default function ValueProposition() {
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[200%] z-0">
           <video
             ref={videoRef}
-            className="w-full h-full object-cover opacity-20 mix-blend-overlay transition-opacity duration-300"
+            className="w-full h-full object-cover mix-blend-overlay transition-opacity duration-300"
             autoPlay
             loop
             muted
@@ -96,13 +121,12 @@ export default function ValueProposition() {
           {cards.map((card, index) => (
             <div
               key={card.text}
-              className={`${card.span}
-                transform hover:-translate-y-1 transition-transform duration-300 justify-self-end`}
+              className="col-start-auto col-end-10 md:w-max transform hover:-translate-y-1 transition-transform duration-300 justify-self-end"
             >
               <ValuePropositionCard
                 divRef={el => (cardRefs.current[index] = el)}
                 text={card.text}
-                lottieOptions={getCardOptions(index)}
+                icon={card.image}
                 onMouseOver={() => handleMouseEnter(index)}
                 onMouseLeave={() => handleMouseLeave(index)}
               />

@@ -198,7 +198,10 @@
 }
 
 .secondary-button {
-  display: flex;
+  width: fit-content;
+  display: inline-flex;
+  align-items: center;
+  white-space: nowrap;
   height: 50px;
   padding: 8px 12px;
   justify-content: center;
