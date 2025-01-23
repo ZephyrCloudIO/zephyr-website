@@ -12,7 +12,7 @@ export default function VisualiseComponentSection() {
       <div className="flex md:flex-row flex-col gap-10  py-2 ">
         <div className="md:w-1/2  py-1 ">
           <h2 className="md:text-6xl text-5xl text-transparent bg-gradient-to-tr bg-clip-text from-zinc-500 from-20% via-zinc-50 to-zinc-400 to-90% font-light leading-[1.2]">
-            Visualise components in any environment
+            Visualize components in any environment
           </h2>
         </div>
         <div className="flex md:w-1/2 flex-col gap-4 md:pl-10 py-7 ">

@@ -8,23 +8,19 @@ export default function Mission() {
     <section className="relative h-[calc(100vh-10vh)]">
       <img src={separateTop} className="absolute top-0"></img>
       <img src={hexagon} className="absolute z-10"></img>
-      <div className="absolute z-20 top-[20%]">
+      <div className="absolute z-20 top-[20%] w-full">
         {' '}
         <div className="py-2 z-20">
           {' '}
           <div className="flex md:flex-row flex-col items-center py-6  justify-between">
             {' '}
-            <h2 className="text-6xl font-outfit-light text-zinc-300 leading-[1.2]">
-              Focus on features,
-              <br /> not DevOps.
+            <h2 className="text-5xl font-bold text-center mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider spa">
+              Focus on code,
+              <br /> not operations.
             </h2>
-            <div className="md:w-1/2">
-              {' '}
-              <p className="text-xl leading-[1.4] text-zinc-300">
-                We raised $3M in Seed round to further tackle deployment
-                complexity for micro-frontend and many more.
-              </p>
-            </div>
+            <p className="text-md text-gray-500">
+              Move to Zephyr Cloud without refactoring your application.
+            </p>
           </div>
         </div>
         <div className="py-10">
@@ -34,7 +30,7 @@ export default function Mission() {
                 <h3 className="text-7xl font-outfit-light text-zinc-50 font-light">
                   {item.title}
                 </h3>
-                <p className="text-xl font-outfit-light text-zinc-50 tracking-wide">
+                <p className="text-xl font-outfit-light text-gray-500 tracking-wide">
                   {item.content}
                 </p>
               </div>
@@ -42,7 +38,6 @@ export default function Mission() {
           </div>
         </div>
       </div>
-
       <img className="absolute bottom-0" src={separateBottom}></img>
     </section>
   );
@@ -58,7 +53,7 @@ const Missions = [
     content: 'Avg. time to deploy',
   },
   {
-    title: '$3M',
-    content: 'Raised in Seed round',
+    title: '1 line',
+    content: 'Of code to get started',
   },
 ];

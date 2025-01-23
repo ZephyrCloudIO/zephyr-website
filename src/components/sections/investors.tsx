@@ -8,7 +8,7 @@ import { siteConfig } from '@/lib/site.config';
 export default function Investors() {
   return (
     <section className="flex items-center justify-center z-10 px-4 py-8">
-      <div className="flex flex-col min-h-[30vh] items-center gap-6 sm:gap-3">
+      <div className="flex flex-col min-h-[20vh] items-center gap-6 sm:gap-3">
         <h2 className="text-base text-transparent bg-clip-text bg-gradient-to-br from-zinc-600 via-zinc-500 to-zinc-400 font-[50] text-center">
           Backed by
         </h2>

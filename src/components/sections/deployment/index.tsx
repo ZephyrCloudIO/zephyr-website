@@ -63,7 +63,10 @@ const DeploymentSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-black">
+    <section className="py-24 bg-black border-2 rounded-lg border-[rgba(255,255,255,0.1)]" style={{
+      background: 'linear-gradient(rgb(20 20 20) 0%, rgb(0 0 0) 100%)',
+      backdropFilter: 'blur(20px)',
+    }}>
       <div className="container mx-auto px-4">
         <h2 className="text-5xl font-bold text-center mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent">
           Deploy with one command

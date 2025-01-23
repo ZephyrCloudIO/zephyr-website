@@ -50,7 +50,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section>
+    <section className='px-8'>
       <div>
         <video
           className="absolute top-0 left-0 w-full h-full object-cover -z-10 transition-opacity duration-500"

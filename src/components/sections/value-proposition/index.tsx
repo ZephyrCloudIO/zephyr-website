@@ -1,7 +1,5 @@
 import { useRef, useState, useEffect } from 'react';
 import ValuePropositionCard from './card';
-import type { Options } from '@/types';
-import cloudUpload from '@/images/lotti/cloud-upload.json';
 import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 import value1 from '@/images/value-proposition/icon1.svg';
 import value2 from '@/images/value-proposition/icon2.svg';
@@ -23,15 +21,6 @@ export default function ValueProposition() {
   const { targetRef, hasIntersected } = useIntersectionObserver({
     threshold: 0.1,
     rootMargin: '100px',
-  });
-
-  const getCardOptions = (index: number): Options => ({
-    loop: true,
-    autoplay: hoverStates[index],
-    animationData: cloudUpload,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
-    },
   });
 
   const handleMouseEnter = (index: number) => {
@@ -101,7 +90,7 @@ export default function ValueProposition() {
   return (
     <section
       ref={targetRef as React.RefObject<HTMLElement>}
-      className="flex md:flex-row flex-col-reverse font-outfit pt-5 pb-20 justify-start items-center w-full relative"
+      className="flex md:flex-row flex-col-reverse font-outfit pt-5 pb-20 justify-start items-center w-full relative mb-24 sm:px-4"
     >
       <div className="w-full max-w-5xl mx-auto relative z-10">
         <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[200%] z-0">
@@ -117,7 +106,7 @@ export default function ValueProposition() {
             {videoSrc && <source src={videoSrc} type="video/mp4" />}
           </video>
         </div>
-        <div className="relative md:grid md:grid-cols-12 gap-6 text-base flex flex-col md:space-y-0 space-y-4">
+        <div className="relative md:grid md:grid-cols-12 gap-6 text-base flex flex-col md:space-y-0 space-y-4 px-4">
           {cards.map((card, index) => (
             <div
               key={card.text}
@@ -135,11 +124,11 @@ export default function ValueProposition() {
         </div>
       </div>
 
-      <div className="items-start py-8 flex gap-8 md:px-4 md:w-[70%] flex-col relative z-10">
-        <div className="flex flex-col gap-4 font-outfit-medium">
+      <div className="items-start py-8 flex gap-8 md:px-4 md:w-[70%] flex-col relative z-10 px-4">
+        <div className="flex flex-col gap-4 font-outfit-medium w-full">
           {ValueTitle.map(item => (
             <h2
-              className="md:text-5xl text-4xl text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 via-zinc-100 to-zinc-500 font-outfit-light font-light"
+              className="text-4xl text-center md:text-start md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 via-zinc-100 to-zinc-500 font-outfit-light font-light"
               key={item}
             >
               {item}
