@@ -8,7 +8,7 @@ import value3 from '@/images/value-graphic-3.svg';
 
 export default function VisualiseComponentSection() {
   return (
-    <section className="container flex flex-col items-center py-10 md:py-32 gap-14 justify-center px-4">
+    <section className="container flex flex-col items-center py-10 md:py-32 gap-14 justify-center">
       <div className="flex md:flex-row flex-col gap-10 py-2 ">
         <div className="md:w-1/2 py-1">
           <h2 className="md:text-6xl text-5xl text-transparent bg-gradient-to-tr bg-clip-text from-zinc-500 from-20% via-zinc-50 to-zinc-400 to-90% font-light leading-[1.2]">
