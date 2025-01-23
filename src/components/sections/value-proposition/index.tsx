@@ -12,46 +12,52 @@ export default function ValueProposition() {
   const cards = [
     {
       text: 'Manage dependencies for micro-frontends',
-      image:  <div
-                className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E79294] items-center justify-center"
-                style={{ backgroundImage: `url(${graphyBackground})` }}
-              >
-                <img src={value1} className='w-8 h-8' />
-              </div>
+      image: (
+        <div
+          className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E79294] items-center justify-center"
+          style={{ backgroundImage: `url(${graphyBackground})` }}
+        >
+          <img src={value1} className="w-8 h-8" />
+        </div>
+      ),
     },
     {
       text: 'Generate live preview links in seconds',
-      image:  <div
-                className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#5DD0A8] items-center justify-center"
-                style={{ backgroundImage: `url(${graphyBackground})` }}
-              >
-                <img src={value2} className='w-6 h-6' />
-              </div>
+      image: (
+        <div
+          className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#5DD0A8] items-center justify-center"
+          style={{ backgroundImage: `url(${graphyBackground})` }}
+        >
+          <img src={value2} className="w-6 h-6" />
+        </div>
+      ),
     },
     {
       text: 'Version roll-back and roll-forward',
-      image:  <div
-                className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E3B28F] items-center justify-center"
-                style={{ backgroundImage: `url(${graphyBackground})` }}
-              >
-                <img src={value3} className='w-8 h-8' />
-              </div>
+      image: (
+        <div
+          className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E3B28F] items-center justify-center"
+          style={{ backgroundImage: `url(${graphyBackground})` }}
+        >
+          <img src={value3} className="w-8 h-8" />
+        </div>
+      ),
     },
     {
       text: 'Auto deploy on build',
-      image:  <div
-                className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#946AE3] items-center justify-center"
-                style={{ backgroundImage: `url(${graphyBackground})` }}
-              >
-                <img src={value4} className='w-8 h-8' />
-              </div>
+      image: (
+        <div
+          className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#946AE3] items-center justify-center"
+          style={{ backgroundImage: `url(${graphyBackground})` }}
+        >
+          <img src={value4} className="w-8 h-8" />
+        </div>
+      ),
     },
   ];
 
   return (
-    <section
-      className="flex md:flex-row flex-col-reverse font-outfit pt-5 pb-20 justify-start items-center w-full relative mb-24 sm:px-4"
-    >
+    <section className="container flex md:flex-row flex-col-reverse font-outfit pt-5 pb-20 justify-start items-center w-full relative mb-24 sm:px-4">
       <div className="w-full max-w-5xl mx-auto relative z-10">
         <div className="relative md:grid md:grid-cols-12 gap-6 text-base flex flex-col md:space-y-0 space-y-4 px-4">
           {cards.map((card, index) => (

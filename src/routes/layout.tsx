@@ -9,10 +9,10 @@ export default function Layout() {
       <Helmet>
         <title>Zephyr Cloud</title>
       </Helmet>
-      <div className="container mx-auto px-0">
+      <div className="mx-auto">
         <Header />
-        <div className='mt-[64px]'>
-        <Outlet />
+        <div className="mt-[64px]">
+          <Outlet />
         </div>
       </div>
     </div>

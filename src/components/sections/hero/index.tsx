@@ -51,15 +51,15 @@ export default function Hero() {
   }, []);
 
   const handleVideoLoad = () => {
-  setIsVideoLoaded(true);
-};
+    setIsVideoLoaded(true);
+  };
   return (
-    <section className='px-8'>
+    <section className="px-8 container">
       <div>
         <video
-           className={cn(
-            "absolute top-0 left-0 w-full h-full object-cover -z-10 transition-opacity duration-1000",
-            isVideoLoaded ? "opacity-100" : "opacity-0"
+          className={cn(
+            'absolute top-0 left-0 w-full h-full object-cover -z-10 transition-opacity duration-1000',
+            isVideoLoaded ? 'opacity-100' : 'opacity-0',
           )}
           autoPlay
           loop

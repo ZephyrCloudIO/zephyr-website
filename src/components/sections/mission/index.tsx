@@ -1,11 +1,10 @@
 import separateTop from '@/images/separator-pointing-down.svg';
 import separateBottom from '@/images/separator-pointing-up.svg';
-import hexagon from '@/images/hexagons-combined.svg';
 import './mission.css';
 
 export default function Mission() {
   return (
-    <section className="relative min-h-[90vh] px-4 overflow-hidden">
+    <section className="container relative min-h-[90vh] px-4 overflow-hidden">
       <div className="absolute inset-0 w-full h-full">
         <img
           src={separateTop}
@@ -20,7 +19,7 @@ export default function Mission() {
               Focus on code,
               <br /> not operations.
             </h2>
-            <p className="text-sm md:text-md text-gray-500 text-center md:text-left max-w-xs md:max-w-none">
+            <p className="text-md md:text-md text-gray-500 text-center md:text-left max-w-xs md:max-w-none">
               Move to Zephyr Cloud without refactoring your application.
             </p>
           </div>
@@ -28,8 +27,11 @@ export default function Mission() {
         <div className="sm:p-32 p-32 border-2 rounded-lg border-white/10 bg-gradient-to-b from-[#2E335A]/10 from-10% via-[#1C1B33]/5 via-70% to-[#2E335A]/10 to-90%">
           <div className="flex flex-col md:flex-row gap-8 md:gap-4 md:justify-between">
             {Missions.map(item => (
-              <div key={item.title} className="flex flex-col gap-2 md:gap-4 items-center md:items-start">
-                <h3 className="text-5xl sm:text-6xl md:text-7xl font-outfit-light text-zinc-50 font-light text-center">
+              <div
+                key={item.title}
+                className="flex flex-col gap-2 md:gap-4 items-center"
+              >
+                <h3 className="sm:text-4xl text-5xl font-outfit-light text-zinc-50 font-light text-center">
                   {item.title}
                 </h3>
                 <p className="text-lg md:text-xl font-outfit-light text-gray-500 tracking-wide text-center md:text-left">
