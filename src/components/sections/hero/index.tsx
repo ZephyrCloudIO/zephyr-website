@@ -1,9 +1,9 @@
 import { Link } from '@modern-js/runtime/router';
+import Lottie from 'lottie-react';
+import { useEffect, useRef, useState } from 'react';
 import GlowingButton from '@/components/ui/buttons/button.top-right-glow';
 import { siteConfig } from '@/lib/site.config';
 import { cn } from '@/lib/utils';
-import Lottie from 'lottie-react';
-import { useEffect, useRef, useState } from 'react';
 import videoPoster from '@/images/VideoPoster.webp';
 import documentationGlow from '@/images/lordi/hover/documentation-glow.json';
 
@@ -29,7 +29,9 @@ export default function Hero() {
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!buttonRef.current) return;
+    if (!buttonRef.current) {
+      return;
+    }
 
     const rect = buttonRef.current.getBoundingClientRect();
     const x = e.clientX - rect.left;
@@ -56,7 +58,7 @@ export default function Hero() {
           loop
           muted
           playsInline
-          preload='none'
+          preload="none"
           poster={videoPoster}
         >
           {videoSrc && <source src={videoSrc} type="video/mp4" />}
@@ -103,10 +105,12 @@ export default function Hero() {
                 onMouseEnter={handleMouseEnter}
                 onMouseLeave={handleMouseLeave}
                 onMouseMove={handleMouseMove}
-                style={{
-                  '--mouse-x': `${mousePosition.x}px`,
-                  '--mouse-y': `${mousePosition.y}px`,
-                } as React.CSSProperties}
+                style={
+                  {
+                    '--mouse-x': `${mousePosition.x}px`,
+                    '--mouse-y': `${mousePosition.y}px`,
+                  } as React.CSSProperties
+                }
               >
                 <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_var(--mouse-x)_var(--mouse-y),rgba(120,120,120,0.15),transparent_50%)] opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
                 <p className="font-outfit-light antialiased font-thin text-sm tracking-wider text-transparent bg-clip-text bg-gradient-to-b from-zinc-600 via-zinc-400 to-zinc-100">

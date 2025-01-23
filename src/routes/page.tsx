@@ -4,6 +4,7 @@ import Investors from '@/components/sections/investors';
 import ValueProposition from '@/components/sections/value-proposition/index';
 import VisualiseComponentSection from '@/components/sections/visualise-component';
 import Mission from '@/components/sections/mission';
+import DeploymentSection from '@/components/sections/deployment';
 
 export default function App() {
   return (
@@ -11,6 +12,7 @@ export default function App() {
       <Hero />
       <Investors />
       <ValueProposition />
+      <DeploymentSection />
       <VisualiseComponentSection />
       <Mission />
     </div>

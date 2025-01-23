@@ -14,7 +14,6 @@ export default function Header() {
     <header className="fixed top-0 left-0 right-0 z-50 bg-zinc-900/75 backdrop-blur-sm border-b border-zinc-800">
       <div className="container mx-auto">
         <div className="flex items-center justify-between h-16">
-
           <div className="flex-shrink-0">
             <Link to="/" className="text-white font-bold text-xl">
               <img src={ZephyrLogo} />
@@ -22,7 +21,7 @@ export default function Header() {
           </div>
 
           <nav className="hidden md:flex items-center space-x-1">
-            {navigationItems.map((item) => (
+            {navigationItems.map(item => (
               <HeaderNav key={item.title} props={item} />
             ))}
           </nav>

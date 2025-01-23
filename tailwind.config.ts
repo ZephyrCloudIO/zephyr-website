@@ -72,7 +72,8 @@ module.exports = {
           'radial-gradient(circle at bottom center,var(--color),transparent 70%)',
         'glass-gradient':
           'linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%)',
-        'mouse-glow': 'radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.50), transparent 70%)',
+        'mouse-glow':
+          'radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.50), transparent 70%)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],

@@ -29,7 +29,7 @@ export const useIntersectionObserver = ({
         threshold,
         root,
         rootMargin,
-      }
+      },
     );
 
     const currentTarget = targetRef.current;

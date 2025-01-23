@@ -1,4 +1,4 @@
-import { useRef, useState, Suspense, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import ValuePropositionCard from './card';
 import type { Options } from '@/types';
 import cloudUpload from '@/images/lotti/cloud-upload.json';
@@ -6,7 +6,12 @@ import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 
 export default function ValueProposition() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [hoverStates, setHoverStates] = useState<boolean[]>([false, false, false, false]);
+  const [hoverStates, setHoverStates] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+  ]);
   const videoRef = useRef<HTMLVideoElement>(null);
   const [videoSrc, setVideoSrc] = useState<string>('');
   const hasLoadedRef = useRef(false);
@@ -43,7 +48,6 @@ export default function ValueProposition() {
   useEffect(() => {
     if (hasIntersected && !hasLoadedRef.current) {
       hasLoadedRef.current = true;
-      console.log('loading',hasLoadedRef.current);
       import('@/images/videos/spinning-logo.mp4').then(module => {
         setVideoSrc(module.default);
       });
@@ -52,20 +56,20 @@ export default function ValueProposition() {
 
   const cards = [
     {
-      text: "Manage dependencies for micro-frontends",
-      span: "col-start-auto col-end-10 md:w-max"
+      text: 'Manage dependencies for micro-frontends',
+      span: 'col-start-auto col-end-10 md:w-max',
     },
     {
-      text: "Generate live preview links in seconds",
-      span: "col-start-auto col-end-10 md:w-max"
+      text: 'Generate live preview links in seconds',
+      span: 'col-start-auto col-end-10 md:w-max',
     },
     {
-      text: "Version roll-back and roll-forward",
-      span: "col-start-auto col-end-10 md:w-max"
+      text: 'Version roll-back and roll-forward',
+      span: 'col-start-auto col-end-10 md:w-max',
     },
     {
-      text: "Auto deploy on build",
-      span: "col-start-auto col-end-10 md:w-max"
+      text: 'Auto deploy on build',
+      span: 'col-start-auto col-end-10 md:w-max',
     },
   ];
 
@@ -87,8 +91,8 @@ export default function ValueProposition() {
           >
             {videoSrc && <source src={videoSrc} type="video/mp4" />}
           </video>
-      </div>
-      <div className="relative md:grid md:grid-cols-12 gap-6 text-base flex flex-col md:space-y-0 space-y-4">
+        </div>
+        <div className="relative md:grid md:grid-cols-12 gap-6 text-base flex flex-col md:space-y-0 space-y-4">
           {cards.map((card, index) => (
             <div
               key={card.text}
@@ -96,7 +100,7 @@ export default function ValueProposition() {
                 transform hover:-translate-y-1 transition-transform duration-300 justify-self-end`}
             >
               <ValuePropositionCard
-                divRef={el => cardRefs.current[index] = el}
+                divRef={el => (cardRefs.current[index] = el)}
                 text={card.text}
                 lottieOptions={getCardOptions(index)}
                 onMouseOver={() => handleMouseEnter(index)}
