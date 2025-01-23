@@ -39,7 +39,8 @@
     "react-wrap-balancer": "^1.1.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "zephyr-webpack-plugin": "^0.0.13"
+    "zephyr-modernjs-plugin": "workspace:*",
+    "@module-federation/modern-js": "0.8.9"
   },
   "devDependencies": {
     "@modern-js-app/eslint-config": "2.59.0",

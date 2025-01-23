@@ -1,5 +1,4 @@
 import { LegacyRef } from 'react';
-import graphyBackground from '@/images/graphy.png';
 
 export default function ValuePropositionCard({
   icon,
@@ -28,7 +27,7 @@ export default function ValuePropositionCard({
       onMouseLeave={onMouseLeave}
     >
       {icon}
-      <p className="tracking-tight sm:text-sm md:text-lg break ml-4">{text}</p>
+      <p className="tracking-tight sm:text-sm md:text-lg break ml-4 pr-4">{text}</p>
     </div>
   );
 }

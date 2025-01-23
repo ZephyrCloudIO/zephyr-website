@@ -1,6 +1,5 @@
-import { useRef, useState, useEffect } from 'react';
+import { useRef } from 'react';
 import ValuePropositionCard from './card';
-import { useIntersectionObserver } from '@/lib/hooks/useIntersectionObserver';
 import value1 from '@/images/value-proposition/icon1.svg';
 import value2 from '@/images/value-proposition/icon2.svg';
 import value3 from '@/images/value-proposition/icon3.svg';
@@ -9,44 +8,6 @@ import graphyBackground from '@/images/graphy.png';
 
 export default function ValueProposition() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const [hoverStates, setHoverStates] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-  ]);
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const [videoSrc, setVideoSrc] = useState<string>('');
-  const hasLoadedRef = useRef(false);
-  const { targetRef, hasIntersected } = useIntersectionObserver({
-    threshold: 0.1,
-    rootMargin: '100px',
-  });
-
-  const handleMouseEnter = (index: number) => {
-    setHoverStates(prev => {
-      const next = [...prev];
-      next[index] = true;
-      return next;
-    });
-  };
-
-  const handleMouseLeave = (index: number) => {
-    setHoverStates(prev => {
-      const next = [...prev];
-      next[index] = false;
-      return next;
-    });
-  };
-
-  useEffect(() => {
-    if (hasIntersected && !hasLoadedRef.current) {
-      hasLoadedRef.current = true;
-      import('@/images/videos/spinning-logo.mp4').then(module => {
-        setVideoSrc(module.default);
-      });
-    }
-  }, [hasIntersected, !hasLoadedRef.current]);
 
   const cards = [
     {
@@ -89,23 +50,9 @@ export default function ValueProposition() {
 
   return (
     <section
-      ref={targetRef as React.RefObject<HTMLElement>}
       className="flex md:flex-row flex-col-reverse font-outfit pt-5 pb-20 justify-start items-center w-full relative mb-24 sm:px-4"
     >
       <div className="w-full max-w-5xl mx-auto relative z-10">
-        <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-[200%] z-0">
-          <video
-            ref={videoRef}
-            className="w-full h-full object-cover mix-blend-overlay transition-opacity duration-300"
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="none"
-          >
-            {videoSrc && <source src={videoSrc} type="video/mp4" />}
-          </video>
-        </div>
         <div className="relative md:grid md:grid-cols-12 gap-6 text-base flex flex-col md:space-y-0 space-y-4 px-4">
           {cards.map((card, index) => (
             <div
@@ -116,8 +63,6 @@ export default function ValueProposition() {
                 divRef={el => (cardRefs.current[index] = el)}
                 text={card.text}
                 icon={card.image}
-                onMouseOver={() => handleMouseEnter(index)}
-                onMouseLeave={() => handleMouseLeave(index)}
               />
             </div>
           ))}

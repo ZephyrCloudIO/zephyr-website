@@ -13,6 +13,7 @@ export default function Hero() {
   const buttonRef = useRef<HTMLAnchorElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
   const [videoSrc, setVideoSrc] = useState<string>('');
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
 
   const handleMouseEnter = () => {
     if (lottieRef.current) {
@@ -49,17 +50,24 @@ export default function Hero() {
     loadVideo();
   }, []);
 
+  const handleVideoLoad = () => {
+  setIsVideoLoaded(true);
+};
   return (
     <section className='px-8'>
       <div>
         <video
-          className="absolute top-0 left-0 w-full h-full object-cover -z-10 transition-opacity duration-500"
+           className={cn(
+            "absolute top-0 left-0 w-full h-full object-cover -z-10 transition-opacity duration-1000",
+            isVideoLoaded ? "opacity-100" : "opacity-0"
+          )}
           autoPlay
           loop
           muted
           playsInline
           preload="none"
           poster={videoPoster}
+          onLoadedData={handleVideoLoad}
         >
           {videoSrc && <source src={videoSrc} type="video/mp4" />}
         </video>

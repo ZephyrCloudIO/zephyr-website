@@ -11,7 +11,9 @@ export default function Layout() {
       </Helmet>
       <div className="container mx-auto px-0">
         <Header />
+        <div className='mt-[64px]'>
         <Outlet />
+        </div>
       </div>
     </div>
   );

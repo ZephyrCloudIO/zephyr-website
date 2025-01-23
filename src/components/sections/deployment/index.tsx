@@ -63,10 +63,7 @@ const DeploymentSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-black border-2 rounded-lg border-[rgba(255,255,255,0.1)]" style={{
-      background: 'linear-gradient(rgb(20 20 20) 0%, rgb(0 0 0) 100%)',
-      backdropFilter: 'blur(20px)',
-    }}>
+    <section className="py-24 bg-black border-2 rounded-lg border-[rgba(255,255,255,0.1)] bg-gradient-to-b from-[#2E335A]/10 from-10% via-[#1C1B33]/5 via-70% to-[#2E335A]/10 to-90%">
       <div className="container mx-auto px-4">
         <h2 className="text-5xl font-bold text-center mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent">
           Deploy with one command
@@ -91,7 +88,9 @@ const DeploymentSection: React.FC = () => {
           ))}
         </div>
 
-        <div className="space-y-4 max-w-4xl mx-auto">
+        <div
+          key={selectedFramework}
+        className="space-y-4 max-w-4xl mx-auto opacity-0 animate-fade-in" style={{ '--animation-delay': '0ms' } as React.CSSProperties}>
           <TerminalWindow
             title="Terminal"
             commands={frameworkExamples[selectedFramework]?.installCommand ?? []}

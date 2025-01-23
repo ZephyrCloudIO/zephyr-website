@@ -5,32 +5,34 @@ import './mission.css';
 
 export default function Mission() {
   return (
-    <section className="relative h-[calc(100vh-10vh)]">
-      <img src={separateTop} className="absolute top-0"></img>
-      <img src={hexagon} className="absolute z-10"></img>
-      <div className="absolute z-20 top-[20%] w-full">
-        {' '}
-        <div className="py-2 z-20">
-          {' '}
-          <div className="flex md:flex-row flex-col items-center py-6  justify-between">
-            {' '}
-            <h2 className="text-5xl font-bold text-center mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider spa">
+    <section className="relative min-h-[90vh] px-4 overflow-hidden">
+      <div className="absolute inset-0 w-full h-full">
+        <img
+          src={separateTop}
+          className="absolute top-0 w-full object-cover"
+          alt="Top separator"
+        />
+      </div>
+      <div className="relative z-20 pt-[15%] sm:pt-[20%] w-full">
+        <div className="py-2">
+          <div className="flex md:flex-row flex-col items-center py-4 md:py-6 gap-4 md:gap-8 justify-between">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center md:text-left mb-2 md:mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
               Focus on code,
               <br /> not operations.
             </h2>
-            <p className="text-md text-gray-500">
+            <p className="text-sm md:text-md text-gray-500 text-center md:text-left max-w-xs md:max-w-none">
               Move to Zephyr Cloud without refactoring your application.
             </p>
           </div>
         </div>
-        <div className="py-10">
-          <div className="flex justify-between">
+        <div className="sm:p-32 p-32 border-2 rounded-lg border-white/10 bg-gradient-to-b from-[#2E335A]/10 from-10% via-[#1C1B33]/5 via-70% to-[#2E335A]/10 to-90%">
+          <div className="flex flex-col md:flex-row gap-8 md:gap-4 md:justify-between">
             {Missions.map(item => (
-              <div key={item.title} className="flex flex-col gap-4">
-                <h3 className="text-7xl font-outfit-light text-zinc-50 font-light">
+              <div key={item.title} className="flex flex-col gap-2 md:gap-4 items-center md:items-start">
+                <h3 className="text-5xl sm:text-6xl md:text-7xl font-outfit-light text-zinc-50 font-light text-center">
                   {item.title}
                 </h3>
-                <p className="text-xl font-outfit-light text-gray-500 tracking-wide">
+                <p className="text-lg md:text-xl font-outfit-light text-gray-500 tracking-wide text-center md:text-left">
                   {item.content}
                 </p>
               </div>
@@ -38,7 +40,11 @@ export default function Mission() {
           </div>
         </div>
       </div>
-      <img className="absolute bottom-0" src={separateBottom}></img>
+      <img
+        className="absolute bottom-0 w-full object-cover"
+        src={separateBottom}
+        alt="Bottom separator"
+      />
     </section>
   );
 }

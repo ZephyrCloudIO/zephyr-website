@@ -1,6 +1,6 @@
 import { appTools, defineConfig } from '@modern-js/app-tools';
 import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
-import { withZephyr } from 'zephyr-webpack-plugin';
+import { withZephyr } from 'zephyr-modernjs-plugin';
 
 const tailwindConfig = require('./tailwind.config');
 
@@ -8,25 +8,30 @@ const tailwindConfig = require('./tailwind.config');
 export default defineConfig({
   tools: {
     tailwindcss: tailwindConfig,
-    //   rspack(config) {
-    // return withZephyr()(config);
-    //   },
   },
-  // html: {
-  //  disableHtmlFolder: true,
-  //  },
   runtime: {
     router: true,
     state: true,
   },
+  html: {
+    outputStructure: 'flat',
+  },
+  source: {
+    mainEntryName: 'index',
+  },
   server: {
     port: 3000,
   },
+  output: {
+    distPath: {
+      html: './',
+    },
+  },
   plugins: [
     appTools({
-      bundler: 'experimental-rspack',
+      bundler: 'rspack',
     }),
-
     tailwindcssPlugin(),
+    //withZephyr(),
   ],
 });
