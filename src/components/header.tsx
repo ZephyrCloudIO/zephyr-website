@@ -3,10 +3,10 @@ import HeaderNav from './ui/buttons/button.header-nav';
 import ZephyrLogo from '@/images/zephyr-logo.svg';
 
 const navigationItems = [
-  { title: 'Features', link: '/features' },
   { title: 'Pricing', link: '/pricing' },
-  { title: 'About', link: '/about' },
-  { title: 'Contact', link: '/contact' },
+  { title: 'Documentation', link: 'https://docs.zephyr-cloud.io/' },
+  { title: 'Blog', link: 'https://www.zephyr-cloud.io/blog' },
+  { title: 'Enterprise', link: '/enterprise' },
 ];
 
 export default function Header() {
@@ -31,7 +31,7 @@ export default function Header() {
 
             <div className="flex items-center w-[120px] justify-end">
               <Link
-                to="/get-started"
+                to="https://app.zephyr-cloud.io/"
                 className="bg-white hover:bg-zinc-100 text-zinc-900 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200"
               >
                 Get Started

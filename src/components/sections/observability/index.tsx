@@ -104,7 +104,7 @@ const features = [
 
 const ObservabilitySection: React.FC = () => {
   return (
-    <section className="py-24 bg-black border-2 rounded-lg border-[rgba(255,255,255,0.1)] bg-gradient-to-b from-[#2E335A]/10 from-10% via-[#1C1B33]/5 via-70% to-[#2E335A]/10 to-90%">
+    <section className="mt-24 py-24 bg-black border-2 rounded-lg border-[rgba(255,255,255,0.1)] bg-gradient-to-b from-[#2E335A]/10 from-10% via-[#1C1B33]/5 via-70% to-[#2E335A]/10 to-90%">
       <div className="container mx-auto px-4">
         <div className="py-2">
           <div className="flex md:flex-row flex-col items-center py-4 md:py-6 gap-4 md:gap-8 justify-between">

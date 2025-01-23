@@ -57,7 +57,7 @@ export default function ValueProposition() {
   ];
 
   return (
-    <section className="container flex md:flex-row flex-col-reverse font-outfit pt-5 pb-20 justify-start items-center w-full relative mb-24 sm:px-4">
+    <section className="container flex md:flex-row flex-col-reverse font-outfit pb-20 justify-start items-center w-full relative mb-24 sm:px-4 py-24">
       <div className="w-full max-w-5xl mx-auto relative z-10">
         <div className="relative md:grid md:grid-cols-12 gap-6 text-base flex flex-col md:space-y-0 space-y-4 px-4">
           {cards.map((card, index) => (
