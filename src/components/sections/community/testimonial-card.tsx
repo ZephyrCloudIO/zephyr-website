@@ -14,7 +14,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = ({
   avatar,
 }) => {
   return (
-    <div className="bg-zinc-900/30 backdrop-blur-md rounded-2xl p-6 hover:bg-zinc-900/40 transition-all duration-300 border border-zinc-800/50 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] w-[320px] mx-2">
+    <div className="testimonial-card bg-zinc-900/30 backdrop-blur-md rounded-2xl p-6 hover:bg-zinc-900/40 transition-all duration-300 border border-zinc-800/50 shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] w-[320px]">
       <div className="flex items-center gap-4 mb-4">
         <img
           src={avatar}

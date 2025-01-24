@@ -38,7 +38,7 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
       {!link ? (
         <span className="text-gray-400 px-4 py-2">Coming Soon</span>
       ) : (
-        <GlowingLinkButton to={link} className='bg-stone-900'>
+        <GlowingLinkButton to={link} className='bg-stone-900' external={true}>
             Learn more
         </GlowingLinkButton>
       )}
