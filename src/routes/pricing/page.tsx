@@ -1,6 +1,6 @@
 import React from 'react';
 import { PricingSection } from '@/components/sections/pricing';
-import { CalcCard } from '@/components/sections/pricing/calc-card';
+import { InfoCard } from '@/components/sections/pricing/info-card';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 
 const PricingPage: React.FC = () => {
@@ -78,7 +78,7 @@ const PricingPage: React.FC = () => {
         />
       </div>
     </div>
-    <main className="min-h-screen bg-black text-white pt-12">
+    <main className="min-h-screen bg-[#010101] text-white pt-12">
       <div className="mx-auto px-4 relative">
         <section className="container relative mb-24">
           <h2 className="text-center text-5xl font-bold mb-12 bg-gradient-to-r from-white/90 from-30% to-[#808080] to-90% bg-clip-text text-transparent tracking-wider">
@@ -87,7 +87,7 @@ const PricingPage: React.FC = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {calculationCards.map((card, index) => (
-              <CalcCard
+              <InfoCard
                 key={index}
                 title={card.title}
                 description={card.description}

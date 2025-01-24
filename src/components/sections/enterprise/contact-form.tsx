@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import squaresImage from './squares.svg';
 import hexagonImage from './hexagon.svg';
-import { cn } from '@/lib/utils';
+import ButtonGlow from '@/components/ui/buttons/button.glow';
+import { get as hello } from '@api/hello';
 
 interface FormData {
   firstName: string;
@@ -11,6 +12,10 @@ interface FormData {
   company: string;
   companyEmail: string;
   message: string;
+}
+
+interface FormErrors {
+  [key: string]: string;
 }
 
 export const ContactForm: React.FC = () => {
@@ -24,18 +29,107 @@ export const ContactForm: React.FC = () => {
     message: ''
   });
 
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  const validateForm = (): boolean => {
+    const newErrors: FormErrors = {};
+
+    if (!formData.firstName.trim()) {
+      newErrors.firstName = 'First name is required';
+    }
+
+    if (!formData.lastName.trim()) {
+      newErrors.lastName = 'Last name is required';
+    }
+
+    if (!formData.phone.trim()) {
+      newErrors.phone = 'Phone is required';
+    } else if (!/^\+?[\d\s-]{10,}$/.test(formData.phone.trim())) {
+      newErrors.phone = 'Please enter a valid phone number';
+    }
+
+    if (!formData.country) {
+      newErrors.country = 'Please select a country';
+    }
+
+    if (!formData.company.trim()) {
+      newErrors.company = 'Company name is required';
+    }
+
+    if (!formData.companyEmail.trim()) {
+      newErrors.companyEmail = 'Company email is required';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.companyEmail)) {
+      newErrors.companyEmail = 'Please enter a valid email address';
+    }
+
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: value
     }));
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => ({
+        ...prev,
+        [name]: ''
+      }));
+    }
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // TODO: Implement form submission logic
-    console.log('Form submitted:', formData);
+
+    const result = await hello();
+
+    console.log(result);
+
+    if (!validateForm()) {
+      return;
+    }
+
+    setIsSubmitting(true);
+    setSubmitStatus('idle');
+
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Submission failed');
+      }
+
+      setSubmitStatus('success');
+      setFormData({
+        firstName: '',
+        lastName: '',
+        phone: '',
+        country: '',
+        company: '',
+        companyEmail: '',
+        message: ''
+      });
+    } catch (error) {
+      setSubmitStatus('error');
+      console.error('Form submission error:', error);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
@@ -54,6 +148,17 @@ export const ContactForm: React.FC = () => {
       />
 
       <div className="backdrop-blur-md bg-[#111111]/50 rounded-xl relative z-10 opacity-70">
+        {submitStatus === 'success' && (
+          <div className="p-4 mb-4 text-green-400 text-center">
+            Thank you for your message. We'll get back to you soon!
+          </div>
+        )}
+        {submitStatus === 'error' && (
+          <div className="p-4 mb-4 text-red-400 text-center">
+            Something went wrong. Please try again later.
+          </div>
+        )}
+
         <form onSubmit={handleSubmit} className="p-8 space-y-6">
           <div className="grid grid-cols-2 gap-6">
             <div className="space-y-2">
@@ -66,9 +171,9 @@ export const ContactForm: React.FC = () => {
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
-                className="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600"
-                required
+                className={`w-full bg-black border ${errors.firstName ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
+              {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
             </div>
             <div className="space-y-2">
               <label htmlFor="lastName" className="block text-sm text-gray-400">
@@ -80,9 +185,9 @@ export const ContactForm: React.FC = () => {
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                className="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600"
-                required
+                className={`w-full bg-black border ${errors.lastName ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
+              {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
             </div>
           </div>
 
@@ -95,11 +200,12 @@ export const ContactForm: React.FC = () => {
                 type="tel"
                 id="phone"
                 name="phone"
+                placeholder='+1 (555) 555-5555'
                 value={formData.phone}
                 onChange={handleChange}
-                className="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600"
-                required
+                className={`w-full bg-black border ${errors.phone ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
+              {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
             </div>
             <div className="space-y-2">
               <label htmlFor="country" className="block text-sm text-gray-400">
@@ -110,14 +216,14 @@ export const ContactForm: React.FC = () => {
                 name="country"
                 value={formData.country}
                 onChange={handleChange}
-                className="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600"
-                required
+                className={`w-full bg-black border ${errors.country ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               >
                 <option value="">Select country</option>
                 <option value="Mexico">Mexico</option>
                 <option value="USA">USA</option>
                 <option value="Canada">Canada</option>
               </select>
+              {errors.country && <p className="text-red-500 text-xs mt-1">{errors.country}</p>}
             </div>
           </div>
 
@@ -132,9 +238,9 @@ export const ContactForm: React.FC = () => {
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                className="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600"
-                required
+                className={`w-full bg-black border ${errors.company ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
+              {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company}</p>}
             </div>
             <div className="space-y-2">
               <label htmlFor="companyEmail" className="block text-sm text-gray-400">
@@ -146,9 +252,9 @@ export const ContactForm: React.FC = () => {
                 name="companyEmail"
                 value={formData.companyEmail}
                 onChange={handleChange}
-                className="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600"
-                required
+                className={`w-full bg-black border ${errors.companyEmail ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
+              {errors.companyEmail && <p className="text-red-500 text-xs mt-1">{errors.companyEmail}</p>}
             </div>
           </div>
 
@@ -163,20 +269,18 @@ export const ContactForm: React.FC = () => {
               onChange={handleChange}
               placeholder='Hello Z, I&apos;m interested in the enterprise special package for my team of 100...'
               rows={4}
-              className="w-full bg-black border border-gray-800 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600 resize-none"
-              required
+              className={`w-full bg-black border ${errors.message ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600 resize-none`}
             />
+            {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
           </div>
 
-
-          <button
+          <ButtonGlow
             type="submit"
-            className={cn(
-                  'w-full group relative z-10 p-8 items-center md:h-[44px] h-[40px] border-2 border-zinc-500/30 rounded-full hover:border-zinc-400/80 justify-center bg-zinc-900 transition-all lg:hover:!opacity-100 flex lg:hover:bg-zinc-800 overflow-hidden',
-                )}
+            className='w-full p-8 text-lg'
+            disabled={isSubmitting}
           >
-            Send message
-          </button>
+            {isSubmitting ? 'Sending...' : 'Send message'}
+          </ButtonGlow>
         </form>
       </div>
     </div>

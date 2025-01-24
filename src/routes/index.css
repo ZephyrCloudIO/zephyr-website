@@ -1,7 +1,7 @@
 @import url('../../public/fonts/fonts.css');
 
 :root {
-  background-color: black;
+  background-color: #010101;
   font-family: OutfitRegular, 'Trebuchet MS', Helvetica, sans-serif;
   view-transition-name: root;
 }

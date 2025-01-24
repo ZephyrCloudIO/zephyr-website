@@ -5,6 +5,8 @@ import VisualiseComponentSection from '@/components/sections/visualise-component
 import Mission from '@/components/sections/mission';
 import DeploymentSection from '@/components/sections/deployment';
 import ObservabilitySection from '@/components/sections/observability';
+import { IntegrationsSection } from '@/components/sections/integrations';
+import { CommunitySection } from '@/components/sections/community';
 
 export default function App() {
   return (
@@ -15,6 +17,8 @@ export default function App() {
       <VisualiseComponentSection />
       <Mission />
       <ObservabilitySection />
+      <IntegrationsSection />
+      <CommunitySection />
     </div>
   );
 }

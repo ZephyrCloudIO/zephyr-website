@@ -7,7 +7,15 @@ interface FeatureCardProps {
   description: string;
 }
 
-export const CalcCard: React.FC<FeatureCardProps> = (props) => {
+export const InfoCard: React.FC<FeatureCardProps> = (props) => {
+  const handleLearnMore = (e: React.MouseEvent) => {
+    e.preventDefault();
+    const pricingTable = document.getElementById('pricing-table');
+    if (pricingTable) {
+      pricingTable.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
   return (
     <div className="relative p-6 rounded-2xl border border-[#2A2A2A] transition-all duration-300 hover:border-[#3A3A3A] bg-gradient-to-b from-[#2E335A]/10 from-10% via-[#1C1B33]/5 via-70% to-[#2E335A]/10 to-90% h-[300px]">
       <div className="flex flex-col h-full">
@@ -21,7 +29,12 @@ export const CalcCard: React.FC<FeatureCardProps> = (props) => {
         </div>
 
         <div className="mt-auto pt-4">
-          <a href={props.link} className="text-blue-500 hover:text-blue-400">Learn More</a>
+          <button
+            onClick={handleLearnMore}
+            className="text-blue-500 hover:text-blue-400 cursor-pointer"
+          >
+            Learn More
+          </button>
         </div>
       </div>
     </div>

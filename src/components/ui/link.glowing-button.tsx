@@ -1,18 +1,22 @@
 import { cn } from '@/lib/utils';
+import { Link } from '@modern-js/runtime/router';
 import React from 'react';
 
-interface ButtonTopRightGlowProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonGlowProps {
   children: React.ReactNode;
+  to: string;
   className?: string;
 }
 
-const ButtonTopRightGlow: React.FC<ButtonTopRightGlowProps> = ({
+const GlowingLinkButton: React.FC<ButtonGlowProps> = ({
   children,
+  to,
   className,
   ...props
 }) => {
   return (
-    <button
+    <Link
+      to={to}
       className={cn(
         'w-full group relative z-10 px-8 items-center md:h-[44px] h-[40px] rounded-full justify-center transition-all flex overflow-hidden',
         'bg-black/30 backdrop-blur-sm',
@@ -27,8 +31,8 @@ const ButtonTopRightGlow: React.FC<ButtonTopRightGlowProps> = ({
       {...props}
     >
       {children}
-    </button>
+    </Link>
   );
 };
 
-export default ButtonTopRightGlow;
+export default GlowingLinkButton;

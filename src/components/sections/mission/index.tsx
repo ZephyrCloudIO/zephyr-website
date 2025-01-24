@@ -4,7 +4,7 @@ import './mission.css';
 
 export default function Mission() {
   return (
-    <section className="container relative min-h-[90vh] px-4 overflow-hidden">
+    <section className="container relative px-4 overflow-hidden">
       <div className="absolute inset-0 w-full h-full">
         <img
           src={separateTop}
@@ -12,7 +12,7 @@ export default function Mission() {
           alt="Top separator"
         />
       </div>
-      <div className="relative z-20 pt-[15%] sm:pt-[20%] w-full">
+      <div className="relative z-20 mt-24 w-full">
         <div className="py-2">
           <div className="flex md:flex-row flex-col items-center py-4 md:py-6 gap-4 md:gap-8 justify-between">
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center md:text-left mb-2 md:mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">

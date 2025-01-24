@@ -28,7 +28,7 @@ export const FeatureCard: React.FC<FeatureCardProps> = ({
 
         <h3 className="text-xl font-medium text-white">{title}</h3>
 
-        <p className="text-sm text-gray-400">{description}</p>
+        <span className="text-sm text-gray-400">{description}</span>
       </div>
     </div>
   );

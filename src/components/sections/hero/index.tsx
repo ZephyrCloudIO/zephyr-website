@@ -1,7 +1,7 @@
 import { Link } from '@modern-js/runtime/router';
 import Lottie from 'lottie-react';
 import { useEffect, useRef, useState } from 'react';
-import GlowingButton from '@/components/ui/buttons/button.top-right-glow';
+import GlowingLinkButton from '@/components/ui/link.glowing-button';
 import { siteConfig } from '@/lib/site.config';
 import { cn } from '@/lib/utils';
 import videoPoster from '@/images/VideoPoster.webp';
@@ -71,7 +71,7 @@ export default function Hero() {
         >
           {videoSrc && <source src={videoSrc} type="video/mp4" />}
         </video>
-        <div className="absolute bottom-0 left-0 w-full h-[50%] bg-gradient-to-t from-black via-black/90 via-30% to-transparent to-80%" />
+        <div className="absolute bottom-0 left-0 w-full h-[50%] bg-gradient-to-t from-[#010101] via-90% to-transparent to-80%" />
       </div>
       <div className="grid grid-cols-3 md:h-[calc(100vh-30vh)] h-[calc(100vh-28vh)] items-center">
         <div className="flex sm:col-span-2 py-10 sm:py-0 col-span-3 flex-col space-y-2 sm:space-y-10">
@@ -91,9 +91,7 @@ export default function Hero() {
           </div>
 
           <div className="flex sm:flex-row flex-col py-8 sm:py-0 gap-6 items-center">
-            <Link to={siteConfig.signUp}>
-              <GlowingButton>Try Alpha</GlowingButton>
-            </Link>
+            <GlowingLinkButton to={siteConfig.signUp} className='w-fit px-12'>Get Started</GlowingLinkButton>
             <div className="relative">
               <Lottie
                 lottieRef={lottieRef}

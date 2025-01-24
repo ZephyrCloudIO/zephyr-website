@@ -1,23 +1,33 @@
 import React from 'react';
 import { Hero } from '@/components/sections/enterprise/hero';
-import { ContactForm } from '@/components/sections/enterprise/contact-form';
+import ButtonGlow from '@/components/ui/buttons/button.glow';
 import Hexagons from '@/images/hexagons-combined.svg';
 
 const EnterprisePage: React.FC = () => {
+  const handleContactClick = () => {
+    window.location.href = 'mailto:inbound@zephyr-cloud.io?subject=Enterprise%20Inquiry';
+  };
+
   return (
     <div className="min-h-screen bg-black">
       <div className="container mx-auto px-4 py-16 relative">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="flex flex-col gap-12 items-center">
           <Hero />
-          <ContactForm />
+          <div className="flex justify-center items-center">
+            <ButtonGlow
+              onClick={handleContactClick}
+              className="text-lg px-24 py-6"
+            >
+              Contact Us
+            </ButtonGlow>
+          </div>
         </div>
       </div>
-      {/* Hexagonal background pattern - absolute positioned */}
       <div
         className="absolute inset-0 z-0 opacity-20 pointer-events-none"
         style={{
           backgroundImage: `url(${Hexagons})`,
-          backgroundPosition: '120% 120%',
+          backgroundPosition: '0% 20%',
         }}
       />
     </div>

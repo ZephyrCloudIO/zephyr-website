@@ -1,10 +1,11 @@
-import ButtonTopRightGlow from '@/components/ui/buttons/button.top-right-glow';
+import GlowingLinkButton from '@/components/ui/link.glowing-button';
 import React from 'react';
 
 interface PricingCardProps {
   name: string;
   price: string;
   features: string[];
+  link: string;
   isHighlighted?: boolean;
 }
 
@@ -12,6 +13,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
   name,
   price,
   features,
+  link,
   isHighlighted
 }) => {
   return (
@@ -55,9 +57,9 @@ export const PricingCard: React.FC<PricingCardProps> = ({
       </div>
 
       <div className="mt-8">
-        <ButtonTopRightGlow className="text-white font-medium w-full">
+        <GlowingLinkButton to={link} className="text-white font-medium w-full">
           Get Started
-        </ButtonTopRightGlow>
+        </GlowingLinkButton>
       </div>
     </div>
   );

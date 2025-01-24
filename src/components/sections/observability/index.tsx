@@ -112,9 +112,8 @@ const ObservabilitySection: React.FC = () => {
               Full observability for
               <br /> federated applications
             </h2>
-            <p className="text-lg text-gray-400">
-              Zephyr Cloud solves these issues with unparalleled visbility
-              <br /> and control.
+            <p className="text-lg text-gray-400 text-center md:text-left">
+              Zephyr Cloud solves these issues with unparalleled visbility and control.
             </p>
           </div>
         </div>

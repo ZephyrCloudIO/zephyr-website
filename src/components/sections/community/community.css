@@ -1,0 +1,136 @@
+.testimonials-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  padding: 2rem 0;
+}
+
+.testimonials-wrapper {
+  position: relative;
+  display: flex;
+  gap: 1.5rem;
+  padding: 2rem 4rem;
+  animation: scroll 40s linear infinite;
+  width: max-content;
+}
+
+.testimonials-wrapper:hover {
+  animation-play-state: paused;
+}
+
+.testimonials-fade-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    90deg,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0) 15%,
+    rgba(0, 0, 0, 0) 85%,
+    rgba(0, 0, 0, 1) 100%
+  );
+  z-index: 10;
+}
+
+.testimonial-card {
+  flex: 0 0 auto;
+  width: 320px;
+  transform-origin: center center;
+  transition: transform 0.3s ease;
+}
+
+.testimonial-card:nth-child(3n + 1) {
+  --base-y: 40px;
+}
+
+.testimonial-card:nth-child(3n + 2) {
+  --base-y: 0px;
+}
+
+.testimonial-card:nth-child(3n + 3) {
+  --base-y: 20px;
+}
+
+.testimonial-card {
+  animation: float 6s ease-in-out infinite;
+}
+
+.testimonial-card:nth-child(odd) {
+  animation-delay: 1s;
+}
+
+.testimonial-card:nth-child(even) {
+  animation-delay: 2s;
+}
+
+@keyframes float {
+  0% {
+    transform: translateY(var(--base-y));
+  }
+  50% {
+    transform: translateY(calc(var(--base-y) - 10px));
+  }
+  100% {
+    transform: translateY(var(--base-y));
+  }
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - 0.75rem));
+  }
+}
+
+.community-title {
+  background: linear-gradient(to right, #ffffff 0%, #4b5563 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.community-buttons button {
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.community-buttons button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.community-buttons button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    rgba(255, 255, 255, 0.1),
+    rgba(255, 255, 255, 0)
+  );
+  transform: translateX(-100%);
+  transition: transform 0.6s ease;
+}
+
+.community-buttons button:hover::after {
+  transform: translateX(100%);
+}
+
+.testimonial-avatar {
+  border: 2px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.testimonial-card:hover .testimonial-avatar {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}

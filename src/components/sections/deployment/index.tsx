@@ -22,7 +22,7 @@ const frameworkExamples: Partial<Record<FrameworkName, FrameworkDetails>> = {
     lines: [6, 11],
     docsLink: 'https://docs.zephyr-cloud.io/general/get-started#start-from-scratch',
     exampleLink: 'https://github.com/ZephyrCloudIO/zephyr-examples/blob/main/examples/create-mf-app-rspack/rspack.config.js',
-    installCommand: [{ type: 'command' as const, content: 'install zephyr-webpack-plugin', lineNumber: 1 }]
+    installCommand: [{ type: 'command' as const, content: 'install zephyr-rspack-plugin', lineNumber: 1 }]
   },
   "React + Webpack + Module Federation": {
     lines: [2, 6],
@@ -107,16 +107,21 @@ const DeploymentSection: React.FC = () => {
         </div>
 
         <div className="flex justify-center gap-4 mt-12">
-          <a
+        <a
             href={frameworkExamples[selectedFramework]?.docsLink}
             aria-label="Zephyr Documentation"
             className="bg-[#1A1A1A] text-white px-6 py-2 rounded-lg hover:bg-[#2A2A2A] transition-colors"
+            target="_blank"
+            rel="noopener noreferrer"
           >
             Documentation
           </a>
           <a
             href={frameworkExamples[selectedFramework]?.exampleLink}
             className="bg-[#1A1A1A] text-white px-6 py-2 rounded-lg hover:bg-[#2A2A2A] transition-colors"
+            aria-label='View this Example'
+            target="_blank"
+            rel="noopener noreferrer"
           >
             View this Example
           </a>

@@ -1,5 +1,7 @@
 import { appTools, defineConfig } from '@modern-js/app-tools';
 import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
+import { bffPlugin } from '@modern-js/plugin-bff';
+import { expressPlugin } from '@modern-js/plugin-express';
 import { withZephyr } from 'zephyr-modernjs-plugin';
 
 const tailwindConfig = require('./tailwind.config');
@@ -15,6 +17,9 @@ export default defineConfig({
   },
   html: {
     outputStructure: 'flat',
+    title: 'Zephyr Cloud | The only sane way to do micro-frontends',
+    favicon: './config/public/favicon.svg',
+    appIcon: './config/public/favicon.svg'
   },
   source: {
     mainEntryName: 'index',
@@ -32,6 +37,8 @@ export default defineConfig({
       bundler: 'rspack',
     }),
     tailwindcssPlugin(),
+    bffPlugin(),
+    expressPlugin(),
     //withZephyr(),
   ],
 });
