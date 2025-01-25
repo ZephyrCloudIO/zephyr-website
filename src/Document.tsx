@@ -19,7 +19,10 @@ export default function Document(): React.ReactElement {
     <Html lang="en">
       <Head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes"
+        />
         <meta name="theme-color" content="#000000" />
 
         {/* Primary Meta Tags */}

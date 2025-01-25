@@ -171,6 +171,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ framework, highlightedLines = [
         <button
           onClick={handleCopy}
           className="text-gray-400 hover:text-white transition-colors"
+          aria-label='Copy example'
         >
           {copied ? (
            <svg
