@@ -20,12 +20,12 @@ const pricingTiers: PricingTier[] = [
       '5 remotes',
       '1000 deploys',
       '2 named environments',
-      '100,000 Zephyr view requests'
-    ]
+      '100,000 Zephyr view requests',
+    ],
   },
   {
     name: 'Standard',
-    price: '$49',
+    price: '$99',
     link: 'https://app.zephyr-cloud.io/',
     isHighlighted: true,
     features: [
@@ -33,15 +33,15 @@ const pricingTiers: PricingTier[] = [
       'Starts after the first user',
       'Free for view only access',
       'Free for billing and account admins only accounts',
-      'Open Source Projects first 5 people free'
-    ]
+      'Open Source Projects first 5 people free',
+    ],
   },
   {
     name: 'Enterprise',
     price: 'Custom',
     link: '/enterprise',
-    features: ['Please reach out to us for further details']
-  }
+    features: ['Please reach out to us for further details'],
+  },
 ];
 
 export const PricingSection: React.FC = () => {
