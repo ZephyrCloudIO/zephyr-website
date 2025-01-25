@@ -12,13 +12,12 @@ export default function ValueProposition() {
   const cards = [
     {
       text: 'Manage dependencies for micro-frontends',
-      description: 'Efficiently manage and update dependencies across all your micro-frontend applications',
       image: (
         <div
           className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E79294] items-center justify-center"
           style={{ backgroundImage: `url(${graphyBackground})` }}
           role="img"
-          aria-label="Dependency Management Icon"
+          aria-label='Efficiently manage and update dependencies across all your micro-frontend applications'
         >
           <img src={value1} className="w-8 h-8" alt="Dependency Management" />
         </div>
@@ -26,7 +25,6 @@ export default function ValueProposition() {
     },
     {
       text: 'Generate live preview links in seconds',
-      description: 'Instantly create and share live preview environments for your applications',
       image: (
         <div
           className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#5DD0A8] items-center justify-center"
@@ -34,13 +32,12 @@ export default function ValueProposition() {
           role="img"
           aria-label="Live Preview Icon"
         >
-          <img src={value2} className="w-6 h-6" alt="Live Preview Generation" />
+          <img src={value2} className="w-6 h-6" alt='Instantly create and share live preview environments for your applications' />
         </div>
       ),
     },
     {
       text: 'Version roll-back and roll-forward',
-      description: 'Seamlessly manage application versions with instant rollback and forward capabilities',
       image: (
         <div
           className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E3B28F] items-center justify-center"
@@ -48,13 +45,12 @@ export default function ValueProposition() {
           role="img"
           aria-label="Version Control Icon"
         >
-          <img src={value3} className="w-8 h-8" alt="Version Control" />
+          <img src={value3} className="w-8 h-8" alt='Seamlessly manage application versions with instant rollback and forward capabilities' />
         </div>
       ),
     },
     {
       text: 'Auto deploy on build',
-      description: 'Automated deployment pipeline that triggers on successful builds',
       image: (
         <div
           className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#946AE3] items-center justify-center"
@@ -62,7 +58,7 @@ export default function ValueProposition() {
           role="img"
           aria-label="Auto Deploy Icon"
         >
-          <img src={value4} className="w-8 h-8" alt="Auto Deployment" />
+          <img src={value4} className="w-8 h-8" alt='Automated deployment pipeline that triggers on successful builds' />
         </div>
       ),
     },
@@ -84,7 +80,6 @@ export default function ValueProposition() {
                 divRef={el => (cardRefs.current[index] = el)}
                 text={card.text}
                 icon={card.image}
-                description={card.description}
               />
             </div>
           ))}

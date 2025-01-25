@@ -74,14 +74,11 @@ export default function Header() {
                 )}
               >
                 <HeaderNav
-                  props={{
-                    ...item,
-                    className: cn(
-                      isActiveLink(item.link) && 'text-white'
-                    ),
-                    'aria-label': item.description,
-                    'aria-current': isActiveLink(item.link) ? 'page' : undefined
-                  }}
+                  title={item.title}
+                  link={item.link}
+                  className={cn(isActiveLink(item.link) && 'text-white')}
+                  aria-label={item.description}
+                  aria-current={isActiveLink(item.link) ? 'page' : undefined}
                 />
               </div>
             ))}
