@@ -39,6 +39,6 @@ export default defineConfig({
     tailwindcssPlugin(),
     bffPlugin(),
     expressPlugin(),
-    withZephyr(),
+    //withZephyr(),
   ],
 });

@@ -2,30 +2,60 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 20px 0;
+  padding: 40px 0;
 }
 
 .testimonials-wrapper {
   display: flex;
-  gap: 24px;
-  animation: scroll 40s linear infinite;
+  animation: scroll 60s linear infinite;
   width: max-content;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  perspective: 1000;
+  -webkit-perspective: 1000;
+  transform-style: preserve-3d;
+  -webkit-transform-style: preserve-3d;
 }
 
-/* Duplicate the testimonials to create seamless loop */
-.testimonials-wrapper::after {
-  content: '';
-  display: block;
-  width: 24px; /* Match the gap size */
+.testimonials-group {
+  display: flex;
+  padding: 0;
+  margin: 0;
+  gap: 4rem;
 }
 
 .testimonial-card {
-  flex: 0 0 auto;
-  width: 380px;
+  flex: 0 0 320px;
+  width: 320px;
+  height: 280px;
   transform: translateY(var(--base-y, 0));
   transition: transform 0.3s ease;
-  /* Add will-change to optimize performance */
   will-change: transform;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.testimonial-card .avatar-section {
+  margin-bottom: 1.5rem;
+}
+
+.testimonial-card .content-section {
+  flex: 1;
+  overflow-y: auto;
+}
+
+.testimonial-card .content-section::-webkit-scrollbar {
+  display: none;
+}
+
+.testimonial-card .content-section {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.testimonial-card:hover {
+  transform: translateY(calc(var(--base-y, 0) - 4px)) scale(1.02);
 }
 
 .testimonials-fade-overlay {
@@ -38,13 +68,14 @@
   z-index: 2;
 }
 
-.testimonials-fade-overlay::after {
-  content: '';
+.testimonials-fade-overlay-right {
   position: absolute;
   top: 0;
   bottom: 0;
-  right: -100px;
+  right: 0;
   width: 100px;
+  background: linear-gradient(to left, black, transparent);
+  z-index: 2;
 }
 
 @keyframes scroll {
@@ -52,12 +83,16 @@
     transform: translateX(0);
   }
   100% {
-    /* Adjust this value based on the total width of your items */
-    transform: translateX(calc(-50% - 12px)); /* Half the gap size */
+    transform: translateX(calc(-50% - 2rem));
   }
 }
 
-/* Pause animation on hover */
 .testimonials-container:hover .testimonials-wrapper {
   animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .testimonials-wrapper {
+    animation: none;
+  }
 }
