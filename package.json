@@ -26,11 +26,16 @@
     "dist/"
   ],
   "dependencies": {
+    "@modern-js/plugin-bff": "2.64.0",
+    "@modern-js/plugin-express": "2.64.0",
     "@modern-js/plugin-tailwindcss": "2.64.0",
     "@modern-js/runtime": "2.64.0",
+    "@module-federation/modern-js": "0.8.9",
     "@radix-ui/react-icons": "^1.3.2",
+    "@tailwindcss/typography": "^0.5.16",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
+    "express": "~4.21.2",
     "lottie-react": "^2.4.0",
     "prop-types": "^15.8.1",
     "react": "~18.2.0",
@@ -39,17 +44,15 @@
     "react-wrap-balancer": "^1.1.1",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
-    "zephyr-modernjs-plugin": "workspace:*",
-    "@module-federation/modern-js": "0.8.9",
-    "@modern-js/plugin-bff": "2.64.0",
-    "@modern-js/plugin-express": "2.64.0",
-    "express": "~4.21.2"
+    "zephyr-modernjs-plugin": "workspace:*"
   },
   "devDependencies": {
     "@modern-js-app/eslint-config": "2.59.0",
     "@modern-js/app-tools": "2.64.0",
     "@modern-js/eslint-config": "2.59.0",
     "@modern-js/tsconfig": "2.64.0",
+    "@rsbuild/plugin-mdx": "1.0.2",
+    "@types/express": "~5.0.0",
     "@types/jest": "~29.2.6",
     "@types/node": "~16.11.68",
     "@types/react": "~18.0.38",
@@ -60,10 +63,9 @@
     "prettier": "~2.8.8",
     "rimraf": "~3.0.2",
     "tailwindcss": "~3.3.7",
-    "typescript": "~5.7.3",
     "ts-node": "~10.8.1",
     "tsconfig-paths": "~3.14.1",
-    "@types/express": "~5.0.0"
+    "typescript": "~5.7.3"
   },
   "packageManager": "pnpm@9.15.3+sha512.1f79bc245a66eb0b07c5d4d83131240774642caaa86ef7d0434ab47c0d16f66b04e21e0c086eb61e62c77efc4d7f7ec071afad3796af64892fae66509173893a"
 }

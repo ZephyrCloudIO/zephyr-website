@@ -6,7 +6,7 @@ import ZephyrLogo from '@/images/zephyr-logo.svg';
 const navigationItems = [
   { title: 'Pricing', link: '/pricing' },
   { title: 'Documentation', link: 'https://docs.zephyr-cloud.io/' },
-  { title: 'Blog', link: 'https://www.zephyr-cloud.io/blog' },
+  { title: 'Blog', link: '/blog' },
   { title: 'Enterprise', link: '/enterprise' },
 ];
 
@@ -19,8 +19,6 @@ export default function Header() {
     }
     return location.pathname === link;
   };
-
-  console.log(location)
 
   return (
     <header

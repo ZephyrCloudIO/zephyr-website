@@ -1,8 +1,13 @@
 import React from 'react';
+import Test from './test.mdx';
+import { MDXLayout } from '@/components/mdx-wrapper';
 
 export const Page: React.FC = () => {
   return (
     <div className="container mx-auto px-4 py-12 max-w-4xl">
+      <MDXLayout>
+      <Test />
+      </MDXLayout>
       <h1 className="text-4xl font-bold mb-8">Privacy Policy</h1>
 
       <div className="prose prose-lg prose-invert max-w-none">

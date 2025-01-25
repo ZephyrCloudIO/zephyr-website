@@ -3,6 +3,7 @@ import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
 import { bffPlugin } from '@modern-js/plugin-bff';
 import { expressPlugin } from '@modern-js/plugin-express';
 import { withZephyr } from 'zephyr-modernjs-plugin';
+import { pluginMdx } from "@rsbuild/plugin-mdx";
 
 const tailwindConfig = require('./tailwind.config');
 
@@ -32,6 +33,9 @@ export default defineConfig({
       html: './',
     },
   },
+  builderPlugins: [
+    pluginMdx()
+  ],
   plugins: [
     appTools({
       bundler: 'rspack',
@@ -39,6 +43,6 @@ export default defineConfig({
     tailwindcssPlugin(),
     bffPlugin(),
     expressPlugin(),
-    //withZephyr(),
+    withZephyr(),
   ],
 });

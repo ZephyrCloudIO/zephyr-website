@@ -56,6 +56,23 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': '#374151',
+            '--tw-prose-headings': '#111827',
+            '--tw-prose-links': '#2563eb',
+            '--tw-prose-bold': '#111827',
+            '--tw-prose-counters': '#6b7280',
+            '--tw-prose-bullets': '#6b7280',
+            '--tw-prose-quotes': '#111827',
+            '--tw-prose-code': '#111827',
+            '--tw-prose-pre-code': '#374151',
+            '--tw-prose-pre-bg': '#f3f4f6',
+            maxWidth: 'none',
+          },
+        },
+      },
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
@@ -183,5 +200,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } as unknown as Config;
