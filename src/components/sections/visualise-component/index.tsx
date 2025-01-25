@@ -46,16 +46,19 @@ export default function VisualiseComponentSection() {
 const Values: ValueCardType[] = [
   {
     title: 'From development machines to the edge in milliseconds',
+    description: 'Edge deployments',
     graphic: value1,
   },
   {
     title: 'Bring your own cloud - no vendor lock in, full flexibility',
     content:
       'Freedom. Flexibility. No lock-in. Choose the cloud provider of your choice and we will bring you the rest - all you need is an API token from your cloud provider to enable Zephyr move as you wish. Empower your team with integration, scalability and control.',
+      description: 'Bring your own cloud',
     graphic: value2,
   },
   {
     title: 'Framework agnostic, use what works best for your team',
+    description: 'Framework agnostic',
     graphic: value3,
   },
 ];
