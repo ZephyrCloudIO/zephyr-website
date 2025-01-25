@@ -6,13 +6,6 @@ module.exports = {
   content: [
     './src/**/*.{js,jsx,ts,tsx}',
   ],
-  future: {
-    removeDeprecatedGapUtilities: true,
-    purgeLayersByDefault: true,
-  },
-  experimental: {
-    optimizeUniversalDefaults: true
-  },
   theme: {
     container: {
       center: true,

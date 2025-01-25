@@ -41,7 +41,7 @@ const Footer = () => {
     return (
         <footer className="bg-[#0A0A0A] pt-20 pb-8 px-6 md:px-8 mt-24" role="contentinfo">
             <div className="max-w-7xl mx-auto">
-                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16">
+                <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-8">
                     <div className="md:col-span-4">
                         <p className="text-gray-400 text-sm leading-relaxed">
                             Zephyr Cloud is a cloud-agnostic, framework-agnostic platform enabling lightning-fast deployment with first-class support for federated applications. Build, deploy, and scale your applications with ease.
@@ -120,44 +120,51 @@ const Footer = () => {
                     </div>
                 </div>
 
-                <nav className="flex space-x-4 mb-4 md:mb-0" aria-label="Social media links">
-                    <a
-                        href="https://www.linkedin.com/company/zephyr-cloud/"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
-                        aria-label="Follow Zephyr Cloud on LinkedIn"
-                    >
-                        <span className="sr-only">Follow us on LinkedIn</span>
-                        <img src={LinkedIn} alt="LinkedIn" width="24" height="24" />
-                    </a>
-                    <a
-                        href="https://zephyr-cloud.io/twitter"
-                        className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
-                        aria-label="Follow Zephyr Cloud on X (formerly Twitter)"
-                    >
-                        <span className="sr-only">Follow us on X (formerly Twitter)</span>
-                        <img src={X} alt="X (formerly Twitter)" width="24" height="24" />
-                    </a>
-                    <a
-                        href="https://discord.gg/pSxWRVayEu"
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
-                        aria-label="Join Zephyr Cloud Discord community"
-                    >
-                        <span className="sr-only">Join our Discord community</span>
-                        <img src={Discord} alt="Discord" width="24" height="24" />
-                    </a>
-                    <a
-                        href="https://www.youtube.com/@ZephyrCloud"
-                        className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
-                        aria-label="Subscribe to Zephyr Cloud YouTube channel"
-                    >
-                        <span className="sr-only">Subscribe to our YouTube channel</span>
-                        <img src={Youtube} alt="YouTube" width="24" height="24" />
-                    </a>
-                </nav>
+                <div className="border-t border-gray-800 pt-8">
+                    <div className="flex flex-col md:flex-row justify-between items-center">
+                        <nav className="flex space-x-6 mb-4 md:mb-0" aria-label="Social media links">
+                            <a
+                                href="https://www.linkedin.com/company/zephyr-cloud/"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition-all duration-200"
+                                aria-label="Follow Zephyr Cloud on LinkedIn"
+                            >
+                                <span className="sr-only">Follow us on LinkedIn</span>
+                                <img src={LinkedIn} alt="LinkedIn" className="w-16 h-16" />
+                            </a>
+                            <a
+                                href="https://zephyr-cloud.io/twitter"
+                                className="text-gray-400 hover:text-white transition-all duration-200"
+                                aria-label="Follow Zephyr Cloud on X (formerly Twitter)"
+                            >
+                                <span className="sr-only">Follow us on X (formerly Twitter)</span>
+                                <img src={X} alt="X (formerly Twitter)" className="w-16 h-16" />
+                            </a>
+                            <a
+                                href="https://discord.gg/pSxWRVayEu"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-400 hover:text-white transition-all duration-200"
+                                aria-label="Join Zephyr Cloud Discord community"
+                            >
+                                <span className="sr-only">Join our Discord community</span>
+                                <img src={Discord} alt="Discord" className="w-16 h-16" />
+                            </a>
+                            <a
+                                href="https://www.youtube.com/@ZephyrCloud"
+                                className="text-gray-400 hover:text-white transition-all duration-200"
+                                aria-label="Subscribe to Zephyr Cloud YouTube channel"
+                            >
+                                <span className="sr-only">Subscribe to our YouTube channel</span>
+                                <img src={Youtube} alt="YouTube" className="w-16 h-16" />
+                            </a>
+                        </nav>
+                        <p className="text-gray-400 text-sm">
+                            Copyright © {new Date().getFullYear()} Zephyr Cloud. All Rights Reserved.
+                        </p>
+                    </div>
+                </div>
             </div>
         </footer>
     );
