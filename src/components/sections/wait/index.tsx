@@ -8,13 +8,17 @@ const WaitSection = () => {
 
     useEffect(() => {
         const loadVideo = async () => {
-            try {
-                const videoModule = await import('@/images/videos/points.mp4');
-                setVideoSrc(videoModule.default);
-            } catch (error) {
-                setLoadError('Failed to load video');
-                console.error('Video loading error:', error);
+            let videoModule;
+            const testVideoEl = document.createElement('video');
+            const canPlayWebm = testVideoEl.canPlayType('video/webm; codecs="vp8, vorbis"');
+
+            if (canPlayWebm === 'probably' || canPlayWebm === 'maybe') {
+                videoModule = await import('@/images/videos/points.webm');
+            } else {
+                videoModule = await import('@/images/videos/points.mp4');
             }
+
+            setVideoSrc(videoModule.default);
         };
 
         loadVideo();

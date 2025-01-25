@@ -43,7 +43,16 @@ export default function Hero() {
 
   useEffect(() => {
     const loadVideo = async () => {
-      const videoModule = await import('@/images/videos/hero-video.mp4');
+      let videoModule;
+      const testVideoEl = document.createElement('video');
+      const canPlayWebm = testVideoEl.canPlayType('video/webm; codecs="vp8, vorbis"');
+
+      if (canPlayWebm === 'probably' || canPlayWebm === 'maybe') {
+        videoModule = await import('@/images/videos/hero-video.webm');
+      } else {
+        videoModule = await import('@/images/videos/hero-video.mp4');
+      }
+
       setVideoSrc(videoModule.default);
     };
 

@@ -1,45 +1,117 @@
 import React from 'react';
-import separateBottom from '@/images/separator-pointing-up.svg';
 import { TestimonialCard } from './testimonial-card';
+import separateBottom from '@/images/separator-pointing-up.svg';
 import GlowingLink from '@/components/ui/link.glowing-button';
 import './community.css';
-import Jack from '@/images/community/JackHerrington.jpg'
-import Colum from '@/images/community/Colum.avif'
-import Generic from '@/images/z-logo.avif'
+import Jack from '@/images/community/JackHerrington.jpg';
+import Giorgio from '@/images/community/GiorgioBoa.jpeg';
+import RonR from '@/images/community/RonR.jpeg';
+import Colum from '@/images/community/Colum.avif';
+import Generic from '@/images/z-logo.avif';
 
 interface Testimonial {
   name: string;
+  company?: string;
   role?: string;
   content: string;
-  avatar: string;
+  avatar: any;
+  socialLinks?: Array<{
+    link: string;
+    platform: 'LinkedIn' | 'X' | 'YouTube' | 'Twitch';
+  }>;
 }
 
 const testimonials: Testimonial[] = [
   {
     name: 'Jack Herrington',
-    content: 'Zephyr brings the promise of Module Federation to life. Immediate deploys and rollbacks. Version control. Native and Web support. It\'s all there.',
-    avatar: Jack
+    content:
+      "Zephyr brings the promise of Module Federation to life. Immediate deploys and rollbacks. Version control. Native and Web support. It's all there.",
+    avatar: Jack,
+    role: 'Founder',
+    company: 'Blue Collar Coder',
+    socialLinks: [
+      {
+        link: 'https://x.com/jherr',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/jherr',
+        platform: 'LinkedIn',
+      },
+      {
+        link: 'https://www.youtube.com/@jherr',
+        platform: 'YouTube',
+      },
+    ],
   },
   {
     name: 'Ron R.',
-    content: 'Module Federation is amazing, but for it to really shine you need a way to glue it to the daily development process and CI. Zephyr is that glue. Expect Zephyr to speed up your dev cycle by 10x if not more.',
-    avatar: Generic
+    content:
+      'Module Federation is amazing, but for it to really shine you need a way to glue it to the daily development process and CI. Zephyr is that glue. Expect Zephyr to speed up your dev cycle by 10x if not more.',
+    avatar: RonR,
+    role: 'Software Engineer',
+    company: 'Snap',
+    socialLinks: [
+      {
+        link: 'https://x.com/ronos_r',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/ronrosenshain',
+        platform: 'LinkedIn',
+      },
+    ],
   },
   {
     name: 'Giorgio Boa',
-    content: 'With Zephyr Cloud you can seamlessly combine your micro frontends to unprecedented levels of performance. Join the revolution with a platform that will transform your development workflow.',
-    avatar: Generic
+    content:
+      'With Zephyr Cloud you can seamlessly combine your micro frontends to unprecedented levels of performance. Join the revolution with a platform that will transform your development workflow.',
+    avatar: Giorgio,
+    role: 'Sr. Software Engineer',
+    company: 'Qarik',
+    socialLinks: [
+      {
+        link: 'https://x.com/giorgio_boa',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/giorgio-boa',
+        platform: 'LinkedIn',
+      },
+    ],
   },
   {
     name: 'Zhang Lei',
-    content: 'Going from idea to global scale production couldn\'t be easier than with Rspack and Zephhr Cloud. Sub second builds and sub second and versioned deploys combined with instant rollbacks help avoid Sev1 downtime. ',
-    avatar: Generic
+    content:
+      "Going from idea to global scale production couldn't be easier than with Rspack and Zephhr Cloud. Sub second builds and sub second and versioned deploys combined with instant rollbacks help avoid Sev1 downtime. ",
+    avatar: Generic,
+    role: 'Web Infra manager',
+    company: 'Web Infra',
+    socialLinks: [
+      {
+        link: 'https://x.com/zoolsher',
+        platform: 'X',
+      },
+    ],
   },
   {
     name: 'Colum Ferry',
-    content: 'Zephyr Cloud is the Micro Frontend orchestration tool you never knew you needed. What they have built will change deployments for the better. Think of the disruption k8s caused. Zephyr Cloud will do the same for the Micro Frontend world.',
-    avatar: Colum
-  }
+    content:
+      'Zephyr Cloud is the Micro Frontend orchestration tool you never knew you needed. What they have built will change deployments for the better. Think of the disruption k8s caused. Zephyr Cloud will do the same for the Micro Frontend world.',
+    avatar: Colum,
+    role: 'Sr. Software Engineer',
+    company: 'Nx',
+    socialLinks: [
+      {
+        link: 'https://x.com/FerryColum',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/colum-ferry-3a36a9169',
+        platform: 'LinkedIn',
+      },
+    ],
+  },
 ];
 
 export const CommunitySection: React.FC = () => {
@@ -90,15 +162,31 @@ export const CommunitySection: React.FC = () => {
         </div>
 
         <div className="flex md:justify-evenly flex-col md:flex-row justify-center gap-6 mt-16 items-center">
-          <GlowingLink to="https://discord.gg/pSxWRVayEu" className='w-60' external={true}>
-            <svg className="w-5 h-5 mr-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z"/>
+          <GlowingLink
+            to="https://discord.gg/pSxWRVayEu"
+            className="w-60"
+            external={true}
+          >
+            <svg
+              className="w-5 h-5 mr-4"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M20.317 4.492c-1.53-.69-3.17-1.2-4.885-1.49a.075.075 0 0 0-.079.036c-.21.369-.444.85-.608 1.23a18.566 18.566 0 0 0-5.487 0 12.36 12.36 0 0 0-.617-1.23A.077.077 0 0 0 8.562 3c-1.714.29-3.354.8-4.885 1.491a.07.07 0 0 0-.032.027C.533 9.093-.32 13.555.099 17.961a.08.08 0 0 0 .031.055 20.03 20.03 0 0 0 5.993 2.98.078.078 0 0 0 .084-.026c.462-.62.874-1.275 1.226-1.963.021-.04.001-.088-.041-.104a13.201 13.201 0 0 1-1.872-.878.075.075 0 0 1-.008-.125c.126-.093.252-.19.372-.287a.075.075 0 0 1 .078-.01c3.927 1.764 8.18 1.764 12.061 0a.075.075 0 0 1 .079.009c.12.098.245.195.372.288a.075.075 0 0 1-.006.125c-.598.344-1.22.635-1.873.877a.075.075 0 0 0-.041.105c.36.687.772 1.341 1.225 1.962a.077.077 0 0 0 .084.028 19.963 19.963 0 0 0 6.002-2.981.076.076 0 0 0 .032-.054c.5-5.094-.838-9.52-3.549-13.442a.06.06 0 0 0-.031-.028zM8.02 15.278c-1.182 0-2.157-1.069-2.157-2.38 0-1.312.956-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.956 2.38-2.157 2.38zm7.975 0c-1.183 0-2.157-1.069-2.157-2.38 0-1.312.955-2.38 2.157-2.38 1.21 0 2.176 1.077 2.157 2.38 0 1.312-.946 2.38-2.157 2.38z" />
             </svg>
             Join Community
           </GlowingLink>
-          <GlowingLink to="https://x.com/ZephyrCloudIO" className='w-60' external={true}>
-            <svg className="w-5 h-5 mr-4" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+          <GlowingLink
+            to="https://x.com/ZephyrCloudIO"
+            className="w-60"
+            external={true}
+          >
+            <svg
+              className="w-5 h-5 mr-4"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
             </svg>
             Follow us on X
           </GlowingLink>
