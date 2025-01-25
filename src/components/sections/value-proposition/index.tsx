@@ -12,52 +12,67 @@ export default function ValueProposition() {
   const cards = [
     {
       text: 'Manage dependencies for micro-frontends',
+      description: 'Efficiently manage and update dependencies across all your micro-frontend applications',
       image: (
         <div
           className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E79294] items-center justify-center"
           style={{ backgroundImage: `url(${graphyBackground})` }}
+          role="img"
+          aria-label="Dependency Management Icon"
         >
-          <img src={value1} className="w-8 h-8" />
+          <img src={value1} className="w-8 h-8" alt="Dependency Management" />
         </div>
       ),
     },
     {
       text: 'Generate live preview links in seconds',
+      description: 'Instantly create and share live preview environments for your applications',
       image: (
         <div
           className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#5DD0A8] items-center justify-center"
           style={{ backgroundImage: `url(${graphyBackground})` }}
+          role="img"
+          aria-label="Live Preview Icon"
         >
-          <img src={value2} className="w-6 h-6" />
+          <img src={value2} className="w-6 h-6" alt="Live Preview Generation" />
         </div>
       ),
     },
     {
       text: 'Version roll-back and roll-forward',
+      description: 'Seamlessly manage application versions with instant rollback and forward capabilities',
       image: (
         <div
           className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E3B28F] items-center justify-center"
           style={{ backgroundImage: `url(${graphyBackground})` }}
+          role="img"
+          aria-label="Version Control Icon"
         >
-          <img src={value3} className="w-8 h-8" />
+          <img src={value3} className="w-8 h-8" alt="Version Control" />
         </div>
       ),
     },
     {
       text: 'Auto deploy on build',
+      description: 'Automated deployment pipeline that triggers on successful builds',
       image: (
         <div
           className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#946AE3] items-center justify-center"
           style={{ backgroundImage: `url(${graphyBackground})` }}
+          role="img"
+          aria-label="Auto Deploy Icon"
         >
-          <img src={value4} className="w-8 h-8" />
+          <img src={value4} className="w-8 h-8" alt="Auto Deployment" />
         </div>
       ),
     },
   ];
 
   return (
-    <section className="container flex md:flex-row flex-col-reverse font-outfit pb-20 justify-start items-center w-full relative mb-24 sm:px-4 py-24">
+    <section
+      className="container flex md:flex-row flex-col-reverse font-outfit pb-20 justify-start items-center w-full relative mb-24 sm:px-4 py-24"
+      aria-label="Platform Features and Benefits"
+    >
       <div className="w-full max-w-5xl mx-auto relative z-10">
         <div className="relative md:grid md:grid-cols-12 gap-6 text-base flex flex-col md:space-y-0 space-y-4 px-4">
           {cards.map((card, index) => (
@@ -69,6 +84,7 @@ export default function ValueProposition() {
                 divRef={el => (cardRefs.current[index] = el)}
                 text={card.text}
                 icon={card.image}
+                description={card.description}
               />
             </div>
           ))}
@@ -87,8 +103,14 @@ export default function ValueProposition() {
           ))}
         </div>
         <div className="pl-2">
-          <p className="text-zinc-100/80 md:text-sm text-base tracking-wide font-light">
+          <p
+            className="text-zinc-100/80 md:text-sm text-base tracking-wide font-light"
+            role="contentinfo"
+          >
             Bring the power of modern cloud platforms to your cloud.
+            <span className="sr-only">
+              Zephyr Cloud enables you to build and deploy applications with complete control over your infrastructure.
+            </span>
           </p>
         </div>
       </div>

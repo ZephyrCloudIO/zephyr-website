@@ -4,10 +4,15 @@ import type { Config } from 'tailwindcss/types/config';
 module.exports = {
   darkMode: ['class'],
   content: [
-    'app/**/*.{ts,tsx}',
     './src/**/*.{js,jsx,ts,tsx}',
-    'components/**/*.{ts,tsx}',
   ],
+  future: {
+    removeDeprecatedGapUtilities: true,
+    purgeLayersByDefault: true,
+  },
+  experimental: {
+    optimizeUniversalDefaults: true
+  },
   theme: {
     container: {
       center: true,

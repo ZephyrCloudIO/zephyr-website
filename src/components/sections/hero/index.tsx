@@ -68,8 +68,15 @@ export default function Hero() {
           preload="none"
           poster={videoPoster}
           onLoadedData={handleVideoLoad}
+          aria-label="Zephyr platform demonstration video"
+          title="Zephyr Platform Overview"
         >
           {videoSrc && <source src={videoSrc} type="video/mp4" />}
+          <img
+            src={videoPoster}
+            alt="Zephyr platform interface preview"
+            className="w-full h-full object-cover"
+          />
         </video>
         <div className="absolute bottom-0 left-0 w-full h-[50%] bg-gradient-to-t from-[#010101] via-90% to-transparent to-80%" />
       </div>
@@ -100,6 +107,7 @@ export default function Hero() {
                 autoplay={false}
                 className="absolute inset-0 w-full h-full pointer-events-none"
                 style={{ opacity: isHovering ? 1 : 0 }}
+                aria-hidden="true"
               />
               <Link
                 ref={buttonRef}

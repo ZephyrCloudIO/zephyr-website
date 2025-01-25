@@ -26,12 +26,19 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
         backgroundSize: 'cover',
         opacity
       }}
+      role="article"
+      aria-label={`Integration card for ${name}`}
     >
       <div className="w-16 h-16 mb-6 rounded-full bg-black/50 flex items-center justify-center">
         {icon ? (
-          <img src={icon} alt={`${name} icon`} />
+          <img
+            src={icon}
+            alt={`Integration icon for ${name}`}
+            className="max-w-full max-h-full"
+            loading="lazy"
+          />
         ) : (
-          <div className="w-8 h-8 bg-gray-700 rounded-full" />
+          <div className="w-8 h-8 bg-gray-700 rounded-full" aria-hidden="true" />
         )}
       </div>
       <h3 className="text-xl font-medium text-white mb-4">{name}</h3>

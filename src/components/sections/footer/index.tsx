@@ -7,40 +7,54 @@ import Youtube from '@/images/platforms/youtube.svg';
 import Discord from '@/images/platforms/Discord.svg';
 
 const integrations = [
-    { name: 'Cloudflare', link: 'https://docs.zephyr-cloud.io/cloud/cloudflare' },
-    { name: 'Netlify', link: 'https://docs.zephyr-cloud.io/cloud/netlify' },
-    { name: 'Fastly', link: 'https://docs.zephyr-cloud.io/cloud/fastly'},
-    { name: 'AWS' },
-    { name: 'Vercel' },
-    { name: 'Supabase' },
-    { name: 'Azure' },
+    {
+        name: 'Cloudflare',
+        link: 'https://docs.zephyr-cloud.io/cloud/cloudflare',
+        alt: "Learn about Zephyr Cloud's Cloudflare integration and deployment options"
+    },
+    {
+        name: 'Netlify',
+        link: 'https://docs.zephyr-cloud.io/cloud/netlify',
+        alt: 'Deploy your applications with Zephyr Cloud on Netlify'
+    },
+    {
+        name: 'Fastly',
+        link: 'https://docs.zephyr-cloud.io/cloud/fastly',
+        alt: 'Accelerate your applications with Zephyr Cloud and Fastly integration'
+    },
+    { name: 'AWS', description: 'Amazon Web Services integration coming soon' },
+    { name: 'Vercel', description: 'Vercel deployment support coming soon' },
+    { name: 'Supabase', description: 'Supabase database integration coming soon' },
+    { name: 'Azure', description: 'Microsoft Azure integration coming soon' },
 ];
 
 const companyLinks = [
-    { name: 'Home', to: '/' },
-    { name: 'Pricing', to: '/pricing' },
-    { name: 'Documents', to: 'https://docs.zephyr-cloud.io' },
-    { name: 'Blog', to: '/blog' },
-    { name: 'Enterprise', to: '/enterprise' },
-    { name: 'Privacy Policy', to: '/privacy' }
+    { name: 'Home', to: '/', description: 'Return to Zephyr Cloud homepage' },
+    { name: 'Pricing', to: '/pricing', description: 'View Zephyr Cloud pricing plans and packages' },
+    { name: 'Documents', to: 'https://docs.zephyr-cloud.io', description: 'Access comprehensive Zephyr Cloud documentation' },
+    { name: 'Blog', to: '/blog', description: 'Read latest updates and insights from Zephyr Cloud' },
+    { name: 'Enterprise', to: '/enterprise', description: 'Learn about Zephyr Cloud enterprise solutions' },
+    { name: 'Privacy Policy', to: '/privacy', description: 'Read our privacy policy' }
 ];
 
 const Footer = () => {
     return (
-        <footer className="bg-[#0A0A0A] pt-20 pb-8 px-6 md:px-8 mt-24">
+        <footer className="bg-[#0A0A0A] pt-20 pb-8 px-6 md:px-8 mt-24" role="contentinfo">
             <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16">
                     <div className="md:col-span-4">
                         <p className="text-gray-400 text-sm leading-relaxed">
-                            Cloud-agnostic, framework-agnostic platform for lightning fast deployment with first-class support in federated applications.
+                            Zephyr Cloud is a cloud-agnostic, framework-agnostic platform enabling lightning-fast deployment with first-class support for federated applications. Build, deploy, and scale your applications with ease.
                         </p>
-                        <img src={ZephyrLogo} alt="Zephyr Cloud" className="h-8 mt-6" />
+                        <Link to="/" aria-label="Return to Zephyr Cloud homepage">
+                            <img src={ZephyrLogo} alt="Zephyr Cloud - Modern Cloud Development Platform" className="h-8 mt-6" />
+                        </Link>
                     </div>
 
-                    <div className="md:col-span-2 md:col-start-6">
+                    <nav className="md:col-span-2 md:col-start-6" aria-label="Company links">
                         <h3 className="text-white font-medium mb-4">Company</h3>
                         <ul className="space-y-3">
-                            {companyLinks.map(({ name, to }) => (
+                            {companyLinks.map(({ name, to, description }) => (
                                 <li key={name}>
                                     {to.startsWith('http') ? (
                                         <a
@@ -48,6 +62,7 @@ const Footer = () => {
                                             target="_blank"
                                             rel="noopener noreferrer"
                                             className="text-gray-400 hover:text-white text-sm"
+                                            aria-label={description}
                                         >
                                             {name}
                                         </a>
@@ -55,6 +70,7 @@ const Footer = () => {
                                         <Link
                                             to={to}
                                             className="text-gray-400 hover:text-white text-sm"
+                                            aria-label={description}
                                         >
                                             {name}
                                         </Link>
@@ -62,68 +78,86 @@ const Footer = () => {
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </nav>
 
-                    <div className="md:col-span-2">
+                    <nav className="md:col-span-2" aria-label="Integration links">
                         <h3 className="text-white font-medium mb-4">Integrations</h3>
                         <ul className="space-y-3">
                             {integrations.map((integration) => (
                                 <li key={integration.name}>
                                     {integration.link ? (
-                                        <a href={integration.link} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-white text-sm">
+                                        <a
+                                            href={integration.link}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="text-gray-400 hover:text-white text-sm"
+                                            aria-label={integration.alt}
+                                        >
                                             {integration.name}
                                         </a>
                                     ) : (
-                                        <span className="text-gray-400 text-sm">
+                                        <span
+                                            className="text-gray-400 text-sm"
+                                            aria-label={integration.description}
+                                        >
                                             {integration.name} - Coming Soon
                                         </span>
                                     )}
                                 </li>
                             ))}
                         </ul>
-                    </div>
+                    </nav>
 
                     <div className="md:col-span-3">
-                        <GlowingLinkButton to="https://docs.zephyr-cloud.io/" className="w-52" external={true}>
+                        <GlowingLinkButton
+                            to="https://docs.zephyr-cloud.io/"
+                            className="w-52"
+                            external={true}
+                            aria-label="Access Zephyr Cloud documentation to get started"
+                        >
                             How to Get Started
                         </GlowingLinkButton>
                     </div>
                 </div>
 
-                <div className="flex space-x-4 mb-4 md:mb-0">
+                <nav className="flex space-x-4 mb-4 md:mb-0" aria-label="Social media links">
                     <a
                         href="https://www.linkedin.com/company/zephyr-cloud/"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
+                        aria-label="Follow Zephyr Cloud on LinkedIn"
                     >
-                        <span className="sr-only">LinkedIn</span>
-                        <img src={LinkedIn} alt="LinkedIn" />
+                        <span className="sr-only">Follow us on LinkedIn</span>
+                        <img src={LinkedIn} alt="LinkedIn" width="24" height="24" />
                     </a>
                     <a
                         href="https://zephyr-cloud.io/twitter"
                         className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
+                        aria-label="Follow Zephyr Cloud on X (formerly Twitter)"
                     >
-                        <span className="sr-only">X</span>
-                        <img src={X} alt="X" />
+                        <span className="sr-only">Follow us on X (formerly Twitter)</span>
+                        <img src={X} alt="X (formerly Twitter)" width="24" height="24" />
                     </a>
                     <a
                         href="https://discord.gg/pSxWRVayEu"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
+                        aria-label="Join Zephyr Cloud Discord community"
                     >
-                        <span className="sr-only">Discord</span>
-                        <img src={Discord} alt="Discord" />
+                        <span className="sr-only">Join our Discord community</span>
+                        <img src={Discord} alt="Discord" width="24" height="24" />
                     </a>
                     <a
                         href="https://www.youtube.com/@ZephyrCloud"
                         className="text-gray-400 hover:text-white transition-all duration-200 hover:scale-110"
+                        aria-label="Subscribe to Zephyr Cloud YouTube channel"
                     >
-                        <span className="sr-only">YouTube</span>
-                        <img src={Youtube} alt="YouTube" />
+                        <span className="sr-only">Subscribe to our YouTube channel</span>
+                        <img src={Youtube} alt="YouTube" width="24" height="24" />
                     </a>
-                </div>
+                </nav>
             </div>
         </footer>
     );
