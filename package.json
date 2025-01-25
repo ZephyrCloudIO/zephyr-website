@@ -47,6 +47,7 @@
     "zephyr-modernjs-plugin": "workspace:*"
   },
   "devDependencies": {
+    "@rsbuild/plugin-image-compress": "1.1.0",
     "@modern-js-app/eslint-config": "2.59.0",
     "@modern-js/app-tools": "2.64.0",
     "@modern-js/eslint-config": "2.59.0",

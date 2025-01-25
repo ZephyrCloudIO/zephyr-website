@@ -4,6 +4,7 @@ import { bffPlugin } from '@modern-js/plugin-bff';
 import { expressPlugin } from '@modern-js/plugin-express';
 import { withZephyr } from 'zephyr-modernjs-plugin';
 import { pluginMdx } from "@rsbuild/plugin-mdx";
+import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
 
 const tailwindConfig = require('./tailwind.config');
 
@@ -34,6 +35,7 @@ export default defineConfig({
     },
   },
   builderPlugins: [
+    pluginImageCompress(),
     pluginMdx()
   ],
   plugins: [
