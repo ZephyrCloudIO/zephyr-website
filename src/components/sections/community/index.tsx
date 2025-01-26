@@ -6,6 +6,7 @@ import './community.css';
 import Jack from '@/images/community/JackHerrington.jpg';
 import Giorgio from '@/images/community/GiorgioBoa.jpeg';
 import RonR from '@/images/community/RonR.jpeg';
+import Theo from '@/images/community/Theo.jpeg';
 import Colum from '@/images/community/Colum.avif';
 import Generic from '@/images/z-logo.avif';
 
@@ -109,6 +110,31 @@ const testimonials: Testimonial[] = [
       {
         link: 'https://www.linkedin.com/in/colum-ferry-3a36a9169',
         platform: 'LinkedIn',
+      },
+    ],
+  },
+  {
+    name: 'Theo Browne',
+    content: 'Big teams deserve good DX too',
+    avatar: Theo,
+    role: 'Founder & CEO',
+    company: 'Ping Labs',
+    socialLinks: [
+      {
+        link: 'https://x.com/theo',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/t3gg',
+        platform: 'LinkedIn',
+      },
+      {
+        link: 'https://www.youtube.com/@t3dotgg',
+        platform: 'YouTube',
+      },
+      {
+        link: 'https://www.twitch.tv/theo',
+        platform: 'Twitch',
       },
     ],
   },
