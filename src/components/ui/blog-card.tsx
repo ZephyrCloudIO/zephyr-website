@@ -28,25 +28,31 @@ export function BlogCard({ post }: { post: BlogPost }) {
             className="rounded-2xl mb-2"
           />
           <div className="relative z-10 h-full">
+            {/* eslint-disable react/no-danger */}
             <h2
               className="text-xl font-semibold mb-2 text-white tracking-tight group-hover:text-blue-400 transition-colors duration-300"
               dangerouslySetInnerHTML={{ __html: post.title }}
             ></h2>
+            {/* eslint-enable react/no-danger */}
             <div className="text-gray-400 text-sm mb-3">
               <p className="mb-1">
-                {post.authors &&
-                  post.authors.map(author => (
-                    <div className="flex items-center gap-2">
-                      <img
-                        src={author.avatar}
-                        alt={author.displayName}
-                        className="w-4 h-4 rounded-full"
-                      />
-                      <p className="text-gray-200 text-sm">
-                        {author.displayName}
-                      </p>
-                    </div>
-                  ))}
+                {post.authors
+                  ? post.authors.map(author => (
+                      <div
+                        key={author.displayName}
+                        className="flex items-center gap-2"
+                      >
+                        <img
+                          src={author.avatar}
+                          alt={author.displayName}
+                          className="w-4 h-4 rounded-full"
+                        />
+                        <p className="text-gray-200 text-sm">
+                          {author.displayName}
+                        </p>
+                      </div>
+                    ))
+                  : null}
               </p>
 
               <p>
