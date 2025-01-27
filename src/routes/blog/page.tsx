@@ -1,8 +1,8 @@
 import { FC } from 'react';
 import MobileFirstHero from './heros/mobilefirst.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
-import infrastructureless from '@/images/blog/infrastructureless.jpeg';
-import create_zephyr_apps from '@/images/blog/create-zephyr-apps.jpeg';
+import infrastructureless from '@/images/blog/infrastructureless.webp';
+import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import { BlogCard, BlogPost } from '@/components/ui/blog-card';
 
 import { Zack } from '@/routes/blog/authors/Zack';
@@ -110,7 +110,7 @@ const BlogPage: FC = () => {
         </h1>
         <div className="flex sm:flex-row flex-col gap-10 justify-center items-center">
           {blogPosts.map(post => (
-            <BlogCard post={post} />
+            <BlogCard key={post.slug} post={post} />
           ))}
         </div>
       </div>
