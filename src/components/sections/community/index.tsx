@@ -48,7 +48,7 @@ const testimonials: Testimonial[] = [
   },
   {
     name: 'Ken Wheeler',
-    content: 'Zephyr is a no brainer if you have a big ass app',
+    content: 'Zephyr Cloud is a no-brainer if you have a giant app',
     avatar: Ken,
     role: 'Software Engineer',
     company: 'Citadel Securities',
