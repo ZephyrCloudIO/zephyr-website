@@ -8,6 +8,7 @@ import Giorgio from '@/images/community/GiorgioBoa.jpeg';
 import RonR from '@/images/community/RonR.jpeg';
 import Theo from '@/images/community/Theo.jpeg';
 import Colum from '@/images/community/Colum.avif';
+import Ken from '@/images/community/KenWheeler.jpg';
 import Generic from '@/images/z-logo.avif';
 
 interface Testimonial {
@@ -42,6 +43,23 @@ const testimonials: Testimonial[] = [
       {
         link: 'https://www.youtube.com/@jherr',
         platform: 'YouTube',
+      },
+    ],
+  },
+  {
+    name: 'Ken Wheeler',
+    content: 'Zephyr is a no brainer if you have a big ass app',
+    avatar: Ken,
+    role: 'Software Engineer',
+    company: 'Citadel Securities',
+    socialLinks: [
+      {
+        link: 'https://x.com/ken_wheeler',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/kennywheeler',
+        platform: 'LinkedIn',
       },
     ],
   },
