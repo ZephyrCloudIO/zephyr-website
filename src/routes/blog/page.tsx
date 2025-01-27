@@ -8,15 +8,6 @@ import { Zack } from '@/routes/blog/authors/Zack';
 
 const blogPosts: BlogPost[] = [
   {
-    title: 'Launch Week 2: Kickoff',
-    slug: './mobilefirst',
-    date: new Date('January 27, 2025 14:00:00 GMT+0'),
-    listingImage: MobileFirstHero,
-    heroImage: MobileFirstHero,
-    description: 'Kicking off our second launch week with a new theme!',
-    authors: [Zack],
-  },
-  {
     title: '<code>npx create-zephyr-apps@latest</code>',
     slug: './create-zephyr-apps',
     date: new Date('January 27, 2025 16:00:00 GMT+0'),
@@ -30,6 +21,15 @@ const blogPosts: BlogPost[] = [
       },
     ],
     description: 'From everyone has their own HACK till use Zephyr',
+  },
+  {
+    title: 'Launch Week 2: Kickoff',
+    slug: './mobilefirst',
+    date: new Date('January 27, 2025 14:00:00 GMT+0'),
+    listingImage: MobileFirstHero,
+    heroImage: MobileFirstHero,
+    description: 'Kicking off our second launch week with a new theme!',
+    authors: [Zack],
   },
   {
     title: 'Infrastructureless Future',
