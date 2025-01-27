@@ -1,25 +1,17 @@
 import { FC } from 'react';
 import { Link } from '@modern-js/runtime/router';
+import { Author } from './authors/author';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
+import { Zack } from '@/routes/blog/authors/Zack';
 
 interface BlogPost {
   title: string;
   slug: string;
   listingImage?: string;
   heroImage?: string;
-  date: string;
+  date: Date;
   time?: string;
-  authors?: [
-    {
-      displayName: string;
-      zephyrMember: boolean;
-      avatar: string;
-      socialLinks?: Array<{
-        link: string;
-        platform: 'LinkedIn' | 'X' | 'YouTube' | 'Twitch';
-      }>;
-    },
-  ];
+  authors?: Array<Author>;
   description: string;
 }
 
@@ -27,15 +19,16 @@ const blogPosts: BlogPost[] = [
   {
     title: 'Infrastructureless Future',
     slug: './infrastructureless',
-    date: '2024-07-18',
+    date: new Date('July 18, 2024 14:00:00 GMT+0'),
     description:
       'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
   },
   {
     title: 'Launch Week 2: Kickoff',
     slug: './mobilefirst',
-    date: '2025-01-27',
+    date: new Date('January 27, 2025 14:00:00 GMT+0'),
     description: 'Kicking off our second launch week with a new theme!',
+    authors: [Zack],
   },
 ];
 
@@ -96,7 +89,7 @@ const BlogPage: FC = () => {
                     {post.title}
                   </h2>
                   <div className="text-gray-400 text-sm mb-3">
-                    {new Date(post.date).toLocaleDateString('en-US', {
+                    {post.date.toLocaleDateString('en-US', {
                       year: 'numeric',
                       month: 'long',
                       day: 'numeric',

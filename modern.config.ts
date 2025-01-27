@@ -3,13 +3,10 @@ import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
 import { bffPlugin } from '@modern-js/plugin-bff';
 import { expressPlugin } from '@modern-js/plugin-express';
 import { withZephyr } from 'zephyr-modernjs-plugin';
-import { pluginMdx } from "@rsbuild/plugin-mdx";
+import { pluginMdx } from '@rsbuild/plugin-mdx';
 import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
 
 const tailwindConfig = require('./tailwind.config');
-
-
-const ZC = process.env.ZC;
 
 // https://modernjs.dev/en/configure/app/usage
 export default defineConfig({
@@ -24,7 +21,7 @@ export default defineConfig({
     outputStructure: 'flat',
     title: 'Zephyr Cloud | The only sane way to do micro-frontends',
     favicon: './config/public/favicon.svg',
-    appIcon: './config/public/favicon.svg'
+    appIcon: './config/public/favicon.svg',
   },
   source: {
     mainEntryName: 'index',
@@ -37,10 +34,7 @@ export default defineConfig({
       html: './',
     },
   },
-  builderPlugins: [
-    pluginImageCompress(),
-    pluginMdx()
-  ],
+  builderPlugins: [pluginImageCompress(), pluginMdx()],
   plugins: [
     appTools({
       bundler: 'rspack',
@@ -48,6 +42,6 @@ export default defineConfig({
     tailwindcssPlugin(),
     bffPlugin(),
     expressPlugin(),
-    //ZC && withZephyr()
+    withZephyr(),
   ],
 });
