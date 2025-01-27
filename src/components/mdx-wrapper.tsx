@@ -1,4 +1,5 @@
 import { FC } from 'react';
+import 'highlight.js/styles/github-dark.min.css';
 
 interface MDXFrontmatter {
   title?: string;
@@ -18,11 +19,11 @@ export const MDXLayout: FC<MDXLayoutProps> = ({ children, frontmatter }) => {
       {frontmatter && (
         <header className="mb-8">
           {frontmatter.title && (
-            <h1 className="text-4xl font-bold mb-4 text-gray-900">
+            <h1 className="text-4xl font-bold mb-4 text-gray-200">
               {frontmatter.title}
             </h1>
           )}
-          <div className="flex items-center text-gray-600 text-sm space-x-4">
+          <div className="flex items-center text-gray-400 text-sm space-x-4">
             {frontmatter.date && (
               <time dateTime={frontmatter.date}>
                 {new Date(frontmatter.date).toLocaleDateString('en-US', {
@@ -33,34 +34,22 @@ export const MDXLayout: FC<MDXLayoutProps> = ({ children, frontmatter }) => {
               </time>
             )}
             {frontmatter.author && (
-              <span className="text-gray-600">By {frontmatter.author}</span>
+              <span className="text-gray-400">By {frontmatter.author}</span>
             )}
           </div>
           {frontmatter.description && (
-            <p className="text-gray-700 mt-4">{frontmatter.description}</p>
+            <p className="text-gray-300 mt-4">{frontmatter.description}</p>
           )}
         </header>
       )}
-      <div
-        className="prose prose-base md:prose-lg
-        prose-headings:text-gray-200
-        prose-p:text-gray-300
-        prose-a:text-gray-200 hover:prose-a:text-gray-100
-        prose-strong:text-gray-200
-        prose-code:text-gray-200
-        prose-code:bg-zinc-900
-        prose-code:rounded-lg
-        prose-code:px-1
-        prose-ul:text-gray-300 prose-ul:list-disc prose-ul:ml-6
-        prose-ol:text-gray-300 prose-ol:list-decimal prose-ol:ml-6
-        prose-pre:text-gray-900
-        prose-pre:bg-zinc-900
-        prose-pre:px-1
-        prose-li:marker:text-gray-400
-        [&>ul>li]:mb-2 [&>ol>li]:mb-2
-        [&>ul]:mt-4 [&>ul]:mb-4
-        [&>ol]:mt-4 [&>ol]:mb-4
-        [&>h1>code]:text-gray-200"
+      <div className="prose prose-invert max-w-none
+        [&_pre]:bg-zinc-900/50
+        [&_pre]:p-4
+        [&_pre]:rounded-lg
+        [&_:not(pre)>code]:bg-zinc-900/50
+        [&_:not(pre)>code]:px-1.5
+        [&_:not(pre)>code]:py-0.5
+        [&_:not(pre)>code]:rounded-md"
       >
         {children}
       </div>

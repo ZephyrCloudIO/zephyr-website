@@ -1,9 +1,28 @@
 import { Link, useLocation } from '@modern-js/runtime/router';
 import { cn } from '@/lib/utils';
+import { useState } from 'react';
 import HeaderNav from './ui/buttons/button.header-nav';
 import ZephyrLogo from '@/images/zephyr-logo.svg';
+import { MobileNav } from './mobile-nav';
 
-const navigationItems = [
+const MenuIcon = () => (
+  <svg
+    width="24"
+    height="24"
+    viewBox="0 0 24 24"
+    fill="none"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      d="M4 6H20M4 12H20M4 18H20"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+    />
+  </svg>
+);
+
+export const navigationItems = [
   {
     title: 'Pricing',
     link: '/pricing',
@@ -28,6 +47,7 @@ const navigationItems = [
 
 export default function Header() {
   const location = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const isActiveLink = (link: string) => {
     if (link.startsWith('http')) {
@@ -44,7 +64,14 @@ export default function Header() {
     >
       <div className="container mx-auto px-4 w-full">
         <div className="flex items-center justify-between h-16 max-w-[1400px] mx-auto w-full">
-          <div className="flex-shrink-0 w-[140px]">
+          <div className="flex flex-row align-middle items-center">
+            <button
+              onClick={() => setIsMobileMenuOpen(true)}
+              className="md:hidden rounded-lg p-2 mr-4 text-white hover:bg-zinc-800"
+              aria-label="Open menu"
+            >
+              <MenuIcon />
+            </button>
             <Link
               to="/"
               className="text-white font-bold text-xl"
@@ -84,7 +111,7 @@ export default function Header() {
             ))}
           </nav>
 
-          <div className="flex items-center w-[120px] justify-end">
+          <div className="flex items-center w-[120px] justify-end gap-4 md:visible invisible">
             <Link
               to="https://app.zephyr-cloud.io/"
               className="bg-white hover:bg-zinc-100 text-zinc-900 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200"
@@ -96,6 +123,11 @@ export default function Header() {
           </div>
         </div>
       </div>
+
+      <MobileNav
+        isOpen={isMobileMenuOpen}
+        onClose={() => setIsMobileMenuOpen(false)}
+      />
     </header>
   );
 }

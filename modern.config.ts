@@ -5,10 +5,10 @@ import { expressPlugin } from '@modern-js/plugin-express';
 import { withZephyr } from 'zephyr-modernjs-plugin';
 import { pluginMdx } from '@rsbuild/plugin-mdx';
 import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
+import rehypeHighlight from 'rehype-highlight';
 
 const tailwindConfig = require('./tailwind.config');
 
-// https://modernjs.dev/en/configure/app/usage
 export default defineConfig({
   tools: {
     tailwindcss: tailwindConfig,
@@ -34,7 +34,15 @@ export default defineConfig({
       html: './',
     },
   },
-  builderPlugins: [pluginImageCompress(), pluginMdx()],
+  builderPlugins: [
+    pluginImageCompress(),
+    pluginMdx({
+      mdxLoaderOptions: {
+        rehypePlugins: [[rehypeHighlight, { ignoreMissing: true }]],
+        providerImportSource: '@mdx-js/react'
+      }
+    })
+  ],
   plugins: [
     appTools({
       bundler: 'rspack',

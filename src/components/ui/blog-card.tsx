@@ -33,7 +33,7 @@ export function BlogCard({ post, featured }: { post: BlogPost; featured?: boolea
 
           <div className="flex flex-col flex-grow p-5">
             <h2
-              className={`mb-3 font-semibold tracking-tight text-white transition-colors duration-300 group-hover:text-blue-400 ${
+              className={`mb-3 font-semibold tracking-tight text-gray-300 transition-colors duration-300 group-hover:text-white ${
                 featured ? 'text-2xl lg:text-3xl' : 'text-xl'
               }`}
               dangerouslySetInnerHTML={{ __html: post.title }}
