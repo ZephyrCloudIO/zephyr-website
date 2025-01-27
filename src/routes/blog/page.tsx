@@ -18,6 +18,28 @@ const blogPosts: BlogPost[] = [
     authors: [Zack],
   },
   {
+    title: '<code>npx create-zephyr-apps@latest</code>',
+    slug: './create-zephyr-apps',
+    date: new Date('January 27, 2025 16:00:00 GMT+0'),
+    listingImage: create_zephyr_apps,
+    authors: [
+      {
+        displayName: 'lois',
+        zephyrMember: true,
+        avatar:
+          'https://pbs.twimg.com/profile_images/1770185301190709248/hZRQccIu_400x400.jpg',
+        socialLinks: [
+          {
+            link: 'https://x.com/zmzlois',
+            platform: 'X',
+          },
+        ],
+      },
+    ],
+    // image: create_zephyr_apps,
+    description: 'From everyone has their own HACK till use Zephyr',
+  },
+  {
     title: 'Infrastructureless Future',
     slug: './infrastructureless',
     date: new Date('July 18, 2024 14:00:00 GMT+0'),
@@ -43,28 +65,6 @@ const blogPosts: BlogPost[] = [
     heroImage: infrastructureless,
     description:
       'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
-  },
-  {
-    title: '<code>npx create-zephyr-apps@latest</code>',
-    slug: './create-zephyr-apps',
-    date: new Date('January 27, 2025 16:00:00 GMT+0'),
-    listingImage: create_zephyr_apps,
-    authors: [
-      {
-        displayName: 'lois',
-        zephyrMember: true,
-        avatar:
-          'https://pbs.twimg.com/profile_images/1770185301190709248/hZRQccIu_400x400.jpg',
-        socialLinks: [
-          {
-            link: 'https://x.com/zmzlois',
-            platform: 'X',
-          },
-        ],
-      },
-    ],
-    // image: create_zephyr_apps,
-    description: 'From everyone has their own HACK till use Zephyr',
   },
 ];
 
@@ -110,7 +110,7 @@ const BlogPage: FC = () => {
         <h1 className="text-3xl sm:text-4xl md:text-5xl p-4 font-bold text-center m-6 md:mb-12 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
           Blogs
         </h1>
-        <div className="flex sm:flex-row flex-col gap-10 justify-center items-center">
+        <div className="flex sm:flex-row flex-wrap flex-col gap-10 justify-center items-center">
           {blogPosts.map(post => (
             <BlogCard key={post.slug} post={post} />
           ))}
