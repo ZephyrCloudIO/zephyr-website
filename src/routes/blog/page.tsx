@@ -1,41 +1,62 @@
-import { FC } from 'react';
+import { FC, lazy, useMemo } from 'react';
 import { Link } from '@modern-js/runtime/router';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
+import infrastructureless from '@/images/blog/infrastructureless.jpeg';
+import create_zephyr_apps from '@/images/blog/create-zephyr-apps.jpeg';
+import { BlogCard, BlogPost } from '@/components/ui/blog-card';
 
-interface BlogPost {
-  title: string;
-  slug: string;
-  listingImage?: string;
-  heroImage?: string;
-  date: string;
-  time?: string;
-  authors?: [
-    {
-      displayName: string;
-      zephyrMember: boolean;
-      avatar: string;
-      socialLinks?: Array<{
-        link: string;
-        platform: 'LinkedIn' | 'X' | 'YouTube' | 'Twitch';
-      }>;
-    },
-  ];
-  description: string;
-}
+type MDXComponent = {
+  default: () => JSX.Element;
+};
 
 const blogPosts: BlogPost[] = [
   {
     title: 'Infrastructureless Future',
     slug: './infrastructureless',
     date: '2024-07-18',
+    authors: [
+      {
+        displayName: 'Zack Jackson',
+        zephyrMember: true,
+        avatar:
+          'https://pbs.twimg.com/profile_images/1601787403185934336/plWmMMB8_400x400.jpg',
+        socialLinks: [
+          {
+            link: 'https://x.com/ScriptedAlchemy',
+            platform: 'X',
+          },
+          {
+            link: 'https://github.com/ScriptedAlchemy',
+            platform: 'Github',
+          },
+        ],
+      },
+    ],
+    listingImage: infrastructureless,
     description:
       'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
   },
   {
-    title: 'Launch Week 2: Kickoff',
-    slug: './mobilefirst',
+    title: '<code>npx create-zephyr-apps@latest</code>',
+    slug: './create-zephyr-apps',
     date: '2025-01-27',
-    description: 'Kicking off our second launch week with a new theme!',
+    listingImage: create_zephyr_apps,
+    authors: [
+      {
+        displayName: 'lois',
+        zephyrMember: true,
+        avatar:
+          'https://pbs.twimg.com/profile_images/1770185301190709248/hZRQccIu_400x400.jpg',
+        socialLinks: [
+          {
+            link: 'https://x.com/zmzlois',
+            platform: 'X',
+          },
+        ],
+      },
+    ],
+    // image: create_zephyr_apps,
+    description: 'From everyone has their own HACK till use Zephyr',
   },
 ];
 
@@ -77,42 +98,13 @@ const BlogPage: FC = () => {
           />
         </div>
       </div>
-      <div className="container relative max-w-4xl mx-auto px-4 py-12">
+      <div className="container relative mx-auto px-4 py-12">
         <h1 className="text-3xl sm:text-4xl md:text-5xl p-4 font-bold text-center m-6 md:mb-12 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
           Blogs
         </h1>
-        <div className="flex flex-row justify-center items-center">
+        <div className="flex sm:flex-row flex-col gap-10 justify-center items-center">
           {blogPosts.map(post => (
-            <article
-              key={post.slug}
-              className="flex value-card-background backdrop-blur-lg md:w-[calc((100vw-19vw)/3)] p-5 flex-col items-center justify-between gap-3 rounded-2xl -[0.4px] -zinc-400/80"
-            >
-              <Link
-                to={`/blog/${post.slug}`}
-                className="no-underline block h-full"
-              >
-                <div className="relative z-10">
-                  <h2 className="text-xl font-semibold mb-2 text-white group-hover:text-blue-400 transition-colors duration-300">
-                    {post.title}
-                  </h2>
-                  <div className="text-gray-400 text-sm mb-3">
-                    {new Date(post.date).toLocaleDateString('en-US', {
-                      year: 'numeric',
-                      month: 'long',
-                      day: 'numeric',
-                    })}
-                  </div>
-                  <p className="text-gray-300 line-clamp-3">
-                    {post.description}
-                  </p>
-                </div>
-                <div className="relative z-10 mt-4">
-                  <span className="text-blue-400 font-medium group-hover:text-blue-300 transition-colors duration-300">
-                    Read more →
-                  </span>
-                </div>
-              </Link>
-            </article>
+            <BlogCard post={post} />
           ))}
         </div>
       </div>

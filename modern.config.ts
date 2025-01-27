@@ -48,6 +48,6 @@ export default defineConfig({
     tailwindcssPlugin(),
     bffPlugin(),
     expressPlugin(),
-    //ZC && withZephyr()
+     withZephyr()
   ],
 });

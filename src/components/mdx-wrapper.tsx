@@ -18,7 +18,9 @@ export const MDXLayout: FC<MDXLayoutProps> = ({ children, frontmatter }) => {
       {frontmatter && (
         <header className="mb-8">
           {frontmatter.title && (
-            <h1 className="text-4xl font-bold mb-4 text-gray-900">{frontmatter.title}</h1>
+            <h1 className="text-4xl font-bold mb-4 text-gray-900">
+              {frontmatter.title}
+            </h1>
           )}
           <div className="flex items-center text-gray-600 text-sm space-x-4">
             {frontmatter.date && (
@@ -26,7 +28,7 @@ export const MDXLayout: FC<MDXLayoutProps> = ({ children, frontmatter }) => {
                 {new Date(frontmatter.date).toLocaleDateString('en-US', {
                   year: 'numeric',
                   month: 'long',
-                  day: 'numeric'
+                  day: 'numeric',
                 })}
               </time>
             )}
@@ -39,19 +41,27 @@ export const MDXLayout: FC<MDXLayoutProps> = ({ children, frontmatter }) => {
           )}
         </header>
       )}
-      <div className="prose prose-base md:prose-lg
+      <div
+        className="prose prose-base md:prose-lg
         prose-headings:text-gray-200
         prose-p:text-gray-300
         prose-a:text-gray-200 hover:prose-a:text-gray-100
         prose-strong:text-gray-200
-        prose-code:text-gray-200 prose-code:bg-gray-100
-        prose-pre:bg-gray-100
+        prose-code:text-gray-200
+        prose-code:bg-gray-800
+        prose-code:rounded-lg
+        prose-code:px-1
         prose-ul:text-gray-300 prose-ul:list-disc prose-ul:ml-6
         prose-ol:text-gray-300 prose-ol:list-decimal prose-ol:ml-6
+        prose-pre:text-gray-900
+        prose-pre:bg-gray-800
+        prose-pre:px-1
         prose-li:marker:text-gray-400
         [&>ul>li]:mb-2 [&>ol>li]:mb-2
         [&>ul]:mt-4 [&>ul]:mb-4
-        [&>ol]:mt-4 [&>ol]:mb-4">
+        [&>ol]:mt-4 [&>ol]:mb-4
+        [&>h1>code]:text-gray-200"
+      >
         {children}
       </div>
     </article>
