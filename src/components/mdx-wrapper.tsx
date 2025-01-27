@@ -48,13 +48,13 @@ export const MDXLayout: FC<MDXLayoutProps> = ({ children, frontmatter }) => {
         prose-a:text-gray-200 hover:prose-a:text-gray-100
         prose-strong:text-gray-200
         prose-code:text-gray-200
-        prose-code:bg-gray-800
+        prose-code:bg-zinc-900
         prose-code:rounded-lg
         prose-code:px-1
         prose-ul:text-gray-300 prose-ul:list-disc prose-ul:ml-6
         prose-ol:text-gray-300 prose-ol:list-decimal prose-ol:ml-6
         prose-pre:text-gray-900
-        prose-pre:bg-gray-800
+        prose-pre:bg-zinc-900
         prose-pre:px-1
         prose-li:marker:text-gray-400
         [&>ul>li]:mb-2 [&>ol>li]:mb-2
