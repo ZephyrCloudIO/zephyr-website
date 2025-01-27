@@ -106,11 +106,11 @@ const BlogPage: FC = () => {
           />
         </div>
       </div>
-      <div className="container relative mx-auto px-4 py-12">
+      <div className="container relative mx-auto border-red-200 border justify-center items-center px-4 py-12">
         <h1 className="text-3xl sm:text-4xl md:text-5xl p-4 font-bold text-center m-6 md:mb-12 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
           Blogs
         </h1>
-        <div className="flex sm:flex-row flex-wrap flex-col gap-10 justify-center items-center">
+        <div className="flex sm:flex-row flex-wrap flex-col md:gap-20 gap-10 justify-start border-blue-300 border-2 mx-auto container justify-items-center">
           {blogPosts.map(post => (
             <BlogCard key={post.slug} post={post} />
           ))}

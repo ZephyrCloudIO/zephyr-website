@@ -47,9 +47,9 @@ export function BlogCard({ post }: { post: BlogPost }) {
                           alt={author.displayName}
                           className="w-4 h-4 rounded-full"
                         />
-                        <p className="text-gray-200 text-sm">
+                        <span className="text-gray-200 text-sm">
                           {author.displayName}
-                        </p>
+                        </span>
                       </div>
                     ))
                   : null}
