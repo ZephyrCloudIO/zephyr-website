@@ -5,7 +5,21 @@ import JesusBeam from '@/components/sections/pricing/beam.svg';
 interface BlogPost {
   title: string;
   slug: string;
+  listingImage?: string;
+  heroImage?: string;
   date: string;
+  time?: string;
+  authors?: [
+    {
+      displayName: string;
+      zephyrMember: boolean;
+      avatar: string;
+      socialLinks?: Array<{
+        link: string;
+        platform: 'LinkedIn' | 'X' | 'YouTube' | 'Twitch';
+      }>;
+    },
+  ];
   description: string;
 }
 
