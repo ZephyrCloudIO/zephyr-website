@@ -2,6 +2,7 @@ import { Link } from '@modern-js/runtime/router';
 import { useState, useEffect } from 'react';
 import ZephyrLogo from '@/images/zephyr-logo.svg';
 import separateTop from '@/images/separator-pointing-down.svg';
+import { navigationItems } from './header';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -16,13 +17,6 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
   }, []);
 
   if (!mounted) return null;
-
-  const links = [
-    { href: '#features', label: 'Features' },
-    { href: '#pricing', label: 'Pricing' },
-    { href: '#about', label: 'About' },
-    { href: '#contact', label: 'Contact' },
-  ];
 
   return (
     <>
@@ -83,14 +77,14 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
             />
           <nav className="flex-1 px-4 pt-4 h-full">
               <ul className="space-y-4">
-                {links.map((link) => (
-                  <li key={link.href}>
+                {navigationItems.map((link) => (
+                  <li key={link.title}>
                     <a
-                      href={link.href}
+                      href={link.link}
                       className="block rounded-lg px-4 py-2.5 text-lg font-medium text-gray-200 hover:bg-gray-100"
                       onClick={onClose}
                     >
-                      {link.label}
+                      {link.title}
                     </a>
                   </li>
                 ))}
