@@ -4,7 +4,6 @@ import JesusBeam from '@/components/sections/pricing/beam.svg';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import { BlogCard, BlogPost } from '@/components/ui/blog-card';
-
 import { Zack } from '@/routes/blog/authors/Zack';
 
 const blogPosts: BlogPost[] = [
@@ -26,17 +25,10 @@ const blogPosts: BlogPost[] = [
       {
         displayName: 'lois',
         zephyrMember: true,
-        avatar:
-          'https://pbs.twimg.com/profile_images/1770185301190709248/hZRQccIu_400x400.jpg',
-        socialLinks: [
-          {
-            link: 'https://x.com/zmzlois',
-            platform: 'X',
-          },
-        ],
+        avatar: 'https://pbs.twimg.com/profile_images/1770185301190709248/hZRQccIu_400x400.jpg',
+        socialLinks: [{ link: 'https://x.com/zmzlois', platform: 'X' }],
       },
     ],
-    // image: create_zephyr_apps,
     description: 'From everyone has their own HACK till use Zephyr',
   },
   {
@@ -47,76 +39,69 @@ const blogPosts: BlogPost[] = [
       {
         displayName: 'Zack Jackson',
         zephyrMember: true,
-        avatar:
-          'https://pbs.twimg.com/profile_images/1601787403185934336/plWmMMB8_400x400.jpg',
+        avatar: 'https://pbs.twimg.com/profile_images/1601787403185934336/plWmMMB8_400x400.jpg',
         socialLinks: [
-          {
-            link: 'https://x.com/ScriptedAlchemy',
-            platform: 'X',
-          },
-          {
-            link: 'https://github.com/ScriptedAlchemy',
-            platform: 'Github',
-          },
+          { link: 'https://x.com/ScriptedAlchemy', platform: 'X' },
+          { link: 'https://github.com/ScriptedAlchemy', platform: 'Github' },
         ],
       },
     ],
     listingImage: infrastructureless,
     heroImage: infrastructureless,
-    description:
-      'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
+    description: 'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
   },
 ];
 
 const BlogPage: FC = () => {
+  const featuredPosts = blogPosts.slice(0, 2);
+  const remainingPosts = blogPosts.slice(2);
+
   return (
-    <>
-      <div className="absolute inset-x-0 top-0 h-[600px] overflow-hidden mt-16">
-        <div className="absolute -translate-x-[240px] w-[800px] opacity-90">
-          <img
-            src={JesusBeam}
-            className="w-full"
-            style={{
-              filter: 'blur(50px) brightness(5)',
-              WebkitFilter: 'blur(50px) brightness(5)',
-            }}
-            alt=""
-          />
-        </div>
-        <div className="absolute w-[800px] opacity-90">
-          <img
-            src={JesusBeam}
-            className="w-full"
-            style={{
-              filter: 'blur(50px) brightness(5)',
-              WebkitFilter: 'blur(50px) brightness(5)',
-            }}
-            alt=""
-          />
-        </div>
-        <div className="absolute translate-x-[240px] w-[800px] opacity-90">
-          <img
-            src={JesusBeam}
-            className="w-full"
-            style={{
-              filter: 'blur(50px) brightness(5)',
-              WebkitFilter: 'blur(50px) brightness(5)',
-            }}
-            alt=""
-          />
-        </div>
+    <div className="min-h-screen">
+      <div className="fixed inset-x-0 top-0 h-[600px] overflow-hidden mt-16 -z-10">
+        {['-translate-x-[240px]', '', 'translate-x-[240px]'].map((transform, i) => (
+          <div key={i} className={`absolute w-[800px] opacity-90 ${transform}`}>
+            <img
+              src={JesusBeam}
+              className="w-full"
+              style={{
+                filter: 'blur(50px) brightness(5)',
+                WebkitFilter: 'blur(50px) brightness(5)',
+              }}
+              alt=""
+              loading="lazy"
+            />
+          </div>
+        ))}
       </div>
-      <div className="container relative mx-auto justify-center items-center px-4 py-12">
-        <h1 className="text-3xl sm:text-4xl md:text-5xl p-4 font-bold text-center m-6 md:mb-12 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
+
+      <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 p-4 md:mb-16 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
           Blogs
         </h1>
-        <div className="flex sm:flex-row flex-wrap flex-col md:gap-20 gap-10 justify-start mx-auto container justify-items-center">
-          {blogPosts.map(post => (
-            <BlogCard key={post.slug} post={post} />
+
+        {/* Featured Posts */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          {featuredPosts.map(post => (
+            <div key={post.slug} className="flex">
+              <BlogCard post={post} featured />
+            </div>
           ))}
         </div>
-      </div>
-    </>
+
+        {/* Remaining Posts */}
+        {remainingPosts?.length && (
+            <h2 className='mb-8 text-xl'>Latest Posts</h2>
+        )}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+          {remainingPosts.map(post => (
+            <div key={post.slug} className="flex">
+              <BlogCard post={post} />
+            </div>
+          ))}
+        </div>
+      </main>
+    </div>
   );
 };
 
