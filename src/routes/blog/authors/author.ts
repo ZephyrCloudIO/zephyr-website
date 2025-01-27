@@ -4,6 +4,6 @@ export type Author = {
   avatar: any;
   socialLinks?: Array<{
     link: string;
-    platform: 'LinkedIn' | 'X' | 'YouTube' | 'Twitch';
+    platform: 'LinkedIn' | 'X' | 'YouTube' | 'Twitch' | 'Github';
   }>;
 };

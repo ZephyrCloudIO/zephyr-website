@@ -1,23 +1,14 @@
 import { Link } from '@modern-js/runtime/router';
+import { Author } from '@/routes/blog/authors/author';
 
 export interface BlogPost {
   title: string;
   slug: string;
-  listingImage?: string;
-  heroImage?: string;
+  listingImage?: any;
+  heroImage?: any;
   date: Date;
   time?: string;
-  authors?: [
-    {
-      displayName: string;
-      zephyrMember: boolean;
-      avatar: string;
-      socialLinks?: Array<{
-        link: string;
-        platform: 'LinkedIn' | 'X' | 'YouTube' | 'Github' | 'Twitch';
-      }>;
-    },
-  ];
+  authors?: Array<Author>;
   description: string;
 }
 

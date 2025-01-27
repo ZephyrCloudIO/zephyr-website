@@ -1,15 +1,10 @@
-import { FC, lazy, useMemo } from 'react';
-import { Link } from '@modern-js/runtime/router';
-import { Author } from './authors/author';
+import { FC } from 'react';
 import MobileFirstHero from './heros/mobilefirst.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import infrastructureless from '@/images/blog/infrastructureless.jpeg';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.jpeg';
 import { BlogCard, BlogPost } from '@/components/ui/blog-card';
 
-type MDXComponent = {
-  default: () => JSX.Element;
-};
 import { Zack } from '@/routes/blog/authors/Zack';
 
 const blogPosts: BlogPost[] = [
