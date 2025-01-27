@@ -1,5 +1,7 @@
 import { FC, lazy, useMemo } from 'react';
 import { Link } from '@modern-js/runtime/router';
+import { Author } from './authors/author';
+import MobileFirstHero from './heros/mobilefirst.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import infrastructureless from '@/images/blog/infrastructureless.jpeg';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.jpeg';
@@ -8,12 +10,21 @@ import { BlogCard, BlogPost } from '@/components/ui/blog-card';
 type MDXComponent = {
   default: () => JSX.Element;
 };
+import { Zack } from '@/routes/blog/authors/Zack';
 
 const blogPosts: BlogPost[] = [
   {
+    title: 'Launch Week 2: Kickoff',
+    slug: './mobilefirst',
+    date: new Date('January 27, 2025 14:00:00 GMT+0'),
+    heroImage: MobileFirstHero,
+    description: 'Kicking off our second launch week with a new theme!',
+    authors: [Zack],
+  },
+  {
     title: 'Infrastructureless Future',
     slug: './infrastructureless',
-    date: '2024-07-18',
+    date: new Date('July 18, 2024 14:00:00 GMT+0'),
     authors: [
       {
         displayName: 'Zack Jackson',
@@ -32,14 +43,14 @@ const blogPosts: BlogPost[] = [
         ],
       },
     ],
-    listingImage: infrastructureless,
+    heroImage: infrastructureless,
     description:
       'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
   },
   {
     title: '<code>npx create-zephyr-apps@latest</code>',
     slug: './create-zephyr-apps',
-    date: '2025-01-27',
+    date: new Date('January 27, 2025 16:00:00 GMT+0'),
     listingImage: create_zephyr_apps,
     authors: [
       {

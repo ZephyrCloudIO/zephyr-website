@@ -3,9 +3,9 @@ import { Link } from '@modern-js/runtime/router';
 export interface BlogPost {
   title: string;
   slug: string;
-  listingImage: string;
+  listingImage?: string;
   heroImage?: string;
-  date: string;
+  date: Date;
   time?: string;
   authors?: [
     {
