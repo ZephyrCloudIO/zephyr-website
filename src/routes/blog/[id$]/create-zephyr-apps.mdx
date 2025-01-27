@@ -1,0 +1,47 @@
+# `npx create-zephyr-apps@latest`
+
+---
+
+TLDR' - we simplified where you can find almost all our examples. Anyone can scaffold a federated cross-platform application with a single command:
+
+```
+npx create-zephyr-apps@latest
+```
+
+[Read about how to use this CLI.](https://docs.zephyr-cloud.io/recipes/repack-mf)
+
+---
+
+"Right right so we got 120mins CI on cross-platform app, how can we fix that?"
+
+"Merge freeze guys! Before we found out what's the issue NO ONE SHOULD BE MERGING"
+
+"Mate my team gotta ship the new account management page"
+
+The answer to all of the above questions is to build a modularized application. An application that is built in parallel and shipped in parallel. Using [Zephyr](https://docs.zephyr-cloud.io) +[ Rspack](https://rspack.dev) + [Re.Pack](https://github.com/callstack/repack) + [Module Federation](https://module-federation.io).
+
+Our partner [Callstack](https://www.callstack.com/) has been experimenting with bundling React Native with Webpack over 5 years (ref: [Haul](https://github.com/callstack/haul)). Started as a command line tool, Haul's successor Re.Pack is now responsible for creating, handling Federation runtime and container reference for cross-platform application to split and bundle code - with much more utility toolset built-in (filtering rules for Flow type modules, Code generation rules, debugger support and so much more).
+
+Half a year ago, when I asked Re.Pack's maintainer Jakub, "So how do you guys deploy federated cross-platform apps before Zephyr?"
+
+He told me "EVERYONE IS DOING THEIR OWN HACK."
+
+Oh dear.
+
+Zephyr came in as the federated application orchestration toolchain, to help cross-platform applications version, bundle, and deploy remote applications - updates MiniApps on Host application, allowing developers to ship with freedom.
+
+How developers would publish an app to App Stores doesn't change. How cross-platform UI can be crafted stay the same ([\<u>you can use \</u>](https://x.com/_jbroma/status/1881452224305574233?s=46)**[\<u>NativeWind\</u>](https://x.com/_jbroma/status/1881452224305574233?s=46)\*\***\<u> \</u>\***\*!!!**) The changes happens in build configuration by replacing `metro.config.js` to `rspack.config.ts` - you can read more about the [how-to in our documentation](https://docs.zephyr-cloud.io/recipes/repack-mf).
+
+(consider moving the content between line break to documentation)
+
+We organised a hackathon-format event in one of our customers' office - broke the app in production (intentionally ofc), and rollback with Zephyr's [instant rollback feature](https://docs.zephyr-cloud.io/how-to/versioning-tags#version-rollback-and-roll-forward). After we shipped a PoC application (we also made a white label version of it btw, [the repo](https://github.com/ZephyrCloudIO/zephyr-repack-example) is here), they commented "You achieved what we wanted to do in the last 6 years in one week".
+
+During that week, we created a cloud integration for the customer ([bring-your-own-cloud](https://docs.zephyr-cloud.io/cloud) btw) using [Fastly](https://fastly.com). Fastly is a great product. But we faced some issue on deployment, so we temperally 'toggled off' Fastly (quite literally) and 'toggled on' [Cloudflare](https://www.cloudflare.com/en-gb/) to make sure the deployment is able to continue.
+
+To be honest, if we wanted to start gaming we could set up [however many environments](https://docs.zephyr-cloud.io/how-to/environments) for all the remote applications (both web and mobile) to play with them on the fly.
+
+We also wanted to make what we did during that week available to anyone who wants to learn and understand - stay tuned for this week.
+
+Our core libraries, code example, things ~~similar to~~ we shipped for the customers (tagging Callstack guys, ByteDance infra and Nx team) will be open sourced (if not already).
+
+We have a lot to build and A LOT TO SHARE - why not try `npx create-zephyr-apps@latest` today?
