@@ -17,11 +17,9 @@ export function BlogCard({ post }: { post: BlogPost }) {
     <div className="blog-card">
       <article
         key={post.slug}
-        className="flex value-card-background flex-col backdrop-blur-lg sm:min-w-[calc((100vw-30vw)/2)] sm:max-w-[calc((100vw-30vw)/2)] sm:h-[calc((136vh-4vh)/3)] p-5 items-left align-top justify-between gap-2 content-center rounded-2xl -[0.4px] -zinc-400/80"
+        className="flex value-card-background flex-col backdrop-blur-lg sm:min-w-[calc((100vw-50vw)/2)] sm:max-w-[calc((100vw-50vw)/2)] sm:h-[calc((105vh-4vh)/3)] h-[calc((100vh-18vh)/2)] p-5 items-left align-top justify-between gap-2 content-center rounded-2xl -[0.4px] -zinc-400/80"
       >
-        {' '}
         <Link to={`/blog/${post.slug}`} className="no-underline block h-auto">
-          {' '}
           <img
             src={post.listingImage}
             alt={post.title}
@@ -35,7 +33,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
             ></h2>
             {/* eslint-enable react/no-danger */}
             <div className="text-gray-400 text-sm mb-3">
-              <p className="mb-1">
+              <div className="mb-1">
                 {post.authors
                   ? post.authors.map(author => (
                       <div
@@ -53,7 +51,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
                       </div>
                     ))
                   : null}
-              </p>
+              </div>
 
               <p>
                 {new Date(post.date).toLocaleDateString('en-US', {
@@ -65,7 +63,7 @@ export function BlogCard({ post }: { post: BlogPost }) {
             </div>
             <p className="text-gray-300 line-clamp-3">{post.description}</p>
           </div>
-          <div className="absolute sm:bottom-4 z-10 inline-flex mt-4">
+          <div className="absolute sm:bottom-4 z-10 inline-flex mt-4 bottom-2">
             <span className="text-blue-400 font-medium group-hover:text-blue-300 transition-colors duration-300">
               Read more →
             </span>
