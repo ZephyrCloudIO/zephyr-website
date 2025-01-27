@@ -1,6 +1,7 @@
 import { FC } from 'react';
 import { Link } from '@modern-js/runtime/router';
 import { Author } from './authors/author';
+import MobileFirstHero from './heros/mobilefirst.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import { Zack } from '@/routes/blog/authors/Zack';
 
@@ -8,7 +9,7 @@ interface BlogPost {
   title: string;
   slug: string;
   listingImage?: string;
-  heroImage?: string;
+  heroImage?: any;
   date: Date;
   time?: string;
   authors?: Array<Author>;
@@ -27,6 +28,7 @@ const blogPosts: BlogPost[] = [
     title: 'Launch Week 2: Kickoff',
     slug: './mobilefirst',
     date: new Date('January 27, 2025 14:00:00 GMT+0'),
+    heroImage: MobileFirstHero,
     description: 'Kicking off our second launch week with a new theme!',
     authors: [Zack],
   },

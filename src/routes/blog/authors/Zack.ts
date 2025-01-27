@@ -1,5 +1,5 @@
 import { Author } from './author';
-import ZackAvatar from './avatars/Zack.jpg';
+import ZackAvatar from './avatars/Zack.webp';
 
 export const Zack: Author = {
   displayName: 'Zack C.',
