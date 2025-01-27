@@ -8,6 +8,9 @@ import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
 
 const tailwindConfig = require('./tailwind.config');
 
+
+const ZC = process.env.ZC;
+
 // https://modernjs.dev/en/configure/app/usage
 export default defineConfig({
   tools: {
@@ -45,6 +48,6 @@ export default defineConfig({
     tailwindcssPlugin(),
     bffPlugin(),
     expressPlugin(),
-    withZephyr(),
+    //ZC && withZephyr()
   ],
 });
