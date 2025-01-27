@@ -18,19 +18,19 @@ interface BlogPost {
 
 const blogPosts: BlogPost[] = [
   {
-    title: 'Infrastructureless Future',
-    slug: './infrastructureless',
-    date: new Date('July 18, 2024 14:00:00 GMT+0'),
-    description:
-      'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
-  },
-  {
     title: 'Launch Week 2: Kickoff',
     slug: './mobilefirst',
     date: new Date('January 27, 2025 14:00:00 GMT+0'),
     heroImage: MobileFirstHero,
     description: 'Kicking off our second launch week with a new theme!',
     authors: [Zack],
+  },
+  {
+    title: 'Infrastructureless Future',
+    slug: './infrastructureless',
+    date: new Date('July 18, 2024 14:00:00 GMT+0'),
+    description:
+      'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
   },
 ];
 
