@@ -12,6 +12,7 @@ const blogPosts: BlogPost[] = [
     title: 'Launch Week 2: Kickoff',
     slug: './mobilefirst',
     date: new Date('January 27, 2025 14:00:00 GMT+0'),
+    listingImage: MobileFirstHero,
     heroImage: MobileFirstHero,
     description: 'Kicking off our second launch week with a new theme!',
     authors: [Zack],
@@ -38,6 +39,7 @@ const blogPosts: BlogPost[] = [
         ],
       },
     ],
+    listingImage: infrastructureless,
     heroImage: infrastructureless,
     description:
       'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
