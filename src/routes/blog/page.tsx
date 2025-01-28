@@ -1,5 +1,6 @@
 import { FC } from 'react';
 import MobileFirstHero from './heros/mobilefirst.webp';
+import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
@@ -7,16 +8,15 @@ import { BlogCard, BlogPost } from '@/components/ui/blog-card';
 import { Zack } from '@/routes/blog/authors/Zack';
 
 const blogPosts: BlogPost[] = [
-  // DO NOT PUBLISH
-  // {
-  //   title: 'Case Study: Acceleration Week at Southern Glazer\'s Wine & Spirits',
-  //   slug: './sgws-case-study',
-  //   date: new Date('January 28, 2025 14:00:00 GMT+0'),
-  //   // listingImage: SGWSListing,
-  //   // heroImage: SGWSHero,
-  //   description: 'An Acceleration Week Case Study with SGWS',
-  //   authors: [Zack],
-  // },
+  {
+    title: "Case Study: Acceleration Week at Southern Glazer's Wine & Spirits",
+    slug: './sgws-case-study',
+    date: new Date('January 28, 2025 14:00:00 GMT+0'),
+    listingImage: CaseStudySGWS,
+    heroImage: CaseStudySGWS,
+    description: 'An Acceleration Week Case Study with SGWS',
+    authors: [Zack],
+  },
   {
     title: '<code>npx create-zephyr-apps@latest</code>',
     slug: './create-zephyr-apps',
@@ -31,7 +31,8 @@ const blogPosts: BlogPost[] = [
         socialLinks: [{ link: 'https://x.com/zmzlois', platform: 'X' }],
       },
     ],
-    description: 'From everyone has their own HACK till use Zephyr',
+    description:
+      'Launch Week 2, Day 1: From everyone has their own HACK till use Zephyr',
   },
   {
     title: 'Launch Week 2: Kickoff',
