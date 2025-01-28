@@ -4,6 +4,7 @@ import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
+import ota_update from '@/images/blog/ota-update.gif';
 import ota_hero from '@/images/blog/ota-hero.webp';
 import { BlogCard, BlogPost } from '@/components/ui/blog-card';
 import { Zack } from '@/lib/blog/authors/Zack';
@@ -23,6 +24,7 @@ const blogPosts: BlogPost[] = [
     title: 'Over the Air (OTA) updates withZephyr',
     slug: './ota-with-zephyr',
     date: new Date('January 28, 2025 16:00:00 GMT+0'),
+    heroImage: ota_update,
     listingImage: ota_hero,
     description: 'React Native OTA made it easy!',
     authors: [Rodrigo],
