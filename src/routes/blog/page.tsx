@@ -7,6 +7,15 @@ import { BlogCard, BlogPost } from '@/components/ui/blog-card';
 import { Zack } from '@/routes/blog/authors/Zack';
 
 const blogPosts: BlogPost[] = [
+  // {
+  //   title: 'Case Study: Acceleration Week at Southern Glazer\'s Wine & Spirits',
+  //   slug: './sgws-case-study',
+  //   date: new Date('January 28, 2025 14:00:00 GMT+0'),
+  //   listingImage: SGWSListing,
+  //   heroImage: SGWSHero,
+  //   description: 'An Acceleration Week Case Study with SGWS',
+  //   authors: [Zack],
+  // },
   {
     title: '<code>npx create-zephyr-apps@latest</code>',
     slug: './create-zephyr-apps',
@@ -16,7 +25,8 @@ const blogPosts: BlogPost[] = [
       {
         displayName: 'lois',
         zephyrMember: true,
-        avatar: 'https://pbs.twimg.com/profile_images/1770185301190709248/hZRQccIu_400x400.jpg',
+        avatar:
+          'https://pbs.twimg.com/profile_images/1770185301190709248/hZRQccIu_400x400.jpg',
         socialLinks: [{ link: 'https://x.com/zmzlois', platform: 'X' }],
       },
     ],
@@ -39,7 +49,8 @@ const blogPosts: BlogPost[] = [
       {
         displayName: 'Zack Jackson',
         zephyrMember: true,
-        avatar: 'https://pbs.twimg.com/profile_images/1601787403185934336/plWmMMB8_400x400.jpg',
+        avatar:
+          'https://pbs.twimg.com/profile_images/1601787403185934336/plWmMMB8_400x400.jpg',
         socialLinks: [
           { link: 'https://x.com/ScriptedAlchemy', platform: 'X' },
           { link: 'https://github.com/ScriptedAlchemy', platform: 'Github' },
@@ -48,7 +59,8 @@ const blogPosts: BlogPost[] = [
     ],
     listingImage: infrastructureless,
     heroImage: infrastructureless,
-    description: 'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
+    description:
+      'Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading.',
   },
 ];
 
@@ -59,20 +71,25 @@ const BlogPage: FC = () => {
   return (
     <div className="min-h-screen">
       <div className="fixed inset-x-0 top-0 h-[600px] overflow-hidden mt-16 -z-10">
-        {['-translate-x-[240px]', '', 'translate-x-[240px]'].map((transform, i) => (
-          <div key={i} className={`absolute w-[800px] opacity-90 ${transform}`}>
-            <img
-              src={JesusBeam}
-              className="w-full"
-              style={{
-                filter: 'blur(50px) brightness(5)',
-                WebkitFilter: 'blur(50px) brightness(5)',
-              }}
-              alt=""
-              loading="lazy"
-            />
-          </div>
-        ))}
+        {['-translate-x-[240px]', '', 'translate-x-[240px]'].map(
+          (transform, i) => (
+            <div
+              key={i}
+              className={`absolute w-[800px] opacity-90 ${transform}`}
+            >
+              <img
+                src={JesusBeam}
+                className="w-full"
+                style={{
+                  filter: 'blur(50px) brightness(5)',
+                  WebkitFilter: 'blur(50px) brightness(5)',
+                }}
+                alt=""
+                loading="lazy"
+              />
+            </div>
+          ),
+        )}
       </div>
 
       <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -91,7 +108,7 @@ const BlogPage: FC = () => {
 
         {/* Remaining Posts */}
         {remainingPosts?.length && (
-            <h2 className='mb-8 text-xl'>Latest Posts</h2>
+          <h2 className="mb-8 text-xl">Latest Posts</h2>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
           {remainingPosts.map(post => (

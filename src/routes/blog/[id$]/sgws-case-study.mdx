@@ -1,0 +1,136 @@
+# Case Study: Accelerating Deployment and Release Cycles at Southern Glazer's Wine & Spirits with Zephyr Cloud
+
+## Executive Summary
+[Southern Glazer's Wine & Spirits](https://www.southernglazers.com/) (SGWS), the largest wine and spirits distributor in the United States, grappled with rigid testing cycles, time-consuming deployments, and complex compliance requirements. They needed faster, more flexible releases to stay competitive in a highly regulated industry where strict adherence to data privacy and labeling requirements is non-negotiable. By partnering with Zephyr Cloud (Zephyr) during a transformative "Acceleration Week," SGWS:
+
+* Reduced complex deployment timelines from weeks to near-instant sub-second releases for their new React Native mobile applications—an industry-first feat achieved through [Module Federation](https://module-federation.io/) with Re.Pack and Zephyr.
+* Increased composability of the digital web experience giving product design and development teams autonomy.
+* Shifted their QA "left," catching issues within seconds rather than waiting weeks, drastically cutting mean time to resolution (MTTR) and reducing customer impact.
+* Broke down long-standing organizational silos, enabling developers, QA engineers, architects, and industry experts to solve problems together in real time.
+* Enhanced compliance readiness by delivering changes that met regulatory guidelines faster—without risking quality or stability.
+
+This case study details the specific techniques, technologies, and cultural shifts that turned SGWS’s development environment into a high-velocity, quality-focused pipeline. It offers concrete takeaways that other engineering leaders can champion in their own organizations.
+
+## Background
+### Company Overview
+* <strong>Industry: </strong>Beverage Alcohol Distribution (strict compliance with labeling, traceability, and data privacy)
+* <strong>Founded: </strong>1968
+* <strong>Headquarters: </strong>Miami, Florida, USA
+* <strong>Employees: </strong>22,000+ (as of 2023)
+* <strong>Operations: </strong>44 U.S. states and D.C.
+* <strong>Revenue: </strong>$26B+ (as of 2023)
+
+SGWS’s scale is massive: they process thousands of orders daily across hundreds of thousands of customers and manage a constantly evolving portfolio of products, each with stringent regulatory requirements around labeling and distribution. Their digital platforms handle large volumes of traffic with complex calculations that integrate with numerous back-end services and partner systems.
+
+The engineering organization includes over 200 developers, QA testers, and operations personnel spread across multiple regions. Complexity is high, and every code change must respect compliance rules—from handling age-restrictions to ensuring accurate product labeling—before it can go live.
+
+### Challenges Faced
+1) <strong>Rigid Testing and Release Cycles:</strong>
+    * Two week sprint followed by a two-week testing cycle with releases every two weeks meant slow turnaround for fixes.
+    * Up to 5 hours to propagate simple changes into demo environments.
+    * 4-5 weeks to deploy features, enhancements and non-critical changes to production, stalling innovation and responsiveness. Hot fixes and same / next day changes require a heavy approval workflow.
+1) <strong>Lengthy Build and Deployment Times:</strong>
+    * <strong>Hybris Platform:</strong> CI builds averaging 1 hour; local builds up to 30 minutes, consuming 3.5 GB of RAM and high CPU usage.
+    * <strong>AEM Platform:</strong> CI/CD pipelines taking up to 20 minutes per build.
+    * Conservative estimates suggested wasted developer hours exceeded 500+ hours per month in waiting times alone.
+1) <strong>Complex Compliance Requirements:</strong>
+    * Changes often required re-verification against regulatory guidelines (e.g., correct product info, age gating, labeling). Slow deployment cycles increased the risk of delayed compliance updates.
+1) <strong>Inefficient QA Processes:</strong>
+    * Issues surfaced too late, increasing MTTR and risking compliance breaches.
+    * Without early tests, small bugs could balloon into costly production incidents.
+1) <strong>Internal and External Roadblocks:</strong>
+    * Organizational silos between development, QA, architecture, and compliance teams meant bottlenecks in decision-making.
+    * Limited collaboration with external tech partners kept modern best practices and solutions out of reach.
+
+## Objectives
+* <strong>Faster Time-to-Market: </strong>Move from weeks-long deployments to near-instant, enabling rapid compliance updates and feature rollouts.
+* <strong>Shift-Left QA: </strong>Embed testing at earlier stages, catching issues within seconds and ensuring quality and compliance readiness from the start.
+* <strong>Actionable Tech Advancements: </strong>Leverage Module Federation, [Re.Pack](https://re-pack.dev/) for [React Native](https://reactnative.dev/) OTA updates, [Rspack](https://rspack.dev/) for faster builds, and Nx for monorepo management—giving teams practical, modern, replicable tools.
+* <strong>Cultural and Organizational Change: </strong>Co-locate experts to break down silos, aligning teams on a common vision of speed, quality, and compliance.
+
+## Organizational Breakthrough
+### Acceleration Week Initiative
+Initiated and led by Zephyr’s team, SGWS held a week-long, in-person event that brought together over 40 stakeholders: developers, QA testers, architects, product managers, external experts (Zephyr, [Callstack](https://callstack.com/), [Nx](https://nx.dev/), [ByteDance](https://github.com/web-infra-dev), [Scalio](https://scal.io/), [Fastly](https://www.fastly.com/), [Dynatrace](https://www.dynatrace.com/)), and even compliance officers. The goal was simple yet bold: fix the big issues in a single focused one week sprint.
+
+### What Set This Week Apart:
+* <strong>Right People, Right Room: </strong>Senior architects, engineers, compliance leads, and external experts worked side-by-side.
+* <strong>Clear Scoping & Goals: </strong>The team arrived with defined targets: Sub-second releases, early QA integration, reduced build times, and compliance-checked features.
+* <strong>No Distractions: </strong>Face-to-face collaboration replaced slow email chains. Decisions took minutes, not weeks. Whiteboards and sticky notes captured ideas instantly.
+* <strong>Build-Measure-Learn Cycles: </strong>Every few hours, teams ran new builds, tested changes, and adapted. Feedback loops became immediate.
+By day three, real deployments to production-like environments had taken place. By day five, SGWS had a working pipeline that could deliver sub-second Web, Mobile ( React Native OTA updates), Backend for the frontend (BFF) and Micro Services — all with automation testing.
+
+### Solutions Implemented and Actionable Takeaways
+1) <strong>Module Federation with Re.Pack and Zephyr for React Native OTA:</strong>
+    * <strong>What They Did: </strong>SGWS split their application into independently deployable modules. Using Module Federation, they could push updates for specific app sections without redeploying the whole codebase. Re.Pack enabled React Native modules to be updated over-the-air (OTA) because of its ability to bundle native applications with Rspack.
+    * <strong>Immediate Results: </strong>Sub-second deployments and rollbacks. Compliance fixes and new features could be pushed almost instantaneously.
+1) <strong>Shift-Left Testing & Early Automation:</strong>
+    * <strong>What They Did: </strong>Automated tests ran in under 20 seconds as part of the CI pipeline. QA was able to run e2e tests against code still under active development without having to open pull requests or commit code.
+    * <strong>Compliance Angle: </strong>Tests included compliance checks so non-conforming product changes were caught immediately.
+    * <strong>Impact: </strong>QA did not have to wait for developers to open pull requests before beginning their work.
+1) <strong>Rspack and Nx Monorepo for Faster Builds:</strong>
+    * <strong>What They Did: </strong>Migrated build pipelines to Rspack (a modern Rust based bundler) for significantly faster build times and lower resource usage, and adopted Nx for monorepo management.
+    * <strong>Impact: </strong>CI costs are reduced due to more effective build pipelines and developers reclaimed hundreds of hours monthly.
+1) <strong>Dynatrace Observability & Early Issue Detection:</strong>
+    * <strong>What They Did: </strong>Integrated Dynatrace for real-time monitoring. Performance, errors, and compliance discrepancies surfaced immediately.
+1) <strong>Cultural Transformation:</strong>
+    * <strong>What They Did: </strong>Mixed teams collaborated freely. Compliance officers sat next to developers, ensuring every code change met regulatory standards from the start. External experts offered on-the-spot solutions.
+    * <strong>Human Impact: </strong>Engineers felt empowered to suggest improvements. QA and compliance teams felt heard, and developers understood compliance deeply. This flattened hierarchy accelerated decision-making.
+    * <strong>Try It Yourself: </strong>Host a focused “Innovation Week” or “Acceleration Sprint.” Invite cross-functional stakeholders and give them a clear, shared mission. Remove day-to-day distractions and watch the magic happen.
+## Outcomes
+* <strong>Sub-Second Releases and Rollbacks (Yes, in Production): </strong>SGWS pushed changes live—real OTA updates to their React Native applications—instantly. If a compliance-related patch was needed, it could be applied in seconds, meeting regulatory deadlines without code freeze drama.
+* <strong>Dramatic Efficiency Gains: </strong>CI build times dropping from hours to minutes saved SGWS thousands of engineering hours annually. Quicker deployments meant more frequent improvements, happier engineers, and more robust compliance adherence.
+* <strong>Shift-Left QA Culture: </strong>Test and compliance checks now run at the start of development, catching issues before they fester. MTTR plummeted, and the QA team’s role evolved from gatekeeper to collaborative partner, freeing them to focus on strategic quality improvements.
+* <strong>Cultural and Organizational Wins: </strong>Engineers reported higher job satisfaction. Compliance teams felt more confident in rapid changes. Decisions that once took weeks were resolved in a single conversation. Silos came down, and a sense of shared ownership replaced finger-pointing.
+
+<iframe width="560" height="315" src="https://www.youtube.com/embed/jQD8NwB669c?si=rzQTQnjNsH5mrhsa" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+## Testimonials
+### Alan Wizemann
+*Chief Digital Officer, SGWS* <br />
+Monumental cultural change moments from transformations always start with these types of events, and there are examples from the industry where great products have even come out of initiatives, like “hack” days and acceleration weeks. You get everybody in a room, they figure out what is possible, and then they make it happen as a single team. <strong>The feedback from our organization was that we tried to implement the changes we attacked for six years to get to instant deployments and rollbacks, and then with the acceleration week and Zephyr Cloud, it took us a week to achieve it.</strong>
+
+There's a lot we can learn from acceleration weeks, and many behaviors and ways of working can be fostered, including exposure to invited experts and vendor technologies that we want to implement. It's fantastic to see and even better to feel the impact, from added velocity to the work and morale of the teams. I will support these Acceleration Weeks anytime, every time. If there are more acceleration weeks we want to do, let me know because the outcome is always more valuable than the money it takes to put it together, even if nothing is delivered.
+
+### Roberto Lema
+*Senior Director of Digital Commerce and Platform Owner, SGWS* <br />
+This wasn’t just about presenting features or functionalities—it was about telling a story of teamwork. Watching our teams ideate, problem-solve, and push boundaries reminded me why I love what I do.
+
+### Jack Forman
+*Principal Quality Analyst, SGWS* <br />
+In this one week, we shifted all the way left. Now, when automation runs, when the code is compiled, we have immediate results. We're able to know if something is broken and determine if it was a test script or the code. It's going to make things so much faster and quicker to deploy.
+### Jen Gullo
+*Head of Orchestration, SGWS*  <br />
+The culture we experienced was magical. Seeing 40 people actively listening and building off each other's ideas was truly inspiring. It's a moment we'll remember forever.
+
+## Lessons Learned
+* <strong>Collaboration Accelerates Innovation: </strong>Co-location and cross-functional teams accelerate decision-making and break down longstanding barriers.
+* <strong>Tactical Technology Adoption: </strong>Cutting-edge doesn’t mean chaotic. By carefully integrating Module Federation, Re.Pack, Rspack, and Nx, SGWS achieved tangible, repeatable improvements—faster builds and instant OTA updates.
+* <strong>Compliance Embedded Early: </strong>By baking compliance checks into early QA stages, SGWS avoided costly rollbacks and legal risks.
+* <strong>Invest in Developer Experience: </strong>Faster builds and instant feedback loops boost morale, productivity, and product quality.
+* <strong>Challenging the Norm Pays Off: </strong>Risking time on new tools and cultural shifts delivered a competitive edge, proving that early adoption can be transformative, not just aspirational.
+
+## Conclusion
+SGWS’s Acceleration Week shows what’s possible when you align people, processes, and technology. From sub-second OTA updates to deeply embedded compliance checks, every improvement was anchored in both practical, reproducible techniques and a cultural shift toward collective ownership. If you’re a technology leader looking to speed up your pipeline, improve compliance agility, or energize your team’s workflows, look closely at these successes and find the pieces that fit your environment.
+
+### Call to Action
+Ready to replicate SGWS’s success?
+* Consider an “Acceleration Week” to tackle your biggest bottlenecks.
+* Integrate Module Federation and Re.Pack for micro-frontends or React Native OTA.
+* Shift your QA left and see if you can catch issues in seconds rather than weeks.
+* Embrace new tools like Rspack and Nx to slash build times.
+* Bridge gaps between teams—invite compliance and architecture experts into your daily stand-ups.
+---
+
+### Contact Zephyr Cloud Today
+* <strong>Email: </strong>inbound@zephyr-cloud.io
+* <strong>Website: </strong> [https://zephyr-cloud.io](https://zephyr-cloud.io)
+
+## Next Steps
+To replicate SGWS's success:
+1) <strong>Assess Current Processes: </strong>Identify your slowest build times, longest QA waits, or compliance pain points.
+1) <strong>Engage with Experts: </strong>Involve internal and external partners like Zephyr Cloud to co-create tailored solutions.
+1) <strong>Host an Acceleration Event: </strong>Start small—a few days with cross-functional teams—and set tangible goals.
+1) <strong>Cultural Buy-In: </strong>Align leadership, ICs, compliance, and QA on the vision of faster, safer releases.
+1) <strong>Implement Shift-Left Testing: </strong>Introduce tests at the development phase, including compliance checks.
+1) <strong>Focus on MVP Deployment: </strong>Validate changes quickly, gather feedback, and iterate.
+By following these steps, organizations can shorten release cycles, improve quality, ensure compliance, and nurture a more collaborative, innovative culture.
