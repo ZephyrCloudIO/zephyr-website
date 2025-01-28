@@ -19,8 +19,9 @@ export const siteConfig = {
     'https://chromewebstore.google.com/detail/zephyr-mission-control/liflhldchhinbaeplljlplhnbkdidedn?pli=1',
   investors: {
     true: 'https://trueventures.com/',
-    stepFunction: '',
-    ninja: '',
+    night: 'https://www.linkedin.com/company/step-function-ventures/',
+    stepFunction: 'https://www.linkedin.com/company/step-function-ventures/',
+    ninja: 'https://www.ninjacapital.com/',
   },
   code: [
     {

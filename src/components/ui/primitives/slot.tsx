@@ -13,7 +13,7 @@ const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
   if (slottable) {
     const newElement = slottable.props.children as React.ReactNode;
 
-    const newChildren = childrenArray.map(child => {
+    const newChildren = childrenArray.map((child) => {
       if (child === slottable) {
         if (React.Children.count(newElement) > 1) {
           return React.Children.only(null);

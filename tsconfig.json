@@ -2,11 +2,12 @@
   "extends": "@modern-js/tsconfig/base",
   "compilerOptions": {
     "declaration": false,
-    "jsx": "preserve",
+    "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
       "@/*": ["./src/*"],
-      "@shared/*": ["./shared/*"]
+      "@shared/*": ["./shared/*"],
+      "@api/*": ["./api/lambda/*"]
     }
   },
   "include": [
@@ -14,7 +15,8 @@
     "shared",
     "config",
     "modern.config.ts",
-    "tailwind.config.ts"
+    "tailwind.config.ts",
+    "api"
   ],
   "exclude": ["**/node_modules"]
 }

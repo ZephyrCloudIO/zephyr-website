@@ -3,16 +3,16 @@ import type { Config } from 'tailwindcss/types/config';
 
 module.exports = {
   darkMode: ['class'],
-  content: [
-    'app/**/*.{ts,tsx}',
-    './src/**/*.{js,jsx,ts,tsx}',
-    'components/**/*.{ts,tsx}',
-  ],
+  content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     container: {
       center: true,
       padding: '2rem',
       screens: {
+        sm: '640px',
+        md: '768px',
+        lg: '1024px',
+        xl: '1280px',
         '2xl': '1400px',
       },
     },
@@ -52,6 +52,23 @@ module.exports = {
           foreground: 'hsl(var(--card-foreground))',
         },
       },
+      typography: {
+        DEFAULT: {
+          css: {
+            '--tw-prose-body': '#374151',
+            '--tw-prose-headings': '#111827',
+            '--tw-prose-links': '#2563eb',
+            '--tw-prose-bold': '#111827',
+            '--tw-prose-counters': '#6b7280',
+            '--tw-prose-bullets': '#6b7280',
+            '--tw-prose-quotes': '#111827',
+            '--tw-prose-code': '#111827',
+            '--tw-prose-pre-code': '#374151',
+            '--tw-prose-pre-bg': '#f3f4f6',
+            maxWidth: 'none',
+          },
+        },
+      },
       borderRadius: {
         lg: `var(--radius)`,
         md: `calc(var(--radius) - 2px)`,
@@ -72,6 +89,8 @@ module.exports = {
           'radial-gradient(circle at bottom center,var(--color),transparent 70%)',
         'glass-gradient':
           'linear-gradient(rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.05) 100%)',
+        'mouse-glow':
+          'radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.50), transparent 70%)',
       },
       fontFamily: {
         sans: ['var(--font-sans)', ...fontFamily.sans],
@@ -155,6 +174,10 @@ module.exports = {
             transform: 'scale(0.98)',
           },
         },
+        'mouse-glow': {
+          '0%, 100%': { opacity: 0 },
+          '50%': { opacity: 1 },
+        },
       },
       animation: {
         'accordion-down': 'accordion-down 0.2s ease-out',
@@ -169,8 +192,9 @@ module.exports = {
           'glow-line-vertical var(--animation-duration) ease-in forwards',
         zap: 'zap 2250ms calc(var(--index) * 20ms) linear infinite',
         bounce: '240ms ease 0s 1 running bounce',
+        'mouse-glow': 'mouse-glow 1500ms ease-in-out infinite',
       },
     },
   },
-  plugins: [require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate'), require('@tailwindcss/typography')],
 } as unknown as Config;
