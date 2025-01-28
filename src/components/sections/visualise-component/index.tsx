@@ -1,5 +1,5 @@
 import { Link } from '@modern-js/runtime/router';
-import { ValueCard, ValueCardType } from './value-cards';
+import { ValueCard, ValueCardProps } from './value-cards';
 import { siteConfig } from '@/lib/site.config';
 import { SecondaryButton } from '@/components/ui/buttons/button.secondary';
 import value1 from '@/images/value-graphic-1.svg';
@@ -46,7 +46,7 @@ export default function VisualiseComponentSection() {
       >
         <div className="flex md:flex-row flex-col gap-8 justify-around items-baseline">
           {Values.map((item) => (
-            <ValueCard key={item.title} props={item} />
+            <ValueCard key={item.title} {...item} />
           ))}
         </div>
       </div>
@@ -54,7 +54,7 @@ export default function VisualiseComponentSection() {
   );
 }
 
-const Values: ValueCardType[] = [
+const Values: ValueCardProps[] = [
   {
     title: 'From development machines to the edge in milliseconds',
     description: 'Edge deployments',
