@@ -5,6 +5,7 @@ import GlowingLink from '@/components/ui/link.glowing-button';
 import './community.css';
 import Jack from '@/images/community/JackHerrington.jpg';
 import Giorgio from '@/images/community/GiorgioBoa.jpeg';
+import AlexB from '@/images/community/AlexB.jpeg';
 import RonR from '@/images/community/RonR.jpeg';
 import Theo from '@/images/community/Theo.jpeg';
 import Colum from '@/images/community/Colum.avif';
@@ -43,6 +44,24 @@ const testimonials: Testimonial[] = [
       {
         link: 'https://www.youtube.com/@jherr',
         platform: 'YouTube',
+      },
+    ],
+  },
+  {
+    name: 'Alex Bennett',
+    content:
+      'As our organization leans more into AI generated UI, I see Zephyr as the key piece to make our experimentation safe, reliable, and versioned so we can understand impact.',
+    avatar: AlexB,
+    role: 'Sr. Principal Architect',
+    company: 'Accuris',
+    socialLinks: [
+      {
+        link: 'https://x.com/alexUX_UI',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/alexuxui',
+        platform: 'LinkedIn',
       },
     ],
   },
@@ -178,7 +197,7 @@ export const CommunitySection: React.FC = () => {
               What the community says
             </h2>
             <p className="text-md md:text-md text-gray-500 text-center md:text-left max-w-xs md:max-w-none">
-              Micro-frontend on steroids.
+              Micro-frontends on steroids
             </p>
           </div>
         </div>
