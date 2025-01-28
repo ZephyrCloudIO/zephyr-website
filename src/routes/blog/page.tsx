@@ -1,10 +1,12 @@
 import { FC } from 'react';
-import MobileFirstHero from './heros/mobilefirst.webp';
+import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
+import ota_hero from '@/images/blog/ota-hero.webp';
 import { BlogCard, BlogPost } from '@/components/ui/blog-card';
-import { Zack } from '@/routes/blog/authors/Zack';
+import { Zack } from '@/lib/blog/authors/Zack';
+import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 
 const blogPosts: BlogPost[] = [
   // DO NOT PUBLISH
@@ -17,6 +19,14 @@ const blogPosts: BlogPost[] = [
   //   description: 'An Acceleration Week Case Study with SGWS',
   //   authors: [Zack],
   // },
+  {
+    title: 'Over the Air (OTA) updates withZephyr',
+    slug: './ota-with-zephyr',
+    date: new Date('January 28, 2025 16:00:00 GMT+0'),
+    listingImage: ota_hero,
+    description: 'React Native OTA made it easy!',
+    authors: [Rodrigo],
+  },
   {
     title: '<code>npx create-zephyr-apps@latest</code>',
     slug: './create-zephyr-apps',

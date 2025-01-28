@@ -1,5 +1,5 @@
 import { Link } from '@modern-js/runtime/router';
-import { Author } from '@/routes/blog/authors/author';
+import { Author } from '@/lib/blog/authors/author';
 
 export interface BlogPost {
   title: string;
