@@ -2,7 +2,7 @@ import { appTools, defineConfig } from '@modern-js/app-tools';
 import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
 import { bffPlugin } from '@modern-js/plugin-bff';
 import { expressPlugin } from '@modern-js/plugin-express';
-import { withZephyr } from 'zephyr-modernjs-plugin';
+// import { withZephyr } from 'zephyr-modernjs-plugin';
 import { pluginMdx } from '@rsbuild/plugin-mdx';
 import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
 import rehypeHighlight from 'rehype-highlight';
@@ -12,6 +12,7 @@ const tailwindConfig = require('./tailwind.config');
 export default defineConfig({
   tools: {
     tailwindcss: tailwindConfig,
+    devServer: { historyApiFallback: true },
   },
   runtime: {
     router: true,
@@ -50,6 +51,6 @@ export default defineConfig({
     tailwindcssPlugin(),
     bffPlugin(),
     expressPlugin(),
-    withZephyr(),
+    // withZephyr(),
   ],
 });
