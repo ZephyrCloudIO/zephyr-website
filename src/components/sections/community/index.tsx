@@ -50,7 +50,7 @@ const testimonials: Testimonial[] = [
   {
     name: 'Alex Bennett',
     content:
-      'As our organization leans more into AI generated UI, I see Zephyr as the key piece to make our experimentation safe, reliable, and versioned so we can understand impact.',
+      'As our organization leans more into AI generated UI, I see Zephyr as the key piece to make our experimentation safe, reliable, and versioned so we can easily understand impact.',
     avatar: AlexB,
     role: 'Sr. Principal Architect',
     company: 'Accuris',
