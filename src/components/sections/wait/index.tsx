@@ -30,7 +30,11 @@ const WaitSection = () => {
   };
 
   return (
-    <section className="container relative px-4 overflow-hidden">
+    <section
+      className="container relative px-4 overflow-hidden"
+      aria-label="Product Benefits"
+      role="region"
+    >
       <div className="relative z-20 mt-24 w-full">
         <div
           className="relative p-16 rounded-3xl border border-white/10 overflow-hidden"
@@ -50,19 +54,31 @@ const WaitSection = () => {
                 backgroundPosition: '120% 120%',
               }}
               autoPlay
+              aria-hidden="true"
               muted
               loop
               playsInline
             />
           )}
           <div className="flex flex-col lg:flex-row items-start gap-12 relative z-10">
-            <div className="flex-1 space-y-6">
-              <h2 className="text-5xl md:text-6xl font-light tracking-wide">
+            <div
+              className="flex-1 space-y-6"
+              role="contentinfo"
+              itemScope
+              itemType="https://schema.org/Action"
+            >
+              <h2
+                className="text-5xl md:text-6xl font-light tracking-wide"
+                aria-level={2}
+              >
                 Never <span className="font-normal">wait</span>
                 <br />
                 again.
               </h2>
-              <p className="text-lg text-gray-400 max-w-xl">
+              <p
+                className="text-lg text-gray-400 max-w-xl"
+                itemProp="description"
+              >
                 Integrate this afternoon and enjoy seamless deployments,
                 unmatched flexibility across clouds and frameworks without
                 vendor lock-in.
