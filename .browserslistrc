@@ -1,5 +1,10 @@
-chrome >= 51
-edge >= 15
-firefox >= 54
-safari >= 10
-ios_saf >= 10
+defaults and supports es6-module
+last 2 versions
+not dead
+> 0.5%
+Chrome >= 60
+Firefox >= 60
+Safari >= 12
+iOS >= 12
+Edge >= 79
+not IE 11

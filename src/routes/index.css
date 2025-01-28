@@ -1,7 +1,7 @@
 @import url('../../public/fonts/fonts.css');
 
 :root {
-  background-color: black;
+  background-color: #010101;
   font-family: OutfitRegular, 'Trebuchet MS', Helvetica, sans-serif;
   view-transition-name: root;
 }
@@ -46,6 +46,18 @@
   animation: move 3s linear infinite;
   background: radial-gradient(#9393935d, #a5a5a590, transparent);
   offset-path: rect(0% auto 100% auto);
+}
+
+::-webkit-scrollbar {
+  width: 0.4em;
+}
+::-webkit-scrollbar-track {
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
+}
+::-webkit-scrollbar-thumb {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid slategrey;
+  border-radius: 10px;
 }
 
 @keyframes move {
@@ -141,7 +153,9 @@
 
   body {
     @apply text-foreground;
-    font-feature-settings: 'rlig' 1, 'calt' 1;
+    font-feature-settings:
+      'rlig' 1,
+      'calt' 1;
   }
 
   h1::selection,
@@ -150,6 +164,9 @@
   h4::selection,
   h5::selection,
   p::selection,
+  div::selection,
+  code::selection,
+  pre::selection,
   a::selection,
   label::selection,
   button::selection,

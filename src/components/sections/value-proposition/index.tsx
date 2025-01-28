@@ -1,72 +1,108 @@
-import { useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 import ValuePropositionCard from './card';
-import type { Options } from '@/types';
-import cloudUpload from '@/images/lotti/cloud-upload.json';
+import value1 from '@/images/value-proposition/icon1.svg';
+import value2 from '@/images/value-proposition/icon2.svg';
+import value3 from '@/images/value-proposition/icon3.svg';
+import value4 from '@/images/value-proposition/icon4.svg';
+import graphyBackground from '@/images/graphy.png';
 
 export default function ValueProposition() {
-  const ref = useRef<HTMLDivElement | null>(null);
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
-  const [hover, setHover] = useState(false);
-  const cloudUploadOptions: Options = {
-    loop: true,
-    autoplay: hover,
-    animationData: cloudUpload,
-    rendererSettings: {
-      preserveAspectRatio: 'xMidYMid slice',
+  const cards = [
+    {
+      text: 'Manage dependencies for micro-frontends',
+      image: (
+        <div
+          className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E79294] items-center justify-center"
+          style={{ backgroundImage: `url(${graphyBackground})` }}
+          role="img"
+          aria-label="Efficiently manage and update dependencies across all your micro-frontend applications"
+        >
+          <img src={value1} className="w-8 h-8" alt="Dependency Management" />
+        </div>
+      ),
     },
-  };
-  // TODO: set all lottie properties correctly
-
-  useEffect(() => {
-    const el = ref.current;
-
-    if (el) {
-      el.addEventListener('mouseenter', () => setHover(true));
-      el.addEventListener('mouseleave', () => setHover(false));
-    }
-  }, [ref]);
+    {
+      text: 'Generate live preview links in seconds',
+      image: (
+        <div
+          className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#5DD0A8] items-center justify-center"
+          style={{ backgroundImage: `url(${graphyBackground})` }}
+          role="img"
+          aria-label="Live Preview Icon"
+        >
+          <img
+            src={value2}
+            className="w-6 h-6"
+            alt="Instantly create and share live preview environments for your applications"
+          />
+        </div>
+      ),
+    },
+    {
+      text: 'Version roll-back and roll-forward',
+      image: (
+        <div
+          className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#E3B28F] items-center justify-center"
+          style={{ backgroundImage: `url(${graphyBackground})` }}
+          role="img"
+          aria-label="Version Control Icon"
+        >
+          <img
+            src={value3}
+            className="w-8 h-8"
+            alt="Seamlessly manage application versions with instant rollback and forward capabilities"
+          />
+        </div>
+      ),
+    },
+    {
+      text: 'Auto deploy on build',
+      image: (
+        <div
+          className="w-12 h-12 flex p-1 bg-cover bg-center bg-no-repeat rounded-full border-2 border-[#946AE3] items-center justify-center"
+          style={{ backgroundImage: `url(${graphyBackground})` }}
+          role="img"
+          aria-label="Auto Deploy Icon"
+        >
+          <img
+            src={value4}
+            className="w-8 h-8"
+            alt="Automated deployment pipeline that triggers on successful builds"
+          />
+        </div>
+      ),
+    },
+  ];
 
   return (
-    <section className="flex md:flex-row flex-col-reverse font-outfit pt-5 pb-20  justify-between items-center w-full">
-      <div className="pr-4">
-        <div className="flex flex-col md:grid md:grid-cols-6 md:grid-rows-4 space-y-10 ">
-          <div className="md:col-span-3 md:row-start-1 md:col-start-2 md:px-16">
-            <ValuePropositionCard
-              divRef={ref}
-              text="Auto-deploy on build"
-              lottieOptions={cloudUploadOptions}
-            />
-          </div>
-          <div className="md:col-span-3 md:row-start-2 md:col-start-3 md:px-6">
-            <ValuePropositionCard
-              divRef={ref}
-              text="Manage dependencies for micro-frontends"
-              lottieOptions={cloudUploadOptions}
-            />
-          </div>
-          <div className="md:col-span-3 md:row-start-3 md:col-start-1 md:px-4">
-            {' '}
-            <ValuePropositionCard
-              divRef={ref}
-              text="Bring visibility to federated applications"
-              lottieOptions={cloudUploadOptions}
-            />
-          </div>
-          <div className="md:col-span-3 md:col-start-4 md:px-2 md:row-start-4">
-            <ValuePropositionCard
-              divRef={ref}
-              text="Version rollback and roll-forward"
-              lottieOptions={cloudUploadOptions}
-            />
-          </div>
+    <section
+      className="container flex md:flex-row flex-col-reverse font-outfit pb-20 justify-start items-center w-full relative mb-24 sm:px-4 py-24"
+      aria-label="Platform Features and Benefits"
+    >
+      <div className="w-full max-w-5xl mx-auto relative z-10">
+        <div className="relative md:grid md:grid-cols-12 gap-6 text-base flex flex-col md:space-y-0 space-y-4 px-4">
+          {cards.map((card, index) => (
+            <div
+              key={card.text}
+              className="col-start-auto col-end-10 md:w-max transform hover:-translate-y-1 transition-transform duration-300 justify-self-end"
+            >
+              <ValuePropositionCard
+                divRef={(el) => (cardRefs.current[index] = el)}
+                text={card.text}
+                icon={card.image}
+              />
+            </div>
+          ))}
         </div>
       </div>
-      <div className="items-start py-6 flex gap-8 md:px-10 md:w-[calc(90vw-40vw)] flex-col">
-        <div className="flex flex-col gap-4  font-outfit-medium">
-          {' '}
-          {ValueTitle.map(item => (
+
+      <div className="items-start py-8 flex gap-8 md:px-4 md:w-[70%] flex-col relative z-10 px-4">
+        <div className="flex flex-col gap-4 font-outfit-medium w-full">
+          {ValueTitle.map((item) => (
             <h2
-              className="md:text-5xl text-4xl text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 via-zinc-100 to-zinc-500 font-outfit-light font-light"
+              className="text-4xl text-center md:text-start md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 via-zinc-100 to-zinc-500 font-outfit-light font-light"
               key={item}
             >
               {item}
@@ -74,8 +110,15 @@ export default function ValueProposition() {
           ))}
         </div>
         <div className="pl-2">
-          <p className="text-zinc-100/80 md:text-sm text-base tracking-wide font-light">
-            Bring the power of modern deployment to your cloud.
+          <p
+            className="text-zinc-100/80 md:text-sm text-base tracking-wide font-light"
+            role="contentinfo"
+          >
+            Bring the power of modern cloud platforms to your cloud.
+            <span className="sr-only">
+              Zephyr Cloud enables you to build and deploy applications with
+              complete control over your infrastructure.
+            </span>
           </p>
         </div>
       </div>
