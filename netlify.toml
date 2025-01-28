@@ -1,8 +1,0 @@
-[build]
-  publish = ".ouput"
-  command = "npx modern deploy"
-
-[functions]
-  directory = "functions"
-  node_bundler = "none"
-  included_files = ["functions/**"]

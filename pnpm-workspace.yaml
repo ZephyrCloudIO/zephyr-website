@@ -1,0 +1,5 @@
+packages:
+  - '../zephyr-packages/libs/zephyr-agent'
+  - '../zephyr-packages/libs/zephyr-edge-contract'
+  - '../zephyr-packages/libs/zephyr-xpack-internal'
+  - '../zephyr-packages/libs/zephyr-modernjs-plugin'
