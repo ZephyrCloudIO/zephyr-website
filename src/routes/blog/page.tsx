@@ -7,6 +7,7 @@ import { BlogCard, BlogPost } from '@/components/ui/blog-card';
 import { Zack } from '@/routes/blog/authors/Zack';
 
 const blogPosts: BlogPost[] = [
+  // DO NOT PUBLISH
   // {
   //   title: 'Case Study: Acceleration Week at Southern Glazer\'s Wine & Spirits',
   //   slug: './sgws-case-study',
