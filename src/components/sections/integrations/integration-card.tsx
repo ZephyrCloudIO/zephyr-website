@@ -13,7 +13,7 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
   name,
   icon,
   link,
-  opacity = 1
+  opacity = 1,
 }) => {
   return (
     <div
@@ -24,7 +24,7 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
-        opacity
+        opacity,
       }}
       role="article"
       aria-label={`Integration card for ${name}`}
@@ -38,15 +38,18 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
             loading="lazy"
           />
         ) : (
-          <div className="w-8 h-8 bg-gray-700 rounded-full" aria-hidden="true" />
+          <div
+            className="w-8 h-8 bg-gray-700 rounded-full"
+            aria-hidden="true"
+          />
         )}
       </div>
       <h3 className="text-xl font-medium text-white mb-4">{name}</h3>
       {!link ? (
         <span className="text-gray-400 px-4 py-2">Coming Soon</span>
       ) : (
-        <GlowingLinkButton to={link} className='bg-stone-900' external={true}>
-            Learn more
+        <GlowingLinkButton to={link} className="bg-stone-900" external={true}>
+          Learn more
         </GlowingLinkButton>
       )}
     </div>

@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from '@modern-js/runtime/head';
 
 const DiscordPage = () => {
@@ -7,7 +6,7 @@ const DiscordPage = () => {
       <Helmet>
         <title>Discord</title>
         <meta
-          http-equiv="refresh"
+          httpEquiv="refresh"
           content="0; url=https://discord.gg/pSxWRVayEu"
         ></meta>
       </Helmet>

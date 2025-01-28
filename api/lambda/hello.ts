@@ -6,9 +6,6 @@ export const post = async () => ({
   message: 'Hello Modern.js',
 });
 
-
-import type { RequestOption } from '@modern-js/runtime/server';
-
 // interface ContactFormData {
 //   firstName: string;
 //   lastName: string;

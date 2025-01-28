@@ -1,6 +1,6 @@
-import { cn } from '@/lib/utils';
-import { Link } from '@modern-js/runtime/router';
 import React from 'react';
+import { Link } from '@modern-js/runtime/router';
+import { cn } from '@/lib/utils';
 
 interface ButtonGlowProps {
   children: React.ReactNode;
@@ -25,7 +25,7 @@ const GlowingLinkButton: React.FC<ButtonGlowProps> = ({
     'before:animate-glow-slow after:animate-glow-slow-reverse',
     'hover:shadow-[0_0_20px_2px_rgba(255,255,255,0.3)]',
     'transition-all duration-300',
-    className
+    className,
   );
 
   if (external) {
@@ -43,11 +43,7 @@ const GlowingLinkButton: React.FC<ButtonGlowProps> = ({
   }
 
   return (
-    <Link
-      to={to}
-      className={baseClasses}
-      {...props}
-    >
+    <Link to={to} className={baseClasses} {...props}>
       {children}
     </Link>
   );

@@ -10,13 +10,25 @@ import Azure from '@/images/providers/azure.svg';
 import Fastly from '@/images/providers/fastly.svg';
 
 const integrations = [
-  { name: 'Cloudflare', link: 'https://docs.zephyr-cloud.io/cloud/cloudflare', icon: CloudFlare },
-  { name: 'Netlify', link: 'https://docs.zephyr-cloud.io/cloud/netlify', icon: Netlify },
-  { name: 'Fastly', link: 'https://docs.zephyr-cloud.io/cloud/fastly', icon: Fastly },
+  {
+    name: 'Cloudflare',
+    link: 'https://docs.zephyr-cloud.io/cloud/cloudflare',
+    icon: CloudFlare,
+  },
+  {
+    name: 'Netlify',
+    link: 'https://docs.zephyr-cloud.io/cloud/netlify',
+    icon: Netlify,
+  },
+  {
+    name: 'Fastly',
+    link: 'https://docs.zephyr-cloud.io/cloud/fastly',
+    icon: Fastly,
+  },
   { name: 'AWS', icon: AWS },
-  { name: 'Vercel', icon: VercelLogo  },
-  { name: 'Supabase', icon: Supabase  },
-  { name: 'Azure', icon: Azure  },
+  { name: 'Vercel', icon: VercelLogo },
+  { name: 'Supabase', icon: Supabase },
+  { name: 'Azure', icon: Azure },
 ];
 
 export const IntegrationsSection: React.FC = () => {
@@ -25,12 +37,15 @@ export const IntegrationsSection: React.FC = () => {
   const [isAtEnd, setIsAtEnd] = useState(false);
 
   const handleScroll = () => {
-    if (!sliderRef.current) return;
+    if (!sliderRef.current) {
+      return;
+    }
     const cardWidth = 300 + 24; // card width + gap
     const currentIndex = Math.round(sliderRef.current.scrollLeft / cardWidth);
 
     // Check if we're at the end of the scroll
-    const maxScroll = sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
+    const maxScroll =
+      sliderRef.current.scrollWidth - sliderRef.current.clientWidth;
     const isEnd = Math.abs(sliderRef.current.scrollLeft - maxScroll) < 10;
 
     setIsAtEnd(isEnd);
@@ -39,36 +54,43 @@ export const IntegrationsSection: React.FC = () => {
 
   useEffect(() => {
     const slider = sliderRef.current;
-    if (!slider) return;
+    if (!slider) {
+      return;
+    }
 
     slider.addEventListener('scroll', handleScroll);
+    // TODO(Nestor): Weird error, check later.
+    // eslint-disable-next-line consistent-return
     return () => slider.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scroll = (direction: 'left' | 'right') => {
-    if (!sliderRef.current) return;
+    if (!sliderRef.current) {
+      return;
+    }
 
     const cardWidth = 300 + 24; // card width + gap
-    const newScrollPosition = sliderRef.current.scrollLeft +
+    const newScrollPosition =
+      sliderRef.current.scrollLeft +
       (direction === 'left' ? -cardWidth : cardWidth);
 
     sliderRef.current.scrollTo({
       left: newScrollPosition,
-      behavior: 'smooth'
+      behavior: 'smooth',
     });
   };
 
   const cards = integrations.map((item, index) => {
     // If we're at the end, show all cards at full opacity
     // Otherwise, show only the first 3 visible cards at full opacity
-    const opacity = isAtEnd ? 1 : (index >= scrollIndex && index < scrollIndex + 3 ? 1 : 0.3);
+    let opacity = 0.3;
+    if (isAtEnd || (index >= scrollIndex && index < scrollIndex + 3)) {
+      opacity = 1;
+    }
 
     return (
       <div key={item.name} data-card-id={item.name}>
-        <IntegrationCard
-          {...item}
-          opacity={opacity}
-        />
+        <IntegrationCard {...item} opacity={opacity} />
       </div>
     );
   });
@@ -83,49 +105,49 @@ export const IntegrationsSection: React.FC = () => {
             </h2>
             <div className="flex flex-col items-center md:items-start">
               <p className="text-lg text-gray-400 text-center md:text-left mb-4">
-                Connect your environment with our integrations following rule-based promotion -
-                use our managed cloud or bring your own.
+                Connect your environment with our integrations following
+                rule-based promotion - use our managed cloud or bring your own.
               </p>
               <div className="flex justify-center md:justify-end gap-4 mt-2 w-full">
-              <ButtonGlow
-                onClick={() => scroll('left')}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-black/50 border border-gray-800 hover:bg-black/70 transition-colors"
-                aria-label="Scroll left"
-              >
-                <svg
-                  className="w-5 h-5 text-white relative z-20"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                <ButtonGlow
+                  onClick={() => scroll('left')}
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-black/50 border border-gray-800 hover:bg-black/70 transition-colors"
+                  aria-label="Scroll left"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </ButtonGlow>
+                  <svg
+                    className="w-5 h-5 text-white relative z-20"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </ButtonGlow>
 
-              <ButtonGlow
-                onClick={() => scroll('right')}
-                className="w-10 h-10 flex items-center justify-center rounded-full bg-black/50 border border-gray-800 hover:bg-black/70 transition-colors"
-                aria-label="Scroll right"
-              >
-                <svg
-                  className="w-5 h-5 text-white relative z-20"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
+                <ButtonGlow
+                  onClick={() => scroll('right')}
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-black/50 border border-gray-800 hover:bg-black/70 transition-colors"
+                  aria-label="Scroll right"
                 >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </ButtonGlow>
+                  <svg
+                    className="w-5 h-5 text-white relative z-20"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </ButtonGlow>
               </div>
             </div>
           </div>

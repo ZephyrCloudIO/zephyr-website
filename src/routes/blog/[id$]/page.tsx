@@ -1,5 +1,12 @@
 import { useParams } from '@modern-js/runtime/router';
-import { Suspense, useMemo, lazy, useLayoutEffect, PropsWithChildren, FC } from 'react';
+import {
+  Suspense,
+  useMemo,
+  lazy,
+  useLayoutEffect,
+  PropsWithChildren,
+  FC,
+} from 'react';
 import 'highlight.js/styles/github-dark.css';
 import hljs from 'highlight.js/lib/core';
 import javascript from 'highlight.js/lib/languages/javascript';

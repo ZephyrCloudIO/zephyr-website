@@ -1,4 +1,10 @@
-import { useState, useRef, useEffect, type ReactNode, cloneElement } from 'react';
+import {
+  useState,
+  useRef,
+  useEffect,
+  type ReactNode,
+  cloneElement,
+} from 'react';
 
 interface TooltipProps {
   content: ReactNode;
@@ -11,21 +17,24 @@ interface TooltipProps {
 export const Tooltip = ({
   content,
   children,
-  className = '',
   position = 'right',
-  multiline = false
+  multiline = false,
 }: TooltipProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const tooltipRef = useRef<HTMLDivElement>(null);
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const child = cloneElement(children as React.ReactElement, {
-    className: `inline-flex ${(children as React.ReactElement).props.className || ''}`
+    className: `inline-flex ${
+      (children as React.ReactElement).props.className || ''
+    }`,
   });
 
   useEffect(() => {
     const positionTooltip = () => {
-      if (!tooltipRef.current || !wrapperRef.current) return;
+      if (!tooltipRef.current || !wrapperRef.current) {
+        return;
+      }
 
       const tooltip = tooltipRef.current.getBoundingClientRect();
       const wrapper = wrapperRef.current.getBoundingClientRect();
@@ -47,6 +56,10 @@ export const Tooltip = ({
           left = -tooltip.width - 8;
           break;
         case 'right':
+          top = (wrapper.height - tooltip.height) / 2;
+          left = wrapper.width + 8;
+          break;
+        default:
           top = (wrapper.height - tooltip.height) / 2;
           left = wrapper.width + 8;
           break;

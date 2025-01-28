@@ -42,7 +42,8 @@ export const MDXLayout: FC<MDXLayoutProps> = ({ children, frontmatter }) => {
           )}
         </header>
       )}
-      <div className="prose prose-invert max-w-none
+      <div
+        className="prose prose-invert max-w-none
         [&_pre]:bg-zinc-900/50
         [&_pre]:p-4
         [&_pre]:rounded-lg

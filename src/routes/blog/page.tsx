@@ -73,9 +73,9 @@ const BlogPage: FC = () => {
     <div className="min-h-screen">
       <div className="fixed inset-x-0 top-0 h-[600px] overflow-hidden mt-16 -z-10">
         {['-translate-x-[240px]', '', 'translate-x-[240px]'].map(
-          (transform, i) => (
+          (transform) => (
             <div
-              key={i}
+              key={transform || 'center'}
               className={`absolute w-[800px] opacity-90 ${transform}`}
             >
               <img
@@ -100,7 +100,7 @@ const BlogPage: FC = () => {
 
         {/* Featured Posts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {featuredPosts.map(post => (
+          {featuredPosts.map((post) => (
             <div key={post.slug} className="flex">
               <BlogCard post={post} featured />
             </div>
@@ -112,7 +112,7 @@ const BlogPage: FC = () => {
           <h2 className="mb-8 text-xl">Latest Posts</h2>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {remainingPosts.map(post => (
+          {remainingPosts.map((post) => (
             <div key={post.slug} className="flex">
               <BlogCard post={post} />
             </div>

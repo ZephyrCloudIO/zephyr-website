@@ -39,9 +39,9 @@ export default defineConfig({
     pluginMdx({
       mdxLoaderOptions: {
         rehypePlugins: [[rehypeHighlight, { ignoreMissing: true }]],
-        providerImportSource: '@mdx-js/react'
-      }
-    })
+        providerImportSource: '@mdx-js/react',
+      },
+    }),
   ],
   plugins: [
     appTools({

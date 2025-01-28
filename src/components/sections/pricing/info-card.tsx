@@ -3,7 +3,6 @@ import CardIcon from './card-icon.svg';
 
 interface FeatureCardProps {
   title: string;
-  link: string;
   description: string;
 }
 

@@ -1,7 +1,8 @@
-import { cn } from '@/lib/utils';
 import React, { useState } from 'react';
+import { cn } from '@/lib/utils';
 
-interface ButtonHighlightProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonHighlightProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   variant?: 'default' | 'wide';
   className?: string;
@@ -31,7 +32,8 @@ export const ButtonHighlight: React.FC<ButtonHighlightProps> = ({
     setMousePosition({ x: 0, y: 0 });
   };
 
-  const widthClass = variant === 'wide' ? 'md:w-[166.2px] w-[140px]' : 'w-fit px-8';
+  const widthClass =
+    variant === 'wide' ? 'md:w-[166.2px] w-[140px]' : 'w-fit px-8';
 
   return (
     <button
@@ -40,7 +42,7 @@ export const ButtonHighlight: React.FC<ButtonHighlightProps> = ({
         'rounded-full hover:border-zinc-400/80 justify-center bg-zinc-900',
         'transition-all lg:hover:!opacity-100 flex lg:hover:bg-zinc-800 overflow-hidden',
         widthClass,
-        className
+        className,
       )}
       onMouseEnter={handleMouseEnter}
       onMouseLeave={handleMouseLeave}

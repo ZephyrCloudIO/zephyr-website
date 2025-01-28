@@ -44,7 +44,11 @@ Despite the pain points, there has been little progress in infrastructure manage
 As the creator of Module Federation, I've been working on refining and expanding its applications. This led me to the concept of "superpositioned infrastructure," a paradigm where:
 
 <div className="bg-gray-100 p-6 rounded-lg my-6">
-In a superpositioned infrastructure, services exist in a dynamic, unbound state across the network or dynamic filesystem, much like particles in quantum superposition. Instead of being fixed to specific nodes — be it lambdas, edge workers, or containerized servers — these services can dynamically allocate themselves where needed.
+  In a superpositioned infrastructure, services exist in a dynamic, unbound
+  state across the network or dynamic filesystem, much like particles in quantum
+  superposition. Instead of being fixed to specific nodes — be it lambdas, edge
+  workers, or containerized servers — these services can dynamically allocate
+  themselves where needed.
 </div>
 
 Key aspects of this approach include:
@@ -128,29 +132,37 @@ Zephyr is an advanced cloud infrastructure management system, inspired by the pr
 Medusa excelled at managing applications at runtime but left a glaring gap: the deployment process itself. Zephyr aims to fill this void by streamlining the entire deployment pipeline, from code to consumption.
 
 ## Simplifying Complex Deployments
+
 In a traditional setup, deploying new services or variations of existing ones involves a time-consuming, manual process. You often find yourself juggling multiple tools just to get your code live. Zephyr eliminates this hassle, allowing you to focus on what really matters: building great applications.
 
 ## Multi-Cloud and Multi-Region Deployments
+
 Setting up infrastructure across multiple clouds or regions is far from trivial. Each new repository or service adds another layer of complexity and overhead to your deployment infrastructure. Zephyr simplifies this by abstracting away the complexities, making multi-cloud and multi-region deployments as straightforward as single-environment setups.
 
 ## Nested Package Management
+
 Consider the scenario where you need to update a package that’s nested three layers deep in your dependency tree. Traditionally, this would require a cumbersome series of version bumps, installs, publishes, pull requests, and deployments. Zephyr streamlines this process, allowing you to update nested packages with ease.
 
 ## Intent-Driven Infrastructure
+
 At its core, Zephyr is designed to be intent-driven. Whether you’re looking to update a package, migrate to a new cloud provider, or spin up additional services, Zephyr automates these tasks based on your intent. It removes the friction often associated with infrastructure management, while still providing granular control over your private cloud.
 
 Zephyr aims to do for infrastructure management what Module Federation did for application runtime: make it simpler, more efficient, and less of a chore. It’s about taking the pain out of the process and delivering a solution that “just works.”
 
 ## Implementing Superpositioning in CI/CD
+
 Zephyr’s capabilities extend beyond infrastructure management to potentially revolutionize CI/CD processes through superpositioning. Traditional CI/CD management often requires constant upkeep and tends to be fragmented. Imagine applying superpositioning architecture solely to CI/CD. Leveraging the delivery mechanisms of Module Federation, Zephyr can dynamically stream CI commands or runner tasks/scripts to any available CI environment for workload execution and deployment.
 
 ## Advanced Federation API Design
+
 The ongoing development of the Module Federation API introduces features that align well with this new approach, such as the 4-way handshake design. This feature allows the code being consumed to actively participate in the negotiation process between the consumer and the consumed. For instance, the prepareEnvironment hook could be repurposed in a CI context. Teams could use this hook to assess and confirm that an environment is fit to consume their code. If not, Zephyr can execute a CI command to allow teams to independently validate and prepare the environment.
 
 ## Intelligent CI Processes
+
 If no preparation step is required, Zephyr can bypass it, instantly managing the runtime linking of dependencies. This “smart” CI capability allows Zephyr to dynamically adapt applications at build time. If permitted by the user, it can even trigger automatic redeployments.
 
 In essence, Zephyr aims to make CI/CD processes as dynamic and adaptable as the applications they build, offering a more streamlined, efficient, and intelligent approach to continuous integration and deployment.
 
 ## Follow along to Zephyr
+
 We have announced our closed Alpha access, fill out our Zephyr Cloud early access form [here](https://app.zephyr-cloud.io).

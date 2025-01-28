@@ -1,9 +1,9 @@
 import { Link, useLocation } from '@modern-js/runtime/router';
-import { cn } from '@/lib/utils';
 import { useState } from 'react';
-import HeaderNav from './ui/buttons/button.header-nav';
-import ZephyrLogo from '@/images/zephyr-logo.svg';
 import { MobileNav } from './mobile-nav';
+import HeaderNav from './ui/buttons/button.header-nav';
+import { cn } from '@/lib/utils';
+import ZephyrLogo from '@/images/zephyr-logo.svg';
 
 const MenuIcon = () => (
   <svg
@@ -26,22 +26,24 @@ export const navigationItems = [
   {
     title: 'Pricing',
     link: '/pricing',
-    description: 'View Zephyr Cloud pricing plans and packages'
+    description: 'View Zephyr Cloud pricing plans and packages',
   },
   {
     title: 'Documentation',
     link: 'https://docs.zephyr-cloud.io/',
-    description: 'Comprehensive guides and API documentation for Zephyr Cloud'
+    description: 'Comprehensive guides and API documentation for Zephyr Cloud',
   },
   {
     title: 'Blog',
     link: '/blog',
-    description: 'Latest updates, tutorials and insights from the Zephyr Cloud team'
+    description:
+      'Latest updates, tutorials and insights from the Zephyr Cloud team',
   },
   {
     title: 'Enterprise',
     link: '/enterprise',
-    description: 'Enterprise-grade solutions and custom packages for large organizations'
+    description:
+      'Enterprise-grade solutions and custom packages for large organizations',
   },
 ];
 
@@ -92,12 +94,13 @@ export default function Header() {
             role="navigation"
             aria-label="Main navigation"
           >
-            {navigationItems.map(item => (
+            {navigationItems.map((item) => (
               <div
                 key={item.title}
                 className={cn(
                   'relative px-1',
-                  isActiveLink(item.link) && 'after:absolute after:bottom-0 after:left-[24px] after:right-[36px] after:h-[2px] after:bg-white/50'
+                  isActiveLink(item.link) &&
+                    'after:absolute after:bottom-0 after:left-[24px] after:right-[36px] after:h-[2px] after:bg-white/50',
                 )}
               >
                 <HeaderNav

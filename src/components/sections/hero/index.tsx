@@ -45,7 +45,9 @@ export default function Hero() {
     const loadVideo = async () => {
       let videoModule;
       const testVideoEl = document.createElement('video');
-      const canPlayWebm = testVideoEl.canPlayType('video/webm; codecs="vp8, vorbis"');
+      const canPlayWebm = testVideoEl.canPlayType(
+        'video/webm; codecs="vp8, vorbis"',
+      );
 
       if (canPlayWebm === 'probably' || canPlayWebm === 'maybe') {
         videoModule = await import('@/images/videos/hero-video.webm');
@@ -107,7 +109,9 @@ export default function Hero() {
           </div>
 
           <div className="flex sm:flex-row flex-col py-8 sm:py-0 gap-6 items-center">
-            <GlowingLinkButton to={siteConfig.signUp} className='w-fit px-12'>Get Started</GlowingLinkButton>
+            <GlowingLinkButton to={siteConfig.signUp} className="w-fit px-12">
+              Get Started
+            </GlowingLinkButton>
             <div className="relative">
               <Lottie
                 lottieRef={lottieRef}

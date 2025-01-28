@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
+import { get as hello } from '@api/hello';
 import squaresImage from './squares.svg';
 import hexagonImage from './hexagon.svg';
 import ButtonGlow from '@/components/ui/buttons/button.glow';
-import { get as hello } from '@api/hello';
 
 interface FormData {
   firstName: string;
@@ -26,12 +26,14 @@ export const ContactForm: React.FC = () => {
     country: '',
     company: '',
     companyEmail: '',
-    message: ''
+    message: '',
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [submitStatus, setSubmitStatus] = useState<
+    'idle' | 'success' | 'error'
+  >('idle');
 
   const validateForm = (): boolean => {
     const newErrors: FormErrors = {};
@@ -72,17 +74,21 @@ export const ContactForm: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors(prev => ({
+      setErrors((prev) => ({
         ...prev,
-        [name]: ''
+        [name]: '',
       }));
     }
   };
@@ -122,7 +128,7 @@ export const ContactForm: React.FC = () => {
         country: '',
         company: '',
         companyEmail: '',
-        message: ''
+        message: '',
       });
     } catch (error) {
       setSubmitStatus('error');
@@ -150,7 +156,7 @@ export const ContactForm: React.FC = () => {
       <div className="backdrop-blur-md bg-[#111111]/50 rounded-xl relative z-10 opacity-70">
         {submitStatus === 'success' && (
           <div className="p-4 mb-4 text-green-400 text-center">
-            Thank you for your message. We'll get back to you soon!
+            Thank you for your message. We&apos;ll get back to you soon!
           </div>
         )}
         {submitStatus === 'error' && (
@@ -162,7 +168,10 @@ export const ContactForm: React.FC = () => {
         <form onSubmit={handleSubmit} className="p-8 space-y-6">
           <div className="grid grid-cols-2 gap-6">
             <div className="space-y-2">
-              <label htmlFor="firstName" className="block text-sm text-gray-400">
+              <label
+                htmlFor="firstName"
+                className="block text-sm text-gray-400"
+              >
                 First Name
               </label>
               <input
@@ -171,9 +180,13 @@ export const ContactForm: React.FC = () => {
                 name="firstName"
                 value={formData.firstName}
                 onChange={handleChange}
-                className={`w-full bg-black border ${errors.firstName ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
+                className={`w-full bg-black border ${
+                  errors.firstName ? 'border-red-500' : 'border-gray-800'
+                } rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
-              {errors.firstName && <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>}
+              {errors.firstName && (
+                <p className="text-red-500 text-xs mt-1">{errors.firstName}</p>
+              )}
             </div>
             <div className="space-y-2">
               <label htmlFor="lastName" className="block text-sm text-gray-400">
@@ -185,9 +198,13 @@ export const ContactForm: React.FC = () => {
                 name="lastName"
                 value={formData.lastName}
                 onChange={handleChange}
-                className={`w-full bg-black border ${errors.lastName ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
+                className={`w-full bg-black border ${
+                  errors.lastName ? 'border-red-500' : 'border-gray-800'
+                } rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
-              {errors.lastName && <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>}
+              {errors.lastName && (
+                <p className="text-red-500 text-xs mt-1">{errors.lastName}</p>
+              )}
             </div>
           </div>
 
@@ -200,12 +217,16 @@ export const ContactForm: React.FC = () => {
                 type="tel"
                 id="phone"
                 name="phone"
-                placeholder='+1 (555) 555-5555'
+                placeholder="+1 (555) 555-5555"
                 value={formData.phone}
                 onChange={handleChange}
-                className={`w-full bg-black border ${errors.phone ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
+                className={`w-full bg-black border ${
+                  errors.phone ? 'border-red-500' : 'border-gray-800'
+                } rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
-              {errors.phone && <p className="text-red-500 text-xs mt-1">{errors.phone}</p>}
+              {errors.phone && (
+                <p className="text-red-500 text-xs mt-1">{errors.phone}</p>
+              )}
             </div>
             <div className="space-y-2">
               <label htmlFor="country" className="block text-sm text-gray-400">
@@ -216,14 +237,18 @@ export const ContactForm: React.FC = () => {
                 name="country"
                 value={formData.country}
                 onChange={handleChange}
-                className={`w-full bg-black border ${errors.country ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
+                className={`w-full bg-black border ${
+                  errors.country ? 'border-red-500' : 'border-gray-800'
+                } rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               >
                 <option value="">Select country</option>
                 <option value="Mexico">Mexico</option>
                 <option value="USA">USA</option>
                 <option value="Canada">Canada</option>
               </select>
-              {errors.country && <p className="text-red-500 text-xs mt-1">{errors.country}</p>}
+              {errors.country && (
+                <p className="text-red-500 text-xs mt-1">{errors.country}</p>
+              )}
             </div>
           </div>
 
@@ -238,12 +263,19 @@ export const ContactForm: React.FC = () => {
                 name="company"
                 value={formData.company}
                 onChange={handleChange}
-                className={`w-full bg-black border ${errors.company ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
+                className={`w-full bg-black border ${
+                  errors.company ? 'border-red-500' : 'border-gray-800'
+                } rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
-              {errors.company && <p className="text-red-500 text-xs mt-1">{errors.company}</p>}
+              {errors.company && (
+                <p className="text-red-500 text-xs mt-1">{errors.company}</p>
+              )}
             </div>
             <div className="space-y-2">
-              <label htmlFor="companyEmail" className="block text-sm text-gray-400">
+              <label
+                htmlFor="companyEmail"
+                className="block text-sm text-gray-400"
+              >
                 Company Email
               </label>
               <input
@@ -252,9 +284,15 @@ export const ContactForm: React.FC = () => {
                 name="companyEmail"
                 value={formData.companyEmail}
                 onChange={handleChange}
-                className={`w-full bg-black border ${errors.companyEmail ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
+                className={`w-full bg-black border ${
+                  errors.companyEmail ? 'border-red-500' : 'border-gray-800'
+                } rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600`}
               />
-              {errors.companyEmail && <p className="text-red-500 text-xs mt-1">{errors.companyEmail}</p>}
+              {errors.companyEmail && (
+                <p className="text-red-500 text-xs mt-1">
+                  {errors.companyEmail}
+                </p>
+              )}
             </div>
           </div>
 
@@ -267,16 +305,20 @@ export const ContactForm: React.FC = () => {
               name="message"
               value={formData.message}
               onChange={handleChange}
-              placeholder='Hello Z, I&apos;m interested in the enterprise special package for my team of 100...'
+              placeholder="Hello Z, I'm interested in the enterprise special package for my team of 100..."
               rows={4}
-              className={`w-full bg-black border ${errors.message ? 'border-red-500' : 'border-gray-800'} rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600 resize-none`}
+              className={`w-full bg-black border ${
+                errors.message ? 'border-red-500' : 'border-gray-800'
+              } rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gray-600 resize-none`}
             />
-            {errors.message && <p className="text-red-500 text-xs mt-1">{errors.message}</p>}
+            {errors.message && (
+              <p className="text-red-500 text-xs mt-1">{errors.message}</p>
+            )}
           </div>
 
           <ButtonGlow
             type="submit"
-            className='w-full p-8 text-lg'
+            className="w-full p-8 text-lg"
             disabled={isSubmitting}
           >
             {isSubmitting ? 'Sending...' : 'Send message'}

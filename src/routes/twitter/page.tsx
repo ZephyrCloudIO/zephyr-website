@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from '@modern-js/runtime/head';
 
 export default function TwitterPage() {
@@ -7,7 +6,7 @@ export default function TwitterPage() {
       <Helmet>
         <title>Twitter</title>
         <meta
-          http-equiv="refresh"
+          httpEquiv="refresh"
           content="0; url=https://x.com/ZephyrCloudIO"
         ></meta>
       </Helmet>

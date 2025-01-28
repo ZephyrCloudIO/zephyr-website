@@ -7,7 +7,7 @@ export default function ValuePropositionCard({
   onMouseOver,
   onMouseLeave,
 }: {
-  icon: React.ReactNode
+  icon: React.ReactNode;
   divRef:
     | LegacyRef<HTMLDivElement>
     | undefined
@@ -27,7 +27,9 @@ export default function ValuePropositionCard({
       onMouseLeave={onMouseLeave}
     >
       {icon}
-      <p className="tracking-tight sm:text-sm md:text-lg break ml-4 pr-4">{text}</p>
+      <p className="tracking-tight sm:text-sm md:text-lg break ml-4 pr-4">
+        {text}
+      </p>
     </div>
   );
 }

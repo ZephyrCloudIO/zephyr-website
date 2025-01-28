@@ -1,4 +1,3 @@
-import React from 'react';
 import { Helmet } from '@modern-js/runtime/head';
 
 export default function GithubPage() {
@@ -7,7 +6,7 @@ export default function GithubPage() {
       <Helmet>
         <title>Github</title>
         <meta
-          http-equiv="refresh"
+          httpEquiv="refresh"
           content="0; url=https://github.com/ZephyrCloudIO"
         ></meta>
       </Helmet>

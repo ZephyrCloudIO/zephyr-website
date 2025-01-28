@@ -5,15 +5,9 @@
     "jsx": "react-jsx",
     "baseUrl": "./",
     "paths": {
-      "@/*": [
-        "./src/*"
-      ],
-      "@shared/*": [
-        "./shared/*"
-      ],
-      "@api/*": [
-        "./api/lambda/*"
-      ]
+      "@/*": ["./src/*"],
+      "@shared/*": ["./shared/*"],
+      "@api/*": ["./api/lambda/*"]
     }
   },
   "include": [
@@ -24,7 +18,5 @@
     "tailwind.config.ts",
     "api"
   ],
-  "exclude": [
-    "**/node_modules"
-  ]
+  "exclude": ["**/node_modules"]
 }

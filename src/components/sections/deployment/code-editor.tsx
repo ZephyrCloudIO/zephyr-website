@@ -1,3 +1,4 @@
+/* eslint-disable no-useless-escape */
 import React, { useState } from 'react';
 import './code-editor.css';
 
@@ -63,7 +64,7 @@ export default defineConfig({
   },
 });`,
 
-'Qwik + Vite': `import {defineConfig, type UserConfig} from "vite";
+  'Qwik + Vite': `import {defineConfig, type UserConfig} from "vite";
 import {qwikVite} from "@builder.io/qwik/optimizer";
 import {qwikCity} from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -103,10 +104,13 @@ export default defineConfig(({command, mode}): UserConfig => {
       },
     },
   };
-});`
+});`,
 };
 
-const CodeEditor: React.FC<CodeEditorProps> = ({ framework, highlightedLines = [] }) => {
+const CodeEditor: React.FC<CodeEditorProps> = ({
+  framework,
+  highlightedLines = [],
+}) => {
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
@@ -127,31 +131,61 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ framework, highlightedLines = [
           isHighlighted ? 'bg-gray-800/50' : ''
         }`}
       >
-        <div className={`w-12 flex-shrink-0 text-right pr-4 select-none ${
-          isHighlighted ? 'text-gray-300' : 'text-gray-600'
-        }`}>
+        <div
+          className={`w-12 flex-shrink-0 text-right pr-4 select-none ${
+            isHighlighted ? 'text-gray-300' : 'text-gray-600'
+          }`}
+        >
           {index + 1}
         </div>
-        <div className={`flex-1 ${line.trim() === '' ? 'h-6' : ''} ${
-          isHighlighted ? 'text-gray-100' : 'opacity-60'
-        }`}>
+        <div
+          className={`flex-1 ${line.trim() === '' ? 'h-6' : ''} ${
+            isHighlighted ? 'text-gray-100' : 'opacity-60'
+          }`}
+        >
           {indentation}
-          {line.trimLeft().split(/(["'].*?["'])/).map((part, i) => {
-            if (i % 2 === 1) {
-              return <span key={i} className="text-[#7afcbd]">{part}</span>;
-            }
-            return <span key={i}>
-              {part.split(/\b/).map((word, j) => {
-                if (word === 'import' || word === 'export' || word === 'default' || word === 'const') {
-                  return <span key={j} className="text-[#7afcbd]">{word}</span>;
-                }
-                if (word === 'require') {
-                  return <span key={j} className="text-[#DCDCAA]">{word}</span>;
-                }
-                return <span key={j} className="text-[#9CDCFE]">{word}</span>;
-              })}
-            </span>;
-          })}
+          {line
+            .trimLeft()
+            .split(/(["'].*?["'])/)
+            .map((part, i) => {
+              if (i % 2 === 1) {
+                return (
+                  <span key={i} className="text-[#7afcbd]">
+                    {part}
+                  </span>
+                );
+              }
+              return (
+                <span key={i}>
+                  {part.split(/\b/).map((word, j) => {
+                    if (
+                      word === 'import' ||
+                      word === 'export' ||
+                      word === 'default' ||
+                      word === 'const'
+                    ) {
+                      return (
+                        <span key={j} className="text-[#7afcbd]">
+                          {word}
+                        </span>
+                      );
+                    }
+                    if (word === 'require') {
+                      return (
+                        <span key={j} className="text-[#DCDCAA]">
+                          {word}
+                        </span>
+                      );
+                    }
+                    return (
+                      <span key={j} className="text-[#9CDCFE]">
+                        {word}
+                      </span>
+                    );
+                  })}
+                </span>
+              );
+            })}
         </div>
       </div>
     );
@@ -171,10 +205,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({ framework, highlightedLines = [
         <button
           onClick={handleCopy}
           className="text-gray-400 hover:text-white transition-colors"
-          aria-label='Copy example'
+          aria-label="Copy example"
         >
           {copied ? (
-           <svg
+            <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5 text-green-500 animate-fade-in"
               viewBox="0 0 20 20"

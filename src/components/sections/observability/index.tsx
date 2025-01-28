@@ -113,7 +113,8 @@ const ObservabilitySection: React.FC = () => {
               <br /> federated applications
             </h2>
             <p className="text-lg text-gray-400 text-center md:text-left">
-              Zephyr Cloud solves these issues with unparalleled visbility and control.
+              Zephyr Cloud solves these issues with unparalleled visbility and
+              control.
             </p>
           </div>
         </div>
@@ -144,9 +145,9 @@ const ObservabilitySection: React.FC = () => {
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 border-2 rounded-lg border-[rgba(255,255,255,0.1)] p-12">
-            {features.map((feature, index) => (
+            {features.map((feature) => (
               <FeatureCard
-                key={index}
+                key={feature.title}
                 icon={feature.icon}
                 title={feature.title}
                 gradient={feature.gradient}

@@ -8,7 +8,12 @@ interface HeaderNavProps {
   'aria-label'?: string;
 }
 
-export default function HeaderNav({ title, link, className, 'aria-label': ariaLabel }: HeaderNavProps) {
+export default function HeaderNav({
+  title,
+  link,
+  className,
+  'aria-label': ariaLabel,
+}: HeaderNavProps) {
   return (
     <Link
       to={link}
@@ -17,7 +22,7 @@ export default function HeaderNav({ title, link, className, 'aria-label': ariaLa
         'text-zinc-400 hover:text-white transition-colors duration-200',
         'text-sm font-medium px-4 py-2 rounded-full',
         'hover:bg-zinc-800/50',
-        className
+        className,
       )}
     >
       {title}

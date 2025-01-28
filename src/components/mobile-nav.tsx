@@ -1,8 +1,8 @@
 import { Link } from '@modern-js/runtime/router';
 import { useState, useEffect } from 'react';
+import { navigationItems } from './header';
 import ZephyrLogo from '@/images/zephyr-logo.svg';
 import separateTop from '@/images/separator-pointing-down.svg';
-import { navigationItems } from './header';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -16,7 +16,9 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
     setMounted(true);
   }, []);
 
-  if (!mounted) return null;
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <>
@@ -69,13 +71,13 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
             </button>
           </div>
 
-         <div className='flex h-full flex-col'>
-          <img
+          <div className="flex h-full flex-col">
+            <img
               src={separateTop}
               className="w-full object-cover"
               alt="Top separator"
             />
-          <nav className="flex-1 px-4 pt-4 h-full">
+            <nav className="flex-1 px-4 pt-4 h-full">
               <ul className="space-y-4">
                 {navigationItems.map((link) => (
                   <li key={link.title}>
@@ -91,15 +93,15 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
               </ul>
             </nav>
             <div className="flex flex-col items-center w-full gap-4 mb-4 pb-4">
-                <Link
-                  to="https://app.zephyr-cloud.io/"
-                  className="bg-white hover:bg-zinc-100 text-zinc-900 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200"
-                  aria-label="Get started with Zephyr Cloud platform"
-                  rel="noopener noreferrer"
-                >
-                  Get Started
-                </Link>
-              </div>
+              <Link
+                to="https://app.zephyr-cloud.io/"
+                className="bg-white hover:bg-zinc-100 text-zinc-900 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200"
+                aria-label="Get started with Zephyr Cloud platform"
+                rel="noopener noreferrer"
+              >
+                Get Started
+              </Link>
+            </div>
           </div>
         </div>
       </div>

@@ -1,7 +1,8 @@
-import { cn } from '@/lib/utils';
 import React from 'react';
+import { cn } from '@/lib/utils';
 
-interface ButtonGlowProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface ButtonGlowProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: React.ReactNode;
   className?: string;
   icon?: React.ReactNode;
@@ -24,12 +25,16 @@ const ButtonGlow: React.FC<ButtonGlowProps> = ({
         'before:animate-glow-slow after:animate-glow-slow-reverse',
         'hover:shadow-[0_0_20px_2px_rgba(255,255,255,0.3)]',
         'transition-all duration-300',
-        className
+        className,
       )}
       {...props}
     >
       <span className="relative z-10 flex items-center gap-2">
-        {icon && <span className="w-5 h-5 flex items-center justify-center">{icon}</span>}
+        {icon && (
+          <span className="w-5 h-5 flex items-center justify-center">
+            {icon}
+          </span>
+        )}
         {children}
       </span>
     </button>

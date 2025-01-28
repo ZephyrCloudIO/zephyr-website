@@ -12,7 +12,13 @@ export interface BlogPost {
   description: string;
 }
 
-export function BlogCard({ post, featured }: { post: BlogPost; featured?: boolean }) {
+export function BlogCard({
+  post,
+  featured,
+}: {
+  post: BlogPost;
+  featured?: boolean;
+}) {
   return (
     <div className="group h-full w-full">
       <article className="relative flex h-full flex-col overflow-hidden rounded-2xl bg-zinc-900/50 backdrop-blur-lg transition-all duration-300 hover:bg-zinc-900/70">
@@ -36,13 +42,14 @@ export function BlogCard({ post, featured }: { post: BlogPost; featured?: boolea
               className={`mb-3 font-semibold tracking-tight text-gray-300 transition-colors duration-300 group-hover:text-white ${
                 featured ? 'text-2xl lg:text-3xl' : 'text-xl'
               }`}
+              // eslint-disable-next-line react/no-danger
               dangerouslySetInnerHTML={{ __html: post.title }}
             />
 
             {/* Authors */}
             {post.authors && post.authors.length > 0 && (
               <div className="mb-3 flex flex-wrap gap-3">
-                {post.authors.map(author => (
+                {post.authors.map((author) => (
                   <div
                     key={author.displayName}
                     className="flex items-center gap-2"

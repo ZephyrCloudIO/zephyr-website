@@ -13,12 +13,12 @@ declare module '*.webm' {
   export default src;
 }
 
-declare module "*.md" {
-  let MDXComponent: () => JSX.Element;
+declare module '*.md' {
+  const MDXComponent: () => JSX.Element;
   export default MDXComponent;
 }
 
-declare module "*.mdx" {
-  let MDXComponent: () => JSX.Element;
+declare module '*.mdx' {
+  const MDXComponent: () => JSX.Element;
   export default MDXComponent;
 }

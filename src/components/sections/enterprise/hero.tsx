@@ -12,9 +12,9 @@ export const Hero: React.FC = () => {
         </h1>
 
         <p className="text-gray-400 text-xl max-w-xl">
-          As your organization grows and you add more micro-frontends
-          Zephyr Cloud provides the observability and orchestration you
-          need without sacrificing the performance you expect.
+          As your organization grows and you add more micro-frontends Zephyr
+          Cloud provides the observability and orchestration you need without
+          sacrificing the performance you expect.
         </p>
       </div>
     </div>

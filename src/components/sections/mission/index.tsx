@@ -26,7 +26,7 @@ export default function Mission() {
         </div>
         <div className="sm:p-32 p-32 border-2 rounded-lg border-white/10 bg-gradient-to-b from-[#2E335A]/10 from-10% via-[#1C1B33]/5 via-70% to-[#2E335A]/10 to-90%">
           <div className="flex flex-col md:flex-row gap-8 md:gap-4 md:justify-between">
-            {Missions.map(item => (
+            {Missions.map((item) => (
               <div
                 key={item.title}
                 className="flex flex-col gap-2 md:gap-4 items-center"

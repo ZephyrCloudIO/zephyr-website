@@ -52,9 +52,9 @@ export const PricingSection: React.FC = () => {
           Our prices
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {pricingTiers.map((tier, index) => (
+          {pricingTiers.map((tier) => (
             <PricingCard
-              key={index}
+              key={tier.name}
               name={tier.name}
               link={tier.link}
               price={tier.price}

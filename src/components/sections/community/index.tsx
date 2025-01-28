@@ -205,9 +205,11 @@ export const CommunitySection: React.FC = () => {
         <div className="testimonials-container">
           <div className="testimonials-wrapper">
             <div className="testimonials-group">
-              {scrollContent.map((testimonial, index) => (
+              {scrollContent.map((testimonial) => (
                 <div
-                  key={`${testimonial.name}-${index}`}
+                  key={`${testimonial.name}-${testimonial.company || ''}-${
+                    testimonial.role || ''
+                  }`}
                   className="testimonial-card"
                 >
                   <TestimonialCard

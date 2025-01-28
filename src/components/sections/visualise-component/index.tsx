@@ -34,7 +34,7 @@ export default function VisualiseComponentSection() {
         }}
       >
         <div className="flex md:flex-row flex-col gap-8 justify-around items-baseline">
-          {Values.map(item => (
+          {Values.map((item) => (
             <ValueCard key={item.title} props={item} />
           ))}
         </div>
@@ -53,7 +53,7 @@ const Values: ValueCardType[] = [
     title: 'Bring your own cloud - no vendor lock in, full flexibility',
     content:
       'Freedom. Flexibility. No lock-in. Choose the cloud provider of your choice and we will bring you the rest - all you need is an API token from your cloud provider to enable Zephyr move as you wish. Empower your team with integration, scalability and control.',
-      description: 'Bring your own cloud',
+    description: 'Bring your own cloud',
     graphic: value2,
   },
   {

@@ -22,7 +22,7 @@ interface LinePosition {
 
 export function calculateLinePositions(
   code: string,
-  lineHeight: number
+  lineHeight: number,
 ): LinePosition[] {
   const lines = code.split('\n');
   return lines.map((_, index) => ({
@@ -32,10 +32,12 @@ export function calculateLinePositions(
 }
 
 export function getHighlightedLines(highlights?: string): number[] {
-  if (!highlights) return [];
+  if (!highlights) {
+    return [];
+  }
 
   const lines: number[] = [];
-  const ranges = highlights.split(',').map(range => range.trim());
+  const ranges = highlights.split(',').map((range) => range.trim());
 
   for (const range of ranges) {
     if (range.includes('-')) {
@@ -48,16 +50,19 @@ export function getHighlightedLines(highlights?: string): number[] {
     }
   }
 
-  return [...new Set(lines)].filter(line => !isNaN(line)).sort((a, b) => a - b);
+  return [...new Set(lines)]
+    .filter((line) => !isNaN(line))
+    .sort((a, b) => a - b);
 }
 
-export function getLineClasses(lineNumber: number, highlightedLines: number[]): string {
+export function getLineClasses(
+  lineNumber: number,
+  highlightedLines: number[],
+): string {
   return cn(
     'transition-opacity duration-200',
     highlightedLines.includes(lineNumber)
       ? 'opacity-100'
-      : highlightedLines.length > 0
-      ? 'opacity-40'
-      : 'opacity-100'
+      : (highlightedLines.length > 0 && 'opacity-40') || 'opacity-100',
   );
 }

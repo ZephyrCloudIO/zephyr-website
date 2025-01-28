@@ -27,8 +27,8 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
 
   const handleCopy = async () => {
     const commandText = commands
-      .filter(cmd => cmd.type === 'command')
-      .map(cmd => cmd.content)
+      .filter((cmd) => cmd.type === 'command')
+      .map((cmd) => cmd.content)
       .join('\n');
 
     const success = await copyToClipboard(commandText);
@@ -42,7 +42,9 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
 
   return (
     <div className="relative group">
-      <div className={`relative ${bgColor} rounded-lg overflow-hidden shadow-2xl border border-gray-800 bg-[#1E1E1E]`}>
+      <div
+        className={`relative ${bgColor} rounded-lg overflow-hidden shadow-2xl border border-gray-800 bg-[#1E1E1E]`}
+      >
         <div className="absolute inset-0 bg-gradient-to-b from-white/[0.12] to-transparent pointer-events-none" />
         <div className="relative">
           <div className="absolute inset-0 bg-black/20 backdrop-blur-[2px]" />
@@ -53,7 +55,9 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
                 <div className="w-4 h-4 rounded-full border-2 border-solid border-gray-600/50 shadow-sm" />
                 <div className="w-4 h-4 rounded-full border-2 border-solid border-gray-600/50 shadow-sm" />
               </div>
-              <span className="text-gray-400 text-sm font-medium w-full text-center">{title}</span>
+              <span className="text-gray-400 text-sm font-medium w-full text-center">
+                {title}
+              </span>
             </div>
             {showCopyButton && (
               <div className="relative">
@@ -97,8 +101,8 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
           </div>
         </div>
         <div className="terminal-container p-4 font-mono text-sm space-y-1">
-          {commands.map((cmd, index) => (
-            <div key={index} className="flex items-start">
+          {commands.map((cmd) => (
+            <div key={cmd.content} className="flex items-start">
               {cmd.lineNumber && (
                 <span className="text-gray-600 w-6 flex-shrink-0 select-none">
                   {cmd.lineNumber}
@@ -112,9 +116,11 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
               ) : (
                 <div className="flex items-center gap-2">
                   {cmd.label && (
-                    <span className={`px-2 py-0.5 rounded text-xs ${
-                      cmd.labelColor || 'bg-[#3178C6] text-white'
-                    }`}>
+                    <span
+                      className={`px-2 py-0.5 rounded text-xs ${
+                        cmd.labelColor || 'bg-[#3178C6] text-white'
+                      }`}
+                    >
                       {cmd.label}
                     </span>
                   )}
