@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
@@ -6,11 +6,22 @@ import infrastructureless from '@/images/blog/infrastructureless.webp';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import ota_update from '@/images/blog/ota-update.webm';
 import ota_hero from '@/images/blog/ota-hero.webp';
-import { BlogCard, BlogPost } from '@/components/ui/blog-card';
-import { Zack } from '@/lib/blog/authors/Zack';
+import team_first from '@/images/blog/the-team-first-architecture.webp';
+import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
+import { Zack } from '@/lib/blog/authors/Zack';
+import { BlogCard, type BlogPost } from '@/components/ui/blog-card';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: 'The team-first Architecture',
+    slug: './the-team-first-architecture',
+    date: new Date('January 29, 2025 16:00:00 GMT+0'),
+    heroImage: team_first,
+    listingImage: team_first,
+    description: 'A new architecture for the team-first era',
+    authors: [Nestor],
+  },
   {
     title: 'Over the Air (OTA) updates withZephyr',
     slug: './ota-with-zephyr',
