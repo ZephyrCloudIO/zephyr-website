@@ -34,7 +34,7 @@ export default function VisualiseComponentSection() {
         }}
       >
         <div className="flex lg:flex-row flex-col gap-8 justify-around items-baseline">
-          {Values.map((item) => (
+          {Values.map(item => (
             <ValueCard key={item.title} props={item} />
           ))}
         </div>

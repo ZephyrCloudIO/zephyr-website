@@ -54,7 +54,7 @@ export default function BlogMetadata({
           </h3>
           {socialLinks && socialLinks.length > 0 && (
             <div className="flex gap-2">
-              {socialLinks.map((link) => (
+              {socialLinks.map(link => (
                 <a
                   key={link.platform}
                   href={link.url}
