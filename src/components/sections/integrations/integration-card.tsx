@@ -16,7 +16,7 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
   opacity = 1,
 }) => {
   return (
-    <div
+    <article
       className="relative flex flex-col items-center justify-center p-8 rounded-lg bg-black/30 backdrop-blur-sm border border-gray-800 min-w-[300px] min-h-[250px] transition-all duration-300 hover:border-gray-700"
       style={{
         boxShadow: 'rgba(255, 255, 255, 0.1) 2px 2px 100px 0px inset',
@@ -26,8 +26,8 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
         backgroundSize: 'cover',
         opacity,
       }}
-      role="article"
-      aria-label={`Integration card for ${name}`}
+      itemScope
+      itemType="http://schema.org/Product"
     >
       <div className="w-16 h-16 mb-6 rounded-full bg-black/50 flex items-center justify-center">
         {icon ? (
@@ -36,6 +36,7 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
             alt={`Integration icon for ${name}`}
             className="max-w-full max-h-full"
             loading="lazy"
+            itemProp="image"
           />
         ) : (
           <div
@@ -44,14 +45,18 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
           />
         )}
       </div>
-      <h3 className="text-xl font-medium text-white mb-4">{name}</h3>
+      <h3 className="text-xl font-medium text-white mb-4" itemProp="name">
+        {name}
+      </h3>
       {!link ? (
-        <span className="text-gray-400 px-4 py-2">Coming Soon</span>
+        <span className="text-gray-400 px-4 py-2" itemProp="availability">
+          Coming Soon
+        </span>
       ) : (
         <GlowingLinkButton to={link} className="bg-stone-900" external={true}>
           Learn more
         </GlowingLinkButton>
       )}
-    </div>
+    </article>
   );
 };
