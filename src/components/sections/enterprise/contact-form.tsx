@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
-import { get as hello } from '@api/hello';
-import squaresImage from './squares.svg';
-import hexagonImage from './hexagon.svg';
 import ButtonGlow from '@/components/ui/buttons/button.glow';
+import { get as hello } from '@api/hello';
+import type React from 'react';
+import { useState } from 'react';
+import hexagonImage from './hexagon.svg';
+import squaresImage from './squares.svg';
 
 interface FormData {
   firstName: string;
@@ -80,13 +81,13 @@ export const ContactForm: React.FC = () => {
     >,
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
+    setFormData(prev => ({
       ...prev,
       [name]: value,
     }));
     // Clear error when user starts typing
     if (errors[name]) {
-      setErrors((prev) => ({
+      setErrors(prev => ({
         ...prev,
         [name]: '',
       }));

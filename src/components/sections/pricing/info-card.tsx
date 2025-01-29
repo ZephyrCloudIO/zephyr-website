@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import CardIcon from './card-icon.svg';
 
 interface FeatureCardProps {
@@ -6,7 +6,7 @@ interface FeatureCardProps {
   description: string;
 }
 
-export const InfoCard: React.FC<FeatureCardProps> = (props) => {
+export const InfoCard: React.FC<FeatureCardProps> = props => {
   const handleLearnMore = (e: React.MouseEvent) => {
     e.preventDefault();
     const pricingTable = document.getElementById('pricing-table');
@@ -29,6 +29,7 @@ export const InfoCard: React.FC<FeatureCardProps> = (props) => {
 
         <div className="mt-auto pt-4">
           <button
+            type="button"
             onClick={handleLearnMore}
             className="text-blue-500 hover:text-blue-400 cursor-pointer"
           >

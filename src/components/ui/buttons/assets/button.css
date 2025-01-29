@@ -1,35 +1,35 @@
 @property --nav-length {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 0rem;
 }
 
 @property --nav-left-position {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 0;
 }
 
 @property --button-children-width {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 10rem;
 }
 
 @property --button-children-height {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 2.8rem;
 }
 
 @property --button-children-top {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 0.4rem;
 }
 
 @property --button-children-right {
-  syntax: '<length>';
+  syntax: "<length>";
   inherits: false;
   initial-value: 0.4rem;
 }
@@ -132,11 +132,9 @@
       0deg,
       rgba(0, 0, 0, 0.1) 0%,
       rgba(0, 0, 0, 0.1) 100%
-    ),
-    #111317;
-  box-shadow:
-    1.2px -0.2px 0px 0px rgb(255, 255, 255, 0.12),
-    2px 2px 12px 0px rgba(255, 255, 255, 0.135) inset;
+    ), #111317;
+  box-shadow: 1.2px -0.2px 0px 0px rgb(255, 255, 255, 0.12), 2px 2px 12px 0px
+    rgba(255, 255, 255, 0.135) inset;
 }
 
 /* Media query for screens wider than 768px */

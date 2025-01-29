@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import GlowingLinkButton from '@/components/ui/link.glowing-button';
+import { useEffect, useState } from 'react';
 
 const WaitSection = () => {
   const [videoSrc, setVideoSrc] = useState<string>('');
@@ -7,7 +7,7 @@ const WaitSection = () => {
 
   useEffect(() => {
     const loadVideo = async () => {
-      let videoModule;
+      let videoModule: { default: string };
       const testVideoEl = document.createElement('video');
       const canPlayWebm = testVideoEl.canPlayType(
         'video/webm; codecs="vp8, vorbis"',

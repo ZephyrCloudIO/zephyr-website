@@ -1,6 +1,6 @@
-import React from 'react';
 import GlowingLinkButton from '@/components/ui/link.glowing-button';
 import Cubes from '@/images/cubes.svg';
+import type React from 'react';
 
 interface IntegrationCardProps {
   name: string;
@@ -26,7 +26,6 @@ export const IntegrationCard: React.FC<IntegrationCardProps> = ({
         backgroundSize: 'cover',
         opacity,
       }}
-      role="article"
       aria-label={`Integration card for ${name}`}
     >
       <div className="w-16 h-16 mb-6 rounded-full bg-black/50 flex items-center justify-center">

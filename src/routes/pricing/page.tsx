@@ -1,7 +1,7 @@
-import React from 'react';
 import { PricingSection } from '@/components/sections/pricing';
-import { InfoCard } from '@/components/sections/pricing/info-card';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
+import { InfoCard } from '@/components/sections/pricing/info-card';
+import type React from 'react';
 
 const PricingPage: React.FC = () => {
   const calculationCards = [
@@ -127,7 +127,7 @@ const PricingPage: React.FC = () => {
             </h2>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-              {calculationCards.map((card) => (
+              {calculationCards.map(card => (
                 <InfoCard
                   key={card.title}
                   title={card.title}

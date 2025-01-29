@@ -1,5 +1,5 @@
-import React from 'react';
 import GlowingLinkButton from '@/components/ui/link.glowing-button';
+import type React from 'react';
 
 interface PricingCardProps {
   name: string;
@@ -37,7 +37,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
             <span className="text-5xl text-gray-400"> / month</span>
           )}
         </div>
-        <div className="bg-gradient-to-r from-[#2a2a2a] from-15% via-white via-50% to-[#2a2a2a] to-90% h-[0.1rem] mt-8"></div>
+        <div className="bg-gradient-to-r from-[#2a2a2a] from-15% via-white via-50% to-[#2a2a2a] to-90% h-[0.1rem] mt-8" />
       </div>
 
       <div className="min-h-0">
@@ -45,7 +45,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
           What&apos;s included:
         </div>
         <ul className="space-y-4">
-          {features.map((feature) => (
+          {features.map(feature => (
             <li
               key={`feature-${feature.toLowerCase().replace(/\s+/g, '-')}`}
               className="flex items-center"

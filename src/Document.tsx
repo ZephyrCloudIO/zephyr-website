@@ -1,14 +1,14 @@
-import React from 'react';
-import { Html, Root, Head, Body } from '@modern-js/runtime/document';
+import { Body, Head, Html, Root } from '@modern-js/runtime/document';
+import type React from 'react';
 
 const GoogleAnalytics = () => (
   <>
     <script
       async
-      src={`https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH`}
+      src={'https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH'}
     />
     <script
-      // eslint-disable-next-line react/no-danger
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
       dangerouslySetInnerHTML={{
         __html: `
         window.dataLayer = window.dataLayer || [];

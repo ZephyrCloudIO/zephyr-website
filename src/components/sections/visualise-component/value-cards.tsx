@@ -15,7 +15,7 @@ export const ValueCard = ({ props }: { props: ValueCardType }) => {
         src={props.graphic}
         className="md:w-[350px]"
         alt={props.description}
-      ></img>
+      />
       <div className="md:p-4 p-2 h-full flex-col gap-4 flex items-center ">
         <h4 className="md:text-2xl text-lg w-full  text-start  text-zinc-200">
           {props.title}

@@ -8,7 +8,7 @@ const DiscordPage = () => {
         <meta
           httpEquiv="refresh"
           content="0; url=https://discord.gg/pSxWRVayEu"
-        ></meta>
+        />
       </Helmet>
       <p>Redirecting to Discord...</p>
     </div>

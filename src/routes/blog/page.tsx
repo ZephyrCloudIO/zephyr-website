@@ -1,14 +1,14 @@
-import { FC } from 'react';
-import MobileFirstHero from '@/images/blog/mobilefirst.webp';
-import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
-import infrastructureless from '@/images/blog/infrastructureless.webp';
+import { BlogCard, type BlogPost } from '@/components/ui/blog-card';
+import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
-import ota_update from '@/images/blog/ota-update.webm';
+import infrastructureless from '@/images/blog/infrastructureless.webp';
+import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
-import { BlogCard, BlogPost } from '@/components/ui/blog-card';
-import { Zack } from '@/lib/blog/authors/Zack';
+import ota_update from '@/images/blog/ota-update.webm';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
+import { Zack } from '@/lib/blog/authors/Zack';
+import type { FC } from 'react';
 
 const blogPosts: BlogPost[] = [
   {
@@ -85,25 +85,23 @@ const BlogPage: FC = () => {
   return (
     <div className="min-h-screen">
       <div className="fixed inset-x-0 top-0 h-[600px] overflow-hidden mt-16 -z-10">
-        {['-translate-x-[240px]', '', 'translate-x-[240px]'].map(
-          (transform) => (
-            <div
-              key={transform || 'center'}
-              className={`absolute w-[800px] opacity-90 ${transform}`}
-            >
-              <img
-                src={JesusBeam}
-                className="w-full"
-                style={{
-                  filter: 'blur(50px) brightness(5)',
-                  WebkitFilter: 'blur(50px) brightness(5)',
-                }}
-                alt=""
-                loading="lazy"
-              />
-            </div>
-          ),
-        )}
+        {['-translate-x-[240px]', '', 'translate-x-[240px]'].map(transform => (
+          <div
+            key={transform || 'center'}
+            className={`absolute w-[800px] opacity-90 ${transform}`}
+          >
+            <img
+              src={JesusBeam}
+              className="w-full"
+              style={{
+                filter: 'blur(50px) brightness(5)',
+                WebkitFilter: 'blur(50px) brightness(5)',
+              }}
+              alt=""
+              loading="lazy"
+            />
+          </div>
+        ))}
       </div>
 
       <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
@@ -113,7 +111,7 @@ const BlogPage: FC = () => {
 
         {/* Featured Posts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {featuredPosts.map((post) => (
+          {featuredPosts.map(post => (
             <div key={post.slug} className="flex">
               <BlogCard post={post} featured />
             </div>
@@ -125,7 +123,7 @@ const BlogPage: FC = () => {
           <h2 className="mb-8 text-xl">Latest Posts</h2>
         )}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {remainingPosts.map((post) => (
+          {remainingPosts.map(post => (
             <div key={post.slug} className="flex">
               <BlogCard post={post} />
             </div>

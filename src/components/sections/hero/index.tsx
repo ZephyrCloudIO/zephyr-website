@@ -1,14 +1,14 @@
-import { Link } from '@modern-js/runtime/router';
-import Lottie from 'lottie-react';
-import { useEffect, useRef, useState } from 'react';
 import GlowingLinkButton from '@/components/ui/link.glowing-button';
-import { siteConfig } from '@/lib/site.config';
-import { cn } from '@/lib/utils';
 import videoPoster from '@/images/VideoPoster.webp';
 import documentationGlow from '@/images/lordi/hover/documentation-glow.json';
+import { siteConfig } from '@/lib/site.config';
+import { cn } from '@/lib/utils';
+import { Link } from '@modern-js/runtime/router';
+import Lottie, { type LottieRefCurrentProps } from 'lottie-react';
+import { useEffect, useRef, useState } from 'react';
 
 export default function Hero() {
-  const lottieRef = useRef<any>(null);
+  const lottieRef = useRef<LottieRefCurrentProps>(null);
   const [isHovering, setIsHovering] = useState(false);
   const buttonRef = useRef<HTMLAnchorElement>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
@@ -43,7 +43,7 @@ export default function Hero() {
 
   useEffect(() => {
     const loadVideo = async () => {
-      let videoModule;
+      let videoModule: { default: string };
       const testVideoEl = document.createElement('video');
       const canPlayWebm = testVideoEl.canPlayType(
         'video/webm; codecs="vp8, vorbis"',

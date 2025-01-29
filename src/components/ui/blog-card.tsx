@@ -1,11 +1,11 @@
+import type { Author } from '@/lib/blog/authors/author';
 import { Link } from '@modern-js/runtime/router';
-import { Author } from '@/lib/blog/authors/author';
 
 export interface BlogPost {
   title: string;
   slug: string;
-  listingImage?: any;
-  heroImage?: any;
+  listingImage?: string;
+  heroImage?: string;
   date: Date;
   time?: string;
   authors?: Array<Author>;
@@ -42,14 +42,14 @@ export function BlogCard({
               className={`mb-3 font-semibold tracking-tight text-gray-300 transition-colors duration-300 group-hover:text-white ${
                 featured ? 'text-2xl lg:text-3xl' : 'text-xl'
               }`}
-              // eslint-disable-next-line react/no-danger
+              // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
               dangerouslySetInnerHTML={{ __html: post.title }}
             />
 
             {/* Authors */}
             {post.authors && post.authors.length > 0 && (
               <div className="mb-3 flex flex-wrap gap-3">
-                {post.authors.map((author) => (
+                {post.authors.map(author => (
                   <div
                     key={author.displayName}
                     className="flex items-center gap-2"

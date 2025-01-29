@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import { copyToClipboard } from '@/lib/utils';
+import type React from 'react';
+import { useState } from 'react';
 import './terminal.css';
 
 export interface Command {
@@ -27,8 +28,8 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
 
   const handleCopy = async () => {
     const commandText = commands
-      .filter((cmd) => cmd.type === 'command')
-      .map((cmd) => cmd.content)
+      .filter(cmd => cmd.type === 'command')
+      .map(cmd => cmd.content)
       .join('\n');
 
     const success = await copyToClipboard(commandText);
@@ -62,6 +63,7 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
             {showCopyButton && (
               <div className="relative">
                 <button
+                  type="button"
                   onClick={handleCopy}
                   className="text-gray-400 hover:text-white transition-colors"
                   aria-label="Copy to clipboard"
@@ -101,7 +103,7 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
           </div>
         </div>
         <div className="terminal-container p-4 font-mono text-sm space-y-1">
-          {commands.map((cmd) => (
+          {commands.map(cmd => (
             <div key={cmd.content} className="flex items-start">
               {cmd.lineNumber && (
                 <span className="text-gray-600 w-6 flex-shrink-0 select-none">

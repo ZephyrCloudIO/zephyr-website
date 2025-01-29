@@ -1,10 +1,10 @@
-import { Link } from '@modern-js/runtime/router';
-import { ValueCard, ValueCardType } from './value-cards';
-import { siteConfig } from '@/lib/site.config';
 import { SecondaryButton } from '@/components/ui/buttons/button.secondary';
 import value1 from '@/images/value-graphic-1.svg';
 import value2 from '@/images/value-graphic-2.svg';
 import value3 from '@/images/value-graphic-3.svg';
+import { siteConfig } from '@/lib/site.config';
+import { Link } from '@modern-js/runtime/router';
+import { ValueCard, type ValueCardType } from './value-cards';
 
 export default function VisualiseComponentSection() {
   return (
@@ -34,7 +34,7 @@ export default function VisualiseComponentSection() {
         }}
       >
         <div className="flex md:flex-row flex-col gap-8 justify-around items-baseline">
-          {Values.map((item) => (
+          {Values.map(item => (
             <ValueCard key={item.title} props={item} />
           ))}
         </div>
