@@ -65,11 +65,21 @@ const Footer = () => {
     <footer
       className="bg-[#0A0A0A] pt-20 pb-8 px-6 md:px-8 mt-24"
       role="contentinfo"
+      itemScope
+      itemType="http://schema.org/WPFooter"
     >
       <div className="max-w-7xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-8">
-          <div className="md:col-span-4">
-            <p className="text-gray-400 text-sm leading-relaxed">
+          <div
+            className="md:col-span-4"
+            itemScope
+            itemType="http://schema.org/Organization"
+          >
+            <meta itemProp="name" content="Zephyr Cloud" />
+            <p
+              className="text-gray-400 text-sm leading-relaxed"
+              itemProp="description"
+            >
               Zephyr Cloud is a cloud-agnostic, framework-agnostic platform
               enabling lightning-fast deployment with first-class support for
               federated applications. Build, deploy, and scale your applications
@@ -87,11 +97,23 @@ const Footer = () => {
           <nav
             className="md:col-span-2 md:col-start-6"
             aria-label="Company links"
+            itemScope
+            itemType="http://schema.org/SiteNavigationElement"
           >
             <h3 className="text-white font-medium mb-4">Company</h3>
-            <ul className="space-y-3">
-              {companyLinks.map(({ name, to, description }) => (
-                <li key={name}>
+            <ul
+              className="space-y-3"
+              itemScope
+              itemType="http://schema.org/BreadcrumbList"
+            >
+              {companyLinks.map(({ name, to, description }, index) => (
+                <li
+                  key={name}
+                  itemProp="itemListElement"
+                  itemScope
+                  itemType="http://schema.org/ListItem"
+                >
+                  <meta itemProp="position" content={String(index + 1)} />
                   {to.startsWith('http') ? (
                     <a
                       href={to}
@@ -128,6 +150,7 @@ const Footer = () => {
                       rel="noopener noreferrer"
                       className="text-gray-400 hover:text-white text-sm"
                       aria-label={integration.alt}
+                      itemProp="sameAs"
                     >
                       {integration.name}
                     </a>
