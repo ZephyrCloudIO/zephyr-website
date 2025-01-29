@@ -10,7 +10,7 @@ export type ValueCardType = {
 
 export const ValueCard = ({ props }: { props: ValueCardType }) => {
   return (
-    <div className="flex group/value-card value-card-background transition-all backdrop-blur-lg md:w-[calc((100vw-19vw)/3)] md:h-[calc((100vh-10vh)/2)] hover:h-[calc(120vh/2)] p-5 flex-col items-center justify-between gap-3 rounded-2xl -[0.4px] -zinc-400/80">
+    <div className="flex group/value-card value-card-background transition-all backdrop-blur-lg md:w-[calc((100vw-19vw)/3)] w-auto md:h-[calc((100vh-10vh)/2)] h-auto  hover:h-[calc(120vh/2)] p-5 flex-col items-center justify-between gap-3 rounded-2xl -[0.4px] -zinc-400/80">
       <img
         src={props.graphic}
         className="md:w-[350px]"
@@ -22,7 +22,7 @@ export const ValueCard = ({ props }: { props: ValueCardType }) => {
         </h4>
         {props.content && (
           <p
-            className="text-zinc-400 opacity-0 group-hover/value-card:opacity-100 duration-500 font-outfit-light tracking-wide"
+            className="text-zinc-400 md:opacity-0 md:group-hover/value-card:opacity-100 duration-500 font-outfit-light tracking-wide"
             // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{ __html: props.content }}
           ></p>

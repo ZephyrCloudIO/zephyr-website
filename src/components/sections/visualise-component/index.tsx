@@ -28,12 +28,12 @@ export default function VisualiseComponentSection() {
         </div>
       </div>
       <div
-        className="relative w-full  p-[32px] rounded-[24px] border border-white/[0.045]"
+        className="relative w-full  sm:p-[32px] p-[12px] rounded-[24px] border border-white/[0.045]"
         style={{
           boxShadow: 'rgba(255, 255, 255, 0.3) 2px 2px 40px 0px inset',
         }}
       >
-        <div className="flex lg:flex-row flex-col gap-8 justify-around items-baseline">
+        <div className="flex md:flex-row md:flex-wrap flex-col gap-8 justify-around items-baseline">
           {Values.map((item) => (
             <ValueCard key={item.title} props={item} />
           ))}
