@@ -15,7 +15,7 @@ export const ValueCard: FC<ValueCardProps> = ({
   graphic,
 }) => {
   return (
-    <article className="flex value-card-background backdrop-blur-lg md:w-[calc((100vw-19vw)/3)] p-5 flex-col items-center justify-between gap-3 rounded-2xl -[0.4px] -zinc-400/80">
+    <article className="flex value-card-background backdrop-blur-lg lg:w-[calc((100vw-19vw)/3)] p-5 flex-col items-center justify-between gap-3 rounded-2xl -[0.4px] -zinc-400/80">
       <figure>
         <img
           src={graphic}
