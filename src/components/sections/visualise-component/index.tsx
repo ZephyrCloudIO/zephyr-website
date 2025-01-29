@@ -1,14 +1,14 @@
 import { Link } from '@modern-js/runtime/router';
 import { ValueCard, ValueCardType } from './value-cards';
 import { siteConfig } from '@/lib/site.config';
-import { SecondaryButton } from '@/components/ui/buttons/button.secondary';
+import { Button } from '@/components/ui/button';
 import value1 from '@/images/value-graphic-1.svg';
 import value2 from '@/images/value-graphic-2.svg';
 import value3 from '@/images/value-graphic-3.svg';
 
 export default function VisualiseComponentSection() {
   return (
-    <section className="container flex flex-col items-center py-10 md:py-32 gap-14 justify-center">
+    <section className="container mx-auto flex flex-col items-center py-10 md:py-32 gap-14 justify-center">
       <div className="flex md:flex-row flex-col gap-10 py-2 ">
         <div className="md:w-1/2 py-1">
           <h2 className="md:text-6xl text-5xl text-transparent bg-gradient-to-tr bg-clip-text from-zinc-500 from-20% via-zinc-50 to-zinc-400 to-90% font-light leading-[1.2]">
@@ -21,19 +21,19 @@ export default function VisualiseComponentSection() {
             <br /> instead of minutes.
           </p>
           <Link to={siteConfig.chrome} target="_blank" className="lg:w-2/5">
-            <SecondaryButton>
+            <Button variant="outline">
               <h3 className="text-start">Install our Chrome Extension</h3>{' '}
-            </SecondaryButton>
+            </Button>
           </Link>
         </div>
       </div>
       <div
-        className="relative w-full max-w-[1278px] min-h-[596px] p-[32px] rounded-[24px] border border-white/[0.045]"
+        className="relative w-full  p-[32px] rounded-[24px] border border-white/[0.045]"
         style={{
           boxShadow: 'rgba(255, 255, 255, 0.3) 2px 2px 40px 0px inset',
         }}
       >
-        <div className="flex md:flex-row flex-col gap-8 justify-around items-baseline">
+        <div className="flex lg:flex-row flex-col gap-8 justify-around items-baseline">
           {Values.map((item) => (
             <ValueCard key={item.title} props={item} />
           ))}
@@ -46,7 +46,9 @@ export default function VisualiseComponentSection() {
 const Values: ValueCardType[] = [
   {
     title: 'From development machines to the edge in milliseconds',
-    description: 'Edge deployments',
+    description: 'Edge deployment',
+    content:
+      'Deploy on each save? You have it - forget about ngrok and keeping your laptop open, instead, use Zephyr to have applications deployed to production in your terminal. Make each save their own version.',
     graphic: value1,
   },
   {
@@ -59,6 +61,8 @@ const Values: ValueCardType[] = [
   {
     title: 'Framework agnostic, use what works best for your team',
     description: 'Framework agnostic',
+    content:
+      'Zephyr provides plugins for the most popular build tools on the market: Rspack, Vite, Webpack, even using Re.Pack with Rspack to bundle React Native applications. You have it. <a href="https://docs.zephyr-cloud.io/recipes" class="underline decoration-[0.4px] hover:decoration-slate-100 hover:text-slate-100s transition-all decoration-slate-300 underline-offset-4" alt="Recipes for each plugins with Zephyr">Read more from our documentation</a>.',
     graphic: value3,
   },
 ];
