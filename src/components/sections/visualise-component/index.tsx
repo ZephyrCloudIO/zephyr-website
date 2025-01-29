@@ -33,7 +33,7 @@ export default function VisualiseComponentSection() {
           boxShadow: 'rgba(255, 255, 255, 0.3) 2px 2px 40px 0px inset',
         }}
       >
-        <div className="flex md:flex-row md:flex-wrap flex-col gap-8 justify-around items-baseline">
+        <div className="flex md:flex-row md:flex-wrap lg:flex-nowrap flex-col gap-8 justify-around items-baseline">
           {Values.map((item) => (
             <ValueCard key={item.title} props={item} />
           ))}
