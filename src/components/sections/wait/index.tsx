@@ -31,9 +31,9 @@ const WaitSection = () => {
 
   return (
     <section className="container relative px-4 overflow-hidden">
-      <div className="relative z-20 mt-24 w-full">
+      <div className="relative z-20 mt-6 w-full">
         <div
-          className="relative p-16 rounded-3xl border border-white/10 overflow-hidden"
+          className="relative p-4 md:p-16 rounded-3xl border border-white/10 overflow-hidden"
           style={{
             boxShadow: 'rgba(255, 255, 255, 0.1) 2px 2px 200px 0px inset',
           }}

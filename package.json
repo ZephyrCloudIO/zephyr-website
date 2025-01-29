@@ -37,6 +37,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "express": "~4.21.2",
+    "highlight.js": "11.11.1",
     "lottie-react": "^2.4.1",
     "prism-react-renderer": "2.4.1",
     "prop-types": "^15.8.1",
@@ -47,8 +48,7 @@
     "rehype-highlight": "^7.0.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "zephyr-modernjs-plugin": "workspace:*",
-    "highlight.js": "11.11.1"
+    "zephyr-modernjs-plugin": "workspace:*"
   },
   "devDependencies": {
     "@modern-js/app-tools": "2.64.0",
