@@ -1,15 +1,16 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import ota_update from '@/images/blog/ota-update.webm';
+import ota_hero from '@/images/blog/ota-hero.webp';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { Zack } from '@/lib/blog/authors/Zack';
-import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
+import { BlogCard, type BlogPost } from '@/components/ui/blog-card';
 
 const blogPosts: BlogPost[] = [
   {

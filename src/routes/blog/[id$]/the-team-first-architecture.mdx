@@ -2,12 +2,34 @@
 import Hero from '../../../images/blog/the-team-first-architecture.webp'
 import Team1 from '../../../images/blog/rn-team-1.webp'
 import Team2 from '../../../images/blog/rn-team-2.webp'
+import OldFlow from '../../../images/blog/old-flow.webp'
+import NewFlow from '../../../images/blog/new-flow.webp'
+import BlogMetadata from "@/components/ui/blog-metadata"
 
 <img src={Hero} alt='The team first architecture' />
 
 # The Team-first architecture
 
-#### Posted by [Néstor](https://x.com/nstlopez/)
+<BlogMetadata 
+    author="Néstor López" 
+    position="Software Engineer" 
+    avatar="https://pbs.twimg.com/profile_images/1815075343830581248/a4FZx157_400x400.jpg"
+    publishDate="01/29/2025" 
+    socialLinks={[
+        {
+            platform: "LinkedIn",
+            url: "https://www.linkedin.com/in/nstlopez/"
+        }, 
+        {
+            platform: "X", 
+            url: "https://x.com/nstlopez"
+        },
+        {
+            platform: "Website",
+            url: "https://nstlopez.com"
+        }
+    ]}
+    />
 
 The landscape of React Native development is evolving rapidly, particularly when it comes to building and maintaining **large-scale applications**.
 
@@ -35,6 +57,8 @@ React Native developers are familiar with the power of **Fast Refresh** and the 
 
 While *Expo* revolutionized how we test React Native apps through QR codes and live updates, we're taking this concept further for production-grade applications.
 
+<img src={OldFlow} alt='Old dev flow' />
+
 We've built **Zephyr integration** specifically around [*Re.Pack*](https://github.com/callstack/repack), Callstack's webpack-based bundler for React Native that brings module federation to mobile development.
 
 This choice wasn't just about bundling – it's about enabling *true micro-frontend architecture* in the mobile space. While other solutions might bundle your code, **Re.Pack's module federation** capabilities allow us to create truly independent, dynamically loadable mini apps.
@@ -42,6 +66,8 @@ This choice wasn't just about bundling – it's about enabling *true micro-front
 Every time you save a change and **Fast Refresh** kicks in, we can automatically (it's optional!) create a new version of your mini app in milliseconds.
 
 This means you're not just seeing changes on your local simulator or device – you're getting a real, deployable version that can be shared with your team instantly, complete with module federation support.
+
+<img src={NewFlow} alt='New dev flow' />
 
 Imagine making a change to your payment module in your React Native app, and before you've even switched to your test device, that change is already deployed to a shareable URL.
 
