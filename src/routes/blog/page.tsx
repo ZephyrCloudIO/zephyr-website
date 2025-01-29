@@ -121,26 +121,26 @@ const BlogPage: FC = () => {
           Blogs
         </h1>
 
-        {/* Featured Posts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+        <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
           {featuredPosts.map((post) => (
-            <div key={post.slug} className="flex">
+            <li key={post.slug} className="flex">
               <BlogCard post={post} featured />
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Remaining Posts */}
-        {remainingPosts?.length && (
-          <h2 className="mb-8 text-xl">Latest Posts</h2>
-        )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {remainingPosts.map((post) => (
-            <div key={post.slug} className="flex">
-              <BlogCard post={post} />
-            </div>
-          ))}
-        </div>
+        <section aria-labelledby="latest-posts">
+          <h2 id="latest-posts" className="mb-8 text-xl">
+            Latest Posts
+          </h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {remainingPosts.map((post) => (
+              <li key={post.slug} className="flex">
+                <BlogCard post={post} />
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
     </div>
   );

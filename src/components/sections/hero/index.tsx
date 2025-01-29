@@ -94,21 +94,27 @@ export default function Hero() {
       <div className="grid grid-cols-3 md:h-[calc(100vh-30vh)] h-[calc(100vh-28vh)] items-center">
         <div className="flex sm:col-span-2 py-10 sm:py-0 col-span-3 flex-col space-y-2 sm:space-y-10">
           <div className="flex flex-col gap-8 sm:gap-4">
-            {' '}
-            <h1 className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-400  via-zinc-50 via-30% to-zinc-300 to-70% font-medium leading-10 sm:leading-[5rem] sm:text-7xl text-4xl font-outfit-medium">
-              The only <br /> sane way to do <br /> micro-frontends
-            </h1>
-            <div className="sm:pr-8 pr-6">
-              {' '}
-              <p className="tracking-wider font-outfit-light text-[#A9A9A9] font-thin sm:pr-10 pr-4 ">
-                Zephyr is a cloud-agnostic, framework-agnostic platform for
-                lightning fast deployment with best-in-class support for
-                micro-frontends and module federation.
-              </p>
-            </div>
+            <header className="flex flex-col gap-8 sm:gap-4">
+              <h1
+                className="text-transparent bg-clip-text bg-gradient-to-r from-zinc-400 via-zinc-50 via-30% to-zinc-300 to-70% font-medium leading-10 sm:leading-[5rem] sm:text-7xl text-4xl font-outfit-medium"
+                itemProp="headline"
+              >
+                The only <br /> sane way to do <br /> micro-frontends
+              </h1>
+              <div className="sm:pr-8 pr-6">
+                <p
+                  className="tracking-wider font-outfit-light text-[#A9A9A9] font-thin sm:pr-10 pr-4"
+                  itemProp="description"
+                >
+                  Zephyr is a cloud-agnostic, framework-agnostic platform for
+                  lightning fast deployment with best-in-class support for
+                  micro-frontends and module federation.
+                </p>
+              </div>
+            </header>
           </div>
 
-          <div className="flex sm:flex-row flex-col py-8 sm:py-0 gap-6 items-center">
+          <nav className="flex sm:flex-row flex-col py-8 sm:py-0 gap-6 items-center">
             <GlowingLinkButton to={siteConfig.signUp} className="w-fit px-12">
               Get Started
             </GlowingLinkButton>
@@ -145,7 +151,7 @@ export default function Hero() {
                 </p>
               </Link>
             </div>
-          </div>
+          </nav>
         </div>
       </div>
     </section>
