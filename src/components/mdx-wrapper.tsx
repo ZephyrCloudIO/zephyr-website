@@ -15,7 +15,7 @@ interface MDXLayoutProps {
 
 export const MDXLayout: FC<MDXLayoutProps> = ({ children, frontmatter }) => {
   return (
-    <article className="max-w-4xl mx-auto px-4 py-8">
+    <article className="max-w-4xl md:mx-auto px-4 py-8">
       {frontmatter && (
         <header className="mb-8">
           {frontmatter.title && (
