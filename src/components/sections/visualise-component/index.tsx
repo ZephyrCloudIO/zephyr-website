@@ -1,13 +1,10 @@
-import { Link } from '@modern-js/runtime/router';
-import { ValueCard, ValueCardProps } from './value-cards';
-import { siteConfig } from '@/lib/site.config';
 import { SecondaryButton } from '@/components/ui/buttons/button.secondary';
 import value1 from '@/images/value-graphic-1.svg';
 import value2 from '@/images/value-graphic-2.svg';
 import value3 from '@/images/value-graphic-3.svg';
 import { siteConfig } from '@/lib/site.config';
 import { Link } from '@modern-js/runtime/router';
-import { ValueCard, type ValueCardType } from './value-cards';
+import { ValueCard, type ValueCardProps } from './value-cards';
 
 export default function VisualiseComponentSection() {
   return (
@@ -22,7 +19,7 @@ export default function VisualiseComponentSection() {
           </h2>
         </header>
         <div className="flex md:w-1/2 flex-col gap-4 md:pl-10 py-7">
-          <p className="text-lg text-zinc-200/80 font-outfit-light" role="text">
+          <p className="text-lg text-zinc-200/80 font-outfit-light">
             With Zephyr Cloud deployments and rollbacks take seconds
             <br /> instead of minutes.
           </p>
@@ -40,7 +37,6 @@ export default function VisualiseComponentSection() {
         </div>
       </div>
       <div
-        role="region"
         aria-label="Key Features"
         className="relative w-full max-w-[1278px] min-h-[596px] p-[32px] rounded-[24px] border border-white/[0.045]"
         style={{
@@ -48,7 +44,7 @@ export default function VisualiseComponentSection() {
         }}
       >
         <div className="flex lg:flex-row flex-col gap-8 justify-around items-baseline">
-          {Values.map((item) => (
+          {Values.map(item => (
             <ValueCard key={item.title} {...item} />
           ))}
         </div>

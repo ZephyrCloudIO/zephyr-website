@@ -64,7 +64,6 @@ const Footer = () => {
   return (
     <footer
       className="bg-[#0A0A0A] pt-20 pb-8 px-6 md:px-8 mt-24"
-      role="contentinfo"
       itemScope
       itemType="http://schema.org/WPFooter"
     >

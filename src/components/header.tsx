@@ -64,7 +64,6 @@ export default function Header() {
     <header
       suppressHydrationWarning
       className="fixed top-0 left-0 right-0 z-50 w-full bg-zinc-900/75 backdrop-blur-sm border-b border-zinc-800"
-      role="banner"
       itemScope
       itemType="http://schema.org/WPHeader"
     >

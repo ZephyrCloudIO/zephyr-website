@@ -1,5 +1,5 @@
 import './value-card.css';
-import { FC } from 'react';
+import type { FC } from 'react';
 
 export interface ValueCardProps {
   title: string;

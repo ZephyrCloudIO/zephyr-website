@@ -146,22 +146,16 @@ export const IntegrationsSection: React.FC = () => {
             </div>
           </div>
         </div>
-        <div
-          className="relative mt-8"
-          role="region"
-          aria-label="Cloud integration partners"
-        >
+        <div className="relative mt-8" aria-label="Cloud integration partners">
           <ul
             ref={sliderRef}
             className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory touch-pan-x"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            role="list"
           >
             {integrations.map((item, index) => (
               <li
                 key={item.name}
                 data-card-id={item.name}
-                role="listitem"
                 aria-label={`Integration with ${item.name}`}
               >
                 <IntegrationCard
