@@ -7,12 +7,24 @@ import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
 import ota_update from '@/images/blog/ota-update.webm';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
+import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
+import { Shane } from '@/lib/blog/authors/Shane';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { Zack } from '@/lib/blog/authors/Zack';
 import type { FC } from 'react';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: "Who's your cloud daddy?",
+    slug: './whos-your-cloud-daddy',
+    date: new Date('January 30, 2025 16:00:00 GMT+0'),
+    heroImage: cloud_daddy,
+    listingImage: cloud_daddy,
+    description:
+      "They say you can't pick your family with Zephyr you can pick your cloud",
+    authors: [Shane],
+  },
   {
     title: 'The team-first Architecture',
     slug: './the-team-first-architecture',
