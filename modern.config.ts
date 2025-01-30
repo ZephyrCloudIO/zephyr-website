@@ -2,8 +2,6 @@ import { appTools, defineConfig } from '@modern-js/app-tools';
 import bffPlugin from '@modern-js/plugin-bff/cli';
 import expressPlugin from '@modern-js/plugin-express';
 import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
-import { withZephyr } from 'zephyr-modernjs-plugin';
-import { pluginMdx } from '@rsbuild/plugin-mdx';
 import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
 import { pluginMdx } from '@rsbuild/plugin-mdx';
 import rehypeHighlight from 'rehype-highlight';
