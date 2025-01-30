@@ -105,11 +105,11 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
         <div className="terminal-container p-4 font-mono text-sm space-y-1">
           {commands.map(cmd => (
             <div key={cmd.content} className="flex items-start">
-              {cmd.lineNumber && (
+              {cmd.lineNumber && cmd.type !== 'command' ? (
                 <span className="text-gray-600 w-6 flex-shrink-0 select-none">
                   {cmd.lineNumber}
                 </span>
-              )}
+              ) : null}
               {cmd.type === 'command' ? (
                 <div className="flex items-center gap-2">
                   <span className="text-[#925ff1] select-none">npm</span>
@@ -119,7 +119,7 @@ const TerminalWindow: React.FC<TerminalWindowProps> = ({
                 <div className="flex items-center gap-2">
                   {cmd.label && (
                     <span
-                      className={`px-2 py-0.5 rounded text-xs ${
+                      className={`px-2 py-0.5 text-xs ${
                         cmd.labelColor || 'bg-[#3178C6] text-white'
                       }`}
                     >

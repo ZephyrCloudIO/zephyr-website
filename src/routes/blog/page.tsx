@@ -1,16 +1,18 @@
-import JesusBeam from '@/components/sections/pricing/beam.svg';
-import { BlogCard, type BlogPost } from '@/components/ui/blog-card';
+import type { FC, HTMLAttributes } from 'react';
+import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
 import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
+import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
 import ota_update from '@/images/blog/ota-update.webm';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
 import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
 import { Shane } from '@/lib/blog/authors/Shane';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
+import { cn } from '@/lib/utils';
 import { Zack } from '@/lib/blog/authors/Zack';
 import type { FC } from 'react';
 
@@ -57,6 +59,7 @@ const blogPosts: BlogPost[] = [
     slug: './create-zephyr-apps',
     date: new Date('January 27, 2025 16:00:00 GMT+0'),
     listingImage: create_zephyr_apps,
+    heroImage: create_zephyr_apps_webm,
     authors: [
       {
         displayName: 'lois',
@@ -101,33 +104,39 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
+const JesusBeamAura = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={cn('absolute w-[800px] opacity-90', className)} {...props}>
+      <img
+        src={JesusBeam}
+        className="w-full"
+        style={{
+          filter: 'blur(50px) brightness(5)',
+          WebkitFilter: 'blur(50px) brightness(5)',
+        }}
+        alt=""
+        loading="lazy"
+      />
+    </div>
+  );
+};
+
 const BlogPage: FC = () => {
   const featuredPosts = blogPosts.slice(0, 2);
   const remainingPosts = blogPosts.slice(2);
 
   return (
     <div className="min-h-screen">
-      <div className="fixed inset-x-0 top-0 h-[600px] overflow-hidden mt-16 -z-10">
-        {['-translate-x-[240px]', '', 'translate-x-[240px]'].map(transform => (
-          <div
-            key={transform || 'center'}
-            className={`absolute w-[800px] opacity-90 ${transform}`}
-          >
-            <img
-              src={JesusBeam}
-              className="w-full"
-              style={{
-                filter: 'blur(50px) brightness(5)',
-                WebkitFilter: 'blur(50px) brightness(5)',
-              }}
-              alt=""
-              loading="lazy"
-            />
-          </div>
-        ))}
+      <div className="fixed inset-x-0 top-0 md:h-[600px h-auto overflow-hidden mt-16 -z-10">
+        <JesusBeamAura className="-translate-x-[240px] opacity-90" />
+        <JesusBeamAura className="" />
+        <JesusBeamAura className="translate-x-[240px]" />
       </div>
 
-      <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 p-4 md:mb-16 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
           Blogs
         </h1>
@@ -152,7 +161,7 @@ const BlogPage: FC = () => {
             ))}
           </ul>
         </section>
-      </main>
+      </div>
     </div>
   );
 };
