@@ -1,4 +1,4 @@
-import { FC, HTMLAttributes } from 'react';
+import type { FC, HTMLAttributes } from 'react';
 import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
@@ -7,12 +7,35 @@ import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
 import ota_update from '@/images/blog/ota-update.webm';
 import ota_hero from '@/images/blog/ota-hero.webp';
-import { BlogCard, BlogPost } from '@/components/ui/blog-card';
-import { Zack } from '@/lib/blog/authors/Zack';
+import team_first from '@/images/blog/the-team-first-architecture.webp';
+import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
+import { Shane } from '@/lib/blog/authors/Shane';
+import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { cn } from '@/lib/utils';
+import { Zack } from '@/lib/blog/authors/Zack';
+import { BlogCard, type BlogPost } from '@/components/ui/blog-card';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: "Who's your cloud daddy?",
+    slug: './whos-your-cloud-daddy',
+    date: new Date('January 30, 2025 16:00:00 GMT+0'),
+    heroImage: cloud_daddy,
+    listingImage: cloud_daddy,
+    description:
+      "They say you can't pick your family with Zephyr you can pick your cloud",
+    authors: [Shane],
+  },
+  {
+    title: 'The team-first Architecture',
+    slug: './the-team-first-architecture',
+    date: new Date('January 29, 2025 16:00:00 GMT+0'),
+    heroImage: team_first,
+    listingImage: team_first,
+    description: 'A new architecture for the team-first era',
+    authors: [Nestor],
+  },
   {
     title: 'Over the Air (OTA) updates withZephyr',
     slug: './ota-with-zephyr',

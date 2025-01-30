@@ -1,0 +1,112 @@
+
+import Hero from '../../../images/blog/the-team-first-architecture.webp'
+import Team1 from '../../../images/blog/rn-team-1.webp'
+import Team2 from '../../../images/blog/rn-team-2.webp'
+import OldFlow from '../../../images/blog/old-flow.webp'
+import NewFlow from '../../../images/blog/new-flow.webp'
+import BlogMetadata from "@/components/ui/blog-metadata"
+
+<img src={Hero} alt='The team first architecture' />
+
+# The Team-first architecture
+
+<BlogMetadata 
+    author="Néstor López" 
+    position="Zephyr Cloud Platform Engineer" 
+    avatar="https://pbs.twimg.com/profile_images/1815075343830581248/a4FZx157_400x400.jpg"
+    publishDate="01/29/2025" 
+    socialLinks={[
+        {
+            platform: "LinkedIn",
+            url: "https://www.linkedin.com/in/nstlopez/"
+        }, 
+        {
+            platform: "X", 
+            url: "https://x.com/nstlopez"
+        },
+        {
+            platform: "Website",
+            url: "https://nstlopez.com"
+        }
+    ]}
+    />
+
+The landscape of React Native development is evolving rapidly, particularly when it comes to building and maintaining **large-scale applications**.
+
+As our apps grow more complex and our teams expand, we've found that traditional monolithic architectures often become a *bottleneck* for team productivity.
+
+That's why at **Zephyr Cloud**, we've created a platform that makes it easy to implement [*module federation*](https://module-federation.io) with a mini-apps architecture, providing a foundation that puts **teams first**.
+
+## The Architecture That Scales With Your Team
+
+The foundation are your **shell applications**, which serves as the main container. Each shell consumes other apps and shows them inside its container. This is a great pattern, because you might have different shells displaying the same remote app.
+
+Think of it as the *command center* of your application – it handles the core responsibilities like user authentication or permission management.
+
+Our platform is specifically designed to manage this orchestration, making it seamless to deploy and update your shell application while maintaining its crucial role as the coordinator for all your mini apps. 
+
+**These mini apps are where the magic happens.**
+
+Each one is a fully self-contained feature module that can be developed, deployed, and maintained independently.
+
+We take the complexity out of managing these modules – when a user needs access to a specific feature, **Zephyr** ensures efficient delivery of the appropriate mini app. When that access needs to be revoked, it handles the cleanup automatically.
+
+## Development at the Speed of Thought
+
+React Native developers are familiar with the power of **Fast Refresh** and the convenience of *Expo's* development workflow.
+
+While *Expo* revolutionized how we test React Native apps through QR codes and live updates, we're taking this concept further for production-grade applications.
+
+<img src={OldFlow} alt='Old dev flow' />
+
+We've built **Zephyr integration** specifically around [*Re.Pack*](https://github.com/callstack/repack), Callstack's webpack-based bundler for React Native that brings module federation to mobile development.
+
+This choice wasn't just about bundling – it's about enabling *true micro-frontend architecture* in the mobile space. While other solutions might bundle your code, **Re.Pack's module federation** capabilities allow us to create truly independent, dynamically loadable mini apps.
+
+Every time you save a change and **Fast Refresh** kicks in, we can automatically (it's optional!) create a new version of your mini app in milliseconds.
+
+This means you're not just seeing changes on your local simulator or device – you're getting a real, deployable version that can be shared with your team instantly, complete with module federation support.
+
+<img src={NewFlow} alt='New dev flow' />
+
+Imagine making a change to your payment module in your React Native app, and before you've even switched to your test device, that change is already deployed to a shareable URL.
+
+Your QA team can test the new feature on real devices while you continue development, without waiting for builds or dealing with provisioning profiles.
+
+## Teams Working in Harmony
+
+Imagine an e-commerce application where different teams need to work on various features simultaneously.
+
+<img src={Team1} alt='Team 1 image' />
+
+The **payments team** needs to update security features, the **product team** wants to modify the catalog views, and the **cart team** is optimizing the checkout flow.
+
+In a traditional architecture, these changes would require careful coordination to avoid conflicts. But with our platform, *each team operates independently* within their own mini app.
+
+<img src={Team2} alt='Team 2 image' />
+
+The **core team** maintains the shell application, ensuring the fundamental infrastructure remains stable and efficient.
+
+Meanwhile, **feature teams** own their mini apps end-to-end, from development to deployment.
+
+## Communication Without Chaos
+
+In a traditional development environment, having multiple teams working on different features often leads to communication overhead and coordination challenges.
+
+**Zephyr** transforms this dynamic by providing clear boundaries and ownership through small digestible pieces.
+
+Each team has *complete autonomy* over their domain while maintaining visibility into the larger system.
+
+For example, when the payments team needs to implement a major update, they can communicate their timeline and changes to other teams while continuing to work independently.
+
+Our platform's versioning system and deployment workflows naturally create documentation of changes and team decisions, reducing the need for constant meetings and discussions.
+
+This structure has helped our clients move away from the *"everyone needs to know everything"* approach that often slows down large teams.
+
+## Real Impact on Team Productivity
+
+> **With Zephyr, we accomplished in one week what we've been trying to achieve for six years.**
+
+This feedback from one of our enterprise clients reflects a common experience across our user base. By adopting **Zephyr Cloud's micro-frontend approach**, organizations are seeing transformative improvements in their development workflow.
+
+More importantly, we've eliminated deployment conflicts between teams, and onboarding new developers has become significantly faster since they only need to understand the specific mini app they'll be working on, and they will have their own version, with the same deployment pattern as the rest of the team, in an isolated trustful environment for them to onboard.
