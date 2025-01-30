@@ -3,7 +3,6 @@ import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
-import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
 import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
 import ota_update from '@/images/blog/ota-update.webm';
@@ -14,7 +13,9 @@ import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { cn } from '@/lib/utils';
 import { Zack } from '@/lib/blog/authors/Zack';
-import type { FC } from 'react';
+import { BlogCard } from '@/components/ui/blog-card';
+import { BlogPost } from '@/components/ui/blog-card';
+import JesusBeam from '@/images/blog/jesus-beam.png';
 
 const blogPosts: BlogPost[] = [
   {

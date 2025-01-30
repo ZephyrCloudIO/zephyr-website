@@ -5,9 +5,7 @@ import { Button } from '@/components/ui/button';
 import value1 from '@/images/value-graphic-1.svg';
 import value2 from '@/images/value-graphic-2.svg';
 import value3 from '@/images/value-graphic-3.svg';
-import { siteConfig } from '@/lib/site.config';
-import { Link } from '@modern-js/runtime/router';
-import { ValueCard, type ValueCardProps } from './value-cards';
+
 
 export default function VisualiseComponentSection() {
   return (
