@@ -5,7 +5,7 @@ import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
 import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
-import ota_update from '@/images/blog/ota-update.webp';
+import ota_update from '@/images/blog/ota-update.webm';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
