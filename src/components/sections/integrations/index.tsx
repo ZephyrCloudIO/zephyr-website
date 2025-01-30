@@ -32,7 +32,7 @@ const integrations = [
 ];
 
 export const IntegrationsSection: React.FC = () => {
-  const sliderRef = useRef<HTMLDivElement>(null);
+  const sliderRef = useRef<HTMLUListElement>(null);
   const [scrollIndex, setScrollIndex] = useState(0);
   const [isAtEnd, setIsAtEnd] = useState(false);
 
@@ -80,27 +80,18 @@ export const IntegrationsSection: React.FC = () => {
     });
   };
 
-  const cards = integrations.map((item, index) => {
-    // If we're at the end, show all cards at full opacity
-    // Otherwise, show only the first 3 visible cards at full opacity
-    let opacity = 0.3;
-    if (isAtEnd || (index >= scrollIndex && index < scrollIndex + 3)) {
-      opacity = 1;
-    }
-
-    return (
-      <div key={item.name} data-card-id={item.name}>
-        <IntegrationCard {...item} opacity={opacity} />
-      </div>
-    );
-  });
-
   return (
-    <section className="py-24 bg-black relative overflow-hidden">
+    <section
+      className="py-24 bg-black relative overflow-hidden"
+      aria-labelledby="integrations-heading"
+    >
       <div className="container mx-auto px-4">
         <div className="py-2">
           <div className="flex md:flex-row flex-col items-center py-4 md:py-6 gap-4 md:gap-8 justify-between">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center md:text-left mb-2 md:mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
+            <h2
+              id="integrations-heading"
+              className="text-3xl sm:text-4xl md:text-5xl font-bold text-center md:text-left mb-2 md:mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider"
+            >
               Integrate your own cloud with flexibility
             </h2>
             <div className="flex flex-col items-center md:items-start">
@@ -108,7 +99,10 @@ export const IntegrationsSection: React.FC = () => {
                 Connect your environment with our integrations following
                 rule-based promotion - use our managed cloud or bring your own.
               </p>
-              <div className="flex justify-center md:justify-end gap-4 mt-2 w-full">
+              <nav
+                className="flex justify-center md:justify-end gap-4 mt-2 w-full"
+                aria-label="Integration carousel controls"
+              >
                 <ButtonGlow
                   onClick={() => scroll('left')}
                   className="w-10 h-10 flex items-center justify-center rounded-full bg-black/50 border border-gray-800 hover:bg-black/70 transition-colors"
@@ -148,18 +142,39 @@ export const IntegrationsSection: React.FC = () => {
                     />
                   </svg>
                 </ButtonGlow>
-              </div>
+              </nav>
             </div>
           </div>
         </div>
-        <div className="relative mt-8">
-          <div
+        <div
+          className="relative mt-8"
+          role="region"
+          aria-label="Cloud integration partners"
+        >
+          <ul
             ref={sliderRef}
             className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory touch-pan-x"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
+            role="list"
           >
-            {cards}
-          </div>
+            {integrations.map((item, index) => (
+              <li
+                key={item.name}
+                data-card-id={item.name}
+                role="listitem"
+                aria-label={`Integration with ${item.name}`}
+              >
+                <IntegrationCard
+                  {...item}
+                  opacity={
+                    isAtEnd || (index >= scrollIndex && index < scrollIndex + 3)
+                      ? 1
+                      : 0.3
+                  }
+                />
+              </li>
+            ))}
+          </ul>
         </div>
       </div>
     </section>

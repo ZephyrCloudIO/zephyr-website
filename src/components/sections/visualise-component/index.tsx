@@ -1,5 +1,5 @@
 import { Link } from '@modern-js/runtime/router';
-import { ValueCard, ValueCardType } from './value-cards';
+import { ValueCard, ValueCardProps } from './value-cards';
 import { siteConfig } from '@/lib/site.config';
 import { Button } from '@/components/ui/button';
 import value1 from '@/images/value-graphic-1.svg';
@@ -8,19 +8,28 @@ import value3 from '@/images/value-graphic-3.svg';
 
 export default function VisualiseComponentSection() {
   return (
-    <section className="container mx-auto flex flex-col items-center py-10 md:py-32 gap-14 justify-center">
-      <div className="flex md:flex-row flex-col gap-10 py-2 ">
-        <div className="md:w-1/2 py-1">
+    <section
+      aria-label="Zephyr Cloud Features"
+      className="container flex flex-col items-center py-10 md:py-32 gap-14 justify-center"
+    >
+      <div className="flex md:flex-row flex-col gap-10 py-2">
+        <header className="md:w-1/2 py-1">
           <h2 className="md:text-6xl text-5xl text-transparent bg-gradient-to-tr bg-clip-text from-zinc-500 from-20% via-zinc-50 to-zinc-400 to-90% font-light leading-[1.2]">
             Visualize components in any environment
           </h2>
-        </div>
-        <div className="flex md:w-1/2 flex-col gap-4 md:pl-10 py-7 ">
-          <p className="text-lg text-zinc-200/80 font-outfit-light">
+        </header>
+        <div className="flex md:w-1/2 flex-col gap-4 md:pl-10 py-7">
+          <p className="text-lg text-zinc-200/80 font-outfit-light" role="text">
             With Zephyr Cloud deployments and rollbacks take seconds
             <br /> instead of minutes.
           </p>
-          <Link to={siteConfig.chrome} target="_blank" className="lg:w-2/5">
+          <Link
+            to={siteConfig.chrome}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="lg:w-2/5"
+            aria-label="Install Chrome Extension"
+          >
             <Button variant="outline">
               <h3 className="text-start">Install our Chrome Extension</h3>{' '}
             </Button>
@@ -28,6 +37,8 @@ export default function VisualiseComponentSection() {
         </div>
       </div>
       <div
+        role="region"
+        aria-label="Key Features"
         className="relative w-full  sm:p-[32px] p-[12px] rounded-[24px] border border-white/[0.045]"
         style={{
           boxShadow: 'rgba(255, 255, 255, 0.3) 2px 2px 40px 0px inset',
@@ -35,7 +46,7 @@ export default function VisualiseComponentSection() {
       >
         <div className="flex md:flex-row md:flex-wrap lg:flex-nowrap flex-col gap-8 justify-around items-baseline">
           {Values.map((item) => (
-            <ValueCard key={item.title} props={item} />
+            <ValueCard key={item.title} {...item} />
           ))}
         </div>
       </div>
@@ -43,7 +54,7 @@ export default function VisualiseComponentSection() {
   );
 }
 
-const Values: ValueCardType[] = [
+const Values: ValueCardProps[] = [
   {
     title: 'From development machines to the edge in milliseconds',
     description: 'Edge deployment',
