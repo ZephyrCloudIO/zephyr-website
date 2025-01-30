@@ -1,3 +1,6 @@
+import type { FC } from 'react';
+import MobileFirstHero from '@/images/blog/mobilefirst.webp';
+import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import { BlogCard, type BlogPost } from '@/components/ui/blog-card';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
@@ -5,12 +8,22 @@ import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
 import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
-import ota_update from '@/images/blog/ota-update.webm';
+import team_first from '@/images/blog/the-team-first-architecture.webp';
+import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { Zack } from '@/lib/blog/authors/Zack';
-import type { FC } from 'react';
+import { BlogCard, type BlogPost } from '@/components/ui/blog-card';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: 'The team-first Architecture',
+    slug: './the-team-first-architecture',
+    date: new Date('January 29, 2025 16:00:00 GMT+0'),
+    heroImage: team_first,
+    listingImage: team_first,
+    description: 'A new architecture for the team-first era',
+    authors: [Nestor],
+  },
   {
     title: 'Over the Air (OTA) updates withZephyr',
     slug: './ota-with-zephyr',
@@ -109,26 +122,26 @@ const BlogPage: FC = () => {
           Blogs
         </h1>
 
-        {/* Featured Posts */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {featuredPosts.map(post => (
-            <div key={post.slug} className="flex">
+        <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
+          {featuredPosts.map((post) => (
+            <li key={post.slug} className="flex">
               <BlogCard post={post} featured />
-            </div>
+            </li>
           ))}
-        </div>
+        </ul>
 
-        {/* Remaining Posts */}
-        {remainingPosts?.length && (
-          <h2 className="mb-8 text-xl">Latest Posts</h2>
-        )}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {remainingPosts.map(post => (
-            <div key={post.slug} className="flex">
-              <BlogCard post={post} />
-            </div>
-          ))}
-        </div>
+        <section aria-labelledby="latest-posts">
+          <h2 id="latest-posts" className="mb-8 text-xl">
+            Latest Posts
+          </h2>
+          <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+            {remainingPosts.map((post) => (
+              <li key={post.slug} className="flex">
+                <BlogCard post={post} />
+              </li>
+            ))}
+          </ul>
+        </section>
       </main>
     </div>
   );

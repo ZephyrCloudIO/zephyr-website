@@ -12,8 +12,7 @@ const MenuIcon = () => (
     viewBox="0 0 24 24"
     fill="none"
     xmlns="http://www.w3.org/2000/svg"
-    aria-label="Menu"
-    role="img"
+    aria-hidden="true"
   >
     <title>Menu</title>
     <path
@@ -65,6 +64,9 @@ export default function Header() {
     <header
       suppressHydrationWarning
       className="fixed top-0 left-0 right-0 z-50 w-full bg-zinc-900/75 backdrop-blur-sm border-b border-zinc-800"
+      role="banner"
+      itemScope
+      itemType="http://schema.org/WPHeader"
     >
       <div className="container mx-auto px-4 w-full">
         <div className="flex items-center justify-between h-16 max-w-[1400px] mx-auto w-full">
@@ -74,6 +76,8 @@ export default function Header() {
               onClick={() => setIsMobileMenuOpen(true)}
               className="md:hidden rounded-lg p-2 mr-4 text-white hover:bg-zinc-800"
               aria-label="Open menu"
+              aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-navigation"
             >
               <MenuIcon />
             </button>
@@ -81,6 +85,7 @@ export default function Header() {
               to="/"
               className="text-white font-bold text-xl"
               aria-label="Return to Zephyr Cloud homepage"
+              itemProp="url"
             >
               <img
                 src={ZephyrLogo}
@@ -88,6 +93,8 @@ export default function Header() {
                 className="w-full h-[32px] object-contain"
                 width="140"
                 height="32"
+                loading="eager"
+                itemProp="image"
               />
             </Link>
           </div>
@@ -95,6 +102,8 @@ export default function Header() {
           <nav
             className="hidden md:flex items-center space-x-1 flex-1 justify-center"
             aria-label="Main navigation"
+            itemScope
+            itemType="http://schema.org/SiteNavigationElement"
           >
             {navigationItems.map(item => (
               <div
@@ -104,6 +113,7 @@ export default function Header() {
                   isActiveLink(item.link) &&
                     'after:absolute after:bottom-0 after:left-[24px] after:right-[36px] after:h-[2px] after:bg-white/50',
                 )}
+                itemProp="hasMenuItem"
               >
                 <HeaderNav
                   title={item.title}
@@ -122,6 +132,7 @@ export default function Header() {
               className="bg-white hover:bg-zinc-100 text-zinc-900 px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200"
               aria-label="Get started with Zephyr Cloud platform"
               rel="noopener noreferrer"
+              itemProp="action"
             >
               Get Started
             </Link>

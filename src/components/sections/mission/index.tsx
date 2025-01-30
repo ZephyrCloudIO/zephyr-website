@@ -4,21 +4,25 @@ import './mission.css';
 
 export default function Mission() {
   return (
-    <section className="container relative px-4 overflow-hidden">
+    <section
+      className="container relative px-4 overflow-hidden"
+      aria-label="Mission and Statistics"
+    >
       <div className="absolute inset-0 w-full h-full">
         <img
           src={separateTop}
           className="absolute top-0 w-full object-cover"
-          alt="Top separator"
+          alt="Decorative top section separator"
+          loading="lazy"
         />
       </div>
       <div className="relative z-20 mt-24 w-full">
         <div className="py-2">
           <div className="flex md:flex-row flex-col items-center py-4 md:py-6 gap-4 md:gap-8 justify-between">
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center md:text-left mb-2 md:mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center md:text-left mb-2 md:mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
               Focus on code,
               <br /> not operations.
-            </h2>
+            </h1>
             <p className="text-md md:text-md text-gray-500 text-center md:text-left max-w-xs md:max-w-none">
               Move to Zephyr Cloud without refactoring your application.
             </p>
@@ -30,11 +34,19 @@ export default function Mission() {
               <div
                 key={item.title}
                 className="flex flex-col gap-2 md:gap-4 items-center"
+                itemScope
+                itemType="https://schema.org/Statistic"
               >
-                <h3 className="sm:text-4xl text-5xl font-outfit-light text-zinc-50 font-light text-center">
+                <h2
+                  className="sm:text-4xl text-5xl font-outfit-light text-zinc-50 font-light text-center"
+                  itemProp="value"
+                >
                   {item.title}
-                </h3>
-                <p className="text-lg md:text-xl font-outfit-light text-gray-500 tracking-wide text-center md:text-left">
+                </h2>
+                <p
+                  className="text-lg md:text-xl font-outfit-light text-gray-500 tracking-wide text-center md:text-left"
+                  itemProp="description"
+                >
                   {item.content}
                 </p>
               </div>
@@ -45,7 +57,8 @@ export default function Mission() {
       <img
         className="absolute bottom-0 w-full object-cover"
         src={separateBottom}
-        alt="Bottom separator"
+        alt="Decorative bottom section separator"
+        loading="lazy"
       />
     </section>
   );

@@ -44,7 +44,7 @@ export default function BlogPost() {
   const date = new Date();
 
   return (
-    <div className="flex flex-col gap-2 px-2 py-10 md:px-10">
+    <article className="flex flex-col gap-2 px-2 py-10 md:px-10">
       <MDXLayout>
         <Suspense fallback={<div>Loading...</div>}>
           {BlogMDX && (
@@ -61,6 +61,6 @@ export default function BlogPost() {
           day: 'numeric',
         })}
       </p>
-    </div>
+    </article>
   );
 }
