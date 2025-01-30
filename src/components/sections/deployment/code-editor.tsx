@@ -8,7 +8,33 @@ interface CodeEditorProps {
 }
 
 const configs = {
-  'React + Rspack': `import { dirname } from "node:path";
+  'Rspack + Re.Pack + React Native': {
+    configFile: 'rspack.config.js',
+    content: `const { withZephyr } = require('zephyr-repack-plugin');
+const config = {
+  /** ...rspack configuration */
+  ...
+   new Repack.plugins.ModuleFederationPluginV2({
+       
+        name: 'MobileCheckout',
+        filename: 'MobileCheckout.container.js.bundle',
+        dts: false,
+      
+        exposes: {
+          './CheckoutSection': './src/components/CheckoutSection',
+          './CheckoutSuccessScreen': './src/screens/CheckoutSuccessScreen',
+        },
+       
+        shared: getSharedDependencies({eager: STANDALONE}),
+      }),
+      ...
+      /** ..rest of configuration.. */
+};
+module.exports = withZephyr()(config);`,
+  },
+  'React + Rspack': {
+    configFile: 'rspack.config.js',
+    content: `import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
@@ -24,8 +50,11 @@ export default withZephyr()({
     main: "./src/main.jsx"
   },
 });`,
+  },
 
-  'React + Webpack + Module Federation': `const HtmlWebpackPlugin = require('html-webpack-plugin');
+  'React + Webpack + Module Federation': {
+    configFile: 'rspack.config.js',
+    content: `const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { withZephyr } = require("zephyr-webpack-plugin");
 const { ModuleFederationPlugin } = require('webpack').container;
 const path = require('path');
@@ -52,8 +81,11 @@ mode: 'development',
    },
   ],
  },`,
+  },
 
-  'React + Vite': `import { defineConfig } from 'vite';
+  'React + Vite': {
+    configFile: 'vite-config.ts',
+    content: `import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { withZephyr } from 'vite-plugin-zephyr';
 
@@ -63,8 +95,11 @@ export default defineConfig({
     target: 'chrome89',
   },
 });`,
+  },
 
-  'Qwik + Vite': `import {defineConfig, type UserConfig} from "vite";
+  'Qwik + Vite': {
+    configFile: 'vite.config.ts',
+    content: `import {defineConfig, type UserConfig} from "vite";
 import {qwikVite} from "@builder.io/qwik/optimizer";
 import {qwikCity} from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -105,6 +140,7 @@ export default defineConfig(({command, mode}): UserConfig => {
     },
   };
 });`,
+  },
 };
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
@@ -114,7 +150,9 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(configs[framework as keyof typeof configs]);
+    navigator.clipboard.writeText(
+      configs[framework as keyof typeof configs].content,
+    );
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -124,6 +162,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     const indentation = '\u00A0'.repeat(leadingSpaces);
     const isHighlighted = highlightedLines.includes(index + 1);
 
+    console.log('line', line, 'index', index);
     return (
       <div
         key={index}
@@ -145,7 +184,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         >
           {indentation}
           {line
-            .trimLeft()
+            .trimStart()
             .split(/(["'].*?["'])/)
             .map((part, i) => {
               if (i % 2 === 1) {
@@ -200,7 +239,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           <div className="w-4 h-4 rounded-full border-2 border-solid border-gray-600/50 shadow-sm" />
         </div>
         <div className="flex-1 text-center text-sm text-gray-400">
-          .rspack.config.js
+          {configs[framework as keyof typeof configs].configFile}
         </div>
         <button
           onClick={handleCopy}
@@ -238,7 +277,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         </button>
       </div>
       <div className="code-editor-container p-4 font-mono text-sm overflow-x-auto whitespace-pre">
-        {configs[framework as keyof typeof configs]
+        {configs[framework as keyof typeof configs].content
           .split('\n')
           .map((line, index) => renderLine(line, index))}
       </div>

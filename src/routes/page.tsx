@@ -8,7 +8,6 @@ import ObservabilitySection from '@/components/sections/observability';
 import { IntegrationsSection } from '@/components/sections/integrations';
 import { CommunitySection } from '@/components/sections/community';
 import WaitSection from '@/components/sections/wait';
-import Footer from '@/components/sections/footer';
 
 export default function App() {
   return (
@@ -22,7 +21,6 @@ export default function App() {
       <IntegrationsSection />
       <CommunitySection />
       <WaitSection />
-      <Footer />
     </div>
   );
 }
