@@ -7,6 +7,7 @@ import './community.css';
 import Jack from '@/images/community/JackHerrington.jpg';
 import Giorgio from '@/images/community/GiorgioBoa.jpeg';
 import AlexB from '@/images/community/AlexB.jpeg';
+import MikeG from '@/images/community/MikeG.jpeg';
 import RonR from '@/images/community/RonR.jpeg';
 import Theo from '@/images/community/Theo.jpeg';
 import Colum from '@/images/community/Colum.avif';
@@ -26,6 +27,23 @@ interface Testimonial {
 }
 
 const testimonials: Testimonial[] = [
+  {
+    name: 'Mike Grabowski',
+    content: `Thanks to Zephyr we can confidently take Module Federation apps to production, on our own cloud and focus on features and leave all the infrastructure setup to them.`,
+    avatar: MikeG,
+    role: 'CTO & Co-Founder',
+    company: 'Callstack',
+    socialLinks: [
+      {
+        link: 'https://x.com/grabbou',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/mikede30',
+        platform: 'LinkedIn',
+      },
+    ],
+  },
   {
     name: 'Jack Herrington',
     content:
