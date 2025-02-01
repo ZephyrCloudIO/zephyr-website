@@ -1,3 +1,4 @@
+import JesusBeam from '@/components/sections/pricing/beam.svg';
 import { BlogCard } from '@/components/ui/blog-card';
 import type { BlogPost } from '@/components/ui/blog-card';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
@@ -5,7 +6,6 @@ import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
 import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
-import JesusBeam from '@/images/blog/jesus-beam.png';
 import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
 import ota_update from '@/images/blog/ota-update.webm';
