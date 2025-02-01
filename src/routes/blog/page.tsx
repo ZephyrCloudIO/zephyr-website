@@ -1,21 +1,21 @@
-import type { FC, HTMLAttributes } from 'react';
-import MobileFirstHero from '@/images/blog/mobilefirst.webp';
+import { BlogCard } from '@/components/ui/blog-card';
+import type { BlogPost } from '@/components/ui/blog-card';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
+import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
+import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
 import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import infrastructureless from '@/images/blog/infrastructureless.webp';
+import JesusBeam from '@/images/blog/jesus-beam.png';
+import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
-import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
 import ota_update from '@/images/blog/ota-update.webm';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
-import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
-import { Shane } from '@/lib/blog/authors/Shane';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
-import { cn } from '@/lib/utils';
+import { Shane } from '@/lib/blog/authors/Shane';
 import { Zack } from '@/lib/blog/authors/Zack';
-import { BlogCard } from '@/components/ui/blog-card';
-import { BlogPost } from '@/components/ui/blog-card';
-import JesusBeam from '@/images/blog/jesus-beam.png';
+import { cn } from '@/lib/utils';
+import type { FC, HTMLAttributes } from 'react';
 
 const blogPosts: BlogPost[] = [
   {

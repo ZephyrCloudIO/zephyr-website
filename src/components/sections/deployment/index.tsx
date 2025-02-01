@@ -1,8 +1,8 @@
+import { Button } from '@/components/ui/button';
 import type React from 'react';
 import { useState } from 'react';
 import CodeEditor from './code-editor';
 import TerminalWindow, { type Command } from './terminal-window';
-import { Button } from '@/components/ui/button';
 
 const frameworks = [
   'Rspack + Re.Pack + React Native',

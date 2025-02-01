@@ -31,9 +31,9 @@ export const ValueCard: FC<ValueCardProps> = ({
         {content && (
           <p
             className="text-zinc-400 md:opacity-0 md:group-hover/value-card:opacity-100 duration-500 font-outfit-light tracking-wide"
-            // eslint-disable-next-line react/no-danger
+            // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
             dangerouslySetInnerHTML={{ __html: content }}
-          ></p>
+          />
         )}
       </div>
     </article>
