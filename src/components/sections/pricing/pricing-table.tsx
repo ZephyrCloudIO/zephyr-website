@@ -1,6 +1,6 @@
-import React from 'react';
-import { InfoCircledIcon } from '@radix-ui/react-icons';
 import { Tooltip } from '@/components/ui/tooltip';
+import { InfoCircledIcon } from '@radix-ui/react-icons';
+import type React from 'react';
 
 const PricingTable: React.FC = () => {
   return (

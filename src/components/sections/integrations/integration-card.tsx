@@ -1,6 +1,6 @@
-import React from 'react';
 import GlowingLinkButton from '@/components/ui/link.glowing-button';
 import Cubes from '@/images/cubes.svg';
+import type React from 'react';
 
 interface IntegrationCardProps {
   name: string;

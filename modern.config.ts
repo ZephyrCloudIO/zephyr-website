@@ -1,9 +1,9 @@
 import { appTools, defineConfig } from '@modern-js/app-tools';
 import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
-import { withZephyr } from 'zephyr-modernjs-plugin';
-import { pluginMdx } from '@rsbuild/plugin-mdx';
 import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
+import { pluginMdx } from '@rsbuild/plugin-mdx';
 import rehypeHighlight from 'rehype-highlight';
+import { withZephyr } from 'zephyr-modernjs-plugin';
 
 const tailwindConfig = require('./tailwind.config');
 

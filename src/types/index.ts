@@ -11,15 +11,15 @@ export interface Options {
   /**
    * The JSON data exported from Adobe After Effects using the Bodymovin plugin
    */
-  animationData: any;
+  animationData: Record<string, unknown>;
   rendererSettings?:
     | {
         preserveAspectRatio?: string | undefined;
         /**
          * The canvas context
          */
-        context?: any;
-        scaleMode?: any;
+        context?: CanvasRenderingContext2D;
+        scaleMode?: string;
         clearCanvas?: boolean | undefined;
         /**
          * Loads DOM elements when needed. Might speed up initialization for large number of elements. Only with SVG renderer.

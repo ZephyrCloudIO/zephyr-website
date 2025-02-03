@@ -1,14 +1,14 @@
-import React from 'react';
-import { FeatureCard } from './feature-card';
+import FluidWallpaper from '@/images/fluid-wallpaper.webp';
+import ActIcon from '@/images/observability/act.svg';
 import CloudIcon from '@/images/observability/cloud.svg';
+import CollaborateIcon from '@/images/observability/collaborate.svg';
 import DependencyIcon from '@/images/observability/dependency.svg';
 import DeployIcon from '@/images/observability/deploy.svg';
-import VersionIcon from '@/images/observability/version.svg';
-import CollaborateIcon from '@/images/observability/collaborate.svg';
-import ActIcon from '@/images/observability/act.svg';
 import FederatedIcon from '@/images/observability/federated.svg';
 import MultiIcon from '@/images/observability/multi.svg';
-import FluidWallpaper from '@/images/fluid-wallpaper.webp';
+import VersionIcon from '@/images/observability/version.svg';
+import type React from 'react';
+import { FeatureCard } from './feature-card';
 
 const features = [
   {
@@ -18,6 +18,7 @@ const features = [
       <>
         Bring your own cloud, without vendor lock-in from AWS to Vercel to
         Netlify. See our supported{' '}
+        {/* biome-ignore lint/a11y/useValidAnchor: <explanation> */}
         <a href="#" className="text-white">
           platforms here.
         </a>
@@ -151,7 +152,7 @@ const ObservabilitySection: React.FC = () => {
             />
           </div>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 border-2 rounded-lg border-[rgba(255,255,255,0.1)] p-12">
-            {features.map((feature) => (
+            {features.map(feature => (
               <FeatureCard
                 key={feature.title}
                 icon={feature.icon}

@@ -1,20 +1,21 @@
-import React from 'react';
-import { Html, Root, Head, Body } from '@modern-js/runtime/document';
+import { Body, Head, Html, Root } from '@modern-js/runtime/document';
+import type React from 'react';
+import { siteConfig } from './lib/site.config';
 
 const GoogleAnalytics = () => (
   <>
     <script
       async
-      src={`https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH`}
+      src={`https://www.googletagmanager.com/gtag/js?id=${siteConfig.gtag_id}`}
     />
     <script
-      // eslint-disable-next-line react/no-danger
+      // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
       dangerouslySetInnerHTML={{
         __html: `
         window.dataLayer = window.dataLayer || [];
         function gtag(){dataLayer.push(arguments);}
         gtag('js', new Date());
-        gtag('config', 'G-B7G266JZDH');
+        gtag('config', ${siteConfig.gtag_id});
       `,
       }}
     />

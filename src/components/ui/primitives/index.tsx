@@ -34,12 +34,17 @@ type PrimitiveForwardRefComponent<E extends React.ElementType> =
 
 const Primitive = NODES.reduce((primitive, node) => {
   const Node = React.forwardRef(
-    (props: PrimitivePropsWithRef<typeof node>, forwardedRef: any) => {
+    (
+      props: PrimitivePropsWithRef<typeof node>,
+      forwardedRef: React.Ref<Element>,
+    ) => {
       const { asChild, ...primitiveProps } = props;
-      const Comp: any = asChild ? Slot : node;
+      const Comp: React.ElementType = asChild ? Slot : node;
 
       if (typeof window !== 'undefined') {
-        (window as any)[Symbol.for('radix-ui')] = true;
+        (window as unknown as Window & { [key: symbol]: boolean })[
+          Symbol.for('radix-ui')
+        ] = true;
       }
 
       return <Comp {...primitiveProps} ref={forwardedRef} />;
@@ -48,7 +53,7 @@ const Primitive = NODES.reduce((primitive, node) => {
 
   Node.displayName = `Primitive.${node}`;
 
-  return { ...primitive, [node]: Node };
+  return Object.assign(primitive, { [node]: Node });
 }, {} as Primitives);
 
 function dispatchDiscreteCustomEvent<E extends CustomEvent>(

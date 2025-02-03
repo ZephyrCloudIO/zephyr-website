@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import './code-editor.css';
 
 interface CodeEditorProps {
@@ -158,7 +159,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   };
 
   const renderLine = (line: string, index: number) => {
-    const leadingSpaces = line.match(/^\s*/)![0].length;
+    const leadingSpaces = line.match(/^\s*/)?.[0].length ?? 0;
     const indentation = '\u00A0'.repeat(leadingSpaces);
     const isHighlighted = highlightedLines.includes(index + 1);
 
@@ -189,12 +190,14 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
             .map((part, i) => {
               if (i % 2 === 1) {
                 return (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                   <span key={i} className="text-[#7afcbd]">
                     {part}
                   </span>
                 );
               }
               return (
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                 <span key={i}>
                   {part.split(/\b/).map((word, j) => {
                     if (
@@ -204,6 +207,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
                       word === 'const'
                     ) {
                       return (
+                        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                         <span key={j} className="text-[#7afcbd]">
                           {word}
                         </span>
@@ -211,12 +215,14 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
                     }
                     if (word === 'require') {
                       return (
+                        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                         <span key={j} className="text-[#DCDCAA]">
                           {word}
                         </span>
                       );
                     }
                     return (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                       <span key={j} className="text-[#9CDCFE]">
                         {word}
                       </span>
@@ -242,6 +248,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           {configs[framework as keyof typeof configs].configFile}
         </div>
         <button
+          type="button"
           onClick={handleCopy}
           className="text-gray-400 hover:text-white transition-colors"
           aria-label="Copy example"

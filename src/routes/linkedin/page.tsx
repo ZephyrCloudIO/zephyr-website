@@ -8,7 +8,7 @@ export default function LinkedinPage() {
         <meta
           httpEquiv="refresh"
           content="0; url=https://www.linkedin.com/company/zephyr-cloud"
-        ></meta>
+        />
       </Helmet>
     </div>
   );

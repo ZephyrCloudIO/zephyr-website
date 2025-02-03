@@ -8,7 +8,7 @@ export default function TwitterPage() {
         <meta
           httpEquiv="refresh"
           content="0; url=https://x.com/ZephyrCloudIO"
-        ></meta>
+        />
       </Helmet>
     </div>
   );

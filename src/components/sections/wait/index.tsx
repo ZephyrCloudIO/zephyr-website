@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
 import GlowingLinkButton from '@/components/ui/link.glowing-button';
+import { useEffect, useState } from 'react';
 
 const WaitSection = () => {
   const [videoSrc, setVideoSrc] = useState<string>('');
@@ -7,7 +7,7 @@ const WaitSection = () => {
 
   useEffect(() => {
     const loadVideo = async () => {
-      let videoModule;
+      let videoModule: { default: string };
       const testVideoEl = document.createElement('video');
       const canPlayWebm = testVideoEl.canPlayType(
         'video/webm; codecs="vp8, vorbis"',
@@ -33,7 +33,6 @@ const WaitSection = () => {
     <section
       className="container relative px-4 overflow-hidden"
       aria-label="Product Benefits"
-      role="region"
     >
       <div className="relative z-20 mt-24 w-full">
         <div
@@ -54,7 +53,6 @@ const WaitSection = () => {
                 backgroundPosition: '120% 120%',
               }}
               autoPlay
-              aria-hidden="true"
               muted
               loop
               playsInline
@@ -63,7 +61,6 @@ const WaitSection = () => {
           <div className="flex flex-col lg:flex-row items-start gap-12 relative z-10">
             <div
               className="flex-1 space-y-6"
-              role="contentinfo"
               itemScope
               itemType="https://schema.org/Action"
             >

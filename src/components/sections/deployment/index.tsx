@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import TerminalWindow, { Command } from './terminal-window';
-import CodeEditor from './code-editor';
 import { Button } from '@/components/ui/button';
+import type React from 'react';
+import { useState } from 'react';
+import CodeEditor from './code-editor';
+import TerminalWindow, { type Command } from './terminal-window';
 
 const frameworks = [
   'Rspack + Re.Pack + React Native',
@@ -136,8 +137,9 @@ const DeploymentSection: React.FC = () => {
         </p>
 
         <div className="flex flex-wrap gap-4 justify-center mb-12">
-          {frameworks.map((framework) => (
+          {frameworks.map(framework => (
             <button
+              type="button"
               key={framework}
               onClick={() => setSelectedFramework(framework)}
               className={`px-4 py-2 rounded-full transition-colors ${

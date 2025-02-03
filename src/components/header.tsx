@@ -1,9 +1,9 @@
+import ZephyrLogo from '@/images/zephyr-logo.svg';
+import { cn } from '@/lib/utils';
 import { Link, useLocation } from '@modern-js/runtime/router';
 import { useState } from 'react';
 import { MobileNav } from './mobile-nav';
 import HeaderNav from './ui/buttons/button.header-nav';
-import { cn } from '@/lib/utils';
-import ZephyrLogo from '@/images/zephyr-logo.svg';
 
 const MenuIcon = () => (
   <svg
@@ -14,6 +14,7 @@ const MenuIcon = () => (
     xmlns="http://www.w3.org/2000/svg"
     aria-hidden="true"
   >
+    <title>Menu</title>
     <path
       d="M4 6H20M4 12H20M4 18H20"
       stroke="currentColor"
@@ -63,7 +64,6 @@ export default function Header() {
     <header
       suppressHydrationWarning
       className="fixed top-0 left-0 right-0 z-50 w-full bg-zinc-900/75 backdrop-blur-sm border-b border-zinc-800"
-      role="banner"
       itemScope
       itemType="http://schema.org/WPHeader"
     >
@@ -71,6 +71,7 @@ export default function Header() {
         <div className="flex items-center justify-between h-16 max-w-[1400px] mx-auto w-full">
           <div className="flex flex-row align-middle items-center">
             <button
+              type="button"
               onClick={() => setIsMobileMenuOpen(true)}
               className="md:hidden rounded-lg p-2 mr-4 text-white hover:bg-zinc-800"
               aria-label="Open menu"
@@ -99,12 +100,11 @@ export default function Header() {
 
           <nav
             className="hidden md:flex items-center space-x-1 flex-1 justify-center"
-            role="navigation"
             aria-label="Main navigation"
             itemScope
             itemType="http://schema.org/SiteNavigationElement"
           >
-            {navigationItems.map((item) => (
+            {navigationItems.map(item => (
               <div
                 key={item.title}
                 className={cn(
