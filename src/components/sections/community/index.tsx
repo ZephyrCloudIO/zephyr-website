@@ -140,7 +140,7 @@ const testimonials: Testimonial[] = [
   {
     name: 'Zhang Lei',
     content:
-      "Going from idea to global scale production couldn't be easier than with Rspack and Zephhr Cloud. Sub second builds and sub second and versioned deploys combined with instant rollbacks help avoid Sev1 downtime. ",
+      "Going from idea to global scale production couldn't be easier than with Rspack and Zephhr Cloud. Sub second builds and sub second and versioned deploys combined with instant rollbacks help avoid Sev1 downtime.",
     avatar: Generic,
     role: 'Web Infra manager',
     company: 'Web Infra',
@@ -262,7 +262,9 @@ export const CommunitySection: React.FC = () => {
                     className="testimonial-card"
                   >
                     <TestimonialCard
+                      socialLinks={testimonial.socialLinks}
                       name={testimonial.name}
+                      company={testimonial.company}
                       role={testimonial.role}
                       content={testimonial.content}
                       avatar={testimonial.avatar}
