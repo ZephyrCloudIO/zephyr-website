@@ -256,9 +256,6 @@ importers:
       tslib:
         specifier: ^2.3.0
         version: 2.8.1
-      webpack:
-        specifier: ^5.93.0
-        version: 5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))
       zephyr-agent:
         specifier: workspace:*
         version: link:../zephyr-agent
