@@ -7,12 +7,24 @@ import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
 import ota_update from '@/images/blog/ota-update.webm';
 import ota_hero from '@/images/blog/ota-hero.webp';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
+import ai_hero from '@/images/blog/ai-e2e-testing/ai-testing-hero.webp';
+import ai_hero_listing from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { Zack } from '@/lib/blog/authors/Zack';
 import { BlogCard, type BlogPost } from '@/components/ui/blog-card';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: 'AI based end-to-end testing',
+    slug: './ai-e2e-testing',
+    date: new Date('February 18, 2025 20:00:00 GMT+0'),
+    heroImage: ai_hero,
+    listingImage: ai_hero_listing,
+    description:
+      'Revolutionizing e2e testing with Midscene, Puppeteer, and Zephyr Cloud',
+    authors: [Zack],
+  },
   {
     title: 'The team-first Architecture',
     slug: './the-team-first-architecture',
