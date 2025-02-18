@@ -9,7 +9,7 @@
     "serve": "modern serve",
     "lint": "eslint --cache .",
     "fix": "prettier --write .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "upgrade": "modern upgrade",
     "deploy": "modern deploy"
   },
@@ -45,10 +45,10 @@
     "react-dom": "~18.3.1",
     "react-lottie": "^1.2.10",
     "react-wrap-balancer": "^1.1.1",
-    "rehype-highlight": "^7.0.1",
+    "rehype-highlight": "^7.0.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "zephyr-modernjs-plugin": "workspace:*"
+    "zephyr-modernjs-plugin": "^1.0.0"
   },
   "devDependencies": {
     "@modern-js-app/eslint-config": "2.59.0",
