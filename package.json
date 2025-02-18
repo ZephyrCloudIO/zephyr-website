@@ -9,7 +9,7 @@
     "serve": "modern serve",
     "lint": "eslint --cache .",
     "fix": "prettier --write .",
-    "prepare": "husky install",
+    "prepare": "husky",
     "upgrade": "modern upgrade",
     "deploy": "modern deploy"
   },
