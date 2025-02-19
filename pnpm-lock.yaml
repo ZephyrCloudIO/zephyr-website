@@ -75,8 +75,8 @@ importers:
         specifier: ^1.0.7
         version: 1.0.7(tailwindcss@3.4.17(ts-node@10.9.2(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.12.0)(typescript@5.7.3)))
       zephyr-modernjs-plugin:
-        specifier: workspace:*
-        version: link:../zephyr-packages/libs/zephyr-modernjs-plugin
+        specifier: 0.0.0-canary-20250219113844
+        version: 0.0.0-canary-20250219113844(@rsbuild/core@1.1.13)(@swc/core@1.10.9(@swc/helpers@0.5.15))(@swc/helpers@0.5.15)(encoding@0.1.13)(esbuild@0.17.19)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(ts-node@10.9.2(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.12.0)(typescript@5.7.3))(tsconfig-paths@4.2.0)(type-fest@4.33.0)(typescript@5.7.3)(webpack-dev-server@4.15.2(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))(esbuild@0.17.19)))
     devDependencies:
       '@biomejs/biome':
         specifier: 1.9.4
@@ -1454,7 +1454,7 @@ packages:
   '@module-federation/automatic-vendor-federation@1.2.1':
     resolution: {integrity: sha512-73wxkXM7pbRZ6GGM90JP5IPTPvY3fvrhQyTVdMCUx85cQRWqnbzbibcsz3pkOMOeXyYAO4tXXsG13yNaEEGhJA==}
     peerDependencies:
-      webpack: '>=5.94.0'
+      webpack: ^5.0.0-beta.16
 
   '@module-federation/bridge-react-webpack-plugin@0.8.9':
     resolution: {integrity: sha512-gM5fnWvFfTEfh5UjSmNod1H/np/pUUjvJnnN31ucKcZ21mL6wJo0A+Vfj8a5gv34S+1n5lWR1b6eVv9CofwgDQ==}
@@ -6553,6 +6553,18 @@ packages:
 
   youch@3.3.4:
     resolution: {integrity: sha512-UeVBXie8cA35DS6+nBkls68xaBBXCye0CNznrhszZjTbRVnJKQuNsyLKBTTL4ln1o1rh2PKtv35twV7irj5SEg==}
+
+  zephyr-agent@0.0.0-canary-20250219113844:
+    resolution: {integrity: sha512-re/t9lQ65OwBktjW6rlivljxtavjtCnp35AoWgUFDsEbH6f/T+4NhCnYmTJWQPMvOyEhq7wupP7sdqUHBt4QAQ==}
+
+  zephyr-edge-contract@0.0.0-canary-20250219113844:
+    resolution: {integrity: sha512-pd9K652gv5HNpJuQJs1CCy8ApT6qQStFXxriDdqUPXll+K+dpsivHDVJqE8iCH3Des/rw2kLBZkZXwBT3rcDOQ==}
+
+  zephyr-modernjs-plugin@0.0.0-canary-20250219113844:
+    resolution: {integrity: sha512-US6obUbFAlSyE5cYeec0WqQA1g2PXXjlnkmPNZDbPeF+/K/WRQ8Jw1A5boRhJVF40sayVTlSBgti9L3jNP3/sg==}
+
+  zephyr-xpack-internal@0.0.0-canary-20250219113844:
+    resolution: {integrity: sha512-KmH6FUNGZ+Pe/dL4gqdqCNXuWiojdf45BPg7SvUU7UXkbJT7GOSiC3c22AFKDRWZUNxlY9KpeDYzmTuSUBcvkg==}
 
   zod@3.24.1:
     resolution: {integrity: sha512-muH7gBL9sI1nciMZV67X5fTKKBLtwpZ5VBp1vsOQzj1MhrBZ4wlVCm3gedKZWLp0Oyel8sIGfeiz54Su+OVT+A==}
@@ -14130,6 +14142,93 @@ snapshots:
       mustache: 4.2.0
       stacktracey: 2.1.8
     optional: true
+
+  zephyr-agent@0.0.0-canary-20250219113844(encoding@0.1.13):
+    dependencies:
+      cloudflare: 3.5.0(encoding@0.1.13)
+      debug: 4.4.0(supports-color@5.5.0)
+      git-url-parse: 15.0.0
+      is-ci: 3.0.1
+      jose: 5.9.6
+      node-persist: 4.0.4
+      open: 10.1.0
+      socket.io-client: 4.8.1
+      tslib: 2.8.1
+      uuid: 8.3.2
+      zephyr-edge-contract: 0.0.0-canary-20250219113844
+    optionalDependencies:
+      wrangler: 3.107.2
+    transitivePeerDependencies:
+      - '@cloudflare/workers-types'
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+
+  zephyr-edge-contract@0.0.0-canary-20250219113844:
+    dependencies:
+      tslib: 2.8.1
+
+  zephyr-modernjs-plugin@0.0.0-canary-20250219113844(@rsbuild/core@1.1.13)(@swc/core@1.10.9(@swc/helpers@0.5.15))(@swc/helpers@0.5.15)(encoding@0.1.13)(esbuild@0.17.19)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(ts-node@10.9.2(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.12.0)(typescript@5.7.3))(tsconfig-paths@4.2.0)(type-fest@4.33.0)(typescript@5.7.3)(webpack-dev-server@4.15.2(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))(esbuild@0.17.19))):
+    dependencies:
+      '@modern-js/app-tools': 2.64.0(@rspack/core@1.1.8(@swc/helpers@0.5.15))(@swc/core@1.10.9(@swc/helpers@0.5.15))(encoding@0.1.13)(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(styled-components@5.3.11(@babel/core@7.26.0)(react-dom@18.3.1(react@18.3.1))(react-is@18.3.1)(react@18.3.1))(ts-node@10.9.2(@swc/core@1.10.9(@swc/helpers@0.5.15))(@types/node@22.12.0)(typescript@5.7.3))(tsconfig-paths@4.2.0)(type-fest@4.33.0)(typescript@5.7.3)(webpack-dev-server@4.15.2(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))(esbuild@0.17.19)))
+      '@module-federation/automatic-vendor-federation': 1.2.1(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))(esbuild@0.17.19))
+      '@module-federation/modern-js': 0.8.9(@rsbuild/core@1.1.13)(@rspack/core@1.1.8(@swc/helpers@0.5.15))(react-dom@18.3.1(react@18.3.1))(react@18.3.1)(typescript@5.7.3)(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))(esbuild@0.17.19))
+      '@rspack/core': 1.1.8(@swc/helpers@0.5.15)
+      is-ci: 3.0.1
+      tslib: 2.8.1
+      webpack: 5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))(esbuild@0.17.19)
+      zephyr-agent: 0.0.0-canary-20250219113844(encoding@0.1.13)
+      zephyr-edge-contract: 0.0.0-canary-20250219113844
+      zephyr-xpack-internal: 0.0.0-canary-20250219113844(encoding@0.1.13)(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))(esbuild@0.17.19))
+    transitivePeerDependencies:
+      - '@cloudflare/workers-types'
+      - '@parcel/css'
+      - '@rsbuild/core'
+      - '@swc/core'
+      - '@swc/css'
+      - '@swc/helpers'
+      - '@types/webpack'
+      - bufferutil
+      - clean-css
+      - csso
+      - debug
+      - devcert
+      - encoding
+      - esbuild
+      - lightningcss
+      - next
+      - react
+      - react-dom
+      - sockjs-client
+      - styled-components
+      - supports-color
+      - ts-node
+      - tsconfig-paths
+      - type-fest
+      - typescript
+      - uglify-js
+      - utf-8-validate
+      - vue-tsc
+      - webpack-cli
+      - webpack-dev-server
+      - webpack-hot-middleware
+      - webpack-plugin-serve
+
+  zephyr-xpack-internal@0.0.0-canary-20250219113844(encoding@0.1.13)(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))(esbuild@0.17.19)):
+    dependencies:
+      '@module-federation/automatic-vendor-federation': 1.2.1(webpack@5.97.1(@swc/core@1.10.9(@swc/helpers@0.5.15))(esbuild@0.17.19))
+      is-ci: 3.0.1
+      tslib: 2.8.1
+      zephyr-agent: 0.0.0-canary-20250219113844(encoding@0.1.13)
+      zephyr-edge-contract: 0.0.0-canary-20250219113844
+    transitivePeerDependencies:
+      - '@cloudflare/workers-types'
+      - bufferutil
+      - encoding
+      - supports-color
+      - utf-8-validate
+      - webpack
 
   zod@3.24.1:
     optional: true

@@ -48,7 +48,7 @@
     "rehype-highlight": "^7.0.1",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "zephyr-modernjs-plugin": "workspace:*"
+    "zephyr-modernjs-plugin": "0.0.0-canary-20250219113844"
   },
   "devDependencies": {
     "@modern-js/app-tools": "2.64.0",
