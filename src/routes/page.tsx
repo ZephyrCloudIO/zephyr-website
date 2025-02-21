@@ -23,8 +23,6 @@ export default function App() {
       <IntegrationsSection />
       <CommunitySection />
       <WaitSection />
-      <Footer />
-
     </div>
   );
 }
