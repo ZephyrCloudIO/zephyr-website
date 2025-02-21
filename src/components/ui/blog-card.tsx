@@ -8,7 +8,7 @@ export interface BlogPost {
   heroImage?: any;
   date: Date;
   time?: string;
-  authors?: Array<Author>;
+  authors: Array<Author>;
   description: string;
 }
 

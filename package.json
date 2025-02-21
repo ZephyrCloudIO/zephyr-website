@@ -47,12 +47,11 @@
     "react-wrap-balancer": "^1.1.1",
     "rehype-highlight": "^7.0.1",
     "tailwind-merge": "^2.6.0",
-    "tailwindcss-animate": "^1.0.7",
-    "zephyr-modernjs-plugin": "workspace:*"
+    "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
     "@modern-js-app/eslint-config": "2.59.0",
-    "@modern-js/app-tools": "2.64.0",
+    "@modern-js/app-tools": "2.64.3",
     "@modern-js/eslint-config": "2.59.0",
     "@modern-js/tsconfig": "2.64.0",
     "@rsbuild/plugin-image-compress": "1.1.0",
@@ -70,7 +69,13 @@
     "tailwindcss": "~3.4.17",
     "ts-node": "~10.9.2",
     "tsconfig-paths": "~4.2.0",
-    "typescript": "~5.7.3"
+    "typescript": "~5.7.3",
+    "zephyr-modernjs-plugin": "0.0.0-canary-20250219113844"
   },
-  "packageManager": "pnpm@9.15.0"
+  "packageManager": "pnpm@9.15.0",
+  "pnpm": {
+    "overrides": {
+      "zephyr-modernjs-plugin": "../zephyr/repos/zephyr-packages/libs/zephyr-modernjs-plugin"
+    }
+  }
 }

@@ -1,4 +1,5 @@
 export const siteConfig = {
+  url: 'https://zephyr-cloud.io',
   headerNav: [
     { name: 'Pricing', link: '/pricing' },
     {
