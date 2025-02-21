@@ -1,17 +1,17 @@
-import MobileFirstHero from '@/images/blog/mobilefirst.webp';
-import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
-import infrastructureless from '@/images/blog/infrastructureless.webp';
-import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
-import ota_update from '@/images/blog/ota-update.webm';
-import ota_hero from '@/images/blog/ota-hero.webp';
-import team_first from '@/images/blog/the-team-first-architecture.webp';
+import type { BlogPost } from '@/components/ui/blog-card';
 import ai_hero from '@/images/blog/ai-e2e-testing/ai-testing-hero.webp';
 import ai_hero_listing from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
+import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
+import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
+import infrastructureless from '@/images/blog/infrastructureless.webp';
+import MobileFirstHero from '@/images/blog/mobilefirst.webp';
+import ota_hero from '@/images/blog/ota-hero.webp';
+import ota_update from '@/images/blog/ota-update.webm';
+import team_first from '@/images/blog/the-team-first-architecture.webp';
+import { Lois } from '@/lib/blog/authors/Lois';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { Zack } from '@/lib/blog/authors/Zack';
-import { Lois } from '@/lib/blog/authors/Lois';
-import { type BlogPost } from '@/components/ui/blog-card';
 
 export const blogPosts: BlogPost[] = [
   {

@@ -29,7 +29,8 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     name: 'Mike Grabowski',
-    content: `Thanks to Zephyr we can confidently take Module Federation apps to production, on our own cloud and focus on features and leave all the infrastructure setup to them.`,
+    content:
+      'Thanks to Zephyr we can confidently take Module Federation apps to production, on our own cloud and focus on features and leave all the infrastructure setup to them.',
     avatar: MikeG,
     role: 'CTO & Co-Founder',
     company: 'Callstack',

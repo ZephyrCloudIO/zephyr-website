@@ -1,3 +1,4 @@
+import { Helmet } from '@modern-js/runtime/head';
 import { useParams } from '@modern-js/runtime/router';
 import {
   type FC,
@@ -7,15 +8,15 @@ import {
   useLayoutEffect,
   useMemo,
 } from 'react';
-import { Helmet } from '@modern-js/runtime/head';
 import 'highlight.js/styles/github-dark.css';
 import { MDXLayout } from '@/components/mdx-wrapper';
+import type { BlogPost as BlogPostType } from '@/components/ui/blog-card';
+import { blogPosts } from '@/lib/blog/config';
+import { siteConfig } from '@/lib/site.config';
 import hljs from 'highlight.js/lib/core';
 import bash from 'highlight.js/lib/languages/bash';
 import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
-import { blogPosts } from '@/lib/blog/config';
-import { siteConfig } from '@/lib/site.config';
 
 hljs.registerLanguage('javascript', javascript);
 hljs.registerLanguage('typescript', typescript);
@@ -36,7 +37,11 @@ const Highlighter: FC<PropsWithChildren> = ({ children }) => {
 export default function BlogPost() {
   const { id } = useParams<{ id: string }>();
 
-  const blogMetadata = blogPosts.find((post) => post.slug.includes(id!));
+  let blogMetadata: BlogPostType | undefined;
+
+  if (id) {
+    blogMetadata = blogPosts.find(post => post.slug.includes(id));
+  }
 
   const BlogMDX = useMemo(() => {
     if (!id) {

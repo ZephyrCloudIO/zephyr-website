@@ -1,5 +1,5 @@
-import { Helmet } from '@modern-js/runtime/head';
 import Hero from '@/components/sections/hero/index';
+import { Helmet } from '@modern-js/runtime/head';
 import './index.css';
 import { CommunitySection } from '@/components/sections/community';
 import DeploymentSection from '@/components/sections/deployment';
