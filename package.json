@@ -52,7 +52,6 @@
     "zephyr-modernjs-plugin": "0.0.0-canary-20250219113844"
   },
   "devDependencies": {
-    "@modern-js-app/eslint-config": "2.59.0",
     "@modern-js/app-tools": "2.64.0",
     "@modern-js/tsconfig": "2.64.0",
     "@rsbuild/plugin-image-compress": "1.1.0",
