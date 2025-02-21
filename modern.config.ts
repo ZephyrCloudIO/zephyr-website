@@ -1,11 +1,9 @@
 import { appTools, defineConfig } from '@modern-js/app-tools';
 import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
-import { bffPlugin } from '@modern-js/plugin-bff';
-import { expressPlugin } from '@modern-js/plugin-express';
-import { withZephyr } from 'zephyr-modernjs-plugin';
-import { pluginMdx } from '@rsbuild/plugin-mdx';
 import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
+import { pluginMdx } from '@rsbuild/plugin-mdx';
 import rehypeHighlight from 'rehype-highlight';
+import { withZephyr } from 'zephyr-modernjs-plugin';
 
 const tailwindConfig = require('./tailwind.config');
 
@@ -46,11 +44,9 @@ export default defineConfig({
   ],
   plugins: [
     appTools({
-      bundler: 'rspack',
+      bundler: 'experimental-rspack',
     }),
     tailwindcssPlugin(),
-    bffPlugin(),
-    expressPlugin(),
     withZephyr(),
   ],
 });

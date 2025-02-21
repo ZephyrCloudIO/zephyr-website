@@ -1,4 +1,4 @@
-import { clsx, type ClassValue } from 'clsx';
+import { type ClassValue, clsx } from 'clsx';
 import { twMerge } from 'tailwind-merge';
 
 export function cn(...inputs: ClassValue[]) {
@@ -37,7 +37,7 @@ export function getHighlightedLines(highlights?: string): number[] {
   }
 
   const lines: number[] = [];
-  const ranges = highlights.split(',').map((range) => range.trim());
+  const ranges = highlights.split(',').map(range => range.trim());
 
   for (const range of ranges) {
     if (range.includes('-')) {
@@ -51,7 +51,7 @@ export function getHighlightedLines(highlights?: string): number[] {
   }
 
   return [...new Set(lines)]
-    .filter((line) => !isNaN(line))
+    .filter(line => !Number.isNaN(line))
     .sort((a, b) => a - b);
 }
 

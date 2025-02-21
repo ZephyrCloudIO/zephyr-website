@@ -1,4 +1,5 @@
-import React, { memo } from 'react';
+import type React from 'react';
+import { memo } from 'react';
 import {
   ExternalLinkIcon,
   LinkedInLogoIcon,
@@ -39,8 +40,8 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = memo(
   ({ name, role, company, content, avatar, socialLinks }) => {
     return (
       <article
-        className="testimonial-card bg-zinc-900/30 backdrop-blur-md rounded-2xl p-8 
-        hover:bg-zinc-900/40 transition-all duration-300 border border-zinc-800/50 
+        className="testimonial-card bg-zinc-900/30 backdrop-blur-md rounded-2xl p-8
+        hover:bg-zinc-900/40 transition-all duration-300 border border-zinc-800/50
         shadow-xl hover:shadow-2xl mx-2 h-[280px] flex flex-col group"
         itemScope
         itemType="https://schema.org/Review"
@@ -49,8 +50,8 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = memo(
           <img
             src={avatar}
             alt={`${name}'s avatar`}
-            className="w-12 h-12 rounded-full object-cover testimonial-avatar 
-            border-2 border-zinc-700/50 text-white group-hover:border-zinc-600/50 
+            className="w-12 h-12 rounded-full object-cover testimonial-avatar
+            border-2 border-zinc-700/50 text-white group-hover:border-zinc-600/50
             transition-all duration-300"
             loading="lazy"
             decoding="async"
@@ -102,7 +103,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = memo(
           </div>
         </header>
         <p
-          className="text-gray-400 text-sm leading-relaxed tracking-wide flex-1 
+          className="text-gray-400 text-sm leading-relaxed tracking-wide flex-1
           group-hover:text-gray-300 transition-colors duration-300"
           itemProp="reviewBody"
         >

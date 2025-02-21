@@ -1,8 +1,8 @@
-import { Link } from '@modern-js/runtime/router';
-import { useState, useEffect } from 'react';
-import { navigationItems } from './header';
-import ZephyrLogo from '@/images/zephyr-logo.svg';
 import separateTop from '@/images/separator-pointing-down.svg';
+import ZephyrLogo from '@/images/zephyr-logo.svg';
+import { Link } from '@modern-js/runtime/router';
+import { useEffect, useState } from 'react';
+import { navigationItems } from './header';
 
 interface MobileNavProps {
   isOpen: boolean;
@@ -24,6 +24,13 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
     <>
       <div
         onClick={onClose}
+        onKeyDown={e => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            onClose();
+          }
+        }}
+        role="button"
+        tabIndex={0}
         className={`fixed inset-0 z-40 bg-black/70 backdrop-blur-sm transition-all duration-300 ${
           isOpen ? 'opacity-100 visible' : 'opacity-0 invisible'
         }`}
@@ -50,6 +57,7 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
               />
             </Link>
             <button
+              type="button"
               onClick={onClose}
               className="rounded-lg p-2 text-gray-600 hover:bg-gray-100"
               aria-label="Close menu"
@@ -79,7 +87,7 @@ export const MobileNav = ({ isOpen, onClose }: MobileNavProps) => {
             />
             <nav className="flex-1 px-4 pt-4 h-full">
               <ul className="space-y-4">
-                {navigationItems.map((link) => (
+                {navigationItems.map(link => (
                   <li key={link.title}>
                     <a
                       href={link.link}

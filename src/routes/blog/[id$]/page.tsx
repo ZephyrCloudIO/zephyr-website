@@ -1,19 +1,19 @@
 import { useParams } from '@modern-js/runtime/router';
 import {
+  type FC,
+  type PropsWithChildren,
   Suspense,
-  useMemo,
   lazy,
   useLayoutEffect,
-  PropsWithChildren,
-  FC,
+  useMemo,
 } from 'react';
 import { Helmet } from '@modern-js/runtime/head';
 import 'highlight.js/styles/github-dark.css';
+import { MDXLayout } from '@/components/mdx-wrapper';
 import hljs from 'highlight.js/lib/core';
+import bash from 'highlight.js/lib/languages/bash';
 import javascript from 'highlight.js/lib/languages/javascript';
 import typescript from 'highlight.js/lib/languages/typescript';
-import bash from 'highlight.js/lib/languages/bash';
-import { MDXLayout } from '@/components/mdx-wrapper';
 import { blogPosts } from '@/lib/blog/config';
 import { siteConfig } from '@/lib/site.config';
 

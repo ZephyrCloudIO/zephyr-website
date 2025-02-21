@@ -1,5 +1,5 @@
-import { Link } from '@modern-js/runtime/router';
 import { cn } from '@/lib/utils';
+import { Link } from '@modern-js/runtime/router';
 
 interface HeaderNavProps {
   title: string;

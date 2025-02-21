@@ -8,7 +8,7 @@ export default function GithubPage() {
         <meta
           httpEquiv="refresh"
           content="0; url=https://github.com/ZephyrCloudIO"
-        ></meta>
+        />
       </Helmet>
     </div>
   );

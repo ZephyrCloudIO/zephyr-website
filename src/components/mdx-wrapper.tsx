@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import type { FC } from 'react';
 import 'highlight.js/styles/github-dark.min.css';
 
 interface MDXFrontmatter {

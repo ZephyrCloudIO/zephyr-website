@@ -1,13 +1,14 @@
-import React, { useRef, useState, useEffect } from 'react';
-import { IntegrationCard } from './integration-card';
 import ButtonGlow from '@/components/ui/buttons/button.glow';
-import CloudFlare from '@/images/providers/cloudflare.svg';
-import Netlify from '@/images/providers/netlify.svg';
 import AWS from '@/images/providers/aws.svg';
-import VercelLogo from '@/images/providers/vercel.svg';
-import Supabase from '@/images/providers/supabase.svg';
 import Azure from '@/images/providers/azure.svg';
+import CloudFlare from '@/images/providers/cloudflare.svg';
 import Fastly from '@/images/providers/fastly.svg';
+import Netlify from '@/images/providers/netlify.svg';
+import Supabase from '@/images/providers/supabase.svg';
+import VercelLogo from '@/images/providers/vercel.svg';
+import type React from 'react';
+import { useEffect, useRef, useState } from 'react';
+import { IntegrationCard } from './integration-card';
 
 const integrations = [
   {
@@ -52,6 +53,7 @@ export const IntegrationsSection: React.FC = () => {
     setScrollIndex(currentIndex);
   };
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: <explanation>
   useEffect(() => {
     const slider = sliderRef.current;
     if (!slider) {
@@ -59,8 +61,6 @@ export const IntegrationsSection: React.FC = () => {
     }
 
     slider.addEventListener('scroll', handleScroll);
-    // TODO(Nestor): Weird error, check later.
-    // eslint-disable-next-line consistent-return
     return () => slider.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -146,22 +146,16 @@ export const IntegrationsSection: React.FC = () => {
             </div>
           </div>
         </div>
-        <div
-          className="relative mt-8"
-          role="region"
-          aria-label="Cloud integration partners"
-        >
+        <div className="relative mt-8" aria-label="Cloud integration partners">
           <ul
             ref={sliderRef}
             className="flex gap-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory touch-pan-x"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
-            role="list"
           >
             {integrations.map((item, index) => (
               <li
                 key={item.name}
                 data-card-id={item.name}
-                role="listitem"
                 aria-label={`Integration with ${item.name}`}
               >
                 <IntegrationCard

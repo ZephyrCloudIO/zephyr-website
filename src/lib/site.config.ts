@@ -46,4 +46,5 @@ export const siteConfig = {
       docs: 'https://docs.zephyr-cloud.io/guide/recipes/react-vite',
     },
   ],
+  gtag_id: 'G-B7G266JZDH',
 };
