@@ -72,10 +72,5 @@
     "typescript": "~5.7.3",
     "zephyr-modernjs-plugin": "0.0.0-canary-20250219113844"
   },
-  "packageManager": "pnpm@9.15.0",
-  "pnpm": {
-    "overrides": {
-      "zephyr-modernjs-plugin": "../zephyr/repos/zephyr-packages/libs/zephyr-modernjs-plugin"
-    }
-  }
+  "packageManager": "pnpm@9.15.0"
 }

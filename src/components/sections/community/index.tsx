@@ -140,7 +140,7 @@ const testimonials: Testimonial[] = [
   {
     name: 'Zhang Lei',
     content:
-      "Going from idea to global scale production couldn't be easier than with Rspack and Zephhr Cloud. Sub second builds and sub second and versioned deploys combined with instant rollbacks help avoid Sev1 downtime. ",
+      "Going from idea to global scale production couldn't be easier than with Rspack and Zephhr Cloud. Sub second builds and sub second and versioned deploys combined with instant rollbacks help avoid Sev1 downtime.",
     avatar: Generic,
     role: 'Web Infra manager',
     company: 'Web Infra',
@@ -216,8 +216,8 @@ export const CommunitySection: React.FC = () => {
     })),
   };
 
-  // Create two groups of testimonials for seamless infinite scroll
-  const scrollContent = [...testimonials, ...testimonials];
+  // Create a longer train by duplicating testimonials
+  const scrollContent = [...testimonials, ...testimonials, ...testimonials];
 
   return (
     <>
@@ -225,44 +225,47 @@ export const CommunitySection: React.FC = () => {
         <script type="application/ld+json">{JSON.stringify(schema)}</script>
       </Helmet>
       <section
-        className="bg-black py-24 relative overflow-hidden"
+        className="bg-black py-32 relative overflow-hidden"
         aria-labelledby="community-heading"
       >
         <div className="absolute inset-0 w-full h-full">
+          <div className="absolute inset-0 bg-gradient-to-b from-[#2E335A]/10 from-10% via-[#1C1B33]/5 via-70% to-[#2E335A]/10 to-90%" />
           <img
             src={separateBottom}
-            className="absolute top-0 w-full object-cover"
+            className="absolute top-0 w-full object-cover opacity-50"
             alt="Decorative section separator"
             width="100%"
           />
         </div>
-        <div className="container mx-auto px-4 mt-24 pt-12">
-          <div className="py-2 mb-4">
-            <div className="flex flex-col items-center gap-4 justify-between">
+        <div className="container mx-auto px-4 mt-24 pt-12 relative z-10">
+          <div className="py-2 mb-8">
+            <div className="flex flex-col items-center gap-6 justify-between">
               <h2
-                className="text-3xl sm:text-4xl md:text-5xl font-bold text-center md:text-left mb-2 md:mb-4 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider"
+                className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-4 bg-gradient-to-r from-white via-white/90 to-white/70 bg-clip-text text-transparent tracking-wider"
                 id="community-heading"
               >
                 What the community says
               </h2>
-              <p className="text-md md:text-md text-gray-500 text-center md:text-left max-w-xs md:max-w-none">
+              <p className="text-lg md:text-xl text-gray-400 text-center max-w-2xl">
                 Micro-frontends on steroids
               </p>
             </div>
           </div>
 
-          <div className="testimonials-container">
+          <div className="testimonials-container relative">
             <div className="testimonials-wrapper">
               <div className="testimonials-group">
                 {scrollContent.map((testimonial) => (
                   <div
                     key={`${testimonial.name}-${testimonial.company || ''}-${
                       testimonial.role || ''
-                    }`}
-                    className="testimonial-card"
+                    }-${testimonial.content.substring(0, 10)}`}
+                    className="testimonial-card transform transition-all duration-300 hover:scale-105"
                   >
                     <TestimonialCard
+                      socialLinks={testimonial.socialLinks}
                       name={testimonial.name}
+                      company={testimonial.company}
                       role={testimonial.role}
                       content={testimonial.content}
                       avatar={testimonial.avatar}
@@ -271,11 +274,11 @@ export const CommunitySection: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div className="testimonials-fade-overlay" />
-            <div className="testimonials-fade-overlay-right" />
+            <div className="testimonials-fade-overlay bg-gradient-to-r from-black" />
+            <div className="testimonials-fade-overlay-right bg-gradient-to-l from-black" />
           </div>
 
-          <div className="flex md:justify-evenly flex-col md:flex-row justify-center gap-6 mt-16 items-center">
+          <div className="flex md:justify-evenly flex-col md:flex-row justify-center gap-8 mt-20 items-center">
             <GlowingLink
               to="https://discord.gg/pSxWRVayEu"
               className="w-60"
