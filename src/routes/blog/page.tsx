@@ -1,6 +1,8 @@
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import { BlogCard } from '@/components/ui/blog-card';
 import type { BlogPost } from '@/components/ui/blog-card';
+import ai_hero from '@/images/blog/ai-e2e-testing/ai-testing-hero.webp';
+import ai_hero_listing from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
 import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
@@ -18,6 +20,16 @@ import { cn } from '@/lib/utils';
 import type { FC, HTMLAttributes } from 'react';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: 'AI based end-to-end testing',
+    slug: './ai-e2e-testing',
+    date: new Date('February 18, 2025 20:00:00 GMT+0'),
+    heroImage: ai_hero,
+    listingImage: ai_hero_listing,
+    description:
+      'Revolutionizing e2e testing with Midscene, Puppeteer, and Zephyr Cloud',
+    authors: [Zack],
+  },
   {
     title: "Who's your cloud daddy?",
     slug: './whos-your-cloud-daddy',

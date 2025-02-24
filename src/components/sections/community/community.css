@@ -2,38 +2,80 @@
   position: relative;
   width: 100%;
   overflow: hidden;
-  padding: 40px 0;
+  padding: 2rem 0;
 }
 
 .testimonials-wrapper {
   display: flex;
-  animation: scroll 60s linear infinite;
-  width: max-content;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-  perspective: 1000;
-  -webkit-perspective: 1000;
-  transform-style: preserve-3d;
-  -webkit-transform-style: preserve-3d;
+  width: 100%;
+  overflow: hidden;
 }
 
 .testimonials-group {
   display: flex;
-  padding: 0;
-  margin: 0;
-  gap: 4rem;
+  gap: 2rem;
+  animation: scroll 120s linear infinite;
+  padding: 1rem;
 }
 
 .testimonial-card {
-  flex: 0 0 320px;
-  width: 320px;
-  height: 280px;
-  transform: translateY(var(--base-y, 0));
-  transition: transform 0.3s ease;
-  will-change: transform;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
+  flex: 0 0 auto;
+  width: 400px;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-66.666%);
+  }
+}
+
+.testimonials-group:hover {
+  animation-play-state: paused;
+}
+
+.testimonial-card {
+  flex: 0 0 auto;
+  width: 400px;
+}
+
+.testimonials-fade-overlay,
+.testimonials-fade-overlay-right {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  width: 20%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.testimonials-fade-overlay {
+  left: 0;
+}
+
+.testimonials-fade-overlay-right {
+  right: 0;
+}
+
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+@media (max-width: 768px) {
+  .testimonial-card {
+    width: 300px;
+  }
+
+  .testimonials-group {
+    animation-duration: 30s;
+  }
 }
 
 .testimonial-card .avatar-section {
