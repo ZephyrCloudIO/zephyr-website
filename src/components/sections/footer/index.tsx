@@ -1,5 +1,5 @@
 import GlowingLinkButton from '@/components/ui/link.glowing-button';
-import Discord from '@/images/platforms/Discord.svg';
+import Discord from '@/images/platforms/discord.svg';
 import LinkedIn from '@/images/platforms/linkedin.svg';
 import X from '@/images/platforms/x.svg';
 import Youtube from '@/images/platforms/youtube.svg';
