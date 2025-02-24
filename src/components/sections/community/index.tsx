@@ -5,12 +5,12 @@ import type React from 'react';
 import { TestimonialCard } from './testimonial-card';
 import './community.css';
 import AlexB from '@/images/community/AlexB.jpeg';
-import MikeG from '@/images/community/MikeG.jpeg';
 import Colum from '@/images/community/Colum.avif';
 import Giorgio from '@/images/community/GiorgioBoa.jpeg';
 import Hux from '@/images/community/Hux.jpg';
 import Jack from '@/images/community/JackHerrington.jpg';
 import Ken from '@/images/community/KenWheeler.jpg';
+import MikeG from '@/images/community/MikeG.jpeg';
 import RonR from '@/images/community/RonR.jpeg';
 import Theo from '@/images/community/Theo.jpeg';
 import Generic from '@/images/z-logo.avif';
@@ -30,7 +30,8 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     name: 'Mike Grabowski',
-    content: `Thanks to Zephyr we can confidently take Module Federation apps to production, on our own cloud and focus on features and leave all the infrastructure setup to them.`,
+    content:
+      'Thanks to Zephyr we can confidently take Module Federation apps to production, on our own cloud and focus on features and leave all the infrastructure setup to them.',
     avatar: MikeG,
     role: 'CTO & Co-Founder',
     company: 'Callstack',

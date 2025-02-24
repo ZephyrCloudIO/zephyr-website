@@ -1,6 +1,8 @@
 import JesusBeam from '@/components/sections/pricing/beam.svg';
 import { BlogCard } from '@/components/ui/blog-card';
 import type { BlogPost } from '@/components/ui/blog-card';
+import ai_hero from '@/images/blog/ai-e2e-testing/ai-testing-hero.webp';
+import ai_hero_listing from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
 import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
@@ -10,8 +12,6 @@ import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
 import ota_update from '@/images/blog/ota-update.webm';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
-import ai_hero from '@/images/blog/ai-e2e-testing/ai-testing-hero.webp';
-import ai_hero_listing from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { Shane } from '@/lib/blog/authors/Shane';

@@ -1,9 +1,10 @@
-import React, { memo } from 'react';
 import {
   ExternalLinkIcon,
   LinkedInLogoIcon,
   TwitterLogoIcon,
 } from '@radix-ui/react-icons';
+import type React from 'react';
+import { memo } from 'react';
 import TwitchIcon from '../../../images/twitch.svg?react';
 import YoutubeIcon from '../../../images/yt.svg?react';
 
@@ -85,7 +86,7 @@ export const TestimonialCard: React.FC<TestimonialCardProps> = memo(
             </div>
             {socialLinks && socialLinks.length > 0 && (
               <div className="flex gap-2 mt-1">
-                {socialLinks.map((social) => (
+                {socialLinks.map(social => (
                   <a
                     key={social.platform}
                     href={social.link}
