@@ -1,56 +1,50 @@
-name: pull_request
+name: Run on PRs
 
 on:
   pull_request:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: "Branch to run workflow on"
-        required: true
-        default: "main"
-
-env:
-  NX_BRANCH: ${{ github.event.number || github.ref_name }}
-  NODE_VERSION: 18
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+    types: [opened, closed]
 
 jobs:
-  cache:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
-      - uses: pnpm/action-setup@v4
+      - name: Checkout code
+        uses: actions/checkout@v3
 
-      - name: Setup Node.js
+      - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
-      - run: pnpm i --frozen-lockfile
+          node-version: '20'
 
-  lint:
-    needs: cache
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+      - name: Setup pnpm
+        uses: pnpm/action-setup@v4
         with:
-          fetch-depth: 0
-      - uses: nrwl/nx-set-shas@v4
-      - uses: pnpm/action-setup@v4
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version-file: ".nvmrc"
-          cache: "pnpm"
+          version: 9.15.0
+          run_install: false
 
       - name: Install dependencies
-        run: pnpm i --frozen-lockfile
+        run: pnpm i
 
-      - name: Lint
-        run: pnpm lint
+      - name: Run build for non-merged PR
+        if: github.event.action == 'closed' && github.event.pull_request.merged != true
+        id: build_non_merge
+        env:
+          ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}
+        run: |
+          OUTPUT=$(pnpm run build)
+          echo "$OUTPUT"
+          URL=$(echo "$OUTPUT" | grep -oE 'https://[^ ]+')
+          VERSION=$(echo "$OUTPUT" | grep -oP 'ZEPHYR\s+\K\S+(?=#)')
+          echo "Extracted Zephyr URL: $URL"
+          echo "Extracted VERSION: $VERSION"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "url=$URL" >> "$GITHUB_OUTPUT"
+
+      - name: Run build for merged PR on main or development
+        if: github.event.pull_request.merged == true &&
+          github.event.action == 'closed' &&
+          (github.event.pull_request.base.ref == 'main' || github.event.pull_request.base.ref == 'development')
+        id: build_merge
+        env:
+          ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}
+        run: pnpm run build
