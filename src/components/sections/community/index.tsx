@@ -5,6 +5,7 @@ import type React from 'react';
 import { TestimonialCard } from './testimonial-card';
 import './community.css';
 import AlexB from '@/images/community/AlexB.jpeg';
+import Hux from '@/images/community/Hux.jpg';
 import Colum from '@/images/community/Colum.avif';
 import Giorgio from '@/images/community/GiorgioBoa.jpeg';
 import Jack from '@/images/community/JackHerrington.jpg';
@@ -18,7 +19,7 @@ interface Testimonial {
   company?: string;
   role?: string;
   content: string;
-  avatar: string;
+  avatar: string | any;
   socialLinks?: Array<{
     link: string;
     platform: 'LinkedIn' | 'X' | 'YouTube' | 'Twitch';
@@ -45,6 +46,24 @@ const testimonials: Testimonial[] = [
       {
         link: 'https://www.youtube.com/@jherr',
         platform: 'YouTube',
+      },
+    ],
+  },
+  {
+    name: 'Xuan Huang (Huxpro)',
+    content:
+      'Let\'s make Micro Frontend and Module Federation a first-class citizen of the future of frontend development.',
+    avatar: Hux,
+    role: 'Software Architect',
+    company: 'ByteDance',
+    socialLinks: [
+      {
+        link: 'https://x.com/Huxpro',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/huxpro',
+        platform: 'LinkedIn',
       },
     ],
   },
