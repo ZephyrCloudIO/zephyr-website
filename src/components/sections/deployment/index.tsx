@@ -1,8 +1,11 @@
-import React, { useState } from 'react';
-import TerminalWindow, { Command } from './terminal-window';
+import { Button } from '@/components/ui/button';
+import type React from 'react';
+import { useState } from 'react';
 import CodeEditor from './code-editor';
+import TerminalWindow, { type Command } from './terminal-window';
 
 const frameworks = [
+  'Rspack + Re.Pack + React Native',
   'React + Rspack',
   'React + Webpack + Module Federation',
   'React + Vite',
@@ -18,6 +21,17 @@ type FrameworkDetails = {
 };
 
 const frameworkExamples: Partial<Record<FrameworkName, FrameworkDetails>> = {
+  'Rspack + Re.Pack + React Native': {
+    lines: [1, 21],
+    docsLink: 'https://docs.zephyr-cloud.io/recipes/repack-mf',
+    exampleLink: 'https://github.com/ZephyrCloudIO/zephyr-repack-example',
+    installCommand: [
+      {
+        type: 'command' as const,
+        content: 'install zephyr-repack-plugin',
+      },
+    ],
+  },
   'React + Rspack': {
     lines: [6, 11],
     docsLink:
@@ -28,7 +42,6 @@ const frameworkExamples: Partial<Record<FrameworkName, FrameworkDetails>> = {
       {
         type: 'command' as const,
         content: 'install zephyr-rspack-plugin',
-        lineNumber: 1,
       },
     ],
   },
@@ -41,7 +54,6 @@ const frameworkExamples: Partial<Record<FrameworkName, FrameworkDetails>> = {
       {
         type: 'command' as const,
         content: 'install zephyr-webpack-plugin',
-        lineNumber: 1,
       },
     ],
   },
@@ -54,7 +66,6 @@ const frameworkExamples: Partial<Record<FrameworkName, FrameworkDetails>> = {
       {
         type: 'command' as const,
         content: 'install vite-plugin-zephyr',
-        lineNumber: 1,
       },
     ],
   },
@@ -67,17 +78,18 @@ const frameworkExamples: Partial<Record<FrameworkName, FrameworkDetails>> = {
       {
         type: 'command' as const,
         content: 'install vite-plugin-zephyr',
-        lineNumber: 1,
       },
     ],
   },
 };
 
 const DeploymentSection: React.FC = () => {
-  const [selectedFramework, setSelectedFramework] = useState('React + Rspack');
+  const [selectedFramework, setSelectedFramework] = useState(
+    'Rspack + Re.Pack + React Native',
+  );
 
   const deploymentOutput = [
-    { type: 'command' as const, content: 'run build', lineNumber: 1 },
+    { type: 'command' as const, content: 'run build' },
     {
       type: 'output' as const,
       content: 'deploying....',
@@ -106,6 +118,7 @@ const DeploymentSection: React.FC = () => {
   ];
 
   const frameworks = [
+    'Rspack + Re.Pack + React Native',
     'React + Rspack',
     'React + Webpack + Module Federation',
     'React + Vite',
@@ -124,8 +137,9 @@ const DeploymentSection: React.FC = () => {
         </p>
 
         <div className="flex flex-wrap gap-4 justify-center mb-12">
-          {frameworks.map((framework) => (
+          {frameworks.map(framework => (
             <button
+              type="button"
               key={framework}
               onClick={() => setSelectedFramework(framework)}
               className={`px-4 py-2 rounded-full transition-colors ${
@@ -168,20 +182,18 @@ const DeploymentSection: React.FC = () => {
           <a
             href={frameworkExamples[selectedFramework]?.docsLink}
             aria-label="Zephyr Documentation"
-            className="bg-[#1A1A1A] text-white px-6 py-2 rounded-lg hover:bg-[#2A2A2A] transition-colors"
             target="_blank"
             rel="noopener noreferrer"
           >
-            Documentation
+            <Button> Documentation</Button>
           </a>
           <a
             href={frameworkExamples[selectedFramework]?.exampleLink}
-            className="bg-[#1A1A1A] text-white px-6 py-2 rounded-lg hover:bg-[#2A2A2A] transition-colors"
             aria-label="View this Example"
             target="_blank"
             rel="noopener noreferrer"
           >
-            View this Example
+            <Button variant={'outline'}>View this Example</Button>
           </a>
         </div>
       </div>

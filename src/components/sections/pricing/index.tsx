@@ -1,4 +1,4 @@
-import React from 'react';
+import type React from 'react';
 import { PricingCard } from './pricing-card';
 import PricingTable from './pricing-table';
 
@@ -52,7 +52,7 @@ export const PricingSection: React.FC = () => {
           Our prices
         </h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
-          {pricingTiers.map((tier) => (
+          {pricingTiers.map(tier => (
             <PricingCard
               key={tier.name}
               name={tier.name}

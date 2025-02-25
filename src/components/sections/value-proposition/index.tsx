@@ -1,10 +1,10 @@
-import { useRef } from 'react';
-import ValuePropositionCard from './card';
+import graphyBackground from '@/images/graphy.png';
 import value1 from '@/images/value-proposition/icon1.svg';
 import value2 from '@/images/value-proposition/icon2.svg';
 import value3 from '@/images/value-proposition/icon3.svg';
 import value4 from '@/images/value-proposition/icon4.svg';
-import graphyBackground from '@/images/graphy.png';
+import { useRef } from 'react';
+import ValuePropositionCard from './card';
 
 export default function ValueProposition() {
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -89,7 +89,8 @@ export default function ValueProposition() {
               className="col-start-auto col-end-10 md:w-max transform hover:-translate-y-1 transition-transform duration-300 justify-self-end"
             >
               <ValuePropositionCard
-                divRef={(el) => (cardRefs.current[index] = el)}
+                // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+                divRef={el => (cardRefs.current[index] = el)}
                 text={card.text}
                 icon={card.image}
               />
@@ -100,7 +101,7 @@ export default function ValueProposition() {
 
       <div className="items-start py-8 flex gap-8 md:px-4 md:w-[70%] flex-col relative z-10 px-4">
         <div className="flex flex-col gap-4 font-outfit-medium w-full">
-          {ValueTitle.map((item) => (
+          {ValueTitle.map(item => (
             <h2
               className="text-4xl text-center md:text-start md:text-5xl text-transparent bg-clip-text bg-gradient-to-r from-zinc-600 via-zinc-100 to-zinc-500 font-outfit-light font-light"
               key={item}
@@ -110,10 +111,7 @@ export default function ValueProposition() {
           ))}
         </div>
         <div className="pl-2">
-          <p
-            className="text-zinc-100/80 md:text-sm text-base tracking-wide font-light"
-            role="contentinfo"
-          >
+          <p className="text-zinc-100/80 md:text-sm text-base tracking-wide font-light">
             Bring the power of modern cloud platforms to your cloud.
             <span className="sr-only">
               Zephyr Cloud enables you to build and deploy applications with

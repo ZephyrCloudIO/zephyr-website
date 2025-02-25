@@ -1,6 +1,6 @@
-import React from 'react';
-import Test from './test.mdx';
 import { MDXLayout } from '@/components/mdx-wrapper';
+import type React from 'react';
+import Test from './test.mdx';
 
 export const Page: React.FC = () => {
   return (

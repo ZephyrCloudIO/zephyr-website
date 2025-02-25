@@ -1,5 +1,6 @@
 /* eslint-disable no-useless-escape */
-import React, { useState } from 'react';
+import type React from 'react';
+import { useState } from 'react';
 import './code-editor.css';
 
 interface CodeEditorProps {
@@ -8,7 +9,33 @@ interface CodeEditorProps {
 }
 
 const configs = {
-  'React + Rspack': `import { dirname } from "node:path";
+  'Rspack + Re.Pack + React Native': {
+    configFile: 'rspack.config.js',
+    content: `const { withZephyr } = require('zephyr-repack-plugin');
+const config = {
+  /** ...rspack configuration */
+  ...
+   new Repack.plugins.ModuleFederationPluginV2({
+       
+        name: 'MobileCheckout',
+        filename: 'MobileCheckout.container.js.bundle',
+        dts: false,
+      
+        exposes: {
+          './CheckoutSection': './src/components/CheckoutSection',
+          './CheckoutSuccessScreen': './src/screens/CheckoutSuccessScreen',
+        },
+       
+        shared: getSharedDependencies({eager: STANDALONE}),
+      }),
+      ...
+      /** ..rest of configuration.. */
+};
+module.exports = withZephyr()(config);`,
+  },
+  'React + Rspack': {
+    configFile: 'rspack.config.js',
+    content: `import { dirname } from "node:path";
 import { fileURLToPath } from "node:url";
 import { defineConfig } from "@rspack/cli";
 import { rspack } from "@rspack/core";
@@ -24,8 +51,11 @@ export default withZephyr()({
     main: "./src/main.jsx"
   },
 });`,
+  },
 
-  'React + Webpack + Module Federation': `const HtmlWebpackPlugin = require('html-webpack-plugin');
+  'React + Webpack + Module Federation': {
+    configFile: 'rspack.config.js',
+    content: `const HtmlWebpackPlugin = require('html-webpack-plugin');
 const { withZephyr } = require("zephyr-webpack-plugin");
 const { ModuleFederationPlugin } = require('webpack').container;
 const path = require('path');
@@ -52,8 +82,11 @@ mode: 'development',
    },
   ],
  },`,
+  },
 
-  'React + Vite': `import { defineConfig } from 'vite';
+  'React + Vite': {
+    configFile: 'vite-config.ts',
+    content: `import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { withZephyr } from 'vite-plugin-zephyr';
 
@@ -63,8 +96,11 @@ export default defineConfig({
     target: 'chrome89',
   },
 });`,
+  },
 
-  'Qwik + Vite': `import {defineConfig, type UserConfig} from "vite";
+  'Qwik + Vite': {
+    configFile: 'vite.config.ts',
+    content: `import {defineConfig, type UserConfig} from "vite";
 import {qwikVite} from "@builder.io/qwik/optimizer";
 import {qwikCity} from "@builder.io/qwik-city/vite";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -105,6 +141,7 @@ export default defineConfig(({command, mode}): UserConfig => {
     },
   };
 });`,
+  },
 };
 
 const CodeEditor: React.FC<CodeEditorProps> = ({
@@ -114,16 +151,19 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
   const [copied, setCopied] = useState(false);
 
   const handleCopy = () => {
-    navigator.clipboard.writeText(configs[framework as keyof typeof configs]);
+    navigator.clipboard.writeText(
+      configs[framework as keyof typeof configs].content,
+    );
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
 
   const renderLine = (line: string, index: number) => {
-    const leadingSpaces = line.match(/^\s*/)![0].length;
+    const leadingSpaces = line.match(/^\s*/)?.[0].length ?? 0;
     const indentation = '\u00A0'.repeat(leadingSpaces);
     const isHighlighted = highlightedLines.includes(index + 1);
 
+    console.log('line', line, 'index', index);
     return (
       <div
         key={index}
@@ -145,17 +185,19 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         >
           {indentation}
           {line
-            .trimLeft()
+            .trimStart()
             .split(/(["'].*?["'])/)
             .map((part, i) => {
               if (i % 2 === 1) {
                 return (
+                  // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                   <span key={i} className="text-[#7afcbd]">
                     {part}
                   </span>
                 );
               }
               return (
+                // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                 <span key={i}>
                   {part.split(/\b/).map((word, j) => {
                     if (
@@ -165,6 +207,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
                       word === 'const'
                     ) {
                       return (
+                        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                         <span key={j} className="text-[#7afcbd]">
                           {word}
                         </span>
@@ -172,12 +215,14 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
                     }
                     if (word === 'require') {
                       return (
+                        // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                         <span key={j} className="text-[#DCDCAA]">
                           {word}
                         </span>
                       );
                     }
                     return (
+                      // biome-ignore lint/suspicious/noArrayIndexKey: <explanation>
                       <span key={j} className="text-[#9CDCFE]">
                         {word}
                       </span>
@@ -200,9 +245,10 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
           <div className="w-4 h-4 rounded-full border-2 border-solid border-gray-600/50 shadow-sm" />
         </div>
         <div className="flex-1 text-center text-sm text-gray-400">
-          .rspack.config.js
+          {configs[framework as keyof typeof configs].configFile}
         </div>
         <button
+          type="button"
           onClick={handleCopy}
           className="text-gray-400 hover:text-white transition-colors"
           aria-label="Copy example"
@@ -238,7 +284,7 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
         </button>
       </div>
       <div className="code-editor-container p-4 font-mono text-sm overflow-x-auto whitespace-pre">
-        {configs[framework as keyof typeof configs]
+        {configs[framework as keyof typeof configs].content
           .split('\n')
           .map((line, index) => renderLine(line, index))}
       </div>

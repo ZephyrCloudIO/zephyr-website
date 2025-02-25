@@ -1,33 +1,33 @@
-@import url('../../public/fonts/fonts.css');
+@import url("../../public/fonts/fonts.css");
 
 :root {
   background-color: #010101;
-  font-family: OutfitRegular, 'Trebuchet MS', Helvetica, sans-serif;
+  font-family: OutfitRegular, "Trebuchet MS", Helvetica, sans-serif;
   view-transition-name: root;
 }
 
 .font-outfit-light {
-  font-family: OutfitLight, 'Trebuchet MS', Helvetica, sans-serif;
+  font-family: OutfitLight, "Trebuchet MS", Helvetica, sans-serif;
   font-weight: 50;
 }
 
 .font-outfit-semibold {
-  font-family: OutfitMedium, 'Trebuchet MS', Helvetica, sans-serif;
+  font-family: OutfitMedium, "Trebuchet MS", Helvetica, sans-serif;
   font-weight: 500;
 }
 
 .font-inter-light {
-  font-family: InterLight, 'Trebuchet MS', Helvetica, sans-serif;
+  font-family: InterLight, "Trebuchet MS", Helvetica, sans-serif;
   font-weight: 100;
 }
 
 .font-fira-light {
-  font-family: FiraCodeLight, 'Courier New', Courier, monospace;
+  font-family: FiraCodeLight, "Courier New", Courier, monospace;
   font-weight: 300;
 }
 
 .font-fira-medium {
-  font-family: FiraCodeMedium, 'Courier New', Courier, monospace;
+  font-family: FiraCodeMedium, "Courier New", Courier, monospace;
   font-weight: 600;
 }
 
@@ -50,6 +50,7 @@
 
 ::-webkit-scrollbar {
   width: 0.4em;
+  height: 0.4em;
 }
 ::-webkit-scrollbar-track {
   -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0);
@@ -153,9 +154,7 @@
 
   body {
     @apply text-foreground;
-    font-feature-settings:
-      'rlig' 1,
-      'calt' 1;
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 
   h1::selection,
@@ -201,11 +200,7 @@
   }
 
   .mask-radial-faded {
-    mask-image: radial-gradient(
-      circle at center center,
-      black,
-      transparent 80%
-    );
+    mask-image: radial-gradient(circle at center center, black, transparent 80%);
   }
 
   .mask-linear-faded {

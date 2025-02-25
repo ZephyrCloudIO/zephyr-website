@@ -1,17 +1,18 @@
-import React from 'react';
-import { Helmet } from '@modern-js/runtime/head';
-import { TestimonialCard } from './testimonial-card';
-import separateBottom from '@/images/separator-pointing-up.svg';
 import GlowingLink from '@/components/ui/link.glowing-button';
+import separateBottom from '@/images/separator-pointing-up.svg';
+import { Helmet } from '@modern-js/runtime/head';
+import type React from 'react';
+import { TestimonialCard } from './testimonial-card';
 import './community.css';
-import Jack from '@/images/community/JackHerrington.jpg';
-import Giorgio from '@/images/community/GiorgioBoa.jpeg';
 import AlexB from '@/images/community/AlexB.jpeg';
+import Colum from '@/images/community/Colum.avif';
+import Giorgio from '@/images/community/GiorgioBoa.jpeg';
+import Hux from '@/images/community/Hux.jpg';
+import Jack from '@/images/community/JackHerrington.jpg';
+import Ken from '@/images/community/KenWheeler.jpg';
 import MikeG from '@/images/community/MikeG.jpeg';
 import RonR from '@/images/community/RonR.jpeg';
 import Theo from '@/images/community/Theo.jpeg';
-import Colum from '@/images/community/Colum.avif';
-import Ken from '@/images/community/KenWheeler.jpg';
 import Generic from '@/images/z-logo.avif';
 
 interface Testimonial {
@@ -19,7 +20,7 @@ interface Testimonial {
   company?: string;
   role?: string;
   content: string;
-  avatar: any;
+  avatar: string;
   socialLinks?: Array<{
     link: string;
     platform: 'LinkedIn' | 'X' | 'YouTube' | 'Twitch';
@@ -29,7 +30,8 @@ interface Testimonial {
 const testimonials: Testimonial[] = [
   {
     name: 'Mike Grabowski',
-    content: `Thanks to Zephyr we can confidently take Module Federation apps to production, on our own cloud and focus on features and leave all the infrastructure setup to them.`,
+    content:
+      'Thanks to Zephyr we can confidently take Module Federation apps to production, on our own cloud and focus on features and leave all the infrastructure setup to them.',
     avatar: MikeG,
     role: 'CTO & Co-Founder',
     company: 'Callstack',
@@ -63,6 +65,24 @@ const testimonials: Testimonial[] = [
       {
         link: 'https://www.youtube.com/@jherr',
         platform: 'YouTube',
+      },
+    ],
+  },
+  {
+    name: 'Xuan Huang (Huxpro)',
+    content:
+      "Let's make Micro Frontend and Module Federation a first-class citizen of the future of frontend development.",
+    avatar: Hux,
+    role: 'Software Architect',
+    company: 'ByteDance',
+    socialLinks: [
+      {
+        link: 'https://x.com/Huxpro',
+        platform: 'X',
+      },
+      {
+        link: 'https://www.linkedin.com/in/huxpro',
+        platform: 'LinkedIn',
       },
     ],
   },
@@ -201,7 +221,7 @@ export const CommunitySection: React.FC = () => {
     '@context': 'https://schema.org',
     '@type': 'Organization',
     name: 'Zephyr Cloud',
-    review: testimonials.map((t) => ({
+    review: testimonials.map(t => ({
       '@type': 'Review',
       author: {
         '@type': 'Person',
@@ -255,7 +275,7 @@ export const CommunitySection: React.FC = () => {
           <div className="testimonials-container relative">
             <div className="testimonials-wrapper">
               <div className="testimonials-group">
-                {scrollContent.map((testimonial) => (
+                {scrollContent.map(testimonial => (
                   <div
                     key={`${testimonial.name}-${testimonial.company || ''}-${
                       testimonial.role || ''

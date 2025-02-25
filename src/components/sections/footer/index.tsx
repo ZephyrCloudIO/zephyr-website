@@ -1,10 +1,10 @@
-import { Link } from '@modern-js/runtime/router';
 import GlowingLinkButton from '@/components/ui/link.glowing-button';
-import ZephyrLogo from '@/images/zephyr-logo.svg';
+import Discord from '@/images/platforms/discord.svg';
 import LinkedIn from '@/images/platforms/linkedin.svg';
 import X from '@/images/platforms/x.svg';
 import Youtube from '@/images/platforms/youtube.svg';
-import Discord from '@/images/platforms/Discord.svg';
+import ZephyrLogo from '@/images/zephyr-logo.svg';
+import { Link } from '@modern-js/runtime/router';
 
 const integrations = [
   {
@@ -64,7 +64,6 @@ const Footer = () => {
   return (
     <footer
       className="bg-[#0A0A0A] pt-20 pb-8 px-6 md:px-8 mt-24"
-      role="contentinfo"
       itemScope
       itemType="http://schema.org/WPFooter"
     >
@@ -141,7 +140,7 @@ const Footer = () => {
           <nav className="md:col-span-2" aria-label="Integration links">
             <h3 className="text-white font-medium mb-4">Integrations</h3>
             <ul className="space-y-3">
-              {integrations.map((integration) => (
+              {integrations.map(integration => (
                 <li key={integration.name}>
                   {integration.link ? (
                     <a

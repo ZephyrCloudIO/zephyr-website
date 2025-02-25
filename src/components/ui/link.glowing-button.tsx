@@ -1,6 +1,6 @@
-import React from 'react';
-import { Link } from '@modern-js/runtime/router';
 import { cn } from '@/lib/utils';
+import { Link } from '@modern-js/runtime/router';
+import type React from 'react';
 
 interface ButtonGlowProps {
   children: React.ReactNode;

@@ -1,8 +1,8 @@
-import React from 'react';
 import { Hero } from '@/components/sections/enterprise/hero';
+import JesusBeam from '@/components/sections/pricing/beam.svg';
 import ButtonGlow from '@/components/ui/buttons/button.glow';
 import Hexagons from '@/images/hexagons-combined.svg';
-import JesusBeam from '@/components/sections/pricing/beam.svg';
+import type React from 'react';
 
 const EnterprisePage: React.FC = () => {
   const handleContactClick = () => {

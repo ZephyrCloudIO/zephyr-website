@@ -1,4 +1,4 @@
-import { LegacyRef } from 'react';
+import type { LegacyRef } from 'react';
 
 export default function ValuePropositionCard({
   icon,
@@ -10,8 +10,8 @@ export default function ValuePropositionCard({
   icon: React.ReactNode;
   divRef:
     | LegacyRef<HTMLDivElement>
-    | undefined
-    | React.MutableRefObject<HTMLDivElement | null>;
+    | React.MutableRefObject<HTMLDivElement | null>
+    | undefined;
   text: string;
   onMouseOver?: () => void;
   onMouseLeave?: () => void;
@@ -25,6 +25,8 @@ export default function ValuePropositionCard({
       ref={divRef}
       onMouseOver={onMouseOver}
       onMouseLeave={onMouseLeave}
+      onFocus={onMouseOver}
+      onBlur={onMouseLeave}
     >
       {icon}
       <p className="tracking-tight sm:text-sm md:text-lg break ml-4 pr-4">

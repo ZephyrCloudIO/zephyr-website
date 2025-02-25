@@ -1,18 +1,23 @@
-import type { FC } from 'react';
-import MobileFirstHero from '@/images/blog/mobilefirst.webp';
-import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import JesusBeam from '@/components/sections/pricing/beam.svg';
-import infrastructureless from '@/images/blog/infrastructureless.webp';
-import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
-import ota_update from '@/images/blog/ota-update.webm';
-import ota_hero from '@/images/blog/ota-hero.webp';
-import team_first from '@/images/blog/the-team-first-architecture.webp';
+import { BlogCard } from '@/components/ui/blog-card';
+import type { BlogPost } from '@/components/ui/blog-card';
 import ai_hero from '@/images/blog/ai-e2e-testing/ai-testing-hero.webp';
 import ai_hero_listing from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
+import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
+import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
+import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
+import create_zephyr_apps from '@/images/blog/create-zephyr-apps.webp';
+import infrastructureless from '@/images/blog/infrastructureless.webp';
+import MobileFirstHero from '@/images/blog/mobilefirst.webp';
+import ota_hero from '@/images/blog/ota-hero.webp';
+import ota_update from '@/images/blog/ota-update.webm';
+import team_first from '@/images/blog/the-team-first-architecture.webp';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
+import { Shane } from '@/lib/blog/authors/Shane';
 import { Zack } from '@/lib/blog/authors/Zack';
-import { BlogCard, type BlogPost } from '@/components/ui/blog-card';
+import { cn } from '@/lib/utils';
+import type { FC, HTMLAttributes } from 'react';
 
 const blogPosts: BlogPost[] = [
   {
@@ -24,6 +29,16 @@ const blogPosts: BlogPost[] = [
     description:
       'Revolutionizing e2e testing with Midscene, Puppeteer, and Zephyr Cloud',
     authors: [Zack],
+  },
+  {
+    title: "Who's your cloud daddy?",
+    slug: './whos-your-cloud-daddy',
+    date: new Date('January 30, 2025 16:00:00 GMT+0'),
+    heroImage: cloud_daddy,
+    listingImage: cloud_daddy,
+    description:
+      "They say you can't pick your family with Zephyr you can pick your cloud",
+    authors: [Shane],
   },
   {
     title: 'The team-first Architecture',
@@ -57,6 +72,7 @@ const blogPosts: BlogPost[] = [
     slug: './create-zephyr-apps',
     date: new Date('January 27, 2025 16:00:00 GMT+0'),
     listingImage: create_zephyr_apps,
+    heroImage: create_zephyr_apps_webm,
     authors: [
       {
         displayName: 'lois',
@@ -101,41 +117,45 @@ const blogPosts: BlogPost[] = [
   },
 ];
 
+const JesusBeamAura = ({
+  className,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) => {
+  return (
+    <div className={cn('absolute w-[800px] opacity-90', className)} {...props}>
+      <img
+        src={JesusBeam}
+        className="w-full"
+        style={{
+          filter: 'blur(50px) brightness(5)',
+          WebkitFilter: 'blur(50px) brightness(5)',
+        }}
+        alt=""
+        loading="lazy"
+      />
+    </div>
+  );
+};
+
 const BlogPage: FC = () => {
   const featuredPosts = blogPosts.slice(0, 2);
   const remainingPosts = blogPosts.slice(2);
 
   return (
     <div className="min-h-screen">
-      <div className="fixed inset-x-0 top-0 h-[600px] overflow-hidden mt-16 -z-10">
-        {['-translate-x-[240px]', '', 'translate-x-[240px]'].map(
-          (transform) => (
-            <div
-              key={transform || 'center'}
-              className={`absolute w-[800px] opacity-90 ${transform}`}
-            >
-              <img
-                src={JesusBeam}
-                className="w-full"
-                style={{
-                  filter: 'blur(50px) brightness(5)',
-                  WebkitFilter: 'blur(50px) brightness(5)',
-                }}
-                alt=""
-                loading="lazy"
-              />
-            </div>
-          ),
-        )}
+      <div className="fixed inset-x-0 top-0 md:h-[600px h-auto overflow-hidden mt-16 -z-10">
+        <JesusBeamAura className="-translate-x-[240px] opacity-90" />
+        <JesusBeamAura className="" />
+        <JesusBeamAura className="translate-x-[240px]" />
       </div>
 
-      <main className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
+      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-6 p-4 md:mb-16 bg-gradient-to-r from-white to-[#808080] bg-clip-text text-transparent tracking-wider">
           Blogs
         </h1>
 
         <ul className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-16">
-          {featuredPosts.map((post) => (
+          {featuredPosts.map(post => (
             <li key={post.slug} className="flex">
               <BlogCard post={post} featured />
             </li>
@@ -147,14 +167,14 @@ const BlogPage: FC = () => {
             Latest Posts
           </h2>
           <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {remainingPosts.map((post) => (
+            {remainingPosts.map(post => (
               <li key={post.slug} className="flex">
                 <BlogCard post={post} />
               </li>
             ))}
           </ul>
         </section>
-      </main>
+      </div>
     </div>
   );
 };

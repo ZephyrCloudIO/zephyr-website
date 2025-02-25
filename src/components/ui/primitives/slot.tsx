@@ -13,7 +13,7 @@ const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
   if (slottable) {
     const newElement = slottable.props.children as React.ReactNode;
 
-    const newChildren = childrenArray.map((child) => {
+    const newChildren = childrenArray.map(child => {
       if (child === slottable) {
         if (React.Children.count(newElement) > 1) {
           return React.Children.only(null);
@@ -21,9 +21,8 @@ const Slot = React.forwardRef<HTMLElement, SlotProps>((props, forwardedRef) => {
         return React.isValidElement(newElement)
           ? (newElement.props.children as React.ReactNode)
           : null;
-      } else {
-        return child;
       }
+      return child;
     });
 
     return (
@@ -48,7 +47,7 @@ interface SlotCloneProps {
   children: React.ReactNode;
 }
 
-const SlotClone = React.forwardRef<any, SlotCloneProps>(
+const SlotClone = React.forwardRef<HTMLElement, SlotCloneProps>(
   (props, forwardedRef) => {
     const { children, ...slotProps } = props;
 
@@ -75,6 +74,7 @@ const Slottable = ({ children }: { children: React.ReactNode }) => {
   return <>{children}</>;
 };
 
+// biome-ignore lint/suspicious/noExplicitAny: <explanation>
 type AnyProps = Record<string, any>;
 
 function isSlottable(child: React.ReactNode): child is React.ReactElement {
@@ -126,6 +126,7 @@ function getElementRef(element: React.ReactElement) {
   let getter = Object.getOwnPropertyDescriptor(element.props, 'ref')?.get;
   let mayWarn = getter && 'isReactWarning' in getter && getter.isReactWarning;
   if (mayWarn) {
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
     return (element as any).ref;
   }
 
@@ -137,6 +138,7 @@ function getElementRef(element: React.ReactElement) {
   }
 
   // Not DEV
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   return element.props.ref || (element as any).ref;
 }
 

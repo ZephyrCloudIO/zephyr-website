@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
 import { cn } from '@/lib/utils';
+import type React from 'react';
+import { useState } from 'react';
 
 interface ButtonHighlightProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
