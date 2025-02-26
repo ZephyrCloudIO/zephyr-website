@@ -3,6 +3,8 @@ import { BlogCard } from '@/components/ui/blog-card';
 import type { BlogPost } from '@/components/ui/blog-card';
 import ai_hero from '@/images/blog/ai-e2e-testing/ai-testing-hero.webp';
 import ai_hero_listing from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
+import soc2_hero from '@/images/blog/soc2/soc2_hero.webp';
+import soc2_listing from '@/images/blog/soc2/soc2_listing.webp';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
 import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
@@ -20,6 +22,16 @@ import { cn } from '@/lib/utils';
 import type { FC, HTMLAttributes } from 'react';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: 'Zephyr Cloud is Now SOC 2 Compliant',
+    slug: './soc2',
+    date: new Date('February 26, 2025 20:00:00 GMT+0'),
+    heroImage: soc2_hero,
+    listingImage: soc2_listing,
+    description:
+      'Zephyr Cloud achieves SOC 2 compliance',
+    authors: [Zack],
+  },
   {
     title: 'AI based end-to-end testing',
     slug: './ai-e2e-testing',
