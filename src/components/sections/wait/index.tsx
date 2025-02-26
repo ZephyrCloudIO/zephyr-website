@@ -31,12 +31,12 @@ const WaitSection = () => {
 
   return (
     <section
-      className="container relative px-4 overflow-hidden"
+      className="container relative  px-4 overflow-hidden"
       aria-label="Product Benefits"
     >
       <div className="relative z-20 mt-24 w-full">
         <div
-          className="relative p-4 md:p-16 rounded-3xl border border-white/10 overflow-hidden"
+          className="relative p-4 md:p-16 h-auto rounded-3xl max-h-[calc(100vh-50vh)] lg:max-h-[calc(100vh-10vh)] border border-white/10 overflow-hidden"
           style={{
             boxShadow: 'rgba(255, 255, 255, 0.1) 2px 2px 200px 0px inset',
           }}
@@ -58,7 +58,7 @@ const WaitSection = () => {
               playsInline
             />
           )}
-          <div className="flex flex-col lg:flex-row items-start gap-12 relative z-10">
+          <div className="flex flex-col p-10 sm:p-20 lg:flex-row items-start gap-12 relative z-10">
             <div
               className="flex-1 space-y-6"
               itemScope
