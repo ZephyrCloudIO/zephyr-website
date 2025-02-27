@@ -132,7 +132,8 @@ const ObservabilitySection: React.FC = () => {
               style={{
                 backgroundImage: `url(${FluidWallpaper})`,
                 backgroundSize: 'cover',
-                backgroundPosition: '120% 120%',
+                backgroundPosition: 'center center',
+                backgroundRepeat: 'no-repeat',
                 opacity: 0.1,
                 filter: 'grayscale(100%)',
               }}
