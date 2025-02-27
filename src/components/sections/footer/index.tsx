@@ -1,5 +1,5 @@
 import GlowingLinkButton from '@/components/ui/link.glowing-button';
-import Soc2Logo from '@/images/icons/soc2-logo.png';
+import Soc2Logo from '@/images/icons/soc2-logo.webp';
 import Discord from '@/images/platforms/discord.svg';
 import LinkedIn from '@/images/platforms/linkedin.svg';
 import X from '@/images/platforms/x.svg';
@@ -95,7 +95,7 @@ const Footer = () => {
             <img
               src={Soc2Logo}
               alt="Zephyr Cloud SOC 2"
-              className="h-8 md:h-12 xl:h-16 mt-6"
+              className="h-16 md:h-20 xl:h-24 mt-6"
             />
           </div>
 
