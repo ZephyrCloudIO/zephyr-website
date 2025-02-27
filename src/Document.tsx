@@ -98,4 +98,3 @@ export default function Document(): React.ReactElement {
     </Html>
   );
 }
-
