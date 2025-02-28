@@ -27,7 +27,7 @@ export const PricingCard: React.FC<PricingCardProps> = ({
             }
       }
     >
-      <div className="text-center h-[160px]">
+      <div className="text-center pb-5">
         <h3 className="text-xl mb-4">{name}</h3>
         <div className="text-5xl font-bold tracking-wider">
           <span className="bg-gradient-to-r from-[#2a2a2a] via-white to-[#2a2a2a] text-transparent bg-clip-text">

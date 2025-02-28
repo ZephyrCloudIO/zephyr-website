@@ -15,7 +15,7 @@ const PricingTable: React.FC = () => {
               Personal
             </th>
             <th className="p-4 text-left text-lg font-normal text-gray-200">
-              Pro
+              Business
             </th>
             <th className="p-4 text-left text-lg font-normal text-gray-200">
               Enterprise
