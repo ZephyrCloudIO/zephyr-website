@@ -69,7 +69,8 @@
     "tailwindcss": "~3.4.17",
     "ts-node": "~10.9.2",
     "tsconfig-paths": "~4.2.0",
-    "typescript": "~5.7.3"
+    "typescript": "~5.7.3",
+    "zephyr-rspack-plugin": "0.0.0-canary-20250311223427"
   },
   "packageManager": "pnpm@9.15.0"
 }
