@@ -12,7 +12,7 @@ interface PricingTier {
 
 const pricingTiers: PricingTier[] = [
   {
-    name: 'Free',
+    name: 'Personal',
     price: '$0',
     link: 'https://app.zephyr-cloud.io/',
     features: [
@@ -24,12 +24,12 @@ const pricingTiers: PricingTier[] = [
     ],
   },
   {
-    name: 'Standard',
+    name: 'Business',
     price: '$99',
     link: 'https://app.zephyr-cloud.io/',
     isHighlighted: true,
     features: [
-      'Includes all Free features',
+      'Includes all Personal plan features',
       'Starts after the first user',
       'Free for view only access',
       'Free for billing and account admins only accounts',
