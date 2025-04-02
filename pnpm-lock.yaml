@@ -5,14 +5,12 @@ settings:
   excludeLinksFromLockfile: false
 
 overrides:
-  hono@<4.2.7: '>=4.2.7'
-  hono@<4.6.5: '>=4.6.5'
-  hono@<4.5.8: '>=4.5.8'
-  koa@>=2.0.0 <2.15.4: '>=2.15.4'
-  esbuild@<=0.24.2: '>=0.25.0'
-  '@babel/runtime@<7.26.10': '>=7.26.10'
-  '@babel/helpers@<7.26.10': '>=7.26.10'
-  axios@>=1.0.0 <1.8.2: '>=1.8.2'
+  hono: ^4.6.5
+  koa: ^2.15.4
+  esbuild: ^0.25.0
+  '@babel/runtime': ^7.26.10
+  '@babel/helpers': ^7.26.10
+  axios: ^1.8.2
 
 importers:
 
@@ -1088,12 +1086,12 @@ packages:
   '@esbuild-plugins/node-globals-polyfill@0.2.3':
     resolution: {integrity: sha512-r3MIryXDeXDOZh7ih1l/yE9ZLORCd5e8vWg02azWRGj5SPTuoh69A2AIyn0Z31V/kHBfZ4HgWJ+OK3GTTwLmnw==}
     peerDependencies:
-      esbuild: '>=0.25.0'
+      esbuild: ^0.25.0
 
   '@esbuild-plugins/node-modules-polyfill@0.2.2':
     resolution: {integrity: sha512-LXV7QsWJxRuMYvKbiznh+U1ilIop3g2TeKRzUxOG5X3YITc8JyyTa90BmLwqqv0YnX4v32CSlG+vsziZp9dMvA==}
     peerDependencies:
-      esbuild: '>=0.25.0'
+      esbuild: ^0.25.0
 
   '@esbuild/aix-ppc64@0.25.2':
     resolution: {integrity: sha512-wCIboOL2yXZym2cgm6mlA742s9QeJ8DjGVaL39dLN4rRwrOgOyYSnOaFPhKZGLb2ngj4EyfAFjsNJwPXZvseag==}
@@ -3290,8 +3288,8 @@ packages:
   axios@1.7.9:
     resolution: {integrity: sha512-LhLcE7Hbiryz8oMDdDptSrWowmB4Bl6RCt6sIJKpRB4XtVf0iEgewX3au/pJqm+Py1kCASkb/FFKjxQaLtxJvw==}
 
-  axios@1.8.4:
-    resolution: {integrity: sha512-eBSYY4Y68NNlHbHBMdeDmKNtDgXWhQsJcGqzO3iLUM0GraQFSS9cVgPX5I9b3lbdFKyYoAEGAZF1DwhTaljNAw==}
+  axios@1.8.2:
+    resolution: {integrity: sha512-ls4GYBm5aig9vWx8AWDSGLpnpDQRtWAfrjU+EuytuODrFBkqesN2RkOQCBzrA1RQNHw1SmRMSDDDSwzNAYQ6Rg==}
 
   babel-loader@9.1.3:
     resolution: {integrity: sha512-xG3ST4DglodGf8qSwv0MdeWLhrDsw/32QMdTO5T1ZIp9gQur0HkCyFs7Awskr10JKXFXwpAhiCuYX5oGXnRGbw==}
@@ -4153,7 +4151,7 @@ packages:
   esbuild-register@3.6.0:
     resolution: {integrity: sha512-H2/S7Pm8a9CL1uhp9OvjwrBh5Pvx0H8qVOxNu8Wed9Y7qv56MPtq+GGM8RJpq6glYJn9Wspr8uw7l55uyinNeg==}
     peerDependencies:
-      esbuild: '>=0.25.0'
+      esbuild: ^0.25.0
 
   esbuild@0.17.19:
     resolution: {integrity: sha512-XQ0jAPFkK/u3LcVRcvVHQcTIqD6E2H1fvZMA5dQPSOWb3suUbWbfbRf94pjc0bNzRYLfIrDRQXr7X+LHIm5oHw==}
@@ -10107,7 +10105,7 @@ snapshots:
       '@modern-js/types': 2.66.0
       '@modern-js/utils': 2.66.0
       '@swc/helpers': 0.5.13
-      axios: 1.8.4
+      axios: 1.8.2
       connect-history-api-fallback: 2.0.0
       http-compression: 1.0.6
       minimatch: 3.1.2
@@ -10376,7 +10374,7 @@ snapshots:
       '@module-federation/third-party-dts-extractor': 0.11.3
       adm-zip: 0.5.16
       ansi-colors: 4.1.3
-      axios: 1.8.4
+      axios: 1.8.2
       chalk: 3.0.0
       fs-extra: 9.1.0
       isomorphic-ws: 5.0.0(ws@8.18.0)
@@ -12318,7 +12316,7 @@ snapshots:
     transitivePeerDependencies:
       - debug
 
-  axios@1.8.4:
+  axios@1.8.2:
     dependencies:
       follow-redirects: 1.15.9
       form-data: 4.0.1
