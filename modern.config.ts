@@ -2,9 +2,9 @@ import { appTools, defineConfig } from '@modern-js/app-tools';
 import { tailwindcssPlugin } from '@modern-js/plugin-tailwindcss';
 import { pluginImageCompress } from '@rsbuild/plugin-image-compress';
 import { pluginMdx } from '@rsbuild/plugin-mdx';
+import { sitemapPlugin } from 'modernjs-sitemap';
 import rehypeHighlight from 'rehype-highlight';
 import { withZephyr } from 'zephyr-modernjs-plugin';
-import { sitemapPlugin } from 'modernjs-sitemap'
 
 const tailwindConfig = require('./tailwind.config');
 
@@ -31,10 +31,7 @@ export default defineConfig({
   },
   output: {
     copy: {
-      patterns: [
-        { from: 'robots.txt' },
-        { from: "sitemap.xml" }
-      ],
+      patterns: [{ from: 'robots.txt' }, { from: 'sitemap.xml' }],
     },
     distPath: {
       html: './',
@@ -51,7 +48,7 @@ export default defineConfig({
   ],
   plugins: [
     sitemapPlugin({
-      basepath: 'https://zephyr-cloud.io'
+      basepath: 'https://zephyr-cloud.io',
     }),
     appTools({
       bundler: 'experimental-rspack',
