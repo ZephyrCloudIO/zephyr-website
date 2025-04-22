@@ -3,8 +3,6 @@ import { BlogCard } from '@/components/ui/blog-card';
 import type { BlogPost } from '@/components/ui/blog-card';
 import ai_hero from '@/images/blog/ai-e2e-testing/ai-testing-hero.webp';
 import ai_hero_listing from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
-import soc2_hero from '@/images/blog/soc2/soc2_hero.webp';
-import soc2_listing from '@/images/blog/soc2/soc2_listing.webp';
 import CaseStudySGWS from '@/images/blog/case-study-sgws.webp';
 import cloud_daddy from '@/images/blog/cloud-daddy-hero.png';
 import create_zephyr_apps_webm from '@/images/blog/create-zephyr-apps.webm';
@@ -13,23 +11,35 @@ import infrastructureless from '@/images/blog/infrastructureless.webp';
 import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
 import ota_update from '@/images/blog/ota-update.webm';
+import soc2_hero from '@/images/blog/soc2/soc2_hero.webp';
+import soc2_listing from '@/images/blog/soc2/soc2_listing.webp';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
+import three_sdlcs_one_zephyr from '@/images/blog/three-sdlc-one-zephyr.svg';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { Shane } from '@/lib/blog/authors/Shane';
 import { Zack } from '@/lib/blog/authors/Zack';
 import { cn } from '@/lib/utils';
+import { useEffect, useMemo, useState } from 'react';
 import type { FC, HTMLAttributes } from 'react';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: "Three SDLC's One Zephyr",
+    slug: './three-sdlcs-one-zephyr',
+    date: new Date('April 22, 2025 20:00:00 GMT+0'),
+    heroImage: three_sdlcs_one_zephyr,
+    listingImage: three_sdlcs_one_zephyr,
+    description: "You don't have to do things our way, we adapt to you",
+    authors: [Shane],
+  },
   {
     title: 'Zephyr Cloud is Now SOC 2 Compliant',
     slug: './soc2',
     date: new Date('February 26, 2025 20:00:00 GMT+0'),
     heroImage: soc2_hero,
     listingImage: soc2_listing,
-    description:
-      'Zephyr Cloud achieves SOC 2 compliance',
+    description: 'Zephyr Cloud achieves SOC 2 compliance',
     authors: [Zack],
   },
   {
