@@ -12,6 +12,7 @@ import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
 import ota_update from '@/images/blog/ota-update.webm';
 import soc2_hero from '@/images/blog/soc2/soc2_hero.webp';
+import vibe_coding from '@/images/blog/vibe-coding.webp';
 import soc2_listing from '@/images/blog/soc2/soc2_listing.webp';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
 import three_sdlcs_one_zephyr from '@/images/blog/three-sdlc-one-zephyr.svg';
@@ -20,10 +21,18 @@ import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { Shane } from '@/lib/blog/authors/Shane';
 import { Zack } from '@/lib/blog/authors/Zack';
 import { cn } from '@/lib/utils';
-import { useEffect, useMemo, useState } from 'react';
 import type { FC, HTMLAttributes } from 'react';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: 'Coding with Your Artificial Friends - It’s a Vibe',
+    slug: './vibe-coding',
+    date: new Date('April 23, 2025 20:00:00 GMT+0'),
+    heroImage: vibe_coding,
+    listingImage: vibe_coding,
+    description: 'Leveraging AI, Nx, and Micro Frontends brought together with Zephyr Cloud to make a clone of the social media platform X.',
+    authors: [Zack],
+  },
   {
     title: "Three SDLC's One Zephyr",
     slug: './three-sdlcs-one-zephyr',
