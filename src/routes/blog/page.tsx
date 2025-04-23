@@ -16,6 +16,7 @@ import vibe_coding from '@/images/blog/vibe-coding.webp';
 import soc2_listing from '@/images/blog/soc2/soc2_listing.webp';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
 import three_sdlcs_one_zephyr from '@/images/blog/three-sdlc-one-zephyr.svg';
+import all_the_pipelines from '@/images/blog/all-the-pipelines.svg';
 import { Nestor } from '@/lib/blog/authors/Nestor';
 import { Rodrigo } from '@/lib/blog/authors/Rodrigo';
 import { Shane } from '@/lib/blog/authors/Shane';
@@ -24,6 +25,15 @@ import { cn } from '@/lib/utils';
 import type { FC, HTMLAttributes } from 'react';
 
 const blogPosts: BlogPost[] = [
+  {
+    title: 'One Build. Many Clouds. Zero Headaches.',
+    slug: './all-the-pipelines',
+    date: new Date('April 24, 2025 20:00:00 GMT+0'),
+    heroImage: all_the_pipelines,
+    listingImage: all_the_pipelines,
+    description: 'Have you ever been in love with more than one cloud provider at once? Why choose, introducing Poly Cloud support by Zephyr Cloud',
+    authors: [Rodrigo],
+  },
   {
     title: 'Coding with Your Artificial Friends - It’s a Vibe',
     slug: './vibe-coding',
