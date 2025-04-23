@@ -1,0 +1,160 @@
+import BlogMetadata from "@/components/ui/blog-metadata";
+import { Zack } from '@/lib/blog/authors/Zack';
+import Devin from '../../../images/blog/devin.webp';
+
+![hero image](/static/image/vibe-coding.b3952609.webp)
+
+# Coding with Your Artificial Friends - It’s a Vibe
+Leveraging AI, Nx, and Micro Frontends brought together with Zephyr Cloud to make a clone of the social media platform X.
+<BlogMetadata
+  author="Zack Chapple"
+  position="Zephyr Cloud CEO"
+  avatar={Zack.avatar}
+  publishDate="04/23/2025"
+  socialLinks={[
+    {
+      platform: "LinkedIn",
+      url: "https://www.linkedin.com/in/zackarychapple/"
+    },
+    {
+      platform: "X",
+      url: "https://x.com/Zackary_Chapple"
+    }
+  ]}
+/>
+
+## Introduction
+While the tech community is awash with folks learning to vibe code their projects from 0 to 1, there seems to be a vacuum of content around how we go from 1 to (n).
+This blog will hopefully serve as a vision for the future of agentic coding for individual developers and enterprise organizations alike.
+
+I believe that there are already enough opinions on the internet on if vibe coding is a trend that will die as quickly as the interest in blockchain or if our AI friends are here to stay.
+You can hopefully tell by this point in the introduction that I have a bias towards them being around for the long haul.
+Additionally, it’s important to call out that I won’t be covering aspects of which agent or LLM is the best, that is up to developers and organizations based on their individual needs.
+
+I will be covering how we can set up our codebases, development approaches, and architectures in a way that is conducive to agentic coding and vibing with AI agents, our new friends.
+Everything is more fun with friends right? Why not give our AI agents some friends too, in that why not use more than one.
+How can we develop in a way that allows AI agents to work together in a structured way rather than agentic chaos?
+
+Enter micro frontends (MFEs); through using more advanced concepts like MFEs we can give each agent a smaller context window to work through and be able to iterate independently.
+This makes our progress more rapid and reliable and turns ourselves into 10x engineers.
+
+## Motivation
+
+While this post is being published during our third launch week for Zephyr Cloud, agentic coding and MFEs are something that has been of interest to me as I’ve seen the rise of usage for AI agents.
+As a founder there is a constant onslaught of marketing messages, this launch week project was my chance to put the agents to work and see what’s ready for real world use and what’s still too much hype train.
+
+Since most of the folks using Zephyr Cloud are enterprises this is a question we’ve been asked several times.
+I covered some of the benefits of reducing context using MFEs and how that smaller context helps with consistency and results on a podcast with
+[Redmonk](https://redmonk.com/blog/2025/01/27/rmc-zack-chapple-on-zephyr-cloud-micro-frontends-and-module-federation/) with Dr. Kate Holterhoff.
+In March while Dima and I were at the True Ventures [founder camp](https://www.instagram.com/trueventures/reel/DG53C67x9da/) there was also a string of questions in the AI track around how do we measure quality coming out of AI agents.
+
+This post will also help serve as a starting point to quantify quality of output.
+
+* Explain how Zephyr Cloud is hosting a “launch week” and you’re dedicating your day to a live demo of how quickly we can build a multi-MFE project using AI collaboration and modern tooling.
+* Mention that the post (and accompanying video demo) will illustrate how you can “vibe code” your way through rapid iteration, with help from AI pals like Claude, Devin, Midscene, and Trae.
+
+## Video
+<iframe className="w-full" height="315" src="https://www.youtube.com/embed/Qv7HrR9Yt00?si=1uxp21Lmr3GZOHUl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+
+### Video Reactions
+After putting together this video I sent it over to a few folks to get their initial reactions. Below are some of the quotes from folks that were able to send them over before we published this blog.
+
+#### Joshua Bird: Lululemon
+> I've been aching for this kind of preview-in-prod capability since our team adopted Module Federation. Actually seeing what it unlocks for GenAI is - on so many levels - butterflies.
+---
+#### Bill Watson: Navan
+> Absolute game-changer! Y’all are killing it and making devx for MFE feel like a breeze. This is how the future of frontend gets built & deployed.
+---
+#### Yannik Peschke: Festo
+> First time agentic coding is actually getting interesting for large enterprise projects🎉. What a wonderful use-case to see the versatility of micro frontend architecture orchestration.
+---
+#### Ran Shamay: Microsoft
+> What Zephyr has built with their AI agent is truly groundbreaking.
+By combining intelligent agents with cutting-edge technologies like Module Federation and Micro Frontends, they’ve redefined how software is developed and deployed.
+>
+> This is more than just automation — it’s a modular, scalable, and intelligent approach that enables end-to-end product delivery with unprecedented speed and efficiency.
+It’s a whole new way of thinking about development.
+>
+> The future of software is autonomous, distributed, and already in motion — and Zephyr is leading the way.
+---
+#### Alex Bennett: Accuris
+> Zephyr Cloud makes the dev loop so smooth that your favorite AI tools can jump right in–no set up needed. It’s not just about helping people move faster, it’s about gearing up the next-gen AI workforce too.
+---
+#### Glauber Costa: Turso
+> sub-second deployments are freaking awesome! pairs well with sub-second database deployments
+
+## Overview
+### What we built?
+When thinking of what to build I wanted something that was instantly recognizable but also had a little bit of complexity.
+I decided to work on a quick clone of X. This could be something that could be worked on intermittently throughout the week before launch week.
+
+The clone consists of 6 micro frontends, each responsible for a distinct feature or UI segment:
+* App Shell
+* Feed
+* Grok
+* Create
+* Verified Organizations
+* Explore
+
+### How did I get there
+Claude code is one of my favorite tools when it comes to vibe coding, call me old-fashioned but nothing beats opening up IntelliJ and typing `claude code` in the terminal.
+
+After quickly creating a directory I had Claude go and generate an Nx workspace with some baseline tools I like to use like commitlint and husky.
+
+After that I had it generate a single UI using Rspack and refactored it to use ts configuration rather than js, just my personal preference.
+
+Since I'm horrible at CSS and didn't want to spend a bunch of time building a clone of X I started off by generating the user experience.
+
+Out of the tools out there for generating user experiences that have the most accuracy to the source material v0 appears to be the leader.
+
+I took a screenshot of X and uplaoded it to v0 and asked it to recreate the ui using React and Shadcn the UI tools du jour.
+It popped out a relatively clean UI that I was able to pull down and bring into my Nx workspace.
+
+The most incredible thing happened as I started to decompose the application into MFEs. Because we were using micro frontends and module federation I was able
+to watch Claude, Trae, and eventually Devin, make changes as they coded.
+
+The more verbose journey can be found on the vibe repo [how-its-made](https://github.com/zackarychapple/vibe/blob/main/how-its-made.md) readme.
+
+### Why Micro Frontends + Module Federation?
+While not a requirement for every project we found that when teams scale, or when different aspects of your platform need to move at different velocities micro frontends become a necessity.
+When using module federation it is almost assumed that you will be using Module Federation. Are there other ways to do MFEs, yes of course,
+however with now over 3m downloads a week Module Federation it is safe to say it is now the conical choice.
+
+What other benefits do we get from MF + MFEs?
+* Independent deployments and modular code ownership.
+* Scalability and faster iteration by splitting the app into smaller, separately deployable chunks.
+* Smaller context window for each of the AI Agents
+
+## Our Artificial Friends aka AI Tools & How They Fit In
+### Trae
+One of the new kids on the block [Trae](https://www.trae.ai/) (The Real AI Engineer) is an AI based IDE created by the ByteDance team.
+Since I have friends working on this project I choose to play with it on this project to see how it would do on the MFEs with simple tasks.
+While under the covers it was still using Claude Sonnet 3.7. Trae gave me really easy to use changes and was able to understand the repo really well.
+
+### Anthropic Claude Code
+We are lucky enough to have some credits from the startup program to use [Claude Code](https://docs.anthropic.com/en/docs/agents-and-tools/claude-code/overview).
+This is the current tool of choice for most of our team at Zephyr when it comes to agentic coding.
+
+### Devin
+A cloud-based AI development tool [Devin](https://devin.ai/) made waves when they first started.
+I also had the opportunity to meet their team at the True Ventures summit and one of the issues they are seeing in the community is people understanding the impact of Devin's changes.
+With Zephyr we hope to fix that by giving you realtime visibility into its work.
+
+There were two rather intense moments when using Devin:
+1) When using Devin to code remotely I was able to see its changes intermingled into my view of production without actually deploying it. See our promo video about this one above.
+2) Devin actually understood the CLI output and its value and gave it to me as the end user.
+
+<img src={Devin} alt='Devin understanding the Zephyr output' />
+
+## Key Takeaways
+### Faster Iteration With AI
+* When you have multiple AI tools assisting with code scaffolding, debugging, and testing, you really can have higher output.
+* The synergy between developer creativity and AI suggestions speeds up the typical dev cycle especially when you can see their work in real-time.
+
+### Efficient Testing & Quality Assurance
+* Seeing changes intermingled in production means less data or backend configuration issues.
+* Quicker fixes mean less time in the bug-fix stage.
+
+### Micro Frontends for Scalability
+* Module Federation + Nx = a flexible, composable architecture.
+* Easier to maintain in the long run.
