@@ -1,0 +1,247 @@
+import BlogMetadata from "@/components/ui/blog-metadata";
+import { Lois } from '@/lib/blog/authors/Lois';
+import Hero from '../../../images/blog/runtime-ota.webp'
+
+<img src={Hero} alt="My Neck, My Back, My Updates and My App" />
+
+<BlogMetadata
+  author="Lois Zhao"
+  position="Zephyr Cloud Platform Engineer"
+  avatar={Lois.avatar}
+  publishDate="01/27/2025"
+  socialLinks={[
+    {
+      platform: "LinkedIn",
+      url: "https://www.linkedin.com/in/loiszhao/"
+    },
+    {
+      platform: "X",
+      url: "https://x.com/zmzlois"
+    }
+  ]}
+/>
+
+
+## Started with spacecraft, automotive and IoT
+
+NASA's Mariner 6 and Mariner 7 missions to Mars in 1969 marked the first use of over-the-air updates. Mariner 7 lost contact and sustained camera damage during the journey, jeopardizing its mission to send images back to Earth. However, ground crews were able to reprogram the software in-flight, restoring communication and enabling the transmission of Martian images. [Throughout their mission, both Mariner 6 and Mariner 7 received numerous software updates via ground commands, showcasing the adaptability of in-flight programming to address unforeseen circumstances](https://nssdc.gsfc.nasa.gov/planetary/mars/mariner.html). [By the time Voyager launched in 1977, in-flight programming had become a routine operation](https://ntrs.nasa.gov/api/citations/19880069935/downloads/19880069935_Optimized.pdf).
+
+
+With the acceleration of cellular network advancement, over-the-air firmware updates became available in the 1990s while it was still in its infancy. It’s also not impossible to separate a section of binaries and exclude them from the boot loading process [at the current time for embedded Linux and Android systems](https://antmicro.com/blog/2022/07/ota-updates-for-embedded-linux-and-android-systems/). [You can see the long-tailed discussion for “What’s the state of art in OTA” on Reddit](https://www.reddit.com/r/embedded/comments/ob0e4c/firmware_update_overtheair_what_is_the_state_of/) or try to google “Incremental firmware update”.
+
+Both [Tesla](https://www.wired.com/2016/09/tesla-software-version-8-autopilot-user-interface/), [Mercedes](https://www.extremetech.com/extreme/125621-mercedes-benz-over-the-air-car-updates), and BMW started to incorporate in-flight software updates to reduce the need for customers to go to service stations since 2012\.
+
+> *Maybe the most remarkable thing about the update is that it simply shows up on the car, like an over-the-air update to your smartphone. No visit to the dealer, no wishing you’d waited to buy your car until the latest version hit the market. This means your car gets better over time, and [recalls get way easier](https://www.wired.com/2015/08/researchers-hacked-model-s-teslas-already).*
+
+For App developers, us, App Stores are like the car dealers - the listing of apps are like displaying the holy trinity of sports cars, or the regular Volvo, the “Apple Tax” we all need to pay when we enable Apple Wallets within the app are like the overhead we paid for dealership, and the button for “Update” is the old-school USB sticks that used to update your car’s software, but without the sweat-tongued dealers.
+
+## Apache Cordova, Microsoft and Expo
+
+[Apache Cordova](https://cordova.apache.org/), [CodePush](https://microsoft.github.io/code-push/) (from Microsoft App Center, retired), [Ionic](https://ionic.io/blog/announcing-ionic-deploy-alpha-update-your-app-without-waiting#:~:text=What%20can%20you%20do%20with,Deploy) and [Expo](https://expo.dev/home) (prev. Exponent) embodied technologies to enable OTA updates while aligning with Apple and Google’s guidelines - apps may not download new executable code within limited circumstances.
+
+> Apps should be self-contained in their bundles, and may not read or write data outside the designated container area, nor may they download, install, or execute code which introduces or changes features or functionality of the app, including other apps. Educational apps designed to teach, develop, or allow students to test executable code may, in limited circumstances, download code provided that such code is not used for other purposes. Such apps must make the source code provided by the app completely viewable and editable by the user.
+
+> [Apple Review Guideline](https://developer.apple.com/app-store/review/guidelines/)
+
+As early as 2012, developers discovered they could utilise [Cordova](https://cordova.apache.org/)'s (the technology from Apache allow developer to use HTML/CSS/Javascript for cross-platform application) file system access to download updated web assets and replace the existing application bundle, allowing "hot updates" in UI changes, bug fixes, and new features without the typical appq store review delays. Although implementation details change and user experiences differ, other platforms and technologies allow similar functionalities.
+
+
+Fast forward to today \- we are seeing more and more open source solutions like [hot-updater](https://github.com/gronxb/hot-updater), [ReChunk](https://rechunk.xyz/), [react-native-ota-hot-update](https://github.com/vantuan88291/react-native-ota-hot-update%20)… (see more under [this tweet](https://x.com/szymonrybczak/status/1913258090738176114?s=46) from Szymon) emerge, and the open source ones like hot-updater permit you to bring multiple cloud providers, including [Supabase](https://supabase.com/), [Cloudflare](https://www.cloudflare.com/en-gb/) and more to developers’ specific use case.
+
+## OTA solutions?
+
+But different providers and platforms brought different flavours of developer experience to the platform.
+
+Take [expo-update](https://docs.expo.dev/versions/latest/sdk/updates/)’s as an example, developers can opt to configure policies manually within \`app.json\` or automatically configured by runtime version policy like so:
+
+```json
+{
+  "expo": {
+    "runtimeVersion": {
+      "policy": "<policy_name>"
+    }
+  }
+}
+```
+
+Then, users could [manually check for updates (read more in Expo’s documentation)](https://docs.expo.dev/versions/latest/sdk/updates/#usage).
+
+Albeit the ecosystem, Expo is a hosting cloud provider on its own, only supports metro, not to mention processses that are defined and only work on the Expo platform. That brings limitations on some use cases in brownfield projects, use cases where complex configuration is required (metro’s minimalist API) and vendor management. [hot-updater](https://github.com/gronxb/hot-updater), an open-source OTA update solution, brought some interesting dynamics to the scene by allowing developers to bring their cloud providers with several lines of configuration (the PHP way).
+
+```js
+import { metro } from "@hot-updater/metro";
+import { supabaseDatabase, supabaseStorage } from "@hot-updater/supabase";
+import { defineConfig } from "hot-updater";
+import "dotenv/config";
+
+export default defineConfig({
+  build: metro({ enableHermes: true }),
+  storage: supabaseStorage({
+    supabaseUrl: process.env.HOT_UPDATER_SUPABASE_URL!,
+    supabaseAnonKey: process.env.HOT_UPDATER_SUPABASE_ANON_KEY!,
+    bucketName: process.env.HOT_UPDATER_SUPABASE_BUCKET_NAME!,
+  }),
+  database: supabaseDatabase({
+    supabaseUrl: process.env.HOT_UPDATER_SUPABASE_URL!,
+    supabaseAnonKey: process.env.HOT_UPDATER_SUPABASE_ANON_KEY!,
+  }),
+});
+```
+And then define the MiniApp, (remote application in React Native’s term) awaiting to be updated with a URL:
+
+```js
+// App.tsx
+export default HotUpdater.wrap({
+  source: "https://\<project-id\>.supabase.co/functions/v1/update-server",
+  requestHeaders: {
+    // if you want to use the request headers, you can add them here
+  },
+  fallbackComponent:
+})
+// rest of the code
+```
+There are several concerns with hot-updater’s approach:
+
+1. Security
+
+   Although on hot-updater’s documentation, they clarified that the populated environment variables are not related to react native’s output bundle, [the bundle doesn’t seem to modify, or protect how the secrets are protected.](https://github.com/gronxb/hot-updater/blob/b35e1019224a51de8b4be79864c8238adb6ce0d2/plugins/supabase/iac/supabaseApi.ts)
+
+2. Granularity
+
+   Updates with MiniApp and storage are one-to-one mapped, there aren’t easier options for you to configure, and requesting a specific remote because you can only copy and paste your server URL. Polycloud, or multi-CDN is also not an option.
+
+3. Configuration overhead
+
+   Manual update for native code is required. Moreover, if you need to configure multiple MiniApps within one codebase, you can do so, but there isn’t related developer tooling and documentation to support you. Outside of existing integrations, if you are running your own private cloud, you will also need to manage them.
+
+
+
+Another interesting solution is [ReChunk](https://rechunk.xyz/) (I love “Launch Without Limits” since we are the people who make deploy any application without limits lol). The final component rendering would make you feel like it's similar enough to the approach we usually see in Module Federation:
+
+
+```js
+import {importChunk} from '@crherman7/rechunk';
+
+const Foo = React.lazy(() => importChunk('foo'));
+
+export function App(): React.JSX.Element {
+  return (
+    <ErrorBoundary FallbackComponent={Error404}>
+      <Suspense fallback={<ActivityIndicator style={styles.container} />}>
+        <Foo />
+      </Suspense>
+    </ErrorBoundary>
+  );
+}
+```
+
+The project underneath ReChunk ([metro-requirex](https://github.com/crherman7/metro-requirex)) is interestingly one of the solutions explain how to dynamically require and evaluate Javascript within Metro at runtime, yet the documentation and implementation is not answering several questions I’d love to know from a developers’ perspective:
+
+1. Self-hosting overhead
+
+   For enterprises that usually roll their own Kubernetes Cluster, there is no easy way to deploy other than cloning the repo.
+
+2. Additional configuration
+
+   A `rechunk.json` is required to configure projects that use ReChunk - publicKey, privateKey, hosting endpoint and how the components are split are defined in here.
+
+3. Version management
+
+   Since the bundles can be split and consumed in other applications, how to manage the versions? How to manage rollback? These are the common problems we’d face when we work with federated applications.
+
+
+
+## The Zephyr Way
+
+Yesterday we talked about [Polycloud](https://zephyr-cloud.io/blog/all-the-pipelines) and explained how you can manage, configure several cloud providers and enable dual write to multiple CDNs. With several CDNs configured, you can optionally opt in to choose which one should be your default and which one should be your auto-fallback provider (just in case THAT NEW INTERN WIPES YOUR CLOUD STORAGE). Previously, we have also talked about MiniApps with Callstack, [“Shaping The Future Of Super Apps”](https://www.callstack.com/blog/shaping-the-future-of-super-apps-in-react-native).
+
+With Zephyr, you won’t need to bring a new, heavy loaded configuration file - you can use your existing codebase instead. We will soon publish the new `react-native-zephyr-sdk` for runtime management, you can use with our pre-existing `zephyr-repack-plugin` in React Native applications. Read more about [Re.Pack plugin usage with Zephyr](https://docs.zephyr-cloud.io/recipes/repack-mf) and [Re.Pack’s documentation](https://re-pack.dev/). We also have a repository example [here](https://github.com/ZephyrCloudIO/zephyr-repack-example) where you can **fork**, register a Zephyr account, run a build and you are good to go.
+
+Your implementation is decoupled by design. Enjoy!
+
+The runtime solution doesn’t require any additional configuration secrets, as they are pre-configured within the SDK, without worrying about whether Android’s build version number is a string or not. Once you have deployed the MiniApp (even once), you will be able to consume it in runtime like so:
+
+```js
+import { ZephyrRuntimeSDK } from ‘react-native-zephyr-sdk’
+import {loadRemote, registerRemotes} from '@module-federation/runtime';
+
+const remoteName = ‘MobileCart’
+
+const zeSDK = new ZephyrRuntimeSDK(pollingInterval?: number)
+
+const ifUpdated = zeSDK.getAppUpdate(remoteName) // > return boolean value you can use to decide whether you want the remote
+
+const { remoteUrl, remotePath }= zeSDK.getApp(remoteName) // > return the url and serve assets to you
+
+// Continue with module federation runtime
+
+  const LazyComponent = useMemo(
+    () =>
+      lazy(() => {
+        registerRemotes([
+          {
+            remoteName,
+            entry: remoteUrl,
+          },
+        ]);
+
+        action.leaveAction();
+        return loadRemote(remotePath);
+      }),
+    [remoteName, remoteUrl],
+  );
+
+  return (
+    <ModuleBoundary color={sgColors.moduleBoundaries.cart} borderStyle="dotted">
+      <ErrorBoundary name={remoteName}>
+        <Suspense fallback={fallback}>
+          <LazyComponent key={remoteName} {...props} />
+        </Suspense>
+      </ErrorBoundary>
+    </ModuleBoundary>
+  );
+// rest of the code
+
+```
+With this setup up you can pretty much plug and play however you want with your react native application, and none of them have to be one app that gets bundled together. That’s all you need - no secret keys or environment variables passing around.
+
+How about Metro? We aim to provide a solution that’s easy to configure, working with our partners in [Callstack](https://www.callstack.com/). You will soon to be able to configure federated application for OTA in `metro.config.js` the same way you can in Re.Pack and Rspack - a unified interface to configure federated applications. You can define HostApp and MiniApp’s relationship in one file that ALREADY EXISTS in your codebase: how are the applications split, how are they being consumed, and how are dependencies being shared, what’s the sharing strategy like below.
+
+```js
+// metro.config.js
+
+module.exports \= withModuleFederation(
+  mergeConfig(getDefaultConfig(__dirname), config),
+  {
+    name: 'host',
+    remotes: {
+      mini: 'mini@http://localhost:8082/mini.js.bundle',
+    },
+    shared: {
+      react: {
+        singleton: true,
+        eager: true,
+        requiredVersion: '19.0.0',
+        version: '19.0.0',
+      },
+      'react-native': {
+        singleton: true,
+        eager: true,
+        requiredVersion: '0.79.0',
+        version: '0.79.0',
+      },
+      lodash: {
+        singleton: true,
+        eager: false,
+        requiredVersion: '^4.17.21',
+        version: '4.17.21',
+      },
+    },
+    plugins: [path.resolve(__dirname, './runtime-plugin.ts')],
+  },
+);
+```
+
+You can check updates within this repository and its related PRs: [https://github.com/module-federation/metro-mf/tree/feat/async-shared](https://github.com/module-federation/metro-mf/tree/feat/async-shared)
+
+All these solutions will be available within the upcoming days/weeks - stay tuned.
