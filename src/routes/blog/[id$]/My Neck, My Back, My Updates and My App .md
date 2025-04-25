@@ -48,7 +48,7 @@ Take [expo-update](https://docs.expo.dev/versions/latest/sdk/updates/)’s as an
 
 Then, users could [manually check for updates (read more in Expo’s documentation)](https://docs.expo.dev/versions/latest/sdk/updates/#usage). 
 
-Albeit the ecosystem, Expo is a hosting cloud provider on its own, only supports metro, not to mention processses that are defined and only work on the Expo platform. That brings limitations on some use cases in brownfield projects, use cases where complex configuration is required (metro’s minimalist API) and vendor management. [hot-updater](https://github.com/gronxb/hot-updater), an open-source OTA update solution, brought some interesting dynamics to the scene by allowing developers to bring their cloud providers with several lines of configuration (the PHP way). 
+Albeit the ecosystem, Expo is a hosting cloud provider on its own, only supports metro, not to mention processes that are defined and only work on the Expo platform. That brings limitations on some use cases in brownfield projects, use cases where complex configuration is required (metro’s minimalist API) and vendor management. [hot-updater](https://github.com/gronxb/hot-updater), an open-source OTA update solution, brought some interesting dynamics to the scene by allowing developers to bring their cloud providers with several lines of configuration (the PHP way). 
 
 \`\`\`  
 import { metro } from "@hot-updater/metro";  
