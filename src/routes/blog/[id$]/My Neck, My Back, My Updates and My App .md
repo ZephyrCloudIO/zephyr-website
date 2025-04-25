@@ -110,7 +110,7 @@ export function App(): React.JSX.Element {
 }  
 \`\`\`
 
-The project underneath ReChunk ([metro-requirex](https://github.com/crherman7/metro-requirex)) is interestingly one of the solutions explain how to dynamically require and evaluate Javascript within Metro at runtime, yet the documentation and implementation is not answering several questions I’d love to know from a developers’ perspective: 
+The project underneath ReChunk ([metro-requirex](https://github.com/crherman7/metro-requirex)) is interestingly one of the solutions that explains how to dynamically require and evaluate Javascript within Metro at runtime, yet the documentation and implementation do not answer several questions I’d love to know from a developer's perspective: 
 
 1. Self-hosting overhead  
    For enterprises that usually roll their own Kubernetes Cluster, there is no easy way to deploy other than cloning the repo.   
