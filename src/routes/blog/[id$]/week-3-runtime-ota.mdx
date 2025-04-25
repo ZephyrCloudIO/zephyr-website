@@ -45,6 +45,8 @@ For App developers, App Stores are like the car dealers - the listing of apps ar
 
 But how about skipping App Store releases? How can we fix applications “in-flight” like NASA did with Mariner 6 and Mariner 7?
 
+---
+
 ## Apache Cordova, Microsoft and Expo
 
 [Apache Cordova](https://cordova.apache.org/), [CodePush](https://microsoft.github.io/code-push/) (from Microsoft App Center, retired), [Ionic](https://ionic.io/blog/announcing-ionic-deploy-alpha-update-your-app-without-waiting#:~:text=What%20can%20you%20do%20with,Deploy) and [Expo](https://expo.dev/home) embodied technologies to enable OTA updates while aligning with Apple and Google’s guidelines - apps may not download new executable code within limited circumstances.
@@ -59,6 +61,9 @@ As early as 2012, developers discovered they could utilise [Cordova](https://cor
 As long as there were no native dependencies updates, developers could update applications via CodePush. Developed by Microsoft, part of AppCenter. Over a decade, it drew a lot of attention and usage for the testing capabilities and support for release of cross-platform applications.
 
 With CodePush’s retirement, we are seeing more and more open source solutions like [hot-updater](https://github.com/gronxb/hot-updater), [ReChunk](https://rechunk.xyz/), [react-native-ota-hot-update](https://github.com/vantuan88291/react-native-ota-hot-update%20)… (see more under [this tweet](https://x.com/szymonrybczak/status/1913258090738176114?s=46) from Szymon) emerge, and the open source ones like hot-updater permit you to bring multiple cloud providers, including [Supabase](https://supabase.com/), [Cloudflare](https://www.cloudflare.com/en-gb/) and more to developers’ specific use case.
+
+---
+
 ## The Zephyr Way
 
 Yesterday we talked about [Polycloud](https://zephyr-cloud.io/blog/all-the-pipelines) and explained how you can manage, configure several cloud providers and enable dual write to multiple CDNs. With several CDNs configured, you can optionally opt in to choose which one should be your default and which one should be your auto-fallback provider (just in case THAT NEW INTERN WIPES YOUR CLOUD STORAGE). Previously, we have also talked about MiniApps with Callstack, [“Shaping The Future Of Super Apps”](https://www.callstack.com/blog/shaping-the-future-of-super-apps-in-react-native).
@@ -69,17 +74,19 @@ Your implementation is decoupled by design. Enjoy!
 
 The runtime solution doesn’t require any additional configuration secrets, as they are pre-configured within the SDK, without worrying about whether Android’s build version number is a string or not. Once you have deployed the MiniApp (even once), you will be able to consume it in runtime like so:
 
-```js
-import { ZephyrRuntimeSDK } from ‘react-native-zephyr-sdk’
+```tsx
 import {loadRemote, registerRemotes} from '@module-federation/runtime';
+import { ZephyrRuntimeSDK } from 'react-native-zephyr-sdk'
+import { useMemo, lazy, Suspense } from 'react';
+// Rest of the imports
 
-const remoteName = ‘MobileCart’
+export function CartRemote(remoteName: string) {
 
-const zeSDK = new ZephyrRuntimeSDK(pollingInterval?: number)
+  const zeSDK = new ZephyrRuntimeSDK(pollingInterval?: number)
 
-const ifUpdated = zeSDK.getAppUpdate(remoteName) // > return boolean value you can use to decide whether you want the remote
+  const ifUpdated = zeSDK.getAppUpdate(remoteName) // > return boolean value you can use to decide whether you want the remote
 
-const { remoteUrl, remotePath }= zeSDK.getApp(remoteName) // > return the url and serve assets to you
+  const { remoteUrl, remotePath } = zeSDK.getApp(remoteName) // > return the url and serve assets to you
 
 // Continue with module federation runtime
 
@@ -93,14 +100,13 @@ const { remoteUrl, remotePath }= zeSDK.getApp(remoteName) // > return the url an
           },
         ]);
 
-        action.leaveAction();
         return loadRemote(remotePath);
       }),
     [remoteName, remoteUrl],
   );
 
   return (
-    <ModuleBoundary color={sgColors.moduleBoundaries.cart} borderStyle="dotted">
+    <ModuleBoundary color={styles.cart} borderStyle="dotted">
       <ErrorBoundary name={remoteName}>
         <Suspense fallback={fallback}>
           <LazyComponent key={remoteName} {...props} />
@@ -108,7 +114,9 @@ const { remoteUrl, remotePath }= zeSDK.getApp(remoteName) // > return the url an
       </ErrorBoundary>
     </ModuleBoundary>
   );
+}
 // rest of the code
+
 
 ```
 With this setup up you can pretty much plug and play however you want with your react native application, and none of them have to be one app that gets bundled together. That’s all you need - no secret keys or environment variables passing around.
@@ -154,6 +162,7 @@ You can check updates within this repository and its related PRs: [https://githu
 
 #### All these solutions will be available within the upcoming days/weeks - stay tuned.
 
+---
 
 ## How did we get here?
 
@@ -256,16 +265,19 @@ The project underneath ReChunk ([metro-requirex](https://github.com/crherman7/me
 
    Since the bundles can be split and consumed in other applications, how to manage the versions? How to manage rollback while aligning native dependencies? These are the common problems we’d face when we work with federated applications.
 
+---
+
 After observing the different solutions, we want to evolve on them with our previous experience in Micro-frontend and deployment as a whole to address the problems we have seen:
 
 
-A platform that brings best of both worlds:
- - Decoupled by design
- - Allow you to continue with your existing configuration
- - Granular options and configuration
- - Multi-CDN and Polycloud
- - Version management and rollback
- - Comprehensive developer tooling support
+_A platform that brings best of both worlds:_
+
+- Decoupled by design
+- Allow you to continue with your existing configuration
+- Granular options and configuration
+- Multi-CDN and Polycloud
+- Version management and rollback
+- Comprehensive developer tooling support
 
 
 
