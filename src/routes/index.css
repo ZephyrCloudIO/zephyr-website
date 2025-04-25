@@ -172,11 +172,15 @@
   span::selection {
     @apply bg-white text-black;
   }
-}
-.prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
-  @apply text-white hover:text-sky-100 transition-all duration-300;
-}
 
+  .prose :where(a):not(:where([class~="not-prose"], [class~="not-prose"] *)) {
+    @apply text-white hover:text-sky-100 transition-all duration-300;
+  }
+
+  h4 {
+    @apply pb-6;
+  }
+}
 @layer utilities {
   .text-shadow {
     text-shadow: rgb(0 0 0 / 56%) 0px 3px 12px;
