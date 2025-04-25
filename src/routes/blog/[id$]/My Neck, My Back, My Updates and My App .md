@@ -175,7 +175,7 @@ const { remoteUrl, remotePath }= zeSDK.getApp(remoteName) // \-\> return the url
 \`\`\`  
 With this setup up you can pretty much plug and play however you want with your react native application, and none of them have to be one app that gets bundled together. That’s all you need \- no secret keys or environment variables passing around. 
 
-How about Metro? We aim to provide a solution that’s easy to configure, working with our partners in [Callstack](https://www.callstack.com/). You will soon to be able to configure federated application for OTA in \`metro.config.js\` the same way you can in Re.Pack and Rspack \- a unified interface to configure federated applications. You can define HostApp and MiniApp’s relationship in one file that ALREADY EXISTS in your codebase: how are the applications split, how are they being consumed, and how are dependencies being shared, what’s the sharing strategy like below. 
+How about Metro? We aim to provide a solution that’s easy to configure, working with our partners in [Callstack](https://www.callstack.com/). You will soon be able to configure federated application for OTA in \`metro.config.js\` the same way you can in Re.Pack and Rspack \- a unified interface to configure federated applications. You can define HostApp and MiniApp’s relationship in one file that ALREADY EXISTS in your codebase: how are the applications split, how are they being consumed, and how are dependencies being shared, what’s the sharing strategy like below. 
 
 \`\`\`   
 // metro.config.js 
