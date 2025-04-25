@@ -218,7 +218,7 @@ All these solutions will be available within the upcoming days/weeks \- stay tun
 
 ## Outline
 
-- Historical reason for CodePush and similar apps   
+- Historical reasons for CodePush and similar apps   
 - Market Comparison   
   [https://gronxb.github.io/hot-updater/guide/getting-started/quick-start-with-supabase.html](https://gronxb.github.io/hot-updater/guide/getting-started/quick-start-with-supabase.html) (Denis think it might be good?)  
   [https://github.com/gronxb/hot-updater](https://github.com/gronxb/hot-updater)  
