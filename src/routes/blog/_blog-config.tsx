@@ -10,7 +10,7 @@ import infrastructureless from '@/images/blog/infrastructureless.webp';
 import MobileFirstHero from '@/images/blog/mobilefirst.webp';
 import ota_hero from '@/images/blog/ota-hero.webp';
 import ota_update from '@/images/blog/ota-update.webm';
-import runtime_ota from '@/images/blog/runtime-ota.webp';
+import runtime_ota from '@/images/blog/runtime-ota/runtime-ota.webp';
 import soc2_hero from '@/images/blog/soc2/soc2_hero.webp';
 import soc2_listing from '@/images/blog/soc2/soc2_listing.webp';
 import team_first from '@/images/blog/the-team-first-architecture.webp';
