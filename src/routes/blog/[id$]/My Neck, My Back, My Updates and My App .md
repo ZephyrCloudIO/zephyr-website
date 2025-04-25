@@ -228,7 +228,7 @@ All these solutions will be available within the upcoming days/weeks \- stay tun
   [https://rechunk.xyz/](https://rechunk.xyz/)   
   [https://github.com/crherman7/metro-requirex](https://github.com/crherman7/metro-requirex)   
   [https://github.com/crherman7/rechunk](https://github.com/crherman7/rechunk)   
-- How people are using CodePush and how is it enabled   
+- How people are using CodePush and how it is enabled   
 - The Zephyr Way   
   You will see us in the recent future   
 - Reference   
