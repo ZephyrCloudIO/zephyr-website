@@ -5,7 +5,7 @@
   "scripts": {
     "reset": "npx rimraf node_modules ./**/node_modules",
     "dev": "modern dev",
-    "build": "modern build",
+    "build": "NODE_ENV=production modern build",
     "start": "modern start",
     "serve": "modern serve",
     "new": "modern new",
@@ -75,9 +75,6 @@
   },
   "packageManager": "pnpm@10.6.3",
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "@swc/core",
-      "core-js"
-    ]
+    "onlyBuiltDependencies": ["@swc/core", "core-js"]
   }
 }
