@@ -163,7 +163,6 @@ const CodeEditor: React.FC<CodeEditorProps> = ({
     const indentation = '\u00A0'.repeat(leadingSpaces);
     const isHighlighted = highlightedLines.includes(index + 1);
 
-    console.log('line', line, 'index', index);
     return (
       <div
         key={index}
