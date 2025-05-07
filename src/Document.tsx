@@ -35,8 +35,7 @@ if (!user_id) {
         });
       gtag('set', 'linker', {
       accept_incoming: true,
-    }
-
+    })
       `,
       }}
     />
