@@ -32,7 +32,7 @@
     "@modern-js/plugin-express": "^2.65.5",
     "@modern-js/plugin-tailwindcss": "^2.65.5",
     "@modern-js/runtime": "^2.65.5",
-    "@module-federation/modern-js": "^0.11.2",
+    "@module-federation/modern-js": "^0.12.0",
     "@radix-ui/react-icons": "^1.3.2",
     "@tailwindcss/typography": "^0.5.16",
     "class-variance-authority": "^0.7.1",
