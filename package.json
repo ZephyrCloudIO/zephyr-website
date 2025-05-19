@@ -75,6 +75,9 @@
   },
   "packageManager": "pnpm@10.6.3",
   "pnpm": {
-    "onlyBuiltDependencies": ["@swc/core", "core-js"]
+    "onlyBuiltDependencies": ["@swc/core", "core-js"],
+    "overrides": {
+      "axios": "^1.8.2"
+    }
   }
 }

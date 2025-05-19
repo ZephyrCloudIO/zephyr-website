@@ -4,6 +4,9 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
+overrides:
+  axios: ^1.8.2
+
 importers:
 
   .:
@@ -10427,7 +10430,7 @@ snapshots:
       '@modern-js/types': 2.65.5
       '@modern-js/utils': 2.65.5
       '@swc/helpers': 0.5.13
-      axios: 1.7.9
+      axios: 1.8.4
       connect-history-api-fallback: 2.0.0
       http-compression: 1.0.6
       minimatch: 3.1.2
