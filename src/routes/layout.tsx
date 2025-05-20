@@ -6,7 +6,7 @@ import { INTERCOM_SETTINGS } from '@/lib/intercom';
 import Intercom from '@intercom/messenger-js-sdk';
 
 export default function Layout() {
-  const appId = process.env.PUBLIC_RSPRESS_INTERCOM_APP_ID;
+  const appId = process.env.PUBLIC_INTERCOM_APP_ID;
   if (appId) {
     Intercom({
       ...INTERCOM_SETTINGS,
