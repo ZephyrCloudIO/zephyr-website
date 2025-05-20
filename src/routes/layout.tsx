@@ -15,7 +15,6 @@ export default function Layout() {
     });
   }
 
-  console.log('layout');
   return (
     <div className=" min-h-screen dark antialiased text-zinc-200 ">
       <div className="mx-auto">
