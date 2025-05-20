@@ -25,6 +25,11 @@ export default defineConfig({
   },
   source: {
     mainEntryName: 'index',
+    define: {
+      'process.env.PUBLIC_RSPRESS_INTERCOM_APP_ID': JSON.stringify(
+        process.env.PUBLIC_RSPRESS_INTERCOM_APP_ID,
+      ),
+    },
   },
   server: {
     port: 3000,

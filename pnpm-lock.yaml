@@ -8,6 +8,9 @@ importers:
 
   .:
     dependencies:
+      '@intercom/messenger-js-sdk':
+        specifier: ^0.0.14
+        version: 0.0.14
       '@mdx-js/react':
         specifier: 3.1.0
         version: 3.1.0(@types/react@18.3.18)(react@18.3.1)
@@ -1789,6 +1792,9 @@ packages:
   '@fastify/busboy@2.1.1':
     resolution: {integrity: sha512-vBZP4NlzfOlerQTnba4aqZoMhE/a9HY7HRqoOPaETQcSQuWEIyZMHGfVu6w9wGtGK5fED5qRs2DteVCjOH60sA==}
     engines: {node: '>=14'}
+
+  '@intercom/messenger-js-sdk@0.0.14':
+    resolution: {integrity: sha512-2dH4BDAh9EI90K7hUkAdZ76W79LM45Sd1OBX7t6Vzy8twpNiQ5X+7sH9G5hlJlkSGnf+vFWlFcy9TOYAyEs1hA==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -10108,6 +10114,8 @@ snapshots:
 
   '@fastify/busboy@2.1.1':
     optional: true
+
+  '@intercom/messenger-js-sdk@0.0.14': {}
 
   '@isaacs/cliui@8.0.2':
     dependencies:

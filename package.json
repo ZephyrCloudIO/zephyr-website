@@ -49,7 +49,8 @@
     "rehype-highlight": "^7.0.2",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7",
-    "zephyr-modernjs-plugin": "0.0.39"
+    "zephyr-modernjs-plugin": "0.0.39",
+    "@intercom/messenger-js-sdk": "^0.0.14"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
@@ -75,9 +76,6 @@
   },
   "packageManager": "pnpm@10.6.3",
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "@swc/core",
-      "core-js"
-    ]
+    "onlyBuiltDependencies": ["@swc/core", "core-js"]
   }
 }
