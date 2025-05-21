@@ -4,16 +4,18 @@ import Header from '@/components/header';
 import Footer from '@/components/sections/footer';
 import { INTERCOM_SETTINGS } from '@/lib/intercom';
 import Intercom from '@intercom/messenger-js-sdk';
+import { useEffect } from 'react';
 
 export default function Layout() {
-  const appId = process.env.PUBLIC_INTERCOM_APP_ID;
-  if (appId) {
-    Intercom({
-      ...INTERCOM_SETTINGS,
-      app_id: appId,
-      utm_source: 'website',
-    });
-  }
+  useEffect(() => {
+    if (__INTERCOM_APP_ID__) {
+      Intercom({
+        ...INTERCOM_SETTINGS,
+        app_id: __INTERCOM_APP_ID__,
+        utm_source: 'website',
+      });
+    }
+  }, []);
 
   return (
     <div className=" min-h-screen dark antialiased text-zinc-200 ">
