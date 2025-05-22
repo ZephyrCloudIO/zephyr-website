@@ -3,7 +3,8 @@ import {
   LinkedInLogoIcon,
   TwitterLogoIcon,
 } from '@radix-ui/react-icons';
-import React, { memo } from 'react';
+import type React from 'react';
+import { memo } from 'react';
 import TwitchIcon from '../../../images/twitch.svg?react';
 import YoutubeIcon from '../../../images/yt.svg?react';
 
