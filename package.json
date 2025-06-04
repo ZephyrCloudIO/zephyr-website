@@ -16,7 +16,7 @@
     "upgrade": "modern upgrade"
   },
   "engines": {
-    "node": ">=16.18.1"
+    "node": ">=22.0.0"
   },
   "lint-staged": {
     "*.{js,ts,cjs,mjs,d.cts,d.mts,jsx,tsx,json,jsonc}": [
@@ -76,9 +76,6 @@
   },
   "packageManager": "pnpm@10.6.3",
   "pnpm": {
-    "onlyBuiltDependencies": [
-      "@swc/core",
-      "core-js"
-    ]
+    "onlyBuiltDependencies": ["@swc/core", "core-js"]
   }
 }
