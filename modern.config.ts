@@ -26,9 +26,7 @@ export default defineConfig({
   source: {
     mainEntryName: 'index',
     define: {
-      '__INTERCOM_APP_ID__': JSON.stringify(
-        process.env.PUBLIC_INTERCOM_APP_ID,
-      ),
+      __INTERCOM_APP_ID__: JSON.stringify(process.env.PUBLIC_INTERCOM_APP_ID),
     },
   },
   server: {
