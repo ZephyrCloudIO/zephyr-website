@@ -10,8 +10,9 @@ export default function Layout() {
   useEffect(() => {
     if (__INTERCOM_APP_ID__) {
       Intercom({
+        app_id: '',
         ...INTERCOM_SETTINGS,
-        app_id: __INTERCOM_APP_ID__,
+        ...(__INTERCOM_APP_ID__ ? { app_id: __INTERCOM_APP_ID__ } : {}),
         utm_source: 'website',
       });
     }
