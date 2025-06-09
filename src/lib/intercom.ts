@@ -1,7 +1,7 @@
 import type { IntercomSettings } from '@intercom/messenger-js-sdk/dist/types';
 
 export const INTERCOM_SETTINGS: Partial<IntercomSettings> = {
-  appId: 'xyxkmxlj',
+  app_id: 'xyxkmxlj',
   page_title: 'Zephyr Cloud',
   action_color: '#eee',
   vertical_padding: 80,
