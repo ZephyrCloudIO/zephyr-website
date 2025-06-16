@@ -15,7 +15,6 @@ export default defineConfig({
   },
   runtime: {
     router: true,
-    state: true,
   },
   html: {
     outputStructure: 'flat',
