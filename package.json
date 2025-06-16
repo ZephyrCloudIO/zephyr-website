@@ -84,7 +84,8 @@
       "simple-git-hooks"
     ],
     "overrides": {
-      "esbuild": "^0.25.5"
+      "esbuild": "^0.25.5",
+      "hono": "^4.7.11"
     }
   }
 }

@@ -6,6 +6,7 @@ settings:
 
 overrides:
   esbuild: ^0.25.5
+  hono: ^4.7.11
 
 importers:
 
@@ -258,8 +259,8 @@ packages:
     resolution: {integrity: sha512-NFJK2sHUvrjo8wAU/nQTWU890/zB2jj0qBcCbZbbf+005cAsv6tMjXz31fBign6M5ov1o0Bllu+9nbqkfsjjJQ==}
     engines: {node: '>=6.9.0'}
 
-  '@babel/helpers@7.27.1':
-    resolution: {integrity: sha512-FCvFTm0sWV8Fxhpp2McP5/W53GPllQ9QeQ7SiqGWjMf/LVG07lFa5+pgK05IRhVwtvafT22KF+ZSnM9I545CvQ==}
+  '@babel/helpers@7.27.6':
+    resolution: {integrity: sha512-muE8Tt8M22638HU31A3CgfSUciwz1fhATfoVai05aPXGor//CdWDCbnlY1yvBPo07njuVOCNGCSp/GTt12lIug==}
     engines: {node: '>=6.9.0'}
 
   '@babel/parser@7.27.2':
@@ -739,8 +740,8 @@ packages:
     peerDependencies:
       '@babel/core': ^7.0.0-0
 
-  '@babel/runtime@7.27.1':
-    resolution: {integrity: sha512-1x3D2xEk2fRo3PAhwQwu5UubzgiVWSXTBfWpVd2Mx2AzRqJuDJCsgaDVZ7HB5iGzDW1Hl1sWN2mFyKjmR9uAog==}
+  '@babel/runtime@7.27.6':
+    resolution: {integrity: sha512-vbavdySgbTTrmFE+EsiqUTzlOr5bzlnJtUv9PynGCAKvfQqjIXbvFdumPM/GxMDfyuGMJaJAU6TO4zc1Jf1i8Q==}
     engines: {node: '>=6.9.0'}
 
   '@babel/template@7.27.2':
@@ -753,6 +754,10 @@ packages:
 
   '@babel/types@7.27.1':
     resolution: {integrity: sha512-+EzkxvLNfiUeKMgy/3luqfsCWFRXLb7U6wNQTk60tovuckwB15B191tJWvpp4HjiQWdJkCxO3Wbvc6jlk3Xb2Q==}
+    engines: {node: '>=6.9.0'}
+
+  '@babel/types@7.27.6':
+    resolution: {integrity: sha512-ETyHEk2VHHvl9b9jZP5IHPavHYk57EhanlRRuae9XCpb/j5bDCbPPMOBfCWhnl/7EDJz0jEMCi/RhccCE8r1+Q==}
     engines: {node: '>=6.9.0'}
 
   '@biomejs/biome@1.9.4':
@@ -3776,9 +3781,9 @@ packages:
     resolution: {integrity: sha512-eSmmWE5bZTK2Nou4g0AI3zZ9rswp7GRKoKXS1BLUkvPviOqs4YTN1djQIqrXy9k5gEtdLPy86JjRwsNM9tnDcA==}
     engines: {node: '>=0.10.0'}
 
-  hono@3.12.12:
-    resolution: {integrity: sha512-5IAMJOXfpA5nT+K0MNjClchzz0IhBHs2Szl7WFAhrFOsbtQsYmNynFyJRg/a3IPsmCfxcrf8txUGiNShXpK5Rg==}
-    engines: {node: '>=16.0.0'}
+  hono@4.7.11:
+    resolution: {integrity: sha512-rv0JMwC0KALbbmwJDEnxvQCeJh+xbS3KEWW5PC9cMJ08Ur9xgatI0HmtgYZfOdOSOeYsp5LO2cOhdI8cLEbDEQ==}
+    engines: {node: '>=16.9.0'}
 
   hpack.js@2.1.6:
     resolution: {integrity: sha512-zJxVehUdMGIKsRaNt7apO2Gqp0BdqW5yaiGHXXmbpvxgBYVZnAql+BJb4RO5ad2MgpbZKn5G6nMnegrH1FcNYQ==}
@@ -6531,7 +6536,7 @@ snapshots:
       '@babel/generator': 7.27.1
       '@babel/helper-compilation-targets': 7.27.2
       '@babel/helper-module-transforms': 7.27.1(@babel/core@7.27.1)
-      '@babel/helpers': 7.27.1
+      '@babel/helpers': 7.27.6
       '@babel/parser': 7.27.2
       '@babel/template': 7.27.2
       '@babel/traverse': 7.27.1(supports-color@5.5.0)
@@ -6665,10 +6670,10 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@babel/helpers@7.27.1':
+  '@babel/helpers@7.27.6':
     dependencies:
       '@babel/template': 7.27.2
-      '@babel/types': 7.27.1
+      '@babel/types': 7.27.6
 
   '@babel/parser@7.27.2':
     dependencies:
@@ -7264,7 +7269,7 @@ snapshots:
       pirates: 4.0.7
       source-map-support: 0.5.21
 
-  '@babel/runtime@7.27.1': {}
+  '@babel/runtime@7.27.6': {}
 
   '@babel/template@7.27.2':
     dependencies:
@@ -7285,6 +7290,11 @@ snapshots:
       - supports-color
 
   '@babel/types@7.27.1':
+    dependencies:
+      '@babel/helper-string-parser': 7.27.1
+      '@babel/helper-validator-identifier': 7.27.1
+
+  '@babel/types@7.27.6':
     dependencies:
       '@babel/helper-string-parser': 7.27.1
       '@babel/helper-validator-identifier': 7.27.1
@@ -7549,7 +7559,7 @@ snapshots:
 
   '@loadable/component@5.15.3(react@18.3.1)':
     dependencies:
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.27.6
       hoist-non-react-statics: 3.3.2
       react: 18.3.1
       react-is: 16.13.1
@@ -7707,7 +7717,7 @@ snapshots:
       '@babel/plugin-transform-runtime': 7.27.1(@babel/core@7.27.1)
       '@babel/preset-env': 7.27.2(@babel/core@7.27.1)
       '@babel/preset-typescript': 7.27.1(@babel/core@7.27.1)
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.27.6
       '@babel/types': 7.27.1
       '@rsbuild/plugin-babel': 1.0.5(@rsbuild/core@1.3.22)
       '@swc/helpers': 0.5.17
@@ -7948,7 +7958,7 @@ snapshots:
       '@web-std/stream': 1.0.3
       cloneable-readable: 3.0.0
       flatted: 3.3.3
-      hono: 3.12.12
+      hono: 4.7.11
       ts-deepmerge: 7.0.2
     transitivePeerDependencies:
       - react
@@ -9524,7 +9534,7 @@ snapshots:
 
   babel-plugin-macros@3.1.0:
     dependencies:
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.27.6
       cosmiconfig: 7.1.0
       resolve: 1.22.10
 
@@ -11082,7 +11092,7 @@ snapshots:
     dependencies:
       parse-passwd: 1.0.0
 
-  hono@3.12.12: {}
+  hono@4.7.11: {}
 
   hpack.js@2.1.6:
     dependencies:
@@ -12883,7 +12893,7 @@ snapshots:
 
   react-error-boundary@4.1.2(react@18.3.1):
     dependencies:
-      '@babel/runtime': 7.27.1
+      '@babel/runtime': 7.27.6
       react: 18.3.1
 
   react-fast-compare@3.2.2: {}
