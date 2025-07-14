@@ -1,0 +1,191 @@
+---
+title: "Three SDLC's, One Zephyr"
+slug: "three-sdlcs-one-zephyr"
+publishedAt: "2025-04-22"
+excerpt: "In development today, teams follow a variety of Software Development Life Cycle (SDLC) approaches, each with their own strengths and challenges. As part of our launch week, we're exploring how Zephyr adapts to these different workflows while introducing an exciting concept: completely decoupling builds from the SDLC with our DevOps module."
+author: "Shane Walker"
+tags: ["launch-week", "deployment", "ops"]
+---
+
+In development today, teams follow a variety of Software Development Life Cycle (SDLC) approaches, each with their own strengths and challenges. As part of our launch week, we're exploring how Zephyr adapts to these different workflows while introducing an exciting concept: completely decoupling builds from the SDLC with our DevOps module.
+
+## The Three SDLC Approaches
+
+### Traditional SDLC: Strict Environment Boundaries
+
+The traditional approach to SDLC involves strict separation between environments:
+
+* Developers code against isolated development environments
+* Code is merged to a development branch
+* After testing, code is promoted to staging/QA with a new build
+* After further validation, it's merged to main and deployed to production with another build
+* Final verification happens in production
+
+This approach offers maximum control and isolation but suffers from slow iteration cycles and environment drift.
+
+### Modern SDLC: Streamlined but Still Coupled
+
+The modern approach streamlines the process while maintaining environment boundaries:
+
+* Developers code against QA/Staging environments
+* They open PRs against dev or trunk
+* After merging, there's a separate, deliberate promotion step to production
+* Final testing happens in production
+
+This balances speed and safety but still couples building and deployment, requiring new builds for promotions.
+
+### Advanced SDLC: Production-First Approach
+
+The advanced approach takes a bold stance:
+
+* Developers work against production or production-like environments
+* Changes deploy as variants in production for A/B testing
+* Automated testing evaluates these variants with real users
+* Successful tests automatically promote variants to become the standard
+
+This approach offers maximum velocity but has traditionally required sophisticated tooling and high operational maturity.
+
+## How Zephyr Transforms All Three Approaches
+
+Zephyr's versioned artifacts brings a fundamental enhancement to all three SDLC approaches: **decoupling builds from deployments**.
+
+### Versioned Build Artifacts: The Game Changer
+
+When you build an application with Zephyr, each build generates a unique, immutable version URL. This URL points to a version that remains unchanged regardless of where it's deployed.
+
+This simple concept transforms all three SDLC approaches:
+
+#### Enhancing Traditional SDLC
+
+With traditional SDLC and Zephyr:
+
+* Each PR still builds a version URL
+* Moving through dev → staging → production still follows your established process
+* **But:** No rebuilding required when promoting between environments
+* **And:** Perfect consistency guaranteed across all environments
+* **Plus:** Instant rollbacks if issues arise
+
+Your strict environment boundaries remain intact, but the friction between them disappears.
+
+#### Supercharging Modern SDLC
+
+With modern SDLC and Zephyr:
+
+* Development still happens against QA/Staging
+* PRs still target your main branch
+* Promotion still happens deliberately after testing
+* **But:** Promotion takes seconds instead of minutes or hours
+* **And:** You can create ephemeral environments to test against production assets
+* **Plus:** Every component can be promoted independently
+
+Your streamlined workflow becomes even faster while gaining additional safety guarantees.
+
+#### Enabling Advanced SDLC for Everyone
+
+With advanced SDLC and Zephyr:
+
+* Developers can test against production safely through ephemeral environments
+* A/B testing becomes trivial through tag-based routing
+* Production variants can be created and tested without risk
+* **And:** All of this is possible without sophisticated feature flagging infrastructure
+* **Plus:** You gain the ability to instantly revert if needed
+
+The advanced approach becomes accessible to teams of all sizes and maturity levels.
+
+## Adapting to Your Pipeline, Not the Other Way Around
+
+> Zephyr doesn't force you to change your existing pipeline—it enhances it by removing the coupling between building and deploying
+
+### For GitHub Actions Users
+
+* Continue using your existing workflow files
+* Keep your PR review process
+* Keep your testing stages
+* Simply add Zephyr to generate version URLs during builds
+* Use Zephyr tags to control which versions are active in each environment
+
+### For Jenkins Users
+
+* Maintain your existing Jenkins pipeline stages
+* Keep your approval gates and sign-offs
+* Keep your environment separation
+* Add Zephyr to generate version URLs during builds
+* Use Zephyr tags to control promotions between environments
+
+### For GitLab CI Users
+
+* Continue using your existing CI/CD pipeline
+* Keep your merge request process
+* Keep your deployment stages
+* Add Zephyr to generate version URLs during builds
+* Use Zephyr tags for instant environment promotion
+
+The beauty of Zephyr is that it fits into your existing tools and processes while eliminating one of the most persistent friction points: the rebuild requirement when moving between environments.
+
+## Real-World Examples: Three Teams, Three Approaches
+
+### Team A: Traditional SDLC with Zephyr
+
+A financial services company with strict compliance requirements uses traditional SDLC:
+
+* Developers still go through dev → staging → production
+* Environment separation is maintained for compliance
+* Approvals are still required at each stage
+* **But:** The exact same versioned artifact moves through each environment
+* **Result:** 80% faster promotions with perfect audit trails
+
+### Team B: Modern SDLC with Zephyr
+
+An e-commerce platform uses modern SDLC for balance:
+
+* Developers still code against staging environments
+* PRs still require code review and automated tests
+* Production deployment still requires manual approval
+* **But:** Different components can be promoted independently
+* **And:** Rollbacks take seconds instead of hours
+* **Result:** More frequent deployments with lower risk
+
+### Team C: Advanced SDLC with Zephyr
+
+A SaaS product team embraces advanced SDLC:
+
+* Developers test against production data in ephemeral environments
+* New features deploy as A/B tests to a small percentage of users
+* Metrics determine whether features roll out more broadly
+* **But:** No custom feature flag infrastructure required
+* **And:** Instant reversion if metrics drop
+* **Result:** Continuous deployment with builtin safeguards
+
+## Better Together
+
+### 1. Meeting You Where You Are
+
+Whether you follow traditional, modern, or advanced SDLC, Zephyr enhances your existing workflow rather than forcing change:
+
+* Keep your current branching strategy
+* Keep your current approval processes
+* Keep your current CI/CD tools
+* Simply add the power of decoupled builds and deployments
+
+### 2. Growing with You
+
+As your team matures, Zephyr grows with you:
+
+* Start with traditional SDLC plus decoupled deployments
+* Gradually adopt more modern practices
+* Eventually implement advanced techniques like A/B testing
+* All without changing your underlying infrastructure
+
+## Decoupled, Not Disrupted
+
+The power of Zephyr isn't that it forces you into a new way of working—it's that it removes a fundamental limitation from your existing process. By decoupling builds from deployments, Zephyr:
+
+* Adapts to your current SDLC approach
+* Fits into your existing pipeline
+* Eliminates rebuilds during promotion
+* Enables instant rollbacks
+* Provides perfect consistency across environments
+
+This is what "Better Together" means in practice: bringing the power of modern deployment practices to teams regardless of their current workflow, and creating a seamless path to more advanced approaches as they're ready.
+
+Stay tuned for more posts in our "Better Together" launch week, where we'll explore other aspects of modern development practices that bring teams, platforms, and frameworks closer together.

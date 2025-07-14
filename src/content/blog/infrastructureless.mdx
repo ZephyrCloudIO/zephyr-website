@@ -1,0 +1,181 @@
+---
+title: "The Future of Infrastructure: Beyond Serverless"
+description: "Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading. What many of us hoped for was a genuinely 'infrastructureless' paradigm."
+date: "2024-09-12"
+author: "Zack Jackson"
+tags: ["engineering", "architecture", "enterprise"]
+image: "infrastructureless/hero.webp"
+---
+
+import deployMeme from '@/images/blog/infrastructureless/deploy-meme.webp'
+import infraTraditional from '@/images/blog/infrastructureless/infra-traditional.webp'
+import infraSingleNode from '@/images/blog/infrastructureless/infra-single-node.webp'
+import infraMultiNode from '@/images/blog/infrastructureless/infra-multi-node.webp'
+import whatIsZephyr from '@/images/blog/infrastructureless/what-is-zephyr.webp'
+
+Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading. Artifacts still reside on a machine, there's a fixed network location for the service, and despite the ease or outsourcing of management, servers are very much present. The term "serverless" has not fully lived up to its name; it's more of an abstraction than a reality.
+
+## The Infrastructureless Ideal
+
+What many of us hoped for was a genuinely "infrastructureless" paradigm, where not just the management but the very existence of servers could be abstracted away.
+
+## A Look Back at the jQuery Days
+
+As a frontend developer primarily working with JavaScript, I reminisce about the jQuery era. It was a time when deploying a widget or making a change was straightforward. The simplicity of FTP uploads made it accessible even for high schoolers. However, as we moved towards more advanced applications with Node.js, we traded simplicity for complexity.
+
+As someone with no formal training whatsoever who googled their way through a career, accessibility has always been important.
+
+## The Road So Far
+
+Useful links across the web so far:
+
+- [Examples Repo](https://github.com/examples)
+- [Universe Repo](https://github.com/universe)
+- [Discord Community](https://discord.gg/community)
+- [Documentation](https://docs.example.com)
+
+## The Overhead Problem
+
+The evolution of the JavaScript ecosystem, while exciting, has introduced a significant overhead in infrastructure management. The root cause of this complexity is dependency management.
+
+### Examples of Overhead
+
+#### Nested Package Updates
+
+Consider a simple scenario: updating a Button component in a Header package that depends on a ComponentLibrary, which in turn depends on BaseComponents. The deployment process involves a convoluted series of steps, from code commits to CI validations and package versioning. The majority of time is spent not on the actual development but on pushing the changes through the pipeline.
+
+#### Application Deployments
+
+Deploying applications, especially those with Server-Side Rendering (SSR) or upstream API dependencies, adds another layer of complexity. Tools that handle cascading builds or changes are rarely used, leaving most companies to grapple with the overhead.
+
+## The Stagnation of Infrastructure
+
+Despite the pain points, there has been little progress in infrastructure management. Most solutions are tightly coupled with specific cloud providers or require significant time and effort to implement and maintain.
+
+## A Radical Proposal: Infrastructure Superpositioning
+
+As the creator of Module Federation, I've been working on refining and expanding its applications. This led me to the concept of "superpositioned infrastructure," a paradigm where:
+
+<div className="bg-gray-100 p-6 rounded-lg my-6">
+  In a superpositioned infrastructure, services exist in a dynamic, unbound
+  state across the network or dynamic filesystem, much like particles in quantum
+  superposition. Instead of being fixed to specific nodes — be it lambdas, edge
+  workers, or containerized servers — these services can dynamically allocate
+  themselves where needed.
+</div>
+
+Key aspects of this approach include:
+
+- Infrastructure becomes "infrastructureless," focusing developers solely on the build process
+- Filesystems are decoupled from the compute layer through federation-style mechanisms
+- Lambdas serve merely as execution handlers, eliminating the need for fixed infrastructure
+- Code updates are managed through a federation transport mechanism
+- Dynamic capabilities allow for intimate infrastructure visualization
+- Control is fine-grained and effortless
+- Important nodes can be artificially fixed within the superposition
+
+<img src={deployMeme} alt="Deployment meme" />
+
+Another way to think of it is "Schrödinger's Server" — services are both "alive and dead" at the same time. Only by observing it (or sending a request to the infra) does the system converge into a known state.
+
+Much like quantum mechanics, the observer plays a role in the "physics" of the system
+
+### Server(less) vs superposisioned
+
+Lets take a look at a typical platform, comprised of verious services, built by teams to perform a business function.
+
+### Traditional Infra
+
+<img src={infraTraditional} alt="Traditional Infrastructure Diagram" />
+
+As is evident, distinct services are designated to particular nodes within the network, manifesting as lambdas, edge workers, or containerized servers. Each of these nodes is tailored for a specific function. When a surge in traffic targets a single node, it's compelled to scale, often bumping against concurrency or availability constraints. Although there may be idle compute nodes within the network, their resources remain untapped. The prevailing approach involves frequently dismantling and re-establishing environments to implement changes. This results in a system characterized by low resource density and a complex array of components, necessitating specialized maintenance across multiple domains.
+
+### Single-Node Superpositioning
+
+My work with Module Federation has been driven by a desire to minimize overhead; ideally, I want to simply import a module and have it work seamlessly. My focus has been on designing distributed systems capable of operating with just a single Lambda provisioned by cloud infrastructure.
+
+<img src={infraSingleNode} alt="Single-Node Infrastructure Diagram" />
+
+The goal is to enable this lone Lambda to dynamically serve as a Next.js, GraphQL, Express server, or any other service, on a per-invocation basis. When a request comes in, the system's superpositioned state collapses to fulfill that specific need. This is particularly effective with Lambda; for instance, if a server-side rendered page (SSR1) needs to query a GraphQL service, it can make a network request to its own URL, triggering another Lambda invocation.
+
+During this second invocation, the filesystem can dynamically switch to load the necessary GraphQL modules and services. Once the client receives the response, the Lambda instances revert to their superpositioned state, ready to adapt and meet the next incoming request. In this model, the "server" is essentially just a CPU core, capable of streaming the required filesystem on-demand.
+
+### Multi-node Superpositioning
+
+Single node is great for getting something off the ground, if theres a spare env laying around and i want to quickly try out a few new parts. Theres nothing to set up, or at least almost nothing. This however may not function so well under all conditions. For example, high memory use applications, or compliance in banking or government agencies, or just the fear of single point of failure.
+
+Expanding the superposition by incorporating additional nodes offers a multitude of advantages, both in terms of flexibility and robustness. These nodes are not confined to a single region or cloud provider; they can be distributed across multiple regions and clouds, thereby decentralizing the infrastructure. This decentralization allows for highly localized canary releases, making it possible to test new features or changes on a per-session basis, without being restricted by traditional feature flagging mechanisms.
+
+<img src={infraMultiNode} alt="Multi-Node Superpositioned Infrastructure" />
+
+### Freedom from the filesystem
+
+The absence of a traditional filesystem means that software components can be virtually relocated with ease. This enables an unprecedented level of personalization. Instead of being constrained by the number of Lambda variations one can feasibly manage, you have the freedom to serve every conceivable version, commit hash, or deployment in parallel. And all of this can be achieved within a matter of seconds, making it highly responsive to user needs and system demands.
+
+Each added node also serves as an extra layer of redundancy, thereby enhancing the system's resilience. I've personally witnessed the impressive self-healing capabilities of such a system. It can dynamically respond to changes in the environment, redistribute workloads as needed, and even compensate for unexpected outages or failures.
+
+The system's ability to bounce back really shined when I accidentally messed up some of my main servers with a typo. I kept working for weeks, thinking a small slowdown was just a minor bug. It wasn't until I checked the logs that I realized what had actually happened. Amazingly, the system had been picking up the slack the whole time. It kept shifting tasks around to make up for the servers that were down, keeping everything up and running smoothly.
+
+### Not just an application runtime solution
+
+While Federation is most popular in frontend, it has a far more valuable proposition as a backend technology. Since usually the involvement of servers, makes iteration speed more complex on infra demands.
+
+What about superpositioned CI pipelining? CI management involves a complex yet consistent dependency tree. It's also quite manual to manage and typically consists of many similar components, just configured differently.
+
+## Backport the concept of Module Federation
+
+Initially — Medusa was created, Its goal was to provide a GUI, visualization system, and runtime lockfile control over federated applications in near realtime.
+
+Medusa worked exceptionally well. ByteDance's own VMOK project includes forks from medusas pre SaaS era. The concept was proven to work at incredible scale...if the right parts are linked together.
+
+After seeing what ByteDance has done, myself and other members of the Module Federation Group decided to absorb Medusa into a more holistic solution: Zephyr Cloud. Taking a page out of ByteDance's unified VMOK architecture. Due to VMOK starting from a fork of Medusa, our architectures are highly related, built off the same system designs.
+
+To do this, we had to understand what is the base element of federation that made it special. We mostly agreed that it was the idea of a self-forming system that was able to link parts based on intent, rather than explicit implementation details.
+
+The logic was — if we can manage complex applications at runtime without stability problems, then the same user interface and general concept could be used to manage more ridged parts of infrastructure, like deployment and CI, or infrastructure, or general package management and propagation.
+
+## Centralized Decentralization
+
+### What is Zephyr?
+
+Zephyr is an advanced cloud infrastructure management system, inspired by the principles and user experience of Module Federation. Unlike Module Federation, which focuses primarily on runtime application orchestration, Zephyr aims to extend this simplicity deeper into the tech stack.
+
+<img src={whatIsZephyr} alt="What is Zephyr" />
+
+Medusa excelled at managing applications at runtime but left a glaring gap: the deployment process itself. Zephyr aims to fill this void by streamlining the entire deployment pipeline, from code to consumption.
+
+## Simplifying Complex Deployments
+
+In a traditional setup, deploying new services or variations of existing ones involves a time-consuming, manual process. You often find yourself juggling multiple tools just to get your code live. Zephyr eliminates this hassle, allowing you to focus on what really matters: building great applications.
+
+## Multi-Cloud and Multi-Region Deployments
+
+Setting up infrastructure across multiple clouds or regions is far from trivial. Each new repository or service adds another layer of complexity and overhead to your deployment infrastructure. Zephyr simplifies this by abstracting away the complexities, making multi-cloud and multi-region deployments as straightforward as single-environment setups.
+
+## Nested Package Management
+
+Consider the scenario where you need to update a package that's nested three layers deep in your dependency tree. Traditionally, this would require a cumbersome series of version bumps, installs, publishes, pull requests, and deployments. Zephyr streamlines this process, allowing you to update nested packages with ease.
+
+## Intent-Driven Infrastructure
+
+At its core, Zephyr is designed to be intent-driven. Whether you're looking to update a package, migrate to a new cloud provider, or spin up additional services, Zephyr automates these tasks based on your intent. It removes the friction often associated with infrastructure management, while still providing granular control over your private cloud.
+
+Zephyr aims to do for infrastructure management what Module Federation did for application runtime: make it simpler, more efficient, and less of a chore. It's about taking the pain out of the process and delivering a solution that "just works."
+
+## Implementing Superpositioning in CI/CD
+
+Zephyr's capabilities extend beyond infrastructure management to potentially revolutionize CI/CD processes through superpositioning. Traditional CI/CD management often requires constant upkeep and tends to be fragmented. Imagine applying superpositioning architecture solely to CI/CD. Leveraging the delivery mechanisms of Module Federation, Zephyr can dynamically stream CI commands or runner tasks/scripts to any available CI environment for workload execution and deployment.
+
+## Advanced Federation API Design
+
+The ongoing development of the Module Federation API introduces features that align well with this new approach, such as the 4-way handshake design. This feature allows the code being consumed to actively participate in the negotiation process between the consumer and the consumed. For instance, the prepareEnvironment hook could be repurposed in a CI context. Teams could use this hook to assess and confirm that an environment is fit to consume their code. If not, Zephyr can execute a CI command to allow teams to independently validate and prepare the environment.
+
+## Intelligent CI Processes
+
+If no preparation step is required, Zephyr can bypass it, instantly managing the runtime linking of dependencies. This "smart" CI capability allows Zephyr to dynamically adapt applications at build time. If permitted by the user, it can even trigger automatic redeployments.
+
+In essence, Zephyr aims to make CI/CD processes as dynamic and adaptable as the applications they build, offering a more streamlined, efficient, and intelligent approach to continuous integration and deployment.
+
+## Follow along to Zephyr
+
+We have announced our closed Alpha access, fill out our Zephyr Cloud early access form [here](https://app.zephyr-cloud.io).
