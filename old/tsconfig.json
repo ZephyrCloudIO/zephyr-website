@@ -10,6 +10,9 @@
       "@api/*": ["./api/lambda/*"]
     }
   },
-  "include": ["src", "shared", "config", "modern.config.ts", "image.d.ts"],
+  "include": ["src", "shared", "config",
+    "old/modern.config.ts",
+    "old/image.d.ts"
+  ],
   "exclude": ["**/node_modules"]
 }
