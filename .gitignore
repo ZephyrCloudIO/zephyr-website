@@ -1,37 +1,18 @@
+# Local
 .DS_Store
-
-.pnp
-.pnp.js
-.env
-.env.local
-.env.*.local
-.history
+*.local
 *.log*
 
-node_modules/
-.yarn-integrity
-.pnpm-store/
-*.tsbuildinfo
-.eslintcache
-.changeset/pre.json
-
+# Dist
+node_modules
 dist/
-coverage/
-release/
-output/
-output_resource/
-log/
+target/
+# Profile
+.rspack-profile-*/
 
-.vscode/**/*
-!.vscode/settings.json
+# IDE
+.vscode/*
 !.vscode/extensions.json
-.idea/
+.idea
 
-**/*/typings/auto-generated
-
-modern.config.local.*
-
-# Local Netlify folder
-.netlify
-
-
+.env

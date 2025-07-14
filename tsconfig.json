@@ -1,15 +1,27 @@
 {
-  "extends": "@modern-js/tsconfig/base",
   "compilerOptions": {
-    "declaration": false,
+    "lib": ["DOM", "ES2020"],
     "jsx": "react-jsx",
-    "baseUrl": "./",
+    "target": "ES2020",
+    "noEmit": true,
+    "skipLibCheck": true,
+    "useDefineForClassFields": true,
+
+    /* modules */
+    "module": "ESNext",
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+
+    /* type checking */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"],
-      "@shared/*": ["./shared/*"],
-      "@api/*": ["./api/lambda/*"]
+      "@/*": ["./src/*"]
     }
   },
-  "include": ["src", "shared", "config", "modern.config.ts", "image.d.ts"],
-  "exclude": ["**/node_modules"]
+  "include": ["src"]
 }

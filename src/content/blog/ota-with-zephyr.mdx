@@ -1,0 +1,102 @@
+---
+title: "Over the Air (OTA) updates with Zephyr"
+slug: "ota-with-zephyr"
+date: "2025-01-28"
+heroImage: "/images/blog/ota-with-zephyr/ota-hero.webp"
+listingImage: "/images/blog/ota-with-zephyr/ota-hero.webp"
+description: "Waiting for app store approvals to address critical bugs can be frustrating and time-consuming. By leveraging Zephyr Cloud you can do instant over-the-air updates to your users."
+authors: ["Rodrigo Yokota"]
+tags: ["mobile", "react-native", "deployment"]
+featured: false
+readingTime: 5
+---
+
+import otaUpdate from '@/images/blog/ota-with-zephyr/ota-update.webm'
+
+Waiting for app store approvals to address critical bugs can be frustrating and time-consuming. Nobody wants to roll back the app versions, and you can't imagine how it was missed when testing on TestFlight, but these things can happen. By leveraging Zephyr Cloud you can do instant over-the-air updates to your users.
+
+## The Problem with Traditional OTA Tools
+
+Traditional OTA providers have streamlined updates by simplifying the delivery of new features and bug fixes to users and a lot more custom code for OTA capability. However, they come with limitations that can hinder enterprise-level projects. These challenges include:
+
+- **Complex Dependency Management**: Visualizing and managing dependencies across large projects can be daunting;
+- **Rollback Limitations**: Rolling back updates quickly and safely can be challenging, especially for mission-critical applications;
+- **Provider Availability Reliance**: If the provider is unavailable, then your application will be outdated and unable to receive updates;
+
+For enterprise teams, these issues can lead to delays, inefficiencies, and risks to user experience. Zephyr Cloud was developed to address these pain points and empower teams with greater control, reliability, and independence.
+
+## What Makes Zephyr Cloud Unique
+
+Zephyr Cloud sets itself apart by addressing key shortcomings of traditional OTA tools, such as limited scalability, dependency management challenges, and slow rollback mechanisms, while providing features that go beyond these limitations:
+
+- **Dependency Visualization**: Gain clear insights into how your app's assets are structured and interrelated, helping teams optimize their builds;
+- **Module Federation Support**: Enable dynamic module loading for greater flexibility and scalability in managing updates;
+- **Fast Deployment and Rollback**: Deploy updates rapidly and roll back with confidence if issues arise;
+- **Versioning Control**: Manage multiple versions seamlessly, ensuring compatibility across devices and environments;
+- **Bring-your-own-cloud**: If one provider is down, you can always toggle on and off another cloud provider - as many as you want.
+
+## How Zephyr Cloud Works
+
+Zephyr Cloud integrates with React Native through an Rspack (or webpack) plugin, ensuring a seamless and efficient setup process.
+
+```javascript
+// rspack.config.js
+
+const { withZephyr } = require('zephyr-repack-plugin')
+
+const config = {
+  /** ...rspack configuration */
+};
+
+module.exports = withZephyr()(config);
+```
+
+By being tied to the build process, Zephyr can analyze and upload application assets and have them available in a matter of seconds, often outperforming traditional tools that may take several minutes or require additional manual steps to complete the same process. All of this locally, through a custom CI, or wherever you need it built. It is worth mentioning that Zephyr also offers integration with different Cloud Providers, so you would have control over your deployed applications and their assets.
+
+## OTA with Zephyr
+
+To accomplish OTA updates using Zephyr, a few key ingredients are needed:
+- A [React Native](https://reactnative.dev/) project;
+- [Repack](https://re-pack.dev/) plugin (to enable Rspack or Webpack);
+- [Module Federation](https://module-federation.io/) plugin (to split your project into updatable modules);
+- [Zephyr](https://github.com/ZephyrCloudIO/zephyr-packages/tree/master/libs/zephyr-repack-plugin) plugin (to deploy and manage the whole project);
+
+The idea behind this setup is to be able to leverage a Module Federation application that can be dynamically imported at runtime (remote app) by another application (host app). Through Zephyr you would be able to deploy, manage, roll back, and control versions and tag rulings to fit your project needs.
+
+```javascript
+// rspack.config.js
+
+const config = {
+  /** ...rspack configuration */
+  plugins: [
+    /**
+     * This plugin is necessary to make Module Federation work.
+     */
+    new Repack.plugins.ModuleFederationPluginV2({
+      /**
+       * The name of the module is used to identify the module in URLs resolver and imports.
+       */
+      name: 'MobileHost',
+      dts: false,
+      remotes: {
+        MobileCart: `MobileCart@https://mobile-cart-ze.io/MobileCart.js.bundle`,
+        MobileInventory: `MobileInventory@https://mobile-inventory-ze.io/MobileInventory.js.bundle`,
+        MobileCheckout: `MobileCheckout@https://mobile-checkout-ze.io/MobileCheckout.js.bundle`,
+        MobileOrders: `MobileOrders@https://mobile-orders-ze.io/MobileOrders.js.bundle`,
+      },
+    })
+  ]
+};
+```
+
+So, to break it down, your React Native project would need to be split into at least two applications, one being a shell application (host), responsible for calling other applications (remotes) that would be dynamically required and processed at runtime through Module Federation. Zephyr comes into play when the bundler starts working because then, by analyzing the build, it will deploy and make the module available. The last step is to configure an environment for the remote application on the Zephyr Cloud dashboard and have that set on your host Module Federation configuration.
+
+When all pieces are in place, you will have a shell application calling outside remotes and loading JavaScript modules that can be updated whenever you need, without the wait of a lengthy store approval.
+
+<video autoPlay loop muted>
+  <source src={otaUpdate} type="video/webm"/>
+</video>
+
+## True Value
+
+Now, Zephyr shines not only by providing an automated and manageable deployment process but also by enabling a great developer experience with tags and environments that are easy to configure and to help team collaboration and live coordination with blazing-fast deployments. Imagine production-simulated environments for automated testing, quick failed deployment rollbacks, fast fix patches, version and deployment history—all seamlessly enabled by Zephyr Cloud, offering unparalleled speed, control, and efficiency for your deployment process.

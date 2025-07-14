@@ -1,1 +1,1 @@
-declare const __INTERCOM_APP_ID__: string | undefined;
+/// <reference types="@rsbuild/core/types" />

@@ -1,3 +1,0 @@
-User-agent: *
-Allow: /
-Sitemap: https://docs.zephyr-cloud.io/sitemap.xml
