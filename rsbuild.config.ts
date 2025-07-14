@@ -23,6 +23,7 @@ const zephyrRsbuildPlugin = () => ({
 export default defineConfig({
   output: {
     copy: [
+      { from: 'public/favicon.ico', to: './favicon.ico' },
       { from: 'public/llms.txt', to: './llms.txt' },
       { from: 'public/robots.txt', to: './robots.txt' }
     ],
