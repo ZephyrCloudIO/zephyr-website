@@ -26,7 +26,12 @@ We've re-architected our UML graph visualization from scratch. The new engine, b
 
 ## Platform, Fixes, & DX Improvements
 
-We also shipped several other key updates. Our Intercom integration was converted into a microfrontend for better performance, and deployments will now automatically retry on certain propagation latency failures. On the bug-fix front, we resolved rendering issues in polyrepo graphs and corrected several edge cases in the new yearly subscription flow.
+We also shipped several key updates to improve stability and the developer experience. Here are the highlights:
+
+*   Deployments that fail due to CDN propagation latency will now automatically retry up to three times with exponential backoff, improving deployment success rates.
+*   Resolved a bug where graph edges would fail to render between services located in different repositories, which also caused node overlapping issues.
+*   Corrected a proration calculation error that occurred when switching from a monthly to a yearly plan mid-cycle.
+*   Converted our Intercom integration into a microfrontend, which reduces the main application's bundle size and improves in-app load times.
 
 ### What's Next
 
