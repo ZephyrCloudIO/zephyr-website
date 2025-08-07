@@ -33,12 +33,13 @@ jobs:
         run: |
           OUTPUT=$(pnpm run build)
           echo "$OUTPUT"
-          URL=$(echo "$OUTPUT" | grep -oE 'https://[^ ]+')
+          URL=$(echo "$OUTPUT" | grep -oE 'https://[^ ]+' | grep 'zephyr-cloud\.io' | tail -n1)
           VERSION=$(echo "$OUTPUT" | grep -oP 'ZEPHYR\s+\K\S+(?=#)')
           echo "Extracted Zephyr URL: $URL"
           echo "Extracted VERSION: $VERSION"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "url=$URL" >> "$GITHUB_OUTPUT"
+          OUTPUT=$(pnpm run build)
 
       - name: Run build for merged PR on main or development
         if: github.event.pull_request.merged == true &&
