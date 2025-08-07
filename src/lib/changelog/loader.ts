@@ -17,13 +17,13 @@ export interface MDXChangelogEntry {
 // Convert MDX metadata to ChangelogEntry format
 export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string): ChangelogEntry {
   const { metadata } = mdx;
-  
+
   // Derive slug from module key if not provided in metadata
   const slug = metadata.slug || moduleKey || '';
-  
+
   // Get images from the imported images if they exist
   const images = changelogImages[slug as keyof typeof changelogImages];
-  
+
   return {
     title: metadata.title,
     slug,
@@ -37,6 +37,7 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
 
 // Import all changelog entries
 const changelogModules: Record<string, () => Promise<MDXChangelogEntry>> = {
+  '2025-08-yearly-subscriptions': () => import('@/content/changelog/2025-08-yearly-subscriptions.mdx') as Promise<MDXChangelogEntry>,
   '2025-07-akamai-integration-audit-logs': () => import('@/content/changelog/2025-07-akamai-integration-audit-logs.mdx') as Promise<MDXChangelogEntry>,
   '2025-06-dependency-management': () => import('@/content/changelog/2025-06-dependency-management.mdx') as Promise<MDXChangelogEntry>,
   '2025-05-deployment-navigation': () => import('@/content/changelog/2025-05-deployment-navigation.mdx') as Promise<MDXChangelogEntry>,
@@ -55,7 +56,7 @@ export async function getAllChangelogEntries(): Promise<ChangelogEntry[]> {
         return mdxToChangelogEntry(module as MDXChangelogEntry, key);
       })
     );
-    
+
     // Sort by date, newest first
     return entries.sort((a, b) => b.date.getTime() - a.date.getTime());
   } catch (error) {
@@ -69,7 +70,7 @@ export async function getChangelogEntryBySlug(slug: string): Promise<ChangelogEn
   try {
     const modulePromise = changelogModules[slug];
     if (!modulePromise) return null;
-    
+
     const module = await modulePromise();
     return mdxToChangelogEntry(module as MDXChangelogEntry, slug);
   } catch (error) {
