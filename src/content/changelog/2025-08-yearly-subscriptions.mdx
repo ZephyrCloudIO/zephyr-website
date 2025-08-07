@@ -2,72 +2,39 @@
 title: "Yearly Subscriptions, UML Graphs & Platform Improvements"
 date: "2025-08-07"
 version: "Platform Update"
-summary: "Introducing yearly subscription plans, enhanced UML graph visualization with ReactFlow, and platform infrastructure improvements"
+summary: "Introducing annual plans, enhanced UML graph visualization with ReactFlow, and platform infrastructure improvements"
 tags: ["subscriptions", "billing", "uml", "visualization", "features", "platform", "dx"]
 category: "feature"
 author: "Zephyr Team"
 ---
 
-# Yearly Subscriptions, UML Graphs & Platform Improvements
+# Zephyr Cloud Updates: Yearly Plans & A Rebuilt Graph Engine
 
-We're excited to announce a comprehensive update that enhances the billing experience, developer tools, and platform infrastructure in Zephyr Cloud.
+This month's update brings two major changes to Zephyr Cloud: new yearly subscription plans to help you save, and a complete, ground-up rebuild of our UML graph engine for a massive leap in performance and capability.
 
-## New Subscription Improvements
+## Subscription & Billing Updates
 
-We've rolled out several improvements to make managing your subscription easier and more transparent:
+You can now switch your subscription to a yearly plan and save 15%. It’s the same service, just more cost-effective for long-term users. We also took this opportunity to refine the billing experience. Your seat count is now preserved when switching plans, and the UI provides a much clearer breakdown of used versus paid seats. The interface itself is now fully responsive and includes better input validation.
 
-### Clearer Yearly Plan Savings
-When choosing a yearly plan, you'll now see exactly how much you're saving in dollars — no more vague percentages.
+## UML Graph Engine Rebuilt
 
-### Improved Payment UI
-- **Fully responsive design**: Payment method cards now work seamlessly on mobile and desktop
-- **Clear visual cues**: Your current plan is highlighted so you always know where you stand
-- **Smart input validation**: Input fields include sensible limits to prevent accidental entries
+We've re-architected our UML graph visualization from scratch. The new engine, built on ReactFlow, is significantly faster and more flexible. This was a major undertaking involving a new dedicated API for fetching cross-project application links, which is the primary driver for the new speed. The result is a faster, more capable tool for debugging and understanding your architecture.
 
-### Simplified Seat Management
-- **Preserve your settings**: Switching plans? Your seat count is now automatically preserved
-- **Flexible downgrading**: A new "Force Downgrade" option lets you take immediate action with a confirmation step for safety
+*   The rendering logic is now decoupled from node/edge calculation for better maintainability.
+*   Incomplete nodes are now displayed to help you spot missing dependencies.
+*   The application details panel and layout styling have been updated for better navigation.
 
-## UML Graph Improvements
+## Platform, Fixes, & DX Improvements
 
-Visualizing applications and dependencies is now faster and more accurate than ever before.
+We also shipped several other key updates. Our Intercom integration was converted into a microfrontend for better performance, and deployments will now automatically retry on certain propagation latency failures. On the bug-fix front, we resolved rendering issues in polyrepo graphs and corrected several edge cases in the new yearly subscription flow.
 
-### What's New:
-- **Dedicated API endpoint**: Introduced a specialized graph API for fetching linked applications across organizations/projects
-- **ReactFlow-powered engine**: Brand new UML graph component built with ReactFlow for superior performance and flexibility
-- **Modular architecture**: Node/edge calculators separated from rendering logic for better maintainability
-- **Enhanced visibility**: Graph now displays incomplete nodes so you see the full picture
-- **Improved performance**: Enhanced layout styling and optimized rendering
-- **Better navigation**: Updated application details panel for easier exploration
+### What's Next
 
-### Benefits:
-- **Faster loading times**: Optimized data delivery means less waiting, more building
-- **Cross-organization insights**: See relationships across your entire infrastructure
-- **Cleaner interface**: Focus on what matters with improved styling and layout
-- **Better debugging**: Incomplete nodes help identify missing dependencies
+Here’s a brief look at what’s on our immediate roadmap:
 
-## Platform & Developer Experience
+*   A new, lower-priced Team plan
+*   Interactive graph filtering and search
+*   Custom graph layouts and export options
+*   More granular billing controls and usage analytics
 
-Beyond the major features above, we've made several improvements to enhance the development workflow:
-
-### Infrastructure Improvements
-- **Intercom integration**: Converted Intercom to a microfrontend for better modularity
-- **Plugin updates**: Upgraded the Zephyr plugin with the latest improvements and bug fixes
-
-## Bug Fixes & Improvements
-
-We've also addressed several issues to improve stability and performance:
-
-- **Polyrepo graph fixes**: Resolved issues with polyrepo graph visualization
-- **Yearly subscription adjustments**: Fixed edge cases in the new yearly subscription flow
-- **Affected Tags and Environments deployments**: A retry policy is now implemented in occasional tags/environments deployment failures due to points-of-presence latency in propagation
-
-## What's Next?
-
-We're continuing to enhance subscription management, visualization tools, and platform capabilities:
-- Advanced billing analytics and usage insights
-- Interactive graph filtering and search capabilities
-- Custom graph layouts and export options
-- More granular subscription controls
-
-Your feedback drives these improvements. Let us know what you'd like to see next!
+Your feedback is always welcome. Let us know what you'd like to see next.
