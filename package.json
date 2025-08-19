@@ -56,6 +56,9 @@
       "@tailwindcss/oxide",
       "core-js",
       "esbuild"
-    ]
+    ],
+    "overrides": {
+      "form-data": ">=4.0.4"
+    }
   }
 }
