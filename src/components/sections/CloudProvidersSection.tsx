@@ -37,13 +37,13 @@ const cloudProviders: CloudProvider[] = [
   },
   {
     name: "Akamai",
-    status: "eap",
+    status: "available",
     logo: akamai,
     docsLink: "https://docs.zephyr-cloud.io/cloud/akamai"
   },
   {
     name: "AWS",
-    status: "coming-soon",
+    status: "available",
     logo: aws
   },
   {
@@ -134,7 +134,7 @@ export const CloudProvidersSection: React.FC = () => {
                   "absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity",
                   "bg-gradient-to-t from-emerald-500/5 to-transparent pointer-events-none"
                 )} />
-                
+
                 {/* Docs Link Indicator */}
                 {provider.docsLink && (
                   <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -143,14 +143,14 @@ export const CloudProvidersSection: React.FC = () => {
                 )}
               </>
             );
-            
+
             const cardClasses = cn(
               "relative group rounded-lg p-6 border transition-all duration-300",
               "hover:border-neutral-700 hover:shadow-lg hover:shadow-emerald-500/5",
               provider.status === 'coming-soon' ? 'border-neutral-800/50' : 'border-neutral-800',
               provider.docsLink && "cursor-pointer"
             );
-            
+
             if (provider.docsLink) {
               return (
                 <a
@@ -164,7 +164,7 @@ export const CloudProvidersSection: React.FC = () => {
                 </a>
               );
             }
-            
+
             return (
               <div
                 key={provider.name}
