@@ -135,7 +135,7 @@ function BlogPostPage() {
           <MDXContent />
         </div>
 
-        {/* Author Info */}
+        {post.authors.length > 0 ? (
         <div className="mt-12 pt-8 border-t border-neutral-800">
           <h3 className="text-xl font-semibold mb-6">About the Authors</h3>
           <div className="space-y-6">
@@ -172,7 +172,8 @@ function BlogPostPage() {
               </div>
             ))}
           </div>
-        </div>
+        </div>) : ''
+        }
 
         {/* Share */}
         <div className="mt-12 flex items-center justify-between">
