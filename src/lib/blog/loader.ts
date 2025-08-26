@@ -112,6 +112,7 @@ const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
   'vibe-coding': () => import('@/content/blog/vibe-coding.mdx') as Promise<MDXBlogPost>,
   'week-3-runtime-ota': () => import('@/content/blog/week-3-runtime-ota.mdx') as Promise<MDXBlogPost>,
   'whos-your-cloud-daddy': () => import('@/content/blog/whos-your-cloud-daddy.mdx') as Promise<MDXBlogPost>,
+  'aws-byoc': () => import('@/content/blog/aws-byoc.mdx') as Promise<MDXBlogPost>,
 };
 
 // Get all blog posts
