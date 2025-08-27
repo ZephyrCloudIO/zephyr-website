@@ -15,6 +15,8 @@ import vibeCodingHeroImage from "@/images/blog/vibe-coding/vibe-coding.webp";
 import runtimeOtaHeroImage from "@/images/blog/runtime-ota/runtime-ota.webp";
 import whosYourCloudDaddyHeroImage from "@/images/blog/whos-your-cloud-daddy/cloud-daddy-hero.webp";
 import blogPostAwsHeroImage from '@/images/blog/aws-byoc/blog-post-aws.webp';
+import trueVenturesAiAuditHeroImage from '@/images/blog/true-ventures-ai-audit/preview.webp';
+import trueVenturesAiAuditListingImage from '@/images/blog/true-ventures-ai-audit/social-preview.webp';
 
 export const blogImages = {
   soc2: {
@@ -72,5 +74,9 @@ export const blogImages = {
   'aws-byoc': {
     heroImage: blogPostAwsHeroImage,
     listingImage: blogPostAwsHeroImage,
+  },
+  'true-ventures-ai-audit': {
+    heroImage: trueVenturesAiAuditHeroImage,
+    listingImage: trueVenturesAiAuditListingImage,
   },
 };
