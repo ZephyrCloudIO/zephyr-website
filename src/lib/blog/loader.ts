@@ -114,6 +114,8 @@ const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
   'whos-your-cloud-daddy': () => import('@/content/blog/whos-your-cloud-daddy.mdx') as Promise<MDXBlogPost>,
   'aws-byoc': () => import('@/content/blog/aws-byoc.mdx') as Promise<MDXBlogPost>,
   'geo': () => import('@/content/blog/geo.mdx') as Promise<MDXBlogPost>,
+   'dora-metrics': () => import('@/content/blog/dora-metrics.mdx') as Promise<MDXBlogPost>,
+    // 'geo': () => import('@/content/blog/geo.mdx') as Promise<MDXBlogPost>,
 };
 
 // Get all blog posts
