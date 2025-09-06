@@ -28,20 +28,6 @@ export interface Event {
 
 export const upcomingEvents: Event[] = [
   {
-    title: "React Universe",
-    date: "September 2-4, 2025",
-    location: "Wrocław, Poland",
-    timezone: "CET",
-    type: "conference",
-    description: "Explore the tools, techniques, and best practices not to be heard elsewhere.",
-    link: "https://ti.to/RUC/react-universe-conf-2025/discount/Zephyr20",
-    ctaText: "Get 20% Off Your Tickets",
-    featured: true,
-    attendees: 650,
-    speakers: ["Zack Chapple"],
-    thumbnail: reactUniverse
-  },
-  {
     title: "Global Software Architecture Summit",
     date: "October 13-15, 2025",
     time: "2:00 PM",
@@ -57,17 +43,46 @@ export const upcomingEvents: Event[] = [
   {
     title: "ViteConf Amsterdam",
     date: "October 9-10, 2025",
-    location: "Wrocław, Poland",
+    location: "Amsterdam, Netherlands",
     timezone: "CET",
     type: "conference",
     description: "The first ever in-person Vite Conference!",
     link: "https://viteconf.amsterdam/",
     attendees: 1000,
+    featured: true,
     speakers: ["Zack Chapple", "Dmitriy Shekhovtsov"]
   }
 ]
 
 export const pastEvents: Event[] = [
+  {
+    title: "React Universe",
+    date: "September 2-4, 2025",
+    location: "Wrocław, Poland",
+    timezone: "CET",
+    type: "conference",
+    description: "Explore the tools, techniques, and best practices not to be heard elsewhere.",
+    link: "https://ti.to/RUC/react-universe-conf-2025/discount/Zephyr20",
+    ctaText: "Get 20% Off Your Tickets",
+    isPast: true,
+    attendees: 650,
+    speakers: ["Zack Chapple"],
+    thumbnail: reactUniverse,
+    resources: [
+      {
+        icon: "Video",
+        text: "Watch Zack's Talk",
+        link: "https://www.youtube.com/live/eU0MGysA8oA?t=20423s",
+        external: true
+      },
+      {
+        icon: "Video",
+        text: "Watch Panel Discussion",
+        link: "https://www.youtube.com/live/eU0MGysA8oA?t=22125s",
+        external: true
+      }
+    ]
+  },
   {
     title: "RenderATL",
     date: "June 11-13, 2025",
