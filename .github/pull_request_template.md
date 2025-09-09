@@ -4,8 +4,7 @@
 
 ## How to test this PR?
 
-
 ## Checklist
 
-- [ ] I have added explaination of the changes I made
-- [ ] UI related: this PR has been visually reviewed for both web, mobile and tablet
+- [ ] I have added explanation of the changes I made
+- [ ] UI related: this PR has been visually reviewed for both web, mobile, and tablet

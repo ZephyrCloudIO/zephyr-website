@@ -8,6 +8,7 @@ import createZephyrAppsHeroImage from "@/images/blog/create-zephyr-apps/hero.web
 import infrastructurelessHeroImage from "@/images/blog/infrastructureless/hero.webp";
 import mobilefirstHeroImage from "@/images/blog/mobilefirst/hero.webp";
 import otaWithZephyrHeroImage from "@/images/blog/ota-with-zephyr/ota-hero.webp";
+import serveTimeHeroImage from '@/images/blog/serve-time/hero.webp';
 import sgwsCaseStudyHeroImage from "@/images/blog/sgws-case-study/case-study-sgws.webp";
 import teamFirstArchitectureHeroImage from "@/images/blog/the-team-first-architecture/the-team-first-architecture.webp";
 import threeSdlcsOneZephyrHeroImage from "@/images/blog/three-sdlcs-one-zephyr/three-sdlc-one-zephyr.svg";
@@ -15,8 +16,7 @@ import vibeCodingHeroImage from "@/images/blog/vibe-coding/vibe-coding.webp";
 import runtimeOtaHeroImage from "@/images/blog/runtime-ota/runtime-ota.webp";
 import whosYourCloudDaddyHeroImage from "@/images/blog/whos-your-cloud-daddy/cloud-daddy-hero.webp";
 import blogPostAwsHeroImage from '@/images/blog/aws-byoc/blog-post-aws.webp';
-import doraMetricsHeroImage from '@/images/blog/dora/preview.webp';
-import doraMetricsListingImage from '@/images/blog/dora/social-preview.webp';
+import doraMetricsHeroImage from '@/images/blog/dora-metrics/hero.webp';
 
 export const blogImages = {
   soc2: {
@@ -46,6 +46,10 @@ export const blogImages = {
   "ota-with-zephyr": {
     heroImage: otaWithZephyrHeroImage,
     listingImage: otaWithZephyrHeroImage,
+  },
+  "serve-time": {
+    heroImage: serveTimeHeroImage,
+    listingImage: serveTimeHeroImage,
   },
   "sgws-case-study": {
     heroImage: sgwsCaseStudyHeroImage,
@@ -77,6 +81,6 @@ export const blogImages = {
   },
   'dora-metrics': {
     heroImage: doraMetricsHeroImage,
-    listingImage: doraMetricsListingImage,
+    listingImage: doraMetricsHeroImage,
   },
 };
