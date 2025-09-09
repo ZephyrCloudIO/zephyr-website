@@ -37,6 +37,7 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
 
 // Import all changelog entries
 const changelogModules: Record<string, () => Promise<MDXChangelogEntry>> = {
+  '2025-09-performance-fixes': () => import('@/content/changelog/2025-09-performance-fixes.mdx') as Promise<MDXChangelogEntry>,
   '2025-08-yearly-subscriptions': () => import('@/content/changelog/2025-08-yearly-subscriptions.mdx') as Promise<MDXChangelogEntry>,
   '2025-07-akamai-integration-audit-logs': () => import('@/content/changelog/2025-07-akamai-integration-audit-logs.mdx') as Promise<MDXChangelogEntry>,
   '2025-06-dependency-management': () => import('@/content/changelog/2025-06-dependency-management.mdx') as Promise<MDXChangelogEntry>,
