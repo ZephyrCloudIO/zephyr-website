@@ -5,8 +5,7 @@ import aiE2eTestingListingImage from "@/images/blog/ai-e2e-testing/ai-testing-li
 import allThePipelinesHeroImage from "@/images/blog/all-the-pipelines/hero.svg";
 import blogPostAwsHeroImage from "@/images/blog/aws-byoc/blog-post-aws.webp";
 import createZephyrAppsHeroImage from "@/images/blog/create-zephyr-apps/hero.webp";
-import geoHeroImage from "@/images/blog/geo/preview.webp";
-import geoListingImage from "@/images/blog/geo/social-preview.webp";
+import geoHeroImage from "@/images/blog/generative-engine-optimization/hero.webp";
 import infrastructurelessHeroImage from "@/images/blog/infrastructureless/hero.webp";
 import mobilefirstHeroImage from "@/images/blog/mobilefirst/hero.webp";
 import otaWithZephyrHeroImage from "@/images/blog/ota-with-zephyr/ota-hero.webp";
@@ -81,8 +80,8 @@ export const blogImages = {
 		heroImage: blogPostAwsHeroImage,
 		listingImage: blogPostAwsHeroImage,
 	},
-	geo: {
+	"generative-engine-optimization": {
 		heroImage: geoHeroImage,
-		listingImage: geoListingImage,
+		listingImage: geoHeroImage,
 	},
 };

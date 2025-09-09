@@ -1,8 +1,7 @@
-import type { BlogPost } from './types';
-import type { Author } from './types';
 import * as authors from '@/data/blog/authors';
+import type { BlogTag } from "@/lib/blog/tags.ts";
 import { blogImages } from './images';
-import { BlogTag } from "@/lib/blog/tags.ts";
+import type { Author, BlogPost } from './types';
 
 // This will be populated with actual MDX imports
 // For now, we'll create a structure that can be easily extended
@@ -99,22 +98,41 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
 // Import all blog posts
 // We'll use a static import map for now, but this could be made dynamic with glob imports
 const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
-  'soc2': () => import('@/content/blog/soc2.mdx') as Promise<MDXBlogPost>,
-  'ai-e2e-testing': () => import('@/content/blog/ai-e2e-testing.mdx') as Promise<MDXBlogPost>,
-  'all-the-pipelines': () => import('@/content/blog/all-the-pipelines.mdx') as Promise<MDXBlogPost>,
-  'create-zephyr-apps': () => import('@/content/blog/create-zephyr-apps.mdx') as Promise<MDXBlogPost>,
-  'infrastructureless': () => import('@/content/blog/infrastructureless.mdx') as Promise<MDXBlogPost>,
-  'mobilefirst': () => import('@/content/blog/mobilefirst.mdx') as Promise<MDXBlogPost>,
-  'ota-with-zephyr': () => import('@/content/blog/ota-with-zephyr.mdx') as Promise<MDXBlogPost>,
-  'serve-time': () => import('@/content/blog/serve-time.mdx') as Promise<MDXBlogPost>,
-  'sgws-case-study': () => import('@/content/blog/sgws-case-study.mdx') as Promise<MDXBlogPost>,
-  'the-team-first-architecture': () => import('@/content/blog/the-team-first-architecture.mdx') as Promise<MDXBlogPost>,
-  'three-sdlcs-one-zephyr': () => import('@/content/blog/three-sdlcs-one-zephyr.mdx') as Promise<MDXBlogPost>,
-  'vibe-coding': () => import('@/content/blog/vibe-coding.mdx') as Promise<MDXBlogPost>,
-  'week-3-runtime-ota': () => import('@/content/blog/week-3-runtime-ota.mdx') as Promise<MDXBlogPost>,
-  'whos-your-cloud-daddy': () => import('@/content/blog/whos-your-cloud-daddy.mdx') as Promise<MDXBlogPost>,
-  'aws-byoc': () => import('@/content/blog/aws-byoc.mdx') as Promise<MDXBlogPost>,
-  'geo': () => import('@/content/blog/geo.mdx') as Promise<MDXBlogPost>,
+	soc2: () => import("@/content/blog/soc2.mdx") as Promise<MDXBlogPost>,
+	"ai-e2e-testing": () =>
+		import("@/content/blog/ai-e2e-testing.mdx") as Promise<MDXBlogPost>,
+	"all-the-pipelines": () =>
+		import("@/content/blog/all-the-pipelines.mdx") as Promise<MDXBlogPost>,
+	"create-zephyr-apps": () =>
+		import("@/content/blog/create-zephyr-apps.mdx") as Promise<MDXBlogPost>,
+	infrastructureless: () =>
+		import("@/content/blog/infrastructureless.mdx") as Promise<MDXBlogPost>,
+	mobilefirst: () =>
+		import("@/content/blog/mobilefirst.mdx") as Promise<MDXBlogPost>,
+	"ota-with-zephyr": () =>
+		import("@/content/blog/ota-with-zephyr.mdx") as Promise<MDXBlogPost>,
+	"serve-time": () =>
+		import("@/content/blog/serve-time.mdx") as Promise<MDXBlogPost>,
+	"sgws-case-study": () =>
+		import("@/content/blog/sgws-case-study.mdx") as Promise<MDXBlogPost>,
+	"the-team-first-architecture": () =>
+		import(
+			"@/content/blog/the-team-first-architecture.mdx"
+		) as Promise<MDXBlogPost>,
+	"three-sdlcs-one-zephyr": () =>
+		import("@/content/blog/three-sdlcs-one-zephyr.mdx") as Promise<MDXBlogPost>,
+	"vibe-coding": () =>
+		import("@/content/blog/vibe-coding.mdx") as Promise<MDXBlogPost>,
+	"week-3-runtime-ota": () =>
+		import("@/content/blog/week-3-runtime-ota.mdx") as Promise<MDXBlogPost>,
+	"whos-your-cloud-daddy": () =>
+		import("@/content/blog/whos-your-cloud-daddy.mdx") as Promise<MDXBlogPost>,
+	"aws-byoc": () =>
+		import("@/content/blog/aws-byoc.mdx") as Promise<MDXBlogPost>,
+	"generative-engine-optimization": () =>
+		import(
+			"@/content/blog/generative-engine-optimization.mdx"
+		) as Promise<MDXBlogPost>,
 };
 
 // Get all blog posts
