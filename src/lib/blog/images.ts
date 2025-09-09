@@ -14,6 +14,7 @@ import threeSdlcsOneZephyrHeroImage from "@/images/blog/three-sdlcs-one-zephyr/t
 import vibeCodingHeroImage from "@/images/blog/vibe-coding/vibe-coding.webp";
 import runtimeOtaHeroImage from "@/images/blog/runtime-ota/runtime-ota.webp";
 import whosYourCloudDaddyHeroImage from "@/images/blog/whos-your-cloud-daddy/cloud-daddy-hero.webp";
+import geoHeroImage from '@/images/blog/generative-engine-optimization/hero.webp';
 
 export const blogImages = {
   soc2: {
@@ -67,5 +68,9 @@ export const blogImages = {
   "whos-your-cloud-daddy": {
     heroImage: whosYourCloudDaddyHeroImage,
     listingImage: whosYourCloudDaddyHeroImage,
+  },
+  'generative-engine-optimization': {
+    heroImage: geoHeroImage,
+    listingImage: geoHeroImage,
   },
 };
