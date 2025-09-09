@@ -1,5 +1,5 @@
 import * as authors from '@/data/blog/authors';
-import type { BlogTag } from "@/lib/blog/tags.ts";
+import type { BlogTag } from '@/lib/blog/tags.ts';
 import { blogImages } from './images';
 import type { Author, BlogPost } from './types';
 
@@ -58,7 +58,7 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
     }
   } else if (metadata.authors && Array.isArray(metadata.authors)) {
     authorsList = metadata.authors
-      .map(author => {
+      .map((author) => {
         if (typeof author === 'string') {
           return authorMap[author];
         } else if (author && typeof author === 'object' && 'id' in author) {
@@ -66,12 +66,12 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
           const authorId = author.id;
           // Map common author IDs to full names
           const idToName: Record<string, string> = {
-            'zack': 'Zack Chapple',
-            'zackj': 'Zack Jackson',
-            'shane': 'Shane Walker',
-            'lois': 'Lois Zhao',
-            'nestor': 'Néstor',
-            'rodrigo': 'Rodrigo',
+            zack: 'Zack Chapple',
+            zackj: 'Zack Jackson',
+            shane: 'Shane Walker',
+            lois: 'Lois Zhao',
+            nestor: 'Néstor',
+            rodrigo: 'Rodrigo',
           };
           const authorName = idToName[authorId] || authorId;
           return authorMap[authorName];
@@ -98,41 +98,22 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
 // Import all blog posts
 // We'll use a static import map for now, but this could be made dynamic with glob imports
 const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
-	soc2: () => import("@/content/blog/soc2.mdx") as Promise<MDXBlogPost>,
-	"ai-e2e-testing": () =>
-		import("@/content/blog/ai-e2e-testing.mdx") as Promise<MDXBlogPost>,
-	"all-the-pipelines": () =>
-		import("@/content/blog/all-the-pipelines.mdx") as Promise<MDXBlogPost>,
-	"create-zephyr-apps": () =>
-		import("@/content/blog/create-zephyr-apps.mdx") as Promise<MDXBlogPost>,
-	infrastructureless: () =>
-		import("@/content/blog/infrastructureless.mdx") as Promise<MDXBlogPost>,
-	mobilefirst: () =>
-		import("@/content/blog/mobilefirst.mdx") as Promise<MDXBlogPost>,
-	"ota-with-zephyr": () =>
-		import("@/content/blog/ota-with-zephyr.mdx") as Promise<MDXBlogPost>,
-	"serve-time": () =>
-		import("@/content/blog/serve-time.mdx") as Promise<MDXBlogPost>,
-	"sgws-case-study": () =>
-		import("@/content/blog/sgws-case-study.mdx") as Promise<MDXBlogPost>,
-	"the-team-first-architecture": () =>
-		import(
-			"@/content/blog/the-team-first-architecture.mdx"
-		) as Promise<MDXBlogPost>,
-	"three-sdlcs-one-zephyr": () =>
-		import("@/content/blog/three-sdlcs-one-zephyr.mdx") as Promise<MDXBlogPost>,
-	"vibe-coding": () =>
-		import("@/content/blog/vibe-coding.mdx") as Promise<MDXBlogPost>,
-	"week-3-runtime-ota": () =>
-		import("@/content/blog/week-3-runtime-ota.mdx") as Promise<MDXBlogPost>,
-	"whos-your-cloud-daddy": () =>
-		import("@/content/blog/whos-your-cloud-daddy.mdx") as Promise<MDXBlogPost>,
-	"aws-byoc": () =>
-		import("@/content/blog/aws-byoc.mdx") as Promise<MDXBlogPost>,
-	"generative-engine-optimization": () =>
-		import(
-			"@/content/blog/generative-engine-optimization.mdx"
-		) as Promise<MDXBlogPost>,
+  'soc2': () => import('@/content/blog/soc2.mdx') as Promise<MDXBlogPost>,
+  'ai-e2e-testing': () => import('@/content/blog/ai-e2e-testing.mdx') as Promise<MDXBlogPost>,
+  'all-the-pipelines': () => import('@/content/blog/all-the-pipelines.mdx') as Promise<MDXBlogPost>,
+  'create-zephyr-apps': () => import('@/content/blog/create-zephyr-apps.mdx') as Promise<MDXBlogPost>,
+  'infrastructureless': () => import('@/content/blog/infrastructureless.mdx') as Promise<MDXBlogPost>,
+  'mobilefirst': () => import('@/content/blog/mobilefirst.mdx') as Promise<MDXBlogPost>,
+  'ota-with-zephyr': () => import('@/content/blog/ota-with-zephyr.mdx') as Promise<MDXBlogPost>,
+  'serve-time': () => import('@/content/blog/serve-time.mdx') as Promise<MDXBlogPost>,
+  'sgws-case-study': () => import('@/content/blog/sgws-case-study.mdx') as Promise<MDXBlogPost>,
+  'the-team-first-architecture': () => import('@/content/blog/the-team-first-architecture.mdx') as Promise<MDXBlogPost>,
+  'three-sdlcs-one-zephyr': () => import('@/content/blog/three-sdlcs-one-zephyr.mdx') as Promise<MDXBlogPost>,
+  'vibe-coding': () => import('@/content/blog/vibe-coding.mdx') as Promise<MDXBlogPost>,
+  'week-3-runtime-ota': () => import('@/content/blog/week-3-runtime-ota.mdx') as Promise<MDXBlogPost>,
+  'whos-your-cloud-daddy': () => import('@/content/blog/whos-your-cloud-daddy.mdx') as Promise<MDXBlogPost>,
+  'aws-byoc': () => import('@/content/blog/aws-byoc.mdx') as Promise<MDXBlogPost>,
+  'generative-engine-optimization': () => import('@/content/blog/generative-engine-optimization.mdx') as Promise<MDXBlogPost>,
 };
 
 // Get all blog posts
@@ -170,13 +151,13 @@ export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> 
 // Get blog posts by tag
 export async function getBlogPostsByTag(tag: BlogTag): Promise<BlogPost[]> {
   const allPosts = await getAllBlogPosts();
-  return allPosts.filter(post => post.tags.includes(tag));
+  return allPosts.filter((post) => post.tags.includes(tag));
 }
 
 // Get featured blog posts
 export async function getFeaturedBlogPosts(): Promise<BlogPost[]> {
   const allPosts = await getAllBlogPosts();
-  return allPosts.filter(post => post.featured);
+  return allPosts.filter((post) => post.featured);
 }
 
 // Get latest blog posts (for home page)
@@ -190,9 +171,10 @@ export async function searchBlogPosts(query: string): Promise<BlogPost[]> {
   const allPosts = await getAllBlogPosts();
   const lowercaseQuery = query.toLowerCase();
 
-  return allPosts.filter(post =>
-    post.title.toLowerCase().includes(lowercaseQuery) ||
-    post.description.toLowerCase().includes(lowercaseQuery) ||
-    post.tags.some(tag => tag.includes(lowercaseQuery))
+  return allPosts.filter(
+    (post) =>
+      post.title.toLowerCase().includes(lowercaseQuery) ||
+      post.description.toLowerCase().includes(lowercaseQuery) ||
+      post.tags.some((tag) => tag.includes(lowercaseQuery))
   );
 }
