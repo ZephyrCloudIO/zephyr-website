@@ -106,12 +106,14 @@ const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
   'infrastructureless': () => import('@/content/blog/infrastructureless.mdx') as Promise<MDXBlogPost>,
   'mobilefirst': () => import('@/content/blog/mobilefirst.mdx') as Promise<MDXBlogPost>,
   'ota-with-zephyr': () => import('@/content/blog/ota-with-zephyr.mdx') as Promise<MDXBlogPost>,
+  'serve-time': () => import('@/content/blog/serve-time.mdx') as Promise<MDXBlogPost>,
   'sgws-case-study': () => import('@/content/blog/sgws-case-study.mdx') as Promise<MDXBlogPost>,
   'the-team-first-architecture': () => import('@/content/blog/the-team-first-architecture.mdx') as Promise<MDXBlogPost>,
   'three-sdlcs-one-zephyr': () => import('@/content/blog/three-sdlcs-one-zephyr.mdx') as Promise<MDXBlogPost>,
   'vibe-coding': () => import('@/content/blog/vibe-coding.mdx') as Promise<MDXBlogPost>,
   'week-3-runtime-ota': () => import('@/content/blog/week-3-runtime-ota.mdx') as Promise<MDXBlogPost>,
   'whos-your-cloud-daddy': () => import('@/content/blog/whos-your-cloud-daddy.mdx') as Promise<MDXBlogPost>,
+  'aws-byoc': () => import('@/content/blog/aws-byoc.mdx') as Promise<MDXBlogPost>,
   'generative-engine-optimization': () => import('@/content/blog/generative-engine-optimization.mdx') as Promise<MDXBlogPost>,
 };
 
