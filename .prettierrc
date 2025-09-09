@@ -1,7 +1,5 @@
 {
   "singleQuote": true,
   "trailingComma": "es5",
-  "printWidth": 10,
-  "tabWidth": 2,
-  "quoteProps": "consistent"
+  "tabWidth": 2
 }
