@@ -1,6 +1,6 @@
 declare module '*.mdx' {
   import type { MDXProps } from 'mdx/types';
-  
+
   export const metadata: {
     title?: string;
     date?: string;
@@ -8,6 +8,6 @@ declare module '*.mdx' {
     authors?: string[];
     tags?: string[];
   };
-  
+
   export default function MDXContent(props: MDXProps): JSX.Element;
 }

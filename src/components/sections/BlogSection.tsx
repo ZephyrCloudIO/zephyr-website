@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { Link } from "@tanstack/react-router";
-import { Card, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { getLatestBlogPosts } from "@/lib/blog/loader";
-import type { BlogPost } from "@/lib/blog/types";
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
+import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { getLatestBlogPosts } from '@/lib/blog/loader';
+import type { BlogPost } from '@/lib/blog/types';
+import { Link } from '@tanstack/react-router';
+import React, { useEffect, useState } from 'react';
 
 export const BlogSection: React.FC = () => {
   const [posts, setPosts] = useState<BlogPost[]>([]);
@@ -18,12 +18,15 @@ export const BlogSection: React.FC = () => {
   return (
     <section className="py-20 md:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-semibold text-white mb-4">
-          Keep tabs on what we're shipping
-        </h2>
+        <h2 className="text-center text-3xl font-semibold text-white mb-4">Keep tabs on what we're shipping</h2>
         <p className="text-center mb-12">
-          Follow us on{" "}
-          <a href="https://x.com/ZephyrCloudIO" target="_blank" rel="noopener" className="text-emerald-700 hover:underline">
+          Follow us on{' '}
+          <a
+            href="https://x.com/ZephyrCloudIO"
+            target="_blank"
+            rel="noopener"
+            className="text-emerald-700 hover:underline"
+          >
             X
           </a>
           .
@@ -35,10 +38,7 @@ export const BlogSection: React.FC = () => {
         ) : posts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {posts.map((post) => (
-              <Card
-                key={post.slug}
-                className="bg-neutral-900 border-neutral-400 text-neutral-300 flex flex-col"
-              >
+              <Card key={post.slug} className="bg-neutral-900 border-neutral-400 text-neutral-300 flex flex-col">
                 <CardHeader>
                   <CardTitle className="text-lg text-white hover:text-emerald-700 transition-colors">
                     <Link to={`/blog/${post.slug}`}>{post.title}</Link>
@@ -53,9 +53,7 @@ export const BlogSection: React.FC = () => {
                       <>
                         <Avatar className="w-6 h-6">
                           <AvatarImage src={post.authors[0].avatar} />
-                          <AvatarFallback>
-                            {post.authors[0].displayName.substring(0, 1)}
-                          </AvatarFallback>
+                          <AvatarFallback>{post.authors[0].displayName.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                         <div>
                           <span className="text-white block">{post.authors[0].displayName}</span>
@@ -63,7 +61,7 @@ export const BlogSection: React.FC = () => {
                             {post.date.toLocaleDateString('en-US', {
                               month: 'short',
                               day: 'numeric',
-                              year: 'numeric'
+                              year: 'numeric',
                             })}
                           </span>
                         </div>

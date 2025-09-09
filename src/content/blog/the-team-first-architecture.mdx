@@ -1,32 +1,32 @@
 ---
-title: "The Team-first architecture"
-slug: "the-team-first-architecture"
-date: "2025-01-29"
-heroImage: "/images/blog/the-team-first-architecture/the-team-first-architecture.webp"
-listingImage: "/images/blog/the-team-first-architecture/the-team-first-architecture.webp"
-description: "The landscape of React Native development is evolving rapidly. As apps grow more complex and teams expand, traditional monolithic architectures often become a bottleneck for team productivity."
-authors: ["Néstor López"]
-tags: ["architecture", "mobile", "react-native"]
+title: 'The Team-first architecture'
+slug: 'the-team-first-architecture'
+date: '2025-01-29'
+heroImage: '/images/blog/the-team-first-architecture/the-team-first-architecture.webp'
+listingImage: '/images/blog/the-team-first-architecture/the-team-first-architecture.webp'
+description: 'The landscape of React Native development is evolving rapidly. As apps grow more complex and teams expand, traditional monolithic architectures often become a bottleneck for team productivity.'
+authors: ['Néstor López']
+tags: ['architecture', 'mobile', 'react-native']
 featured: false
 readingTime: 5
 ---
 
-import team1 from '@/images/blog/the-team-first-architecture/rn-team-1.webp'
-import team2 from '@/images/blog/the-team-first-architecture/rn-team-2.webp'
-import oldFlow from '@/images/blog/the-team-first-architecture/old-flow.webp'
-import newFlow from '@/images/blog/the-team-first-architecture/new-flow.webp'
+import team1 from '@/images/blog/the-team-first-architecture/rn-team-1.webp';
+import team2 from '@/images/blog/the-team-first-architecture/rn-team-2.webp';
+import oldFlow from '@/images/blog/the-team-first-architecture/old-flow.webp';
+import newFlow from '@/images/blog/the-team-first-architecture/new-flow.webp';
 
 The landscape of React Native development is evolving rapidly, particularly when it comes to building and maintaining **large-scale applications**.
 
-As our apps grow more complex and our teams expand, we've found that traditional monolithic architectures often become a *bottleneck* for team productivity.
+As our apps grow more complex and our teams expand, we've found that traditional monolithic architectures often become a _bottleneck_ for team productivity.
 
-That's why at **Zephyr Cloud**, we've created a platform that makes it easy to implement [*module federation*](https://module-federation.io) with a mini-apps architecture, providing a foundation that puts **teams first**.
+That's why at **Zephyr Cloud**, we've created a platform that makes it easy to implement [_module federation_](https://module-federation.io) with a mini-apps architecture, providing a foundation that puts **teams first**.
 
 ## The Architecture That Scales With Your Team
 
 The foundation is your **shell application**, which serves as the main container. Each shell consumes other apps and shows them inside its container. This is a great pattern, because you might have different shells displaying the same remote app.
 
-Think of it as the *command center* of your application – it handles the core responsibilities like user authentication or permission management.
+Think of it as the _command center_ of your application – it handles the core responsibilities like user authentication or permission management.
 
 Our platform is specifically designed to manage this orchestration, making it seamless to deploy and update your shell application while maintaining its crucial role as the coordinator for all your mini apps.
 
@@ -38,21 +38,21 @@ We take the complexity out of managing these modules – when a user needs acces
 
 ## Development at the Speed of Thought
 
-React Native developers are familiar with the power of **Fast Refresh** and the convenience of *Expo's* development workflow.
+React Native developers are familiar with the power of **Fast Refresh** and the convenience of _Expo's_ development workflow.
 
-While *Expo* revolutionized how we test React Native apps through QR codes and live updates, we're taking this concept further for production-grade applications.
+While _Expo_ revolutionized how we test React Native apps through QR codes and live updates, we're taking this concept further for production-grade applications.
 
-<img src={oldFlow} alt='Old dev flow' />
+<img src={oldFlow} alt="Old dev flow" />
 
-We've built **Zephyr integration** specifically around [*Re.Pack*](https://github.com/callstack/repack), Callstack's webpack-based bundler for React Native that brings module federation to mobile development.
+We've built **Zephyr integration** specifically around [_Re.Pack_](https://github.com/callstack/repack), Callstack's webpack-based bundler for React Native that brings module federation to mobile development.
 
-This choice wasn't just about bundling – it's about enabling *true micro-frontend architecture* in the mobile space. While other solutions might bundle your code, **Re.Pack's module federation** capabilities allow us to create truly independent, dynamically loadable mini apps.
+This choice wasn't just about bundling – it's about enabling _true micro-frontend architecture_ in the mobile space. While other solutions might bundle your code, **Re.Pack's module federation** capabilities allow us to create truly independent, dynamically loadable mini apps.
 
 Every time you save a change and **Fast Refresh** kicks in, we can automatically (it's optional!) create a new version of your mini app in milliseconds.
 
 This means you're not just seeing changes on your local simulator or device – you're getting a real, deployable version that can be shared with your team instantly, complete with module federation support.
 
-<img src={newFlow} alt='New dev flow' />
+<img src={newFlow} alt="New dev flow" />
 
 Imagine making a change to your payment module in your React Native app, and before you've even switched to your test device, that change is already deployed to a shareable URL.
 
@@ -62,13 +62,13 @@ Your QA team can test the new feature on real devices while you continue develop
 
 Imagine an e-commerce application where different teams need to work on various features simultaneously.
 
-<img src={team1} alt='Team 1 image' />
+<img src={team1} alt="Team 1 image" />
 
 The **payments team** needs to update security features, the **product team** wants to modify the catalog views, and the **cart team** is optimizing the checkout flow.
 
-In a traditional architecture, these changes would require careful coordination to avoid conflicts. But with our platform, *each team operates independently* within their own mini app.
+In a traditional architecture, these changes would require careful coordination to avoid conflicts. But with our platform, _each team operates independently_ within their own mini app.
 
-<img src={team2} alt='Team 2 image' />
+<img src={team2} alt="Team 2 image" />
 
 The **core team** maintains the shell application, ensuring the fundamental infrastructure remains stable and efficient.
 
@@ -80,13 +80,13 @@ In a traditional development environment, having multiple teams working on diffe
 
 **Zephyr** transforms this dynamic by providing clear boundaries and ownership through small digestible pieces.
 
-Each team has *complete autonomy* over their domain while maintaining visibility into the larger system.
+Each team has _complete autonomy_ over their domain while maintaining visibility into the larger system.
 
 For example, when the payments team needs to implement a major update, they can communicate their timeline and changes to other teams while continuing to work independently.
 
 Our platform's versioning system and deployment workflows naturally create documentation of changes and team decisions, reducing the need for constant meetings and discussions.
 
-This structure has helped our clients move away from the *"everyone needs to know everything"* approach that often slows down large teams.
+This structure has helped our clients move away from the _"everyone needs to know everything"_ approach that often slows down large teams.
 
 ## Real Impact on Team Productivity
 

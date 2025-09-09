@@ -1,7 +1,9 @@
 # Image Converter Update Plan
 
 ## Current State Analysis
+
 The image-converter (imgc) project is a well-structured Rust CLI tool for converting images to WebP format. It uses:
+
 - Rust edition 2021
 - image crate v0.25
 - webp crate v0.3
@@ -11,7 +13,9 @@ The image-converter (imgc) project is a well-structured Rust CLI tool for conver
 ## Recommended Updates
 
 ### 1. Dependency Updates
+
 The project dependencies are already at recent stable versions:
+
 - **clap 4.5**: Current and stable
 - **image 0.25**: Latest stable version (0.25.6)
 - **rayon 1.10**: Current version
@@ -19,12 +23,14 @@ The project dependencies are already at recent stable versions:
 - **glob 0.3**: Stable and sufficient
 
 ### 2. Rust Version
+
 - Current: Edition 2021 (good)
 - Recommendation: Add `rust-version = "1.70.0"` to Cargo.toml for MSRV (Minimum Supported Rust Version)
 
 ### 3. Feature Improvements
 
 #### a. Additional Format Support
+
 ```rust
 // Add more output formats beyond WebP
 enum OutputFormat {
@@ -36,6 +42,7 @@ enum OutputFormat {
 ```
 
 #### b. Compression Options
+
 ```rust
 // Add quality and compression settings
 struct CompressionOptions {
@@ -46,12 +53,14 @@ struct CompressionOptions {
 ```
 
 #### c. Image Processing Features
+
 - Resize operations
 - Auto-rotation based on EXIF
 - Batch optimization (not just conversion)
 - Format detection improvements
 
 #### d. Performance Enhancements
+
 - Progress bars for batch operations
 - Memory usage optimization for large images
 - Streaming support for very large files
@@ -59,17 +68,18 @@ struct CompressionOptions {
 ### 4. Code Quality Improvements
 
 #### a. Testing
+
 ```rust
 // Add comprehensive tests
 #[cfg(test)]
 mod tests {
     use super::*;
-    
+
     #[test]
     fn test_webp_conversion() {
         // Test conversion logic
     }
-    
+
     #[test]
     fn test_format_detection() {
         // Test format detection
@@ -78,11 +88,13 @@ mod tests {
 ```
 
 #### b. Error Handling
+
 - More specific error types
 - Better error messages for users
 - Retry logic for transient failures
 
 #### c. Documentation
+
 - Add examples directory with sample images
 - Improve inline documentation
 - Add benchmarks
@@ -90,11 +102,13 @@ mod tests {
 ### 5. New Features to Consider
 
 #### a. Watch Mode
+
 ```bash
 imgc watch "input/*.jpg" --format webp --output output/
 ```
 
 #### b. Configuration File
+
 ```toml
 # .imgc.toml
 [defaults]
@@ -108,12 +122,14 @@ quality = 70
 ```
 
 #### c. Plugin System
+
 - Allow custom filters/processors
 - Support for custom formats via plugins
 
 ### 6. Modern Rust Patterns
 
 #### a. Use newer async features for I/O
+
 ```rust
 use tokio::fs;
 use futures::stream::{self, StreamExt};
@@ -128,6 +144,7 @@ async fn convert_async(paths: Vec<PathBuf>) {
 ```
 
 #### b. Builder pattern for complex operations
+
 ```rust
 let conversion = ImageConversion::builder()
     .input("*.jpg")
@@ -135,13 +152,14 @@ let conversion = ImageConversion::builder()
     .quality(85)
     .parallel(true)
     .build()?;
-    
+
 conversion.execute().await?;
 ```
 
 ### 7. CI/CD and Distribution
 
 #### a. GitHub Actions
+
 ```yaml
 name: Release
 on:
@@ -165,6 +183,7 @@ jobs:
 ```
 
 #### b. Distribution
+
 - Publish to crates.io
 - Homebrew formula
 - AUR package
@@ -194,12 +213,14 @@ jobs:
 ## Completed Updates
 
 ### New Commands Added:
+
 1. **webp** - Enhanced with quality (-q) and lossless (-l) options
 2. **png** - Convert images to PNG format
 3. **jpeg** - Convert images to JPEG format with quality control
 4. **resize** - Resize images with aspect ratio preservation
 
 ### Features Implemented:
+
 - Quality control for lossy formats (WebP, JPEG)
 - Lossless compression option for WebP
 - Progress bars for batch operations (can be disabled with --no-progress)
@@ -217,6 +238,7 @@ jobs:
 ## Conclusion
 
 The project is already well-structured and uses modern Rust practices. The main areas for improvement are:
+
 - Adding more image format support (especially AVIF)
 - Providing more control over compression settings
 - Adding tests and documentation

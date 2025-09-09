@@ -1,5 +1,5 @@
+import { formatCapability, formatPartnerType, partners } from '@/data/partners';
 import { createFileRoute } from '@tanstack/react-router';
-import { partners, formatPartnerType, formatCapability } from '@/data/partners';
 
 export const Route = createFileRoute('/partners')({
   component: PartnersPage,
@@ -13,7 +13,8 @@ function PartnersPage() {
         <div className="mb-16">
           <h1 className="text-5xl font-bold mb-4">Partners</h1>
           <p className="text-xl text-neutral-400">
-            Everything is better with friends. Check out these Zephyr Cloud partners for the best experience when building.
+            Everything is better with friends. Check out these Zephyr Cloud partners for the best experience when
+            building.
           </p>
         </div>
 

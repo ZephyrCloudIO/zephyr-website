@@ -1,13 +1,13 @@
 ---
-title: "My Neck, My Back, My Updates and My App"
-slug: "week-3-runtime-ota"
-publishedAt: "2025-04-25"
-excerpt: "Deploy to anywhere. Update without quiting. With our new React Native Runtime SDK."
-author: "Lois Zhao"
-tags: ["launch-week", "mobile", "react-native"]
+title: 'My Neck, My Back, My Updates and My App'
+slug: 'week-3-runtime-ota'
+publishedAt: '2025-04-25'
+excerpt: 'Deploy to anywhere. Update without quiting. With our new React Native Runtime SDK.'
+author: 'Lois Zhao'
+tags: ['launch-week', 'mobile', 'react-native']
 ---
 
-import Mariner6 from '../../images/blog/runtime-ota/mariner6.webp'
+import Mariner6 from '../../images/blog/runtime-ota/mariner6.webp';
 
 Deploy to anywhere. Update without quiting. With our new React Native Runtime SDK.
 
@@ -15,14 +15,17 @@ Deploy to anywhere. Update without quiting. With our new React Native Runtime SD
 
 NASA's Mariner 6 and Mariner 7 missions to Mars in 1969 marked the first use of over-the-air updates. Mariner 7 lost contact and sustained camera damage during the journey, jeopardizing its mission to send images back to Earth. However, ground crews were able to reprogram the software in-flight, restoring communication and enabling the transmission of Martian images. [Throughout their mission, both Mariner 6 and Mariner 7 received numerous software updates via ground commands, showcasing the adaptability of in-flight programming to address unforeseen circumstances](https://nssdc.gsfc.nasa.gov/planetary/mars/mariner.html). [By the time Voyager launched in 1977, in-flight programming had become a routine operation](https://ntrs.nasa.gov/api/citations/19880069935/downloads/19880069935_Optimized.pdf).
 
-<img src={Mariner6} alt="Mariner 6 and Mariner 7 missions to Mars" style={{width: '100%', height: 'auto', display: 'block', margin: '2rem auto'}}/>
-
+<img
+  src={Mariner6}
+  alt="Mariner 6 and Mariner 7 missions to Mars"
+  style={{ width: '100%', height: 'auto', display: 'block', margin: '2rem auto' }}
+/>
 
 With the acceleration of cellular network advancement, over-the-air firmware updates became available in the 1990s while it was still in its infancy. It's also not impossible to separate a section of binaries and exclude them from the boot loading process [at the current time for embedded Linux and Android systems](https://antmicro.com/blog/2022/07/ota-updates-for-embedded-linux-and-android-systems/). [You can see the long-tailed discussion for "What's the state of art in OTA" on Reddit](https://www.reddit.com/r/embedded/comments/ob0e4c/firmware_update_overtheair_what_is_the_state_of/) or try to google "Incremental firmware update".
 
 Both [Tesla](https://www.wired.com/2016/09/tesla-software-version-8-autopilot-user-interface/), [Mercedes](https://www.extremetech.com/extreme/125621-mercedes-benz-over-the-air-car-updates), and BMW started to incorporate in-flight software updates to reduce the need for customers to go to service stations since 2012\.
 
-> *Maybe the most remarkable thing about the update is that it simply shows up on the car, like an over-the-air update to your smartphone. No visit to the dealer, no wishing you'd waited to buy your car until the latest version hit the market. This means your car gets better over time, and [recalls get way easier](https://www.wired.com/2015/08/researchers-hacked-model-s-teslas-already).*
+> _Maybe the most remarkable thing about the update is that it simply shows up on the car, like an over-the-air update to your smartphone. No visit to the dealer, no wishing you'd waited to buy your car until the latest version hit the market. This means your car gets better over time, and [recalls get way easier](https://www.wired.com/2015/08/researchers-hacked-model-s-teslas-already)._
 
 For App developers, App Stores are like the car dealers - the listing of apps are like displaying the holy trinity of sports cars, or the regular Volvo, the "Apple Tax" we all need to pay when we enable Apple Wallets within the app are like the overhead we paid for dealership, and the button for "Update" is the old-school USB sticks that used to update your car's software, but without the sweat-tongued dealers.
 
@@ -39,7 +42,6 @@ But how about skipping App Store releases? How can we fix applications "in-fligh
 > [Apple Review Guideline](https://developer.apple.com/app-store/review/guidelines/)
 
 As early as 2012, developers discovered they could utilise [Cordova](https://cordova.apache.org/)'s (the technology from Apache allow developer to use HTML/CSS/Javascript for cross-platform application) file system access to download updated web assets and replace the existing application bundle, allowing "hot updates" in UI changes, bug fixes, and new features without the typical app store review delays. Although implementation details change and user experiences differ, other platforms and technologies allow similar functionalities.
-
 
 As long as there were no native dependencies updates, developers could update applications via CodePush. Developed by Microsoft, part of AppCenter. Over a decade, it drew a lot of attention and usage for the testing capabilities and support for release of cross-platform applications.
 
@@ -102,6 +104,7 @@ export function CartRemote(remoteName: string) {
 
 
 ```
+
 With this setup up you can pretty much plug and play however you want with your react native application, and none of them have to be one app that gets bundled together. That's all you need - no secret keys or environment variables passing around.
 
 How about Metro? We also aim to provide a solution that's easy to configure, working with our partners in [Callstack](https://www.callstack.com/). You will soon to be able to configure federated application for OTA in `metro.config.js` the same way you can in Re.Pack and Rspack - a unified interface to configure federated applications. You can define HostApp and MiniApp's relationship in one file that ALREADY EXISTS in your codebase: how are the applications split, how are they being consumed, and how are dependencies being shared, what's the sharing strategy like below.
@@ -109,36 +112,33 @@ How about Metro? We also aim to provide a solution that's easy to configure, wor
 ```js
 // metro.config.js
 
-module.exports = withModuleFederation(
-  mergeConfig(getDefaultConfig(__dirname), config),
-  {
-    name: 'host',
-    remotes: {
-      mini: 'mini@http://localhost:8082/mini.js.bundle',
-    },
-    shared: {
-      react: {
-        singleton: true,
-        eager: true,
-        requiredVersion: '19.0.0',
-        version: '19.0.0',
-      },
-      'react-native': {
-        singleton: true,
-        eager: true,
-        requiredVersion: '0.79.0',
-        version: '0.79.0',
-      },
-      lodash: {
-        singleton: true,
-        eager: false,
-        requiredVersion: '^4.17.21',
-        version: '4.17.21',
-      },
-    },
-    plugins: [path.resolve(__dirname, './runtime-plugin.ts')],
+module.exports = withModuleFederation(mergeConfig(getDefaultConfig(__dirname), config), {
+  name: 'host',
+  remotes: {
+    mini: 'mini@http://localhost:8082/mini.js.bundle',
   },
-);
+  shared: {
+    react: {
+      singleton: true,
+      eager: true,
+      requiredVersion: '19.0.0',
+      version: '19.0.0',
+    },
+    'react-native': {
+      singleton: true,
+      eager: true,
+      requiredVersion: '0.79.0',
+      version: '0.79.0',
+    },
+    lodash: {
+      singleton: true,
+      eager: false,
+      requiredVersion: '^4.17.21',
+      version: '4.17.21',
+    },
+  },
+  plugins: [path.resolve(__dirname, './runtime-plugin.ts')],
+});
 ```
 
 You can check updates within this repository and its related PRs: [https://github.com/module-federation/metro-mf/tree/feat/async-shared](https://github.com/module-federation/metro-mf/tree/feat/async-shared)
@@ -186,6 +186,7 @@ export default defineConfig({
   }),
 });
 ```
+
 And then define the MiniApp, (remote application in React Native's term) awaiting to be updated with a URL:
 
 ```js
@@ -199,6 +200,7 @@ export default HotUpdater.wrap({
 })
 // rest of the code
 ```
+
 There are several concerns with hot-updater's approach:
 
 1. Security
@@ -213,10 +215,7 @@ There are several concerns with hot-updater's approach:
 
    Manual update for native code is required. Moreover, if you need to configure multiple MiniApps within one codebase, you can do so, but there isn't related developer tooling and documentation to support you. Outside of existing integrations, if you are running your own private cloud, you will also need to manage them.
 
-
-
 Another interesting solution is [ReChunk](https://rechunk.xyz/) (I love "Launch Without Limits" - hey we are the people who make deploy any application without limits!). The final component rendering would make you feel like it's similar enough to the approach we usually see in Module Federation:
-
 
 ```js
 import {importChunk} from '@crherman7/rechunk';
@@ -252,7 +251,6 @@ The project underneath ReChunk ([metro-requirex](https://github.com/crherman7/me
 
 After observing the different solutions, we want to evolve on them with our previous experience in Micro-frontend and deployment as a whole to address the problems we have seen:
 
-
 _A platform that brings best of both worlds:_
 
 - Decoupled by design
@@ -261,7 +259,5 @@ _A platform that brings best of both worlds:_
 - Multi-CDN and Polycloud
 - Version management and rollback
 - Comprehensive developer tooling support
-
-
 
 There are more to come in the upcoming weeks. Hang out with us on [Discord](https://zephyr-cloud.io/discord) - we will keep you updated :)

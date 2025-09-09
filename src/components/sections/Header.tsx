@@ -1,13 +1,11 @@
-import React, { useState } from "react";
-import { Link } from "@tanstack/react-router";
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuTrigger,
   DropdownMenuLabel,
-} from "@/components/ui/dropdown-menu";
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import {
   NavigationMenu,
   NavigationMenuContent,
@@ -16,11 +14,13 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
   navigationMenuTriggerStyle,
-} from "@/components/ui/navigation-menu";
-import { Type, Package, Github, FileText, History, Newspaper, Calendar, Users, Cloud, Menu, X } from "lucide-react";
-import ZephyrWordmark from "@/images/zephyr-wordmark.svg";
-import ZephyrLogo from "@/images/zephyr-logo.svg";
-import { cn } from "@/lib/utils";
+} from '@/components/ui/navigation-menu';
+import ZephyrLogo from '@/images/zephyr-logo.svg';
+import ZephyrWordmark from '@/images/zephyr-wordmark.svg';
+import { cn } from '@/lib/utils';
+import { Link } from '@tanstack/react-router';
+import { Calendar, Cloud, FileText, Github, History, Menu, Newspaper, Package, Type, Users, X } from 'lucide-react';
+import React, { useState } from 'react';
 
 export const Header: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
@@ -34,7 +34,7 @@ export const Header: React.FC = () => {
       const svgText = await response.text();
       await navigator.clipboard.writeText(svgText);
     } catch (err) {
-      console.error("Failed to copy logo:", err);
+      console.error('Failed to copy logo:', err);
     }
   };
 
@@ -44,7 +44,7 @@ export const Header: React.FC = () => {
       const svgText = await response.text();
       await navigator.clipboard.writeText(svgText);
     } catch (err) {
-      console.error("Failed to copy wordmark:", err);
+      console.error('Failed to copy wordmark:', err);
     }
   };
 
@@ -74,24 +74,13 @@ export const Header: React.FC = () => {
               <DropdownMenuTrigger asChild>
                 <span className="sr-only">Logo menu</span>
               </DropdownMenuTrigger>
-              <DropdownMenuContent
-                className="w-56 border-neutral-700"
-                align="start"
-                alignOffset={-5}
-                sideOffset={5}
-              >
+              <DropdownMenuContent className="w-56 border-neutral-700" align="start" alignOffset={-5} sideOffset={5}>
                 <DropdownMenuLabel>Platform</DropdownMenuLabel>
-                <DropdownMenuItem
-                  onClick={handleCopyLogo}
-                  className="flex items-center gap-2 hover:bg-neutral-700"
-                >
+                <DropdownMenuItem onClick={handleCopyLogo} className="flex items-center gap-2 hover:bg-neutral-700">
                   <img src={ZephyrLogo} alt="Logo" className="h-4 w-4" />
                   <span className="flex-1">Copy Logo Icon SVG</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem
-                  onClick={handleCopyWordmark}
-                  className="flex items-center gap-2 hover:bg-neutral-700"
-                >
+                <DropdownMenuItem onClick={handleCopyWordmark} className="flex items-center gap-2 hover:bg-neutral-700">
                   <Type className="h-4 w-4" />
                   <span className="flex-1">Copy Wordmark SVG</span>
                 </DropdownMenuItem>
@@ -113,7 +102,7 @@ export const Header: React.FC = () => {
                       <Link
                         to="/"
                         className={cn(
-                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
+                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
                         )}
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
@@ -141,16 +130,14 @@ export const Header: React.FC = () => {
                       <Link
                         to="/blog"
                         className={cn(
-                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
+                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
                         )}
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
                           <FileText className="h-4 w-4" />
                           Blog
                         </div>
-                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
-                          Latest news and insights
-                        </p>
+                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">Latest news and insights</p>
                       </Link>
                     </NavigationMenuLink>
                   </li>
@@ -159,7 +146,7 @@ export const Header: React.FC = () => {
                       <Link
                         to="/changelog"
                         className={cn(
-                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
+                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
                         )}
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
@@ -177,7 +164,7 @@ export const Header: React.FC = () => {
                       <Link
                         to="/press"
                         className={cn(
-                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
+                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
                         )}
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
@@ -195,7 +182,7 @@ export const Header: React.FC = () => {
                       <Link
                         to="/events"
                         className={cn(
-                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
+                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
                         )}
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
@@ -213,7 +200,7 @@ export const Header: React.FC = () => {
                       <Link
                         to="/partners"
                         className={cn(
-                          "block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
+                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
                         )}
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
@@ -234,7 +221,10 @@ export const Header: React.FC = () => {
               <a
                 href="https://docs.zephyr-cloud.io/"
                 target="_blank"
-                className={cn(navigationMenuTriggerStyle(), "bg-transparent text-neutral-400 hover:text-white hover:bg-transparent")}
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  'bg-transparent text-neutral-400 hover:text-white hover:bg-transparent',
+                )}
               >
                 Docs
               </a>
@@ -243,7 +233,10 @@ export const Header: React.FC = () => {
             <NavigationMenuItem>
               <Link
                 to="/pricing"
-                className={cn(navigationMenuTriggerStyle(), "bg-transparent text-neutral-400 hover:text-white hover:bg-transparent")}
+                className={cn(
+                  navigationMenuTriggerStyle(),
+                  'bg-transparent text-neutral-400 hover:text-white hover:bg-transparent',
+                )}
               >
                 Pricing
               </Link>
@@ -268,10 +261,7 @@ export const Header: React.FC = () => {
             <Package size={16} className="text-white" />
             <span className="text-white">npm</span>
           </a>
-          <Button
-            variant="outline"
-            className="text-sm h-9"
-          >
+          <Button variant="outline" className="text-sm h-9">
             <a href="https://app.zephyr-cloud.io/" target="_blank">
               Get Started
             </a>
@@ -297,7 +287,9 @@ export const Header: React.FC = () => {
               className="w-full text-left text-neutral-400 hover:text-white flex items-center justify-between py-2"
             >
               Products
-              <Cloud className={`h-4 w-4 transition-transform duration-200 ${mobileProductsOpen ? 'rotate-180' : ''}`} />
+              <Cloud
+                className={`h-4 w-4 transition-transform duration-200 ${mobileProductsOpen ? 'rotate-180' : ''}`}
+              />
             </button>
             {mobileProductsOpen && (
               <div className="pl-4 space-y-2">
@@ -319,7 +311,9 @@ export const Header: React.FC = () => {
               className="w-full text-left text-neutral-400 hover:text-white flex items-center justify-between py-2"
             >
               Resources
-              <FileText className={`h-4 w-4 transition-transform duration-200 ${mobileResourcesOpen ? 'rotate-180' : ''}`} />
+              <FileText
+                className={`h-4 w-4 transition-transform duration-200 ${mobileResourcesOpen ? 'rotate-180' : ''}`}
+              />
             </button>
             {mobileResourcesOpen && (
               <div className="pl-4 space-y-2">

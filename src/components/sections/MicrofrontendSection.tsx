@@ -1,21 +1,19 @@
-import React from 'react';
 import { Database, Filter, Grid } from 'lucide-react';
+import React from 'react';
 import { FeatureListItem } from '../FeatureListItem';
 import {
-  FeatureSection,
-  FeatureHeader,
-  FeatureTitle,
-  FeatureDescription,
-  FeatureContent,
   FeatureColumn,
+  FeatureContent,
+  FeatureDescription,
+  FeatureHeader,
+  FeatureSection,
+  FeatureTitle,
 } from './FeatureSection';
 
 const MicrofrontendSection: React.FC = () => (
   <FeatureSection hasGradient={true}>
     <FeatureHeader>
-      <FeatureTitle>
-        Micro Frontends and Mini Apps
-      </FeatureTitle>
+      <FeatureTitle>Micro Frontends and Mini Apps</FeatureTitle>
       <FeatureDescription>
         With support for React Native and the web you can ship no wherever your users are
       </FeatureDescription>

@@ -1,5 +1,5 @@
-import React from 'react';
 import { cn } from '@/lib/utils';
+import React from 'react';
 
 interface FeatureSectionProps {
   children: React.ReactNode;
@@ -7,19 +7,11 @@ interface FeatureSectionProps {
   hasGradient?: boolean;
 }
 
-export const FeatureSection: React.FC<FeatureSectionProps> = ({
-  children,
-  className,
-  hasGradient = false,
-}) => {
+export const FeatureSection: React.FC<FeatureSectionProps> = ({ children, className, hasGradient = false }) => {
   return (
     <section className={cn('py-20 md:py-28 relative', className)}>
-      {hasGradient && (
-        <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/50 to-black"></div>
-      )}
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
-        {children}
-      </div>
+      {hasGradient && <div className="absolute inset-0 bg-gradient-to-b from-neutral-950/50 to-black"></div>}
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">{children}</div>
     </section>
   );
 };
@@ -29,10 +21,7 @@ interface FeatureHeaderProps {
   className?: string;
 }
 
-export const FeatureHeader: React.FC<FeatureHeaderProps> = ({
-  children,
-  className,
-}) => {
+export const FeatureHeader: React.FC<FeatureHeaderProps> = ({ children, className }) => {
   return <div className={cn('text-center mb-16', className)}>{children}</div>;
 };
 
@@ -42,11 +31,7 @@ interface FeatureTitleProps {
   className?: string;
 }
 
-export const FeatureTitle: React.FC<FeatureTitleProps> = ({
-  children,
-  prefix,
-  className,
-}) => {
+export const FeatureTitle: React.FC<FeatureTitleProps> = ({ children, prefix, className }) => {
   return (
     <h2 className={cn('text-5xl font-bold text-white', className)}>
       {prefix}
@@ -60,20 +45,8 @@ interface FeatureDescriptionProps {
   className?: string;
 }
 
-export const FeatureDescription: React.FC<FeatureDescriptionProps> = ({
-  children,
-  className,
-}) => {
-  return (
-    <p
-      className={cn(
-        'mt-4 text-lg text-neutral-400 max-w-2xl mx-auto',
-        className
-      )}
-    >
-      {children}
-    </p>
-  );
+export const FeatureDescription: React.FC<FeatureDescriptionProps> = ({ children, className }) => {
+  return <p className={cn('mt-4 text-lg text-neutral-400 max-w-2xl mx-auto', className)}>{children}</p>;
 };
 
 interface FeatureContentProps {
@@ -99,11 +72,7 @@ export const FeatureContent: React.FC<FeatureContentProps> = ({
   );
 
   if (childrenArray.length !== 2) {
-    return (
-      <div className={cn('grid md:grid-cols-2 gap-12 items-start', className)}>
-        {children}
-      </div>
-    );
+    return <div className={cn('grid md:grid-cols-2 gap-12 items-start', className)}>{children}</div>;
   }
 
   const isLeftRight = layout === 'left-right';
@@ -115,21 +84,14 @@ export const FeatureContent: React.FC<FeatureContentProps> = ({
       ? ['col-span-12 md:col-span-8', 'col-span-12 md:col-span-4']
       : ['col-span-12 md:col-span-4', 'col-span-12 md:col-span-8'];
     return (
-      <div
-        className={cn(
-          'grid grid-cols-1 md:grid-cols-12 gap-6 max-w-5xl mx-auto items-start',
-          className
-        )}
-      >
+      <div className={cn('grid grid-cols-1 md:grid-cols-12 gap-6 max-w-5xl mx-auto items-start', className)}>
         {renderColumns(order, colSpans)}
       </div>
     );
   }
 
   return (
-    <div className={cn('grid md:grid-cols-2 gap-12 items-start', className)}>
-      {renderColumns(order, ['', ''])}
-    </div>
+    <div className={cn('grid md:grid-cols-2 gap-12 items-start', className)}>{renderColumns(order, ['', ''])}</div>
   );
 };
 
@@ -138,9 +100,6 @@ interface FeatureColumnProps {
   className?: string;
 }
 
-export const FeatureColumn: React.FC<FeatureColumnProps> = ({
-  children,
-  className,
-}) => {
+export const FeatureColumn: React.FC<FeatureColumnProps> = ({ children, className }) => {
   return <div className={cn('space-y-6', className)}>{children}</div>;
 };

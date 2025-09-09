@@ -15,7 +15,6 @@ This tool is a powerful command-line utility built with Rust for converting, opt
 - **Custom Output**: Specify output directories for organized file management
 - **Glob Pattern Support**: Process multiple files with flexible pattern matching
 
-
 ## Getting Started
 
 ### Prerequisites
@@ -26,33 +25,36 @@ This tool is a powerful command-line utility built with Rust for converting, opt
 
 Since imgc is not yet available on crates.io, you'll need to clone the repository to get started:
 
-1. Clone the repository:
+1.  Clone the repository:
 
     ```bash
     git clone https://github.com/tduyng/imgc-rs.git
     cd imgc-rs
     ```
 
-2. Build the project:
+2.  Build the project:
 
     ```bash
     cargo build --release
     ```
-3. Install locally
+
+3.  Install locally
 
     ```bash
     cargo install --path .
     ```
-4. Install from Github
-    
-    If you want to test this tool without cloning the repository, you can install it directly from git:
 
-    ```bash
-    cargo install --git https://github.com/tduyng/imgc-rs.git
-    ```
-Once installed, you can start using imgc with the command `imgc`.
+4.  Install from Github
 
-5. Uninstall
+        If you want to test this tool without cloning the repository, you can install it directly from git:
+
+        ```bash
+        cargo install --git https://github.com/tduyng/imgc-rs.git
+        ```
+
+    Once installed, you can start using imgc with the command `imgc`.
+
+5.  Uninstall
 
     ```bash
     cargo uninstall imgc
@@ -65,6 +67,7 @@ Once installed, you can start using imgc with the command `imgc`.
 Imgc uses glob patterns for flexible file matching:
 
 #### Convert to WebP
+
 ```bash
 # Basic conversion
 imgc webp "images/**/*.png"
@@ -83,6 +86,7 @@ imgc webp "images/**/*" --no-progress
 ```
 
 #### Convert to PNG
+
 ```bash
 # Convert any format to PNG
 imgc png "images/**/*.jpg"
@@ -90,6 +94,7 @@ imgc png "images/**/*.webp" -o png_output/
 ```
 
 #### Convert to JPEG
+
 ```bash
 # Convert with default quality (80)
 imgc jpeg "images/**/*.png"
@@ -102,6 +107,7 @@ imgc jpeg "images/**/*.png" -q 60 -o thumbnails/
 ```
 
 #### Resize Images
+
 ```bash
 # Resize to specific width (maintains aspect ratio)
 imgc resize "images/**/*.jpg" -w 800
@@ -117,6 +123,7 @@ imgc resize "images/**/*" -w 1920 -o resized/
 ```
 
 ### Cleaning up files
+
 **Warning**: Use this command with caution.
 
 ```bash
@@ -128,7 +135,7 @@ imgc clean "examples/**/*.webp"
 For detailed command usage, `--help` or `-h` will guide you through:
 
 ```bash
-❯ imgc -h              
+❯ imgc -h
 A CLI for converting images to the WebP format written in Rust
 
 Usage: imgc <COMMAND>
@@ -157,6 +164,7 @@ imgc clean --help
 ```
 
 ## Example Directory Structure
+
 Given the following directory structure:
 
 ```bash
@@ -185,6 +193,7 @@ Example of clean command:
 ![Clean command example](/docs/img/clean_cmd.webp)
 
 ## What's Next
+
 - [ ] Testing
 - [ ] Introduce advanced options for compression, quality, and resizing
 - [ ] Expand support for additional conversion formats
@@ -192,5 +201,3 @@ Example of clean command:
 ## License
 
 Choose between [MIT License](LICENCE_MIT) or [Apache License](LICENSE_APACHE) as per your preference.
-
-

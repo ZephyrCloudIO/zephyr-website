@@ -1,10 +1,10 @@
-import type { Author } from '@/lib/blog/types';
-import zackJAvatar from '@/images/authors/zackj.webp';
-import zackCAvatar from '@/images/authors/zackc.webp';
-import shaneAvatar from '@/images/authors/shane.webp';
 import loisAvatar from '@/images/authors/lois.webp';
 import nestorAvatar from '@/images/authors/nestor.webp';
 import rodrigoAvatar from '@/images/authors/rodrigo.webp';
+import shaneAvatar from '@/images/authors/shane.webp';
+import zackCAvatar from '@/images/authors/zackc.webp';
+import zackJAvatar from '@/images/authors/zackj.webp';
+import type { Author } from '@/lib/blog/types';
 
 export const ZackJ: Author = {
   displayName: 'Zack Jackson',

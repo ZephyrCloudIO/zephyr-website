@@ -11,8 +11,8 @@ export type PartnerType = 'integration' | 'implementation';
 export type Capability = 'web' | 'mobile' | 'bff' | 'tooling' | 'react-native';
 
 // Import logos
-import nxLogo from '@/images/partners/nx_logo.webp';
 import callstackLogo from '@/images/partners/callstack_logo.webp';
+import nxLogo from '@/images/partners/nx_logo.webp';
 import valorLogo from '@/images/partners/valor_logo.webp';
 
 export const partners: Partner[] = [
@@ -49,10 +49,10 @@ export const formatPartnerType = (type: PartnerType): string => {
 
 export const formatCapability = (capability: Capability): string => {
   const formatted: Record<Capability, string> = {
-    'web': 'Web',
-    'mobile': 'Mobile',
-    'bff': 'BFF',
-    'tooling': 'Tooling',
+    web: 'Web',
+    mobile: 'Mobile',
+    bff: 'BFF',
+    tooling: 'Tooling',
     'react-native': 'React Native',
   };
   return formatted[capability] || capability;

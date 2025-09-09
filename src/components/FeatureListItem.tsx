@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface FeatureListItemProps {
   icon: React.ElementType;
@@ -24,9 +24,7 @@ export const FeatureListItem: React.FC<FeatureListItemProps> = ({
       </div>
       {diagramQuery && (
         <img
-          src={`/placeholder.svg?width=120&height=80&query=${encodeURIComponent(
-            diagramQuery
-          )}`}
+          src={`/placeholder.svg?width=120&height=80&query=${encodeURIComponent(diagramQuery)}`}
           alt={diagramAlt || title}
           width={120}
           height={80}

@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { Zap, Flag, Package2, Layers } from 'lucide-react';
+import { Flag, Layers, Package2, Zap } from 'lucide-react';
 
 export const Route = createFileRoute('/products/code-elimination-performance')({
   component: CodeEliminationPerformancePage,
@@ -20,9 +20,9 @@ function CodeEliminationPerformancePage() {
             Enterprise Scale Code Elimination & Performance
           </h1>
           <p className="text-xl text-neutral-400 max-w-3xl mx-auto">
-            Advanced optimization techniques to reduce bundle size, eliminate dead code,
-            and maximize application performance at scale.
-            <br/>
+            Advanced optimization techniques to reduce bundle size, eliminate dead code, and maximize application
+            performance at scale.
+            <br />
             Available with Enterprise custom pricing.
           </p>
         </div>
@@ -38,8 +38,8 @@ function CodeEliminationPerformancePage() {
                   <h2 className="text-3xl font-semibold">Feature Flag Shaking</h2>
                 </div>
                 <p className="text-neutral-400 mb-6">
-                  Automatically eliminate unused feature flag code at build time. Our advanced tree shaking capabilities removes all code paths for
-                  disabled features, resulting in smaller bundles and faster load times.
+                  Automatically eliminate unused feature flag code at build time. Our advanced tree shaking capabilities
+                  removes all code paths for disabled features, resulting in smaller bundles and faster load times.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
@@ -48,7 +48,9 @@ function CodeEliminationPerformancePage() {
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-emerald-500 mt-1">✓</span>
-                    <span className="text-neutral-300">Build-time and Fetch-time optimization with zero runtime overhead</span>
+                    <span className="text-neutral-300">
+                      Build-time and Fetch-time optimization with zero runtime overhead
+                    </span>
                   </li>
                   <li className="flex items-start gap-2">
                     <span className="text-emerald-500 mt-1">✓</span>
@@ -116,9 +118,9 @@ export function newFeature() {
                   <h2 className="text-3xl font-semibold">Module Federation Tree Shaking</h2>
                 </div>
                 <p className="text-neutral-400 mb-6">
-                  Intelligent tree shaking across federated modules ensures only the code you
-                  actually use is included in your bundles. Eliminate duplicate dependencies
-                  and reduce overall application size across micro-frontends.
+                  Intelligent tree shaking across federated modules ensures only the code you actually use is included
+                  in your bundles. Eliminate duplicate dependencies and reduce overall application size across
+                  micro-frontends.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
@@ -147,9 +149,8 @@ export function newFeature() {
                   <h2 className="text-3xl font-semibold">Advanced Dictionary Compression</h2>
                 </div>
                 <p className="text-neutral-400 mb-6">
-                  Leverage shared dictionaries and advanced compression algorithms to achieve
-                  unprecedented reduction in asset sizes. Our compression engine learns from
-                  your codebase patterns to create optimal dictionaries.
+                  Leverage shared dictionaries and advanced compression algorithms to achieve unprecedented reduction in
+                  asset sizes. Our compression engine learns from your codebase patterns to create optimal dictionaries.
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">

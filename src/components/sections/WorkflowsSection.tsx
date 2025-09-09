@@ -1,11 +1,6 @@
 import byoc from '@/images/byoc.webp';
 import defaultCloud from '@/images/default-cloud.webp';
-import {
-  FeatureDescription,
-  FeatureHeader,
-  FeatureSection,
-  FeatureTitle,
-} from './FeatureSection';
+import { FeatureDescription, FeatureHeader, FeatureSection, FeatureTitle } from './FeatureSection';
 
 const FeatureDiagram: React.FC<{
   title: string;
@@ -34,11 +29,7 @@ const FeatureCard: React.FC<{
 const FeatureWrapper: React.FC<{
   children: React.ReactNode;
 }> = ({ children }) => {
-  return (
-    <div className="flex flex-col md:flex-row gap-6 items-center">
-      {children}
-    </div>
-  );
+  return <div className="flex flex-col md:flex-row gap-6 items-center">{children}</div>;
 };
 
 export const WorkflowsSection: React.FC = () => {

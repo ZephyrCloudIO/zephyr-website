@@ -1,17 +1,17 @@
 ---
-title: "Over the Air (OTA) updates with Zephyr"
-slug: "ota-with-zephyr"
-date: "2025-01-28"
-heroImage: "/images/blog/ota-with-zephyr/ota-hero.webp"
-listingImage: "/images/blog/ota-with-zephyr/ota-hero.webp"
-description: "Waiting for app store approvals to address critical bugs can be frustrating and time-consuming. By leveraging Zephyr Cloud you can do instant over-the-air updates to your users."
-authors: ["Rodrigo Yokota"]
-tags: ["mobile", "react-native", "deployment"]
+title: 'Over the Air (OTA) updates with Zephyr'
+slug: 'ota-with-zephyr'
+date: '2025-01-28'
+heroImage: '/images/blog/ota-with-zephyr/ota-hero.webp'
+listingImage: '/images/blog/ota-with-zephyr/ota-hero.webp'
+description: 'Waiting for app store approvals to address critical bugs can be frustrating and time-consuming. By leveraging Zephyr Cloud you can do instant over-the-air updates to your users.'
+authors: ['Rodrigo Yokota']
+tags: ['mobile', 'react-native', 'deployment']
 featured: false
 readingTime: 5
 ---
 
-import otaUpdate from '@/images/blog/ota-with-zephyr/ota-update.webm'
+import otaUpdate from '@/images/blog/ota-with-zephyr/ota-update.webm';
 
 Waiting for app store approvals to address critical bugs can be frustrating and time-consuming. Nobody wants to roll back the app versions, and you can't imagine how it was missed when testing on TestFlight, but these things can happen. By leveraging Zephyr Cloud you can do instant over-the-air updates to your users.
 
@@ -42,7 +42,7 @@ Zephyr Cloud integrates with React Native through an Rspack (or webpack) plugin,
 ```javascript
 // rspack.config.js
 
-const { withZephyr } = require('zephyr-repack-plugin')
+const { withZephyr } = require('zephyr-repack-plugin');
 
 const config = {
   /** ...rspack configuration */
@@ -56,6 +56,7 @@ By being tied to the build process, Zephyr can analyze and upload application as
 ## OTA with Zephyr
 
 To accomplish OTA updates using Zephyr, a few key ingredients are needed:
+
 - A [React Native](https://reactnative.dev/) project;
 - [Repack](https://re-pack.dev/) plugin (to enable Rspack or Webpack);
 - [Module Federation](https://module-federation.io/) plugin (to split your project into updatable modules);
@@ -84,8 +85,8 @@ const config = {
         MobileCheckout: `MobileCheckout@https://mobile-checkout-ze.io/MobileCheckout.js.bundle`,
         MobileOrders: `MobileOrders@https://mobile-orders-ze.io/MobileOrders.js.bundle`,
       },
-    })
-  ]
+    }),
+  ],
 };
 ```
 
@@ -94,7 +95,7 @@ So, to break it down, your React Native project would need to be split into at l
 When all pieces are in place, you will have a shell application calling outside remotes and loading JavaScript modules that can be updated whenever you need, without the wait of a lengthy store approval.
 
 <video autoPlay loop muted>
-  <source src={otaUpdate} type="video/webm"/>
+  <source src={otaUpdate} type="video/webm" />
 </video>
 
 ## True Value
