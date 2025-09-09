@@ -17,6 +17,8 @@ import runtimeOtaHeroImage from "@/images/blog/runtime-ota/runtime-ota.webp";
 import whosYourCloudDaddyHeroImage from "@/images/blog/whos-your-cloud-daddy/cloud-daddy-hero.webp";
 import blogPostAwsHeroImage from '@/images/blog/aws-byoc/blog-post-aws.webp';
 import geoHeroImage from '@/images/blog/generative-engine-optimization/hero.webp';
+import doraMetricsHeroImage from '@/images/blog/dora-metrics/hero.webp';
+import trueVenturesAiAuditHeroImage from "@/images/blog/true-ventures-ai-audit/hero.webp";
 
 export const blogImages = {
   soc2: {
@@ -83,4 +85,12 @@ export const blogImages = {
     heroImage: geoHeroImage,
     listingImage: geoHeroImage,
   },
+  'dora-metrics': {
+    heroImage: doraMetricsHeroImage,
+    listingImage: doraMetricsHeroImage,
+  },
+  'true-ventures-ai-audit': {
+		heroImage: trueVenturesAiAuditHeroImage,
+		listingImage: trueVenturesAiAuditHeroImage,
+	},
 };
