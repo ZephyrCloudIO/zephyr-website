@@ -1,11 +1,13 @@
 # Blog Migration Requirements
 
 ## Overview
+
 This document outlines the requirements for migrating the blog from the old ModernJS-based website to the new TanStack Router-based Zephyr website, along with proposed enhancements.
 
 ## Current Blog Architecture Analysis
 
 ### Blog Structure
+
 - **MDX Files**: 13 blog posts stored as MDX files in `/src/routes/blog/[id$]/`
 - **Configuration**: Blog metadata centralized in `_blog-config.tsx`
 - **Routing**: ModernJS uses `[id$]` pattern for dynamic routes (the `$` denotes an exact match)
@@ -13,6 +15,7 @@ This document outlines the requirements for migrating the blog from the old Mode
 - **Authors**: Author data stored in `/src/lib/blog/authors/` with TypeScript files
 
 ### Current Features
+
 - Featured posts (first 2 posts shown larger)
 - Author profiles with avatars and social links
 - Hero images and listing images (different images for different contexts)
@@ -26,6 +29,7 @@ This document outlines the requirements for migrating the blog from the old Mode
 ### 1. Blog Infrastructure Setup
 
 #### Directory Structure
+
 ```
 src/
 ├── routes/
@@ -51,6 +55,7 @@ src/
 ```
 
 #### Tag System
+
 ```typescript
 // src/lib/blog/tags.ts
 export const BlogTags = {
@@ -61,10 +66,10 @@ export const BlogTags = {
   DEVOPS: 'devops',
   ARCHITECTURE: 'architecture',
   CASE_STUDY: 'case-study',
-  ANNOUNCEMENT: 'announcement'
+  ANNOUNCEMENT: 'announcement',
 } as const;
 
-export type BlogTag = typeof BlogTags[keyof typeof BlogTags];
+export type BlogTag = (typeof BlogTags)[keyof typeof BlogTags];
 
 export const tagLabels: Record<BlogTag, string> = {
   [BlogTags.AI]: 'AI',
@@ -74,29 +79,31 @@ export const tagLabels: Record<BlogTag, string> = {
   [BlogTags.DEVOPS]: 'DevOps',
   [BlogTags.ARCHITECTURE]: 'Architecture',
   [BlogTags.CASE_STUDY]: 'Case Study',
-  [BlogTags.ANNOUNCEMENT]: 'Announcement'
+  [BlogTags.ANNOUNCEMENT]: 'Announcement',
 };
 ```
 
 ### 2. Data Migration
 
 #### Blog Post Metadata Enhancement
+
 ```typescript
 export interface BlogPost {
   title: string;
-  slug: string;  // Without ./ prefix
+  slug: string; // Without ./ prefix
   date: Date;
   heroImage: string;
   listingImage: string;
   description: string;
   authors: Author[];
-  tags: BlogTag[];  // New field
-  readingTime?: number;  // New field
-  featured?: boolean;  // New field
+  tags: BlogTag[]; // New field
+  readingTime?: number; // New field
+  featured?: boolean; // New field
 }
 ```
 
 #### Tag Assignments for Existing Posts
+
 - `ai-e2e-testing`: ['ai', 'web']
 - `three-sdlcs-one-zephyr`: ['cloud', 'devops', 'architecture']
 - `soc2`: ['announcement', 'cloud']
@@ -108,6 +115,7 @@ export interface BlogPost {
 ### 3. Features to Implement
 
 #### Blog Landing Page (`/blog`)
+
 1. **Header Section**
    - Title: "Blog"
    - Subtitle with brief description
@@ -129,6 +137,7 @@ export interface BlogPost {
    - Maintain existing hover effects
 
 #### Individual Blog Post Page (`/blog/$slug`)
+
 1. **MDX Support**
    - Install @mdx-js/react and necessary plugins with pnpm add commands
    - Configure Rsbuild for MDX
@@ -146,6 +155,7 @@ export interface BlogPost {
 ### 4. SEO & Meta Enhancements
 
 #### Meta Tags Implementation
+
 ```typescript
 // For each blog post
 export const generateMetaTags = (post: BlogPost) => ({
@@ -157,19 +167,20 @@ export const generateMetaTags = (post: BlogPost) => ({
     image: post.heroImage,
     type: 'article',
     publishedTime: post.date.toISOString(),
-    authors: post.authors.map(a => a.displayName),
-    tags: post.tags
+    authors: post.authors.map((a) => a.displayName),
+    tags: post.tags,
   },
   twitter: {
     card: 'summary_large_image',
     title: post.title,
     description: post.description,
-    image: post.heroImage
-  }
+    image: post.heroImage,
+  },
 });
 ```
 
 #### Structured Data
+
 ```typescript
 // JSON-LD for blog posts
 {
@@ -195,6 +206,7 @@ export const generateMetaTags = (post: BlogPost) => ({
 ```
 
 #### Sitemap Generation
+
 - Dynamic sitemap.xml generation
 - Include all blog posts with lastmod dates
 - Priority based on recency and featured status
@@ -202,6 +214,7 @@ export const generateMetaTags = (post: BlogPost) => ({
 ### 5. Additional Enhancements
 
 #### Google Analytics
+
 ```typescript
 // Add to root layout
 <Script
@@ -219,7 +232,9 @@ export const generateMetaTags = (post: BlogPost) => ({
 ```
 
 #### llms.txt Implementation
+
 Create `/public/llms.txt`:
+
 ```
 # Zephyr Cloud LLM Instructions
 
@@ -244,6 +259,7 @@ For questions: support@zephyr-cloud.io
 ```
 
 #### Automatic Image Optimization
+
 1. **Build-time optimization**
    - Convert images to WebP format
    - Generate multiple sizes for responsive images
@@ -286,6 +302,7 @@ For questions: support@zephyr-cloud.io
 ### 7. Technical Considerations
 
 #### MDX Configuration
+
 ```javascript
 // rsbuild.config.ts additions
 {
@@ -298,25 +315,19 @@ For questions: support@zephyr-cloud.io
             loader: '@mdx-js/loader',
             options: {
               providerImportSource: '@mdx-js/react',
-              remarkPlugins: [
-                remarkGfm,
-                remarkReadingTime,
-              ],
-              rehypePlugins: [
-                rehypeHighlight,
-                rehypeSlug,
-                rehypeAutolinkHeadings,
-              ]
-            }
-          }
-        ]
-      }
-    ]
+              remarkPlugins: [remarkGfm, remarkReadingTime],
+              rehypePlugins: [rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings],
+            },
+          },
+        ],
+      },
+    ];
   }
 }
 ```
 
 #### URL Preservation
+
 - Maintain exact URL structure: `/blog/three-sdlcs-one-zephyr`
 - Set up redirects if any URLs change
 - Implement 301 redirects for any moved content
@@ -352,12 +363,12 @@ For questions: support@zephyr-cloud.io
 ## Questions for Clarification
 
 1. Should we implement pagination or infinite scroll for the blog landing page?
-We won't have enough blogs to justify either of these right now
+   We won't have enough blogs to justify either of these right now
 2. Do you want a search feature in addition to tag filtering?
-Sure, based on text in the blog, title, and tags
+   Sure, based on text in the blog, title, and tags
 3. Should we add a newsletter signup specific to the blog?
-Sure
+   Sure
 4. Do you want comment functionality (e.g., Disqus, Giscus)?
-No
+   No
 5. Should we track reading progress or add "time to read" estimates?
-Not needed now
+   Not needed now

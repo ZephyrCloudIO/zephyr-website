@@ -25,7 +25,7 @@ export default defineConfig({
     copy: [
       { from: 'public/favicon.ico', to: './favicon.ico' },
       { from: 'public/llms.txt', to: './llms.txt' },
-      { from: 'public/robots.txt', to: './robots.txt' }
+      { from: 'public/robots.txt', to: './robots.txt' },
     ],
   },
   html: {
@@ -55,16 +55,8 @@ export default defineConfig({
                 loader: '@mdx-js/loader',
                 options: {
                   providerImportSource: '@mdx-js/react',
-                  remarkPlugins: [
-                    remarkGfm,
-                    remarkFrontmatter,
-                    [remarkMdxFrontmatter, { name: 'metadata' }],
-                  ],
-                  rehypePlugins: [
-                    rehypeHighlight,
-                    rehypeSlug,
-                    rehypeAutolinkHeadings,
-                  ],
+                  remarkPlugins: [remarkGfm, remarkFrontmatter, [remarkMdxFrontmatter, { name: 'metadata' }]],
+                  rehypePlugins: [rehypeHighlight, rehypeSlug, rehypeAutolinkHeadings],
                 },
               },
             ],
@@ -74,9 +66,7 @@ export default defineConfig({
     },
     postcss: {
       postcssOptions: (context) => {
-        return context.resourcePath.endsWith('.css')
-          ? { plugins: [require('@tailwindcss/postcss')] }
-          : {};
+        return context.resourcePath.endsWith('.css') ? { plugins: [require('@tailwindcss/postcss')] } : {};
       },
     },
   },

@@ -1,5 +1,4 @@
-import { Calendar } from 'lucide-react';
-import { Twitter, Linkedin } from 'lucide-react';
+import { Calendar, Linkedin, Twitter } from 'lucide-react';
 
 interface BlogMetadataProps {
   author: string;
@@ -12,21 +11,11 @@ interface BlogMetadataProps {
   }>;
 }
 
-export default function BlogMetadata({
-  author,
-  position,
-  avatar,
-  publishDate,
-  socialLinks = [],
-}: BlogMetadataProps) {
+export default function BlogMetadata({ author, position, avatar, publishDate, socialLinks = [] }: BlogMetadataProps) {
   return (
     <div className="flex items-center justify-between py-6 mb-8 border-y border-neutral-800">
       <div className="flex items-center gap-4">
-        <img
-          src={avatar}
-          alt={author}
-          className="w-16 h-16 rounded-full"
-        />
+        <img src={avatar} alt={author} className="w-16 h-16 rounded-full" />
         <div>
           <h4 className="font-semibold text-lg">{author}</h4>
           <p className="text-neutral-400">{position}</p>

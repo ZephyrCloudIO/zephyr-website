@@ -1,16 +1,13 @@
-import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router'
-import { MDXProvider } from '@mdx-js/react'
-import { Header } from '@/components/sections/Header'
-import { Footer } from '@/components/sections/Footer'
-import { useEffect } from 'react'
+import { Footer } from '@/components/sections/Footer';
+import { Header } from '@/components/sections/Header';
+import { MDXProvider } from '@mdx-js/react';
+import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
+import { useEffect } from 'react';
 
 // Google Analytics
 const GoogleAnalytics = () => (
   <>
-    <script
-      async
-      src="https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH"
-    />
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH" />
     <script
       dangerouslySetInnerHTML={{
         __html: `
@@ -30,7 +27,7 @@ const GoogleAnalytics = () => (
       }}
     />
   </>
-)
+);
 
 // MDX components configuration
 const mdxComponents = {
@@ -56,22 +53,24 @@ const mdxComponents = {
       {children}
     </pre>
   ),
-  blockquote: (props: any) => <blockquote className="border-l-4 border-emerald-600 pl-4 italic mb-4 text-neutral-400" {...props} />,
+  blockquote: (props: any) => (
+    <blockquote className="border-l-4 border-emerald-600 pl-4 italic mb-4 text-neutral-400" {...props} />
+  ),
   a: (props: any) => <a className="text-emerald-400 hover:text-emerald-300 underline" {...props} />,
   img: (props: any) => <img className="rounded-lg my-6 max-w-full" {...props} />,
   strong: (props: any) => <strong className="font-semibold text-white" {...props} />,
   em: (props: any) => <em className="italic" {...props} />,
-}
+};
 
 // ScrollToTop component
 function ScrollToTop() {
-  const location = useLocation()
-  
+  const location = useLocation();
+
   useEffect(() => {
-    window.scrollTo(0, 0)
-  }, [location.pathname])
-  
-  return null
+    window.scrollTo(0, 0);
+  }, [location.pathname]);
+
+  return null;
 }
 
 // Root component
@@ -90,9 +89,9 @@ function RootComponent() {
         </div>
       </MDXProvider>
     </>
-  )
+  );
 }
 
 export const Route = createRootRoute({
   component: RootComponent,
-})
+});

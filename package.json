@@ -4,13 +4,15 @@
   "license": "Apache-2.0",
   "type": "module",
   "scripts": {
+    "batch-convert": "node scripts/batch-convert.js",
     "build": "rsbuild build",
     "dev": "rsbuild dev --open",
-    "preview": "rsbuild preview",
+    "format": "prettier --write .",
     "imgc": "./image-converter/target/release/imgc",
-    "batch-convert": "node scripts/batch-convert.js",
     "imgc-build": "cd image-converter && cargo build --release",
-    "imgc-help": "./image-converter/target/release/imgc --help"
+    "imgc-help": "./image-converter/target/release/imgc --help",
+    "prepare": "husky",
+    "preview": "rsbuild preview"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
@@ -48,6 +50,10 @@
     "@tanstack/router-plugin": "^1.127.5",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "husky": "^9.1.7",
+    "prettier": "^3.6.2",
+    "prettier-plugin-organize-imports": "^4.2.0",
+    "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3"
   },

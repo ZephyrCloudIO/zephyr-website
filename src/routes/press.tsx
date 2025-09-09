@@ -1,5 +1,5 @@
 import { createFileRoute } from '@tanstack/react-router';
-import { ExternalLink, Mail, Calendar } from 'lucide-react';
+import { Calendar, ExternalLink, Mail } from 'lucide-react';
 
 export const Route = createFileRoute('/press')({
   component: PressPage,
@@ -14,18 +14,13 @@ function PressPage() {
           <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
             Press
           </h1>
-          <p className="text-xl text-neutral-400 mb-8">
-            Latest news and announcements from Zephyr Cloud
-          </p>
+          <p className="text-xl text-neutral-400 mb-8">Latest news and announcements from Zephyr Cloud</p>
 
           {/* Contact */}
           <div className="flex items-center justify-center gap-2 text-neutral-300">
             <Mail className="w-5 h-5" />
             <span>Press inquiries:</span>
-            <a
-              href="mailto:press@zephyr-cloud.io"
-              className="text-emerald-400 hover:text-emerald-300 underline"
-            >
+            <a href="mailto:press@zephyr-cloud.io" className="text-emerald-400 hover:text-emerald-300 underline">
               press@zephyr-cloud.io
             </a>
           </div>
@@ -50,7 +45,10 @@ function PressPage() {
                   <span>PR Newswire</span>
                 </div>
                 <p className="text-neutral-300 mb-4">
-                  Zephyr Cloud, a new Platform-as-a-Service (PaaS) solution focused on revolutionizing frontend deployment, officially launches today. The platform addresses critical pain points in modern web development by enabling sub-second code deployments, instant rollbacks, and seamless version management across distributed applications.
+                  Zephyr Cloud, a new Platform-as-a-Service (PaaS) solution focused on revolutionizing frontend
+                  deployment, officially launches today. The platform addresses critical pain points in modern web
+                  development by enabling sub-second code deployments, instant rollbacks, and seamless version
+                  management across distributed applications.
                 </p>
                 <a
                   href="https://www.prnewswire.com/news-releases/zephyr-cloud-launches-new-paas-enabling-sub-second-frontend-code-deployment-302242806.html"
@@ -70,13 +68,13 @@ function PressPage() {
         <div className="mt-16 bg-neutral-900 border border-neutral-800 rounded-lg p-8">
           <h2 className="text-2xl font-semibold mb-4">About Zephyr Cloud</h2>
           <p className="text-neutral-300 mb-4">
-            Zephyr Cloud is a cutting-edge Platform-as-a-Service (PaaS) solution that revolutionizes frontend deployment.
-            Our platform enables development teams to deploy code in sub-seconds, manage versions effortlessly, and
-            scale applications without infrastructure complexity.
+            Zephyr Cloud is a cutting-edge Platform-as-a-Service (PaaS) solution that revolutionizes frontend
+            deployment. Our platform enables development teams to deploy code in sub-seconds, manage versions
+            effortlessly, and scale applications without infrastructure complexity.
           </p>
           <p className="text-neutral-300">
-            Founded by industry veterans with deep expertise in module federation and distributed systems,
-            Zephyr Cloud is backed by leading investors and serves enterprise customers across multiple industries.
+            Founded by industry veterans with deep expertise in module federation and distributed systems, Zephyr Cloud
+            is backed by leading investors and serves enterprise customers across multiple industries.
           </p>
         </div>
 
@@ -84,10 +82,7 @@ function PressPage() {
         <div className="mt-12 text-center">
           <p className="text-neutral-400">
             For press kit, logos, and additional resources, please contact{' '}
-            <a
-              href="mailto:press@zephyr-cloud.io"
-              className="text-emerald-400 hover:text-emerald-300 underline"
-            >
+            <a href="mailto:press@zephyr-cloud.io" className="text-emerald-400 hover:text-emerald-300 underline">
               press@zephyr-cloud.io
             </a>
           </p>

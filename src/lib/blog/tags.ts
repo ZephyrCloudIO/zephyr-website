@@ -21,7 +21,7 @@ export const BlogTags = {
   WEB: 'web',
 } as const;
 
-export type BlogTag = typeof BlogTags[keyof typeof BlogTags];
+export type BlogTag = (typeof BlogTags)[keyof typeof BlogTags];
 
 export const tagLabels: Record<BlogTag, string> = {
   [BlogTags.AI]: 'AI',

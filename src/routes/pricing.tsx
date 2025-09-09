@@ -1,27 +1,27 @@
-import {createFileRoute} from '@tanstack/react-router'
-import {useState} from 'react'
-import {Tab} from '@/components/ui/tab'
-import {Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle} from '@/components/ui/card'
-import {Button} from '@/components/ui/button'
-import {Check, Infinity, Sparkles, Zap, Cloud, ChevronRight} from 'lucide-react'
-import {cn} from '@/lib/utils'
-import cloudflare from "@/images/clouds/cloudflare_white.webp";
-import netlify from "@/images/clouds/netlify_white.webp";
-import akamai from "@/images/clouds/akamai_white.webp";
-import aws from "@/images/clouds/aws_white.webp";
-import vercel from "@/images/clouds/vercel_white.webp";
-import fastly from "@/images/clouds/fastly_white.webp";
+import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { Tab } from '@/components/ui/tab';
+import akamai from '@/images/clouds/akamai_white.webp';
+import aws from '@/images/clouds/aws_white.webp';
+import cloudflare from '@/images/clouds/cloudflare_white.webp';
+import fastly from '@/images/clouds/fastly_white.webp';
+import netlify from '@/images/clouds/netlify_white.webp';
+import vercel from '@/images/clouds/vercel_white.webp';
+import { cn } from '@/lib/utils';
+import { createFileRoute } from '@tanstack/react-router';
+import { Check, ChevronRight, Cloud, Infinity, Sparkles, Zap } from 'lucide-react';
+import { useState } from 'react';
 
 export const Route = createFileRoute('/pricing')({
   component: PricingPage,
-})
+});
 
 const tiers = [
   {
     name: 'Personal',
     id: 'personal',
     href: 'https://app.zephyr-cloud.io/',
-    price: {monthly: 0, annually: 0},
+    price: { monthly: 0, annually: 0 },
     description: 'Perfect for side projects and personal experiments',
     features: [
       '1 editing user',
@@ -41,7 +41,7 @@ const tiers = [
     id: 'team',
     href: 'https://app.zephyr-cloud.io/',
     // TODO: Can we make this drop into the subscription page for team
-    price: {monthly: 19, annually: 16},
+    price: { monthly: 19, annually: 16 },
     description: 'For teams building and shipping together',
     features: [
       'Up to 10 editing users',
@@ -62,7 +62,7 @@ const tiers = [
     id: 'business',
     href: 'https://app.zephyr-cloud.io/',
     // TODO: Can we make this drop into the subscription page for business
-    price: {monthly: 99, annually: 84},
+    price: { monthly: 99, annually: 84 },
     description: 'For growing companies with production workloads',
     features: [
       'Up to 20 editing users',
@@ -85,7 +85,7 @@ const tiers = [
     name: 'Enterprise',
     id: 'enterprise',
     href: 'mailto:inbound@zephyr-cloud.io?subject=Enterprise',
-    price: {monthly: null, annually: null},
+    price: { monthly: null, annually: null },
     description: 'For organizations with advanced security and support needs',
     features: [
       'Unlimited editing users',
@@ -107,42 +107,37 @@ const tiers = [
     cta: 'Contact Sales',
     mostPopular: false,
   },
-]
+];
 
 function PricingPage() {
-  const [frequency, setFrequency] = useState<'monthly' | 'annually'>('monthly')
-  const isAnnual = frequency === 'annually'
+  const [frequency, setFrequency] = useState<'monthly' | 'annually'>('monthly');
+  const isAnnual = frequency === 'annually';
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-7xl">
       {/* Hero Section */}
       <div className="text-center mb-8">
-        <h1 className="text-5xl font-bold mb-4">
-          Pricing that scales with your team
-        </h1>
-        <p className="text-xl text-neutral-300 mb-1 max-w-2xl mx-auto">
-          Start free and scale as you grow.
-        </p>
+        <h1 className="text-5xl font-bold mb-4">Pricing that scales with your team</h1>
+        <p className="text-xl text-neutral-300 mb-1 max-w-2xl mx-auto">Start free and scale as you grow.</p>
       </div>
 
       {/* Key Features Banner */}
-      <div
-        className="bg-gradient-to-r from-emerald-900/20 to-emerald-700/20 border border-emerald-700/30 rounded-lg p-6 mb-12">
+      <div className="bg-gradient-to-r from-emerald-900/20 to-emerald-700/20 border border-emerald-700/30 rounded-lg p-6 mb-12">
         <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
           <div className="flex items-center gap-2">
-            <Infinity className="h-4 w-4 text-emerald-700"/>
+            <Infinity className="h-4 w-4 text-emerald-700" />
             <span>No build minutes</span>
           </div>
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-emerald-700"/>
+            <Zap className="h-4 w-4 text-emerald-700" />
             <span>Sub-second deployments</span>
           </div>
           <div className="flex items-center gap-2">
-            <Cloud className="h-4 w-4 text-emerald-700"/>
+            <Cloud className="h-4 w-4 text-emerald-700" />
             <span>Bring Your Own Cloud (BYOC)</span>
           </div>
           <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-emerald-700"/>
+            <Sparkles className="h-4 w-4 text-emerald-700" />
             <span>Unlimited preview environments</span>
           </div>
         </div>
@@ -151,11 +146,7 @@ function PricingPage() {
       {/* Billing Toggle */}
       <div className="p-6 mb-6">
         <div className="mx-auto flex w-fit rounded-full bg-neutral-900 p-1">
-          <Tab
-            text="monthly"
-            selected={frequency === 'monthly'}
-            setSelected={() => setFrequency('monthly')}
-          />
+          <Tab text="monthly" selected={frequency === 'monthly'} setSelected={() => setFrequency('monthly')} />
           <Tab
             text="annually"
             selected={frequency === 'annually'}
@@ -170,8 +161,8 @@ function PricingPage() {
           <Card
             key={tier.id}
             className={cn(
-              "relative flex flex-col",
-              tier.mostPopular && "border-emerald-700 shadow-lg shadow-emerald-700/20"
+              'relative flex flex-col',
+              tier.mostPopular && 'border-emerald-700 shadow-lg shadow-emerald-700/20',
             )}
           >
             {tier.mostPopular && (
@@ -189,9 +180,7 @@ function PricingPage() {
               <div className="mt-4">
                 {tier.price.monthly !== null ? (
                   <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold">
-                      ${isAnnual ? tier.price.annually : tier.price.monthly}
-                    </span>
+                    <span className="text-4xl font-bold">${isAnnual ? tier.price.annually : tier.price.monthly}</span>
                     <span className="text-neutral-400">/user/month</span>
                   </div>
                 ) : (
@@ -204,7 +193,7 @@ function PricingPage() {
               <ul className="space-y-3">
                 {tier.features.map((feature, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-emerald-700 mt-0.5 shrink-0"/>
+                    <Check className="h-4 w-4 text-emerald-700 mt-0.5 shrink-0" />
                     <span className="text-sm text-neutral-300">{feature}</span>
                   </li>
                 ))}
@@ -214,16 +203,14 @@ function PricingPage() {
             <CardFooter>
               <Button
                 className={cn(
-                  "w-full",
-                  tier.mostPopular
-                    ? "bg-emerald-700 hover:bg-emerald-600"
-                    : "bg-neutral-800 hover:bg-neutral-700"
+                  'w-full',
+                  tier.mostPopular ? 'bg-emerald-700 hover:bg-emerald-600' : 'bg-neutral-800 hover:bg-neutral-700',
                 )}
                 asChild
               >
                 <a href={tier.href} target="_blank">
                   {tier.cta}
-                  <ChevronRight className="ml-1 h-4 w-4"/>
+                  <ChevronRight className="ml-1 h-4 w-4" />
                 </a>
               </Button>
             </CardFooter>
@@ -236,34 +223,34 @@ function PricingPage() {
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-3xl font-bold mb-4">
-              <Cloud className="inline-block h-8 w-8 text-emerald-700 mr-2"/>
+              <Cloud className="inline-block h-8 w-8 text-emerald-700 mr-2" />
               Bring Your Own Cloud (BYOC)
             </h2>
             <p className="text-neutral-400 mb-6">
-              Deploy to your Cloudflare, Netlify, Akamai, Vercel, or any of our supported cloud providers.
-              Switch clouds instantly, deploy to multiple clouds or multiple accounts on a cloud simultaneously.
-              <br/>
+              Deploy to your Cloudflare, Netlify, Akamai, Vercel, or any of our supported cloud providers. Switch clouds
+              instantly, deploy to multiple clouds or multiple accounts on a cloud simultaneously.
+              <br />
               With BYOC, you maintain complete control over your infrastructure and costs.
             </p>
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700"/>
+                <Check className="h-5 w-5 text-emerald-700" />
                 <span>No vendor lock-in. Ever.</span>
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700"/>
+                <Check className="h-5 w-5 text-emerald-700" />
                 <span>Deploy to any cloud provider</span>
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700"/>
+                <Check className="h-5 w-5 text-emerald-700" />
                 <span>Switch clouds with one click</span>
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700"/>
+                <Check className="h-5 w-5 text-emerald-700" />
                 <span>Multi-cloud deployments</span>
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700"/>
+                <Check className="h-5 w-5 text-emerald-700" />
                 <span>Your security, your compliance</span>
               </li>
             </ul>
@@ -273,16 +260,32 @@ function PricingPage() {
               <div className="text-sm text-neutral-400 text-center">Deploy to your favorite cloud providers</div>
               <div className="grid grid-cols-3 gap-4">
                 <div className="flex items-center justify-center p-3">
-                  <img src={cloudflare} alt="Cloudflare" className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity" />
+                  <img
+                    src={cloudflare}
+                    alt="Cloudflare"
+                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                  />
                 </div>
                 <div className="flex items-center justify-center p-3">
-                  <img src={netlify} alt="Netlify" className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity" />
+                  <img
+                    src={netlify}
+                    alt="Netlify"
+                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                  />
                 </div>
                 <div className="flex items-center justify-center p-3">
-                  <img src={fastly} alt="Fastly" className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity" />
+                  <img
+                    src={fastly}
+                    alt="Fastly"
+                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                  />
                 </div>
                 <div className="flex items-center justify-center p-3">
-                  <img src={akamai} alt="Akamai" className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity" />
+                  <img
+                    src={akamai}
+                    alt="Akamai"
+                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
+                  />
                 </div>
                 <div className="flex items-center justify-center p-3">
                   <img src={aws} alt="AWS" className="h-8 w-auto opacity-50 grayscale" title="Coming Soon" />
@@ -344,9 +347,7 @@ function PricingPage() {
       {/* FAQ Section */}
       <div className="text-center">
         <h2 className="text-2xl font-bold mb-4">Frequently asked questions</h2>
-        <p className="text-neutral-400 mb-6">
-          Have questions? We're here to help.
-        </p>
+        <p className="text-neutral-400 mb-6">Have questions? We're here to help.</p>
         <div className="flex flex-wrap justify-center gap-4">
           <Button variant="outline" asChild>
             <a href="https://docs.zephyr-cloud.io/" target="_blank">
@@ -354,12 +355,10 @@ function PricingPage() {
             </a>
           </Button>
           <Button variant="outline" asChild>
-            <a href="mailto:support@zephyr-cloud.io">
-              Contact Support
-            </a>
+            <a href="mailto:support@zephyr-cloud.io">Contact Support</a>
           </Button>
         </div>
       </div>
     </div>
-  )
+  );
 }

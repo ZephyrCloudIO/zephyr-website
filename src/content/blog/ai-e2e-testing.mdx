@@ -1,19 +1,20 @@
 ---
-title: "AI e2e testing with Midscene, Puppeteer, and Zephyr Cloud"
-slug: "ai-e2e-testing"
-date: "2025-02-18"
-heroImage: "/images/blog/ai-e2e-testing/ai-testing-hero.webp"
-listingImage: "/images/blog/ai-e2e-testing/ai-testing-listing.webp"
-description: "Exploring AI-powered end-to-end testing with Midscene and how it integrates with Zephyr Cloud deployments"
-authors: ["Zack Chapple"]
-tags: ["ai", "tutorial", "engineering"]
+title: 'AI e2e testing with Midscene, Puppeteer, and Zephyr Cloud'
+slug: 'ai-e2e-testing'
+date: '2025-02-18'
+heroImage: '/images/blog/ai-e2e-testing/ai-testing-hero.webp'
+listingImage: '/images/blog/ai-e2e-testing/ai-testing-listing.webp'
+description: 'Exploring AI-powered end-to-end testing with Midscene and how it integrates with Zephyr Cloud deployments'
+authors: ['Zack Chapple']
+tags: ['ai', 'tutorial', 'engineering']
 featured: false
 readingTime: 6
 ---
 
-import zephyrWithMidscene from '@/images/blog/ai-e2e-testing/zephyr-with-midscene.webp'
+import zephyrWithMidscene from '@/images/blog/ai-e2e-testing/zephyr-with-midscene.webp';
 
 ## Why AI e2e testing
+
 Apart from the fact that it seems there is an AI agent for everything lately, and it is something that I get asked about
 by every investor and customer. There is an interesting thought that came into my mind as I was preparing the content behind
 this blog:
@@ -35,6 +36,7 @@ There were several questions that I had getting started with Midscene.
 - What other tools will I need to use in combination with Midscene?
 
 ## First impressions
+
 The first thing I tested was the chrome side panel. It was easy to install the only small friction point was having to set an
 OpenAI api token which took a few moments to figure out. After setting the token I was able to run my first test.
 
@@ -51,6 +53,7 @@ That brought me to another interesting thought:
 > What if using AI-based and natural language to test our user experience actually helps us fix user experience and journey issues?
 
 ## Real usage
+
 One of my new favorite ways to get started is to generate a project with Bolt and then download that, connect it to
 Zephyr and then do what I really want to test.
 
@@ -61,6 +64,7 @@ There is a README in the [sample application](https://github.com/zackarychapple/
 of working with something new.
 
 ### Reality of dogfooding
+
 When we first started creating Zephyr we had a lot of examples of usage, however our own applications and documentation sites
 were not actually using Zephyr. That has changed and now our marketing site, documentation, and very soon our full platform
 will be 100% deployed with Zephyr. Part of the dogfooding process though is finding the edges in your documentation and
@@ -71,6 +75,7 @@ A [new doc](https://docs.zephyr-cloud.io/how-to/github-automations) was created 
 documentation.
 
 ### Adding Midscene
+
 Adding Midscene itself was relatively easy. I decided to use Midscene together with Puppeteer since it was something
 that I was familiar with. It was fairly easy to install with a single npm command found in the instructions from their [doc site](https://midscenejs.com/integrate-with-puppeteer.html):
 
@@ -97,8 +102,8 @@ going to be my "broken" state. The thought process was that since the UI is now 
 I can validate that a new version fixes the user experience.
 
 ```typescript
-await mid.aiAssert("the text on the screen should contain \"This is a button from Vite remote.\"")
-console.log("Production is broken")
+await mid.aiAssert('the text on the screen should contain "This is a button from Vite remote."');
+console.log('Production is broken');
 ```
 
 Another key thought:
@@ -112,22 +117,26 @@ Here is the general testing flow that we do in order to validate that a new remo
 
 ```typescript
 // Validate that the text is "Broken"
-await mid.aiAssert("the text on the screen should not contain \"Yep Really, not yet\"")
+await mid.aiAssert('the text on the screen should not contain "Yep Really, not yet"');
 
 // Set the Zephyr overrides on the session
-await page.evaluate((remote, url) => {
+await page.evaluate(
+  (remote, url) => {
     sessionStorage.setItem(remote, url);
-  }, remote, remoteUrl
+  },
+  remote,
+  remoteUrl,
 );
 
 // Reload the page so the overridden remote can be visible.
 await page.reload();
 
 // Validate that the text is "Fixed"
-await mid.aiAssert("the text on the screen should contain \"This is a button from Vite remote. Yep Really, not yet\"")
+await mid.aiAssert('the text on the screen should contain "This is a button from Vite remote. Yep Really, not yet"');
 ```
 
 ## General thoughts
+
 I believe that there is a lot of opportunity in the AI testing space. Deciding which AI model to use and how obtuse to make
 the prompt text are business decisions that we have yet to make.
 
@@ -142,6 +151,7 @@ Final big thought:
 Looking forward to the future of testing applications with AI.
 
 ## Costs
+
 According to the OpenAI dashboard the iterations and experimentation that I did with the Chrome Side panel, local testing
 and GitHub automations cost a total of **$0.36 USD**. Given that it was several hours of testing, I'm not sure how I feel
 about the cost itself, however it is an interesting note.

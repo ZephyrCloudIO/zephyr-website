@@ -1,5 +1,5 @@
-import type { ChangelogEntry, ChangelogCategory } from './types';
 import { changelogImages } from './images';
+import type { ChangelogCategory, ChangelogEntry } from './types';
 
 export interface MDXChangelogEntry {
   metadata: {
@@ -37,14 +37,22 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
 
 // Import all changelog entries
 const changelogModules: Record<string, () => Promise<MDXChangelogEntry>> = {
-  '2025-09-performance-fixes': () => import('@/content/changelog/2025-09-performance-fixes.mdx') as Promise<MDXChangelogEntry>,
-  '2025-08-yearly-subscriptions': () => import('@/content/changelog/2025-08-yearly-subscriptions.mdx') as Promise<MDXChangelogEntry>,
-  '2025-07-akamai-integration-audit-logs': () => import('@/content/changelog/2025-07-akamai-integration-audit-logs.mdx') as Promise<MDXChangelogEntry>,
-  '2025-06-dependency-management': () => import('@/content/changelog/2025-06-dependency-management.mdx') as Promise<MDXChangelogEntry>,
-  '2025-05-deployment-navigation': () => import('@/content/changelog/2025-05-deployment-navigation.mdx') as Promise<MDXChangelogEntry>,
-  '2025-04-version-statuses-devops': () => import('@/content/changelog/2025-04-version-statuses-devops.mdx') as Promise<MDXChangelogEntry>,
-  '2025-02-updated-navigation': () => import('@/content/changelog/2025-02-updated-navigation.mdx') as Promise<MDXChangelogEntry>,
-  '2025-01-timestamps-filters': () => import('@/content/changelog/2025-01-timestamps-filters.mdx') as Promise<MDXChangelogEntry>,
+  '2025-09-performance-fixes': () =>
+    import('@/content/changelog/2025-09-performance-fixes.mdx') as Promise<MDXChangelogEntry>,
+  '2025-08-yearly-subscriptions': () =>
+    import('@/content/changelog/2025-08-yearly-subscriptions.mdx') as Promise<MDXChangelogEntry>,
+  '2025-07-akamai-integration-audit-logs': () =>
+    import('@/content/changelog/2025-07-akamai-integration-audit-logs.mdx') as Promise<MDXChangelogEntry>,
+  '2025-06-dependency-management': () =>
+    import('@/content/changelog/2025-06-dependency-management.mdx') as Promise<MDXChangelogEntry>,
+  '2025-05-deployment-navigation': () =>
+    import('@/content/changelog/2025-05-deployment-navigation.mdx') as Promise<MDXChangelogEntry>,
+  '2025-04-version-statuses-devops': () =>
+    import('@/content/changelog/2025-04-version-statuses-devops.mdx') as Promise<MDXChangelogEntry>,
+  '2025-02-updated-navigation': () =>
+    import('@/content/changelog/2025-02-updated-navigation.mdx') as Promise<MDXChangelogEntry>,
+  '2025-01-timestamps-filters': () =>
+    import('@/content/changelog/2025-01-timestamps-filters.mdx') as Promise<MDXChangelogEntry>,
   // Add more changelog entries here as they are created
 };
 
@@ -55,7 +63,7 @@ export async function getAllChangelogEntries(): Promise<ChangelogEntry[]> {
       Object.entries(changelogModules).map(async ([key, modulePromise]) => {
         const module = await modulePromise();
         return mdxToChangelogEntry(module as MDXChangelogEntry, key);
-      })
+      }),
     );
 
     // Sort by date, newest first

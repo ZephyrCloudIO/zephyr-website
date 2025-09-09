@@ -1,7 +1,7 @@
+import { tagLabels } from '@/lib/blog/tags';
+import type { BlogPost } from '@/lib/blog/types';
 import { Link } from '@tanstack/react-router';
 import { Calendar } from 'lucide-react';
-import type { BlogPost } from '@/lib/blog/types';
-import { tagLabels } from '@/lib/blog/tags';
 
 interface BlogCardProps {
   post: BlogPost;
@@ -10,12 +10,9 @@ interface BlogCardProps {
 
 export function BlogCard({ post, featured = false }: BlogCardProps) {
   if (!post) return null;
-  
+
   return (
-    <Link
-      to={`/blog/${post.slug}`}
-      className="group block"
-    >
+    <Link to={`/blog/${post.slug}`} className="group block">
       <article className="h-full bg-neutral-900/50 backdrop-blur-lg rounded-2xl overflow-hidden transition-all duration-300 hover:bg-neutral-800/50 hover:shadow-xl">
         <div className="aspect-video overflow-hidden">
           <img
@@ -27,17 +24,16 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
         <div className="p-6">
           <div className="flex flex-wrap gap-2 mb-3">
             {post.tags?.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-2 py-1 rounded-full bg-emerald-900/30 text-emerald-400"
-              >
+              <span key={tag} className="text-xs px-2 py-1 rounded-full bg-emerald-900/30 text-emerald-400">
                 {tagLabels[tag] || tag}
               </span>
             ))}
           </div>
-          <h3 className={`font-semibold mb-2 transition-colors group-hover:text-emerald-400 ${
-            featured ? 'text-2xl' : 'text-xl'
-          }`}>
+          <h3
+            className={`font-semibold mb-2 transition-colors group-hover:text-emerald-400 ${
+              featured ? 'text-2xl' : 'text-xl'
+            }`}
+          >
             {post.title}
           </h3>
           <div className="flex items-center gap-4 text-sm text-neutral-400 mb-3">
@@ -51,13 +47,9 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
                 })}
               </time>
             </div>
-            {post.readingTime && (
-              <span>{post.readingTime} min read</span>
-            )}
+            {post.readingTime && <span>{post.readingTime} min read</span>}
           </div>
-          <p className="text-neutral-300 line-clamp-3 mb-4">
-            {post.description}
-          </p>
+          <p className="text-neutral-300 line-clamp-3 mb-4">{post.description}</p>
           <div className="flex items-center justify-between">
             <div className="flex -space-x-2">
               {post.authors?.map((author, index) => (

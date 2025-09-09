@@ -1,18 +1,18 @@
 ---
-title: "Introducing \"Serve Time\": The Third Phase of Modern Application Delivery"
-slug: "serve-time"
-date: "2025-09-01"
-heroImage: "/images/blog/serve-time/hero.webp"
-listingImage: "/images/blog/serve-time/hero.webp"
+title: 'Introducing "Serve Time": The Third Phase of Modern Application Delivery'
+slug: 'serve-time'
+date: '2025-09-01'
+heroImage: '/images/blog/serve-time/hero.webp'
+listingImage: '/images/blog/serve-time/hero.webp'
 description: "For years, we've organized software delivery around build time and runtime. But as edge computing matured, a third phase emerged that deserves its own name: Serve Time."
-authors: ["Rodrigo Yokota"]
-tags: ["architecture", "web", "cloud", "edge"]
+authors: ['Rodrigo Yokota']
+tags: ['architecture', 'web', 'cloud', 'edge']
 featured: true
 readingTime: 8
 ---
 
-import edgeFunction from '@/images/blog/serve-time/edge-function.webp'
-import cdn from '@/images/blog/serve-time/cdn-serving.webp'
+import edgeFunction from '@/images/blog/serve-time/edge-function.webp';
+import cdn from '@/images/blog/serve-time/cdn-serving.webp';
 
 For years, we've organized our understanding of software delivery around two distinct phases: **build time** and **runtime**. Build time is when we compile, bundle, and optimize our code for production. Runtime is when that code executes in the user's environment—their browser, device, or server.
 
@@ -49,11 +49,13 @@ This wasn't just about caching anymore. We could suddenly run real logic—authe
 <br />
 
 It's distinct from both build time and runtime:
+
 - **Build time** prepares your code for deployment
 - **Serve time** intelligently decides what to send and how
 - **Runtime** executes that code in the user's environment
 
 During Serve Time, you can:
+
 - **Route intelligently** based on user location, device, or session data
 - **Personalize content** without waiting for origin server round-trips
 - **Apply security filters** before traffic reaches your infrastructure
@@ -69,12 +71,14 @@ Traditional architectures force you to make these decisions either too early (at
 Serve Time gives you the best of both worlds: **real-time intelligence with edge-level performance**.
 
 Consider a practical example: an e-commerce site needs to show different product recommendations based on user location, time of day, and browsing history. In a traditional setup, this requires:
+
 1. Loading a generic page
 2. Making API calls to personalization services
 3. Re-rendering with personalized content
 4. Multiple round-trips and client-side processing
 
 With Serve Time logic, the edge can:
+
 1. Analyze the incoming request
 2. Select the appropriate pre-built page variant
 3. Deliver personalized content in a single response
@@ -118,11 +122,12 @@ We use edge logic to:
 
 By naming and recognizing Serve Time as its own phase, we change how we architect applications:
 
-Instead of thinking: *"I'll build this once and runtime will handle everything else"*
+Instead of thinking: _"I'll build this once and runtime will handle everything else"_
 
-We think: *"I'll build multiple variants, serve time will choose the right one, and runtime will execute it efficiently"*
+We think: _"I'll build multiple variants, serve time will choose the right one, and runtime will execute it efficiently"_
 
 This shift unlocks patterns that weren't practical before:
+
 - Per-user application versions
 - Geographic feature rollouts
 - Real-time A/B testing without JavaScript

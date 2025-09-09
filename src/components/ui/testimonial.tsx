@@ -6,13 +6,7 @@ interface TestimonialProps {
   linkedIn?: string;
 }
 
-export default function Testimonial({
-  author,
-  role,
-  children,
-  avatar,
-  linkedIn,
-}: TestimonialProps) {
+export default function Testimonial({ author, role, children, avatar, linkedIn }: TestimonialProps) {
   return (
     <div className="flex-1 min-w-[300px] pb-2 bg-neutral-900 rounded-md p-2">
       <blockquote className="relative border-l-2 border-neutral-700 pl-3 ml-2 mt-2">
@@ -41,15 +35,11 @@ export default function Testimonial({
                 author
               )}
             </div>
-            <div className="text-sm text-neutral-400">
-              {role}
-            </div>
+            <div className="text-sm text-neutral-400">{role}</div>
           </div>
         </div>
 
-        <div className="text-neutral-300 text-base font-normal pl-5 pr-10">
-          {children}
-        </div>
+        <div className="text-neutral-300 text-base font-normal pl-5 pr-10">{children}</div>
       </blockquote>
     </div>
   );

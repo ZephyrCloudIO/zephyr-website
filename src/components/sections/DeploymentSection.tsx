@@ -3,31 +3,19 @@ import { AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 import { ShineBorder } from '../magicui/shine-border';
 import { Card, CardFooter, CardHeader } from '../ui/card';
-import {
-  FeatureContent,
-  FeatureDescription,
-  FeatureHeader,
-  FeatureSection,
-  FeatureTitle,
-} from './FeatureSection';
+import { FeatureContent, FeatureDescription, FeatureHeader, FeatureSection, FeatureTitle } from './FeatureSection';
 
 export const DeploymentSection: React.FC = () => {
   const [hoveredIdx, setHoveredIdx] = useState<number | null>(null);
 
   return (
     <FeatureSection className="bg-neutral-900">
-      <FeatureContent
-        highlightColumn="right"
-        className="md:grid-cols-2 lg:grid-cols-12 lg:gap-16"
-      >
+      <FeatureContent highlightColumn="right" className="md:grid-cols-2 lg:grid-cols-12 lg:gap-16">
         <FeatureHeader className="text-left">
-          <FeatureTitle className="text-4xl">
-            To the edge in under a second
-          </FeatureTitle>
+          <FeatureTitle className="text-4xl">To the edge in under a second</FeatureTitle>
 
           <FeatureDescription>
-            Just adding a single line of code "withZephyr" is often all it takes
-            to start deploying directly to the edge
+            Just adding a single line of code "withZephyr" is often all it takes to start deploying directly to the edge
           </FeatureDescription>
         </FeatureHeader>
 
@@ -42,16 +30,9 @@ export const DeploymentSection: React.FC = () => {
               onMouseLeave={() => setHoveredIdx(null)}
               key={platform.title}
             >
-              <Card
-                key={`${platform.title}-${idx}`}
-                className="py-0 relative gap-0"
-              >
+              <Card key={`${platform.title}-${idx}`} className="py-0 relative gap-0">
                 <AnimatePresence>
-                  {hoveredIdx === idx && (
-                    <ShineBorder
-                      shineColor={['#A07CFE', '#FE8FB5', '#FFBE7B']}
-                    />
-                  )}
+                  {hoveredIdx === idx && <ShineBorder shineColor={['#A07CFE', '#FE8FB5', '#FFBE7B']} />}
                 </AnimatePresence>
 
                 <CardHeader
@@ -62,11 +43,7 @@ export const DeploymentSection: React.FC = () => {
                 >
                   {platform.logos.map((logo, logoIdx) => (
                     <div key={logoIdx} className="flex items-center gap-2">
-                      {logoIdx > 0 && (
-                        <span className="text-base text-neutral-400 select-none">
-                          +
-                        </span>
-                      )}
+                      {logoIdx > 0 && <span className="text-base text-neutral-400 select-none">+</span>}
 
                       <div className="flex justify-center items-center rounded-full border border-dashed border-neutral-600 p-3">
                         <img

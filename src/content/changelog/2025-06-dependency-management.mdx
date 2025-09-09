@@ -1,11 +1,11 @@
 ---
-title: "Dependency Management & Rspress Plugin"
-date: "2025-06-01"
-version: "v0.0.54"
-summary: "Introducing Zephyr Dependency Management and the new withZephyr Rspress plugin for SSG"
-tags: ["features", "dependency-management", "rspress", "plugins"]
-category: "feature"
-author: "Zephyr Team"
+title: 'Dependency Management & Rspress Plugin'
+date: '2025-06-01'
+version: 'v0.0.54'
+summary: 'Introducing Zephyr Dependency Management and the new withZephyr Rspress plugin for SSG'
+tags: ['features', 'dependency-management', 'rspress', 'plugins']
+category: 'feature'
+author: 'Zephyr Team'
 ---
 
 # Dependency Management & Rspress Plugin Running SSG
@@ -17,6 +17,7 @@ We're excited to announce two major features that make building distributed appl
 First, we've rolled out **Zephyr Dependency Management**, a powerful new feature that simplifies how your applications handle external modules. Now you can:
 
 ### 1. Easily specify remote dependencies
+
 Define external modules in your `package.json` to have them loaded dynamically from other applications. This enables true micro-frontend architecture without the complexity.
 
 ```json
@@ -29,12 +30,15 @@ Define external modules in your `package.json` to have them loaded dynamically f
 ```
 
 ### 2. Benefit from intelligent resolution
+
 Zephyr analyzes your app during build time to ensure only essential assets are bundled, while seamlessly fetching others. This results in:
+
 - Smaller bundle sizes
 - Faster initial load times
 - Dynamic module loading when needed
 
 ### 3. Enjoy simplified setup
+
 With minimal configuration, Zephyr handles remote loading and asset bundling, making distributed app development more efficient than ever. No complex webpack configurations or manual module federation setup required.
 
 [Learn more about Zephyr Dependency Management →](https://docs.zephyr-cloud.io/dependency-management)
@@ -44,6 +48,7 @@ With minimal configuration, Zephyr handles remote loading and asset bundling, ma
 Second, we've introduced the **`withZephyr` Rspress plugin**, along with an example showcasing its use with Static Site Generation (SSG). This new addition will help you leverage Rspress more effectively with Zephyr.
 
 ### Features
+
 - Seamless integration with Rspress SSG workflow
 - Automatic deployment to Zephyr Cloud
 - Built-in optimizations for static sites
@@ -58,7 +63,7 @@ import { withZephyr } from '@zephyr-cloud/rspress-plugin';
 export default defineConfig(
   withZephyr({
     // Your Rspress config
-  })
+  }),
 );
 ```
 

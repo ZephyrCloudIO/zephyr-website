@@ -1,8 +1,8 @@
-import React from "react";
-import { Link } from "@tanstack/react-router";
-import {Activity} from "lucide-react";
-import ZephyrWordmark from "@/images/zephyr-wordmark.svg";
-import SOC2Logo from "@/images/soc2-logo.webp";
+import SOC2Logo from '@/images/soc2-logo.webp';
+import ZephyrWordmark from '@/images/zephyr-wordmark.svg';
+import { Link } from '@tanstack/react-router';
+import { Activity } from 'lucide-react';
+import React from 'react';
 
 export const Footer: React.FC = () => {
   return (
@@ -11,29 +11,21 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src={ZephyrWordmark} alt="Zephyr Logo" width={128}/>
+              <img src={ZephyrWordmark} alt="Zephyr Logo" width={128} />
             </Link>
             <img src={SOC2Logo} alt="SOC2 Compliant" className="h-12 mb-4" />
-            <p className="text-xs text-neutral-500">
-              &copy; {new Date().getFullYear()} Zephyr Cloud, Inc.
-            </p>
+            <p className="text-xs text-neutral-500">&copy; {new Date().getFullYear()} Zephyr Cloud, Inc.</p>
           </div>
           <div>
             <h5 className="font-semibold text-white mb-3">Developers</h5>
             <ul className="space-y-2 text-sm">
               <li>
-                <a
-                  href="https://docs.zephyr-cloud.io/"
-                  target="_blank"
-                  className="text-neutral-400 hover:text-white"
-                >
+                <a href="https://docs.zephyr-cloud.io/" target="_blank" className="text-neutral-400 hover:text-white">
                   Docs
                 </a>
               </li>
               <li>
-                <Link to="./llms.txt"
-                   target="_blank"
-                   className="text-neutral-400 hover:text-white">
+                <Link to="./llms.txt" target="_blank" className="text-neutral-400 hover:text-white">
                   llms.txt
                 </Link>
               </li>
@@ -43,13 +35,20 @@ export const Footer: React.FC = () => {
             <h5 className="font-semibold text-white mb-3">Company</h5>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="https://github.com/ZephyrCloudIO" target="_blank"
-                   className="text-neutral-400 hover:text-white">
+                <a
+                  href="https://github.com/ZephyrCloudIO"
+                  target="_blank"
+                  className="text-neutral-400 hover:text-white"
+                >
                   GitHub
                 </a>
               </li>
               <li>
-                <a href="https://www.linkedin.com/company/96615966" target="_blank" className="text-neutral-400 hover:text-white">
+                <a
+                  href="https://www.linkedin.com/company/96615966"
+                  target="_blank"
+                  className="text-neutral-400 hover:text-white"
+                >
                   LinkedIn
                 </a>
               </li>
@@ -64,14 +63,20 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="https://www.youtube.com/@ZephyrCloud" target="_blank"
-                   className="text-neutral-400 hover:text-white">
+                <a
+                  href="https://www.youtube.com/@ZephyrCloud"
+                  target="_blank"
+                  className="text-neutral-400 hover:text-white"
+                >
                   YouTube
                 </a>
               </li>
               <li>
-                <a href="https://www.instagram.com/zephyrcloudio" target="_blank"
-                   className="text-neutral-400 hover:text-white">
+                <a
+                  href="https://www.instagram.com/zephyrcloudio"
+                  target="_blank"
+                  className="text-neutral-400 hover:text-white"
+                >
                   Instagram
                 </a>
               </li>
@@ -102,9 +107,7 @@ export const Footer: React.FC = () => {
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
               </div>
-              <span className="text-sm text-neutral-400 group-hover:text-neutral-300">
-                All systems operational
-              </span>
+              <span className="text-sm text-neutral-400 group-hover:text-neutral-300">All systems operational</span>
               <Activity size={14} className="text-neutral-500 group-hover:text-neutral-400" />
             </a>
           </div>

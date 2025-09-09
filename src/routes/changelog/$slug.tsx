@@ -1,10 +1,10 @@
-import { createFileRoute, Link } from '@tanstack/react-router';
-import { useState, useEffect } from 'react';
-import { Calendar, Clock, ArrowLeft, Zap, Package, Shield, Rocket, Globe, Code } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import type { ChangelogEntry } from '@/lib/changelog/types';
-import { getChangelogEntryBySlug } from '@/lib/changelog/loader';
 import type { MDXChangelogEntry } from '@/lib/changelog/loader';
+import { getChangelogEntryBySlug } from '@/lib/changelog/loader';
+import type { ChangelogEntry } from '@/lib/changelog/types';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowLeft, Calendar, Clock, Code, Globe, Package, Rocket, Shield, Zap } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 export const Route = createFileRoute('/changelog/$slug')({
   component: ChangelogEntryPage,
@@ -23,7 +23,7 @@ function ChangelogEntryPage() {
         setEntry(changelogEntry);
         // Dynamically import the MDX content
         try {
-          const mdxModule = await import(`@/content/changelog/${slug}.mdx`) as MDXChangelogEntry;
+          const mdxModule = (await import(`@/content/changelog/${slug}.mdx`)) as MDXChangelogEntry;
           setMDXContent(() => mdxModule.default);
         } catch (error) {
           console.error('Failed to load MDX content:', error);
@@ -48,9 +48,7 @@ function ChangelogEntryPage() {
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-4xl font-bold mb-4">Entry Not Found</h1>
-          <p className="text-neutral-400 mb-8">
-            The changelog entry you're looking for doesn't exist.
-          </p>
+          <p className="text-neutral-400 mb-8">The changelog entry you're looking for doesn't exist.</p>
           <Link to="/changelog">
             <Button variant="outline">
               <ArrowLeft className="w-4 h-4 mr-2" />
@@ -64,13 +62,20 @@ function ChangelogEntryPage() {
 
   const getCategoryIcon = () => {
     switch (entry.category) {
-      case 'performance': return <Zap className="w-5 h-5 text-yellow-500" />;
-      case 'feature': return <Rocket className="w-5 h-5 text-emerald-500" />;
-      case 'integration': return <Package className="w-5 h-5 text-blue-500" />;
-      case 'security': return <Shield className="w-5 h-5 text-red-500" />;
-      case 'platform': return <Globe className="w-5 h-5 text-purple-500" />;
-      case 'dx': return <Code className="w-5 h-5 text-orange-500" />;
-      default: return null;
+      case 'performance':
+        return <Zap className="w-5 h-5 text-yellow-500" />;
+      case 'feature':
+        return <Rocket className="w-5 h-5 text-emerald-500" />;
+      case 'integration':
+        return <Package className="w-5 h-5 text-blue-500" />;
+      case 'security':
+        return <Shield className="w-5 h-5 text-red-500" />;
+      case 'platform':
+        return <Globe className="w-5 h-5 text-purple-500" />;
+      case 'dx':
+        return <Code className="w-5 h-5 text-orange-500" />;
+      default:
+        return null;
     }
   };
 
@@ -85,23 +90,15 @@ function ChangelogEntryPage() {
           </Link>
 
           {entry.image && (
-            <img
-              src={entry.image}
-              alt={entry.title}
-              className="w-full max-w-3xl mx-auto mb-6 rounded-lg"
-            />
+            <img src={entry.image} alt={entry.title} className="w-full max-w-3xl mx-auto mb-6 rounded-lg" />
           )}
 
           <div className="flex items-center gap-3 mb-4">
             {getCategoryIcon()}
-            <span className="text-sm text-neutral-400 uppercase tracking-wider">
-              {entry.category}
-            </span>
+            <span className="text-sm text-neutral-400 uppercase tracking-wider">{entry.category}</span>
           </div>
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">
-            {entry.title}
-          </h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6">{entry.title}</h1>
 
           <div className="flex items-center gap-6 text-neutral-300 mb-8">
             <div className="flex items-center gap-2">

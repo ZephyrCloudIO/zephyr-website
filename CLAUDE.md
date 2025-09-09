@@ -5,6 +5,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 ## Project Overview
 
 This is a Zephyr Cloud website built with:
+
 - React 19.1.0
 - Rsbuild (Rspack-based build tool)
 - TypeScript 5.8.3
@@ -30,12 +31,14 @@ pnpm preview    # Preview production build locally
 ## Code Architecture
 
 ### Build System
+
 - Uses **Rsbuild** (not webpack/vite) configured in `rsbuild.config.ts`
 - Integrates with Zephyr Cloud for deployment via custom plugin
 - PostCSS setup with Tailwind CSS v4 plugin architecture
 - TanStack Router plugin for automatic route generation
 
 ### Directory Structure
+
 ```
 src/
 ├── components/
@@ -83,6 +86,7 @@ src/
 ```
 
 ### Routing System
+
 - Uses **TanStack Router** with file-based routing
 - Routes are defined in `src/routes/` directory
 - `__root.tsx` provides the layout wrapper with Header and Footer
@@ -91,9 +95,11 @@ src/
 - External links use standard `<a>` tags with `target="_blank"`
 
 ### Path Aliases
+
 - `@/*` maps to `./src/*` (configured in both tsconfig.json and rsbuild.config.ts)
 
 ### Styling System
+
 - Tailwind CSS with Zephyr brand colors:
   - `emerald-700`: Primary green for Zephyr branding
   - `blue-800`: Workflow section accent
@@ -105,6 +111,7 @@ src/
 - Responsive design with Tailwind breakpoints (sm, md, lg)
 
 ### Component Library
+
 - Shadcn UI components installed via CLI
 - Components use Radix UI primitives
 - Styled with Tailwind classes and cn() utility
@@ -120,32 +127,39 @@ src/
 ### Features
 
 #### Logo Right-Click Menu
+
 - Right-click on header logo opens dropdown with options to copy SVG
 - Copies either logo icon or wordmark SVG to clipboard
 
 #### Resources Dropdown
+
 - Navigation includes dropdown menu for Blog, Changelog, Press, Events
 
 #### Scrolling Testimonials
+
 - Two-row auto-scrolling testimonial cards
 - Pauses on hover
 - Includes social media links for testimonial authors
 
 #### Component Reusability
+
 - `FeatureSection` component accepts props for different sections
 - Configurable title prefix, color, code examples, and layout
 
 ## Development Notes
 
 ### Link Preferences
+
 - When creating external links, use `target="_blank"` but DO NOT include `rel="noreferrer"`
 - It's acceptable to show referrer information when users click external links
 - Use `rel="noopener"` alone for security without blocking referrer information
 
 ### Package Manager
+
 This project uses **pnpm**. Always use pnpm commands, not npm or yarn.
 
 ### TypeScript Configuration
+
 - Strict mode enabled
 - Target: ES2020
 - Module resolution: bundler
@@ -153,12 +167,14 @@ This project uses **pnpm**. Always use pnpm commands, not npm or yarn.
 - Includes generated route types from TanStack Router
 
 ### Component Organization
+
 - Page sections are extracted into `components/sections/`
 - Reusable UI components in `components/ui/`
 - Data constants separated from components
 - Each component is self-contained with its own imports
 
 ### Current State
+
 - Production-ready component architecture
 - TanStack Router implemented for navigation
 - Blog system with MDX support and dynamic routing
@@ -168,6 +184,7 @@ This project uses **pnpm**. Always use pnpm commands, not npm or yarn.
 - No linting tools (ESLint/Prettier) set up
 
 ### Blog System
+
 - MDX files in `src/content/blog/` with frontmatter metadata
 - Blog images stored in `src/images/blog/` and imported in loader
 - Dynamic blog post routes using `$slug` parameter
@@ -177,16 +194,20 @@ This project uses **pnpm**. Always use pnpm commands, not npm or yarn.
 - Automatic home page integration showing latest 4 posts
 
 ### Zephyr Cloud Integration
+
 The project uses zephyr-rspack-plugin for building and deploying to Zephyr Cloud. Production builds automatically generate preview URLs.
 
 ### Important Files
+
 - `rsbuild.config.ts` - Build configuration with router plugin
 - `src/routes/__root.tsx` - Main layout wrapper
 - `src/components/sections/Header.tsx` - Navigation with dropdown menus
 - `.vscode/settings.json` - Excludes generated files from editing
 
 ### Adding New Routes
+
 To add a new route, create a file in `src/routes/`:
+
 - `src/routes/about.tsx` → `/about`
 - `src/routes/blog/index.tsx` → `/blog`
 - `src/routes/blog/$slug.tsx` → `/blog/:slug` (dynamic route)
@@ -196,13 +217,16 @@ The route tree will be automatically regenerated when the dev server is running.
 ### Embedding Media in MDX Blog Posts
 
 #### Images
+
 To embed images in blog posts:
+
 1. Import the image file at the top of the MDX file
 2. Use JSX img tag with the imported variable
 
 Example:
+
 ```mdx
-import deploymentDiagram from '@/images/blog/post-name/diagram.webp'
+import deploymentDiagram from '@/images/blog/post-name/diagram.webp';
 
 <img src={deploymentDiagram} alt="Deployment workflow" />
 ```
@@ -210,18 +234,21 @@ import deploymentDiagram from '@/images/blog/post-name/diagram.webp'
 Note: Markdown image syntax (![alt](src)) does NOT work with imported images in MDX. You must use JSX syntax.
 
 #### Videos
+
 To embed videos in blog posts:
+
 1. Import the video file at the top of the MDX file
 2. Use HTML5 video element with proper attributes
 
 Example:
+
 ```mdx
-import demoVideo from '@/images/blog/post-name/demo.webm'
+import demoVideo from '@/images/blog/post-name/demo.webm';
 
 <div align="center">
-<video autoPlay loop muted>
-  <source src={demoVideo} type="video/webm"/>
-</video>
+  <video autoPlay loop muted>
+    <source src={demoVideo} type="video/webm" />
+  </video>
 </div>
 ```
 
@@ -232,6 +259,7 @@ Note: All media files (images, videos) should be placed in the blog post's image
 The project includes a Rust-based image converter (`imgc`) for consistent image optimization. When adding or converting images, follow these guidelines:
 
 ### Image Quality Standards
+
 - **Default quality**: 100% for all new images
 - **Community avatars**: 90% quality after resizing
 - **All images should be in WebP format** for optimal performance
@@ -239,6 +267,7 @@ The project includes a Rust-based image converter (`imgc`) for consistent image 
 ### Image Sizing Requirements
 
 #### Community Images (Testimonial Avatars)
+
 - **Dimensions**: 100x100 pixels (square)
 - **Quality**: 90%
 - **Format**: WebP
@@ -249,6 +278,7 @@ The project includes a Rust-based image converter (`imgc`) for consistent image 
   ```
 
 #### Company Logos
+
 - **Format**: WebP
 - **Quality**: 100% (to preserve logo clarity)
 - **Dimensions**: To be determined based on design requirements
@@ -258,6 +288,7 @@ The project includes a Rust-based image converter (`imgc`) for consistent image 
   ```
 
 #### Blog Images
+
 - **Format**: WebP
 - **Quality**: 100% for hero images, can be adjusted based on file size
 - **Dimensions**: To be determined based on design requirements
@@ -267,6 +298,7 @@ The project includes a Rust-based image converter (`imgc`) for consistent image 
   ```
 
 #### Cloud Provider Logos
+
 - **Format**: WebP (convert from PNG)
 - **Quality**: 100%
 - **Example conversion**:
@@ -277,11 +309,13 @@ The project includes a Rust-based image converter (`imgc`) for consistent image 
 ### Processing New Images
 
 1. **Convert to WebP first** (if not already):
+
    ```bash
    pnpm run imgc webp "path/to/new-images/*.{jpg,png}" -q 100
    ```
 
 2. **Resize if needed** (especially for avatars):
+
    ```bash
    pnpm run imgc resize "path/to/images/*.webp" -w 100 -h 100
    ```
@@ -292,6 +326,7 @@ The project includes a Rust-based image converter (`imgc`) for consistent image 
    ```
 
 ### Important Notes
+
 - **No backup images are kept** - ensure you're happy with the conversion before processing
 - Use `--recompress` flag when modifying existing WebP files
 - The `imgc` tool supports batch operations with glob patterns

@@ -66,18 +66,22 @@ pnpm run convert-webp -- "src/images/*.jpg" -o dist/images/
 ## Options
 
 ### WebP Options
+
 - `-q, --quality <0-100>`: Set quality (default: 80)
 - `-l, --lossless`: Use lossless compression
 - `--no-progress`: Disable progress bar
 
 ### JPEG Options
+
 - `-q, --quality <0-100>`: Set quality (default: 80)
 - `--no-progress`: Disable progress bar
 
 ### PNG Options
+
 - `--no-progress`: Disable progress bar
 
 ### Resize Options
+
 - `-w, --width <pixels>`: Target width
 - `-h, --height <pixels>`: Target height
 - `--preserve-aspect-ratio <true/false>`: Maintain aspect ratio (default: true)

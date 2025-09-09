@@ -1,8 +1,7 @@
-import React, { useState } from "react";
-import { Copy, Check, CalendarDays, ArrowRight } from "lucide-react";
-import { CodeBlock } from "@/components/CodeBlock";
-import { Link } from "@tanstack/react-router";
-import { getFeaturedEvent } from "@/data/events";
+import { CodeBlock } from '@/components/CodeBlock';
+import { getFeaturedEvent } from '@/data/events';
+import { ArrowRight, CalendarDays, Check, Copy } from 'lucide-react';
+import React, { useState } from 'react';
 
 export const HeroSection: React.FC = () => {
   const [copied, setCopied] = useState(false);
@@ -10,11 +9,11 @@ export const HeroSection: React.FC = () => {
 
   const handleCopy = async () => {
     try {
-      await navigator.clipboard.writeText("npx create-zephyr-apps@latest");
+      await navigator.clipboard.writeText('npx create-zephyr-apps@latest');
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error("Failed to copy:", err);
+      console.error('Failed to copy:', err);
     }
   };
 
@@ -38,7 +37,7 @@ export const HeroSection: React.FC = () => {
               rgb(38, 38, 38) calc(100% / 20 - 1px),
               rgb(38, 38, 38) calc(100% / 20)
             )
-          `
+          `,
         }}
       />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
@@ -70,12 +69,8 @@ export const HeroSection: React.FC = () => {
           Idea to Production
         </h1>
         <p className="mt-6 text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
-          From the team that brought you{" "}
-          <a
-            href="https://module-federation.io/"
-            target="_blank"
-            className="text-emerald-700 hover:underline"
-          >
+          From the team that brought you{' '}
+          <a href="https://module-federation.io/" target="_blank" className="text-emerald-700 hover:underline">
             Module Federation
           </a>
           ;
@@ -84,13 +79,9 @@ export const HeroSection: React.FC = () => {
         </p>
 
         <div className="mt-10 relative max-w-xl mx-auto">
-          <div
-            className="relative group cursor-pointer"
-            onClick={handleCopy}
-          >
+          <div className="relative group cursor-pointer" onClick={handleCopy}>
             <CodeBlock className="text-left !bg-neutral-900/70 !border-neutral-700/70 backdrop-blur-sm transition-all group-hover:!bg-neutral-900/80">
-              <span className="text-emerald-700">$</span> npx
-              create-zephyr-apps@latest
+              <span className="text-emerald-700">$</span> npx create-zephyr-apps@latest
               <br />
               <span className="text-neutral-500 text-xs flex items-center gap-1 mt-1">
                 {copied ? (
@@ -110,12 +101,7 @@ export const HeroSection: React.FC = () => {
 
           {/* Dotted lines SVG */}
           <div className="absolute top-1/2 left-1/2 w-full h-full -z-10 hidden lg:block">
-            <svg
-              width="100%"
-              height="100%"
-              viewBox="0 0 800 400"
-              className="absolute inset-0 opacity-30"
-            >
+            <svg width="100%" height="100%" viewBox="0 0 800 400" className="absolute inset-0 opacity-30">
               <path
                 d="M150 100 C 250 100, 250 200, 400 200"
                 stroke="gray"
