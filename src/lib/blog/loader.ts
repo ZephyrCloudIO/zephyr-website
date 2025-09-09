@@ -2,7 +2,7 @@ import type { BlogPost } from './types';
 import type { Author } from './types';
 import * as authors from '@/data/blog/authors';
 import { blogImages } from './images';
-import {BlogTag} from "@/lib/blog/tags.ts";
+import { BlogTag } from "@/lib/blog/tags.ts";
 
 // This will be populated with actual MDX imports
 // For now, we'll create a structure that can be easily extended
@@ -114,6 +114,7 @@ const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
   'week-3-runtime-ota': () => import('@/content/blog/week-3-runtime-ota.mdx') as Promise<MDXBlogPost>,
   'whos-your-cloud-daddy': () => import('@/content/blog/whos-your-cloud-daddy.mdx') as Promise<MDXBlogPost>,
   'aws-byoc': () => import('@/content/blog/aws-byoc.mdx') as Promise<MDXBlogPost>,
+  'dora-metrics': () => import('@/content/blog/dora-metrics.mdx') as Promise<MDXBlogPost>,
   'true-ventures-ai-audit': () => import('@/content/blog/true-ventures-ai-audit.mdx') as Promise<MDXBlogPost>,
 };
 
