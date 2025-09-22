@@ -8,118 +8,117 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as PrivacyRouteImport } from './routes/privacy'
-import { Route as PricingRouteImport } from './routes/pricing'
-import { Route as PressRouteImport } from './routes/press'
-import { Route as PartnersRouteImport } from './routes/partners'
-import { Route as EventsRouteImport } from './routes/events'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as ChangelogIndexRouteImport } from './routes/changelog/index'
-import { Route as BlogIndexRouteImport } from './routes/blog/index'
-import { Route as ProductsCodeEliminationPerformanceRouteImport } from './routes/products/code-elimination-performance'
-import { Route as ChangelogSlugRouteImport } from './routes/changelog/$slug'
-import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as rootRouteImport } from './routes/__root';
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug';
+import { Route as BlogIndexRouteImport } from './routes/blog/index';
+import { Route as ChangelogSlugRouteImport } from './routes/changelog/$slug';
+import { Route as ChangelogIndexRouteImport } from './routes/changelog/index';
+import { Route as EventsRouteImport } from './routes/events';
+import { Route as IndexRouteImport } from './routes/index';
+import { Route as PartnersRouteImport } from './routes/partners';
+import { Route as PressRouteImport } from './routes/press';
+import { Route as PricingRouteImport } from './routes/pricing';
+import { Route as PrivacyRouteImport } from './routes/privacy';
+import { Route as ProductsCodeEliminationPerformanceRouteImport } from './routes/products/code-elimination-performance';
 
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const PricingRoute = PricingRouteImport.update({
   id: '/pricing',
   path: '/pricing',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const PressRoute = PressRouteImport.update({
   id: '/press',
   path: '/press',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const PartnersRoute = PartnersRouteImport.update({
   id: '/partners',
   path: '/partners',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ChangelogIndexRoute = ChangelogIndexRouteImport.update({
   id: '/changelog/',
   path: '/changelog/',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const BlogIndexRoute = BlogIndexRouteImport.update({
   id: '/blog/',
   path: '/blog/',
   getParentRoute: () => rootRouteImport,
-} as any)
-const ProductsCodeEliminationPerformanceRoute =
-  ProductsCodeEliminationPerformanceRouteImport.update({
-    id: '/products/code-elimination-performance',
-    path: '/products/code-elimination-performance',
-    getParentRoute: () => rootRouteImport,
-  } as any)
+} as any);
+const ProductsCodeEliminationPerformanceRoute = ProductsCodeEliminationPerformanceRouteImport.update({
+  id: '/products/code-elimination-performance',
+  path: '/products/code-elimination-performance',
+  getParentRoute: () => rootRouteImport,
+} as any);
 const ChangelogSlugRoute = ChangelogSlugRouteImport.update({
   id: '/changelog/$slug',
   path: '/changelog/$slug',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const BlogSlugRoute = BlogSlugRouteImport.update({
   id: '/blog/$slug',
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/events': typeof EventsRoute
-  '/partners': typeof PartnersRoute
-  '/press': typeof PressRoute
-  '/pricing': typeof PricingRoute
-  '/privacy': typeof PrivacyRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/changelog/$slug': typeof ChangelogSlugRoute
-  '/products/code-elimination-performance': typeof ProductsCodeEliminationPerformanceRoute
-  '/blog': typeof BlogIndexRoute
-  '/changelog': typeof ChangelogIndexRoute
+  '/': typeof IndexRoute;
+  '/events': typeof EventsRoute;
+  '/partners': typeof PartnersRoute;
+  '/press': typeof PressRoute;
+  '/pricing': typeof PricingRoute;
+  '/privacy': typeof PrivacyRoute;
+  '/blog/$slug': typeof BlogSlugRoute;
+  '/changelog/$slug': typeof ChangelogSlugRoute;
+  '/products/code-elimination-performance': typeof ProductsCodeEliminationPerformanceRoute;
+  '/blog': typeof BlogIndexRoute;
+  '/changelog': typeof ChangelogIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/events': typeof EventsRoute
-  '/partners': typeof PartnersRoute
-  '/press': typeof PressRoute
-  '/pricing': typeof PricingRoute
-  '/privacy': typeof PrivacyRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/changelog/$slug': typeof ChangelogSlugRoute
-  '/products/code-elimination-performance': typeof ProductsCodeEliminationPerformanceRoute
-  '/blog': typeof BlogIndexRoute
-  '/changelog': typeof ChangelogIndexRoute
+  '/': typeof IndexRoute;
+  '/events': typeof EventsRoute;
+  '/partners': typeof PartnersRoute;
+  '/press': typeof PressRoute;
+  '/pricing': typeof PricingRoute;
+  '/privacy': typeof PrivacyRoute;
+  '/blog/$slug': typeof BlogSlugRoute;
+  '/changelog/$slug': typeof ChangelogSlugRoute;
+  '/products/code-elimination-performance': typeof ProductsCodeEliminationPerformanceRoute;
+  '/blog': typeof BlogIndexRoute;
+  '/changelog': typeof ChangelogIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/events': typeof EventsRoute
-  '/partners': typeof PartnersRoute
-  '/press': typeof PressRoute
-  '/pricing': typeof PricingRoute
-  '/privacy': typeof PrivacyRoute
-  '/blog/$slug': typeof BlogSlugRoute
-  '/changelog/$slug': typeof ChangelogSlugRoute
-  '/products/code-elimination-performance': typeof ProductsCodeEliminationPerformanceRoute
-  '/blog/': typeof BlogIndexRoute
-  '/changelog/': typeof ChangelogIndexRoute
+  __root__: typeof rootRouteImport;
+  '/': typeof IndexRoute;
+  '/events': typeof EventsRoute;
+  '/partners': typeof PartnersRoute;
+  '/press': typeof PressRoute;
+  '/pricing': typeof PricingRoute;
+  '/privacy': typeof PrivacyRoute;
+  '/blog/$slug': typeof BlogSlugRoute;
+  '/changelog/$slug': typeof ChangelogSlugRoute;
+  '/products/code-elimination-performance': typeof ProductsCodeEliminationPerformanceRoute;
+  '/blog/': typeof BlogIndexRoute;
+  '/changelog/': typeof ChangelogIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
     | '/events'
@@ -131,8 +130,8 @@ export interface FileRouteTypes {
     | '/changelog/$slug'
     | '/products/code-elimination-performance'
     | '/blog'
-    | '/changelog'
-  fileRoutesByTo: FileRoutesByTo
+    | '/changelog';
+  fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
     | '/events'
@@ -144,7 +143,7 @@ export interface FileRouteTypes {
     | '/changelog/$slug'
     | '/products/code-elimination-performance'
     | '/blog'
-    | '/changelog'
+    | '/changelog';
   id:
     | '__root__'
     | '/'
@@ -157,102 +156,102 @@ export interface FileRouteTypes {
     | '/changelog/$slug'
     | '/products/code-elimination-performance'
     | '/blog/'
-    | '/changelog/'
-  fileRoutesById: FileRoutesById
+    | '/changelog/';
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  EventsRoute: typeof EventsRoute
-  PartnersRoute: typeof PartnersRoute
-  PressRoute: typeof PressRoute
-  PricingRoute: typeof PricingRoute
-  PrivacyRoute: typeof PrivacyRoute
-  BlogSlugRoute: typeof BlogSlugRoute
-  ChangelogSlugRoute: typeof ChangelogSlugRoute
-  ProductsCodeEliminationPerformanceRoute: typeof ProductsCodeEliminationPerformanceRoute
-  BlogIndexRoute: typeof BlogIndexRoute
-  ChangelogIndexRoute: typeof ChangelogIndexRoute
+  IndexRoute: typeof IndexRoute;
+  EventsRoute: typeof EventsRoute;
+  PartnersRoute: typeof PartnersRoute;
+  PressRoute: typeof PressRoute;
+  PricingRoute: typeof PricingRoute;
+  PrivacyRoute: typeof PrivacyRoute;
+  BlogSlugRoute: typeof BlogSlugRoute;
+  ChangelogSlugRoute: typeof ChangelogSlugRoute;
+  ProductsCodeEliminationPerformanceRoute: typeof ProductsCodeEliminationPerformanceRoute;
+  BlogIndexRoute: typeof BlogIndexRoute;
+  ChangelogIndexRoute: typeof ChangelogIndexRoute;
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/privacy': {
-      id: '/privacy'
-      path: '/privacy'
-      fullPath: '/privacy'
-      preLoaderRoute: typeof PrivacyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/privacy';
+      path: '/privacy';
+      fullPath: '/privacy';
+      preLoaderRoute: typeof PrivacyRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/pricing': {
-      id: '/pricing'
-      path: '/pricing'
-      fullPath: '/pricing'
-      preLoaderRoute: typeof PricingRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/pricing';
+      path: '/pricing';
+      fullPath: '/pricing';
+      preLoaderRoute: typeof PricingRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/press': {
-      id: '/press'
-      path: '/press'
-      fullPath: '/press'
-      preLoaderRoute: typeof PressRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/press';
+      path: '/press';
+      fullPath: '/press';
+      preLoaderRoute: typeof PressRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/partners': {
-      id: '/partners'
-      path: '/partners'
-      fullPath: '/partners'
-      preLoaderRoute: typeof PartnersRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/partners';
+      path: '/partners';
+      fullPath: '/partners';
+      preLoaderRoute: typeof PartnersRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/events': {
-      id: '/events'
-      path: '/events'
-      fullPath: '/events'
-      preLoaderRoute: typeof EventsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/events';
+      path: '/events';
+      fullPath: '/events';
+      preLoaderRoute: typeof EventsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/';
+      path: '/';
+      fullPath: '/';
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/changelog/': {
-      id: '/changelog/'
-      path: '/changelog'
-      fullPath: '/changelog'
-      preLoaderRoute: typeof ChangelogIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/changelog/';
+      path: '/changelog';
+      fullPath: '/changelog';
+      preLoaderRoute: typeof ChangelogIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/blog/': {
-      id: '/blog/'
-      path: '/blog'
-      fullPath: '/blog'
-      preLoaderRoute: typeof BlogIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/blog/';
+      path: '/blog';
+      fullPath: '/blog';
+      preLoaderRoute: typeof BlogIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/products/code-elimination-performance': {
-      id: '/products/code-elimination-performance'
-      path: '/products/code-elimination-performance'
-      fullPath: '/products/code-elimination-performance'
-      preLoaderRoute: typeof ProductsCodeEliminationPerformanceRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/products/code-elimination-performance';
+      path: '/products/code-elimination-performance';
+      fullPath: '/products/code-elimination-performance';
+      preLoaderRoute: typeof ProductsCodeEliminationPerformanceRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/changelog/$slug': {
-      id: '/changelog/$slug'
-      path: '/changelog/$slug'
-      fullPath: '/changelog/$slug'
-      preLoaderRoute: typeof ChangelogSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/changelog/$slug';
+      path: '/changelog/$slug';
+      fullPath: '/changelog/$slug';
+      preLoaderRoute: typeof ChangelogSlugRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/blog/$slug': {
-      id: '/blog/$slug'
-      path: '/blog/$slug'
-      fullPath: '/blog/$slug'
-      preLoaderRoute: typeof BlogSlugRouteImport
-      parentRoute: typeof rootRouteImport
-    }
+      id: '/blog/$slug';
+      path: '/blog/$slug';
+      fullPath: '/blog/$slug';
+      preLoaderRoute: typeof BlogSlugRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
   }
 }
 
@@ -265,11 +264,8 @@ const rootRouteChildren: RootRouteChildren = {
   PrivacyRoute: PrivacyRoute,
   BlogSlugRoute: BlogSlugRoute,
   ChangelogSlugRoute: ChangelogSlugRoute,
-  ProductsCodeEliminationPerformanceRoute:
-    ProductsCodeEliminationPerformanceRoute,
+  ProductsCodeEliminationPerformanceRoute: ProductsCodeEliminationPerformanceRoute,
   BlogIndexRoute: BlogIndexRoute,
   ChangelogIndexRoute: ChangelogIndexRoute,
-}
-export const routeTree = rootRouteImport
-  ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+};
+export const routeTree = rootRouteImport._addFileChildren(rootRouteChildren)._addFileTypes<FileRouteTypes>();
