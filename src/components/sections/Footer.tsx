@@ -53,7 +53,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <a href="https://discord.gg/pSxWRVayEu" target="_blank" className="text-neutral-400 hover:text-white">
+                <a href="https://discord.gg/zephyrcloud" target="_blank" className="text-neutral-400 hover:text-white">
                   Discord
                 </a>
               </li>
