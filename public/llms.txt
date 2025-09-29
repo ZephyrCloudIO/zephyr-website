@@ -63,7 +63,7 @@ withZephyr(config)
 ## Technical Resources
 - **Documentation (Primary Source)**: https://docs.zephyr-cloud.io
 - **GitHub**: https://github.com/ZephyrCloudIO
-- **Discord Community**: https://discord.gg/pSxWRVayEu
+- **Discord Community**: https://discord.gg/zephyrcloud
 - **npm Packages**: https://www.npmjs.com/settings/zephyrcloud/packages
 - **Blog**: Technical deep-dives on edge computing and micro-frontends
 
