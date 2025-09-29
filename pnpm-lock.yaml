@@ -62,6 +62,9 @@ importers:
       react-dom:
         specifier: ^19.1.0
         version: 19.1.0(react@19.1.0)
+      react-use-intercom:
+        specifier: ^5.5.0
+        version: 5.5.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0)
       rehype-autolink-headings:
         specifier: ^7.1.0
         version: 7.1.0
@@ -2332,6 +2335,12 @@ packages:
       '@types/react':
         optional: true
 
+  react-use-intercom@5.5.0:
+    resolution: {integrity: sha512-snqR16qzHFmcu6bRntjIiE9jePOZcDlqWKtDpoK4hiZGke1RK7+IPY81Fdgq4JZRRgzKOPkfANpv+ssVXsJMGQ==}
+    peerDependencies:
+      react: '>=16.8.0'
+      react-dom: '>=16.8.0'
+
   react@19.1.0:
     resolution: {integrity: sha512-FS+XFBNvn3GTAWq26joslQgWNoFu08F4kl0J4CgdNKADkdSGXQyTCnKteIAJy96Br6YbpEU1LSzV5dYtjMkMDg==}
     engines: {node: '>=0.10.0'}
@@ -3957,7 +3966,7 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios-retry@4.5.0(axios@1.10.0(debug@4.4.1)):
+  axios-retry@4.5.0(axios@1.10.0):
     dependencies:
       axios: 1.10.0(debug@4.4.1)
       is-retry-allowed: 2.2.0
@@ -5195,6 +5204,11 @@ snapshots:
     optionalDependencies:
       '@types/react': 19.1.8
 
+  react-use-intercom@5.5.0(react-dom@19.1.0(react@19.1.0))(react@19.1.0):
+    dependencies:
+      react: 19.1.0
+      react-dom: 19.1.0(react@19.1.0)
+
   react@19.1.0: {}
 
   readdirp@3.6.0:
@@ -5671,7 +5685,7 @@ snapshots:
   zephyr-agent@0.0.56:
     dependencies:
       axios: 1.10.0(debug@4.4.1)
-      axios-retry: 4.5.0(axios@1.10.0(debug@4.4.1))
+      axios-retry: 4.5.0(axios@1.10.0)
       cloudflare: 3.5.0
       debug: 4.4.1
       git-url-parse: 15.0.0
