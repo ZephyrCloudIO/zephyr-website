@@ -1,8 +1,10 @@
+import { IntercomButton } from '@/components/IntercomButton';
 import { Footer } from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import { MDXProvider } from '@mdx-js/react';
 import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
 import { useEffect } from 'react';
+import { IntercomProvider } from 'react-use-intercom';
 
 // Google Analytics
 const GoogleAnalytics = () => (
@@ -76,7 +78,7 @@ function ScrollToTop() {
 // Root component
 function RootComponent() {
   return (
-    <>
+    <IntercomProvider appId="xyxkmxlj">
       <GoogleAnalytics />
       <ScrollToTop />
       <MDXProvider components={mdxComponents}>
@@ -86,9 +88,10 @@ function RootComponent() {
             <Outlet />
           </main>
           <Footer />
+          <IntercomButton />
         </div>
       </MDXProvider>
-    </>
+    </IntercomProvider>
   );
 }
 
