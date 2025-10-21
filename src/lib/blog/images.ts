@@ -3,6 +3,7 @@ import aiE2eTestingHeroImage from '@/images/blog/ai-e2e-testing/ai-testing-hero.
 import aiE2eTestingListingImage from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
 import allThePipelinesHeroImage from '@/images/blog/all-the-pipelines/hero.svg';
 import blogPostAwsHeroImage from '@/images/blog/aws-byoc/blog-post-aws.webp';
+import cloudflareWorkersAwsOutageHeroImage from '@/images/blog/cloudflare-workers-aws-outage/hero.webp';
 import createZephyrAppsHeroImage from '@/images/blog/create-zephyr-apps/hero.webp';
 import doraMetricsHeroImage from '@/images/blog/dora-metrics/hero.webp';
 import geoHeroImage from '@/images/blog/generative-engine-optimization/hero.webp';
@@ -92,5 +93,9 @@ export const blogImages = {
   'true-ventures-ai-audit': {
     heroImage: trueVenturesAiAuditHeroImage,
     listingImage: trueVenturesAiAuditHeroImage,
+  },
+  'cloudflare-workers-aws-outage': {
+    heroImage: cloudflareWorkersAwsOutageHeroImage,
+    listingImage: cloudflareWorkersAwsOutageHeroImage,
   },
 };
