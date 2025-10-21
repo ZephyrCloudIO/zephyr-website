@@ -81,10 +81,26 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
       .filter(Boolean) as Author[];
   }
 
+  // Parse date string as local date (not UTC) to avoid timezone offset issues
+  const dateString = metadata.publishedAt || metadata.publishDate || metadata.date;
+  let date: Date;
+  if (dateString) {
+    // If date is in YYYY-MM-DD format, treat it as local date at noon to avoid timezone issues
+    const dateMatch = String(dateString).match(/^(\d{4})-(\d{2})-(\d{2})$/);
+    if (dateMatch) {
+      const [, year, month, day] = dateMatch;
+      date = new Date(Number(year), Number(month) - 1, Number(day), 12, 0, 0);
+    } else {
+      date = new Date(dateString);
+    }
+  } else {
+    date = new Date();
+  }
+
   return {
     title: metadata.title,
     slug: slug,
-    date: new Date(metadata.publishedAt || metadata.publishDate || metadata.date || new Date()),
+    date: date,
     heroImage: images?.heroImage || metadata.heroImage || metadata.image,
     listingImage: images?.listingImage || metadata.listingImage || metadata.image,
     description: metadata.description || metadata.excerpt || '',

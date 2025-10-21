@@ -75,7 +75,6 @@ We tested this approach on a personal domain and it initially worked for basic H
 **But there were two critical issues:**
 
 1. **WebSocket handling**: Our API uses WebSockets for real-time features. While Cloudflare Tunnels technically support WebSockets, we encountered issues with WebSocket upgrade requests not working reliably through our Zero Trust configuration. The initial HTTP handshake worked, but establishing and maintaining WebSocket connections was problematic—likely due to how Zero Trust Gateway handles connection upgrades.
-
 2. **Operational dependency**: This solution required keeping a container running on a team member's local machine for the entire duration of the outage (which could last hours). If their machine went to sleep, lost internet connection, or the container crashed, our entire API would go down again. This wasn't operationally sustainable.
 
 The Zero Trust tunnel approach showed promise for simple HTTP APIs, but for our use case with WebSockets and the need for reliability during an extended outage, it wasn't viable.
