@@ -15,7 +15,7 @@ At 11:27 AM BRT on October 20th, 2025, our dashboards went red. Our API—the ba
 
 This is the story of how we used Cloudflare Workers as an emergency proxy to route around a DNS failure, kept our API online during a major cloud provider outage, and learned some valuable lessons about platform architecture along the way.
 
-## 🏗️ The Stack and The Problem
+## The Stack and The Problem
 
 Our API infrastructure looked like this:
 
@@ -32,7 +32,7 @@ When the AWS us-east-1 outage hit, it took down Heroku's DNS service. Our API wa
 
 **The catch**: We couldn't just point our DNS directly to the herokuapp.com URL because Heroku's SNI-based platform routing expects traffic to come through their configured DNS targets with the proper domain setup.
 
-## 🔍 Diagnosing the Problem
+## Diagnosing the Problem
 
 The first 30-40 minutes weren't spent implementing a solution—they were spent figuring out what was actually broken.
 
@@ -47,7 +47,7 @@ That's when we realized: it wasn't our application that was down, it was Heroku'
 
 Now we knew what we were dealing with. We needed to route traffic to our working application while bypassing Heroku's broken DNS service.
 
-## ❌ First Attempt: Cloudflare Redirect Rules
+## First Attempt: Cloudflare Redirect Rules
 
 Our first instinct was to use Cloudflare Redirect Rules. We set up a wildcard redirect from our custom domain to the direct herokuapp.com URL.
 
@@ -62,7 +62,7 @@ Here's why: Cloudflare Redirect Rules return an HTTP redirect response (301, 302
 
 This approach was dead on arrival. Client-side redirects fundamentally couldn't solve the problem because they exposed the routing to the browser, which broke both platform routing and CORS.
 
-## 🔒 Second Attempt: Cloudflare Zero Trust Tunnel
+## Second Attempt: Cloudflare Zero Trust Tunnel
 
 While Redirect Rules were failing, we considered another approach: Cloudflare Zero Trust with a local tunnel.
 
@@ -74,12 +74,13 @@ We tested this approach on a personal domain and it initially worked for basic H
 
 **But there were two critical issues:**
 
-1. **WebSocket handling**: Our API uses WebSockets for real-time features. While Cloudflare Tunnels technically support WebSockets, we encountered issues with WebSocket upgrade requests not working reliably through our Zero Trust configuration. The initial HTTP handshake worked, but establishing and maintaining WebSocket connections was problematic—likely due to how Zero Trust Gateway handles connection upgrades.
+1. **WebSocket handling**: Our API uses WebSockets for real-time features. While Cloudflare Tunnels support WebSockets, we encountered issues with WebSocket upgrade requests not working reliably when combined with Zero Trust Access policies. The initial HTTP handshake worked, but establishing and maintaining WebSocket connections was problematic. This appears to be a known complexity when layering authentication and access policies on top of tunnel connections—the tunnel itself supports WebSockets, but the additional Zero Trust security layer can interfere with the upgrade handshake.
+
 2. **Operational dependency**: This solution required keeping a container running on a team member's local machine for the entire duration of the outage (which could last hours). If their machine went to sleep, lost internet connection, or the container crashed, our entire API would go down again. This wasn't operationally sustainable.
 
 The Zero Trust tunnel approach showed promise for simple HTTP APIs, but for our use case with WebSockets and the need for reliability during an extended outage, it wasn't viable.
 
-## ✅ The Solution: Cloudflare Workers as a Proxy
+## The Solution: Cloudflare Workers as a Proxy
 
 While we were experimenting with Zero Trust, the idea came up: what if we used Cloudflare Workers instead? Workers run on Cloudflare's edge network—no local machine dependency—and have full control over request/response handling.
 
@@ -108,7 +109,7 @@ The Worker handled everything our API needed:
 
 By 12:50 PM BRT—1 hour and 23 minutes after initial detection—the Worker was deployed and our API was back online. That timeline included diagnostics, failed attempts with Redirect Rules and Zero Trust, proof-of-concept testing on a personal domain, and final deployment.
 
-## 📊 The Results
+## The Results
 
 **Uptime restored**: While Heroku's DNS remained broken for several more hours, our API stayed operational.
 
@@ -118,7 +119,7 @@ By 12:50 PM BRT—1 hour and 23 minutes after initial detection—the Worker was
 
 **Customer impact**: Minimal. Most customers never noticed the outage because we resolved it quickly enough.
 
-## 🎯 Why This Worked When Other Solutions Didn't
+## Why This Worked When Other Solutions Didn't
 
 The difference between our three approaches comes down to _where_ the routing happens and _what_ dependencies exist:
 
@@ -133,7 +134,7 @@ The difference between our three approaches comes down to _where_ the routing ha
 
 - Server-side proxy through local machine
 - Requires local infrastructure (container on team member's machine)
-- WebSocket handling was unreliable through our Zero Trust configuration
+- WebSocket handling complicated by Access policy layer
 - Operational risk of local machine dependency
 
 **Workers** (Succeeded):
@@ -141,12 +142,12 @@ The difference between our three approaches comes down to _where_ the routing ha
 - Server-side proxy at Cloudflare's edge
 - No local infrastructure dependency
 - Full control over headers, origin, and routing
-- Native WebSocket support
+- Native WebSocket support without authentication layer interference
 - From browser's perspective, nothing changed
 
 This is a perfect example of edge computing solving a real-world problem. Workers let us route around a broken piece of infrastructure without changing anything on the client side and without depending on local infrastructure.
 
-## 📚 Lessons Learned and Future Architecture
+## Lessons Learned and Future Architecture
 
 This incident taught us several valuable lessons:
 
@@ -192,19 +193,19 @@ The Zero Trust tunnel approach taught us that incident response solutions can't 
 
 **Action item**: Ensure all incident response patterns use managed infrastructure (edge networks, cloud services) rather than local machines.
 
-## 🛠️ When to Use This Pattern
+## When to Use This Pattern
 
 The "emergency edge proxy" pattern is useful when:
 
-✅ Your origin is accessible but routing/DNS is broken
-✅ You already use a CDN/edge provider like Cloudflare
-✅ You need a fast temporary fix during an active incident
-✅ Direct routing would cause CORS or platform routing issues
+✅ Your origin is accessible but routing/DNS is broken  
+✅ You already use a CDN/edge provider like Cloudflare  
+✅ You need a fast temporary fix during an active incident  
+✅ Direct routing would cause CORS or platform routing issues  
 ✅ You need WebSocket or real-time connection support
 
 It's **not** a long-term solution. Once Heroku's DNS recovered, we removed the Worker and went back to normal routing. But as a tactical incident response tool, it was exactly what we needed.
 
-## 🎬 Conclusion
+## Conclusion
 
 Cloud outages are inevitable. When AWS us-east-1 went down, it took Heroku's DNS service with it. But by thinking creatively about our routing options and leveraging Cloudflare Workers as a server-side proxy, we kept our API online for customers when it mattered most.
 
