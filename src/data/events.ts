@@ -26,7 +26,9 @@ export interface Event {
   resources?: EventResource[];
 }
 
-export const upcomingEvents: Event[] = [
+export const upcomingEvents: Event[] = [];
+
+export const pastEvents: Event[] = [
   {
     title: 'Global Software Architecture Summit',
     date: 'October 13-15, 2025',
@@ -39,6 +41,8 @@ export const upcomingEvents: Event[] = [
     ctaText: 'Reserve Your Spot',
     speakers: ['Nestor Lopez'],
     attendees: 600,
+    isPast: true,
+    resources: [],
   },
   {
     title: 'ViteConf Amsterdam',
@@ -49,12 +53,10 @@ export const upcomingEvents: Event[] = [
     description: 'The first ever in-person Vite Conference!',
     link: 'https://viteconf.amsterdam/',
     attendees: 1000,
-    featured: true,
+    isPast: true,
     speakers: ['Zack Chapple', 'Dmitriy Shekhovtsov'],
+    resources: [],
   },
-];
-
-export const pastEvents: Event[] = [
   {
     title: 'React Universe',
     date: 'September 2-4, 2025',
