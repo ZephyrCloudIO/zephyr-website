@@ -6,7 +6,7 @@
   "scripts": {
     "batch-convert": "node scripts/batch-convert.js",
     "build": "rsbuild build",
-    "dev": "rsbuild dev --open",
+    "dev": "rsbuild dev",
     "format": "prettier --write .",
     "imgc": "./image-converter/target/release/imgc",
     "imgc-build": "cd image-converter && cargo build --release",
