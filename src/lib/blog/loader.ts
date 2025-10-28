@@ -135,6 +135,8 @@ const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
   'true-ventures-ai-audit': () => import('@/content/blog/true-ventures-ai-audit.mdx') as Promise<MDXBlogPost>,
   'cloudflare-workers-aws-outage': () =>
     import('@/content/blog/cloudflare-workers-aws-outage.mdx') as Promise<MDXBlogPost>,
+  'module-federation-vs-native-esm': () =>
+    import('@/content/blog/module-federation-vs-native-esm.mdx') as Promise<MDXBlogPost>,
 };
 
 // Get all blog posts
