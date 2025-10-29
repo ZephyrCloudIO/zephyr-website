@@ -1,4 +1,5 @@
-import { Calendar, Linkedin, Twitter } from 'lucide-react';
+import { Calendar, Linkedin } from 'lucide-react';
+import { XIcon } from './x-icon';
 
 interface BlogMetadataProps {
   author: string;
@@ -6,7 +7,7 @@ interface BlogMetadataProps {
   avatar: string;
   publishDate: string;
   socialLinks?: Array<{
-    platform: 'LinkedIn' | 'X' | 'Twitter';
+    platform: 'LinkedIn' | 'X';
     url: string;
   }>;
 }
@@ -38,7 +39,7 @@ export default function BlogMetadata({ author, position, avatar, publishDate, so
                 rel="noopener"
                 className="text-neutral-400 hover:text-white transition-colors"
               >
-                {(social.platform === 'X' || social.platform === 'Twitter') && <Twitter className="w-5 h-5" />}
+                {social.platform === 'X' && <XIcon size={20} />}
                 {social.platform === 'LinkedIn' && <Linkedin className="w-5 h-5" />}
               </a>
             ))}
