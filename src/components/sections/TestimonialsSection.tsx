@@ -1,14 +1,15 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
+import { XIcon } from '@/components/ui/x-icon';
 import { companyLogos } from '@/constants/companyLogos';
 import { Testimonials } from '@/testimonials';
-import { Linkedin, Twitch, Twitter, Youtube } from 'lucide-react';
+import { Linkedin, Twitch, Youtube } from 'lucide-react';
 import React from 'react';
 
 export const TestimonialsSection: React.FC = () => {
   // Social media platform to icon mapping
   const socialIcons = {
-    X: Twitter,
+    X: XIcon,
     LinkedIn: Linkedin,
     YouTube: Youtube,
     Twitch: Twitch,

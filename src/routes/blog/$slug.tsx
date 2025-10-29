@@ -1,10 +1,11 @@
 import { Button } from '@/components/ui/button';
+import { XIcon } from '@/components/ui/x-icon';
 import type { MDXBlogPost } from '@/lib/blog/loader';
 import { getBlogPostBySlug } from '@/lib/blog/loader';
 import { tagLabels } from '@/lib/blog/tags';
 import type { BlogPost } from '@/lib/blog/types';
 import { createFileRoute, Link } from '@tanstack/react-router';
-import { ArrowLeft, Calendar, Clock, Github, Linkedin, Twitter } from 'lucide-react';
+import { ArrowLeft, Calendar, Clock, Github, Linkedin } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 export const Route = createFileRoute('/blog/$slug')({
@@ -140,7 +141,7 @@ function BlogPostPage() {
                             rel="noopener"
                             className="text-neutral-400 hover:text-white"
                           >
-                            {social.platform === 'X' && <Twitter className="w-5 h-5" />}
+                            {social.platform === 'X' && <XIcon size={20} />}
                             {social.platform === 'LinkedIn' && <Linkedin className="w-5 h-5" />}
                             {social.platform === 'Github' && <Github className="w-5 h-5" />}
                           </a>
@@ -173,7 +174,7 @@ function BlogPostPage() {
               rel="noopener"
               className="text-neutral-400 hover:text-white"
             >
-              <Twitter className="w-5 h-5" />
+              <XIcon size={20} />
             </a>
             <a
               href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(typeof window !== 'undefined' ? window.location.href : '')}`}
