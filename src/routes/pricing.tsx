@@ -204,7 +204,7 @@ function PricingPage() {
               <Button
                 className={cn(
                   'w-full',
-                  tier.mostPopular ? 'bg-emerald-700 hover:bg-emerald-600' : 'bg-neutral-800 hover:bg-neutral-700',
+                  tier.mostPopular ? 'bg-emerald-700 hover:bg-emerald-600' : 'bg-neutral-500 hover:bg-neutral-600',
                 )}
                 asChild
               >
