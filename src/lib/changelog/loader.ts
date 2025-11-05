@@ -37,6 +37,8 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
 
 // Import all changelog entries
 const changelogModules: Record<string, () => Promise<MDXChangelogEntry>> = {
+  '2025-11-environment-variables': () =>
+    import('@/content/changelog/2025-11-environment-variables.mdx') as Promise<MDXChangelogEntry>,
   '2025-09-ui-ux-authentication-updates': () =>
     import('@/content/changelog/2025-09-ui-ux-authentication-updates.mdx') as Promise<MDXChangelogEntry>,
   '2025-09-performance-fixes': () =>
