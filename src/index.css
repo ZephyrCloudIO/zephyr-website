@@ -50,6 +50,15 @@ body {
   opacity: 0.5;
 }
 
+.mdx-content ul li > p {
+  display: inline;
+  margin: 0;
+}
+
+.mdx-content ul {
+  list-style-position: inside;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
