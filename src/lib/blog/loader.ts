@@ -1,5 +1,6 @@
 import * as authors from '@/data/blog/authors';
 import { BlogTag } from '@/lib/blog/tags.ts';
+import { parseLocalDate } from '@/lib/utils';
 import { blogImages } from './images';
 import type { Author, BlogPost } from './types';
 
@@ -83,19 +84,7 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
 
   // Parse date string as local date (not UTC) to avoid timezone offset issues
   const dateString = metadata.publishedAt || metadata.publishDate || metadata.date;
-  let date: Date;
-  if (dateString) {
-    // If date is in YYYY-MM-DD format, treat it as local date at noon to avoid timezone issues
-    const dateMatch = String(dateString).match(/^(\d{4})-(\d{2})-(\d{2})$/);
-    if (dateMatch) {
-      const [, year, month, day] = dateMatch;
-      date = new Date(Number(year), Number(month) - 1, Number(day), 12, 0, 0);
-    } else {
-      date = new Date(dateString);
-    }
-  } else {
-    date = new Date();
-  }
+  const date = parseLocalDate(dateString);
 
   return {
     title: metadata.title,
