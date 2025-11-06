@@ -1,3 +1,4 @@
+import { parseLocalDate } from '@/lib/utils';
 import { changelogImages } from './images';
 import type { ChangelogCategory, ChangelogEntry } from './types';
 
@@ -27,7 +28,7 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
   return {
     title: metadata.title,
     slug,
-    date: new Date(metadata.date),
+    date: parseLocalDate(metadata.date),
     summary: metadata.summary,
     category: metadata.category,
     image: images?.image || metadata.image,
