@@ -3,47 +3,74 @@ import { XIcon } from '@/components/ui/x-icon';
 import type { MDXBlogPost } from '@/lib/blog/loader';
 import { getBlogPostBySlug } from '@/lib/blog/loader';
 import { tagLabels } from '@/lib/blog/tags';
-import type { BlogPost } from '@/lib/blog/types';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import { ArrowLeft, Calendar, Clock, Github, Linkedin } from 'lucide-react';
-import { useEffect, useState } from 'react';
 
 export const Route = createFileRoute('/blog/$slug')({
   component: BlogPostPage,
+  loader: async ({ params }) => {
+    const post = await getBlogPostBySlug(params.slug);
+    if (!post) {
+      throw new Response('Not Found', { status: 404 });
+    }
+    const mdxModule = (await import(`@/content/blog/${params.slug}.mdx`)) as MDXBlogPost;
+    const MDXContent = mdxModule.default;
+    return { post, MDXContent };
+  },
+  head: ({ loaderData }) => {
+    if (!loaderData) {
+      return {
+        meta: [
+          { title: 'Blog Post Not Found - Zephyr Cloud' },
+          { name: 'description', content: 'The blog post you are looking for does not exist.' },
+        ],
+      };
+    }
+
+    const { post } = loaderData;
+
+    return {
+      meta: [
+        // Page title and description
+        { title: `${post.title} - Zephyr Cloud` },
+        { name: 'description', content: post.description },
+
+        // Open Graph - Basic
+        { property: 'og:type', content: 'article' },
+        { property: 'og:title', content: post.title },
+        { property: 'og:description', content: post.description },
+        { property: 'og:site_name', content: 'Zephyr Cloud' },
+
+        // Open Graph - Image
+        { property: 'og:image', content: post.heroImage },
+        { property: 'og:image:alt', content: post.title },
+        { property: 'og:image:width', content: '1200' },
+        { property: 'og:image:height', content: '630' },
+
+        // Article metadata
+        { property: 'article:published_time', content: post.date.toISOString() },
+        ...post.authors.map((author) => ({
+          property: 'article:author',
+          content: author.displayName,
+        })),
+        ...post.tags.map((tag) => ({
+          property: 'article:tag',
+          content: tag,
+        })),
+
+        // Twitter Card
+        { name: 'twitter:card', content: 'summary_large_image' },
+        { name: 'twitter:title', content: post.title },
+        { name: 'twitter:description', content: post.description },
+        { name: 'twitter:image', content: post.heroImage },
+        { name: 'twitter:site', content: '@ZephyrCloud' },
+      ],
+    };
+  },
 });
 
 function BlogPostPage() {
-  const { slug } = Route.useParams();
-  const [post, setPost] = useState<BlogPost | null>(null);
-  const [MDXContent, setMDXContent] = useState<React.ComponentType | null>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const loadPost = async () => {
-      const blogPost = await getBlogPostBySlug(slug);
-      if (blogPost) {
-        setPost(blogPost);
-        // Dynamically import the MDX content
-        try {
-          const mdxModule = (await import(`@/content/blog/${slug}.mdx`)) as MDXBlogPost;
-          setMDXContent(() => mdxModule.default);
-        } catch (error) {
-          console.error('Failed to load MDX content:', error);
-        }
-      }
-      setLoading(false);
-    };
-
-    loadPost();
-  }, [slug]);
-
-  if (loading) {
-    return (
-      <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
-      </div>
-    );
-  }
+  const { post, MDXContent } = Route.useLoaderData();
 
   if (!post || !MDXContent) {
     return (
