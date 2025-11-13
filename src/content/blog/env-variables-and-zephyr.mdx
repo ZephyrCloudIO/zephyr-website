@@ -26,7 +26,7 @@ We've accepted this as normal. Every environment gets its own build. Preview env
 This creates a cascade of problems:
 
 - **Slow deployments**: Every environment transition requires a full rebuild
-- **Drift risk**: Production isn't running the exact code QA tested
+- **Version skew risk**: Production isn't running the exact code QA tested
 - **No true promotion**: You're not promoting artifacts, you're rebuilding them
 - **Configuration coupling**: Your build artifacts are married to specific environments
 
@@ -68,7 +68,7 @@ You didn't rebuild anything. You promoted a tested, known-good version and chang
 
 **Instant environment transitions**: Promoting to production is a configuration change, not a rebuild. Seconds, not minutes.
 
-**Zero drift**: There's no possibility of build-time differences between environments because there's only one build.
+**Skew protection**: There's no possibility of build-time differences between environments because there's only one build.
 
 **Experimentation freedom**: Want to test a version with different API endpoints? Override the variable. No rebuild needed.
 
@@ -112,7 +112,7 @@ For more details on environment overrides, check out our [docs](https://docs.zep
 
 ## The Bigger Picture
 
-This isn't just about environment variables. It's about decoupling build artifacts from runtime configuration. It's about making your deploys instant because you're not rebuilding. It's about giving QA and production the same artifact because drift isn't an option.
+This isn't just about environment variables. It's about decoupling build artifacts from runtime configuration. It's about making your deploys instant because you're not rebuilding. It's about giving QA and production the same artifact because version skew isn't an option.
 
 Most importantly, it's about treating your builds as immutable, composable units that can be deployed anywhere with any configuration. Build once, deploy everywhere.
 
