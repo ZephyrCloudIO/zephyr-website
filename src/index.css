@@ -59,6 +59,21 @@ body {
   list-style-position: inside;
 }
 
+/* Prevent orphans in blog content */
+.mdx-content h1,
+.mdx-content h2,
+.mdx-content h3,
+.mdx-content h4,
+.mdx-content h5,
+.mdx-content h6 {
+  text-wrap: balance;
+}
+
+.mdx-content p,
+.mdx-content li {
+  text-wrap: pretty;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {

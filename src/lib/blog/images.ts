@@ -6,6 +6,7 @@ import blogPostAwsHeroImage from '@/images/blog/aws-byoc/blog-post-aws.webp';
 import cloudflareWorkersAwsOutageHeroImage from '@/images/blog/cloudflare-workers-aws-outage/hero.webp';
 import createZephyrAppsHeroImage from '@/images/blog/create-zephyr-apps/hero.webp';
 import doraMetricsHeroImage from '@/images/blog/dora-metrics/hero.webp';
+import envVariablesAndZephyrHeroImage from '@/images/blog/env-variables/hero.webp';
 import geoHeroImage from '@/images/blog/generative-engine-optimization/hero.webp';
 import infrastructurelessHeroImage from '@/images/blog/infrastructureless/hero.webp';
 import mobilefirstHeroImage from '@/images/blog/mobilefirst/hero.webp';
@@ -102,5 +103,9 @@ export const blogImages = {
   'module-federation-vs-native-esm': {
     heroImage: moduleFederationVsNativeEsmHeroImage,
     listingImage: moduleFederationVsNativeEsmHeroImage,
+  },
+  'env-variables-and-zephyr': {
+    heroImage: envVariablesAndZephyrHeroImage,
+    listingImage: envVariablesAndZephyrHeroImage,
   },
 };

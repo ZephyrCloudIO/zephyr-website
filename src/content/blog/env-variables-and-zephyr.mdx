@@ -1,0 +1,125 @@
+---
+title: 'Stop Rebuilding Your App Just to Change an Environment Variable'
+slug: 'env-variables-and-zephyr'
+date: '2025-11-13'
+heroImage: '/images/blog/env-variables/hero.webp'
+listingImage: '/images/blog/env-variables/hero.webp'
+description: 'How Zephyr decouples your build artifacts from environment configuration, letting you promote the same version across environments without rebuilding'
+authors: ['Shane Walker']
+tags: ['engineering', 'dx', 'architecture']
+featured: true
+readingTime: 5
+---
+
+Your workflow is broken. You just don't realize it yet.
+
+Let me paint you a picture. You're working on a feature. You open a PR. GitHub Actions kicks off. Your app rebuilds with `API_URL=preview.myapi.com` baked into the bundle. Fifteen minutes later (if you're lucky), you get a preview link. QA tests it. Looks good. You merge to main.
+
+GitHub Actions kicks off again. This time it rebuilds the entire application with `API_URL=myapi.com` hardcoded into a completely different bundle. Another fifteen minutes. Maybe more if you've got a complex build.
+
+You just built the same code twice. The only difference? A string.
+
+## The Build-Time Configuration Trap
+
+We've accepted this as normal. Every environment gets its own build. Preview environment? Build it. Staging? Build it. Production? Build it again. Each build is a unique artifact with environment variables frozen at build time.
+
+This creates a cascade of problems:
+
+- **Slow deployments**: Every environment transition requires a full rebuild
+- **Version skew risk**: Production isn't running the exact code QA tested
+- **No true promotion**: You're not promoting artifacts, you're rebuilding them
+- **Configuration coupling**: Your build artifacts are married to specific environments
+
+The worst part? You can't actually test what's going to production because production runs a different bundle.
+
+## How Zephyr Flips the Script
+
+Zephyr integrates directly with your bundler. When you run your build, Zephyr deploys that version to the edge and gives you a preview URL in under a second. Not a staging server. Not a preview environment. The edge. Every build is immediately live and immutable.
+
+Here's where it gets interesting: environment variables.
+
+Prefix any variable with `ZE_PUBLIC_` and Zephyr captures it. Not just the value you used locally, but the key itself. These variables live in your application config, decoupled from the build artifact.
+
+Let's say you're developing locally with:
+
+```bash
+ZE_PUBLIC_API_URL="https://preview.myapi.com"
+```
+
+You build. Zephyr generates version 14238 and deploys it: `https://14238-swalker-app-preview-url.com`
+
+This version is immutable. It's live. It's pointing to your preview API because that's what you built with.
+
+## Environment-Level Overrides
+
+Here's where the magic happens. In Zephyr's dashboard, you create an environment called "Production". On that environment, you set an override:
+
+```bash
+ZE_PUBLIC_API_URL="https://myapi.com"
+```
+
+Now you promote version 14238 to Production. Same artifact. Same bundle. Same code QA tested. But when it runs in the Production environment, Zephyr dynamically injects the production API URL.
+
+You didn't rebuild anything. You promoted a tested, known-good version and changed its configuration.
+
+## Why This Changes Everything
+
+**True artifact promotion**: Production runs the exact bytes QA tested. Not a rebuild. Not a similar build. The exact same build.
+
+**Instant environment transitions**: Promoting to production is a configuration change, not a rebuild. Seconds, not minutes.
+
+**Skew protection**: There's no possibility of build-time differences between environments because there's only one build.
+
+**Experimentation freedom**: Want to test a version with different API endpoints? Override the variable. No rebuild needed.
+
+**Version composability**: Every version you build is immediately usable in any environment with any configuration.
+
+## The Developer Experience Shift
+
+The old workflow looked like this:
+
+1. Write code
+2. Wait for preview build
+3. Test
+4. Merge
+5. Wait for production build
+6. Hope nothing changed
+
+The Zephyr workflow:
+
+1. Write code
+2. Build (generates preview URL instantly)
+3. Test the actual artifact
+4. Promote to production with environment-specific config
+5. Production runs what you tested
+
+You're not just faster. You're fundamentally more correct.
+
+## Technical Details
+
+When you prefix variables with `ZE_PUBLIC_`, Zephyr:
+
+1. Captures them during the build process
+2. Stores them in your application's manifest
+3. Makes them available for environment-level overrides
+4. Dynamically injects environment-specific values at runtime
+
+The build artifact doesn't contain hardcoded values. It contains references that get resolved based on the environment it's running in.
+
+Important: `ZE_PUBLIC_` variables are client-side and may be visible in your bundled code. Never use them for secrets, API keys, or sensitive configuration. They're perfect for API endpoints, feature flags, CDN URLs, and other public configuration.
+
+For more details on environment overrides, check out our [docs](https://docs.zephyr-cloud.io/features/environment-overrides).
+
+## The Bigger Picture
+
+This isn't just about environment variables. It's about decoupling build artifacts from runtime configuration. It's about making your deploys instant because you're not rebuilding. It's about giving QA and production the same artifact because version skew isn't an option.
+
+Most importantly, it's about treating your builds as immutable, composable units that can be deployed anywhere with any configuration. Build once, deploy everywhere.
+
+That's the promise of true artifact promotion. And it's only possible when you stop baking configuration into your builds.
+
+## Try It Yourself
+
+Every version you build with Zephyr is a candidate for any environment. Start building with `ZE_PUBLIC_` prefixed variables. Create environments in the dashboard. Set your overrides. Promote your artifacts.
+
+Stop rebuilding. Start promoting.
