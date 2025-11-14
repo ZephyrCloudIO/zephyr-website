@@ -55,7 +55,14 @@ export const pastEvents: Event[] = [
     attendees: 1000,
     isPast: true,
     speakers: ['Zack Chapple', 'Dmitriy Shekhovtsov'],
-    resources: [],
+    resources: [
+      {
+        icon: 'Video',
+        text: "Watch Zack and Dmitriy's Talk",
+        link: 'https://www.youtube.com/watch?v=g59bFyL9aNY',
+        external: true,
+      },
+    ],
   },
   {
     title: 'React Universe',
