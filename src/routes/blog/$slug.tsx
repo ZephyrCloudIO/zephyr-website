@@ -74,7 +74,7 @@ function BlogPostPage() {
 
           <img src={post.heroImage} alt={post.title} className="w-full max-w-3xl mx-auto mb-6 rounded-lg" />
 
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">{post.title}</h1>
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">{post.title}</h1>
 
           <div className="flex flex-wrap items-center gap-6 text-neutral-300">
             <div className="flex items-center gap-3">

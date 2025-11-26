@@ -30,7 +30,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
             ))}
           </div>
           <h3
-            className={`font-semibold mb-2 transition-colors group-hover:text-emerald-400 ${
+            className={`font-semibold mb-2 transition-colors group-hover:text-emerald-400 text-balance ${
               featured ? 'text-2xl' : 'text-xl'
             }`}
           >
@@ -49,7 +49,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
             </div>
             {post.readingTime && <span>{post.readingTime} min read</span>}
           </div>
-          <p className="text-neutral-300 line-clamp-3 mb-4">{post.description}</p>
+          <p className="text-neutral-300 line-clamp-3 mb-4 text-pretty">{post.description}</p>
           <div className="flex items-center justify-between">
             <div className="flex -space-x-2">
               {post.authors?.map((author, index) => (
