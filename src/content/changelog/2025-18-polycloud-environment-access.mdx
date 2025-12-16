@@ -1,0 +1,54 @@
+---
+title: 'Environment Access, Project Overview, and UML Improvements'
+date: '2025-12-11'
+version: 'v2.9.5'
+summary: 'Introducing environment-level access controls, enhanced project overview dashboard, UML version visualization, and subscription management improvements.'
+tags: []
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+This release introduces enhanced environment access controls, an updated project overview dashboard, improved UML visualization with version support, and subscription management capabilities, along with infrastructure upgrades and bug fixes.
+
+## Environment Access Controls
+
+Manage access to your environments with new granular controls:
+
+- New tag condition for environments allowing precise access control rules
+- Protected environment flag to safeguard production and critical environments
+- New environment members section for managing team access at the environment level
+
+This gives you fine-grained control over who can access and modify specific environments in your organization.
+
+## Project Level Overview
+
+We've updated the project overview page with enhanced application data display, giving you better visibility into your project's applications and their status at a glance.
+
+## UML with Versions
+
+Enhanced dependency visualization in the UML view:
+
+- Version selector for viewing remote dependency trees
+- Tree visualization of remote dependencies based on ZephyrDependencies
+- Tag and environment filtering for more focused dependency analysis
+
+## Subscription Management
+
+- Cancel subscriptions immediately or at the end of your billing cycle
+- Improved test-clock support for billing cycle advancement
+
+## Infrastructure Updates
+
+- Updated Cloudflare and Wrangler dependencies for improved compatibility
+- Upgraded NestJS and related backend libraries
+- Added Redis caching for improved performance
+
+## Bug Fixes & Improvements
+
+- Fixed org switcher viewport positioning issues when resizing browser windows
+- Corrected version search placeholder text in tag creation
+- Added custom DNS names support for side panel host mapping
+- Fixed Stripe webhook cleanup on PR merging
+- Corrected expand behavior when checking for active coupons
+- Removed duplicate variable tab in the UI
+- Improved Redis reconnect handling
