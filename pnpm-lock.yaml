@@ -7,6 +7,7 @@ settings:
 overrides:
   form-data: '>=4.0.4'
   axios: '>=1.12.0'
+  qs: '>=6.14.1'
 
 importers:
 
@@ -2304,8 +2305,8 @@ packages:
   proxy-from-env@1.1.0:
     resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==}
 
-  qs@6.14.0:
-    resolution: {integrity: sha512-YWWTjgABSKcvs/nWBi9PycY/JiPJqOD4JA6o9Sej2AtvSGarXxKC3OQSk4pAarbdQlKAh5D4FCQkJNkW+GAn3w==}
+  qs@6.14.1:
+    resolution: {integrity: sha512-4EK3+xJl8Ts67nLYNwqw/dsFVnCf+qR7RgXSK9jEEm9unao3njwMDdmsdvoKBKHzxd7tCYz5e5M+SnMjdtXGQQ==}
     engines: {node: '>=0.6'}
 
   randombytes@2.1.0:
@@ -4069,7 +4070,7 @@ snapshots:
       form-data-encoder: 1.7.2
       formdata-node: 4.4.1
       node-fetch: 2.7.0
-      qs: 6.14.0
+      qs: 6.14.1
       web-streams-polyfill: 3.3.3
     transitivePeerDependencies:
       - encoding
@@ -5163,7 +5164,7 @@ snapshots:
 
   proxy-from-env@1.1.0: {}
 
-  qs@6.14.0:
+  qs@6.14.1:
     dependencies:
       side-channel: 1.1.0
 
