@@ -19,7 +19,20 @@ import ZephyrLogo from '@/images/zephyr-logo.svg';
 import ZephyrWordmark from '@/images/zephyr-wordmark.svg';
 import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
-import { Calendar, Cloud, FileText, Github, History, Menu, Newspaper, Package, Type, Users, X } from 'lucide-react';
+import {
+  Calendar,
+  Cloud,
+  FileText,
+  Github,
+  History,
+  Menu,
+  Newspaper,
+  Package,
+  Sparkles,
+  Type,
+  Users,
+  X,
+} from 'lucide-react';
 import React, { useState } from 'react';
 
 export const Header: React.FC = () => {
@@ -111,6 +124,24 @@ export const Header: React.FC = () => {
                         </div>
                         <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
                           The modern development platform for web applications
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
+                        to="/products/ai"
+                        className={cn(
+                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
+                        )}
+                      >
+                        <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                          <Sparkles className="h-4 w-4" />
+                          Zephyr AI
+                        </div>
+                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
+                          Where humans and AI agents do real work
                         </p>
                       </Link>
                     </NavigationMenuLink>
@@ -300,6 +331,14 @@ export const Header: React.FC = () => {
                 >
                   <Cloud className="h-4 w-4" />
                   Zephyr Cloud
+                </Link>
+                <Link
+                  to="/products/ai"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
+                >
+                  <Sparkles className="h-4 w-4" />
+                  Zephyr AI
                 </Link>
               </div>
             )}
