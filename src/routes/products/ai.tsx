@@ -1,71 +1,82 @@
-import productScreenshot from '@/images/products/zephyr-ai-landing.png';
+import { AppScreenshot } from '@/components/AppScreenshot';
+import { SignupForm } from '@/components/SignupForm';
+import { UnicornBackground } from '@/components/UnicornBackground';
+import ZephyrLogo from '@/images/zephyr-logo.svg';
 import { createFileRoute } from '@tanstack/react-router';
-import { useEffect } from 'react';
-
-// Declare HubSpot types for TypeScript
-declare global {
-  interface Window {
-    hbspt: {
-      forms: {
-        create: (config: { portalId: string; formId: string; region: string; target: string }) => void;
-      };
-    };
-  }
-}
+import { useState } from 'react';
 
 export const Route = createFileRoute('/products/ai')({
   component: AIPage,
 });
 
 function AIPage() {
-  useEffect(() => {
-    // Load HubSpot Forms API
-    const script = document.createElement('script');
-    script.src = '//js.hsforms.net/forms/embed/v2.js';
-    script.type = 'text/javascript';
-    script.charset = 'utf-8';
-    script.async = true;
-
-    script.onload = () => {
-      // Create form after script loads
-      if (window.hbspt) {
-        window.hbspt.forms.create({
-          portalId: '46982563',
-          formId: 'f1595bbd-95a2-4ee1-b7db-c8071152dc5b',
-          region: 'na1',
-          target: '#hubspot-form-container',
-        });
-      }
-    };
-
-    document.body.appendChild(script);
-
-    return () => {
-      // Cleanup script on unmount
-      if (document.body.contains(script)) {
-        document.body.removeChild(script);
-      }
-    };
-  }, []);
+  const [shaderReady, setShaderReady] = useState(false);
 
   return (
-    <div className="min-h-screen">
-      <div className="container mx-auto px-4 py-16 max-w-7xl">
-        <div className="text-center mb-6">
-          <h1 className="text-5xl font-bold mb-6">Zephyr AI - Superapp</h1>
-          <p className="text-xl text-neutral-300 max-w-2xl mx-auto">Where humans and AI agents do real work.</p>
-        </div>
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2">
-            <div className="rounded-xl overflow-hidden border border-neutral-800 bg-neutral-900">
-              <img src={productScreenshot} alt="Zephyr AI Super App Interface" className="w-full h-auto" />
+    <div className="relative min-h-screen overflow-hidden">
+      {/* Scoped animations — only affect this page */}
+      <style>{`
+        @keyframes ai-shake {
+          0%, 100% { transform: translateX(0); }
+          10%, 50%, 90% { transform: translateX(-4px); }
+          30%, 70% { transform: translateX(4px); }
+        }
+        @keyframes ai-tilt-in {
+          from { transform: perspective(1200px) rotateX(8deg) translateY(40px); }
+          to { transform: perspective(1200px) rotateX(0deg) translateY(0); }
+        }
+        @keyframes ai-shimmer {
+          from { mask-position: 150%; }
+          to { mask-position: -50%; }
+        }
+        .animate-shake { animation: ai-shake 0.5s ease-in-out; }
+        .tilt-in {
+          transform-origin: center top;
+          animation: ai-tilt-in 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+        .shimmer-text {
+          color: rgba(255, 255, 255, 0.75);
+          mask-image: linear-gradient(-60deg, rgba(0,0,0,0.6) 40%, rgb(0,0,0) 50%, rgba(0,0,0,0.6) 60%);
+          mask-size: 300%;
+          -webkit-mask-image: linear-gradient(-60deg, rgba(0,0,0,0.6) 40%, rgb(0,0,0) 50%, rgba(0,0,0,0.6) 60%);
+          -webkit-mask-size: 300%;
+          animation: ai-shimmer 3s ease-in-out infinite;
+        }
+      `}</style>
+
+      {/* Background WebGL scene — positioned relative to this container, not viewport */}
+      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 w-full">
+        <UnicornBackground onLoad={() => setShaderReady(true)} />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-5 px-6 pt-20 pb-32 md:pt-16">
+        {/* Header row */}
+        <div
+          className="flex w-full flex-col gap-6 px-0 md:flex-row md:items-center md:justify-between"
+          style={{
+            opacity: shaderReady ? 1 : 0,
+            transform: shaderReady ? 'translateY(0)' : 'translateY(10px)',
+            ...(shaderReady && {
+              transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
+            }),
+          }}
+        >
+          {/* Left: Logo + text */}
+          <div className="flex items-center gap-4">
+            <img src={ZephyrLogo} alt="Zephyr" width={49} height={49} className="shrink-0 rounded-[10px]" />
+            <div className="flex flex-col gap-1.5 text-white">
+              <p className="text-[15px] font-bold leading-[22px]">Zephyr is the AI Super App</p>
+              <p className="text-sm font-normal leading-[22px]">This is where humans and AI do real work.</p>
             </div>
           </div>
-          <div className="bg-neutral-900 rounded-xl border border-neutral-700 p-6">
-            <h2 className="text-2xl font-bold mb-2 text-white pb-6">Get Early Access</h2>
-            <div id="hubspot-form-container" />
-          </div>
+
+          {/* Right: Early access signup */}
+          <SignupForm />
         </div>
+
+        {/* App mockup screenshot */}
+        <AppScreenshot shaderReady={shaderReady} />
       </div>
     </div>
   );
