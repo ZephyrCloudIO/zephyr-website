@@ -50,7 +50,7 @@ function AIPage() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-5 px-6 pt-20 pb-32 md:pt-16">
+      <div className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-2 px-6 pt-10 pb-28 md:pt-6">
         {/* Header row */}
         <div
           className="flex w-full flex-col gap-6 px-0 md:flex-row md:items-center md:justify-between"
