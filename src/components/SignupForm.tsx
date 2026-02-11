@@ -58,8 +58,11 @@ export function SignupForm() {
   const isSuccess = state === 'success';
 
   return (
-    <form onSubmit={handleSubmit} className="flex w-full shrink-0 flex-col gap-2.5 md:w-auto">
-      <p className="pr-3 text-right text-[13px] font-medium leading-5 transition-colors duration-200">
+    <form
+      onSubmit={handleSubmit}
+      className="flex w-full max-w-[560px] shrink-0 flex-col gap-2.5 md:w-auto md:max-w-none"
+    >
+      <p className="px-1 text-left text-[13px] font-medium leading-5 transition-colors duration-200 md:pr-3 md:text-right">
         {isError ? (
           <span className="text-red-400">Please check your email</span>
         ) : (
@@ -68,7 +71,7 @@ export function SignupForm() {
       </p>
 
       <div
-        className={`relative flex items-center gap-3 rounded-full border py-1.5 pl-5 pr-1.5 transition-all duration-500 ${
+        className={`relative flex items-center gap-2.5 rounded-full border py-1.5 pl-4 pr-1.5 transition-all duration-500 sm:gap-3 sm:pl-5 ${
           isSuccess
             ? 'border-white/20 bg-black/50'
             : isError
@@ -77,11 +80,7 @@ export function SignupForm() {
                 ? 'border-[#008CFF] bg-black/50'
                 : 'border-white/20 bg-black/50'
         } ${shaking ? 'animate-shake' : ''}`}
-        style={
-          focused && !isError && !isSuccess
-            ? { boxShadow: '0px 0px 4px rgba(0, 166, 255, 0.45)' }
-            : undefined
-        }
+        style={focused && !isError && !isSuccess ? { boxShadow: '0px 0px 4px rgba(0, 166, 255, 0.45)' } : undefined}
       >
         <div className="relative h-4 w-4 shrink-0">
           <svg
@@ -109,7 +108,7 @@ export function SignupForm() {
           placeholder="Work email"
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className={`min-w-0 flex-1 bg-transparent text-[13px] font-medium text-white placeholder-white/40 outline-none transition-opacity duration-500 ${isSuccess ? 'opacity-0' : 'opacity-100'}`}
+          className={`min-w-0 flex-1 bg-transparent text-sm font-medium text-white placeholder-white/40 outline-none transition-opacity duration-500 sm:text-[13px] ${isSuccess ? 'opacity-0' : 'opacity-100'}`}
         />
 
         <button
@@ -117,7 +116,7 @@ export function SignupForm() {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           disabled={state === 'submitting'}
-          className={`h-9 shrink-0 whitespace-nowrap rounded-full px-4 py-2 text-[13px] font-semibold text-white transition-all duration-500 ${isSuccess ? 'pointer-events-none opacity-0' : 'opacity-100'} ${state === 'submitting' ? 'opacity-70' : ''}`}
+          className={`h-9 shrink-0 whitespace-nowrap rounded-full px-3.5 py-2 text-xs font-semibold text-white transition-all duration-500 sm:px-4 sm:text-[13px] ${isSuccess ? 'pointer-events-none opacity-0' : 'opacity-100'} ${state === 'submitting' ? 'opacity-70' : ''}`}
           style={{
             background: `linear-gradient(177.57deg, rgba(255,255,255,0.48) 2.04%, rgba(255,255,255,0) 68.68%), ${hovered ? '#0084FF' : '#006AFF'}`,
             backgroundBlendMode: 'overlay, normal',
