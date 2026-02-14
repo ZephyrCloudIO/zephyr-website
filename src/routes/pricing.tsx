@@ -3,9 +3,9 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Tab } from '@/components/ui/tab';
 import akamai from '@/images/clouds/akamai_white.webp';
 import aws from '@/images/clouds/aws_white.webp';
+import azure from '@/images/clouds/azure_white.webp';
 import cloudflare from '@/images/clouds/cloudflare_white.webp';
 import fastly from '@/images/clouds/fastly_white.webp';
-import netlify from '@/images/clouds/netlify_white.webp';
 import vercel from '@/images/clouds/vercel_white.webp';
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
@@ -227,7 +227,7 @@ function PricingPage() {
               Bring Your Own Cloud (BYOC)
             </h2>
             <p className="text-neutral-400 mb-6">
-              Deploy to your Cloudflare, Netlify, Akamai, Vercel, or any of our supported cloud providers. Switch clouds
+              Deploy to Cloudflare, Fastly, Akamai, Vercel, or any of our supported cloud providers. Switch clouds
               instantly, deploy to multiple clouds or multiple accounts on a cloud simultaneously.
               <br />
               With BYOC, you maintain complete control over your infrastructure and costs.
@@ -268,13 +268,6 @@ function PricingPage() {
                 </div>
                 <div className="flex items-center justify-center p-3">
                   <img
-                    src={netlify}
-                    alt="Netlify"
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-                <div className="flex items-center justify-center p-3">
-                  <img
                     src={fastly}
                     alt="Fastly"
                     className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
@@ -292,6 +285,9 @@ function PricingPage() {
                 </div>
                 <div className="flex items-center justify-center p-3">
                   <img src={vercel} alt="Vercel" className="h-8 w-auto opacity-50 grayscale" title="Coming Soon" />
+                </div>
+                <div className="flex items-center justify-center p-3">
+                  <img src={azure} alt="Azure" className="h-8 w-auto opacity-50 grayscale" title="Coming Soon" />
                 </div>
               </div>
               <div className="text-xs text-neutral-500 text-center pt-2">

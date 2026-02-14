@@ -17,7 +17,7 @@ import deploymentPropagation from '@/images/blog/all-the-pipelines/deployment-pr
 
 We're not saying you must deploy your app to multiple cloud providers simultaneously. But if you've ever dealt with failover requirements, regional domains, or compliance standards that read like cryptic wizard scrolls, you'll love this.
 
-Today, we're announcing an amazing upcoming feature: **multi-CDN deployments in Zephyr Cloud** — giving you the ability to push the same build to **multiple cloud providers and domains** in a single, seamless flow. Whether it's Cloudflare, Fastly, Netlify — Zephyr, handles the propagation for you.
+Today, we're announcing an amazing upcoming feature: **multi-CDN deployments in Zephyr Cloud** — giving you the ability to push the same build to **multiple cloud providers and domains** in a single, seamless flow. Whether it's Cloudflare, Fastly, Akamai — Zephyr, handles the propagation for you.
 
 Because "Just deploy it" should mean one command. Not five.
 
@@ -51,7 +51,7 @@ Each build generates a **unique, immutable version URL**. You can test it, tag i
 
 &emsp; _Fastly gets version v42._<br />
 &emsp; _Cloudflare gets version v42._<br />
-&emsp; _Netlify gets version v42._<br />
+&emsp; _Akamai gets version v42._<br />
 &emsp; _You get peace of mind._<br />
 
 All version metadata lives in Zephyr, and assets are distributed via edge storage like Cloudflare KV or similar systems. No matter how many clouds you use, your versioning remains centralized, visible, and rollbackable.
@@ -67,7 +67,7 @@ Once you've integrated with Zephyr, using this feature is as simple as:
 
 If a deployment fails on one CDN? We've got retries and failure logs coming in hot. You'll be able to see per-provider status right in the dashboard — no need to dig through logs or guess what happened.
 
-Selective deployment per version isn't the current model — we propagate to all active providers — but you can toggle **providers on or off** anytime. Want to stop deploying to Netlify? One click. Future builds will skip it.
+Selective deployment per version isn't the current model — we propagate to all active providers — but you can toggle **providers on or off** anytime. Want to stop deploying to a provider? One click. Future builds will skip it.
 
 ## 🕵️ Real-World Uses (A.K.A. "Why This Exists")
 
