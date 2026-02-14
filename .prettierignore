@@ -4,4 +4,4 @@
 /.nx/cache
 pnpm-lock.yaml
 /.nx/workspace-data
-./src/routeTree.gen.ts
+src/routeTree.gen.ts
