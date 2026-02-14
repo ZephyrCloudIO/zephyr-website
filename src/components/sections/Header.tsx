@@ -131,6 +131,24 @@ export const Header: React.FC = () => {
                   <li>
                     <NavigationMenuLink asChild>
                       <Link
+                        to="/why-zephyr-cloud"
+                        className={cn(
+                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
+                        )}
+                      >
+                        <div className="flex items-center gap-2 text-sm font-medium leading-none">
+                          <FileText className="h-4 w-4" />
+                          Why Zephyr Cloud
+                        </div>
+                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
+                          A manager-focused overview: ship faster, reduce risk, scale cleanly
+                        </p>
+                      </Link>
+                    </NavigationMenuLink>
+                  </li>
+                  <li>
+                    <NavigationMenuLink asChild>
+                      <Link
                         to="/products/ai"
                         className={cn(
                           'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
@@ -331,6 +349,14 @@ export const Header: React.FC = () => {
                 >
                   <Cloud className="h-4 w-4" />
                   Zephyr Cloud
+                </Link>
+                <Link
+                  to="/why-zephyr-cloud"
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
+                >
+                  <FileText className="h-4 w-4" />
+                  Why Zephyr Cloud
                 </Link>
                 <Link
                   to="/products/ai"

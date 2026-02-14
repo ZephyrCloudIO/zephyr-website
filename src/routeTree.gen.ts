@@ -21,7 +21,13 @@ import { Route as PricingRouteImport } from './routes/pricing';
 import { Route as PrivacyRouteImport } from './routes/privacy';
 import { Route as ProductsAiRouteImport } from './routes/products/ai';
 import { Route as ProductsCodeEliminationPerformanceRouteImport } from './routes/products/code-elimination-performance';
+import { Route as WhyZephyrCloudRouteImport } from './routes/why-zephyr-cloud';
 
+const WhyZephyrCloudRoute = WhyZephyrCloudRouteImport.update({
+  id: '/why-zephyr-cloud',
+  path: '/why-zephyr-cloud',
+  getParentRoute: () => rootRouteImport,
+} as any);
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -90,12 +96,13 @@ export interface FileRoutesByFullPath {
   '/press': typeof PressRoute;
   '/pricing': typeof PricingRoute;
   '/privacy': typeof PrivacyRoute;
+  '/why-zephyr-cloud': typeof WhyZephyrCloudRoute;
   '/blog/$slug': typeof BlogSlugRoute;
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
   '/products/code-elimination-performance': typeof ProductsCodeEliminationPerformanceRoute;
-  '/blog': typeof BlogIndexRoute;
-  '/changelog': typeof ChangelogIndexRoute;
+  '/blog/': typeof BlogIndexRoute;
+  '/changelog/': typeof ChangelogIndexRoute;
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/press': typeof PressRoute;
   '/pricing': typeof PricingRoute;
   '/privacy': typeof PrivacyRoute;
+  '/why-zephyr-cloud': typeof WhyZephyrCloudRoute;
   '/blog/$slug': typeof BlogSlugRoute;
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/press': typeof PressRoute;
   '/pricing': typeof PricingRoute;
   '/privacy': typeof PrivacyRoute;
+  '/why-zephyr-cloud': typeof WhyZephyrCloudRoute;
   '/blog/$slug': typeof BlogSlugRoute;
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
@@ -135,12 +144,13 @@ export interface FileRouteTypes {
     | '/press'
     | '/pricing'
     | '/privacy'
+    | '/why-zephyr-cloud'
     | '/blog/$slug'
     | '/changelog/$slug'
     | '/products/ai'
     | '/products/code-elimination-performance'
-    | '/blog'
-    | '/changelog';
+    | '/blog/'
+    | '/changelog/';
   fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/press'
     | '/pricing'
     | '/privacy'
+    | '/why-zephyr-cloud'
     | '/blog/$slug'
     | '/changelog/$slug'
     | '/products/ai'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/press'
     | '/pricing'
     | '/privacy'
+    | '/why-zephyr-cloud'
     | '/blog/$slug'
     | '/changelog/$slug'
     | '/products/ai'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   PressRoute: typeof PressRoute;
   PricingRoute: typeof PricingRoute;
   PrivacyRoute: typeof PrivacyRoute;
+  WhyZephyrCloudRoute: typeof WhyZephyrCloudRoute;
   BlogSlugRoute: typeof BlogSlugRoute;
   ChangelogSlugRoute: typeof ChangelogSlugRoute;
   ProductsAiRoute: typeof ProductsAiRoute;
@@ -188,6 +201,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/why-zephyr-cloud': {
+      id: '/why-zephyr-cloud';
+      path: '/why-zephyr-cloud';
+      fullPath: '/why-zephyr-cloud';
+      preLoaderRoute: typeof WhyZephyrCloudRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/privacy': {
       id: '/privacy';
       path: '/privacy';
@@ -233,14 +253,14 @@ declare module '@tanstack/react-router' {
     '/changelog/': {
       id: '/changelog/';
       path: '/changelog';
-      fullPath: '/changelog';
+      fullPath: '/changelog/';
       preLoaderRoute: typeof ChangelogIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     '/blog/': {
       id: '/blog/';
       path: '/blog';
-      fullPath: '/blog';
+      fullPath: '/blog/';
       preLoaderRoute: typeof BlogIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   PressRoute: PressRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
+  WhyZephyrCloudRoute: WhyZephyrCloudRoute,
   BlogSlugRoute: BlogSlugRoute,
   ChangelogSlugRoute: ChangelogSlugRoute,
   ProductsAiRoute: ProductsAiRoute,
