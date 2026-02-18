@@ -170,26 +170,6 @@ export const pastEvents: Event[] = [
       },
     ],
   },
-  {
-    title: 'Netlify Compose',
-    date: 'October 2, 2024',
-    location: 'San Francisco, CA',
-    link: 'https://www.netlify.com/compose/',
-    timezone: 'PST',
-    type: 'conference',
-    description: 'A conference highlighting the future of composable and AI software.',
-    isPast: true,
-    attendees: 600,
-    speakers: ['Zack Chapple'],
-    resources: [
-      {
-        icon: 'Video',
-        text: 'Watch Recap',
-        external: true,
-        link: 'https://www.netlify.com/compose/2024/akshually-composable-applications-on-netlify/',
-      },
-    ],
-  },
 ];
 
 export const getFeaturedEvent = () => upcomingEvents.find((e) => e.featured);

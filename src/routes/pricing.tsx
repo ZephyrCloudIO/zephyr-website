@@ -5,7 +5,6 @@ import akamai from '@/images/clouds/akamai_white.webp';
 import aws from '@/images/clouds/aws_white.webp';
 import cloudflare from '@/images/clouds/cloudflare_white.webp';
 import fastly from '@/images/clouds/fastly_white.webp';
-import netlify from '@/images/clouds/netlify_white.webp';
 import vercel from '@/images/clouds/vercel_white.webp';
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
@@ -227,7 +226,7 @@ function PricingPage() {
               Bring Your Own Cloud (BYOC)
             </h2>
             <p className="text-neutral-400 mb-6">
-              Deploy to your Cloudflare, Netlify, Akamai, Vercel, or any of our supported cloud providers. Switch clouds
+              Deploy to your Cloudflare, Akamai, Vercel, or any of our supported cloud providers. Switch clouds
               instantly, deploy to multiple clouds or multiple accounts on a cloud simultaneously.
               <br />
               With BYOC, you maintain complete control over your infrastructure and costs.
@@ -263,13 +262,6 @@ function PricingPage() {
                   <img
                     src={cloudflare}
                     alt="Cloudflare"
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-                <div className="flex items-center justify-center p-3">
-                  <img
-                    src={netlify}
-                    alt="Netlify"
                     className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
                   />
                 </div>
