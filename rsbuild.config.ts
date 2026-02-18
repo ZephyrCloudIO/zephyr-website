@@ -25,12 +25,71 @@ export default defineConfig({
     copy: [
       { from: 'public/favicon.ico', to: './favicon.ico' },
       { from: 'public/llms.txt', to: './llms.txt' },
+      { from: 'public/opengraph/zephyr-ai.jpg', to: './opengraph/zephyr-ai.jpg' },
       { from: 'public/robots.txt', to: './robots.txt' },
     ],
   },
   html: {
     title: 'Zephyr Cloud',
     template: './index.html',
+    meta: {
+      description: {
+        name: 'description',
+        content: 'Zephyr is the AI Super App where humans and AI do real work.',
+      },
+      'og:type': {
+        property: 'og:type',
+        content: 'website',
+      },
+      'og:site_name': {
+        property: 'og:site_name',
+        content: 'Zephyr Cloud',
+      },
+      'og:title': {
+        property: 'og:title',
+        content: 'Zephyr AI Super App',
+      },
+      'og:description': {
+        property: 'og:description',
+        content: 'Zephyr is the AI Super App where humans and AI do real work.',
+      },
+      'og:image': {
+        property: 'og:image',
+        content: '/opengraph/zephyr-ai.jpg?v=2',
+      },
+      'og:image:alt': {
+        property: 'og:image:alt',
+        content: 'Zephyr AI product preview',
+      },
+      'og:image:type': {
+        property: 'og:image:type',
+        content: 'image/jpeg',
+      },
+      'og:image:width': {
+        property: 'og:image:width',
+        content: '1200',
+      },
+      'og:image:height': {
+        property: 'og:image:height',
+        content: '630',
+      },
+      'twitter:card': {
+        name: 'twitter:card',
+        content: 'summary_large_image',
+      },
+      'twitter:title': {
+        name: 'twitter:title',
+        content: 'Zephyr AI Super App',
+      },
+      'twitter:description': {
+        name: 'twitter:description',
+        content: 'Zephyr is the AI Super App where humans and AI do real work.',
+      },
+      'twitter:image': {
+        name: 'twitter:image',
+        content: '/opengraph/zephyr-ai.jpg?v=2',
+      },
+    },
   },
   resolve: {
     alias: {
