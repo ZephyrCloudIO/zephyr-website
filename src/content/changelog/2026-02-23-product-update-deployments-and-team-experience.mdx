@@ -1,0 +1,49 @@
+---
+title: 'Product Update: Faster Deployments and Better Team Workflows'
+date: '2026-02-23'
+version: 'February 2026 Product Update'
+summary: 'This update improves deployment integrations, tag and environment flows, organization dashboards, and team permission behavior.'
+tags: ['product', 'deployment', 'organizations', 'environments', 'performance']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This update focuses on the workflows teams use every day: setting up deployment integrations, managing environments and tags, working from organization dashboards, and handling team access. You should see faster screens, clearer UI, and more predictable behavior across these areas.
+
+## Deployment Integrations
+
+- Added support for **Kubernetes deployment integrations** (enterprise availability), including stronger validation and health checks during setup.
+- Improved reliability when creating and updating deployment integrations, especially in edge cases.
+- Improved deployment integration list performance for larger organizations, with much faster loading on integration-heavy accounts.
+
+## Environments and Tag Flows
+
+- You can now create environments **without pinning a specific version**, which improves tag-driven environment workflows.
+- Improved handling of nullable/optional environment versions to prevent creation and editing failures.
+- Improved tag condition and filtering performance, making large tag sets more responsive in listing and resolution flows.
+
+## Organization and Application UI
+
+- Organization overview now surfaces clearer summary information and more polished recent-application cards.
+- Recent application cards now use live counters and tighter layouts for quicker scanning.
+- Settings and actions in overview cards were repositioned for better visual hierarchy.
+- Environment condition forms in applications were improved so long version values are easier to read and edit.
+
+## Authentication and Permissions
+
+- Added a direct `/logout` route flow and improved login/logout screen presentation.
+- Login and logout routes now render without app shell chrome for a cleaner auth experience.
+- Fixed team management permission behavior so edit actions match expected role access.
+
+## Performance Improvements
+
+- Improved project-list responsiveness for organizations with larger project/application counts.
+- Improved deployment integration endpoint response times in high-volume orgs.
+
+## What This Means for Teams
+
+- No migration steps required.
+- Existing workflows remain compatible.
+- Teams should notice faster dashboard and integration screens, fewer setup issues, and clearer day-to-day management UX.
