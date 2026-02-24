@@ -104,6 +104,10 @@ export const blogImages = {
     heroImage: moduleFederationVsNativeEsmHeroImage,
     listingImage: moduleFederationVsNativeEsmHeroImage,
   },
+  'nextjs-without-lock-in-vinext-on-zephyr': {
+    heroImage: moduleFederationVsNativeEsmHeroImage,
+    listingImage: moduleFederationVsNativeEsmHeroImage,
+  },
   'env-variables-and-zephyr': {
     heroImage: envVariablesAndZephyrHeroImage,
     listingImage: envVariablesAndZephyrHeroImage,
