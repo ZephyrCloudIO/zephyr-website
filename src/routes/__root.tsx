@@ -58,6 +58,20 @@ const mdxComponents = {
   blockquote: (props: any) => (
     <blockquote className="border-l-4 border-emerald-600 pl-4 italic mb-4 text-neutral-400" {...props} />
   ),
+  table: ({ children, ...props }: any) => (
+    <div className="my-6 overflow-x-auto rounded-lg border border-neutral-800">
+      <table className="min-w-full border-collapse text-left text-sm text-neutral-200" {...props}>
+        {children}
+      </table>
+    </div>
+  ),
+  thead: (props: any) => <thead className="bg-neutral-900/80" {...props} />,
+  tbody: (props: any) => <tbody className="divide-y divide-neutral-800" {...props} />,
+  tr: (props: any) => <tr className="align-top" {...props} />,
+  th: (props: any) => (
+    <th className="border-b border-neutral-700 px-4 py-3 font-semibold text-white whitespace-nowrap" {...props} />
+  ),
+  td: (props: any) => <td className="px-4 py-3 align-top leading-relaxed" {...props} />,
   a: (props: any) => <a className="text-emerald-400 hover:text-emerald-300 underline" {...props} />,
   img: (props: any) => <img className="rounded-lg my-6 max-w-full" {...props} />,
   strong: (props: any) => <strong className="font-semibold text-white" {...props} />,
