@@ -3,7 +3,7 @@ import { Footer } from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import { MDXProvider } from '@mdx-js/react';
 import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
-import { useEffect } from 'react';
+import { type ReactNode, useEffect } from 'react';
 import { IntercomProvider } from 'react-use-intercom';
 
 // Google Analytics
@@ -30,6 +30,54 @@ const GoogleAnalytics = () => (
     />
   </>
 );
+
+type TwitterWindow = Window & {
+  twttr?: {
+    widgets?: {
+      load: () => void;
+    };
+  };
+};
+
+const TWITTER_WIDGET_SCRIPT_ID = 'twitter-wjs';
+
+function TwitterEmbed({ children, mediaMaxWidth = 560 }: { children: ReactNode; mediaMaxWidth?: number }) {
+  useEffect(() => {
+    const twitterWindow = window as TwitterWindow;
+    const loadWidgets = () => twitterWindow.twttr?.widgets?.load();
+    const existingScript = document.getElementById(TWITTER_WIDGET_SCRIPT_ID) as HTMLScriptElement | null;
+
+    if (existingScript) {
+      if (twitterWindow.twttr?.widgets) {
+        loadWidgets();
+        return;
+      }
+
+      existingScript.addEventListener('load', loadWidgets, { once: true });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.id = TWITTER_WIDGET_SCRIPT_ID;
+    script.async = true;
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.charset = 'utf-8';
+    script.addEventListener('load', loadWidgets);
+    document.body.appendChild(script);
+
+    return () => {
+      script.removeEventListener('load', loadWidgets);
+    };
+  }, []);
+
+  return (
+    <div className="my-6 overflow-x-auto">
+      <blockquote className="twitter-tweet" data-media-max-width={mediaMaxWidth}>
+        {children}
+      </blockquote>
+    </div>
+  );
+}
 
 // MDX components configuration
 const mdxComponents = {
@@ -72,6 +120,7 @@ const mdxComponents = {
     <th className="border-b border-neutral-700 px-4 py-3 font-semibold text-white whitespace-nowrap" {...props} />
   ),
   td: (props: any) => <td className="px-4 py-3 align-top leading-relaxed" {...props} />,
+  TwitterEmbed,
   a: (props: any) => <a className="text-emerald-400 hover:text-emerald-300 underline" {...props} />,
   img: (props: any) => <img className="rounded-lg my-6 max-w-full" {...props} />,
   strong: (props: any) => <strong className="font-semibold text-white" {...props} />,

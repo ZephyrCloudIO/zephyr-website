@@ -51,7 +51,33 @@ Here's the actual workflow: install `vite-plugin-vinext-zephyr`, add `withZephyr
 
 The result: local build to global edge deployment in under one second. Not "fast for a complex process." Actually fast. The kind of fast where you make a change, hit save, and it's live globally before you can switch browser tabs.
 
-[See it running here](https://lnkd.in/gp38k57p). This is a real vinext app, built with Vite, deployed through Zephyr, running on the edge. Not a synthetic benchmark. Not a staged demo. Just the actual developer experience.
+[See it running here](https://vinext-vinext-hackernews-zephyr-packages-zephyrcloudio-ze.zephyrcloudapp.dev/). This is a real vinext app, built with Vite, deployed through Zephyr, running on the edge. Not a synthetic benchmark. Not a staged demo. Just the actual developer experience.
+
+Hacker News vinext app deployment on Zephyr:
+
+<TwitterEmbed mediaMaxWidth={560}>
+  <p lang="en" dir="ltr">
+    And you can deploy it the fastest using{' '}
+    <a href="https://twitter.com/ZephyrCloudIO?ref_src=twsrc%5Etfw">@ZephyrCloudIO</a>{' '}
+    <a href="https://t.co/O9bfsQqYHY">https://t.co/O9bfsQqYHY</a>{' '}
+    <a href="https://t.co/1rvfI47aLb">pic.twitter.com/1rvfI47aLb</a>
+  </p>
+  {'—'} Néstor (@nstlopez){' '}
+  <a href="https://twitter.com/nstlopez/status/2026406859226087704?ref_src=twsrc%5Etfw">February 24, 2026</a>
+</TwitterEmbed>
+
+`npx with-zephyr` in action:
+
+<TwitterEmbed mediaMaxWidth={560}>
+  <p lang="en" dir="ltr">
+    You can now deploy vinext with just one command.
+    <br />
+    <br />
+    npx with-zephyr <a href="https://t.co/HbbaJ4OyHQ">pic.twitter.com/HbbaJ4OyHQ</a>
+  </p>
+  {'—'} Néstor (@nstlopez){' '}
+  <a href="https://twitter.com/nstlopez/status/2026435762686681182?ref_src=twsrc%5Etfw">February 24, 2026</a>
+</TwitterEmbed>
 
 ## What Zephyr Adds Beyond vinext
 
@@ -66,20 +92,6 @@ The key insight here is that infrastructure portability isn't just about being a
 **Edge propagation happens fast.** Like, sub-2-seconds fast. Cloudflare KV is eventually consistent, so Zephyr implements exponential backoff retries (0, 2, 5, 15, 30, 60, 120 seconds) to handle the propagation window. In practice, most deployments are globally visible within a couple of seconds.
 
 **Caching is multi-tier and context-aware.** Mutable assets like `remoteEntry.js` and `zephyr-manifest.json` use `max-age=0, must-revalidate` to ensure fresh federation manifests. Immutable hashed assets get 24-hour stale-while-revalidate caching. Application configs cache for 60 seconds client-side. Everything uses ETag-based conditional requests (RFC 7232), so repeated fetches are essentially free when content hasn't changed.
-
-## Module Federation Without the Framework Friction
-
-This is where the shift becomes strategically interesting.
-
-Teams running Module Federation, microfrontends, shared component registries, or multi-team frontend platforms know the friction of tightly-coupled framework runtimes. They've lived through breaking bundler changes that require weeks of migration work. They've dealt with runtime rewrites that break remote entry loading. They've hit compatibility freezes where they can't upgrade the framework because it would break the federation layer.
-
-A Vite-first architecture changes that dynamic entirely. Federation thrives in composable environments. It needs predictable bundling behavior, clean remote entry handling, and deployment cycles that don't require coordination across every federated team. vinext + Vite + Zephyr provides exactly that: predictable bundling through Rollup (or Rolldown in Vite 8), cleaner remote entry handling through standard ESM, edge-native SSR compatibility that doesn't require runtime shims, and federation-safe deployment cycles where each microfrontend can deploy independently without breaking the shell.
-
-**How federation works at the edge:** When your app builds, Zephyr generates a `zephyr-manifest.json` that maps each federated dependency to its resolved `remote_entry_url`. At runtime, the Zephyr plugin fetches this manifest and creates import maps that resolve module requests to the correct edge URLs. This happens through a global `__ZEPHYR_MANIFEST_CACHE__` shared across all bundles—so if your shell and your remote both need the same dependency's manifest, it only fetches once.
-
-**Version pinning you can trust:** Each snapshot gets an immutable `version_url` signed with a content hash. You can reference remotes as `app-name@url` and Zephyr resolves the exact version. No more guessing whether you're getting the remote you asked for. Since each version lives on a unique hostname derived from its hash, cross-version contamination is impossible—your v1.2.3 isolate literally cannot access v1.2.4's code.
-
-**Isolation by design:** Beyond version-specific hostnames, Zephyr uses Module Federation's share scopes to control what gets shared between remotes. Each app version runs in its own worker isolate with its own module resolution. If one microfrontend crashes, it doesn't take down the shell or other remotes. For platform teams, this means you can let teams deploy independently without coordinating bundler versions or praying the shared dependencies don't conflict.
 
 ## The Architecture Comparison
 
@@ -117,4 +129,4 @@ Cloudflare shipping vinext is a strong signal that this direction has industry v
 
 The era of framework-imposed infrastructure is ending. The frontend is composable again. And composable systems—systems where you can choose the right tool for each job, where you can evolve your architecture without platform permission, where you can optimize for your actual constraints instead of your vendor's business model—those are the systems that win.
 
-**Try it:** [Live demo](https://lnkd.in/gp38k57p) | [vinext on GitHub](https://github.com/cloudflare/vinext) | [Zephyr Cloud](https://zephyr-cloud.io)
+**Try it:** [Live demo](https://vinext-vinext-hackernews-zephyr-packages-zephyrcloudio-ze.zephyrcloudapp.dev/) | [vinext on GitHub](https://github.com/cloudflare/vinext) | [Zephyr Cloud](https://zephyr-cloud.io)
