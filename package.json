@@ -17,6 +17,7 @@
   "dependencies": {
     "@mdx-js/loader": "^3.1.0",
     "@mdx-js/react": "^3.1.0",
+    "@posthog/react": "^1.8.1",
     "@radix-ui/react-avatar": "^1.1.10",
     "@radix-ui/react-context-menu": "^2.2.15",
     "@radix-ui/react-dropdown-menu": "^2.1.15",
@@ -30,6 +31,7 @@
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.563.0",
     "motion": "^12.23.5",
+    "posthog-js": "^1.357.1",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
     "react-use-intercom": "^5.5.0",

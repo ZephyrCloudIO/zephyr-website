@@ -2,11 +2,12 @@ import { IntercomButton } from '@/components/IntercomButton';
 import { Footer } from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import { MDXProvider } from '@mdx-js/react';
+import { PostHogProvider } from '@posthog/react';
 import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
+import posthog from 'posthog-js';
 import { type ReactNode, useEffect } from 'react';
 import { IntercomProvider } from 'react-use-intercom';
 
-// Google Analytics
 const GoogleAnalytics = () => (
   <>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH" />
@@ -30,6 +31,10 @@ const GoogleAnalytics = () => (
     />
   </>
 );
+
+const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY;
+const POSTHOG_HOST = import.meta.env.PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
+let hasInitializedPostHog = false;
 
 type TwitterWindow = Window & {
   twttr?: {
@@ -140,20 +145,35 @@ function ScrollToTop() {
 
 // Root component
 function RootComponent() {
+  useEffect(() => {
+    if (!POSTHOG_KEY || hasInitializedPostHog) {
+      return;
+    }
+
+    hasInitializedPostHog = true;
+    posthog.init(POSTHOG_KEY, {
+      api_host: POSTHOG_HOST,
+      defaults: '2026-01-30',
+      person_profiles: 'identified_only',
+    } as const);
+  }, []);
+
   return (
     <IntercomProvider appId="xyxkmxlj">
       <GoogleAnalytics />
-      <ScrollToTop />
-      <MDXProvider components={mdxComponents}>
-        <div className="bg-black text-neutral-300 min-h-screen font-sans">
-          <Header />
-          <main>
-            <Outlet />
-          </main>
-          <Footer />
-          <IntercomButton />
-        </div>
-      </MDXProvider>
+      <PostHogProvider client={posthog}>
+        <ScrollToTop />
+        <MDXProvider components={mdxComponents}>
+          <div className="bg-black text-neutral-300 min-h-screen font-sans">
+            <Header />
+            <main>
+              <Outlet />
+            </main>
+            <Footer />
+            <IntercomButton />
+          </div>
+        </MDXProvider>
+      </PostHogProvider>
     </IntercomProvider>
   );
 }
