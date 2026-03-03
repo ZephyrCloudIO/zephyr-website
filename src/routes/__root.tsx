@@ -33,7 +33,8 @@ const GoogleAnalytics = () => (
 );
 
 const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY;
-const POSTHOG_HOST = import.meta.env.PUBLIC_POSTHOG_HOST ?? 'https://us.i.posthog.com';
+const POSTHOG_API_HOST = import.meta.env.PUBLIC_POSTHOG_HOST;
+const POSTHOG_UI_HOST = 'https://us.posthog.com';
 let hasInitializedPostHog = false;
 
 type TwitterWindow = Window & {
@@ -152,7 +153,8 @@ function RootComponent() {
 
     hasInitializedPostHog = true;
     posthog.init(POSTHOG_KEY, {
-      api_host: POSTHOG_HOST,
+      ...(POSTHOG_API_HOST ? { api_host: POSTHOG_API_HOST } : {}),
+      ui_host: POSTHOG_UI_HOST,
       defaults: '2026-01-30',
       person_profiles: 'identified_only',
     } as const);
