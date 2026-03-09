@@ -33,14 +33,7 @@ function EventCard({ event }: { event: Event }) {
   const Icon = config.icon;
 
   return (
-    <div
-      className={cn(
-        'group relative overflow-hidden rounded-xl p-6 transition-all duration-300',
-        'bg-gradient-to-br from-neutral-900 to-neutral-900/50',
-        'border border-neutral-800 hover:border-neutral-700',
-        'hover:shadow-2xl hover:shadow-emerald-500/10 hover:-translate-y-1',
-      )}
-    >
+    <div className="group relative overflow-hidden rounded-xl border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-900/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-700 hover:shadow-2xl hover:shadow-emerald-500/10">
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
       <div className="relative z-10">

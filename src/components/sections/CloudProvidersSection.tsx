@@ -127,12 +127,7 @@ export const CloudProvidersSection: React.FC = () => {
                 </div>
 
                 {/* Hover Effect Gradient */}
-                <div
-                  className={cn(
-                    'absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity',
-                    'bg-gradient-to-t from-emerald-500/5 to-transparent pointer-events-none',
-                  )}
-                />
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-emerald-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none" />
 
                 {/* Docs Link Indicator */}
                 {provider.docsLink && (
