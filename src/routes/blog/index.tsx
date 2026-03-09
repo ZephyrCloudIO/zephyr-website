@@ -39,8 +39,14 @@ function BlogPage() {
     });
   }, [searchQuery, selectedTag, posts]);
 
-  const featuredPosts = filteredPosts.filter((post) => post.featured);
-  const regularPosts = filteredPosts.filter((post) => !post.featured);
+  // Split blog posts into two groups for featured and regular
+  const [featuredPosts, regularPosts] = filteredPosts.reduce<[BlogPost[], BlogPost[]]>(
+    (acc, post) => {
+      acc[post.featured ? 0 : 1].push(post);
+      return acc;
+    },
+    [[], []],
+  );
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -82,7 +88,7 @@ function BlogPage() {
                 <SelectItem value="all" className="text-white">
                   All Topics
                 </SelectItem>
-                {Object.entries(BlogTags).map(([key, value]) => (
+                {Object.entries(BlogTags).map(([, value]) => (
                   <SelectItem key={value} value={value} className="text-white">
                     {tagLabels[value]}
                   </SelectItem>
