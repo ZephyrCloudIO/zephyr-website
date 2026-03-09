@@ -1,4 +1,4 @@
-import { Event, pastEvents, upcomingEvents } from '@/data/events';
+import { pastEvents, upcomingEvents, type Event, type EventType } from '@/data/events';
 import { cn } from '@/lib/utils';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import {
@@ -13,6 +13,7 @@ import {
   Users,
   Video,
   Zap,
+  type LucideIcon,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -162,7 +163,7 @@ function EventCard({ event }: { event: Event }) {
 }
 
 function EventsPage() {
-  const [filter, setFilter] = useState<'all' | 'conference' | 'webinar' | 'meetup' | 'workshop'>('all');
+  const [filter, setFilter] = useState<'all' | EventType>('all');
 
   // Helper function to parse event dates
   const parseEventDate = (dateStr: string): Date => {
@@ -202,7 +203,7 @@ function EventsPage() {
     false, // descending order for past events
   );
 
-  const filterButtons = [
+  const filterButtons: { value: 'all' | EventType; label: string; icon?: LucideIcon }[] = [
     { value: 'all', label: 'All Events' },
     { value: 'conference', label: 'Conferences', icon: Globe },
     { value: 'webinar', label: 'Webinars', icon: Zap },
@@ -311,7 +312,7 @@ function EventsPage() {
           {filterButtons.map(({ value, label, icon: Icon }) => (
             <button
               key={value}
-              onClick={() => setFilter(value as any)}
+              onClick={() => setFilter(value)}
               className={cn(
                 'inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all',
                 filter === value
