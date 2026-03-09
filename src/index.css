@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@plugin "tailwindcss-animate";
+@plugin 'tailwindcss-animate';
 
 /* Import highlight.js theme for code syntax highlighting */
 @import 'highlight.js/styles/github-dark.css';
