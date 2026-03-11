@@ -82,7 +82,7 @@ function BlogPage() {
                 <SelectItem value="all" className="text-white">
                   All Topics
                 </SelectItem>
-                {Object.entries(BlogTags).map(([key, value]) => (
+                {Object.entries(BlogTags).map(([, value]) => (
                   <SelectItem key={value} value={value} className="text-white">
                     {tagLabels[value]}
                   </SelectItem>
