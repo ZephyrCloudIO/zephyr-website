@@ -11,11 +11,11 @@ featured: true
 readingTime: 7
 ---
 
-Nitro v3 beta landed on **March 11, 2026**. The headline for me is simple: Nitro backends can now ship straight to Zephyr.
+[Nitro v3 beta](https://nitro.build/blog/v3-beta) landed on **March 11, 2026**. The headline for me is simple: Nitro backends can now ship straight to [Zephyr](https://zephyr-cloud.io).
 
 That sounds like a small feature at first glance, but it changes the part of backend work that tends to get messy the fastest. The moment a project leaves local development and starts moving through real environments, the deployment story usually begins to sprawl. You build in one place, package somewhere else, run a separate deploy stage, add provider-specific scripts, and before long the handoff between "the app" and "the platform" is its own fragile system. What makes this Nitro v3 feature interesting is that it pulls in the opposite direction. It takes something that is normally split across multiple layers of custom process and makes it feel like one continuous path again.
 
-That matters because this is not just about static sites or frontend hosting. This is backend infrastructure now: APIs, SSR handlers, server routes, edge runtime code. These are the parts of the system teams need to ship repeatedly, confidently, and without inventing deployment rituals they will regret six months later.
+That matters because this is not just about static sites or frontend hosting. This is backend infrastructure now: APIs, SSR handlers, server routes, edge runtime code. The official [Nitro deploy docs for Zephyr](https://nitro.build/deploy/providers/zephyr) now put that path right where people will actually find it. These are the parts of the system teams need to ship repeatedly, confidently, and without inventing deployment rituals they will regret six months later.
 
 ## What Is Actually Better Here?
 
