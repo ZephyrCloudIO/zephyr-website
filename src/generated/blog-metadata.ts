@@ -110,8 +110,8 @@ export const blogMetadataEntries = [
       title: 'Generative Engine Optimization: A New Frontier in Content Visibility for AI-Driven Discovery Whitepaper',
       slug: 'generative-engine-optimization',
       date: '2025-08-27',
-      heroImage: '/images/geo/hero.webp',
-      listingImage: '/images/geo/hero.webp',
+      heroImage: '/images/blog/generative-engine-optimization/hero.webp',
+      listingImage: '/images/blog/generative-engine-optimization/hero.webp',
       description:
         'As users increasingly turn to generative engines like ChatGPT, Perplexity, and Claude for information discovery, traditional Search Engine Optimization (SEO) alone no longer guarantees content visibility.',
       authors: [],
@@ -263,6 +263,8 @@ export const blogMetadataEntries = [
       publishedAt: '2025-04-22',
       excerpt:
         "In development today, teams follow a variety of Software Development Life Cycle (SDLC) approaches, each with their own strengths and challenges. As part of our launch week, we're exploring how Zephyr adapts to these different workflows while introducing an exciting concept: completely decoupling builds from the SDLC with our DevOps module.",
+      heroImage: '/images/blog/three-sdlcs-one-zephyr/three-sdlc-one-zephyr.svg',
+      listingImage: '/images/blog/three-sdlcs-one-zephyr/three-sdlc-one-zephyr.svg',
       author: 'Shane Walker',
       tags: ['launch-week', 'deployment', 'ops'],
     },
@@ -290,6 +292,8 @@ export const blogMetadataEntries = [
       publishedAt: '2025-04-23',
       excerpt:
         'Leveraging AI, Nx, and Micro Frontends brought together with Zephyr Cloud to make a clone of the social media platform X.',
+      heroImage: '/images/blog/vibe-coding/vibe-coding.webp',
+      listingImage: '/images/blog/vibe-coding/vibe-coding.webp',
       author: 'Zack Chapple',
       tags: ['launch-week', 'ai', 'micro-frontends'],
     },
@@ -301,6 +305,8 @@ export const blogMetadataEntries = [
       slug: 'week-3-runtime-ota',
       publishedAt: '2025-04-25',
       excerpt: 'Deploy to anywhere. Update without quiting. With our new React Native Runtime SDK.',
+      heroImage: '/images/blog/runtime-ota/runtime-ota.webp',
+      listingImage: '/images/blog/runtime-ota/runtime-ota.webp',
       author: 'Lois Zhao',
       tags: ['launch-week', 'mobile', 'react-native'],
     },
@@ -313,6 +319,8 @@ export const blogMetadataEntries = [
       publishedAt: '2025-01-30',
       excerpt:
         "In today's digital landscape, cloud providers are abundant, each offering unique capabilities and pricing models. Yet, choosing the wrong provider can be more than just a technical headache, it can become a costly strategic mistake.",
+      heroImage: '/images/blog/whos-your-cloud-daddy/cloud-daddy-hero.webp',
+      listingImage: '/images/blog/whos-your-cloud-daddy/cloud-daddy-hero.webp',
       author: 'Shane Walker',
       tags: ['polycloud', 'deployment'],
     },
