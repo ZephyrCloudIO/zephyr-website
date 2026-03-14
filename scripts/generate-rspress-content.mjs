@@ -1,5 +1,6 @@
 import { mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
+import { inspect } from 'node:util';
 import YAML from 'yaml';
 
 const ROOT = process.cwd();
@@ -67,7 +68,25 @@ function normalizeChangelogOgImage(slug, metadata) {
 }
 
 function asJsObject(value) {
-  return JSON.stringify(value, null, 2);
+  return inspect(value, {
+    depth: null,
+    compact: false,
+    breakLength: 100,
+    colors: false,
+    sorted: false,
+  });
+}
+
+function yamlSingleQuoted(value) {
+  const normalized = String(value ?? '').replace(/'/g, "''");
+  return `'${normalized}'`;
+}
+
+function jsSingleQuoted(value) {
+  const normalized = String(value ?? '')
+    .replace(/\\/g, '\\\\')
+    .replace(/'/g, "\\'");
+  return `'${normalized}'`;
 }
 
 async function cleanGeneratedMdx(dirPath) {
@@ -95,39 +114,39 @@ async function generateBlogPages() {
     const ogImage = normalizeBlogOgImage(slug, metadata);
 
     const generated = `---
-title: ${JSON.stringify(`${title} | Zephyr Cloud`)}
-description: ${JSON.stringify(description)}
+title: ${yamlSingleQuoted(`${title} | Zephyr Cloud`)}
+description: ${yamlSingleQuoted(description)}
 head:
   - - meta
     - property: og:type
       content: article
   - - meta
     - property: og:title
-      content: ${JSON.stringify(title)}
+      content: ${yamlSingleQuoted(title)}
   - - meta
     - property: og:description
-      content: ${JSON.stringify(description)}
+      content: ${yamlSingleQuoted(description)}
   - - meta
     - property: og:url
-      content: ${JSON.stringify(`https://zephyr-cloud.io/blog/${slug}`)}
+      content: ${yamlSingleQuoted(`https://zephyr-cloud.io/blog/${slug}`)}
   - - meta
     - property: og:image
-      content: ${JSON.stringify(ogImage)}
+      content: ${yamlSingleQuoted(ogImage)}
   - - meta
     - name: twitter:card
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: ${JSON.stringify(title)}
+      content: ${yamlSingleQuoted(title)}
   - - meta
     - name: twitter:description
-      content: ${JSON.stringify(description)}
+      content: ${yamlSingleQuoted(description)}
   - - meta
     - name: twitter:image
-      content: ${JSON.stringify(ogImage)}
+      content: ${yamlSingleQuoted(ogImage)}
   - - link
     - rel: canonical
-      href: ${JSON.stringify(`https://zephyr-cloud.io/blog/${slug}`)}
+      href: ${yamlSingleQuoted(`https://zephyr-cloud.io/blog/${slug}`)}
 ---
 
 import PostBody from '@/content/blog/${slug}.mdx'
@@ -135,7 +154,7 @@ import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage'
 
 export const pageMetadata = ${asJsObject(metadata)}
 
-<BlogArticlePage slug=${JSON.stringify(slug)} metadata={pageMetadata}>
+<BlogArticlePage slug={${jsSingleQuoted(slug)}} metadata={pageMetadata}>
   <PostBody />
 </BlogArticlePage>
 `;
@@ -167,39 +186,39 @@ async function generateChangelogPages() {
     const ogImage = normalizeChangelogOgImage(slug, metadata);
 
     const generated = `---
-title: ${JSON.stringify(`${title} | Zephyr Cloud`)}
-description: ${JSON.stringify(description)}
+title: ${yamlSingleQuoted(`${title} | Zephyr Cloud`)}
+description: ${yamlSingleQuoted(description)}
 head:
   - - meta
     - property: og:type
       content: article
   - - meta
     - property: og:title
-      content: ${JSON.stringify(title)}
+      content: ${yamlSingleQuoted(title)}
   - - meta
     - property: og:description
-      content: ${JSON.stringify(description)}
+      content: ${yamlSingleQuoted(description)}
   - - meta
     - property: og:url
-      content: ${JSON.stringify(`https://zephyr-cloud.io/changelog/${slug}`)}
+      content: ${yamlSingleQuoted(`https://zephyr-cloud.io/changelog/${slug}`)}
   - - meta
     - property: og:image
-      content: ${JSON.stringify(ogImage)}
+      content: ${yamlSingleQuoted(ogImage)}
   - - meta
     - name: twitter:card
       content: summary_large_image
   - - meta
     - name: twitter:title
-      content: ${JSON.stringify(title)}
+      content: ${yamlSingleQuoted(title)}
   - - meta
     - name: twitter:description
-      content: ${JSON.stringify(description)}
+      content: ${yamlSingleQuoted(description)}
   - - meta
     - name: twitter:image
-      content: ${JSON.stringify(ogImage)}
+      content: ${yamlSingleQuoted(ogImage)}
   - - link
     - rel: canonical
-      href: ${JSON.stringify(`https://zephyr-cloud.io/changelog/${slug}`)}
+      href: ${yamlSingleQuoted(`https://zephyr-cloud.io/changelog/${slug}`)}
 ---
 
 import EntryBody from '@/content/changelog/${slug}.mdx'
@@ -207,7 +226,7 @@ import { ChangelogArticlePage } from '../../src/components/pages/ChangelogArticl
 
 export const pageMetadata = ${asJsObject(metadata)}
 
-<ChangelogArticlePage slug=${JSON.stringify(slug)} metadata={pageMetadata}>
+<ChangelogArticlePage slug={${jsSingleQuoted(slug)}} metadata={pageMetadata}>
   <EntryBody />
 </ChangelogArticlePage>
 `;

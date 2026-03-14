@@ -1,6 +1,7 @@
 import { defineConfig } from '@rspress/core';
 import { pluginSitemap } from '@rspress/plugin-sitemap';
 import path from 'node:path';
+import { withZephyr } from 'zephyr-rspress-plugin';
 
 const siteUrl = 'https://zephyr-cloud.io';
 
@@ -34,5 +35,6 @@ export default defineConfig({
       defaultChangeFreq: 'weekly',
       defaultPriority: '0.6',
     }),
+    withZephyr(),
   ],
 });

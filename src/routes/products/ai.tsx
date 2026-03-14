@@ -3,7 +3,7 @@ import { SignupForm } from '@/components/SignupForm';
 import { UnicornBackground } from '@/components/UnicornBackground';
 import ZephyrLogo from '@/images/zephyr-logo.svg';
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Route = createFileRoute('/products/ai')({
   component: AIPage,
@@ -12,8 +12,18 @@ export const Route = createFileRoute('/products/ai')({
 function AIPage() {
   const [shaderReady, setShaderReady] = useState(false);
 
+  useEffect(() => {
+    const fallbackTimer = window.setTimeout(() => {
+      setShaderReady(true);
+    }, 1800);
+
+    return () => {
+      window.clearTimeout(fallbackTimer);
+    };
+  }, []);
+
   return (
-    <div className="relative min-h-screen overflow-hidden">
+    <div className='relative min-h-screen overflow-hidden'>
       {/* Scoped animations — only affect this page */}
       <style>{`
         @keyframes ai-shake {
@@ -45,15 +55,15 @@ function AIPage() {
       `}</style>
 
       {/* Background WebGL scene — positioned relative to this container, not viewport */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 w-full">
+      <div className='pointer-events-none absolute inset-x-0 top-0 z-0 w-full'>
         <UnicornBackground onLoad={() => setShaderReady(true)} />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-2 px-6 pt-10 pb-28 md:pt-6">
+      <div className='relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-2 px-6 pt-10 pb-28 md:pt-6'>
         {/* Header row */}
         <div
-          className="flex w-full flex-col gap-6 px-0 md:flex-row md:items-center md:justify-between"
+          className='flex w-full flex-col gap-6 px-0 md:flex-row md:items-center md:justify-between'
           style={{
             opacity: shaderReady ? 1 : 0,
             transform: shaderReady ? 'translateY(0)' : 'translateY(10px)',
@@ -63,11 +73,11 @@ function AIPage() {
           }}
         >
           {/* Left: Logo + text */}
-          <div className="flex items-center gap-4">
-            <img src={ZephyrLogo} alt="Zephyr" width={49} height={49} className="shrink-0 rounded-[10px]" />
-            <div className="flex flex-col gap-1.5 text-white">
-              <p className="text-[15px] font-bold leading-[22px]">Zephyr is the AI Super App</p>
-              <p className="text-sm font-normal leading-[22px]">This is where humans and AI do real work.</p>
+          <div className='flex items-center gap-4'>
+            <img src={ZephyrLogo} alt='Zephyr' width={49} height={49} className='shrink-0 rounded-[10px]' />
+            <div className='flex flex-col gap-1.5 text-white'>
+              <p className='text-[15px] font-bold leading-[22px]'>Zephyr is the AI Super App</p>
+              <p className='text-sm font-normal leading-[22px]'>This is where humans and AI do real work.</p>
             </div>
           </div>
 

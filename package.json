@@ -58,7 +58,8 @@
     "prettier-plugin-tailwindcss": "^0.7.0",
     "tailwindcss": "^4.1.11",
     "typescript": "^5.8.3",
-    "yaml": "^2.8.1"
+    "yaml": "^2.8.1",
+    "zephyr-rspress-plugin": "^0.1.15"
   },
   "pnpm": {
     "onlyBuiltDependencies": [
