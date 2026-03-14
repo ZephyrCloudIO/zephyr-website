@@ -195,3 +195,61 @@ Use focused subagents in parallel where possible:
   - `desktop-home.png`, `desktop-pricing.png`, `desktop-blog-index.png`, `desktop-blog-nextjs.png`, `desktop-blog-ota.png`, `desktop-changelog-index.png`, `desktop-changelog-2026-03-06.png`, `desktop-changelog-2025-17.png`
   - `mobile-home.png`, `mobile-pricing.png`, `mobile-blog-index.png`, `mobile-blog-nextjs.png`, `mobile-blog-ota.png`, `mobile-changelog-index.png`, `mobile-changelog-2026-03-06.png`, `mobile-changelog-2025-17.png`
 - Spot-checked generated metadata in `doc_build` for representative blog/changelog pages and verified title, description, canonical, and OG/Twitter image tags are present with absolute URLs.
+
+## Visual Parity Snapshot (2026-03-14)
+
+- Captured route-matched viewport screenshots from:
+  - Production: `migration-screenshots/prod/*.png`
+  - Local Rspress preview: `migration-screenshots/local/*.png`
+- Computed automated RMSE diffs across 16 route/viewport pairs.
+- Lowest-drift pages (best parity):
+  - `desktop-changelog-index.png` (0.0951)
+  - `mobile-blog-index.png` (0.1024)
+  - `mobile-changelog-index.png` (0.1040)
+  - `desktop-blog-nextjs.png` (0.1114)
+- Highest-drift pages (needs manual visual review first):
+  - `mobile-pricing.png` (0.3476)
+  - `mobile-changelog-2025-17.png` (0.2688)
+  - `mobile-changelog-2026-03-06.png` (0.2562)
+  - `mobile-blog-ota.png` (0.2561)
+  - `desktop-blog-index.png` (0.2422)
+- Wrote diff overlays for top mismatches to `migration-screenshots/diff/` for side-by-side triage.
+
+## Follow-up Parity Tuning (2026-03-14)
+
+- Adjusted MDX rendering to reduce visual drift on content-heavy pages:
+  - Added logic in `src/rspress/mdx-components.tsx` to strip Rspress auto heading `#` anchors from rendered heading children.
+  - Added CSS fallback in `src/index.css` to hide `.mdx-content .rp-header-anchor`.
+- Re-ran focused captures and RMSE checks:
+  - `desktop-blog-index.png` improved from **0.2422** to **0.0561**.
+  - `mobile-blog-ota.png` improved from **0.2561** to **0.2473**.
+  - `mobile-changelog-2025-17.png` improved from **0.2688** to **0.2648**.
+  - `mobile-changelog-2026-03-06.png` improved from **0.2562** to **0.2523**.
+- Remaining high-drift routes still require manual visual sign-off; automated RMSE remains sensitive to runtime/chrome differences between production and local preview.
+
+## Parity Improvement Pass #2 (2026-03-14)
+
+- Added dark theme parity defaults in the Rspress shell and base styles:
+  - `theme/index.tsx`: added `dark` class to root layout wrapper.
+  - `src/index.css`: enforced base `body` dark background color and `line-height: 1.5`.
+- Re-captured production/local parity screenshots with animations and chat overlays suppressed for cleaner diff signal.
+- Updated RMSE highlights after this pass:
+  - `mobile-pricing.png`: **0.3569 -> 0.0515**
+  - `mobile-changelog-2025-17.png`: **0.2648 -> 0.0748**
+  - `mobile-changelog-2026-03-06.png`: **0.2523 -> 0.0687**
+  - `desktop-pricing.png`: now **0.0418**
+  - `desktop-home.png`: now **0.0401**
+- Remaining highest drift pages are now primarily blog OTA pages:
+  - `mobile-blog-ota.png`: **0.1361**
+  - `desktop-blog-ota.png`: **0.1158**
+- These remaining diffs are concentrated in text-level raster and bottom-edge regions (non-structural), with layout/component parity effectively matching.
+
+## Cutover Readiness Checklist
+
+- [x] Route coverage migrated for marketing, blog, and changelog pages.
+- [x] Build-time SSG generation in place for blog/changelog detail pages.
+- [x] Metadata contract verified on representative pages (title, description, canonical, OG/Twitter image).
+- [x] Hydration mismatch on representative blog detail route resolved.
+- [ ] Manual review + sign-off on top visual mismatch routes (especially mobile pricing/changelog/blog-ota).
+- [ ] Optional cleanup of local Intercom warning handling for CI screenshots (non-blocking for production behavior).
+- [ ] Final preview smoke test on Zephyr preview URL before cutover.

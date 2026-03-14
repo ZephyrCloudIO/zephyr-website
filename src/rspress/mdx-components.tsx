@@ -1,5 +1,4 @@
-import type { ReactNode } from 'react';
-import { useEffect } from 'react';
+import { Children, isValidElement, type ReactNode, useEffect } from 'react';
 
 type TwitterWindow = Window & {
   twttr?: {
@@ -10,6 +9,29 @@ type TwitterWindow = Window & {
 };
 
 const TWITTER_WIDGET_SCRIPT_ID = 'twitter-wjs';
+
+function removeAutoHeadingAnchor(children: ReactNode): ReactNode {
+  const nodes = Children.toArray(children);
+
+  if (nodes.length === 0) {
+    return children;
+  }
+
+  const first = nodes[0];
+
+  if (!isValidElement(first) || first.type !== 'a') {
+    return children;
+  }
+
+  const href = typeof first.props.href === 'string' ? first.props.href : '';
+  const anchorLabel = typeof first.props.children === 'string' ? first.props.children.trim() : '';
+
+  if (!href.startsWith('#') || anchorLabel !== '#') {
+    return children;
+  }
+
+  return nodes.slice(1);
+}
 
 function TwitterEmbed({ children, mediaMaxWidth = 560 }: { children: ReactNode; mediaMaxWidth?: number }) {
   useEffect(() => {
@@ -51,9 +73,21 @@ function TwitterEmbed({ children, mediaMaxWidth = 560 }: { children: ReactNode; 
 
 export const mdxComponents = {
   h1: (props: any) => <h1 className="text-4xl font-bold mb-6 text-white text-balance" {...props} />,
-  h2: (props: any) => <h2 className="text-3xl font-semibold mb-4 mt-8 text-white text-balance" {...props} />,
-  h3: (props: any) => <h3 className="text-2xl font-semibold mb-3 mt-6 text-white text-balance" {...props} />,
-  h4: (props: any) => <h4 className="text-xl font-semibold mb-2 mt-4 text-white text-balance" {...props} />,
+  h2: ({ children, ...props }: any) => (
+    <h2 className="text-3xl font-semibold mb-4 mt-8 text-white text-balance" {...props}>
+      {removeAutoHeadingAnchor(children)}
+    </h2>
+  ),
+  h3: ({ children, ...props }: any) => (
+    <h3 className="text-2xl font-semibold mb-3 mt-6 text-white text-balance" {...props}>
+      {removeAutoHeadingAnchor(children)}
+    </h3>
+  ),
+  h4: ({ children, ...props }: any) => (
+    <h4 className="text-xl font-semibold mb-2 mt-4 text-white text-balance" {...props}>
+      {removeAutoHeadingAnchor(children)}
+    </h4>
+  ),
   p: (props: any) => <p className="mb-4 text-neutral-300 leading-relaxed text-pretty" {...props} />,
   ul: (props: any) => <ul className="list-disc list-inside mb-4 text-neutral-300" {...props} />,
   ol: (props: any) => <ol className="list-decimal list-inside mb-4 text-neutral-300" {...props} />,

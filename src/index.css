@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@plugin "tailwindcss-animate";
+@plugin 'tailwindcss-animate';
 
 /* Import highlight.js theme for code syntax highlighting */
 @import 'highlight.js/styles/github-dark.css';
@@ -27,6 +27,8 @@ body {
   margin: 0;
   color: #fff;
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  background-color: #000;
   background-image: linear-gradient(to bottom, #020917, #101725);
 }
 
@@ -72,6 +74,10 @@ body {
 .mdx-content p,
 .mdx-content li {
   text-wrap: pretty;
+}
+
+.mdx-content .rp-header-anchor {
+  display: none;
 }
 
 @custom-variant dark (&:is(.dark *));

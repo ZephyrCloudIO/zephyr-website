@@ -97,7 +97,7 @@ export function Layout() {
         <GoogleAnalytics />
         <PostHogProvider client={posthog}>
           <MDXProvider components={mdxComponents as any}>
-            <div className="bg-black text-neutral-300 min-h-screen font-sans">
+            <div className="dark bg-black text-neutral-300 min-h-screen font-sans">
               <Header />
               <main>
                 <Content />

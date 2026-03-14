@@ -17,3 +17,4 @@ target/
 
 .env
 doc_build
+migration-screenshots
