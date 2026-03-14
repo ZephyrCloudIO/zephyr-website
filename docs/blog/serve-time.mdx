@@ -1,0 +1,56 @@
+---
+title: 'Introducing "Serve Time": The Third Phase of Modern Application Delivery | Zephyr Cloud'
+description: "For years, we've organized software delivery around build time and runtime. But as edge computing matured, a third phase emerged that deserves its own name: Serve Time."
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'Introducing "Serve Time": The Third Phase of Modern Application Delivery'
+  - - meta
+    - property: og:description
+      content: "For years, we've organized software delivery around build time and runtime. But as edge computing matured, a third phase emerged that deserves its own name: Serve Time."
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/serve-time'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/serve-time/hero.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'Introducing "Serve Time": The Third Phase of Modern Application Delivery'
+  - - meta
+    - name: twitter:description
+      content: "For years, we've organized software delivery around build time and runtime. But as edge computing matured, a third phase emerged that deserves its own name: Serve Time."
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/serve-time/hero.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/serve-time'
+---
+
+import PostBody from '@/content/blog/serve-time.mdx';
+import { BlogArticlePage } from '../../src/rspress/components/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'Introducing "Serve Time": The Third Phase of Modern Application Delivery',
+  slug: 'serve-time',
+  date: '2025-09-01',
+  heroImage: '/images/blog/serve-time/hero.webp',
+  listingImage: '/images/blog/serve-time/hero.webp',
+  description:
+    "For years, we've organized software delivery around build time and runtime. But as edge computing matured, a third phase emerged that deserves its own name: Serve Time.",
+  authors: ['Rodrigo Yokota'],
+  tags: ['architecture', 'web', 'cloud', 'edge'],
+  featured: false,
+  readingTime: 8,
+};
+
+<BlogArticlePage slug="serve-time" metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

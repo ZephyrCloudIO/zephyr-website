@@ -25,7 +25,7 @@ export const Footer: React.FC = () => {
                 </a>
               </li>
               <li>
-                <Link to="./llms.txt" target="_blank" className="text-neutral-400 hover:text-white">
+                <Link to="/llms.txt" target="_blank" className="text-neutral-400 hover:text-white">
                   llms.txt
                 </Link>
               </li>

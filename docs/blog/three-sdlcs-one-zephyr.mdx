@@ -1,0 +1,52 @@
+---
+title: "Three SDLC's, One Zephyr | Zephyr Cloud"
+description: "In development today, teams follow a variety of Software Development Life Cycle (SDLC) approaches, each with their own strengths and challenges. As part of our launch week, we're exploring how Zephyr adapts to these different workflows while introducing an exciting concept: completely decoupling builds from the SDLC with our DevOps module."
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: "Three SDLC's, One Zephyr"
+  - - meta
+    - property: og:description
+      content: "In development today, teams follow a variety of Software Development Life Cycle (SDLC) approaches, each with their own strengths and challenges. As part of our launch week, we're exploring how Zephyr adapts to these different workflows while introducing an exciting concept: completely decoupling builds from the SDLC with our DevOps module."
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/three-sdlcs-one-zephyr'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/og/default-1200x630.png'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: "Three SDLC's, One Zephyr"
+  - - meta
+    - name: twitter:description
+      content: "In development today, teams follow a variety of Software Development Life Cycle (SDLC) approaches, each with their own strengths and challenges. As part of our launch week, we're exploring how Zephyr adapts to these different workflows while introducing an exciting concept: completely decoupling builds from the SDLC with our DevOps module."
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/og/default-1200x630.png'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/three-sdlcs-one-zephyr'
+---
+
+import PostBody from '@/content/blog/three-sdlcs-one-zephyr.mdx';
+import { BlogArticlePage } from '../../src/rspress/components/BlogArticlePage';
+
+export const pageMetadata = {
+  title: "Three SDLC's, One Zephyr",
+  slug: 'three-sdlcs-one-zephyr',
+  publishedAt: '2025-04-22',
+  excerpt:
+    "In development today, teams follow a variety of Software Development Life Cycle (SDLC) approaches, each with their own strengths and challenges. As part of our launch week, we're exploring how Zephyr adapts to these different workflows while introducing an exciting concept: completely decoupling builds from the SDLC with our DevOps module.",
+  author: 'Shane Walker',
+  tags: ['launch-week', 'deployment', 'ops'],
+};
+
+<BlogArticlePage slug="three-sdlcs-one-zephyr" metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

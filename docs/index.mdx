@@ -1,0 +1,37 @@
+---
+title: Zephyr Cloud
+description: The fastest way to go from Idea to Production
+head:
+  - - meta
+    - property: og:title
+      content: Zephyr Cloud
+  - - meta
+    - property: og:description
+      content: The fastest way to go from Idea to Production
+  - - meta
+    - property: og:url
+      content: https://zephyr-cloud.io/
+  - - meta
+    - property: og:image
+      content: https://zephyr-cloud.io/images/og/default-1200x630.png
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: Zephyr Cloud
+  - - meta
+    - name: twitter:description
+      content: The fastest way to go from Idea to Production
+  - - meta
+    - name: twitter:image
+      content: https://zephyr-cloud.io/images/og/default-1200x630.png
+  - - link
+    - rel: canonical
+      href: https://zephyr-cloud.io/
+---
+
+import { RouteRenderer } from '../src/rspress/components/RouteRenderer';
+import { Route as HomeRoute } from '../src/routes/index';
+
+<RouteRenderer route={HomeRoute} />

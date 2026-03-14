@@ -1,0 +1,55 @@
+---
+title: 'Zephyr Cloud is Now SOC 2 Compliant | Zephyr Cloud'
+description: 'Zephyr Cloud achieves SOC 2 compliance'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'Zephyr Cloud is Now SOC 2 Compliant'
+  - - meta
+    - property: og:description
+      content: 'Zephyr Cloud achieves SOC 2 compliance'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/soc2'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/soc2/soc2_hero.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'Zephyr Cloud is Now SOC 2 Compliant'
+  - - meta
+    - name: twitter:description
+      content: 'Zephyr Cloud achieves SOC 2 compliance'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/soc2/soc2_hero.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/soc2'
+---
+
+import PostBody from '@/content/blog/soc2.mdx';
+import { BlogArticlePage } from '../../src/rspress/components/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'Zephyr Cloud is Now SOC 2 Compliant',
+  slug: 'soc2',
+  date: '2025-02-26',
+  heroImage: '/images/blog/soc2/soc2_hero.webp',
+  listingImage: '/images/blog/soc2/soc2_listing.webp',
+  description: 'Zephyr Cloud achieves SOC 2 compliance',
+  authors: ['Zack Chapple'],
+  tags: ['announcement', 'cloud'],
+  featured: false,
+  readingTime: 3,
+};
+
+<BlogArticlePage slug="soc2" metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

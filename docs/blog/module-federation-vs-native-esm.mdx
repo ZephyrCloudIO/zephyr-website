@@ -1,0 +1,56 @@
+---
+title: 'Why Enterprises Choose Module Federation | Zephyr Cloud'
+description: 'Native ES Modules and import maps promise a standards-based future for micro-frontends. But can they handle enterprise production requirements? We explore why Module Federation remains essential for real-world applications at scale.'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'Why Enterprises Choose Module Federation'
+  - - meta
+    - property: og:description
+      content: 'Native ES Modules and import maps promise a standards-based future for micro-frontends. But can they handle enterprise production requirements? We explore why Module Federation remains essential for real-world applications at scale.'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/module-federation-vs-native-esm'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/module-federation-vs-native-esm/hero.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'Why Enterprises Choose Module Federation'
+  - - meta
+    - name: twitter:description
+      content: 'Native ES Modules and import maps promise a standards-based future for micro-frontends. But can they handle enterprise production requirements? We explore why Module Federation remains essential for real-world applications at scale.'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/module-federation-vs-native-esm/hero.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/module-federation-vs-native-esm'
+---
+
+import PostBody from '@/content/blog/module-federation-vs-native-esm.mdx';
+import { BlogArticlePage } from '../../src/rspress/components/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'Why Enterprises Choose Module Federation',
+  slug: 'module-federation-vs-native-esm',
+  date: '2025-10-26',
+  heroImage: '/images/blog/module-federation-vs-native-esm/hero.webp',
+  listingImage: '/images/blog/module-federation-vs-native-esm/hero.webp',
+  description:
+    'Native ES Modules and import maps promise a standards-based future for micro-frontends. But can they handle enterprise production requirements? We explore why Module Federation remains essential for real-world applications at scale.',
+  authors: ['Néstor López'],
+  tags: ['architecture', 'module-federation', 'web', 'cdn', 'micro-frontends', 'scalability'],
+  featured: true,
+  readingTime: 25,
+};
+
+<BlogArticlePage slug="module-federation-vs-native-esm" metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

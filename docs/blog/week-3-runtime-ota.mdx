@@ -1,0 +1,51 @@
+---
+title: 'My Neck, My Back, My Updates and My App | Zephyr Cloud'
+description: 'Deploy to anywhere. Update without quiting. With our new React Native Runtime SDK.'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'My Neck, My Back, My Updates and My App'
+  - - meta
+    - property: og:description
+      content: 'Deploy to anywhere. Update without quiting. With our new React Native Runtime SDK.'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/week-3-runtime-ota'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/og/default-1200x630.png'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'My Neck, My Back, My Updates and My App'
+  - - meta
+    - name: twitter:description
+      content: 'Deploy to anywhere. Update without quiting. With our new React Native Runtime SDK.'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/og/default-1200x630.png'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/week-3-runtime-ota'
+---
+
+import PostBody from '@/content/blog/week-3-runtime-ota.mdx';
+import { BlogArticlePage } from '../../src/rspress/components/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'My Neck, My Back, My Updates and My App',
+  slug: 'week-3-runtime-ota',
+  publishedAt: '2025-04-25',
+  excerpt: 'Deploy to anywhere. Update without quiting. With our new React Native Runtime SDK.',
+  author: 'Lois Zhao',
+  tags: ['launch-week', 'mobile', 'react-native'],
+};
+
+<BlogArticlePage slug="week-3-runtime-ota" metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

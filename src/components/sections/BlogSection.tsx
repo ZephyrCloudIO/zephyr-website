@@ -1,20 +1,14 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { getLatestBlogPosts } from '@/lib/blog/loader';
 import type { BlogPost } from '@/lib/blog/types';
+import { allBlogPosts } from '@/rspress/content/blog';
+import { formatDateShort } from '@/rspress/date';
 import { Link } from '@tanstack/react-router';
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 
 export const BlogSection: React.FC = () => {
-  const [posts, setPosts] = useState<BlogPost[]>([]);
-  const [loading, setLoading] = useState(true);
+  const posts: BlogPost[] = allBlogPosts.slice(0, 4);
 
-  useEffect(() => {
-    getLatestBlogPosts(4).then((blogPosts) => {
-      setPosts(blogPosts);
-      setLoading(false);
-    });
-  }, []);
   return (
     <section className="py-20 md:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,11 +25,7 @@ export const BlogSection: React.FC = () => {
           </a>
           .
         </p>
-        {loading ? (
-          <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-400"></div>
-          </div>
-        ) : posts.length > 0 ? (
+        {posts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {posts.map((post) => (
               <Card key={post.slug} className="bg-neutral-900 border-neutral-400 text-neutral-300 flex flex-col">
@@ -57,13 +47,7 @@ export const BlogSection: React.FC = () => {
                         </Avatar>
                         <div>
                           <span className="text-white block">{post.authors[0].displayName}</span>
-                          <span className="text-neutral-500">
-                            {post.date.toLocaleDateString('en-US', {
-                              month: 'short',
-                              day: 'numeric',
-                              year: 'numeric',
-                            })}
-                          </span>
+                          <span className="text-neutral-500">{formatDateShort(post.date)}</span>
                         </div>
                       </>
                     )}

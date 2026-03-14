@@ -1,0 +1,56 @@
+---
+title: 'Stop Rebuilding Your App Just to Change an Environment Variable | Zephyr Cloud'
+description: 'How Zephyr decouples your build artifacts from environment configuration, letting you promote the same version across environments without rebuilding'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'Stop Rebuilding Your App Just to Change an Environment Variable'
+  - - meta
+    - property: og:description
+      content: 'How Zephyr decouples your build artifacts from environment configuration, letting you promote the same version across environments without rebuilding'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/env-variables-and-zephyr'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/env-variables/hero.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'Stop Rebuilding Your App Just to Change an Environment Variable'
+  - - meta
+    - name: twitter:description
+      content: 'How Zephyr decouples your build artifacts from environment configuration, letting you promote the same version across environments without rebuilding'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/env-variables/hero.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/env-variables-and-zephyr'
+---
+
+import PostBody from '@/content/blog/env-variables-and-zephyr.mdx';
+import { BlogArticlePage } from '../../src/rspress/components/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'Stop Rebuilding Your App Just to Change an Environment Variable',
+  slug: 'env-variables-and-zephyr',
+  date: '2025-11-13',
+  heroImage: '/images/blog/env-variables/hero.webp',
+  listingImage: '/images/blog/env-variables/hero.webp',
+  description:
+    'How Zephyr decouples your build artifacts from environment configuration, letting you promote the same version across environments without rebuilding',
+  authors: ['Shane Walker'],
+  tags: ['engineering', 'dx', 'architecture'],
+  featured: true,
+  readingTime: 5,
+};
+
+<BlogArticlePage slug="env-variables-and-zephyr" metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

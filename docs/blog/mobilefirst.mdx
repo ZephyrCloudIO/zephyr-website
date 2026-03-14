@@ -1,0 +1,52 @@
+---
+title: 'Launch Week 2: Kickoff | Zephyr Cloud'
+description: 'When we wrapped up our first launch week back in September 2024 it took only a few moments to realize that we loved the experience and wanted to do a second one. The theme: Mobile First.'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'Launch Week 2: Kickoff'
+  - - meta
+    - property: og:description
+      content: 'When we wrapped up our first launch week back in September 2024 it took only a few moments to realize that we loved the experience and wanted to do a second one. The theme: Mobile First.'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/mobilefirst'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/mobilefirst/hero.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'Launch Week 2: Kickoff'
+  - - meta
+    - name: twitter:description
+      content: 'When we wrapped up our first launch week back in September 2024 it took only a few moments to realize that we loved the experience and wanted to do a second one. The theme: Mobile First.'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/mobilefirst/hero.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/mobilefirst'
+---
+
+import PostBody from '@/content/blog/mobilefirst.mdx';
+import { BlogArticlePage } from '../../src/rspress/components/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'Launch Week 2: Kickoff',
+  description:
+    'When we wrapped up our first launch week back in September 2024 it took only a few moments to realize that we loved the experience and wanted to do a second one. The theme: Mobile First.',
+  date: '2025-01-27',
+  author: 'Zack Chapple',
+  tags: ['product', 'mobile', 'community', 'launch-week'],
+  image: 'mobilefirst/hero.webp',
+};
+
+<BlogArticlePage slug="mobilefirst" metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>
