@@ -19,7 +19,7 @@ function removeAutoHeadingAnchor(children: ReactNode): ReactNode {
 
   const first = nodes[0];
 
-  if (!isValidElement(first) || first.type !== 'a') {
+  if (!isValidElement<{ href?: string; children?: ReactNode }>(first) || first.type !== 'a') {
     return children;
   }
 

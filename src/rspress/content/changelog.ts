@@ -4,8 +4,25 @@ import { changelogMetadataEntries } from '@/rspress/generated/changelog-metadata
 
 export const allChangelogEntries: ChangelogEntry[] = changelogMetadataEntries
   .map((entry) => {
+    const image =
+      'image' in entry.metadata && typeof entry.metadata.image === 'string' ? entry.metadata.image : undefined;
+    const readingTime =
+      'readingTime' in entry.metadata && typeof entry.metadata.readingTime === 'number'
+        ? entry.metadata.readingTime
+        : undefined;
+
+    const metadata: MDXChangelogEntry['metadata'] = {
+      title: entry.metadata.title,
+      slug: entry.slug,
+      date: entry.metadata.date,
+      summary: entry.metadata.summary,
+      category: entry.metadata.category,
+      image,
+      readingTime,
+    };
+
     const mdxEntry: MDXChangelogEntry = {
-      metadata: entry.metadata as MDXChangelogEntry['metadata'],
+      metadata,
       default: () => null,
     };
 

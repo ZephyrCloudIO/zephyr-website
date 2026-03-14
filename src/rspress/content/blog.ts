@@ -4,8 +4,16 @@ import { blogMetadataEntries } from '@/rspress/generated/blog-metadata';
 
 export const allBlogPosts: BlogPost[] = blogMetadataEntries
   .map((entry) => {
+    const hasAuthors = 'authors' in entry.metadata && Array.isArray(entry.metadata.authors);
+
+    const metadata: MDXBlogPost['metadata'] = {
+      ...entry.metadata,
+      tags: [...entry.metadata.tags],
+      authors: hasAuthors ? [...entry.metadata.authors] : undefined,
+    };
+
     const mdxPost: MDXBlogPost = {
-      metadata: entry.metadata as MDXBlogPost['metadata'],
+      metadata,
       default: () => null,
     };
 
