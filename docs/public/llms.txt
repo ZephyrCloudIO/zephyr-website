@@ -12,10 +12,18 @@ Zephyr Cloud is the fastest way to go from idea to production. Built by the team
 ## npm Packages - Official Implementations
 Our npm packages provide the official implementations for integrating with Zephyr Cloud:
 - `npx create-zephyr-apps@latest` - CLI to scaffold federated cross-platform applications
-- `zephyr-rspack-plugin` - Official build plugin for Rspack/webpack integration
+- `zephyr-rspack-plugin` - Build plugin for Rspack/webpack projects
+- `vite-plugin-vinext-zephyr` - Build plugin for Vite/vinext projects
 - `@zephyr-cloud/rspress-plugin` - Documentation site integration plugin
 - `react-native-zephyr-sdk` (coming soon) - Runtime management for React Native OTA updates
 - All packages: https://www.npmjs.com/settings/zephyrcloud/packages
+
+## Repository Architecture (zephyr-website)
+This repository's website is built with Rspress SSG:
+- Route pages live in `docs/*.mdx`
+- Shared layout and head handling live in `theme/index.tsx`
+- Blog/changelog detail pages are generated from `src/content/*` via `scripts/generate-rspress-content.mjs`
+- Build and preview commands are `pnpm build` and `pnpm preview`
 
 ## Core Features & Capabilities
 - **Instant Deployment**: Deploy to the edge globally in under a second
@@ -27,10 +35,7 @@ Our npm packages provide the official implementations for integrating with Zephy
 - **SOC 2 Type II Compliant**: Enterprise-ready security and compliance
 
 ## Integration Approach
-Simple one-line integration with existing codebases:
-```javascript
-withZephyr(config)
-```
+Integration depends on framework and bundler. Use the package matching your stack, and always follow docs examples for the current API.
 
 ## Supported Frameworks & Tools
 - React + Vite
