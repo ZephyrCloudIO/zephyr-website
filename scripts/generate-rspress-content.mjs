@@ -44,6 +44,7 @@ async function copyPublicImageIfExists(relativeImagePath) {
   try {
     await access(sourcePath);
   } catch {
+    console.warn(`[generate-rspress-content] Missing image asset: ${relativeImagePath} (expected at ${sourcePath})`);
     return false;
   }
 
