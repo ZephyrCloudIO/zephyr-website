@@ -1,4 +1,4 @@
-import { mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
+import { access, copyFile, mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { inspect } from 'node:util';
 import YAML from 'yaml';
@@ -9,6 +9,24 @@ const CHANGELOG_SOURCE_DIR = path.join(ROOT, 'src/content/changelog');
 const BLOG_DOCS_DIR = path.join(ROOT, 'docs/blog');
 const CHANGELOG_DOCS_DIR = path.join(ROOT, 'docs/changelog');
 const GENERATED_DIR = path.join(ROOT, 'src/generated');
+const DOCS_PUBLIC_DIR = path.join(ROOT, 'docs/public');
+const DEFAULT_SITE_URL = 'https://zephyr-cloud.io';
+const SITE_URL_SOCIALS = (process.env.SITE_URL_SOCIALS || DEFAULT_SITE_URL).replace(/\/+$/, '');
+
+function rewriteSocialImageUrl(url) {
+  try {
+    const inputUrl = new URL(url);
+    const defaultSiteUrl = new URL(DEFAULT_SITE_URL);
+
+    if (inputUrl.origin !== defaultSiteUrl.origin) {
+      return url;
+    }
+
+    return `${SITE_URL_SOCIALS}${inputUrl.pathname}${inputUrl.search}${inputUrl.hash}`;
+  } catch {
+    return url;
+  }
+}
 
 function extractFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n/);
@@ -19,52 +37,83 @@ function extractFrontmatter(content) {
   return YAML.parse(match[1]) || {};
 }
 
-function normalizeBlogOgImage(slug, metadata) {
+async function copyPublicImageIfExists(relativeImagePath) {
+  const sourcePath = path.join(ROOT, 'src', relativeImagePath);
+  const targetPath = path.join(DOCS_PUBLIC_DIR, relativeImagePath);
+
+  try {
+    await access(sourcePath);
+  } catch {
+    return false;
+  }
+
+  await mkdir(path.dirname(targetPath), { recursive: true });
+  await copyFile(sourcePath, targetPath);
+  return true;
+}
+
+async function normalizeBlogOgImage(slug, metadata) {
   const candidate = metadata.heroImage || metadata.listingImage || metadata.image;
 
   if (!candidate) {
-    return 'https://zephyr-cloud.io/images/og/default-1200x630.png';
+    return `${SITE_URL_SOCIALS}/images/og/default-1200x630.png`;
   }
 
   if (typeof candidate !== 'string') {
-    return 'https://zephyr-cloud.io/images/og/default-1200x630.png';
+    return `${SITE_URL_SOCIALS}/images/og/default-1200x630.png`;
   }
 
   if (candidate.startsWith('http://') || candidate.startsWith('https://')) {
-    return candidate;
+    return rewriteSocialImageUrl(candidate);
   }
+
+  let relativeImagePath;
 
   if (candidate.startsWith('/')) {
-    return `https://zephyr-cloud.io${candidate}`;
+    relativeImagePath = candidate.slice(1);
+  } else if (candidate.includes('.')) {
+    relativeImagePath = `images/blog/${candidate}`;
+  } else {
+    relativeImagePath = `images/blog/${slug}/${candidate}.webp`;
   }
 
-  if (candidate.includes('.')) {
-    return `https://zephyr-cloud.io/images/blog/${candidate}`;
+  const copied = await copyPublicImageIfExists(relativeImagePath);
+
+  if (!copied) {
+    return `${SITE_URL_SOCIALS}/images/og/default-1200x630.png`;
   }
 
-  return `https://zephyr-cloud.io/images/blog/${slug}/${candidate}.webp`;
+  return `${SITE_URL_SOCIALS}/${relativeImagePath}`;
 }
 
-function normalizeChangelogOgImage(slug, metadata) {
+async function normalizeChangelogOgImage(slug, metadata) {
   const candidate = metadata.image;
 
   if (!candidate || typeof candidate !== 'string') {
-    return 'https://zephyr-cloud.io/images/og/default-1200x630.png';
+    return `${SITE_URL_SOCIALS}/images/og/default-1200x630.png`;
   }
 
   if (candidate.startsWith('http://') || candidate.startsWith('https://')) {
-    return candidate;
+    return rewriteSocialImageUrl(candidate);
   }
+
+  let relativeImagePath;
 
   if (candidate.startsWith('/')) {
-    return `https://zephyr-cloud.io${candidate}`;
+    relativeImagePath = candidate.slice(1);
+  } else if (candidate.includes('.')) {
+    relativeImagePath = `images/changelog/${candidate}`;
+  } else {
+    relativeImagePath = `images/changelog/${slug}/${candidate}.webp`;
   }
 
-  if (candidate.includes('.')) {
-    return `https://zephyr-cloud.io/images/changelog/${candidate}`;
+  const copied = await copyPublicImageIfExists(relativeImagePath);
+
+  if (!copied) {
+    return `${SITE_URL_SOCIALS}/images/og/default-1200x630.png`;
   }
 
-  return `https://zephyr-cloud.io/images/changelog/${slug}/${candidate}.webp`;
+  return `${SITE_URL_SOCIALS}/${relativeImagePath}`;
 }
 
 function asJsObject(value) {
@@ -89,6 +138,36 @@ function jsSingleQuoted(value) {
   return `'${normalized}'`;
 }
 
+function getImageMeta(imageUrl) {
+  try {
+    const pathname = new URL(imageUrl).pathname.toLowerCase();
+    const ext = pathname.split('.').pop();
+    const typeByExt = {
+      png: 'image/png',
+      jpg: 'image/jpeg',
+      jpeg: 'image/jpeg',
+      webp: 'image/webp',
+      gif: 'image/gif',
+      avif: 'image/avif',
+    };
+
+    const type = typeByExt[ext] || undefined;
+    const isDefaultOg = pathname.endsWith('/images/og/default-1200x630.png');
+
+    return {
+      type,
+      width: isDefaultOg ? 1200 : undefined,
+      height: isDefaultOg ? 630 : undefined,
+    };
+  } catch {
+    return {
+      type: undefined,
+      width: undefined,
+      height: undefined,
+    };
+  }
+}
+
 async function cleanGeneratedMdx(dirPath) {
   await mkdir(dirPath, { recursive: true });
   const files = await readdir(dirPath);
@@ -111,7 +190,9 @@ async function generateBlogPages() {
     const metadata = extractFrontmatter(raw);
     const title = metadata.title || slug;
     const description = metadata.description || metadata.excerpt || 'Zephyr Cloud blog post';
-    const ogImage = normalizeBlogOgImage(slug, metadata);
+    const ogImage = await normalizeBlogOgImage(slug, metadata);
+
+    const imageMeta = getImageMeta(ogImage);
 
     const generated = `---
 title: ${yamlSingleQuoted(`${title} | Zephyr Cloud`)}
@@ -132,6 +213,26 @@ head:
   - - meta
     - property: og:image
       content: ${yamlSingleQuoted(ogImage)}
+${
+  imageMeta.type
+    ? `  - - meta
+    - property: og:image:type
+      content: ${yamlSingleQuoted(imageMeta.type)}
+`
+    : ''
+}${
+      imageMeta.width && imageMeta.height
+        ? `  - - meta
+    - property: og:image:width
+      content: '${imageMeta.width}'
+  - - meta
+    - property: og:image:height
+      content: '${imageMeta.height}'
+`
+        : ''
+    }  - - meta
+    - property: og:image:secure_url
+      content: ${yamlSingleQuoted(ogImage)}
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -143,6 +244,16 @@ head:
       content: ${yamlSingleQuoted(description)}
   - - meta
     - name: twitter:image
+      content: ${yamlSingleQuoted(ogImage)}
+${
+  imageMeta.type
+    ? `  - - meta
+    - name: twitter:image:type
+      content: ${yamlSingleQuoted(imageMeta.type)}
+`
+    : ''
+}  - - meta
+    - name: twitter:image:src
       content: ${yamlSingleQuoted(ogImage)}
   - - link
     - rel: canonical
@@ -183,7 +294,9 @@ async function generateChangelogPages() {
     const metadata = extractFrontmatter(raw);
     const title = metadata.title || slug;
     const description = metadata.summary || 'Zephyr Cloud changelog update';
-    const ogImage = normalizeChangelogOgImage(slug, metadata);
+    const ogImage = await normalizeChangelogOgImage(slug, metadata);
+
+    const imageMeta = getImageMeta(ogImage);
 
     const generated = `---
 title: ${yamlSingleQuoted(`${title} | Zephyr Cloud`)}
@@ -204,6 +317,26 @@ head:
   - - meta
     - property: og:image
       content: ${yamlSingleQuoted(ogImage)}
+${
+  imageMeta.type
+    ? `  - - meta
+    - property: og:image:type
+      content: ${yamlSingleQuoted(imageMeta.type)}
+`
+    : ''
+}${
+      imageMeta.width && imageMeta.height
+        ? `  - - meta
+    - property: og:image:width
+      content: '${imageMeta.width}'
+  - - meta
+    - property: og:image:height
+      content: '${imageMeta.height}'
+`
+        : ''
+    }  - - meta
+    - property: og:image:secure_url
+      content: ${yamlSingleQuoted(ogImage)}
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -215,6 +348,16 @@ head:
       content: ${yamlSingleQuoted(description)}
   - - meta
     - name: twitter:image
+      content: ${yamlSingleQuoted(ogImage)}
+${
+  imageMeta.type
+    ? `  - - meta
+    - name: twitter:image:type
+      content: ${yamlSingleQuoted(imageMeta.type)}
+`
+    : ''
+}  - - meta
+    - name: twitter:image:src
       content: ${yamlSingleQuoted(ogImage)}
   - - link
     - rel: canonical
