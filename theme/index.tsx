@@ -18,7 +18,7 @@ let hasInitializedPostHog = false;
 function GoogleAnalytics() {
   return (
     <>
-      <script async src='https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH' />
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH" />
       <script
         dangerouslySetInnerHTML={{
           __html: `
@@ -26,7 +26,13 @@ function GoogleAnalytics() {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-B7G266JZDH', {
-              page_path: window.location.pathname
+              page_path: window.location.pathname,
+              linker: {
+                domains: ['app.zephyr-cloud.io', 'zephyr-cloud.io', 'docs.zephyr-cloud.io']
+              }
+            });
+            gtag('set', 'linker', {
+              accept_incoming: true,
             });
           `,
         }}
@@ -84,14 +90,14 @@ export function Layout() {
     <>
       <Head>
         <title>{pageTitle}</title>
-        {pageDescription ? <meta name='description' content={pageDescription} /> : null}
+        {pageDescription ? <meta name="description" content={pageDescription} /> : null}
         {renderFrontmatterHead(frontmatter.head)}
       </Head>
-      <IntercomProvider appId='xyxkmxlj'>
+      <IntercomProvider appId="xyxkmxlj">
         <GoogleAnalytics />
         <PostHogProvider client={posthog}>
           <MDXProvider components={mdxComponents as any}>
-            <div className='dark bg-black text-neutral-300 min-h-screen font-sans'>
+            <div className="dark bg-black text-neutral-300 min-h-screen font-sans">
               <Header />
               <main>
                 <Content />
