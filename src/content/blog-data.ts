@@ -1,6 +1,6 @@
+import { blogMetadataEntries } from '@/generated/blog-metadata';
 import { mdxToBlogPost, type MDXBlogPost } from '@/lib/blog/loader';
 import type { BlogPost } from '@/lib/blog/types';
-import { blogMetadataEntries } from '@/rspress/generated/blog-metadata';
 
 export const allBlogPosts: BlogPost[] = blogMetadataEntries
   .map((entry) => {

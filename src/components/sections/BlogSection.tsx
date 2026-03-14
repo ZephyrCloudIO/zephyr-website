@@ -1,8 +1,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
+import { allBlogPosts } from '@/content/blog-data';
+import { formatDateShort } from '@/date';
 import type { BlogPost } from '@/lib/blog/types';
-import { allBlogPosts } from '@/rspress/content/blog';
-import { formatDateShort } from '@/rspress/date';
 import { Link } from '@tanstack/react-router';
 import React from 'react';
 

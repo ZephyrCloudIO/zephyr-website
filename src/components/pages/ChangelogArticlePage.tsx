@@ -1,6 +1,6 @@
 import { Button } from '@/components/ui/button';
+import { formatDateLong } from '@/date';
 import { mdxToChangelogEntry, type MDXChangelogEntry } from '@/lib/changelog/loader';
-import { formatDateLong } from '@/rspress/date';
 import { ArrowLeft, Calendar, Clock, Code, Globe, Package, Rocket, Shield, Zap } from 'lucide-react';
 import type { ReactNode } from 'react';
 

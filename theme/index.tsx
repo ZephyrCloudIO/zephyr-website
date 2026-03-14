@@ -2,7 +2,7 @@ import { IntercomButton } from '@/components/IntercomButton';
 import { Footer } from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import '@/index.css';
-import { mdxComponents } from '@/rspress/mdx-components';
+import { mdxComponents } from '@/mdx-components';
 import { MDXProvider } from '@mdx-js/react';
 import { PostHogProvider } from '@posthog/react';
 import { Content, Head, useFrontmatter } from '@rspress/core/runtime';
@@ -46,24 +46,24 @@ function renderFrontmatterHead(frontmatterHead: unknown): ReactElement[] {
     return [];
   }
 
-  return frontmatterHead
-    .map((entry, index) => {
-      if (!Array.isArray(entry) || entry.length < 2) {
-        return null;
-      }
+  return frontmatterHead.flatMap((entry, index) => {
+    if (!Array.isArray(entry) || entry.length < 2) {
+      return [];
+    }
 
-      const [tagName, attributes] = entry;
+    const [tagName, attributes] = entry;
 
-      if (typeof tagName !== 'string' || typeof attributes !== 'object' || attributes == null) {
-        return null;
-      }
+    if (typeof tagName !== 'string' || typeof attributes !== 'object' || attributes == null) {
+      return [];
+    }
 
-      return createElement(tagName, {
+    return [
+      createElement(tagName, {
         key: `frontmatter-head-${tagName}-${index}`,
         ...(attributes as Record<string, string>),
-      });
-    })
-    .filter((entry): entry is ReactElement => entry != null);
+      }),
+    ];
+  });
 }
 
 export function Layout() {

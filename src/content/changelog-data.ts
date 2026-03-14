@@ -1,6 +1,6 @@
+import { changelogMetadataEntries } from '@/generated/changelog-metadata';
 import { mdxToChangelogEntry, type MDXChangelogEntry } from '@/lib/changelog/loader';
 import type { ChangelogEntry } from '@/lib/changelog/types';
-import { changelogMetadataEntries } from '@/rspress/generated/changelog-metadata';
 
 export const allChangelogEntries: ChangelogEntry[] = changelogMetadataEntries
   .map((entry) => {

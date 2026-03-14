@@ -1,6 +1,6 @@
+import { formatDateLong } from '@/date';
 import { tagLabels } from '@/lib/blog/tags';
 import type { BlogPost } from '@/lib/blog/types';
-import { formatDateLong } from '@/rspress/date';
 import { Link } from '@tanstack/react-router';
 import { Calendar } from 'lucide-react';
 

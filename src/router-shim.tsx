@@ -29,7 +29,10 @@ export function Link({ to, params, children, ...rest }: LinkProps) {
 }
 
 export function createFileRoute(_path: string) {
-  return (options: Record<string, unknown>) => options;
+  return <T extends Record<string, unknown>>(options: T) => ({
+    ...options,
+    useParams: () => ({}) as Record<string, string>,
+  });
 }
 
 export function createRootRoute(options: Record<string, unknown>) {

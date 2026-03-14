@@ -50,7 +50,6 @@ src/
 │   ├── blogPosts.ts      # Blog posts data
 │   └── companyLogos.ts   # Company logos imports
 ├── routes/               # File-based routes
-│   ├── __root.tsx       # Root layout
 │   ├── index.tsx        # Home page
 │   ├── privacy.tsx      # Privacy policy page
 │   └── blog/
@@ -76,12 +75,8 @@ src/
 │   ├── zephyr-logo.svg
 │   └── zephyr-wordmark.svg
 ├── lib/utils.ts         # Utility functions (cn for className merging)
-├── router.tsx           # Router configuration
-├── routeTree.gen.ts     # Legacy generated router file (DO NOT EDIT)
 ├── testimonials.ts      # Testimonials data
-├── App.css              # Global styles with Tailwind imports
-├── index.css            # Base styles import
-└── index.tsx            # Entry point with RouterProvider
+└── index.css            # Base styles import
 ```
 
 ### Routing System
@@ -200,7 +195,6 @@ The website is built with Rspress SSG and deployed through the Zephyr Cloud webs
 - `rspress.config.ts` - Rspress configuration (aliases, route settings, sitemap)
 - `scripts/generate-rspress-content.mjs` - Generates static blog/changelog wrappers and metadata
 - `theme/index.tsx` - Site layout wrapper and head integration
-- `src/routes/__root.tsx` - Main layout wrapper
 - `src/components/sections/Header.tsx` - Navigation with dropdown menus
 - `.vscode/settings.json` - Excludes generated files from editing
 

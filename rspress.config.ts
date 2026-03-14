@@ -24,7 +24,7 @@ export default defineConfig({
     resolve: {
       alias: {
         '@': path.join(__dirname, 'src'),
-        '@tanstack/react-router': path.join(__dirname, 'src/rspress/router-shim.tsx'),
+        '@tanstack/react-router': path.join(__dirname, 'src/router-shim.tsx'),
       },
     },
   },
@@ -32,7 +32,7 @@ export default defineConfig({
     pluginSitemap({
       siteUrl,
       defaultChangeFreq: 'weekly',
-      defaultPriority: 0.6,
+      defaultPriority: '0.6',
     }),
   ],
 });

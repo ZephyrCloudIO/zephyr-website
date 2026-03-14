@@ -1,5 +1,5 @@
-import { allChangelogEntries } from '@/rspress/content/changelog';
-import { formatMonthDay } from '@/rspress/date';
+import { allChangelogEntries } from '@/content/changelog-data';
+import { formatMonthDay } from '@/date';
 import { Calendar, Code, Globe, Package, Rocket, Shield, Zap } from 'lucide-react';
 
 type ChangelogItem = (typeof allChangelogEntries)[number];

@@ -7,7 +7,7 @@ const BLOG_SOURCE_DIR = path.join(ROOT, 'src/content/blog');
 const CHANGELOG_SOURCE_DIR = path.join(ROOT, 'src/content/changelog');
 const BLOG_DOCS_DIR = path.join(ROOT, 'docs/blog');
 const CHANGELOG_DOCS_DIR = path.join(ROOT, 'docs/changelog');
-const GENERATED_DIR = path.join(ROOT, 'src/rspress/generated');
+const GENERATED_DIR = path.join(ROOT, 'src/generated');
 
 function extractFrontmatter(content) {
   const match = content.match(/^---\n([\s\S]*?)\n---\n/);
@@ -131,7 +131,7 @@ head:
 ---
 
 import PostBody from '@/content/blog/${slug}.mdx'
-import { BlogArticlePage } from '../../src/rspress/components/BlogArticlePage'
+import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage'
 
 export const pageMetadata = ${asJsObject(metadata)}
 
@@ -203,7 +203,7 @@ head:
 ---
 
 import EntryBody from '@/content/changelog/${slug}.mdx'
-import { ChangelogArticlePage } from '../../src/rspress/components/ChangelogArticlePage'
+import { ChangelogArticlePage } from '../../src/components/pages/ChangelogArticlePage'
 
 export const pageMetadata = ${asJsObject(metadata)}
 

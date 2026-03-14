@@ -2,8 +2,8 @@ import { BlogCard } from '@/components/BlogCard';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { allBlogPosts } from '@/content/blog-data';
 import { BlogTags, tagLabels, type BlogTag } from '@/lib/blog/tags';
-import { allBlogPosts } from '@/rspress/content/blog';
 import { Filter, Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 

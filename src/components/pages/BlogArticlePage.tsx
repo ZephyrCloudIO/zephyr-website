@@ -1,8 +1,8 @@
 import { Button } from '@/components/ui/button';
 import { XIcon } from '@/components/ui/x-icon';
+import { formatDateLong } from '@/date';
 import { mdxToBlogPost, type MDXBlogPost } from '@/lib/blog/loader';
 import { tagLabels } from '@/lib/blog/tags';
-import { formatDateLong } from '@/rspress/date';
 import { ArrowLeft, Calendar, Clock, Github, Linkedin } from 'lucide-react';
 import type { ReactNode } from 'react';
 
