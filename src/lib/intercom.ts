@@ -1,7 +1,7 @@
 import { IntercomBootProps } from 'react-use-intercom';
 
 export const INTERCOM_BOOT_PROPS: IntercomBootProps = {
-  appId: "xyxkmxlj",
+  appId: 'xyxkmxlj',
   company: {
     name: 'Zephyr Cloud',
     companyId: 'zephyr-cloud',
