@@ -1,0 +1,66 @@
+---
+title: "Coding with Your Artificial Friends - It's a Vibe | Zephyr Cloud"
+description: 'Leveraging AI, Nx, and Micro Frontends brought together with Zephyr Cloud to make a clone of the social media platform X.'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: "Coding with Your Artificial Friends - It's a Vibe"
+  - - meta
+    - property: og:description
+      content: 'Leveraging AI, Nx, and Micro Frontends brought together with Zephyr Cloud to make a clone of the social media platform X.'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/vibe-coding'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/vibe-coding/vibe-coding.webp'
+  - - meta
+    - property: og:image:type
+      content: 'image/webp'
+  - - meta
+    - property: og:image:secure_url
+      content: 'https://zephyr-cloud.io/images/blog/vibe-coding/vibe-coding.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: "Coding with Your Artificial Friends - It's a Vibe"
+  - - meta
+    - name: twitter:description
+      content: 'Leveraging AI, Nx, and Micro Frontends brought together with Zephyr Cloud to make a clone of the social media platform X.'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/vibe-coding/vibe-coding.webp'
+  - - meta
+    - name: twitter:image:type
+      content: 'image/webp'
+  - - meta
+    - name: twitter:image:src
+      content: 'https://zephyr-cloud.io/images/blog/vibe-coding/vibe-coding.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/vibe-coding'
+---
+
+import PostBody from '@/content/blog/vibe-coding.mdx';
+import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage';
+
+export const pageMetadata = {
+  title: "Coding with Your Artificial Friends - It's a Vibe",
+  slug: 'vibe-coding',
+  publishedAt: '2025-04-23',
+  excerpt:
+    'Leveraging AI, Nx, and Micro Frontends brought together with Zephyr Cloud to make a clone of the social media platform X.',
+  heroImage: '/images/blog/vibe-coding/vibe-coding.webp',
+  listingImage: '/images/blog/vibe-coding/vibe-coding.webp',
+  author: 'Zack Chapple',
+  tags: ['launch-week', 'ai', 'micro-frontends'],
+};
+
+<BlogArticlePage slug={'vibe-coding'} metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

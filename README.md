@@ -24,7 +24,7 @@ Start the development server:
 pnpm dev
 ```
 
-Build the app for Zephyr preview urls:
+Build the static site for production:
 
 ```bash
 pnpm build

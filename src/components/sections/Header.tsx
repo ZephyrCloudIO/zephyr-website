@@ -18,7 +18,7 @@ import {
 import ZephyrLogo from '@/images/zephyr-logo.svg';
 import ZephyrWordmark from '@/images/zephyr-wordmark.svg';
 import { cn } from '@/lib/utils';
-import { Link } from '@tanstack/react-router';
+import { Link, useLocation } from '@tanstack/react-router';
 import {
   Calendar,
   Cloud,
@@ -36,6 +36,7 @@ import {
 import React, { useState } from 'react';
 
 export const Header: React.FC = () => {
+  const { pathname } = useLocation();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
@@ -60,6 +61,15 @@ export const Header: React.FC = () => {
       console.error('Failed to copy wordmark:', err);
     }
   };
+
+  const isProductsActive = pathname === '/' || pathname.startsWith('/products');
+  const isResourcesActive =
+    pathname.startsWith('/blog') ||
+    pathname.startsWith('/changelog') ||
+    pathname.startsWith('/press') ||
+    pathname.startsWith('/events') ||
+    pathname.startsWith('/partners');
+  const isPricingActive = pathname.startsWith('/pricing');
 
   return (
     <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-md">
@@ -105,7 +115,12 @@ export const Header: React.FC = () => {
         <NavigationMenu className="hidden md:block bg-black">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent text-neutral-400 hover:text-white hover:bg-transparent data-[state=open]:bg-transparent">
+              <NavigationMenuTrigger
+                className={cn(
+                  'bg-transparent hover:text-white hover:bg-transparent data-[state=open]:bg-transparent',
+                  isProductsActive ? 'text-white' : 'text-neutral-400',
+                )}
+              >
                 Products
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -151,7 +166,12 @@ export const Header: React.FC = () => {
             </NavigationMenuItem>
 
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent text-neutral-400 hover:text-white hover:bg-transparent data-[state=open]:bg-transparent">
+              <NavigationMenuTrigger
+                className={cn(
+                  'bg-transparent hover:text-white hover:bg-transparent data-[state=open]:bg-transparent',
+                  isResourcesActive ? 'text-white' : 'text-neutral-400',
+                )}
+              >
                 Resources
               </NavigationMenuTrigger>
               <NavigationMenuContent>
@@ -252,6 +272,7 @@ export const Header: React.FC = () => {
               <a
                 href="https://docs.zephyr-cloud.io/"
                 target="_blank"
+                rel="noopener"
                 className={cn(
                   navigationMenuTriggerStyle(),
                   'bg-transparent text-neutral-400 hover:text-white hover:bg-transparent',
@@ -266,7 +287,8 @@ export const Header: React.FC = () => {
                 to="/pricing"
                 className={cn(
                   navigationMenuTriggerStyle(),
-                  'bg-transparent text-neutral-400 hover:text-white hover:bg-transparent',
+                  'bg-transparent hover:text-white hover:bg-transparent',
+                  isPricingActive ? 'text-white' : 'text-neutral-400',
                 )}
               >
                 Pricing
@@ -315,7 +337,10 @@ export const Header: React.FC = () => {
           <div className="space-y-2">
             <button
               onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
-              className="w-full text-left text-neutral-400 hover:text-white flex items-center justify-between py-2"
+              className={cn(
+                'w-full text-left hover:text-white flex items-center justify-between py-2',
+                isProductsActive ? 'text-white' : 'text-neutral-400',
+              )}
             >
               Products
               <Cloud
@@ -347,7 +372,10 @@ export const Header: React.FC = () => {
           <div className="space-y-2">
             <button
               onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
-              className="w-full text-left text-neutral-400 hover:text-white flex items-center justify-between py-2"
+              className={cn(
+                'w-full text-left hover:text-white flex items-center justify-between py-2',
+                isResourcesActive ? 'text-white' : 'text-neutral-400',
+              )}
             >
               Resources
               <FileText
@@ -403,6 +431,7 @@ export const Header: React.FC = () => {
           <a
             href="https://docs.zephyr-cloud.io/"
             target="_blank"
+            rel="noopener"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-neutral-400 hover:text-white py-2"
           >
@@ -412,7 +441,7 @@ export const Header: React.FC = () => {
           <Link
             to="/pricing"
             onClick={() => setMobileMenuOpen(false)}
-            className="block text-neutral-400 hover:text-white py-2"
+            className={cn('block hover:text-white py-2', isPricingActive ? 'text-white' : 'text-neutral-400')}
           >
             Pricing
           </Link>

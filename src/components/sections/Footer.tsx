@@ -20,12 +20,17 @@ export const Footer: React.FC = () => {
             <h5 className="font-semibold text-white mb-3">Developers</h5>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="https://docs.zephyr-cloud.io/" target="_blank" className="text-neutral-400 hover:text-white">
+                <a
+                  href="https://docs.zephyr-cloud.io/"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-neutral-400 hover:text-white"
+                >
                   Docs
                 </a>
               </li>
               <li>
-                <Link to="./llms.txt" target="_blank" className="text-neutral-400 hover:text-white">
+                <Link to="/llms.txt" target="_blank" className="text-neutral-400 hover:text-white">
                   llms.txt
                 </Link>
               </li>

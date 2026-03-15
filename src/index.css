@@ -1,6 +1,6 @@
 @import 'tailwindcss';
 @import 'tw-animate-css';
-@plugin "tailwindcss-animate";
+@plugin 'tailwindcss-animate';
 
 /* Import highlight.js theme for code syntax highlighting */
 @import 'highlight.js/styles/github-dark.css';
@@ -27,6 +27,8 @@ body {
   margin: 0;
   color: #fff;
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  background-color: #000;
   background-image: linear-gradient(to bottom, #020917, #101725);
 }
 
@@ -72,6 +74,27 @@ body {
 .mdx-content p,
 .mdx-content li {
   text-wrap: pretty;
+}
+
+.mdx-content .rp-header-anchor {
+  display: none;
+}
+
+.mdx-content pre.shiki {
+  background: #0d1117 !important;
+  border: 1px solid #262626;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.mdx-content pre.shiki code {
+  display: block;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
 }
 
 @custom-variant dark (&:is(.dark *));
