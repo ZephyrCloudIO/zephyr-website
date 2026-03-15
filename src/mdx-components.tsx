@@ -92,12 +92,19 @@ export const mdxComponents = {
   ul: (props: any) => <ul className="list-disc list-inside mb-4 text-neutral-300" {...props} />,
   ol: (props: any) => <ol className="list-decimal list-inside mb-4 text-neutral-300" {...props} />,
   li: (props: any) => <li className="mb-2" {...props} />,
-  code: ({ className, ...props }: any) => {
-    const isInlineCode = !className?.includes('hljs');
+  code: ({ className, children, ...props }: any) => {
+    const hasStructuredChildren =
+      Array.isArray(children) || (children != null && typeof children !== 'string' && typeof children !== 'number');
+    const isInlineCode = !className && !hasStructuredChildren;
+
     return isInlineCode ? (
-      <code className="bg-neutral-800 text-emerald-400 px-1 py-0.5 rounded" {...props} />
+      <code className="bg-neutral-800 text-emerald-400 px-1 py-0.5 rounded" {...props}>
+        {children}
+      </code>
     ) : (
-      <code className={className} {...props} />
+      <code className={className} {...props}>
+        {children}
+      </code>
     );
   },
   pre: ({ children, ...props }: any) => (

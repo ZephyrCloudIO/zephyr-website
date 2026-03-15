@@ -80,6 +80,23 @@ body {
   display: none;
 }
 
+.mdx-content pre.shiki {
+  background: #111827 !important;
+  border: 1px solid #262626;
+  border-radius: 0.5rem;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  overflow-x: auto;
+}
+
+.mdx-content pre.shiki code {
+  display: block;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  padding: 0;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
