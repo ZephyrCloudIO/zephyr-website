@@ -13,6 +13,7 @@ import mobilefirstHeroImage from '@/images/blog/mobilefirst/hero.webp';
 import moduleFederationVsNativeEsmHeroImage from '@/images/blog/module-federation-vs-native-esm/hero.webp';
 import nextjsWithoutLockInVinextOnZephyrHeroImage from '@/images/blog/nextjs-without-lock-in-vinext-on-zephyr/hero.webp';
 import nitroV3ZephyrHeroImage from '@/images/blog/nitro-v3-zephyr/hero.svg';
+import nitroV3ZephyrListingImage from '@/images/blog/nitro-v3-zephyr/listing.svg';
 import otaWithZephyrHeroImage from '@/images/blog/ota-with-zephyr/ota-hero.webp';
 import runtimeOtaHeroImage from '@/images/blog/runtime-ota/runtime-ota.webp';
 import serveTimeHeroImage from '@/images/blog/serve-time/hero.webp';
@@ -112,7 +113,7 @@ export const blogImages = {
   },
   'nitro-v3-zephyr': {
     heroImage: nitroV3ZephyrHeroImage,
-    listingImage: nitroV3ZephyrHeroImage,
+    listingImage: nitroV3ZephyrListingImage,
   },
   'env-variables-and-zephyr': {
     heroImage: envVariablesAndZephyrHeroImage,
