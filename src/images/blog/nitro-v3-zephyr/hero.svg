@@ -1,0 +1,94 @@
+<svg width="1600" height="900" viewBox="0 0 1600 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1600" height="900" fill="#040816" />
+  <rect x="54" y="54" width="1492" height="792" rx="32" fill="url(#panel)" />
+  <path d="M102 696L526 272H760L336 696H102Z" fill="#0F172A" />
+  <path d="M624 696L1048 272H1282L858 696H624Z" fill="#111827" />
+  <path d="M994 194H1426" stroke="#34D399" stroke-width="10" stroke-linecap="round" />
+  <path d="M994 238H1330" stroke="#34D399" stroke-opacity="0.55" stroke-width="10" stroke-linecap="round" />
+  <path d="M994 282H1248" stroke="#34D399" stroke-opacity="0.3" stroke-width="10" stroke-linecap="round" />
+  <circle cx="1258" cy="638" r="178" fill="url(#glow)" fill-opacity="0.85" />
+  <circle cx="1258" cy="638" r="116" fill="#34D399" fill-opacity="0.18" />
+  <rect x="116" y="112" width="216" height="40" rx="20" fill="#0B1220" stroke="#34D399" stroke-opacity="0.45" />
+  <text
+    x="224"
+    y="138"
+    fill="#A7F3D0"
+    font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace"
+    font-size="22"
+    text-anchor="middle"
+    letter-spacing="0.28em"
+  >
+    MARCH 2026
+  </text>
+  <text
+    x="116"
+    y="364"
+    fill="#F8FAFC"
+    font-family="Inter, Arial, sans-serif"
+    font-size="168"
+    font-weight="800"
+    letter-spacing="-0.06em"
+  >
+    NITRO V3
+  </text>
+  <text
+    x="116"
+    y="504"
+    fill="#34D399"
+    font-family="Inter, Arial, sans-serif"
+    font-size="168"
+    font-weight="800"
+    letter-spacing="-0.06em"
+  >
+    MEETS ZEPHYR
+  </text>
+  <text
+    x="118"
+    y="602"
+    fill="#CBD5E1"
+    font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace"
+    font-size="42"
+    letter-spacing="0.22em"
+  >
+    BUILT-IN PRESET. EDGE DEPLOY FLOW. LESS GLUE.
+  </text>
+  <rect x="116" y="670" width="438" height="94" rx="18" fill="#06101D" stroke="#34D399" stroke-opacity="0.45" />
+  <text
+    x="150"
+    y="726"
+    fill="#A7F3D0"
+    font-family="ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, Liberation Mono, monospace"
+    font-size="36"
+    letter-spacing="0.08em"
+  >
+    preset: 'zephyr'
+  </text>
+  <text
+    x="1092"
+    y="742"
+    fill="#E2E8F0"
+    font-family="Inter, Arial, sans-serif"
+    font-size="48"
+    font-weight="700"
+    text-anchor="middle"
+  >
+    Deploys now feel native.
+  </text>
+  <defs>
+    <linearGradient id="panel" x1="800" y1="54" x2="800" y2="846" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0A1323" />
+      <stop offset="1" stop-color="#050B14" />
+    </linearGradient>
+    <radialGradient
+      id="glow"
+      cx="0"
+      cy="0"
+      r="1"
+      gradientUnits="userSpaceOnUse"
+      gradientTransform="translate(1258 638) rotate(90) scale(178)"
+    >
+      <stop stop-color="#34D399" />
+      <stop offset="1" stop-color="#34D399" stop-opacity="0" />
+    </radialGradient>
+  </defs>
+</svg>
