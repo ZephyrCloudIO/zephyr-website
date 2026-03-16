@@ -1,0 +1,26 @@
+<svg width="900" height="260" viewBox="0 0 900 260" xmlns="http://www.w3.org/2000/svg">
+  <rect width="900" height="260" fill="#050615"/>
+  <text x="40" y="36" fill="#E2E8F0" font-size="18" font-family="Inter, Arial, sans-serif">Snapshot selection (default)</text>
+
+  <g fill="#0B0F1A" stroke="#2D3748" stroke-width="1.5">
+    <rect x="60" y="90" width="260" height="90" rx="16"/>
+    <rect x="380" y="70" width="200" height="60" rx="14"/>
+    <rect x="380" y="150" width="200" height="60" rx="14"/>
+  </g>
+
+  <g fill="#E2E8F0" font-size="14" font-family="Inter, Arial, sans-serif" text-anchor="middle">
+    <text x="190" y="135">Entrypoint found?</text>
+    <text x="480" y="105">SSR snapshot</text>
+    <text x="480" y="185">CSR snapshot</text>
+  </g>
+
+  <g stroke="#00DC82" stroke-width="2" fill="none">
+    <line x1="320" y1="115" x2="380" y2="100"/>
+    <line x1="320" y1="155" x2="380" y2="180"/>
+  </g>
+
+  <g fill="#00DC82">
+    <polygon points="380,100 370,96 372,106"/>
+    <polygon points="380,180 372,174 370,184"/>
+  </g>
+</svg>
