@@ -2,11 +2,12 @@ import { IntercomButton } from '@/components/IntercomButton';
 import { Footer } from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import { MDXProvider } from '@mdx-js/react';
+import { PostHogProvider } from '@posthog/react';
 import { createRootRoute, Outlet, useLocation } from '@tanstack/react-router';
-import { useEffect } from 'react';
+import posthog from 'posthog-js';
+import { type ReactNode, useEffect } from 'react';
 import { IntercomProvider } from 'react-use-intercom';
 
-// Google Analytics
 const GoogleAnalytics = () => (
   <>
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH" />
@@ -30,6 +31,59 @@ const GoogleAnalytics = () => (
     />
   </>
 );
+
+const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY;
+const POSTHOG_API_HOST = import.meta.env.PUBLIC_POSTHOG_HOST;
+const POSTHOG_UI_HOST = 'https://us.posthog.com';
+let hasInitializedPostHog = false;
+
+type TwitterWindow = Window & {
+  twttr?: {
+    widgets?: {
+      load: () => void;
+    };
+  };
+};
+
+const TWITTER_WIDGET_SCRIPT_ID = 'twitter-wjs';
+
+function TwitterEmbed({ children, mediaMaxWidth = 560 }: { children: ReactNode; mediaMaxWidth?: number }) {
+  useEffect(() => {
+    const twitterWindow = window as TwitterWindow;
+    const loadWidgets = () => twitterWindow.twttr?.widgets?.load();
+    const existingScript = document.getElementById(TWITTER_WIDGET_SCRIPT_ID) as HTMLScriptElement | null;
+
+    if (existingScript) {
+      if (twitterWindow.twttr?.widgets) {
+        loadWidgets();
+        return;
+      }
+
+      existingScript.addEventListener('load', loadWidgets, { once: true });
+      return;
+    }
+
+    const script = document.createElement('script');
+    script.id = TWITTER_WIDGET_SCRIPT_ID;
+    script.async = true;
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.charset = 'utf-8';
+    script.addEventListener('load', loadWidgets);
+    document.body.appendChild(script);
+
+    return () => {
+      script.removeEventListener('load', loadWidgets);
+    };
+  }, []);
+
+  return (
+    <div className="my-6 overflow-x-auto">
+      <blockquote className="twitter-tweet" data-media-max-width={mediaMaxWidth}>
+        {children}
+      </blockquote>
+    </div>
+  );
+}
 
 // MDX components configuration
 const mdxComponents = {
@@ -58,6 +112,21 @@ const mdxComponents = {
   blockquote: (props: any) => (
     <blockquote className="border-l-4 border-emerald-600 pl-4 italic mb-4 text-neutral-400" {...props} />
   ),
+  table: ({ children, ...props }: any) => (
+    <div className="my-6 overflow-x-auto rounded-lg border border-neutral-800">
+      <table className="min-w-full border-collapse text-left text-sm text-neutral-200" {...props}>
+        {children}
+      </table>
+    </div>
+  ),
+  thead: (props: any) => <thead className="bg-neutral-900/80" {...props} />,
+  tbody: (props: any) => <tbody className="divide-y divide-neutral-800" {...props} />,
+  tr: (props: any) => <tr className="align-top" {...props} />,
+  th: (props: any) => (
+    <th className="border-b border-neutral-700 px-4 py-3 font-semibold text-white whitespace-nowrap" {...props} />
+  ),
+  td: (props: any) => <td className="px-4 py-3 align-top leading-relaxed" {...props} />,
+  TwitterEmbed,
   a: (props: any) => <a className="text-emerald-400 hover:text-emerald-300 underline" {...props} />,
   img: (props: any) => <img className="rounded-lg my-6 max-w-full" {...props} />,
   strong: (props: any) => <strong className="font-semibold text-white" {...props} />,
@@ -77,20 +146,36 @@ function ScrollToTop() {
 
 // Root component
 function RootComponent() {
+  useEffect(() => {
+    if (!POSTHOG_KEY || hasInitializedPostHog) {
+      return;
+    }
+
+    hasInitializedPostHog = true;
+    posthog.init(POSTHOG_KEY, {
+      ...(POSTHOG_API_HOST ? { api_host: POSTHOG_API_HOST } : {}),
+      ui_host: POSTHOG_UI_HOST,
+      defaults: '2026-01-30',
+      person_profiles: 'identified_only',
+    } as const);
+  }, []);
+
   return (
     <IntercomProvider appId="xyxkmxlj">
       <GoogleAnalytics />
-      <ScrollToTop />
-      <MDXProvider components={mdxComponents}>
-        <div className="bg-black text-neutral-300 min-h-screen font-sans">
-          <Header />
-          <main>
-            <Outlet />
-          </main>
-          <Footer />
-          <IntercomButton />
-        </div>
-      </MDXProvider>
+      <PostHogProvider client={posthog}>
+        <ScrollToTop />
+        <MDXProvider components={mdxComponents}>
+          <div className="bg-black text-neutral-300 min-h-screen font-sans">
+            <Header />
+            <main>
+              <Outlet />
+            </main>
+            <Footer />
+            <IntercomButton />
+          </div>
+        </MDXProvider>
+      </PostHogProvider>
     </IntercomProvider>
   );
 }

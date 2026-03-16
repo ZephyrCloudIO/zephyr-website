@@ -5,7 +5,6 @@ import akamai from '@/images/clouds/akamai_white.webp';
 import aws from '@/images/clouds/aws_white.webp';
 import cloudflare from '@/images/clouds/cloudflare_white.webp';
 import fastly from '@/images/clouds/fastly_white.webp';
-import netlify from '@/images/clouds/netlify_white.webp';
 import vercel from '@/images/clouds/vercel_white.webp';
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
@@ -33,7 +32,7 @@ const tiers = [
       'BYOC (Bring Your Own Cloud)',
       'Sub-second deployments',
     ],
-    cta: 'Start Building',
+    cta: 'Get Started',
     mostPopular: false,
   },
   {
@@ -112,6 +111,20 @@ const tiers = [
 function PricingPage() {
   const [frequency, setFrequency] = useState<'monthly' | 'annually'>('monthly');
   const isAnnual = frequency === 'annually';
+  const getTierButtonClassName = (tier: (typeof tiers)[number]) => {
+    switch (tier.id) {
+      case 'personal':
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-emerald-700/70 hover:bg-neutral-800';
+      case 'team':
+        return 'border border-emerald-500/70 bg-emerald-600 text-white shadow-lg shadow-emerald-900/30 hover:bg-emerald-500 hover:border-emerald-400';
+      case 'business':
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-amber-600/60 hover:bg-neutral-800';
+      case 'enterprise':
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
+      default:
+        return 'bg-neutral-500 hover:bg-neutral-600';
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-7xl">
@@ -203,8 +216,8 @@ function PricingPage() {
             <CardFooter>
               <Button
                 className={cn(
-                  'w-full',
-                  tier.mostPopular ? 'bg-emerald-700 hover:bg-emerald-600' : 'bg-neutral-500 hover:bg-neutral-600',
+                  'w-full font-semibold transition-transform duration-200 hover:-translate-y-0.5',
+                  getTierButtonClassName(tier),
                 )}
                 asChild
               >
@@ -227,7 +240,7 @@ function PricingPage() {
               Bring Your Own Cloud (BYOC)
             </h2>
             <p className="text-neutral-400 mb-6">
-              Deploy to your Cloudflare, Netlify, Akamai, Vercel, or any of our supported cloud providers. Switch clouds
+              Deploy to your Cloudflare, Akamai, Vercel, or any of our supported cloud providers. Switch clouds
               instantly, deploy to multiple clouds or multiple accounts on a cloud simultaneously.
               <br />
               With BYOC, you maintain complete control over your infrastructure and costs.
@@ -263,13 +276,6 @@ function PricingPage() {
                   <img
                     src={cloudflare}
                     alt="Cloudflare"
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-                <div className="flex items-center justify-center p-3">
-                  <img
-                    src={netlify}
-                    alt="Netlify"
                     className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
                   />
                 </div>

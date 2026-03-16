@@ -3,7 +3,6 @@ import aws from '@/images/clouds/aws_white.webp';
 import azure from '@/images/clouds/azure_white.webp';
 import cloudflare from '@/images/clouds/cloudflare_white.webp';
 import fastly from '@/images/clouds/fastly_white.webp';
-import netlify from '@/images/clouds/netlify_white.webp';
 import vercel from '@/images/clouds/vercel_white.webp';
 import { cn } from '@/lib/utils';
 import { CheckCircle2, Clock, ExternalLink, Zap } from 'lucide-react';
@@ -22,12 +21,6 @@ const cloudProviders: CloudProvider[] = [
     status: 'available',
     logo: cloudflare,
     docsLink: 'https://docs.zephyr-cloud.io/cloud/cloudflare',
-  },
-  {
-    name: 'Netlify',
-    status: 'available',
-    logo: netlify,
-    docsLink: 'https://docs.zephyr-cloud.io/cloud/netlify',
   },
   {
     name: 'Fastly',
@@ -134,12 +127,7 @@ export const CloudProvidersSection: React.FC = () => {
                 </div>
 
                 {/* Hover Effect Gradient */}
-                <div
-                  className={cn(
-                    'absolute inset-0 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity',
-                    'bg-gradient-to-t from-emerald-500/5 to-transparent pointer-events-none',
-                  )}
-                />
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-emerald-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none" />
 
                 {/* Docs Link Indicator */}
                 {provider.docsLink && (

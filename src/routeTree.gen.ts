@@ -94,8 +94,8 @@ export interface FileRoutesByFullPath {
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
   '/products/code-elimination-performance': typeof ProductsCodeEliminationPerformanceRoute;
-  '/blog': typeof BlogIndexRoute;
-  '/changelog': typeof ChangelogIndexRoute;
+  '/blog/': typeof BlogIndexRoute;
+  '/changelog/': typeof ChangelogIndexRoute;
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
@@ -139,8 +139,8 @@ export interface FileRouteTypes {
     | '/changelog/$slug'
     | '/products/ai'
     | '/products/code-elimination-performance'
-    | '/blog'
-    | '/changelog';
+    | '/blog/'
+    | '/changelog/';
   fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
@@ -233,14 +233,14 @@ declare module '@tanstack/react-router' {
     '/changelog/': {
       id: '/changelog/';
       path: '/changelog';
-      fullPath: '/changelog';
+      fullPath: '/changelog/';
       preLoaderRoute: typeof ChangelogIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     '/blog/': {
       id: '/blog/';
       path: '/blog';
-      fullPath: '/blog';
+      fullPath: '/blog/';
       preLoaderRoute: typeof BlogIndexRouteImport;
       parentRoute: typeof rootRouteImport;
     };
