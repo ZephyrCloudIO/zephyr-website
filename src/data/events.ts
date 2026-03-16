@@ -1,6 +1,8 @@
 import reactUniverse from '@/images/events/react_universe.webp';
 import { LucideIcon } from 'lucide-react';
 
+export type EventType = 'conference' | 'webinar' | 'meetup' | 'workshop';
+
 export interface EventResource {
   icon?: LucideIcon | string;
   text: string;
@@ -14,7 +16,7 @@ export interface Event {
   time?: string;
   location: string;
   timezone?: string;
-  type: 'conference' | 'webinar' | 'meetup' | 'workshop';
+  type: EventType;
   description: string;
   link?: string;
   ctaText?: string;

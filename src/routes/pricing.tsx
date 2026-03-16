@@ -32,7 +32,7 @@ const tiers = [
       'BYOC (Bring Your Own Cloud)',
       'Sub-second deployments',
     ],
-    cta: 'Start Building',
+    cta: 'Get Started',
     mostPopular: false,
   },
   {
@@ -111,6 +111,20 @@ const tiers = [
 function PricingPage() {
   const [frequency, setFrequency] = useState<'monthly' | 'annually'>('monthly');
   const isAnnual = frequency === 'annually';
+  const getTierButtonClassName = (tier: (typeof tiers)[number]) => {
+    switch (tier.id) {
+      case 'personal':
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-emerald-700/70 hover:bg-neutral-800';
+      case 'team':
+        return 'border border-emerald-500/70 bg-emerald-600 text-white shadow-lg shadow-emerald-900/30 hover:bg-emerald-500 hover:border-emerald-400';
+      case 'business':
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-amber-600/60 hover:bg-neutral-800';
+      case 'enterprise':
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
+      default:
+        return 'bg-neutral-500 hover:bg-neutral-600';
+    }
+  };
 
   return (
     <div className="container mx-auto px-4 py-16 max-w-7xl">
@@ -202,8 +216,8 @@ function PricingPage() {
             <CardFooter>
               <Button
                 className={cn(
-                  'w-full',
-                  tier.mostPopular ? 'bg-emerald-700 hover:bg-emerald-600' : 'bg-neutral-500 hover:bg-neutral-600',
+                  'w-full font-semibold transition-transform duration-200 hover:-translate-y-0.5',
+                  getTierButtonClassName(tier),
                 )}
                 asChild
               >

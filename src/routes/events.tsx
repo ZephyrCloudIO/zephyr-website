@@ -1,4 +1,4 @@
-import { Event, pastEvents, upcomingEvents } from '@/data/events';
+import { pastEvents, upcomingEvents, type Event, type EventType } from '@/data/events';
 import { cn } from '@/lib/utils';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import {
@@ -13,6 +13,7 @@ import {
   Users,
   Video,
   Zap,
+  type LucideIcon,
 } from 'lucide-react';
 import { useState } from 'react';
 
@@ -32,14 +33,7 @@ function EventCard({ event }: { event: Event }) {
   const Icon = config.icon;
 
   return (
-    <div
-      className={cn(
-        'group relative overflow-hidden rounded-xl p-6 transition-all duration-300',
-        'bg-gradient-to-br from-neutral-900 to-neutral-900/50',
-        'border border-neutral-800 hover:border-neutral-700',
-        'hover:shadow-2xl hover:shadow-emerald-500/10 hover:-translate-y-1',
-      )}
-    >
+    <div className="group relative overflow-hidden rounded-xl border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-900/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-700 hover:shadow-2xl hover:shadow-emerald-500/10">
       <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
       <div className="relative z-10">
@@ -162,7 +156,7 @@ function EventCard({ event }: { event: Event }) {
 }
 
 function EventsPage() {
-  const [filter, setFilter] = useState<'all' | 'conference' | 'webinar' | 'meetup' | 'workshop'>('all');
+  const [filter, setFilter] = useState<'all' | EventType>('all');
 
   // Helper function to parse event dates
   const parseEventDate = (dateStr: string): Date => {
@@ -202,7 +196,7 @@ function EventsPage() {
     false, // descending order for past events
   );
 
-  const filterButtons = [
+  const filterButtons: { value: 'all' | EventType; label: string; icon?: LucideIcon }[] = [
     { value: 'all', label: 'All Events' },
     { value: 'conference', label: 'Conferences', icon: Globe },
     { value: 'webinar', label: 'Webinars', icon: Zap },
@@ -311,7 +305,7 @@ function EventsPage() {
           {filterButtons.map(({ value, label, icon: Icon }) => (
             <button
               key={value}
-              onClick={() => setFilter(value as any)}
+              onClick={() => setFilter(value)}
               className={cn(
                 'inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all',
                 filter === value

@@ -2,13 +2,13 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
 import { XIcon } from '@/components/ui/x-icon';
 import { companyLogos } from '@/constants/companyLogos';
-import { Testimonials } from '@/testimonials';
-import { Linkedin, Twitch, Youtube } from 'lucide-react';
+import { Testimonials, type Testimonial, type TestimonialSocialPlatform } from '@/testimonials';
+import { Linkedin, Twitch, Youtube, type LucideIcon } from 'lucide-react';
 import React from 'react';
 
 export const TestimonialsSection: React.FC = () => {
   // Social media platform to icon mapping
-  const socialIcons = {
+  const socialIcons: Record<TestimonialSocialPlatform, LucideIcon> = {
     X: XIcon,
     LinkedIn: Linkedin,
     YouTube: Youtube,
@@ -16,10 +16,15 @@ export const TestimonialsSection: React.FC = () => {
   };
 
   // Split testimonials into two rows for scrolling effect
-  const firstRowTestimonials = Testimonials.filter((_, index) => index % 2 === 0);
-  const secondRowTestimonials = Testimonials.filter((_, index) => index % 2 === 1);
+  const [firstRowTestimonials, secondRowTestimonials] = Testimonials.reduce<[Testimonial[], Testimonial[]]>(
+    (acc, item, index) => {
+      acc[index % 2].push(item);
+      return acc;
+    },
+    [[], []],
+  );
 
-  const TestimonialCard = ({ testimonial }: { testimonial: (typeof Testimonials)[0] }) => (
+  const TestimonialCard = ({ testimonial }: { testimonial: Testimonial }) => (
     <Card className="bg-stone-950 border-stone-800 text-neutral-300 flex-shrink-0 w-[380px] mx-3">
       <CardContent className="pt-6">
         <p className="mb-4 text-sm">{testimonial.content}</p>
@@ -38,7 +43,7 @@ export const TestimonialsSection: React.FC = () => {
           </div>
           <div className="flex gap-2">
             {testimonial.socialLinks.map((social, socialIndex) => {
-              const Icon = socialIcons[social.platform as keyof typeof socialIcons];
+              const Icon = socialIcons[social.platform];
               return Icon ? (
                 <a
                   key={socialIndex}
@@ -104,7 +109,7 @@ export const TestimonialsSection: React.FC = () => {
                         </div>
                         <div className="flex gap-2">
                           {testimonial.socialLinks.map((social, socialIndex) => {
-                            const Icon = socialIcons[social.platform as keyof typeof socialIcons];
+                            const Icon = socialIcons[social.platform];
                             return Icon ? (
                               <a
                                 key={socialIndex}
@@ -146,7 +151,7 @@ export const TestimonialsSection: React.FC = () => {
                         </div>
                         <div className="flex gap-2">
                           {testimonial.socialLinks.map((social, socialIndex) => {
-                            const Icon = socialIcons[social.platform as keyof typeof socialIcons];
+                            const Icon = socialIcons[social.platform];
                             return Icon ? (
                               <a
                                 key={socialIndex}
