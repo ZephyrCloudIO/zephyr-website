@@ -114,9 +114,7 @@ export const Header: React.FC = () => {
                     <NavigationMenuLink asChild>
                       <Link
                         to="/"
-                        className={cn(
-                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
-                        )}
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
                           <Cloud className="h-4 w-4" />
@@ -132,9 +130,7 @@ export const Header: React.FC = () => {
                     <NavigationMenuLink asChild>
                       <Link
                         to="/products/ai"
-                        className={cn(
-                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
-                        )}
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
                           <Sparkles className="h-4 w-4" />
@@ -160,9 +156,7 @@ export const Header: React.FC = () => {
                     <NavigationMenuLink asChild>
                       <Link
                         to="/blog"
-                        className={cn(
-                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
-                        )}
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
                           <FileText className="h-4 w-4" />
@@ -176,9 +170,7 @@ export const Header: React.FC = () => {
                     <NavigationMenuLink asChild>
                       <Link
                         to="/changelog"
-                        className={cn(
-                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
-                        )}
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
                           <History className="h-4 w-4" />
@@ -194,9 +186,7 @@ export const Header: React.FC = () => {
                     <NavigationMenuLink asChild>
                       <Link
                         to="/press"
-                        className={cn(
-                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
-                        )}
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
                           <Newspaper className="h-4 w-4" />
@@ -212,9 +202,7 @@ export const Header: React.FC = () => {
                     <NavigationMenuLink asChild>
                       <Link
                         to="/events"
-                        className={cn(
-                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
-                        )}
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
                           <Calendar className="h-4 w-4" />
@@ -230,9 +218,7 @@ export const Header: React.FC = () => {
                     <NavigationMenuLink asChild>
                       <Link
                         to="/partners"
-                        className={cn(
-                          'block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white',
-                        )}
+                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
                           <Users className="h-4 w-4" />

@@ -9,7 +9,23 @@ import RonR from '@/images/community/RonR.webp';
 import Theo from '@/images/community/Theo.webp';
 import Generic from '@/images/community/z-logo.webp';
 
-export const Testimonials = [
+export type TestimonialSocialPlatform = 'X' | 'LinkedIn' | 'YouTube' | 'Twitch';
+
+export interface TestimonialSocialLink {
+  link: string;
+  platform: TestimonialSocialPlatform;
+}
+
+export interface Testimonial {
+  name: string;
+  content: string;
+  avatar: string;
+  role: string;
+  company: string;
+  socialLinks: TestimonialSocialLink[];
+}
+
+export const Testimonials: Testimonial[] = [
   {
     name: 'Mike Grabowski',
     content:

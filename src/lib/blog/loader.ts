@@ -127,6 +127,8 @@ const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
   'module-federation-vs-native-esm': () =>
     import('@/content/blog/module-federation-vs-native-esm.mdx') as Promise<MDXBlogPost>,
   'env-variables-and-zephyr': () => import('@/content/blog/env-variables-and-zephyr.mdx') as Promise<MDXBlogPost>,
+  'nuxt-goes-zephyr-native': () => import('@/content/blog/nuxt-goes-zephyr-native.mdx') as Promise<MDXBlogPost>,
+  'nitro-v3-zephyr': () => import('@/content/blog/nitro-v3-zephyr.mdx') as Promise<MDXBlogPost>,
   'nextjs-without-lock-in-vinext-on-zephyr': () =>
     import('@/content/blog/nextjs-without-lock-in-vinext-on-zephyr.mdx') as Promise<MDXBlogPost>,
 };
