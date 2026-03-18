@@ -176,6 +176,38 @@ export const blogMetadataEntries = [
     },
   },
   {
+    slug: 'nitro-v3-zephyr',
+    metadata: {
+      title: 'Nitro v3 + Zephyr: Backends Can Now Ship in One Step',
+      slug: 'nitro-v3-zephyr',
+      date: '2026-03-11',
+      heroImage: '/images/blog/nitro-v3-zephyr/hero.svg',
+      listingImage: '/images/blog/nitro-v3-zephyr/listing.svg',
+      description:
+        'Nitro v3 beta adds a built-in Zephyr preset, which means backend teams can build and ship in one step while keeping their cloud options open.',
+      authors: ['Néstor López'],
+      tags: ['announcement', 'deployment', 'edge', 'cloud', 'dx'],
+      featured: true,
+      readingTime: 7,
+    },
+  },
+  {
+    slug: 'nuxt-goes-zephyr-native',
+    metadata: {
+      title: 'Nuxt Goes Zephyr-Native: The End of Deployment Scripts',
+      slug: 'nuxt-goes-zephyr-native',
+      date: '2026-03-17',
+      heroImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp',
+      listingImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp',
+      description:
+        'Nuxt apps now deploy as native Zephyr artifacts: build once, ship SSR or CSR automatically, and control releases at serve time.',
+      authors: ['Néstor López'],
+      tags: ['announcement', 'deployment', 'edge', 'web', 'product'],
+      featured: true,
+      readingTime: 7,
+    },
+  },
+  {
     slug: 'ota-with-zephyr',
     metadata: {
       title: 'Over the Air (OTA) updates with Zephyr',
