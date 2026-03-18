@@ -69,7 +69,7 @@ const statusConfig = {
   'coming-soon': {
     label: 'Coming Soon',
     icon: Clock,
-    className: 'text-neutral-500',
+    className: 'text-neutral-400',
     bgClassName: 'bg-neutral-500/10',
     borderClassName: 'border-neutral-500/20',
   },
@@ -105,6 +105,8 @@ export const CloudProvidersSection: React.FC = () => {
                     <img
                       src={provider.logo}
                       alt={`${provider.name} logo`}
+                      width={160}
+                      height={40}
                       className={cn(
                         'h-10 w-auto object-contain',
                         provider.status === 'coming-soon' ? 'opacity-50 grayscale' : 'opacity-100',
@@ -162,11 +164,11 @@ export const CloudProvidersSection: React.FC = () => {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-sm text-neutral-500">
+          <p className="text-sm text-neutral-400">
             Need support for a different cloud provider?{' '}
             <a
               href="mailto:inbound@zephyr-cloud.io"
-              className="text-emerald-400 hover:text-emerald-300 transition-colors"
+              className="text-emerald-400 hover:text-emerald-300 transition-colors underline underline-offset-4"
             >
               Let us know
             </a>

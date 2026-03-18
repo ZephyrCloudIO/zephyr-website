@@ -8,8 +8,8 @@ const FeatureDiagram: React.FC<{
 }> = ({ title, image }) => {
   return (
     <div className="border border-secondary rounded-2xl p-6 flex flex-col gap-4 items-center relative flex-1">
-      <h4 className="text-base font-mono">{title}</h4>
-      <img src={image} alt={title} />
+      <h3 className="text-base font-mono">{title}</h3>
+      <img src={image} alt={title} width={1126} height={388} />
     </div>
   );
 };

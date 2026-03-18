@@ -42,12 +42,12 @@ export const BlogSection: React.FC = () => {
                     {post.authors[0] && (
                       <>
                         <Avatar className="w-6 h-6">
-                          <AvatarImage src={post.authors[0].avatar} />
+                          <AvatarImage src={post.authors[0].avatar} alt={post.authors[0].displayName} />
                           <AvatarFallback>{post.authors[0].displayName.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                         <div>
                           <span className="text-white block">{post.authors[0].displayName}</span>
-                          <span className="text-neutral-500">{formatDateShort(post.date)}</span>
+                          <span className="text-neutral-400">{formatDateShort(post.date)}</span>
                         </div>
                       </>
                     )}
