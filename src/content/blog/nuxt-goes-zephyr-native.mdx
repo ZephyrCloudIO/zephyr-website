@@ -1,149 +1,76 @@
 ---
-title: 'Nuxt Goes Zephyr-Native: The End of Deployment Scripts'
+title: 'Nuxt Is Now Native on Zephyr'
 slug: 'nuxt-goes-zephyr-native'
 date: '2026-03-17'
 heroImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp'
 listingImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp'
-description: 'Nuxt apps now deploy as native Zephyr artifacts: build once, ship SSR or CSR automatically, and control releases at serve time.'
+description: 'Nuxt now deploys on Zephyr as a first-class release artifact, with immutable versions, preview URLs, environment controls, and rollback built in.'
 authors: ['Néstor López']
 tags: ['announcement', 'deployment', 'edge', 'web', 'product']
 featured: true
-readingTime: 7
+readingTime: 4
 ---
 
-import buildPipeline from '@/images/blog/nuxt-goes-zephyr-native/nuxt-build-to-zephyr.svg';
-import ssrFlow from '@/images/blog/nuxt-goes-zephyr-native/nuxt-ssr-request.svg';
-import snapshotChoice from '@/images/blog/nuxt-goes-zephyr-native/nuxt-snapshot-selection.svg';
+# Nuxt Is Now Native on Zephyr
 
-# Nuxt Goes Zephyr-Native: The End of Deployment Scripts
+Nuxt has always made the app side feel elegant and the deployment side feel weird.
 
-For years, shipping a full-stack Nuxt app meant choosing your rendering strategy twice: once in `nuxt.config.ts`, and again inside a maze of CI steps, adapters, and platform-specific presets. SSR or CSR? Node server or serverless? Cloudflare, Vercel, Netlify? The build ends — and the real work begins.
+`nuxt build` finishes, Nitro gives you a real output, and then the platform asks you to translate the whole thing into adapters, custom scripts, and hosting-specific glue just so it can understand what Nuxt already produced.
 
-That friction ends now.
+Now Zephyr supports Nuxt natively through `zephyr-nuxt-module` for Nuxt 3 and Nuxt 4. It hooks into `nuxt build`, reads the Nitro output, detects the server entrypoint when there is one, and uploads the result directly to Zephyr. No parallel packaging story. No extra dance to make the framework legible to the platform.
 
-Zephyr Cloud delivers **first-class, native Nuxt support**. Not an adapter. Not a preset. A new default. If Nuxt can build it, Zephyr can deploy it — instantly, globally, and without pipeline glue.
+## The Second Decision You Shouldn't Have To Make
 
----
+Most Nuxt deployment pain comes from making the same decision twice.
 
-## The Second Choice You Never Wanted
+First you decide how the app should behave in Nuxt: SSR, static output, API handlers, assets, middleware, the usual stuff. Then you make a second version of those decisions in CI and hosting config so the deployment platform can reconstruct the app from the outside.
 
-**This is the real problem:** Nuxt already knows how your app should run, but your infrastructure forces you to decide again.
+One provider wants a special output shape. Another wants an adapter. Another wants your assets, server code, and functions split across different places. Before long, the deployment pipeline becomes its own product, and somehow that product is now coupled to your app.
 
-You configure Nitro. You pick a preset. You align SSR settings. Then you jump into CI and repeat the same decisions in another dialect, with another tool, under a different set of constraints.
+What Zephyr is doing here is pretty simple: the Nuxt build should be the deployable unit.
 
-That mismatch creates drift. Drift creates outages. And outages create the quiet dread every team recognizes: _“It worked locally, but production is… different.”_
+## Build Once, Stop Translating
 
-Zephyr removes the second decision.
+The useful part of this integration isn't just "Nuxt works on Zephyr now." It's the model behind it.
 
----
+Zephyr treats the result of `nuxt build` as a first-class release artifact. That means the build is not just something that finished successfully in CI. It becomes an immutable version that can be deployed, previewed, promoted, and rolled back without being rebuilt from scratch every time.
 
-## Build Becomes Artifact
+That changes the shape of the workflow in a very practical way:
 
-The moment `nuxt build` finishes, Zephyr treats the output as a **versioned, immutable snapshot** — server entrypoint, client bundles, API routes, assets, everything. The build is the deployable. Nothing else required.
+- Nuxt builds the app
+- Zephyr stores that output as a version
+- Zephyr deploys that version to the edge
+- release control happens after build time, not through more packaging logic
 
-No post-build scripts.
-No platform-specific adapters.
-No extra pipelines to keep in sync.
+If you're already happy with your Nuxt workflow, that's the point. You keep the framework flow you already know. Zephyr takes over the operational side of shipping it.
 
-Just build. Then live.
+Every build gets captured as something usable. Zephyr gives it a preview URL, keeps it as an immutable version, and lets teams move that same artifact forward instead of recreating it for every environment. That sounds like a small detail until you've dealt with staging and production drifting because each one got rebuilt under slightly different conditions.
 
-<img src={buildPipeline} alt="Nuxt build to Zephyr snapshot pipeline" />
+Zephyr's tags and environments layer nicely on top of that. Tags resolve to the right version based on rules you define. Environments decide where that version runs and what settings apply. So instead of wiring release behavior into your build scripts, you get a cleaner split:
 
----
+- build decides what the app is
+- release decides where that version goes
 
-## SSR Without the Second Decision
+That separation is huge.
 
-Zephyr deploys what Nuxt produces:
+Zephyr's environment-level overrides also make "build once, deploy everywhere" mean something real. The same built artifact can change behavior at serve time, including different remote dependency targets and different public `ZE_PUBLIC_` values, without forcing a rebuild just because the environment changed.
 
-- If there’s a server entrypoint, it ships SSR at the edge.
-- If not, it serves the static bundle.
+For Nuxt teams, that means fewer fragile scripts, fewer "wait, which environment built this?" moments, and a much cleaner path across development, staging, and production.
 
-Same pipeline. Same command. Zero branching logic. You decide SSR once, in Nuxt, and Zephyr respects it.
+## Rollback Should Be Boring
 
-<img src={snapshotChoice} alt="Snapshot selection between SSR and CSR" />
+On Zephyr, previous versions stay on the edge. So when a release goes sideways, rollback is a routing change, not a rebuild. That's the kind of operational detail that sounds boring on a marketing page and feels incredible when production is on fire.
 
----
+## The Setup Is Pretty Small
 
-## One Application, One Version
+The Nuxt side is intentionally lightweight. Install `zephyr-nuxt-module`, add it to `modules` in `nuxt.config.ts`, and let it plug into the existing build flow.
 
-In traditional Nuxt deployments, `/api/*` routes often run somewhere else — or on a different runtime — than your pages. That’s how teams end up with CORS workarounds, version skew, and split-brain deploys.
+If you're onboarding an existing app, `npx with-zephyr` is the fast path to get a Nuxt project wired up without doing the setup by hand first.
 
-Zephyr keeps your Nuxt app whole.
+For SSR, the current recommended path uses Nitro's Cloudflare module output. Right now, Nuxt SSR deployments work on Zephyr's default managed Cloudflare integration, so there is still a concrete availability boundary there. That's worth being explicit about.
 
-Pages and server routes ride together in the same snapshot, running in the same edge isolate. A request to `/api/users` and a request to `/dashboard` hit the same version, every time.
+But even with that note, the milestone is real. Nuxt is now inside the platform instead of orbiting around it through adapters and deployment glue.
 
-**Nuxt becomes the unit of deployment again.**
+You build the app once. Zephyr turns that build into a versioned release artifact. You get preview URLs, immutable versions, tags, environments, serve-time configuration, and fast rollback without rebuilding the world every time something moves between environments.
 
----
-
-## Serve-Time Control
-
-Once deployed, your app gains a new phase: **Serve Time**. This is where routing, versioning, and environment decisions happen _before_ a response is built.
-
-Zephyr keeps versions immutable and routing dynamic, so you can:
-
-- Route by geography, cohort, or rollout stage.
-- Promote or roll back instantly, without rebuilding.
-- Test variants at the edge without touching Nuxt code.
-
-This is the third phase of delivery — not build time, not runtime — but Serve Time, where the edge makes the decision and your app simply executes.
-
----
-
-## Full-Stack Unity
-
-In the Nuxt example, SSR fetches `/api/hello` during render and returns `time` + `requestId` in the page HTML. Pages and server routes share the same versioned snapshot.
-
-<img src={ssrFlow} alt="SSR request flow for Nuxt API route" />
-
----
-
-## Rollback as a Pointer, Not a Process
-
-Every Zephyr deployment is a snapshot. Every snapshot stays hot.
-
-When something breaks, rollback isn’t a git revert, a CI rerun, or a 20-minute rebuild. It’s a pointer update. The previous version is already on the edge, waiting.
-
-**Seconds to safety.**
-
----
-
-## One Build, Many Clouds
-
-Zephyr’s BYOC architecture makes your Nuxt snapshot portable across Cloudflare, Netlify, AWS, Fastly, and Akamai. No Nuxt-specific duct tape. No per-provider pipelines. No vendor lock-in disguised as convenience.
-
-You build once. Zephyr propagates everywhere.
-
----
-
-## Environment Parity by Design
-
-Immutable snapshots kill “works on staging” forever.
-
-Your dev, staging, and production environments run the **exact same build artifact**. The only difference is Serve-Time overrides — feature flags, public variables, environment-level routing.
-
-When QA signs off, you promote the snapshot, not the commit.
-
----
-
-## Infrastructureless Nuxt
-
-What emerges is something close to **infrastructureless development**.
-
-You write Vue components. You add `server/api` handlers. You run your build. And you ship. Zephyr handles the rest: edge delivery, version management, routing, rollback, environment control.
-
-And yes — subpath hosting works cleanly. Monorepos are fine. Output directories can be explicit. Post-deploy hooks are there when you want them. But none of it is required just to go live.
-
----
-
-## The Bottom Line
-
-Nuxt has always promised “the intuitive Vue framework.” Zephyr now delivers the deployment experience to match.
-
-Less pipeline lore.
-Fewer moving parts.
-More confidence that what you built is what your users see.
-
-If you’re already on Nuxt 3 or 4, the path is minimal: add the Zephyr Nuxt module, run your build, and watch your app show up at the edge.
-
-**Build, then live — every time.**
+It's the difference between hosting a Nuxt app and actually shipping one.
