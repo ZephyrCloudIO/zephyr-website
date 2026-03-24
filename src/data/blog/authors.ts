@@ -1,4 +1,5 @@
 import loisAvatar from '@/images/authors/lois.webp';
+import vernAvatar from '@/images/authors/vern.svg';
 import nestorAvatar from '@/images/authors/nestor.webp';
 import rodrigoAvatar from '@/images/authors/rodrigo.webp';
 import shaneAvatar from '@/images/authors/shane.webp';
@@ -67,5 +68,14 @@ export const Rodrigo: Author = {
     { link: 'https://x.com/ryok90', platform: 'X' },
     { link: 'https://www.linkedin.com/in/rodrigo-yokota/', platform: 'LinkedIn' },
     { link: 'https://github.com/ryok90', platform: 'Github' },
+  ],
+};
+
+export const Vern: Author = {
+  displayName: 'Vern Tremble',
+  zephyrMember: true,
+  avatar: vernAvatar,
+  socialLinks: [
+    { link: 'https://www.linkedin.com/in/verntremble/', platform: 'LinkedIn' },
   ],
 };

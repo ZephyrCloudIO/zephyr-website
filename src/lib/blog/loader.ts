@@ -36,6 +36,7 @@ const authorMap: Record<string, Author> = {
   'Lois Zhao': authors.Lois,
   'Néstor López': authors.Nestor,
   'Rodrigo Yokota': authors.Rodrigo,
+  'Vern Tremble': authors.Vern,
 };
 
 // Convert MDX metadata to BlogPost format
