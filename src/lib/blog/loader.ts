@@ -131,6 +131,8 @@ const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
   'nitro-v3-zephyr': () => import('@/content/blog/nitro-v3-zephyr.mdx') as Promise<MDXBlogPost>,
   'nextjs-without-lock-in-vinext-on-zephyr': () =>
     import('@/content/blog/nextjs-without-lock-in-vinext-on-zephyr.mdx') as Promise<MDXBlogPost>,
+  'orchestration-architecture': () =>
+    import('@/content/blog/orchestration-architecture.mdx') as Promise<MDXBlogPost>,
 };
 
 // Get all blog posts
