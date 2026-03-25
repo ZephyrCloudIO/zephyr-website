@@ -50,6 +50,8 @@ export const TestimonialsSection: React.FC = () => {
                   href={social.link}
                   target="_blank"
                   rel="noopener"
+                  aria-label={`${testimonial.name} on ${social.platform}`}
+                  title={`${testimonial.name} on ${social.platform}`}
                   className="text-neutral-400 hover:text-white transition-colors"
                 >
                   <Icon size={16} />
@@ -116,6 +118,8 @@ export const TestimonialsSection: React.FC = () => {
                                 href={social.link}
                                 target="_blank"
                                 rel="noopener"
+                                aria-label={`${testimonial.name} on ${social.platform}`}
+                                title={`${testimonial.name} on ${social.platform}`}
                                 className="text-neutral-400 hover:text-white transition-colors"
                               >
                                 <Icon size={16} />
@@ -158,6 +162,8 @@ export const TestimonialsSection: React.FC = () => {
                                 href={social.link}
                                 target="_blank"
                                 rel="noopener"
+                                aria-label={`${testimonial.name} on ${social.platform}`}
+                                title={`${testimonial.name} on ${social.platform}`}
                                 className="text-neutral-400 hover:text-white transition-colors"
                               >
                                 <Icon size={16} />
@@ -189,7 +195,7 @@ export const TestimonialsSection: React.FC = () => {
               rel="noopener"
               className="opacity-60 hover:opacity-100 transition-opacity"
             >
-              <img src={logo.src} alt={logo.alt} height={80} className="h-[80px] w-auto object-contain" />
+              <img src={logo.src} alt={logo.alt} width={160} height={80} className="h-[80px] w-auto object-contain" />
             </a>
           ))}
         </div>

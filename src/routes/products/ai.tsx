@@ -3,7 +3,7 @@ import { SignupForm } from '@/components/SignupForm';
 import { UnicornBackground } from '@/components/UnicornBackground';
 import ZephyrLogo from '@/images/zephyr-logo.svg';
 import { createFileRoute } from '@tanstack/react-router';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export const Route = createFileRoute('/products/ai')({
   component: AIPage,
@@ -11,6 +11,16 @@ export const Route = createFileRoute('/products/ai')({
 
 function AIPage() {
   const [shaderReady, setShaderReady] = useState(false);
+
+  useEffect(() => {
+    const fallbackTimer = window.setTimeout(() => {
+      setShaderReady(true);
+    }, 1800);
+
+    return () => {
+      window.clearTimeout(fallbackTimer);
+    };
+  }, []);
 
   return (
     <div className="relative min-h-screen overflow-hidden">

@@ -16,3 +16,5 @@ target/
 .idea
 
 .env
+doc_build
+migration-screenshots

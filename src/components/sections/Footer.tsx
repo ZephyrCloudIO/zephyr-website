@@ -13,31 +13,37 @@ export const Footer: React.FC = () => {
             <Link to="/" className="flex items-center gap-2 mb-4">
               <img src={ZephyrWordmark} alt="Zephyr Logo" width={128} />
             </Link>
-            <img src={SOC2Logo} alt="SOC2 Compliant" className="h-12 mb-4" />
-            <p className="text-xs text-neutral-500">&copy; {new Date().getFullYear()} Zephyr Cloud, Inc.</p>
+            <img src={SOC2Logo} alt="SOC2 Compliant" width={160} height={48} className="h-12 w-auto mb-4" />
+            <p className="text-xs text-neutral-400">&copy; {new Date().getFullYear()} Zephyr Cloud, Inc.</p>
           </div>
           <div>
-            <h5 className="font-semibold text-white mb-3">Developers</h5>
+            <h3 className="font-semibold text-white mb-3 text-base">Developers</h3>
             <ul className="space-y-2 text-sm">
               <li>
-                <a href="https://docs.zephyr-cloud.io/" target="_blank" className="text-neutral-400 hover:text-white">
+                <a
+                  href="https://docs.zephyr-cloud.io/"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-neutral-400 hover:text-white"
+                >
                   Docs
                 </a>
               </li>
               <li>
-                <Link to="./llms.txt" target="_blank" className="text-neutral-400 hover:text-white">
+                <Link to="/llms.txt" target="_blank" className="text-neutral-400 hover:text-white">
                   llms.txt
                 </Link>
               </li>
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-white mb-3">Company</h5>
+            <h3 className="font-semibold text-white mb-3 text-base">Company</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
                   href="https://github.com/ZephyrCloudIO"
                   target="_blank"
+                  rel="noopener"
                   className="text-neutral-400 hover:text-white"
                 >
                   GitHub
@@ -47,18 +53,29 @@ export const Footer: React.FC = () => {
                 <a
                   href="https://www.linkedin.com/company/96615966"
                   target="_blank"
+                  rel="noopener"
                   className="text-neutral-400 hover:text-white"
                 >
                   LinkedIn
                 </a>
               </li>
               <li>
-                <a href="https://discord.gg/zephyrcloud" target="_blank" className="text-neutral-400 hover:text-white">
+                <a
+                  href="https://discord.gg/zephyrcloud"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-neutral-400 hover:text-white"
+                >
                   Discord
                 </a>
               </li>
               <li>
-                <a href="https://x.com/ZephyrCloudIO" target="_blank" className="text-neutral-400 hover:text-white">
+                <a
+                  href="https://x.com/ZephyrCloudIO"
+                  target="_blank"
+                  rel="noopener"
+                  className="text-neutral-400 hover:text-white"
+                >
                   X
                 </a>
               </li>
@@ -66,6 +83,7 @@ export const Footer: React.FC = () => {
                 <a
                   href="https://www.youtube.com/@ZephyrCloud"
                   target="_blank"
+                  rel="noopener"
                   className="text-neutral-400 hover:text-white"
                 >
                   YouTube
@@ -75,6 +93,7 @@ export const Footer: React.FC = () => {
                 <a
                   href="https://www.instagram.com/zephyrcloudio"
                   target="_blank"
+                  rel="noopener"
                   className="text-neutral-400 hover:text-white"
                 >
                   Instagram
@@ -83,7 +102,7 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-white mb-3">Legal</h5>
+            <h3 className="font-semibold text-white mb-3 text-base">Legal</h3>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/privacy" className="text-neutral-400 hover:text-white">

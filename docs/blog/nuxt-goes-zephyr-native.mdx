@@ -1,0 +1,68 @@
+---
+title: 'Nuxt Goes Zephyr-Native: The End of Deployment Scripts | Zephyr Cloud'
+description: 'Nuxt apps now deploy as native Zephyr artifacts: build once, ship SSR or CSR automatically, and control releases at serve time.'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'Nuxt Goes Zephyr-Native: The End of Deployment Scripts'
+  - - meta
+    - property: og:description
+      content: 'Nuxt apps now deploy as native Zephyr artifacts: build once, ship SSR or CSR automatically, and control releases at serve time.'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/nuxt-goes-zephyr-native'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/nuxt-goes-zephyr-native/hero.webp'
+  - - meta
+    - property: og:image:type
+      content: 'image/webp'
+  - - meta
+    - property: og:image:secure_url
+      content: 'https://zephyr-cloud.io/images/blog/nuxt-goes-zephyr-native/hero.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'Nuxt Goes Zephyr-Native: The End of Deployment Scripts'
+  - - meta
+    - name: twitter:description
+      content: 'Nuxt apps now deploy as native Zephyr artifacts: build once, ship SSR or CSR automatically, and control releases at serve time.'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/nuxt-goes-zephyr-native/hero.webp'
+  - - meta
+    - name: twitter:image:type
+      content: 'image/webp'
+  - - meta
+    - name: twitter:image:src
+      content: 'https://zephyr-cloud.io/images/blog/nuxt-goes-zephyr-native/hero.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/nuxt-goes-zephyr-native'
+---
+
+import PostBody from '@/content/blog/nuxt-goes-zephyr-native.mdx';
+import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'Nuxt Goes Zephyr-Native: The End of Deployment Scripts',
+  slug: 'nuxt-goes-zephyr-native',
+  date: '2026-03-17',
+  heroImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp',
+  listingImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp',
+  description:
+    'Nuxt apps now deploy as native Zephyr artifacts: build once, ship SSR or CSR automatically, and control releases at serve time.',
+  authors: ['Néstor López'],
+  tags: ['announcement', 'deployment', 'edge', 'web', 'product'],
+  featured: true,
+  readingTime: 7,
+};
+
+<BlogArticlePage slug={'nuxt-goes-zephyr-native'} metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

@@ -20,8 +20,9 @@
     "noUnusedParameters": true,
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./src/*"]
+      "@/*": ["./src/*"],
+      "@tanstack/react-router": ["./src/router-shim.tsx"]
     }
   },
-  "include": ["src"]
+  "include": ["src", "theme", "rspress.config.ts"]
 }
