@@ -2,7 +2,6 @@ import { StrictMode, type ComponentType } from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles.css';
 
-const ENABLED_LANDERS_ENV_VAR = 'ZE_PUBLIC_ENABLED_LANDERS';
 const ALWAYS_ON_MARKERS = new Set(['*', 'all']);
 
 function parseEnabledLanders(rawValue: string | undefined) {
@@ -26,20 +25,6 @@ export function isLanderEnabled(slug: string) {
   return enabledLanders.has(normalizedSlug) || [...ALWAYS_ON_MARKERS].some((marker) => enabledLanders.has(marker));
 }
 
-function DisabledLander({ slug }: { slug: string }) {
-  return (
-    <main className="lander-disabled">
-      <div className="lander-disabled__panel">
-        <p className="lander-eyebrow">Lander disabled</p>
-        <h1>{slug} is not enabled right now.</h1>
-        <p>
-          Add <code>{slug}</code> to <code>{ENABLED_LANDERS_ENV_VAR}</code> to serve this page.
-        </p>
-      </div>
-    </main>
-  );
-}
-
 export function mountLander({
   slug,
   component: Component,
@@ -59,8 +44,17 @@ export function mountLander({
     document.title = title;
   }
 
+  if (!isLanderEnabled(slug)) {
+    window.location.replace('/');
+    return;
+  }
+
   document.documentElement.classList.add('dark');
 
   const root = ReactDOM.createRoot(rootEl);
-  root.render(<StrictMode>{isLanderEnabled(slug) ? <Component /> : <DisabledLander slug={slug} />}</StrictMode>);
+  root.render(
+    <StrictMode>
+      <Component />
+    </StrictMode>,
+  );
 }

@@ -44,3 +44,5 @@ ZE_PUBLIC_ENABLED_LANDERS=*
 - Lander: `dist/<slug>/index.html`
 
 Dev/preview rewrites `/slug` to the lander entry HTML. Production routing can be handled separately at the Zephyr layer.
+
+If a lander slug is not enabled, the runtime redirects back to `/` instead of rendering a disabled message.
