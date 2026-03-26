@@ -1,5 +1,5 @@
 import loisAvatar from '@/images/authors/lois.webp';
-import vernAvatar from '@/images/authors/vern.svg';
+import vernAvatar from '@/images/authors/vern.webp';
 import nestorAvatar from '@/images/authors/nestor.webp';
 import rodrigoAvatar from '@/images/authors/rodrigo.webp';
 import shaneAvatar from '@/images/authors/shane.webp';
