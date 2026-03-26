@@ -30,6 +30,24 @@ Build the app for Zephyr preview urls:
 pnpm build
 ```
 
+## Standalone Landers
+
+Special campaign landers live in `src/landers/<slug>` and ship as their own HTML entrypoints. They do not use the main TanStack router shell.
+
+Create one from the template:
+
+```bash
+pnpm create-lander founder-briefing
+```
+
+Enable one or more landers:
+
+```bash
+ZE_PUBLIC_ENABLED_LANDERS=founder-briefing,partner-launch
+```
+
+Each enabled lander builds to `dist/<slug>/index.html`.
+
 ## Image Conversion
 
 The project includes a powerful Rust-based image converter (`imgc`) for all image processing needs.
