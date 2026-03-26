@@ -1,6 +1,6 @@
 import type { RsbuildPlugin } from '@rsbuild/core';
-import { readdirSync } from 'fs';
-import { join } from 'path';
+import { readdirSync } from 'node:fs';
+import { join } from 'node:path';
 
 interface SitemapRoute {
   path: string;
@@ -36,7 +36,7 @@ ${urlEntries}
 const getContentSlugs = (contentPath: string): string[] => {
   try {
     const files = readdirSync(contentPath);
-    return files.filter((file) => file.endsWith('.mdx')).map((file) => file.replace('.mdx', ''));
+    return files.filter((file: string) => file.endsWith('.mdx')).map((file: string) => file.replace('.mdx', ''));
   } catch (error) {
     console.warn(`Could not read content directory: ${contentPath}`);
     return [];
@@ -49,7 +49,7 @@ const getStaticRoutes = (routesPath: string, prefix: string = ''): string[] => {
     const files = readdirSync(routesPath);
     const routes: string[] = [];
 
-    files.forEach((file) => {
+    files.forEach((file: string) => {
       // Skip special files
       if (file.startsWith('__') || file.startsWith('$') || file === 'index.tsx') {
         return;
