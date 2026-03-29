@@ -1,18 +1,21 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
 import { Card, CardContent } from '@/components/ui/card';
+import { LinkedinIcon } from '@/components/ui/linkedin-icon';
+import { TwitchIcon } from '@/components/ui/twitch-icon';
 import { XIcon } from '@/components/ui/x-icon';
+import { YoutubeIcon } from '@/components/ui/youtube-icon';
 import { companyLogos } from '@/constants/companyLogos';
 import { Testimonials, type Testimonial, type TestimonialSocialPlatform } from '@/testimonials';
-import { Linkedin, Twitch, Youtube, type LucideIcon } from 'lucide-react';
+import { type LucideIcon } from 'lucide-react';
 import React from 'react';
 
 export const TestimonialsSection: React.FC = () => {
   // Social media platform to icon mapping
   const socialIcons: Record<TestimonialSocialPlatform, LucideIcon> = {
     X: XIcon,
-    LinkedIn: Linkedin,
-    YouTube: Youtube,
-    Twitch: Twitch,
+    LinkedIn: LinkedinIcon,
+    YouTube: YoutubeIcon,
+    Twitch: TwitchIcon,
   };
 
   // Split testimonials into two rows for scrolling effect
