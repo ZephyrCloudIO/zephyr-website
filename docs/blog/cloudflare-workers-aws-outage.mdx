@@ -1,0 +1,68 @@
+---
+title: 'Keeping Our API Online During the AWS Outage | Zephyr Cloud'
+description: 'On the morning of October 20th, 2025, our monitoring alerts started firing. Our API was unreachable due to a massive AWS outage. This is the story of how we used Cloudflare Workers as an emergency proxy to route around a DNS failure and kept our API online during a major cloud provider outage.'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'Keeping Our API Online During the AWS Outage'
+  - - meta
+    - property: og:description
+      content: 'On the morning of October 20th, 2025, our monitoring alerts started firing. Our API was unreachable due to a massive AWS outage. This is the story of how we used Cloudflare Workers as an emergency proxy to route around a DNS failure and kept our API online during a major cloud provider outage.'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/cloudflare-workers-aws-outage'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/cloudflare-workers-aws-outage/hero.webp'
+  - - meta
+    - property: og:image:type
+      content: 'image/webp'
+  - - meta
+    - property: og:image:secure_url
+      content: 'https://zephyr-cloud.io/images/blog/cloudflare-workers-aws-outage/hero.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'Keeping Our API Online During the AWS Outage'
+  - - meta
+    - name: twitter:description
+      content: 'On the morning of October 20th, 2025, our monitoring alerts started firing. Our API was unreachable due to a massive AWS outage. This is the story of how we used Cloudflare Workers as an emergency proxy to route around a DNS failure and kept our API online during a major cloud provider outage.'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/cloudflare-workers-aws-outage/hero.webp'
+  - - meta
+    - name: twitter:image:type
+      content: 'image/webp'
+  - - meta
+    - name: twitter:image:src
+      content: 'https://zephyr-cloud.io/images/blog/cloudflare-workers-aws-outage/hero.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/cloudflare-workers-aws-outage'
+---
+
+import PostBody from '@/content/blog/cloudflare-workers-aws-outage.mdx';
+import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'Keeping Our API Online During the AWS Outage',
+  slug: 'cloudflare-workers-aws-outage',
+  date: '2025-10-21',
+  heroImage: '/images/blog/cloudflare-workers-aws-outage/hero.webp',
+  listingImage: '/images/blog/cloudflare-workers-aws-outage/hero.webp',
+  description:
+    'On the morning of October 20th, 2025, our monitoring alerts started firing. Our API was unreachable due to a massive AWS outage. This is the story of how we used Cloudflare Workers as an emergency proxy to route around a DNS failure and kept our API online during a major cloud provider outage.',
+  authors: ['Rodrigo Yokota'],
+  tags: ['cloud', 'incident-response', 'outage'],
+  featured: true,
+  readingTime: 10,
+};
+
+<BlogArticlePage slug={'cloudflare-workers-aws-outage'} metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

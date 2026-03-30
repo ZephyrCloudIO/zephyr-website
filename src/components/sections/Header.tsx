@@ -85,7 +85,9 @@ export const Header: React.FC = () => {
             </Link>
             <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
               <DropdownMenuTrigger asChild>
-                <span className="sr-only">Logo menu</span>
+                <button type="button" className="sr-only" aria-label="Logo menu">
+                  Logo menu
+                </button>
               </DropdownMenuTrigger>
               <DropdownMenuContent className="w-56 border-neutral-700" align="start" alignOffset={-5} sideOffset={5}>
                 <DropdownMenuLabel>Platform</DropdownMenuLabel>
@@ -238,6 +240,7 @@ export const Header: React.FC = () => {
               <a
                 href="https://docs.zephyr-cloud.io/"
                 target="_blank"
+                rel="noopener"
                 className={cn(
                   navigationMenuTriggerStyle(),
                   'bg-transparent text-neutral-400 hover:text-white hover:bg-transparent',
@@ -278,8 +281,8 @@ export const Header: React.FC = () => {
             <Package size={16} className="text-white" />
             <span className="text-white">npm</span>
           </a>
-          <Button variant="outline" className="text-sm h-9">
-            <a href="https://app.zephyr-cloud.io/" target="_blank">
+          <Button variant="outline" className="text-sm h-9" asChild>
+            <a href="https://app.zephyr-cloud.io/" target="_blank" rel="noopener">
               Get Started
             </a>
           </Button>
@@ -389,6 +392,7 @@ export const Header: React.FC = () => {
           <a
             href="https://docs.zephyr-cloud.io/"
             target="_blank"
+            rel="noopener"
             onClick={() => setMobileMenuOpen(false)}
             className="block text-neutral-400 hover:text-white py-2"
           >

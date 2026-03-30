@@ -1,3 +1,4 @@
+import { formatDateLong } from '@/date';
 import { tagLabels } from '@/lib/blog/tags';
 import type { BlogPost } from '@/lib/blog/types';
 import { Link } from '@tanstack/react-router';
@@ -39,13 +40,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
           <div className="flex items-center gap-4 text-sm text-neutral-400 mb-3">
             <div className="flex items-center gap-2">
               <Calendar className="w-4 h-4" />
-              <time dateTime={post.date.toISOString()}>
-                {post.date.toLocaleDateString('en-US', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </time>
+              <time dateTime={post.date.toISOString()}>{formatDateLong(post.date)}</time>
             </div>
             {post.readingTime && <span>{post.readingTime} min read</span>}
           </div>

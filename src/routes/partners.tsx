@@ -25,7 +25,7 @@ function PartnersPage() {
               key={partner.id}
               href={partner.url}
               target="_blank"
-              rel="noopener noreferrer"
+              rel="noopener"
               className="group block bg-neutral-900 rounded-lg p-8 transition-all hover:bg-neutral-800 hover:scale-[1.02] hover:shadow-xl"
             >
               {/* Logo */}
