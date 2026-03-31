@@ -1,5 +1,6 @@
 // Blog post images
 import aiE2eTestingHeroImage from '@/images/blog/ai-e2e-testing/ai-testing-hero.webp';
+import orchestrationArchitectureHeroImage from '@/images/blog/orchestration-architecture/hero.svg';
 import aiE2eTestingListingImage from '@/images/blog/ai-e2e-testing/ai-testing-listing.webp';
 import allThePipelinesHeroImage from '@/images/blog/all-the-pipelines/hero.svg';
 import blogPostAwsHeroImage from '@/images/blog/aws-byoc/blog-post-aws.webp';
@@ -123,5 +124,9 @@ export const blogImages = {
   'env-variables-and-zephyr': {
     heroImage: envVariablesAndZephyrHeroImage,
     listingImage: envVariablesAndZephyrHeroImage,
+  },
+  'orchestration-architecture': {
+    heroImage: orchestrationArchitectureHeroImage,
+    listingImage: orchestrationArchitectureHeroImage,
   },
 };

@@ -127,7 +127,17 @@ const mdxComponents = {
   ),
   td: (props: any) => <td className="px-4 py-3 align-top leading-relaxed" {...props} />,
   TwitterEmbed,
-  a: (props: any) => <a className="text-emerald-400 hover:text-emerald-300 underline" {...props} />,
+  a: ({ href, ...props }: any) => {
+    const isExternal = typeof href === 'string' && /^https?:\/\//.test(href);
+    return (
+      <a
+        href={href}
+        className="text-emerald-400 hover:text-emerald-300 underline"
+        {...(isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+        {...props}
+      />
+    );
+  },
   img: (props: any) => <img className="rounded-lg my-6 max-w-full" {...props} />,
   strong: (props: any) => <strong className="font-semibold text-white" {...props} />,
   em: (props: any) => <em className="italic" {...props} />,
