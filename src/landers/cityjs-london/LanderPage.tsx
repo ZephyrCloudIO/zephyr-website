@@ -97,8 +97,6 @@ const footerGroups = [
 export function CityjsLondonLanderPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const manifesto = 'Microfrontends solved frontend scale. Now systems need orchestration. Zephyr makes it executable.';
-  const primaryButtonClass =
-    'inline-flex h-9 items-center justify-center rounded-md border border-[#e5e5e5] bg-white px-4 text-sm font-medium text-[#0a0a0a] shadow-[0_1px_2px_rgba(0,0,0,0.05)] transition hover:bg-[#f5f5f5]';
 
   return (
     <main className="lander-shell overflow-hidden bg-[#0a0a0a] text-white [background-image:none]">
@@ -134,11 +132,8 @@ export function CityjsLondonLanderPage() {
         />
 
         <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6 md:px-8 lg:px-10">
-          <header className="cityjs-rise flex items-center justify-between gap-6">
+          <header className="cityjs-rise flex items-center gap-6">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" className="h-[31px] w-[175px]" />
-            <a href="#cityjs-hubspot-form" className={primaryButtonClass}>
-              Start building
-            </a>
           </header>
 
           <div className="cityjs-rise flex flex-1 flex-col items-center justify-center gap-10 pt-20 text-center md:pt-28">
@@ -156,9 +151,11 @@ export function CityjsLondonLanderPage() {
                   From Module Federation to AI orchestration - live in minutes
                 </p>
               </div>
-              <a href="#cityjs-hubspot-form" className={primaryButtonClass}>
-                Start building
-              </a>
+              <div className="mx-auto max-w-[620px] space-y-4">
+                <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl md:p-5">
+                  <HubspotInlineForm mode="hero" />
+                </div>
+              </div>
             </div>
 
             <div className="w-full max-w-[1136px]">
@@ -287,7 +284,7 @@ export function CityjsLondonLanderPage() {
             </h2>
           </div>
 
-          <div className="mx-auto h-[111px] w-full max-w-[400px] rounded-2xl border border-[#7c3aed] bg-[rgba(124,58,237,0.1)] shadow-[0_0_0_1px_rgba(124,58,237,0.12)]">
+          <div className="mx-auto w-full max-w-[460px] rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
             <HubspotInlineForm />
           </div>
         </section>
