@@ -6,13 +6,15 @@
   "scripts": {
     "batch-convert": "node scripts/batch-convert.js",
     "build": "rsbuild build",
+    "create-lander": "node scripts/create-lander.js",
     "dev": "rsbuild dev",
     "format": "prettier --write .",
     "imgc": "./image-converter/target/release/imgc",
     "imgc-build": "cd image-converter && cargo build --release",
     "imgc-help": "./image-converter/target/release/imgc --help",
     "prepare": "husky",
-    "preview": "rsbuild preview"
+    "preview": "rsbuild preview",
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@mdx-js/loader": "^3.1.1",
@@ -52,6 +54,7 @@
     "@rsbuild/plugin-react": "1.4.6",
     "@tailwindcss/postcss": "4.2.2",
     "@tanstack/router-plugin": "1.167.1",
+    "@types/node": "^24.7.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
     "husky": "9.1.7",

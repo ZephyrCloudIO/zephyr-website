@@ -15,6 +15,7 @@ jobs:
     env:
       PUBLIC_POSTHOG_KEY: ${{ secrets.PUBLIC_POSTHOG_KEY }}
       PUBLIC_POSTHOG_HOST: ${{ secrets.PUBLIC_POSTHOG_HOST }}
+      ZE_PUBLIC_ENABLED_LANDERS: ${{ vars.ZE_PUBLIC_ENABLED_LANDERS || '' }}
     steps:
       - name: Checkout code
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6
