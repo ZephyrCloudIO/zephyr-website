@@ -63,7 +63,7 @@ function ChangelogPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-400"></div>
       </div>
     );
   }
@@ -73,8 +73,8 @@ function ChangelogPage() {
       <div className="container mx-auto px-4 py-16 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">Changelog</h1>
-          <p className="text-xl text-neutral-400">Latest updates and improvements to Zephyr Cloud</p>
+          <h1 className="text-5xl font-bold mb-4 text-foreground">Changelog</h1>
+          <p className="text-xl text-muted-foreground">Latest updates and improvements to Zephyr Cloud</p>
         </div>
 
         {/* Timeline */}
@@ -87,12 +87,12 @@ function ChangelogPage() {
               {/* Year and Month Header */}
               <div className="flex items-center gap-4 mb-8">
                 <div className="hidden lg:block w-[120px] text-right">
-                  <div className="text-2xl font-bold text-white">{group.year}</div>
+                  <div className="text-2xl font-bold text-foreground">{group.year}</div>
                   <div className="text-neutral-400">{group.month}</div>
                 </div>
-                <div className="hidden lg:block w-4 h-4 bg-emerald-500 rounded-full relative z-10" />
+                <div className="hidden lg:block w-4 h-4 bg-violet-500 rounded-full relative z-10" />
                 <div className="lg:hidden">
-                  <div className="text-2xl font-bold text-white">
+                  <div className="text-2xl font-bold text-foreground">
                     {group.month} {group.year}
                   </div>
                 </div>
@@ -102,7 +102,7 @@ function ChangelogPage() {
               <div className="lg:ml-[160px] grid gap-6 md:grid-cols-2 lg:grid-cols-3">
                 {group.entries.map((entry) => (
                   <Link key={entry.slug} to="/changelog/$slug" params={{ slug: entry.slug }} className="group relative">
-                    <article className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden hover:border-emerald-600 transition-all duration-200 h-full">
+                    <article className="bg-neutral-900 border border-neutral-800 rounded-lg overflow-hidden hover:border-violet-600 transition-all duration-200 h-full">
                       {/* Image */}
                       {entry.image && (
                         <div className="aspect-[16/9] overflow-hidden bg-neutral-950">
@@ -119,7 +119,7 @@ function ChangelogPage() {
                         {/* Category Icon */}
                         <div className="flex items-center gap-2 mb-3">
                           {entry.category === 'performance' && <Zap className="w-4 h-4 text-yellow-500" />}
-                          {entry.category === 'feature' && <Rocket className="w-4 h-4 text-emerald-500" />}
+                          {entry.category === 'feature' && <Rocket className="w-4 h-4 text-violet-500" />}
                           {entry.category === 'integration' && <Package className="w-4 h-4 text-blue-500" />}
                           {entry.category === 'security' && <Shield className="w-4 h-4 text-red-500" />}
                           {entry.category === 'platform' && <Globe className="w-4 h-4 text-purple-500" />}
@@ -127,7 +127,7 @@ function ChangelogPage() {
                           <span className="text-xs text-neutral-400 uppercase tracking-wider">{entry.category}</span>
                         </div>
 
-                        <h3 className="text-lg font-semibold mb-2 text-white group-hover:text-emerald-400 transition-colors">
+                        <h3 className="text-lg font-semibold mb-2 text-foreground group-hover:text-violet-400 transition-colors">
                           {entry.title}
                         </h3>
 

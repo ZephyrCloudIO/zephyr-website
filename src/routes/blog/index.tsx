@@ -53,14 +53,14 @@ function BlogPage() {
       <div className="container mx-auto px-4 py-16 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">Blog</h1>
-          <p className="text-xl text-neutral-400">Insights, updates, and tutorials from the Zephyr team</p>
+          <h1 className="text-5xl font-bold mb-4 text-foreground">Blog</h1>
+          <p className="text-xl text-muted-foreground">Insights, updates, and tutorials from the Zephyr team</p>
         </div>
 
         {/* Loading State */}
         {loading && (
           <div className="flex justify-center items-center py-20">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-400"></div>
           </div>
         )}
 

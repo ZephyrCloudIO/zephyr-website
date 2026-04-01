@@ -23,18 +23,18 @@ export const Route = createFileRoute('/events')({
 
 function EventCard({ event }: { event: Event }) {
   const typeConfig = {
-    conference: { bg: 'bg-emerald-900/20', border: 'border-emerald-700/50', text: 'text-emerald-400', icon: Globe },
+    conference: { bg: 'bg-violet-900/20', border: 'border-violet-700/50', text: 'text-violet-400', icon: Globe },
     webinar: { bg: 'bg-blue-900/20', border: 'border-blue-700/50', text: 'text-blue-400', icon: Zap },
     meetup: { bg: 'bg-violet-900/20', border: 'border-violet-700/50', text: 'text-violet-400', icon: Users },
-    workshop: { bg: 'bg-red-900/20', border: 'border-red-700/50', text: 'text-red-400', icon: Sparkles },
+    workshop: { bg: 'bg-violet-900/20', border: 'border-violet-700/50', text: 'text-violet-400', icon: Sparkles },
   };
 
   const config = typeConfig[event.type];
   const Icon = config.icon;
 
   return (
-    <div className="group relative overflow-hidden rounded-xl border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-900/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-700 hover:shadow-2xl hover:shadow-emerald-500/10">
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
+    <div className="group relative overflow-hidden rounded-xl border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-900/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-700 hover:shadow-2xl hover:shadow-violet-500/10">
+      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
 
       <div className="relative z-10">
         <div className="flex items-start justify-between mb-4">
@@ -52,9 +52,7 @@ function EventCard({ event }: { event: Event }) {
           {event.isPast && <span className="text-xs text-neutral-500 bg-neutral-800/50 px-2 py-1 rounded">Past</span>}
         </div>
 
-        <h3 className="text-xl font-semibold mb-3 text-white group-hover:text-emerald-400 transition-colors">
-          {event.title}
-        </h3>
+        <h3 className="text-xl font-semibold mb-3 text-foreground">{event.title}</h3>
 
         <div className="space-y-2 mb-4">
           <div className="flex items-center gap-2 text-sm text-neutral-400">
@@ -102,7 +100,7 @@ function EventCard({ event }: { event: Event }) {
             href={event.link}
             target="_blank"
             rel="noopener"
-            className="inline-flex items-center text-emerald-400 hover:text-emerald-300 transition-colors font-medium text-sm"
+            className="inline-flex items-center text-neutral-400 hover:text-neutral-200 transition-colors font-medium text-sm"
           >
             {event.ctaText || 'Register now'}
             <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -129,7 +127,7 @@ function EventCard({ event }: { event: Event }) {
                     href={resource.link}
                     target="_blank"
                     rel="noopener"
-                    className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-emerald-400 transition-colors"
+                    className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors"
                   >
                     <IconComponent size={16} />
                     <span>{resource.text}</span>
@@ -140,7 +138,7 @@ function EventCard({ event }: { event: Event }) {
                   <Link
                     key={index}
                     to={resource.link}
-                    className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-emerald-400 transition-colors"
+                    className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors"
                   >
                     <IconComponent size={16} />
                     <span>{resource.text}</span>
@@ -209,15 +207,17 @@ function EventsPage() {
       {/* Hero Section */}
       <div className="relative overflow-hidden bg-gradient-to-br from-neutral-900 via-black to-neutral-900">
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(16,185,129,0.1),transparent_50%)]" />
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(124,58,237,0.1),transparent_50%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,rgba(139,92,246,0.1),transparent_50%)]" />
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(59,130,246,0.1),transparent_50%)]" />
         </div>
 
         <div className="relative container mx-auto px-4 py-24 max-w-6xl">
           <div className="max-w-3xl">
-            <h1 className="text-5xl lg:text-6xl font-medium leading-tighter mb-6 text-white">Build, Ship, Connect</h1>
-            <p className="text-xl text-neutral-300 mb-8">
+            <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-br from-white to-neutral-400 bg-clip-text text-transparent">
+              Build, Ship, Connect
+            </h1>
+            <p className="text-xl text-muted-foreground mb-8">
               Join our Zephyr Cloud community at conferences, workshops, and meetups worldwide.
             </p>
           </div>
@@ -229,33 +229,33 @@ function EventsPage() {
         {featuredEvent && (
           <section className="mb-16">
             <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-              <Sparkles className="text-emerald-400" size={24} />
+              <Sparkles className="text-neutral-400" size={24} />
               Featured Event
             </h2>
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-emerald-900/20 to-emerald-900/5 border border-emerald-700/50 p-8 lg:p-12">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-transparent" />
+            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-violet-900/20 to-violet-900/5 border border-violet-700/50 p-8 lg:p-12">
+              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-transparent" />
 
               <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
                 <div>
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-emerald-900/50 text-emerald-400 border border-emerald-700/50 mb-4">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-violet-900/50 text-violet-400 border border-violet-700/50 mb-4">
                     <Globe size={16} />
                     <span>{featuredEvent.type.charAt(0).toUpperCase() + featuredEvent.type.slice(1)}</span>
                   </div>
 
-                  <h3 className="text-3xl lg:text-4xl font-bold mb-4 text-white">{featuredEvent.title}</h3>
+                  <h3 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">{featuredEvent.title}</h3>
 
                   <div className="space-y-3 mb-6">
                     <div className="flex items-center gap-3 text-neutral-300">
-                      <CalendarDays size={18} className="text-emerald-400" />
+                      <CalendarDays size={18} className="text-neutral-400" />
                       <span>{featuredEvent.date}</span>
                     </div>
                     <div className="flex items-center gap-3 text-neutral-300">
-                      <MapPin size={18} className="text-emerald-400" />
+                      <MapPin size={18} className="text-neutral-400" />
                       <span>{featuredEvent.location}</span>
                     </div>
                     {featuredEvent.attendees && (
                       <div className="flex items-center gap-3 text-neutral-300">
-                        <Users size={18} className="text-emerald-400" />
+                        <Users size={18} className="text-neutral-400" />
                         <span>{featuredEvent.attendees}+ expected attendees</span>
                       </div>
                     )}
@@ -266,7 +266,7 @@ function EventsPage() {
                   {featuredEvent.speakers && (
                     <div className="mb-6">
                       <p className="text-sm text-neutral-400 mb-2">Featured Speakers</p>
-                      <p className="text-white font-medium">{featuredEvent.speakers.join(', ')}</p>
+                      <p className="text-foreground font-medium">{featuredEvent.speakers.join(', ')}</p>
                     </div>
                   )}
 
@@ -274,7 +274,7 @@ function EventsPage() {
                     href={featuredEvent.link}
                     target="_blank"
                     rel="noopener"
-                    className="inline-flex items-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 py-3 rounded-lg transition-colors"
+                    className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-medium px-6 py-3 rounded-lg transition-colors"
                   >
                     {featuredEvent.ctaText || 'Register Now'}
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -307,8 +307,8 @@ function EventsPage() {
               className={cn(
                 'inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all',
                 filter === value
-                  ? 'bg-emerald-600 text-white'
-                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-white',
+                  ? 'bg-neutral-100 text-neutral-900'
+                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-neutral-100',
               )}
             >
               {Icon && <Icon size={16} />}
@@ -343,18 +343,18 @@ function EventsPage() {
 
         {/* CTA Section */}
         <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-800 p-12 border border-neutral-700">
-          <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/5 via-transparent to-violet-500/5" />
+          <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-violet-500/5" />
 
           <div className="relative z-10 max-w-3xl mx-auto text-center">
             <h2 className="text-3xl font-bold mb-4">Host a Zephyr Event</h2>
-            <p className="text-neutral-300 mb-8 text-lg">
+            <p className="text-muted-foreground mb-8 text-lg">
               Want to bring the power of runtime updates and Module Federation to your team? We offer custom workshops,
               speaking engagements, and acceleration weeks tailored to your needs.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <a
                 href="mailto:inbound@zephyr-cloud.io"
-                className="inline-flex items-center justify-center gap-2 bg-emerald-600 hover:bg-emerald-500 text-white font-medium px-6 py-3 rounded-lg transition-colors"
+                className="inline-flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-medium px-6 py-3 rounded-lg transition-colors"
               >
                 Contact Our Events Team
                 <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
