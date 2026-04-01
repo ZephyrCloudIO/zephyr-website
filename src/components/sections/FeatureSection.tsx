@@ -33,7 +33,7 @@ interface FeatureTitleProps {
 
 export const FeatureTitle: React.FC<FeatureTitleProps> = ({ children, prefix, className }) => {
   return (
-    <h2 className={cn('text-5xl font-bold text-white', className)}>
+    <h2 className={cn('text-5xl font-bold text-neutral-100', className)}>
       {prefix}
       {children}
     </h2>
@@ -46,7 +46,7 @@ interface FeatureDescriptionProps {
 }
 
 export const FeatureDescription: React.FC<FeatureDescriptionProps> = ({ children, className }) => {
-  return <p className={cn('mt-4 text-lg text-neutral-400 max-w-2xl mx-auto', className)}>{children}</p>;
+  return <p className={cn('mt-4 text-lg text-muted-foreground max-w-2xl mx-auto', className)}>{children}</p>;
 };
 
 interface FeatureContentProps {

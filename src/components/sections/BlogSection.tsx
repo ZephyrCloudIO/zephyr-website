@@ -18,14 +18,14 @@ export const BlogSection: React.FC = () => {
   return (
     <section className="py-20 md:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-semibold text-white mb-4">Keep tabs on what we're shipping</h2>
+        <h2 className="text-center text-3xl font-semibold text-neutral-100 mb-4">Keep tabs on what we're shipping</h2>
         <p className="text-center mb-12">
           Follow us on{' '}
           <a
             href="https://x.com/ZephyrCloudIO"
             target="_blank"
             rel="noopener"
-            className="text-emerald-700 hover:underline"
+            className="text-neutral-400 underline underline-offset-2 decoration-neutral-600 hover:text-neutral-200 transition-colors"
           >
             X
           </a>
@@ -33,14 +33,14 @@ export const BlogSection: React.FC = () => {
         </p>
         {loading ? (
           <div className="flex justify-center py-12">
-            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-emerald-400"></div>
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-violet-400"></div>
           </div>
         ) : posts.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {posts.map((post) => (
               <Card key={post.slug} className="bg-neutral-900 border-neutral-400 text-neutral-300 flex flex-col">
                 <CardHeader>
-                  <CardTitle className="text-lg text-white hover:text-emerald-700 transition-colors">
+                  <CardTitle className="text-lg text-neutral-100 hover:text-violet-400 transition-colors">
                     <Link to={`/blog/${post.slug}`}>{post.title}</Link>
                   </CardTitle>
                   <CardDescription className="text-neutral-400 text-sm line-clamp-2">
@@ -56,7 +56,7 @@ export const BlogSection: React.FC = () => {
                           <AvatarFallback>{post.authors[0].displayName.substring(0, 1)}</AvatarFallback>
                         </Avatar>
                         <div>
-                          <span className="text-white block">{post.authors[0].displayName}</span>
+                          <span className="text-neutral-200 block">{post.authors[0].displayName}</span>
                           <span className="text-neutral-500">
                             {post.date.toLocaleDateString('en-US', {
                               month: 'short',
