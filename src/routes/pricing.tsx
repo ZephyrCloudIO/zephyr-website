@@ -114,13 +114,13 @@ function PricingPage() {
   const getTierButtonClassName = (tier: (typeof tiers)[number]) => {
     switch (tier.id) {
       case 'personal':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-emerald-700/70 hover:bg-neutral-800';
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-violet-700/70 hover:bg-neutral-800';
       case 'team':
-        return 'border border-emerald-500/70 bg-emerald-600 text-white shadow-lg shadow-emerald-900/30 hover:bg-emerald-500 hover:border-emerald-400';
+        return 'border border-violet-500/70 bg-violet-600 text-white shadow-lg shadow-violet-900/30 hover:bg-violet-500 hover:border-violet-400';
       case 'business':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-amber-600/60 hover:bg-neutral-800';
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-violet-700/70 hover:bg-neutral-800';
       case 'enterprise':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-violet-700/70 hover:bg-neutral-800';
       default:
         return 'bg-neutral-500 hover:bg-neutral-600';
     }
@@ -131,26 +131,26 @@ function PricingPage() {
       {/* Hero Section */}
       <div className="text-center mb-8">
         <h1 className="text-5xl font-bold mb-4">Pricing that scales with your team</h1>
-        <p className="text-xl text-neutral-300 mb-1 max-w-2xl mx-auto">Start free and scale as you grow.</p>
+        <p className="text-xl text-muted-foreground mb-1 max-w-2xl mx-auto">Start free and scale as you grow.</p>
       </div>
 
       {/* Key Features Banner */}
-      <div className="bg-gradient-to-r from-emerald-900/20 to-emerald-700/20 border border-emerald-700/30 rounded-lg p-6 mb-12">
+      <div className="bg-gradient-to-r from-violet-900/20 to-violet-700/20 border border-violet-700/30 rounded-lg p-6 mb-12">
         <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
           <div className="flex items-center gap-2">
-            <Infinity className="h-4 w-4 text-emerald-700" />
+            <Infinity className="h-4 w-4 text-violet-500" />
             <span>No build minutes</span>
           </div>
           <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-emerald-700" />
+            <Zap className="h-4 w-4 text-violet-500" />
             <span>Sub-second deployments</span>
           </div>
           <div className="flex items-center gap-2">
-            <Cloud className="h-4 w-4 text-emerald-700" />
+            <Cloud className="h-4 w-4 text-violet-500" />
             <span>Bring Your Own Cloud (BYOC)</span>
           </div>
           <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-emerald-700" />
+            <Sparkles className="h-4 w-4 text-violet-500" />
             <span>Unlimited preview environments</span>
           </div>
         </div>
@@ -175,12 +175,12 @@ function PricingPage() {
             key={tier.id}
             className={cn(
               'relative flex flex-col',
-              tier.mostPopular && 'border-emerald-700 shadow-lg shadow-emerald-700/20',
+              tier.mostPopular && 'border-violet-700 shadow-lg shadow-violet-700/20',
             )}
           >
             {tier.mostPopular && (
               <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-emerald-700 text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <span className="bg-violet-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
                   Most Popular
                 </span>
               </div>
@@ -206,7 +206,7 @@ function PricingPage() {
               <ul className="space-y-3">
                 {tier.features.map((feature, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-emerald-700 mt-0.5 shrink-0" />
+                    <Check className="h-4 w-4 text-violet-500 mt-0.5 shrink-0" />
                     <span className="text-sm text-neutral-300">{feature}</span>
                   </li>
                 ))}
@@ -236,7 +236,7 @@ function PricingPage() {
         <div className="grid lg:grid-cols-2 gap-8 items-center">
           <div>
             <h2 className="text-3xl font-bold mb-4">
-              <Cloud className="inline-block h-8 w-8 text-emerald-700 mr-2" />
+              <Cloud className="inline-block h-8 w-8 text-foreground mr-2" />
               Bring Your Own Cloud (BYOC)
             </h2>
             <p className="text-neutral-400 mb-6">
@@ -247,23 +247,23 @@ function PricingPage() {
             </p>
             <ul className="space-y-2">
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700" />
+                <Check className="h-5 w-5 text-violet-500" />
                 <span>No vendor lock-in. Ever.</span>
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700" />
+                <Check className="h-5 w-5 text-violet-500" />
                 <span>Deploy to any cloud provider</span>
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700" />
+                <Check className="h-5 w-5 text-violet-500" />
                 <span>Switch clouds with one click</span>
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700" />
+                <Check className="h-5 w-5 text-violet-500" />
                 <span>Multi-cloud deployments</span>
               </li>
               <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-emerald-700" />
+                <Check className="h-5 w-5 text-violet-500" />
                 <span>Your security, your compliance</span>
               </li>
             </ul>

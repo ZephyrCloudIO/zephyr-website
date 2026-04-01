@@ -77,10 +77,10 @@ export function SignupForm() {
             : isError
               ? 'border-red-400/60 bg-red-950/20'
               : focused
-                ? 'border-[#008CFF] bg-black/50'
+                ? 'border-violet-500 bg-black/50'
                 : 'border-white/20 bg-black/50'
         } ${shaking ? 'animate-shake' : ''}`}
-        style={focused && !isError && !isSuccess ? { boxShadow: '0px 0px 4px rgba(0, 166, 255, 0.45)' } : undefined}
+        style={focused && !isError && !isSuccess ? { boxShadow: '0px 0px 4px rgba(124, 58, 237, 0.45)' } : undefined}
       >
         <div className="relative h-4 w-4 shrink-0">
           <svg
@@ -118,11 +118,11 @@ export function SignupForm() {
           disabled={state === 'submitting'}
           className={`h-9 shrink-0 whitespace-nowrap rounded-full px-3.5 py-2 text-xs font-semibold text-white transition-all duration-500 sm:px-4 sm:text-[13px] ${isSuccess ? 'pointer-events-none opacity-0' : 'opacity-100'} ${state === 'submitting' ? 'opacity-70' : ''}`}
           style={{
-            background: `linear-gradient(177.57deg, rgba(255,255,255,0.48) 2.04%, rgba(255,255,255,0) 68.68%), ${hovered ? '#0084FF' : '#006AFF'}`,
+            background: `linear-gradient(177.57deg, rgba(255,255,255,0.48) 2.04%, rgba(255,255,255,0) 68.68%), ${hovered ? '#8b5cf6' : '#7c3aed'}`,
             backgroundBlendMode: 'overlay, normal',
             boxShadow: isSuccess
               ? 'none'
-              : '0px 2px 4px -1.5px rgba(9,9,11,0.16), 0px 0px 0px 1px rgba(32,0,60,0.6), inset 0px -2px 3px rgba(46,220,255,0.35), inset 0px 1px 0px rgba(255,255,255,0.2)',
+              : '0px 2px 4px -1.5px rgba(9,9,11,0.16), 0px 0px 0px 1px rgba(32,0,60,0.6), inset 0px -2px 3px rgba(124,58,237,0.35), inset 0px 1px 0px rgba(255,255,255,0.2)',
           }}
         >
           {state === 'submitting' ? 'Signing up...' : 'Sign up'}

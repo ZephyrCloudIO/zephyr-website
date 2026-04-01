@@ -7,7 +7,7 @@ export const Route = createFileRoute('/privacy')({
 function PrivacyPolicy() {
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
-      <h1 className="text-4xl font-bold text-white mb-8">Privacy Policy</h1>
+      <h1 className="text-4xl font-bold text-foreground mb-8">Privacy Policy</h1>
       <div className="prose prose-lg  prose-invert max-w-none">
         <p>
           This Privacy Notice describes how Zephyr (&ldquo;our,&rdquo; &ldquo;we&rdquo;) collects, uses, and shares
@@ -48,7 +48,10 @@ function PrivacyPolicy() {
         <p>
           If you have any questions or concern about this privacy notice or the privacy practices at Zephyr, please
           contact us by emailing us at{' '}
-          <a href="mailto:support@zephyr-cloud.io" className="text-blue-400 hover:text-blue-300">
+          <a
+            href="mailto:support@zephyr-cloud.io"
+            className="text-neutral-400 underline underline-offset-2 decoration-neutral-600 hover:text-neutral-200 transition-colors"
+          >
             support@zephyr-cloud.io
           </a>
           .

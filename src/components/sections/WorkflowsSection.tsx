@@ -20,7 +20,7 @@ const FeatureCard: React.FC<{
 }> = ({ title, description }) => {
   return (
     <div className="flex-1 mt-1">
-      <p className="text-lg text-primary">{title}</p>
+      <p className="text-lg text-foreground">{title}</p>
       <p className="text-base text-muted-foreground mt-1">{description}</p>
     </div>
   );

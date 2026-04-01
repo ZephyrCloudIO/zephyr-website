@@ -24,13 +24,13 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
         <div className="p-6">
           <div className="flex flex-wrap gap-2 mb-3">
             {post.tags?.map((tag) => (
-              <span key={tag} className="text-xs px-2 py-1 rounded-full bg-emerald-900/30 text-emerald-400">
+              <span key={tag} className="text-xs px-2 py-1 rounded-full bg-violet-900/30 text-violet-400">
                 {tagLabels[tag] || tag}
               </span>
             ))}
           </div>
           <h3
-            className={`font-semibold mb-2 transition-colors group-hover:text-emerald-400 text-balance ${
+            className={`font-semibold mb-2 transition-colors group-hover:text-violet-400 text-balance ${
               featured ? 'text-2xl' : 'text-xl'
             }`}
           >
@@ -61,7 +61,7 @@ export function BlogCard({ post, featured = false }: BlogCardProps) {
                 />
               ))}
             </div>
-            <span className="text-emerald-400 text-sm font-medium group-hover:translate-x-1 transition-transform">
+            <span className="text-muted-foreground text-sm font-medium group-hover:translate-x-1 transition-transform">
               Read more →
             </span>
           </div>
