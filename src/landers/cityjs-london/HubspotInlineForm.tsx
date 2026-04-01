@@ -1,27 +1,47 @@
-import { ArrowRight, Building2, Check, Mail, User } from 'lucide-react';
+import { ArrowRight, Check, Mail, User } from 'lucide-react';
 import { type FormEvent, useRef, useState } from 'react';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const HUBSPOT_PORTAL_ID = '46982563';
 const HUBSPOT_FORM_ID = '3e3005ff-1815-464a-a765-a5f33d7cd3fe';
-const FIELD_ORDER = ['firstname', 'lastname', 'email', 'company'] as const;
+const FREE_EMAIL_DOMAINS = new Set([
+  'aol.com',
+  'fastmail.com',
+  'gmail.com',
+  'googlemail.com',
+  'gmx.com',
+  'hey.com',
+  'hotmail.com',
+  'icloud.com',
+  'live.com',
+  'mail.com',
+  'me.com',
+  'outlook.com',
+  'pm.me',
+  'proton.me',
+  'protonmail.com',
+  'yahoo.co.uk',
+  'yahoo.com',
+  'yandex.com',
+]);
+const DOMAIN_SECOND_LEVEL_SUFFIXES = new Set(['ac', 'co', 'com', 'edu', 'gov', 'net', 'org']);
+const INPUT_FIELDS = ['fullName', 'email'] as const;
 
-type FieldName = (typeof FIELD_ORDER)[number];
-type FieldValues = Record<FieldName, string>;
+type InputFieldName = (typeof INPUT_FIELDS)[number];
+type FormValues = Record<InputFieldName, string>;
 
 type HubspotInlineFormProps = {
   mode?: 'compact' | 'hero';
 };
 
 export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) {
-  const [values, setValues] = useState<FieldValues>({
-    firstname: '',
-    lastname: '',
+  const [values, setValues] = useState<FormValues>({
+    fullName: '',
     email: '',
-    company: '',
   });
   const [state, setState] = useState<'idle' | 'error' | 'submitting' | 'success'>('idle');
-  const inputRefs = useRef<Partial<Record<FieldName, HTMLInputElement | null>>>({});
+  const [errorText, setErrorText] = useState('');
+  const inputRefs = useRef<Partial<Record<InputFieldName, HTMLInputElement | null>>>({});
   const isHero = mode === 'hero';
 
   async function handleSubmit(event: FormEvent) {
@@ -31,22 +51,43 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
       return;
     }
 
-    const trimmedValues = Object.fromEntries(FIELD_ORDER.map((field) => [field, values[field].trim()])) as FieldValues;
-    const firstMissingField = FIELD_ORDER.find((field) => !trimmedValues[field]);
+    const fullName = values.fullName.trim();
+    const email = values.email.trim();
 
-    if (firstMissingField) {
+    if (!fullName) {
       setState('error');
-      inputRefs.current[firstMissingField]?.focus();
+      setErrorText('Add your full name');
+      inputRefs.current.fullName?.focus();
       return;
     }
 
-    if (!EMAIL_RE.test(trimmedValues.email)) {
+    const { firstName, lastName } = splitFullName(fullName);
+
+    if (!lastName) {
       setState('error');
+      setErrorText('Add name and surname');
+      inputRefs.current.fullName?.focus();
+      return;
+    }
+
+    if (!EMAIL_RE.test(email)) {
+      setState('error');
+      setErrorText('Use a valid work email');
+      inputRefs.current.email?.focus();
+      return;
+    }
+
+    const domain = getEmailDomain(email);
+
+    if (FREE_EMAIL_DOMAINS.has(domain)) {
+      setState('error');
+      setErrorText('Use your work email');
       inputRefs.current.email?.focus();
       return;
     }
 
     setState('submitting');
+    setErrorText('');
 
     try {
       const response = await fetch(
@@ -55,7 +96,12 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({
-            fields: FIELD_ORDER.map((field) => ({ name: field, value: trimmedValues[field] })),
+            fields: [
+              { name: 'firstname', value: firstName },
+              { name: 'lastname', value: lastName },
+              { name: 'email', value: email },
+              { name: 'company', value: deriveCompanyFromDomain(domain) },
+            ],
           }),
         },
       );
@@ -67,17 +113,16 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
       setState('success');
     } catch {
       setState('error');
+      setErrorText('Something went wrong. Try again.');
     }
   }
 
-  const helperText =
-    state === 'success' ? "You're in" : state === 'error' ? 'Add name, last name, company, valid work email' : '';
-
-  const helperColor = state === 'success' ? 'text-emerald-400' : state === 'error' ? 'text-red-400' : 'text-[#7c3aed]';
+  const helperText = state === 'success' ? "You're in" : state === 'error' ? errorText : '';
+  const helperColor = state === 'success' ? 'text-emerald-400' : state === 'error' ? 'text-red-400' : 'text-[#8a8a8a]';
   const isSuccess = state === 'success';
   const isSubmitting = state === 'submitting';
   const fieldBaseClass =
-    'group relative min-w-0 rounded-xl border border-white/10 bg-[linear-gradient(180deg,rgba(255,255,255,0.05)_0%,rgba(255,255,255,0.02)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.05)] transition focus-within:border-[#7c3aed] focus-within:shadow-[inset_0_1px_0_rgba(255,255,255,0.07),0_0_0_3px_rgba(124,58,237,0.14)]';
+    'group relative min-w-0 rounded-xl border border-white/10 bg-[#141414] transition focus-within:border-[#006aff] focus-within:shadow-[0_0_0_3px_rgba(0,106,255,0.18)]';
   const fieldHeightClass = isHero ? 'h-12' : 'h-10';
   const iconClass = isHero ? 'h-4 w-4' : 'h-3.5 w-3.5';
   const inputClass = isHero ? 'pl-10 pr-4 text-[15px] text-white' : 'pl-9 pr-3 text-sm text-white';
@@ -106,29 +151,30 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
         </div>
       ) : (
         <div className="space-y-3">
-          <div className={isHero ? 'grid gap-3 sm:grid-cols-2' : 'grid gap-2'}>
+          <div className="grid gap-3 sm:grid-cols-[1.15fr_1fr]">
             {[
-              { name: 'firstname', label: 'First name', type: 'text', icon: User },
-              { name: 'lastname', label: 'Last name', type: 'text', icon: User },
+              { name: 'fullName', label: 'Full name', type: 'text', icon: User },
               { name: 'email', label: 'Work email', type: 'email', icon: Mail },
-              { name: 'company', label: 'Company', type: 'text', icon: Building2 },
             ].map(({ name, label, type, icon: Icon }) => (
               <label key={name} className={`${fieldBaseClass} flex items-center ${fieldHeightClass}`}>
                 <Icon
-                  className={`pointer-events-none absolute left-3 text-white/35 transition group-focus-within:text-[#c4b5fd] ${iconClass}`}
+                  className={`pointer-events-none absolute left-3 text-white/35 transition group-focus-within:text-[#8dc0ff] ${iconClass}`}
                   aria-hidden="true"
                 />
                 <input
                   ref={(node) => {
-                    inputRefs.current[name as FieldName] = node;
+                    inputRefs.current[name as InputFieldName] = node;
                   }}
                   type={type}
                   aria-label={label}
-                  value={values[name as FieldName]}
+                  value={values[name as InputFieldName]}
                   onChange={(event) => {
                     setValues((current) => ({ ...current, [name]: event.target.value }));
                     if (state !== 'idle') {
                       setState('idle');
+                    }
+                    if (errorText) {
+                      setErrorText('');
                     }
                   }}
                   placeholder={label}
@@ -140,7 +186,7 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`group inline-flex w-full shrink-0 items-center justify-center gap-1.5 rounded-xl border border-[#9f67ff] bg-[linear-gradient(180deg,#8b5cf6_0%,#6d28d9_100%)] font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_10px_24px_rgba(124,58,237,0.26)] transition hover:brightness-110 disabled:opacity-70 ${isHero ? 'h-12 px-5 text-[15px]' : 'h-10 px-3.5 text-sm'}`}
+            className={`group inline-flex w-full shrink-0 items-center justify-center gap-1.5 rounded-xl border border-[#7c3aed] bg-[#7c3aed] font-medium text-white shadow-[0_10px_24px_rgba(124,58,237,0.26)] transition hover:bg-[#8b5cf6] disabled:opacity-70 ${isHero ? 'h-12 px-5 text-[15px]' : 'h-10 px-3.5 text-sm'}`}
           >
             <span>{isSubmitting ? 'Submitting...' : 'Start now'}</span>
             <ArrowRight
@@ -150,12 +196,43 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
           </button>
         </div>
       )}
-
-      {isHero ? (
-        <p className="text-center text-[12px] leading-5 text-[#737373]">
-          No spam. Event follow-up and product updates only.
-        </p>
-      ) : null}
     </form>
   );
+}
+
+function splitFullName(fullName: string) {
+  const parts = fullName.trim().split(/\s+/).filter(Boolean);
+
+  return {
+    firstName: parts[0] ?? '',
+    lastName: parts.slice(1).join(' '),
+  };
+}
+
+function getEmailDomain(email: string) {
+  return email.toLowerCase().split('@')[1] ?? '';
+}
+
+function deriveCompanyFromDomain(domain: string) {
+  const labels = domain.split('.').filter(Boolean);
+
+  if (labels.length === 0) {
+    return '';
+  }
+
+  let stem = labels.length === 1 ? labels[0] : (labels[labels.length - 2] ?? labels[0]);
+
+  if (labels.length >= 3) {
+    const tld = labels[labels.length - 1] ?? '';
+    const secondLevel = labels[labels.length - 2] ?? '';
+    if (tld.length === 2 && DOMAIN_SECOND_LEVEL_SUFFIXES.has(secondLevel)) {
+      stem = labels[labels.length - 3] ?? stem;
+    }
+  }
+
+  return stem
+    .split(/[-_]/)
+    .filter(Boolean)
+    .map((part: string) => part.charAt(0).toUpperCase() + part.slice(1))
+    .join(' ');
 }

@@ -1,5 +1,6 @@
 import { Check, ChevronDown, X } from 'lucide-react';
-import { useState } from 'react';
+import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
+import { useRef, useState } from 'react';
 import AicpaSoc2 from './assets/aicpa-soc2.png';
 import heroImage from './assets/hero-image.png';
 import agoda from './assets/logo-agoda.png';
@@ -9,7 +10,6 @@ import nx from './assets/logo-nx.png';
 import rimac from './assets/logo-rimac.png';
 import sgws from './assets/logo-sgws.png';
 import ZephyrWordmark from './assets/logo-zephyr-wordmark.svg';
-import shaderHero from './assets/shader-hero.png';
 import { HubspotInlineForm } from './HubspotInlineForm';
 
 const partners = [
@@ -25,7 +25,6 @@ const comparisonGroups = [
   {
     label: 'Scale',
     rows: [
-      { feature: 'System boundaries', competitorA: 'Up to 3 apps', competitorB: 'Up to 25 apps', zephyr: 'Unlimited' },
       { feature: 'Runtime orchestration', competitorA: false, competitorB: false, zephyr: true },
       { feature: 'Version governance', competitorA: false, competitorB: true, zephyr: true },
       { feature: 'Multi-team release flow', competitorA: false, competitorB: true, zephyr: true },
@@ -97,40 +96,40 @@ const footerGroups = [
 export function CityjsLondonLanderPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const manifesto = 'Microfrontends solved frontend scale. Now systems need orchestration. Zephyr makes it executable.';
+  const manifestoRef = useRef<HTMLDivElement>(null);
+  const reduceMotion = useReducedMotion();
+  const { scrollYProgress } = useScroll({
+    target: manifestoRef,
+    offset: ['start 0.82', 'end 0.18'],
+  });
 
   return (
     <main className="lander-shell overflow-hidden bg-[#0a0a0a] text-white [background-image:none]">
       <style>{`
-        @keyframes cityjs-manifesto-glow {
-          0%, 18%, 100% { color: rgba(255,255,255,0.12); }
-          28%, 82% { color: rgba(250,245,255,1); }
-        }
         @keyframes cityjs-hero-rise {
           from { opacity: 0; transform: translateY(28px); }
           to { opacity: 1; transform: translateY(0); }
         }
+        @keyframes cityjs-marquee {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
         .cityjs-rise {
           animation: cityjs-hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
-        .cityjs-manifesto span {
-          animation: cityjs-manifesto-glow 7.2s ease-in-out infinite;
+        .cityjs-marquee {
+          width: max-content;
+          animation: cityjs-marquee 34s linear infinite;
         }
         @media (prefers-reduced-motion: reduce) {
           .cityjs-rise,
-          .cityjs-manifesto span {
+          .cityjs-marquee {
             animation: none !important;
           }
         }
       `}</style>
 
       <section className="relative overflow-hidden">
-        <img
-          src={shaderHero}
-          alt=""
-          aria-hidden="true"
-          className="pointer-events-none absolute inset-x-0 top-0 h-[1128px] w-full object-cover object-top"
-        />
-
         <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6 md:px-8 lg:px-10">
           <header className="cityjs-rise flex items-center gap-6">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" className="h-[31px] w-[175px]" />
@@ -172,15 +171,25 @@ export function CityjsLondonLanderPage() {
           </div>
 
           <section className="pt-14">
-            <p className="mb-6 text-center text-sm font-normal text-[#737373]">
+            <p className="mb-6 text-center text-sm font-normal text-[#8a8a8a]">
               Trusted teams already shipping with Zephyr
             </p>
             <div className="relative overflow-hidden">
               <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[#0a0a0a] to-transparent" />
               <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[#0a0a0a] to-transparent" />
-              <div className="flex flex-wrap items-center justify-center gap-x-16 gap-y-10 md:gap-x-20">
-                {partners.map((partner) => (
-                  <img key={partner.name} src={partner.logo} alt={partner.name} className="h-16 w-auto md:h-20" />
+              <div className="cityjs-marquee flex items-center gap-16 pr-16 md:gap-20 md:pr-20">
+                {[...partners, ...partners].map((partner, index) => (
+                  <div
+                    key={`${partner.name}-${index}`}
+                    className="flex h-20 shrink-0 items-center justify-center"
+                    aria-hidden={index >= partners.length}
+                  >
+                    <img
+                      src={partner.logo}
+                      alt={index < partners.length ? partner.name : ''}
+                      className="h-16 w-auto md:h-20"
+                    />
+                  </div>
                 ))}
               </div>
             </div>
@@ -189,15 +198,19 @@ export function CityjsLondonLanderPage() {
       </section>
 
       <section className="mx-auto max-w-[1200px] px-6 pb-20 pt-6 md:px-8 lg:px-10">
-        <div className="cityjs-manifesto py-28 text-[clamp(2.2rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.04em] text-[#262626]">
-          {manifesto.split(' ').map((word, index) => (
-            <span
+        <div
+          ref={manifestoRef}
+          className="py-36 text-[clamp(2.2rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.04em] md:py-44"
+        >
+          {manifesto.split(' ').map((word, index, words) => (
+            <ManifestoWord
               key={`${word}-${index}`}
-              style={{ animationDelay: `${index * 0.08}s` }}
-              className={word.startsWith('Microfrontends') ? 'text-[#faf5ff]' : undefined}
-            >
-              {word}{' '}
-            </span>
+              word={word}
+              index={index}
+              total={words.length}
+              progress={scrollYProgress}
+              reduceMotion={Boolean(reduceMotion)}
+            />
           ))}
         </div>
 
@@ -212,7 +225,12 @@ export function CityjsLondonLanderPage() {
                 <div className="px-5 py-5 text-neutral-200">Frontend cloud</div>
                 <div className="px-5 py-5 text-[#faf5ff]">
                   <div>Zephyr Cloud</div>
-                  <div className="mt-1 text-neutral-400">Get started -&gt;</div>
+                  <a
+                    href="#cityjs-hubspot-form"
+                    className="mt-1 inline-flex text-[#8a8a8a] transition hover:text-[#faf5ff]"
+                  >
+                    Get started -&gt;
+                  </a>
                 </div>
               </div>
 
@@ -259,16 +277,31 @@ export function CityjsLondonLanderPage() {
               const isOpen = openFaq === index;
 
               return (
-                <div key={faq.question} className="overflow-hidden rounded-md bg-white/[0.05]">
+                <div
+                  key={faq.question}
+                  className="overflow-hidden rounded-[18px] border border-white/10 bg-white/[0.04]"
+                >
                   <button
                     type="button"
-                    className="flex w-full items-center justify-between gap-4 px-4 py-4 text-left text-sm text-[#fafafa]"
+                    className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left text-base text-[#fafafa]"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
                   >
                     <span>{faq.question}</span>
-                    <ChevronDown className={`h-5 w-5 shrink-0 transition ${isOpen ? 'rotate-180' : ''}`} />
+                    <ChevronDown className={`h-5 w-5 shrink-0 transition duration-300 ${isOpen ? 'rotate-180' : ''}`} />
                   </button>
-                  {isOpen ? <p className="px-4 pb-4 text-sm leading-6 text-neutral-400">{faq.answer}</p> : null}
+                  <AnimatePresence initial={false}>
+                    {isOpen ? (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: 'auto', opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <p className="px-5 pb-5 text-[15px] leading-7 text-neutral-400">{faq.answer}</p>
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
                 </div>
               );
             })}
@@ -284,7 +317,7 @@ export function CityjsLondonLanderPage() {
             </h2>
           </div>
 
-          <div className="mx-auto w-full max-w-[460px] rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+          <div className="mx-auto w-full max-w-[460px] rounded-[24px] bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
             <HubspotInlineForm />
           </div>
         </section>
@@ -321,6 +354,39 @@ export function CityjsLondonLanderPage() {
         </div>
       </footer>
     </main>
+  );
+}
+
+function ManifestoWord({
+  word,
+  index,
+  total,
+  progress,
+  reduceMotion,
+}: {
+  word: string;
+  index: number;
+  total: number;
+  progress: ReturnType<typeof useScroll>['scrollYProgress'];
+  reduceMotion: boolean;
+}) {
+  const start = (index / total) * 0.76;
+  const end = Math.min(start + 0.18, 1);
+  const opacity = useTransform(progress, [Math.max(start - 0.08, 0), end], [0.18, 1]);
+  const y = useTransform(progress, [Math.max(start - 0.08, 0), end], [18, 0]);
+  const color = useTransform(
+    progress,
+    [Math.max(start - 0.08, 0), end],
+    ['rgba(250,245,255,0.18)', 'rgba(250,245,255,1)'],
+  );
+
+  return (
+    <motion.span
+      style={reduceMotion ? undefined : { opacity, y, color }}
+      className={reduceMotion ? 'text-[#faf5ff]' : 'inline-block will-change-transform'}
+    >
+      {word}&nbsp;
+    </motion.span>
   );
 }
 
