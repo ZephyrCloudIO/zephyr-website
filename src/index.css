@@ -27,7 +27,11 @@ body {
   margin: 0;
   color: #fff;
   font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  background-image: linear-gradient(to bottom, #020917, #101725);
+  background-color: #020917;
+  background-image:
+    radial-gradient(ellipse at 20% 0%, rgba(16, 185, 129, 0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 100%, rgba(6, 95, 70, 0.05) 0%, transparent 60%),
+    linear-gradient(to bottom, #020917, #060f1f, #0a0d14);
 }
 
 .content {

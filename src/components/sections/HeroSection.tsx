@@ -1,3 +1,4 @@
+import { CircuitBackground } from '@/components/CircuitBackground';
 import { CodeBlock } from '@/components/CodeBlock';
 import { getFeaturedEvent } from '@/data/events';
 import { ArrowRight, CalendarDays, Check, Copy } from 'lucide-react';
@@ -18,7 +19,19 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="relative py-20 md:py-32 text-center overflow-hidden">
+    <section className="hero relative -mt-16 pt-36 md:pt-48 pb-20 md:pb-32 text-center overflow-hidden">
+      {/* Circuit board background - hero only */}
+      <CircuitBackground />
+      {/* Subtle radial white glow behind hero content */}
+      <div
+        className="absolute inset-0 pointer-events-none z-[1]"
+        style={{
+          background: `
+            radial-gradient(ellipse 60% 50% at 50% 45%, rgba(255, 255, 255, 0.04) 0%, transparent 70%),
+            radial-gradient(ellipse 40% 35% at 50% 40%, rgba(16, 185, 129, 0.06) 0%, transparent 60%)
+          `,
+        }}
+      />
       <div
         className="absolute inset-0 opacity-5"
         style={{
@@ -40,7 +53,7 @@ export const HeroSection: React.FC = () => {
           `,
         }}
       />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         {/* Featured Event Pill */}
         {featuredEvent && featuredEvent.link && (
           <div className="flex justify-center mb-8">
@@ -63,12 +76,14 @@ export const HeroSection: React.FC = () => {
           </div>
         )}
 
-        <h1 className="text-5xl md:text-7xl font-bold text-white leading-tight">
+        <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight uppercase">
           The fastest way to go from
           <br />
-          Idea to Production
+          <span className="bg-gradient-to-b from-green-300 via-emerald-500 to-emerald-800 bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(16,185,129,0.3)]">
+            Idea to Production
+          </span>
         </h1>
-        <p className="mt-6 text-lg md:text-xl text-neutral-400 max-w-2xl mx-auto">
+        <p className="mt-6 text-lg md:text-xl max-w-2xl mx-auto">
           From the team that brought you{' '}
           <a href="https://module-federation.io/" target="_blank" className="text-emerald-700 hover:underline">
             Module Federation
