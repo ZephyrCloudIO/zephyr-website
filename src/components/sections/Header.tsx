@@ -33,13 +33,41 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 export const Header: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = React.useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const navHeight = 64;
+
+      setScrolled(currentY > navHeight);
+
+      if (currentY <= navHeight) {
+        // Always show at top
+        setVisible(true);
+      } else if (currentY < lastScrollY.current) {
+        // Scrolling up
+        setVisible(true);
+      } else if (currentY > lastScrollY.current) {
+        // Scrolling down
+        setVisible(false);
+      }
+
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleCopyLogo = async () => {
     try {
@@ -62,7 +90,13 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-md">
+    <header
+      className={cn(
+        'sticky top-0 z-50 transition-all duration-300',
+        scrolled ? 'bg-black/90 backdrop-blur-md' : 'bg-transparent',
+        visible ? 'translate-y-0' : '-translate-y-full',
+      )}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
@@ -102,7 +136,7 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        <NavigationMenu className="hidden md:block bg-black">
+        <NavigationMenu className="hidden md:block bg-transparent">
           <NavigationMenuList>
             <NavigationMenuItem>
               <NavigationMenuTrigger className="bg-transparent text-neutral-400 hover:text-white hover:bg-transparent data-[state=open]:bg-transparent">
@@ -265,7 +299,7 @@ export const Header: React.FC = () => {
           <a
             href="https://github.com/ZephyrCloudIO"
             target="_blank"
-            className="hidden sm:flex items-center gap-2 text-sm border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500"
+            className="hidden sm:flex items-center gap-2 text-sm bg-neutral-900/80 border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500 hover:bg-neutral-800/90 transition-colors"
           >
             <Github size={16} className="text-white" />
             <span className="text-white">GitHub</span>
@@ -273,7 +307,7 @@ export const Header: React.FC = () => {
           <a
             href="https://www.npmjs.com/org/zephyrcloud"
             target="_blank"
-            className="hidden sm:flex items-center gap-2 text-sm border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500"
+            className="hidden sm:flex items-center gap-2 text-sm bg-neutral-900/80 border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500 hover:bg-neutral-800/90 transition-colors"
           >
             <Package size={16} className="text-white" />
             <span className="text-white">npm</span>
