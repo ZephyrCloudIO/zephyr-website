@@ -19,7 +19,10 @@ export const HeroSection: React.FC = () => {
   };
 
   return (
-    <section className="hero relative -mt-16 pt-36 md:pt-48 pb-20 md:pb-32 text-center overflow-hidden">
+    <section
+      className="hero relative -mt-16 text-center overflow-hidden flex items-center justify-center"
+      style={{ minHeight: '100vh', maxHeight: '800px' }}
+    >
       {/* Circuit board background - hero only */}
       <CircuitBackground />
       {/* Subtle radial white glow behind hero content */}
