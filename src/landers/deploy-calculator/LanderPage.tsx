@@ -1,3 +1,4 @@
+import ZephyrWordmark from '@/landers/cityjs-london/assets/logo-zephyr-wordmark.svg';
 import posthog from 'posthog-js';
 import { useEffect, useMemo, useRef, useState } from 'react';
 
@@ -211,19 +212,7 @@ export function DeployCalculatorLanderPage() {
       <div style={{ maxWidth: 960, margin: '0 auto', padding: '72px 48px' }}>
         {/* HEADER */}
         <header style={{ textAlign: 'center', marginBottom: 64 }}>
-          <span
-            style={{
-              fontSize: 10,
-              letterSpacing: '0.5em',
-              textTransform: 'uppercase',
-              color: '#8B5CF6',
-              marginBottom: 20,
-              display: 'block',
-              fontFamily: 'system-ui',
-            }}
-          >
-            Zephyr
-          </span>
+          <img src={ZephyrWordmark} alt="Zephyr Cloud" style={{ height: 22, marginBottom: 28 }} />
           <h1 style={{ fontSize: 48, fontWeight: 900, lineHeight: 1.0, marginBottom: 14 }}>
             The Deploy Bottleneck
             <br />
@@ -802,7 +791,10 @@ export function DeployCalculatorLanderPage() {
             fontFamily: 'system-ui',
           }}
         >
-          <span>Zephyr — Deploy Velocity Calculator · Results are estimates based on inputs provided</span>
+          <span style={{ display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+            <img src={ZephyrWordmark} alt="Zephyr Cloud" style={{ height: 14 }} />
+            <span>— Deploy Velocity Calculator · Results are estimates based on inputs provided</span>
+          </span>
           <span style={{ color: '#8B5CF6', fontFamily: 'Georgia, serif', fontStyle: 'italic' }}>We All Build.</span>
         </footer>
       </div>

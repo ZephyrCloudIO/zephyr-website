@@ -1,3 +1,4 @@
+import ZephyrWordmark from '@/landers/cityjs-london/assets/logo-zephyr-wordmark.svg';
 import posthog from 'posthog-js';
 import { useEffect, useRef, useState } from 'react';
 
@@ -91,17 +92,7 @@ export function ModuleFederationLanderPage() {
           justifyContent: 'space-between',
         }}
       >
-        <div
-          style={{
-            fontFamily: 'Georgia, serif',
-            fontSize: 18,
-            fontWeight: 900,
-            color: '#F5F4F0',
-            letterSpacing: '-0.02em',
-          }}
-        >
-          Zephyr<span style={{ color: 'var(--purple)' }}>.</span>
-        </div>
+        <img src={ZephyrWordmark} alt="Zephyr Cloud" style={{ height: 22 }} />
         <div style={{ display: 'flex', alignItems: 'center', gap: 32 }}>
           <a href="#how" className="mf-nav-link">
             How it works
@@ -867,9 +858,7 @@ export function ModuleFederationLanderPage() {
           gap: 16,
         }}
       >
-        <div style={{ fontFamily: 'Georgia, serif', fontSize: 16, fontWeight: 900 }}>
-          Zephyr<span style={{ color: 'var(--purple)' }}>.</span>
-        </div>
+        <img src={ZephyrWordmark} alt="Zephyr Cloud" style={{ height: 18 }} />
         <div style={{ display: 'flex', gap: 24 }}>
           <a href="https://docs.zephyr-cloud.io" className="mf-footer-link" target="_blank">
             Docs
