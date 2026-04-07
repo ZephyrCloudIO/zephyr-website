@@ -143,7 +143,7 @@ export function NavigationMenuLink({ className, ...props }: NavigationMenuLinkPr
     <RadixNavigationMenu.Link
       data-slot="navigation-menu-link"
       className={cn(
-        'text-primary-muted data-[active=true]:bg-main-foreground data-[active=true]:text-primary data-[active=true]:focus:bg-main-foreground',
+        'navigationMenuLink text-primary-muted data-[active=true]:bg-main-foreground data-[active=true]:text-primary data-[active=true]:focus:bg-main-foreground',
         'flex hover:bg-main-foreground hover:text-primary focus:bg-main-foreground focus:text-primary data-[active=true]:hover:bg-main-foreground',
         'h-9 flex-col gap-1 rounded-md px-4 py-2 font-medium text-sm outline-none transition-all focus-within:ring-border focus-visible:outline-1',
         'focus-visible:ring-1 [&_svg:not([class*="size-"])]:size-4 [&_svg:not([class*="text-"])]:text-main-muted',
