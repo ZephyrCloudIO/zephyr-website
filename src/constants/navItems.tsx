@@ -42,7 +42,7 @@ const RESOURCES = [
   },
   {
     title: 'Partners',
-    description: 'Partner program and integrations',
+    description: 'Partner programs and integrations',
     icon: () => <Users className="h-4 w-4" />,
     href: '/partners',
   },

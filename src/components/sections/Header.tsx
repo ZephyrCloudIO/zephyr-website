@@ -140,7 +140,7 @@ export const Header: React.FC = () => {
         <NavigationMenu className="hidden lg:block">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Overview</NavigationMenuTrigger>
+              <NavigationMenuTrigger>Products</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="flex flex-col w-100">
                   {PRODUCTS.map((component) => (
@@ -156,7 +156,7 @@ export const Header: React.FC = () => {
               </NavigationMenuContent>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <NavigationMenuTrigger>Docs</NavigationMenuTrigger>
+              <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
               <NavigationMenuContent>
                 <ul className="grid w-100 md:w-125 md:grid-cols-2 lg:w-137.5">
                   {RESOURCES.map((component) => (
