@@ -35,7 +35,7 @@ export function NavigationMenuList({ className, ...props }: NavigationMenuListPr
 type NavigationMenuItemProps = React.ComponentProps<typeof RadixNavigationMenu.Item>;
 
 export function NavigationMenuItem({ className, ...props }: NavigationMenuItemProps) {
-  return <RadixNavigationMenu.Item data-slot="navigation-menu-item" className={cn('relative', className)} {...props} />;
+  return <RadixNavigationMenu.Item data-slot="navigation-menu-item" className={cn('navigationMenuItem relative', className)} {...props} />;
 }
 
 type NavigationMenuTriggerProps = React.ComponentProps<typeof RadixNavigationMenu.Trigger>;
