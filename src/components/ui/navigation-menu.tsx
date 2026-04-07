@@ -109,7 +109,7 @@ export function NavigationMenuContentItem({ children, className, ...props }: Nav
   return (
     <RadixNavigationMenu.Link
       data-slot="navigation-menu-content-item"
-      className={cn('relative rounded-lg p-3 outline-none', isReducedMotion && 'hover:bg-main-foreground')}
+      className={cn('navigationMenuContentItem relative rounded-lg p-3 outline-none', isReducedMotion && 'hover:bg-main-foreground')}
       {...props}
       {...interactionProps}
     >
