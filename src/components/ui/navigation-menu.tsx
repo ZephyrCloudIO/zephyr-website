@@ -26,7 +26,7 @@ export function NavigationMenuList({ className, ...props }: NavigationMenuListPr
   return (
     <RadixNavigationMenu.List
       data-slot="navigation-menu-list"
-      className={cn('group flex flex-1 list-none items-center justify-center gap-1', className)}
+      className={cn('navigationMenuList group flex flex-1 list-none items-center justify-center gap-1', className)}
       {...props}
     />
   );
@@ -35,7 +35,13 @@ export function NavigationMenuList({ className, ...props }: NavigationMenuListPr
 type NavigationMenuItemProps = React.ComponentProps<typeof RadixNavigationMenu.Item>;
 
 export function NavigationMenuItem({ className, ...props }: NavigationMenuItemProps) {
-  return <RadixNavigationMenu.Item data-slot="navigation-menu-item" className={cn('navigationMenuItem relative', className)} {...props} />;
+  return (
+    <RadixNavigationMenu.Item
+      data-slot="navigation-menu-item"
+      className={cn('navigationMenuItem relative', className)}
+      {...props}
+    />
+  );
 }
 
 type NavigationMenuTriggerProps = React.ComponentProps<typeof RadixNavigationMenu.Trigger>;
@@ -109,7 +115,10 @@ export function NavigationMenuContentItem({ children, className, ...props }: Nav
   return (
     <RadixNavigationMenu.Link
       data-slot="navigation-menu-content-item"
-      className={cn('navigationMenuContentItem relative rounded-lg p-3 outline-none', isReducedMotion && 'hover:bg-main-foreground')}
+      className={cn(
+        'navigationMenuContentItem relative rounded-lg p-3 outline-none',
+        isReducedMotion && 'hover:bg-main-foreground',
+      )}
       {...props}
       {...interactionProps}
     >

@@ -102,7 +102,7 @@ export const Header: React.FC = () => {
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="header lg:hidden p-2 text-neutral-400 hover:text-white"
+            className="lg:hidden p-2 text-neutral-400 hover:text-white"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
