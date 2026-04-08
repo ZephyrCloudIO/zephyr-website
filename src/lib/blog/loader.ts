@@ -1,5 +1,5 @@
 import * as authors from '@/data/blog/authors';
-import { BlogTag } from '@/lib/blog/tags.ts';
+import type { BlogTag } from '@/lib/blog/tags.ts';
 import { parseLocalDate } from '@/lib/utils';
 import { blogImages } from './images';
 import type { Author, BlogPost } from './types';
@@ -36,7 +36,6 @@ const authorMap: Record<string, Author> = {
   'Lois Zhao': authors.Lois,
   'Néstor López': authors.Nestor,
   'Rodrigo Yokota': authors.Rodrigo,
-  Arthur: authors.Arthur,
   'Arthur Fiorette': authors.Arthur,
 };
 

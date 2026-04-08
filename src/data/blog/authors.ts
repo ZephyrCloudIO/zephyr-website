@@ -22,10 +22,7 @@ export const ZackC: Author = {
   zephyrMember: true,
   avatar: zackCAvatar,
   socialLinks: [
-    {
-      link: 'https://www.linkedin.com/in/zackarychapple/',
-      platform: 'LinkedIn',
-    },
+    { link: 'https://www.linkedin.com/in/zackarychapple/', platform: 'LinkedIn' },
     { link: 'https://x.com/Zackary_Chapple', platform: 'X' },
   ],
 };
@@ -69,10 +66,7 @@ export const Rodrigo: Author = {
   avatar: rodrigoAvatar,
   socialLinks: [
     { link: 'https://x.com/ryok90', platform: 'X' },
-    {
-      link: 'https://www.linkedin.com/in/rodrigo-yokota/',
-      platform: 'LinkedIn',
-    },
+    { link: 'https://www.linkedin.com/in/rodrigo-yokota/', platform: 'LinkedIn' },
     { link: 'https://github.com/ryok90', platform: 'Github' },
   ],
 };
