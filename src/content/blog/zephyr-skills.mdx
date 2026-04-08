@@ -1,0 +1,121 @@
+---
+title: 'Zephyr Skills Turn Repetition Into Infrastructure'
+slug: 'zephyr-skills'
+date: '2026-04-08'
+heroImage: '/images/blog/cloudflare-workers-aws-outage/hero.webp'
+listingImage: '/images/blog/cloudflare-workers-aws-outage/hero.webp'
+description: 'Zephyr Skills package setup, deployment, and Module Federation knowledge into portable agent skills teams can reuse across Claude Code, Cursor, OpenCode, Codex, and more.'
+authors: ['Arthur Fiorette']
+tags: ['announcement', 'ai', 'dx', 'deployment', 'product']
+featured: false
+readingTime: 5
+---
+
+# Zephyr Skills Turn Repetition Into Infrastructure
+
+Once a team starts using agents for real work, the same problem shows up quickly: context.
+
+Not generic context. The annoying, specific kind. What is the actual difference between a version, a tag, and an environment? Why is this remote not resolving in staging? Which URL should QA be testing? Which docs page is the source of truth here?
+
+That information exists, but it is usually spread across docs, example repos, chats, and whoever happened to touch the system last.
+
+Zephyr Skills are meant to clean that up.
+
+We just shipped the first set as portable skill folders that work across Claude Code, Cursor, OpenCode, Codex, and other tools that support the Agent Skills model. The point is simple: package Zephyr knowledge in a form agents can load when the task actually needs it.
+
+## The Context Problem
+
+Docs are necessary. They are not enough.
+
+Most platform knowledge is task-shaped. It is the difference between knowing that Zephyr has versions, tags, and environments, and knowing which one matters when somebody asks why staging moved without rebuilding. It is the difference between linking a generic Module Federation guide and knowing to check `zephyr:dependencies`, `workspace:*`, remote type mismatches, and build order in the same answer.
+
+That kind of knowledge usually lives in fragments:
+
+- docs pages
+- examples repos
+- internal chat threads
+- old prompts
+- engineers' heads
+
+The result is predictable. Teams reload the same context into every conversation, and agents still miss the details that actually decide whether the answer is useful.
+
+## Skills Turn Repetition Into Infrastructure
+
+A useful skill is not a giant prompt blob.
+
+It is a small entrypoint with the right references behind it. The main file stays lean. It tells the agent when to use the skill, how to think about the task, and which reference file to read next. The heavier detail lives nearby so the agent only pulls it in when it matters.
+
+That means we do not have to restate Zephyr's setup model, deployment model, environment rules, and federation caveats in every new prompt. The knowledge becomes reusable across tools instead of being trapped in one person's prompt history.
+
+The practical result is straightforward: less setup glue, less repeated explanation, and fewer answers that sound reasonable while still being wrong.
+
+## What Ships First
+
+The first release is intentionally small.
+
+### `zephyr-core`
+
+This skill covers the Zephyr model most teams hit first:
+
+- `with-zephyr` setup
+- SDK selection
+- versions, tags, and environments
+- version URLs and deployment flow
+- public `ZE_PUBLIC_*` environment variables
+- docs routing and troubleshooting
+
+It is meant to answer the questions people actually ask when they are wiring up a frontend app or trying to understand how Zephyr release control works.
+
+### `zephyr-module-federation`
+
+This skill covers the part that gets subtle fast:
+
+- host and remote setup
+- `zephyr:dependencies`
+- `workspace:*` resolution
+- cross-bundler Module Federation
+- build-order and runtime gotchas
+
+This is the layer where generic federation answers stop being enough. Zephyr adds deploy-time dependency resolution on top of normal Module Federation config, so the agent has to understand both layers at once.
+
+## What Changes In Practice
+
+Take a normal question:
+
+> I have a Vite host with remotes and I need staging to consume the right remote without hardcoding production URLs.
+
+Without a skill, an agent has to reconstruct the model from scratch. It may know Module Federation. It may know Vite. It may even know Zephyr generally. But that still leaves a lot of room to miss the important details: `zephyr:dependencies`, selector choice, `workspace:*`, environment fallback, mixed-bundler remote types, and the right example repo to point at.
+
+With the Zephyr Module Federation skill loaded, that answer starts from the right shape immediately. The agent already knows where the source of truth lives, which caveats matter, and which concepts should be explained together.
+
+That is the value here. Not that an agent can answer a question, but that the answer is much more likely to be operationally correct.
+
+## Why This Matters For Real Teams
+
+Teams already have platform knowledge. The problem is that it is usually scattered across docs, examples, and people. Skills let you package that knowledge in a form agents can actually use while doing work.
+
+For Zephyr, that matters because so much of the platform value sits in the model around the build:
+
+- immutable versions
+- mutable tags and environments
+- serve-time overrides
+- rollout and rollback without rebuilds
+- deploy-time remote resolution
+
+Those are not hard concepts, but they are easy to explain imprecisely. And once that happens, the answer may sound helpful while still pushing a team toward the wrong workflow.
+
+Skills reduce that drift. They give teams a reusable way to encode the platform behavior they want agents to respect.
+
+This is also a better path than stuffing everything into one giant system prompt. Skills can stay narrow, compose cleanly, and point to deeper references only when needed.
+
+## Where To Start
+
+If you want to explore the first release, start here:
+
+- [Zephyr Skills repository](https://github.com/ZephyrCloudIO/skills)
+- [Zephyr documentation](https://docs.zephyr-cloud.io)
+- [Zephyr Discord](https://discord.gg/zephyrcloud)
+
+The skills will keep evolving as we add more platform coverage and tighten the references behind them.
+
+The important part of this launch is simple: Zephyr knowledge now has a portable execution surface.

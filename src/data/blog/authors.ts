@@ -1,3 +1,4 @@
+import arthurAvatar from '@/images/authors/arthur.webp';
 import loisAvatar from '@/images/authors/lois.webp';
 import nestorAvatar from '@/images/authors/nestor.webp';
 import rodrigoAvatar from '@/images/authors/rodrigo.webp';
@@ -21,7 +22,10 @@ export const ZackC: Author = {
   zephyrMember: true,
   avatar: zackCAvatar,
   socialLinks: [
-    { link: 'https://www.linkedin.com/in/zackarychapple/', platform: 'LinkedIn' },
+    {
+      link: 'https://www.linkedin.com/in/zackarychapple/',
+      platform: 'LinkedIn',
+    },
     { link: 'https://x.com/Zackary_Chapple', platform: 'X' },
   ],
 };
@@ -65,7 +69,21 @@ export const Rodrigo: Author = {
   avatar: rodrigoAvatar,
   socialLinks: [
     { link: 'https://x.com/ryok90', platform: 'X' },
-    { link: 'https://www.linkedin.com/in/rodrigo-yokota/', platform: 'LinkedIn' },
+    {
+      link: 'https://www.linkedin.com/in/rodrigo-yokota/',
+      platform: 'LinkedIn',
+    },
     { link: 'https://github.com/ryok90', platform: 'Github' },
+  ],
+};
+
+export const Arthur: Author = {
+  displayName: 'Arthur Fiorette',
+  zephyrMember: true,
+  avatar: arthurAvatar,
+  socialLinks: [
+    { link: 'https://x.com/arthurfiorette', platform: 'X' },
+    { link: 'https://linkedin.com/in/arthurfiorette', platform: 'LinkedIn' },
+    { link: 'https://github.com/arthurfiorette', platform: 'Github' },
   ],
 };
