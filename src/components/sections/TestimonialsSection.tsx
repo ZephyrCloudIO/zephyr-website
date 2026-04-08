@@ -4,7 +4,7 @@ import { LinkedinIcon } from '@/components/ui/linkedin-icon';
 import { TwitchIcon } from '@/components/ui/twitch-icon';
 import { XIcon } from '@/components/ui/x-icon';
 import { YoutubeIcon } from '@/components/ui/youtube-icon';
-import { companyLogos } from '@/constants/companyLogos';
+import { COMPANY_LOGOS } from '@/constants/companyLogos';
 import { Testimonials, type Testimonial, type TestimonialSocialPlatform } from '@/testimonials';
 import { type LucideIcon } from 'lucide-react';
 import React from 'react';
@@ -189,7 +189,7 @@ export const TestimonialsSection: React.FC = () => {
         </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mt-12 flex flex-wrap justify-center items-center gap-x-20 gap-y-10">
-            {companyLogos.map((logo) => (
+            {COMPANY_LOGOS.map((logo) => (
               <a
                 key={logo.alt}
                 href={logo.url}
