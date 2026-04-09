@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react';
 
-// Animated gradient background — replicates Framer "Animated Gradient Background"
-// Parameters: Color #7C3AED × 3, Shape: Stripes, Swirl: 58, Softness: 100,
-//             Scale: 0.5, Speed: 30, Offset: 60, Noise: 0.1
-// Rendered as a fixed full-viewport WebGL canvas that fades out at 80 vh.
+// Animated gradient background — Framer params: #7C3AED × 3, Stripes, Swirl 58,
+// Softness 100, Scale 0.5, Speed 30, Offset 60.
+//
+// Design intent:
+//  - gradient source is ABOVE the viewport top — the whole top edge is in the bright zone
+//  - flows downward, fading naturally toward the bottom
+//  - scroll-driven opacity: fully visible at 0, gone by 100 vh of scroll
 
 const VERT = /* glsl */ `
   attribute vec2 a_pos;
@@ -24,44 +27,63 @@ const FRAG = /* glsl */ `
     vec2 f = fract(p);
     vec2 u = f * f * (3.0 - 2.0 * f);
     return mix(
-      mix(hash(i),                 hash(i + vec2(1.0, 0.0)), u.x),
-      mix(hash(i + vec2(0.0,1.0)), hash(i + vec2(1.0, 1.0)), u.x),
+      mix(hash(i),                  hash(i + vec2(1.0, 0.0)), u.x),
+      mix(hash(i + vec2(0.0, 1.0)), hash(i + vec2(1.0, 1.0)), u.x),
       u.y
     );
+  }
+
+  // 3-octave FBM for organic variation
+  float fbm(vec2 p) {
+    float v = 0.0;
+    float a = 0.5;
+    for (int i = 0; i < 3; i++) {
+      v += a * noise(p);
+      p  = p * 2.1 + vec2(5.2, 1.3);
+      a *= 0.5;
+    }
+    return v;
   }
 
   void main() {
     vec2 uv   = gl_FragCoord.xy / u_res;
     float asp = u_res.x / u_res.y;
 
-    // WebGL y=0 is BOTTOM. Centre at ~30% from screen top → uv.y = 0.70.
-    // Scale x by aspect so the distance metric matches screen proportions.
-    vec2 c = (uv - vec2(0.5, 0.70)) * vec2(asp, 1.0);
+    // Source sits ABOVE the top of the viewport (WebGL y=1 is top).
+    // This means the entire top edge of the canvas is inside the bright zone —
+    // gradient "flows down" from the top rather than looking like a centred blob.
+    vec2 c = (uv - vec2(0.5, 1.15)) * vec2(asp * 0.85, 1.0);
 
-    // Swirl: 58 — gentle twist that decays with radius
+    // Swirl: 58
     float r   = length(c);
-    float ang = atan(c.y, c.x) + 0.58 * exp(-r * 3.0);
+    float ang = atan(c.y, c.x) + 0.58 * exp(-r * 2.5);
     vec2 sw   = r * vec2(cos(ang), sin(ang));
 
     // Very slow drift (speed: 30)
     float t = u_time * 0.012;
 
-    // Subtle organic noise
-    float n = noise(sw * 2.5 + vec2(t * 0.30, t * 0.22)) * 0.07;
+    // FBM noise — drives the organic variation the user asked for
+    float n = fbm(sw * 2.2 + vec2(t * 0.22, t * 0.14))        // low freq shape
+            + fbm(sw * 4.5 - vec2(t * 0.13, t * 0.27)) * 0.4; // high freq detail
 
-    // Glow radius scales with aspect so it always fills the full width.
-    // 16:9 (asp≈1.78) → edge≈0.98  |  ultrawide (asp≈2.4) → edge≈1.32
-    float edge = asp * 0.55;
-    float glow = 1.0 - smoothstep(0.0, edge, r);
-    glow = pow(glow, 0.80); // exponent < 1 spreads glow wider from centre
+    // Wide radial falloff — fills full viewport width from above-top source
+    float glow = 1.0 - smoothstep(0.0, asp * 0.80, r);
+    glow = pow(glow, 0.55);
 
-    float pattern = clamp(glow + n * glow * 0.4, 0.0, 1.0);
+    // Height fade: strong at top (uv.y = 1), weak at bottom (uv.y = 0)
+    // Uses a gentle power curve so the upper 50 % stays bright
+    float heightFade = pow(uv.y, 0.4);
+    glow *= mix(0.2, 1.0, heightFade);
 
-    // #7C3AED
-    vec3 purple = vec3(0.486, 0.227, 0.929);
-    vec3 bg     = vec3(0.039, 0.039, 0.039);
+    // Modulate with FBM for texture/variation
+    glow *= 0.55 + n * 0.45;
 
-    gl_FragColor = vec4(mix(bg, purple, pattern), 1.0);
+    glow = clamp(glow, 0.0, 1.0);
+
+    vec3 purple = vec3(0.486, 0.227, 0.929); // #7C3AED
+    vec3 bg     = vec3(0.039, 0.039, 0.039); // #0a0a0a
+
+    gl_FragColor = vec4(mix(bg, purple, glow), 1.0);
   }
 `;
 
@@ -99,7 +121,6 @@ export function HeroShader({ reduceMotion }: { reduceMotion: boolean }) {
     const uRes = gl.getUniformLocation(prog, 'u_res');
     const uTime = gl.getUniformLocation(prog, 'u_time');
 
-    // Use window dimensions — canvas is fixed full-viewport
     const resize = () => {
       const dpr = Math.min(window.devicePixelRatio, 2);
       canvas.width = window.innerWidth * dpr;
@@ -108,6 +129,17 @@ export function HeroShader({ reduceMotion }: { reduceMotion: boolean }) {
     };
     window.addEventListener('resize', resize);
     resize();
+
+    // Scroll-driven fade: fully visible at 0, gone by 100 vh of scroll.
+    // Starts fading at 70 vh so it's a gradual disappearance, not a snap.
+    const onScroll = () => {
+      const fraction = window.scrollY / window.innerHeight;
+      const fadeStart = 0.7;
+      const opacity = fraction < fadeStart ? 1 : Math.max(0, 1 - (fraction - fadeStart) / (1 - fadeStart));
+      canvas.style.opacity = String(opacity);
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll(); // apply immediately in case page loaded mid-scroll
 
     let raf = 0;
     const start = performance.now();
@@ -124,6 +156,7 @@ export function HeroShader({ reduceMotion }: { reduceMotion: boolean }) {
     return () => {
       cancelAnimationFrame(raf);
       window.removeEventListener('resize', resize);
+      window.removeEventListener('scroll', onScroll);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduceMotion]);
@@ -141,8 +174,10 @@ export function HeroShader({ reduceMotion }: { reduceMotion: boolean }) {
         height: '100vh',
         zIndex: 0,
         pointerEvents: 'none',
-        WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 65%, transparent 80%)',
-        maskImage: 'linear-gradient(to bottom, black 0%, black 65%, transparent 80%)',
+        // Soft bottom fade within the canvas itself — scroll listener handles
+        // the full disappearance as the user scrolls into the content.
+        WebkitMaskImage: 'linear-gradient(to bottom, black 0%, black 40%, rgba(0,0,0,0.6) 70%, transparent 92%)',
+        maskImage: 'linear-gradient(to bottom, black 0%, black 40%, rgba(0,0,0,0.6) 70%, transparent 92%)',
       }}
     />
   );
