@@ -71,7 +71,7 @@ const faqs = [
 
 const footerGroups = [
   {
-    title: 'Company',
+    title: 'Developers',
     links: [
       { label: 'Docs', href: 'https://docs.zephyr-cloud.io/' },
       { label: 'llms.txt', href: 'https://zephyr-cloud.io/llms.txt' },
@@ -80,10 +80,10 @@ const footerGroups = [
   {
     title: 'Company',
     links: [
-      { label: 'X', href: 'https://x.com/ZephyrCloudIO' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/96615966' },
       { label: 'GitHub', href: 'https://github.com/ZephyrCloudIO' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/96615966' },
       { label: 'Discord', href: 'https://discord.gg/zephyrcloud' },
+      { label: 'X', href: 'https://x.com/ZephyrCloudIO' },
       { label: 'YouTube', href: 'https://www.youtube.com/@ZephyrCloud' },
       { label: 'Instagram', href: 'https://www.instagram.com/zephyrcloudio' },
     ],
@@ -104,7 +104,7 @@ export function CityjsLondonLanderPage() {
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: manifestoRef,
-    offset: ['start 0.82', 'end 0.18'],
+    offset: ['start 0.85', 'end 0.55'],
   });
 
   return (
@@ -199,17 +199,23 @@ export function CityjsLondonLanderPage() {
       </section>
 
       <section className="relative z-[1] mx-auto max-w-[1200px] bg-[#0a0a0a] px-8 pb-20 pt-6">
-        <div ref={manifestoRef} className="py-64 text-4xl font-medium leading-[1.11]">
-          {manifesto.split(' ').map((word, index, words) => (
-            <ManifestoWord
-              key={`${word}-${index}`}
-              word={word}
-              index={index}
-              total={words.length}
-              progress={scrollYProgress}
-              reduceMotion={Boolean(reduceMotion)}
-            />
-          ))}
+        <div ref={manifestoRef} className="py-40 text-4xl font-medium leading-[1.11]">
+          {manifesto
+            .split('')
+            .map((char, index) =>
+              char === ' ' ? (
+                <span key={index}> </span>
+              ) : (
+                <ManifestoChar
+                  key={index}
+                  char={char}
+                  index={index}
+                  total={manifesto.length}
+                  progress={scrollYProgress}
+                  reduceMotion={Boolean(reduceMotion)}
+                />
+              ),
+            )}
         </div>
 
         <section className="space-y-8 pb-20">
@@ -409,31 +415,30 @@ export function CityjsLondonLanderPage() {
   );
 }
 
-function ManifestoWord({
-  word,
+function ManifestoChar({
+  char,
   index,
   total,
   progress,
   reduceMotion,
 }: {
-  word: string;
+  char: string;
   index: number;
   total: number;
   progress: ReturnType<typeof useScroll>['scrollYProgress'];
   reduceMotion: boolean;
 }) {
-  const start = (index / total) * 0.76;
-  const end = Math.min(start + 0.18, 1);
-  const opacity = useTransform(progress, [Math.max(start - 0.08, 0), end], [0.18, 1]);
-  const y = useTransform(progress, [Math.max(start - 0.08, 0), end], [18, 0]);
-  const color = useTransform(progress, [Math.max(start - 0.08, 0), end], ['#262626', '#fafafa']);
+  const start = (index / total) * 0.82;
+  const end = Math.min(start + 0.12, 1);
+  const opacity = useTransform(progress, [Math.max(start - 0.05, 0), end], [0.15, 1]);
+  const color = useTransform(progress, [Math.max(start - 0.05, 0), end], ['#262626', '#fafafa']);
 
   return (
     <motion.span
-      style={reduceMotion ? undefined : { opacity, y, color }}
-      className={reduceMotion ? 'text-[#faf5ff]' : 'inline-block will-change-transform'}
+      style={reduceMotion ? undefined : { opacity, color }}
+      className={reduceMotion ? 'text-[#faf5ff]' : undefined}
     >
-      {word}&nbsp;
+      {char}
     </motion.span>
   );
 }

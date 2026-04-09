@@ -31,37 +31,35 @@ const FRAG = /* glsl */ `
   }
 
   void main() {
-    vec2 uv  = gl_FragCoord.xy / u_res;
+    vec2 uv   = gl_FragCoord.xy / u_res;
     float asp = u_res.x / u_res.y;
 
-    // Shift centre upward — Offset: 60
-    vec2 c = (uv - vec2(0.5, 0.38)) * vec2(asp, 1.0);
+    // WebGL y=0 is BOTTOM. Centre at ~30% from screen top → uv.y = 0.70.
+    // Scale x by aspect so the distance metric matches screen proportions.
+    vec2 c = (uv - vec2(0.5, 0.70)) * vec2(asp, 1.0);
 
-    // Swirl: 58 — twist that decays away from centre
+    // Swirl: 58 — gentle twist that decays with radius
     float r   = length(c);
-    float ang = atan(c.y, c.x) + 0.58 * exp(-r * 2.8);
+    float ang = atan(c.y, c.x) + 0.58 * exp(-r * 3.0);
     vec2 sw   = r * vec2(cos(ang), sin(ang));
 
-    // Speed: 30 — very slow drift
+    // Very slow drift (speed: 30)
     float t = u_time * 0.012;
 
-    // Noise: 0.1 amplitude
-    float n = noise(sw * 3.0 + vec2(t * 0.35, t * 0.25)) * 0.08;
+    // Subtle organic noise
+    float n = noise(sw * 2.5 + vec2(t * 0.30, t * 0.22)) * 0.07;
 
-    // Shape: Stripes — soft parallel bands
-    float stripe = sin(sw.x * 9.42 + sw.y * 4.71 + t) * 0.5 + 0.5;
+    // Glow radius scales with aspect so it always fills the full width.
+    // 16:9 (asp≈1.78) → edge≈0.98  |  ultrawide (asp≈2.4) → edge≈1.32
+    float edge = asp * 0.55;
+    float glow = 1.0 - smoothstep(0.0, edge, r);
+    glow = pow(glow, 0.80); // exponent < 1 spreads glow wider from centre
 
-    // Radial falloff — Scale: 0.5, Softness: 100
-    float glow = 1.0 - smoothstep(0.0, 0.58, r * 1.7);
-    glow = pow(glow, 1.05);
-
-    // Blend stripes very subtly (softness: 100 nearly flattens them)
-    float pattern = mix(glow, glow * (0.88 + stripe * 0.12), 0.18) + n * glow;
-    pattern = clamp(pattern, 0.0, 1.0);
+    float pattern = clamp(glow + n * glow * 0.4, 0.0, 1.0);
 
     // #7C3AED
     vec3 purple = vec3(0.486, 0.227, 0.929);
-    vec3 bg     = vec3(0.039, 0.039, 0.039); // #0a0a0a
+    vec3 bg     = vec3(0.039, 0.039, 0.039);
 
     gl_FragColor = vec4(mix(bg, purple, pattern), 1.0);
   }
