@@ -73,9 +73,7 @@ function ChangelogPage() {
       <div className="container mx-auto px-4 py-16 max-w-7xl">
         {/* Header */}
         <div className="text-center mb-16">
-          <h1 className="text-5xl font-bold mb-4 pb-2 bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
-            Changelog
-          </h1>
+          <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">Changelog</h1>
           <p className="text-xl text-neutral-400">Latest updates and improvements to Zephyr Cloud</p>
         </div>
 

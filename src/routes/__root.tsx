@@ -87,10 +87,11 @@ function TwitterEmbed({ children, mediaMaxWidth = 560 }: { children: ReactNode; 
 
 // MDX components configuration
 const mdxComponents = {
-  h1: (props: any) => <h1 className="text-4xl font-bold mb-6 text-white" {...props} />,
-  h2: (props: any) => <h2 className="text-3xl font-semibold mb-4 mt-8 text-white" {...props} />,
-  h3: (props: any) => <h3 className="text-2xl font-semibold mb-3 mt-6 text-white" {...props} />,
-  h4: (props: any) => <h4 className="text-xl font-semibold mb-2 mt-4 text-white" {...props} />,
+  h1: (props: any) => <h1 className="text-4xl font-medium leading-tighter mb-6 text-white" {...props} />,
+  h2: (props: any) => <h2 className="text-3xl font-medium leading-tighter mb-4 mt-8 text-white" {...props} />,
+  h3: (props: any) => <h3 className="text-2xl font-medium leading-tighter mb-3 mt-6 text-white" {...props} />,
+  h4: (props: any) => <h4 className="text-xl font-medium leading-tighter mb-2 mt-4 text-white" {...props} />,
+  h5: (props: any) => <h5 className="text-lg font-medium leading-tighter mb-2 mt-4 text-white" {...props} />,
   p: (props: any) => <p className="mb-4 text-neutral-300 leading-relaxed" {...props} />,
   ul: (props: any) => <ul className="list-disc list-inside mb-4 text-neutral-300" {...props} />,
   ol: (props: any) => <ol className="list-decimal list-inside mb-4 text-neutral-300" {...props} />,
