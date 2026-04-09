@@ -59,16 +59,14 @@ const FRAG = /* glsl */ `
     float ang = atan(c.y, c.x) + 0.58 * exp(-r * 2.5);
     vec2 sw   = r * vec2(cos(ang), sin(ang));
 
-    // Slightly faster drift for more visible movement
-    float t = u_time * 0.022;
+    // Visible drift speed
+    float t = u_time * 0.05;
 
-    // FBM noise — more variation, larger amplitudes
-    float n = fbm(sw * 2.4 + vec2(t * 0.35, t * 0.22))         // low freq shape
-            + fbm(sw * 5.0 - vec2(t * 0.20, t * 0.42)) * 0.55  // high freq detail
-            + fbm(sw * 1.2 + vec2(t * 0.12, t * 0.08)) * 0.3;  // large-scale drift
+    // Low-frequency FBM only — keeps it fluid, not spotty
+    float n = fbm(sw * 1.6 + vec2(t * 0.30, t * 0.18))        // primary shape
+            + fbm(sw * 2.8 + vec2(t * 0.14, t * 0.22)) * 0.4; // secondary wave
 
     // Clamp asp so portrait/mobile gets the same wide coverage as landscape.
-    // Without this, asp * 0.60 ≈ 0.27 on phones — glow dies before mid-screen.
     float aspClamped = max(asp, 1.0);
     float glow = 1.0 - smoothstep(0.0, aspClamped * 0.60, r);
     glow = pow(glow, 0.65);
@@ -77,8 +75,8 @@ const FRAG = /* glsl */ `
     float heightFade = pow(uv.y, 0.55);
     glow *= mix(0.05, 1.0, heightFade);
 
-    // Heavy FBM modulation so the purple breaks up into streaks, not a solid blob
-    glow *= 0.35 + n * 0.65;
+    // Gentle FBM modulation — fluid variation without breaking into spots
+    glow *= 0.55 + n * 0.45;
 
     glow = clamp(glow, 0.0, 1.0);
 

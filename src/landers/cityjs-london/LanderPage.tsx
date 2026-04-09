@@ -176,9 +176,9 @@ export function CityjsLondonLanderPage() {
               Trusted teams already shipping with Zephyr
             </p>
             <div className="relative overflow-hidden">
-              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-40 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-40 bg-gradient-to-l from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
-              <div className="cityjs-marquee flex items-center gap-16 pr-16 md:gap-20 md:pr-20">
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-56 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-56 bg-gradient-to-l from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent" />
+              <div className="cityjs-marquee flex items-center gap-28 pr-28 md:gap-36 md:pr-36">
                 {[...partners, ...partners, ...partners].map((partner, index) => (
                   <div
                     key={`${partner.name}-${index}`}
