@@ -93,8 +93,11 @@ const footerGroups = [
   },
 ];
 
+type ComparisonTab = 'zephyr' | 'competitorA' | 'competitorB';
+
 export function CityjsLondonLanderPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [comparisonTab, setComparisonTab] = useState<ComparisonTab>('zephyr');
   const manifesto = 'Microfrontends solved frontend scale. Now systems need orchestration. Zephyr makes it executable.';
   const manifestoRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
@@ -141,12 +144,12 @@ export function CityjsLondonLanderPage() {
                 CityJS London
               </p>
               <div className="space-y-6">
-                <h1 className="text-balance text-5xl font-medium leading-none tracking-[-0.04em] text-[#faf5ff] md:text-7xl">
+                <h1 className="text-balance text-5xl font-medium leading-none text-[#fafafa] md:text-7xl">
                   Build federated systems.
                   <br />
                   Deploy instantly.
                 </h1>
-                <p className="mx-auto max-w-2xl text-base leading-6 text-[#a3a3a3] md:text-lg">
+                <p className="mx-auto max-w-2xl text-base leading-6 text-[#737373]">
                   From Module Federation to AI orchestration - live in minutes
                 </p>
               </div>
@@ -194,10 +197,7 @@ export function CityjsLondonLanderPage() {
       </section>
 
       <section className="mx-auto max-w-[1200px] px-8 pb-20 pt-6">
-        <div
-          ref={manifestoRef}
-          className="py-36 text-[clamp(2.2rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.04em] md:py-44"
-        >
+        <div ref={manifestoRef} className="py-64 text-4xl font-medium leading-[1.11]">
           {manifesto.split(' ').map((word, index, words) => (
             <ManifestoWord
               key={`${word}-${index}`}
@@ -211,9 +211,62 @@ export function CityjsLondonLanderPage() {
         </div>
 
         <section className="space-y-8 pb-20">
-          <h2 className="text-4xl font-normal tracking-[-0.03em] text-[#faf5ff]">Comparison</h2>
+          <h2 className="text-4xl font-normal text-[#faf5ff]">Comparison</h2>
 
-          <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
+          {/* Mobile: tab-based 2-column view */}
+          <div className="lg:hidden">
+            <div className="mb-4 flex gap-2">
+              {(
+                [
+                  { key: 'zephyr', label: 'Zephyr Cloud' },
+                  { key: 'competitorA', label: 'Traditional CI/CD' },
+                  { key: 'competitorB', label: 'Frontend cloud' },
+                ] as { key: ComparisonTab; label: string }[]
+              ).map(({ key, label }) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setComparisonTab(key)}
+                  className={`rounded-md px-2 py-0.5 text-xs font-medium transition ${
+                    comparisonTab === key ? 'bg-violet-600 text-white' : 'bg-[#262626] text-[#fafafa]'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#0d0d0d]">
+              {comparisonGroups.map((group) => (
+                <div key={group.label}>
+                  <div className="grid grid-cols-2 bg-white/[0.05] text-sm text-neutral-300">
+                    <div className="px-4 py-3">{group.label}</div>
+                    <div className="px-4 py-3" />
+                  </div>
+                  {group.rows.map((row) => (
+                    <div key={row.feature} className="grid grid-cols-2 border-t border-white/10 text-sm">
+                      <div className="px-4 py-4 text-neutral-200">{row.feature}</div>
+                      <div className="flex min-h-[52px] items-center px-4 py-3">
+                        {renderComparisonValue(row[comparisonTab], comparisonTab === 'zephyr')}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex justify-center">
+              <a
+                href="#cityjs-hubspot-form"
+                className="inline-flex h-9 items-center justify-center rounded-md border border-white/20 bg-transparent px-4 text-sm font-medium text-[#fafafa] transition hover:bg-white/10"
+              >
+                Get started
+              </a>
+            </div>
+          </div>
+
+          {/* Desktop: full 4-column table */}
+          <div className="hidden overflow-x-auto rounded-2xl border border-white/10 bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.28)] lg:block">
             <div className="min-w-[980px]">
               <div className="grid grid-cols-[1.55fr_1fr_1fr_1fr] border-b border-white/10 bg-black text-sm">
                 <div className="px-5 py-5" />
@@ -263,9 +316,7 @@ export function CityjsLondonLanderPage() {
 
         <section className="grid gap-8 pb-20 lg:grid-cols-[1fr_1fr]">
           <div>
-            <h2 className="max-w-md text-4xl font-normal tracking-[-0.03em] text-[#faf5ff]">
-              Everything you need to know
-            </h2>
+            <h2 className="max-w-md text-4xl font-normal text-[#faf5ff]">Everything you need to know</h2>
           </div>
 
           <div className="space-y-2">
@@ -370,11 +421,7 @@ function ManifestoWord({
   const end = Math.min(start + 0.18, 1);
   const opacity = useTransform(progress, [Math.max(start - 0.08, 0), end], [0.18, 1]);
   const y = useTransform(progress, [Math.max(start - 0.08, 0), end], [18, 0]);
-  const color = useTransform(
-    progress,
-    [Math.max(start - 0.08, 0), end],
-    ['rgba(250,245,255,0.18)', 'rgba(250,245,255,1)'],
-  );
+  const color = useTransform(progress, [Math.max(start - 0.08, 0), end], ['#262626', '#fafafa']);
 
   return (
     <motion.span
