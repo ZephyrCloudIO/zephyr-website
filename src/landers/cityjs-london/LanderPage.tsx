@@ -227,7 +227,7 @@ export function CityjsLondonLanderPage() {
                   key={key}
                   type="button"
                   onClick={() => setComparisonTab(key)}
-                  className={`rounded-md px-2 py-0.5 text-xs font-medium transition ${
+                  className={`min-h-8 rounded-md px-3 py-1 text-xs font-medium transition ${
                     comparisonTab === key ? 'bg-violet-600 text-white' : 'bg-[#262626] text-[#fafafa]'
                   }`}
                 >
@@ -244,7 +244,10 @@ export function CityjsLondonLanderPage() {
                     <div className="px-4 py-3" />
                   </div>
                   {group.rows.map((row) => (
-                    <div key={row.feature} className="grid grid-cols-2 border-t border-white/10 text-sm">
+                    <div
+                      key={row.feature}
+                      className="grid grid-cols-2 border-t border-t-[0.5px] border-white/[0.15] text-sm"
+                    >
                       <div className="px-4 py-4 text-neutral-200">{row.feature}</div>
                       <div className="flex min-h-[52px] items-center px-4 py-3">
                         {renderComparisonValue(row[comparisonTab], comparisonTab === 'zephyr')}
@@ -294,7 +297,7 @@ export function CityjsLondonLanderPage() {
                   {group.rows.map((row) => (
                     <div
                       key={row.feature}
-                      className="grid grid-cols-[1.55fr_1fr_1fr_1fr] border-t border-white/10 text-sm text-[#faf5ff]"
+                      className="grid grid-cols-[1.55fr_1fr_1fr_1fr] border-t border-t-[0.5px] border-white/[0.15] text-sm text-[#faf5ff]"
                     >
                       <div className="px-5 py-5 text-neutral-200">{row.feature}</div>
                       <div className="flex min-h-[60px] items-center px-5 py-4">
