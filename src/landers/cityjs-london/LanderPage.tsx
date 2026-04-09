@@ -405,7 +405,7 @@ export function CityjsLondonLanderPage() {
           </div>
         </section>
 
-        <section id="cityjs-hubspot-form" className="space-y-8 pb-20 pt-4 text-center">
+        <section ref={bottomFormRef} id="cityjs-hubspot-form" className="space-y-8 pb-20 pt-4 text-center">
           <div className="mx-auto max-w-[912px] space-y-8">
             <h2 className="text-balance text-4xl font-medium leading-none tracking-[-0.04em] text-[#faf5ff] md:text-6xl">
               Ready to run your system live?
@@ -418,18 +418,6 @@ export function CityjsLondonLanderPage() {
             <HubspotInlineForm />
           </div>
         </section>
-      </section>
-
-      {/* Bottom CTA form — scroll target for sticky nav */}
-      <section
-        ref={bottomFormRef}
-        className="relative z-[1] mx-auto max-w-[1200px] bg-[#0a0a0a] px-6 pb-20 pt-10 md:px-8"
-      >
-        <div className="mx-auto max-w-[620px]">
-          <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-            <HubspotInlineForm mode="hero" />
-          </div>
-        </div>
       </section>
 
       <footer className="relative z-[1] mx-auto grid max-w-[1200px] gap-16 bg-[#0a0a0a] px-6 pb-20 pt-4 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
