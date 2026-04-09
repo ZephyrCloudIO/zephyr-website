@@ -151,7 +151,7 @@ export function CityjsLondonLanderPage() {
                   <br />
                   Deploy instantly.
                 </h1>
-                <p className="mx-auto max-w-2xl text-base leading-6 text-[#737373]">
+                <p className="mx-auto max-w-2xl text-base leading-6 text-[#a1a1aa]">
                   From Module Federation to AI orchestration - live in minutes
                 </p>
               </div>
