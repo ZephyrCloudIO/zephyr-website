@@ -60,7 +60,7 @@ const FRAG = /* glsl */ `
     vec2 sw   = r * vec2(cos(ang), sin(ang));
 
     // Visible drift speed
-    float t = u_time * 0.10;
+    float t = u_time * 0.20;
 
     // Low-frequency FBM only — keeps it fluid, not spotty
     float n = fbm(sw * 1.6 + vec2(t * 0.30, t * 0.18))        // primary shape

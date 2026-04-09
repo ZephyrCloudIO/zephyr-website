@@ -1,6 +1,6 @@
 import { Check, ChevronDown, X } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AicpaSoc2 from './assets/aicpa-soc2.png';
 import heroImage from './assets/hero-image.png';
 import agoda from './assets/logo-agoda.png';
@@ -99,9 +99,18 @@ type ComparisonTab = 'zephyr' | 'competitorA' | 'competitorB';
 export function CityjsLondonLanderPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [comparisonTab, setComparisonTab] = useState<ComparisonTab>('zephyr');
+  const [navVisible, setNavVisible] = useState(false);
   const manifesto = 'Microfrontends solved frontend scale. Now systems need orchestration. Zephyr makes it executable.';
   const manifestoRef = useRef<HTMLDivElement>(null);
+  const bottomFormRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const onScroll = () => setNavVisible(window.scrollY > window.innerHeight);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   const { scrollYProgress } = useScroll({
     target: manifestoRef,
     offset: ['start 0.85', 'end 0.55'],
@@ -110,6 +119,26 @@ export function CityjsLondonLanderPage() {
   return (
     <main className="lander-shell overflow-hidden bg-[#0a0a0a] text-white [background-image:none]">
       <HeroShader reduceMotion={Boolean(reduceMotion)} />
+
+      {/* Scroll-triggered sticky nav */}
+      <div
+        aria-hidden={!navVisible}
+        className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur-md transition-all duration-300"
+        style={{
+          transform: navVisible ? 'translateY(0)' : 'translateY(-100%)',
+          opacity: navVisible ? 1 : 0,
+        }}
+      >
+        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4 md:px-8">
+          <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
+          <button
+            onClick={() => bottomFormRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            className="rounded-md border border-white/20 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+          >
+            Start building
+          </button>
+        </div>
+      </div>
       <style>{`
         @keyframes cityjs-hero-rise {
           from { opacity: 0; transform: translateY(28px); }
@@ -199,7 +228,7 @@ export function CityjsLondonLanderPage() {
       </section>
 
       <section className="relative z-[1] mx-auto max-w-[1200px] bg-[#0a0a0a] px-8 pb-20 pt-6">
-        <div ref={manifestoRef} className="py-40 text-4xl font-medium leading-[1.11]">
+        <div ref={manifestoRef} className="py-64 text-4xl font-medium leading-[1.11]">
           {manifesto
             .split('')
             .map((char, index) =>
@@ -381,8 +410,20 @@ export function CityjsLondonLanderPage() {
         </section>
       </section>
 
+      {/* Bottom CTA form — scroll target for sticky nav */}
+      <section
+        ref={bottomFormRef}
+        className="relative z-[1] mx-auto max-w-[1200px] bg-[#0a0a0a] px-6 pb-20 pt-10 md:px-8"
+      >
+        <div className="mx-auto max-w-[620px]">
+          <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
+            <HubspotInlineForm mode="hero" />
+          </div>
+        </div>
+      </section>
+
       <footer className="relative z-[1] mx-auto grid max-w-[1200px] gap-16 bg-[#0a0a0a] px-6 pb-20 pt-4 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
-        <div className="order-last space-y-8 md:order-first">
+        <div className="space-y-8">
           <div className="space-y-4">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
             <img src={AicpaSoc2} alt="SOC 2" className="h-12 w-12 rounded-full" />
@@ -390,7 +431,7 @@ export function CityjsLondonLanderPage() {
           <p className="text-neutral-500">© 2026 Zephyr Cloud, Inc.</p>
         </div>
 
-        <div className="grid gap-10 sm:grid-cols-3">
+        <div className="grid gap-10 md:grid-cols-3">
           {footerGroups.map((group) => (
             <div key={group.title} className="space-y-4">
               <p className="text-sm font-medium text-[#fafafa]">{group.title}</p>
