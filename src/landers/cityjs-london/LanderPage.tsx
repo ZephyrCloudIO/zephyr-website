@@ -135,7 +135,7 @@ export function CityjsLondonLanderPage() {
       <section className="relative overflow-hidden">
         <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6">
           <header className="cityjs-rise flex items-center gap-6">
-            <img src={ZephyrWordmark} alt="Zephyr Cloud" className="h-[31px] w-[175px]" />
+            <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
           </header>
 
           <div className="cityjs-rise flex flex-1 flex-col items-center justify-center gap-10 pt-20 text-center">
@@ -376,7 +376,7 @@ export function CityjsLondonLanderPage() {
       <footer className="mx-auto grid max-w-[1200px] gap-16 px-6 pb-20 pt-4 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
         <div className="space-y-8">
           <div className="space-y-4">
-            <img src={ZephyrWordmark} alt="Zephyr Cloud" className="h-[31px] w-[175px]" />
+            <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
             <img src={AicpaSoc2} alt="SOC 2" className="h-12 w-12 rounded-full" />
           </div>
           <p className="text-neutral-500">© 2026 Zephyr Cloud, Inc.</p>
