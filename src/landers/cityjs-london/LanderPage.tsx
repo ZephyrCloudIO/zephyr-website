@@ -100,15 +100,26 @@ export function CityjsLondonLanderPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [comparisonTab, setComparisonTab] = useState<ComparisonTab>('zephyr');
   const [navVisible, setNavVisible] = useState(false);
+  const lastScrollY = useRef(0);
   const manifesto = 'Microfrontends solved frontend scale. Now systems need orchestration. Zephyr makes it executable.';
   const manifestoRef = useRef<HTMLDivElement>(null);
   const bottomFormRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
 
   useEffect(() => {
-    const onScroll = () => setNavVisible(window.scrollY > window.innerHeight);
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      const pastHero = currentY > window.innerHeight;
+      if (!pastHero) {
+        setNavVisible(false);
+      } else if (currentY < lastScrollY.current) {
+        setNavVisible(true); // scrolling up
+      } else if (currentY > lastScrollY.current) {
+        setNavVisible(false); // scrolling down
+      }
+      lastScrollY.current = currentY;
+    };
     window.addEventListener('scroll', onScroll, { passive: true });
-    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
   const { scrollYProgress } = useScroll({
@@ -120,20 +131,19 @@ export function CityjsLondonLanderPage() {
     <main className="lander-shell overflow-hidden bg-[#0a0a0a] text-white [background-image:none]">
       <HeroShader reduceMotion={Boolean(reduceMotion)} />
 
-      {/* Scroll-triggered sticky nav */}
+      {/* Scroll-triggered sticky nav — same behavior & styling as main zephyr-cloud.io header */}
       <div
         aria-hidden={!navVisible}
-        className="fixed left-0 right-0 top-0 z-50 border-b border-white/10 bg-[#0a0a0a]/95 backdrop-blur-md transition-all duration-300"
+        className="fixed left-0 right-0 top-0 z-50 bg-black/90 backdrop-blur-md transition-all duration-300"
         style={{
           transform: navVisible ? 'translateY(0)' : 'translateY(-100%)',
-          opacity: navVisible ? 1 : 0,
         }}
       >
-        <div className="mx-auto flex max-w-[1200px] items-center justify-between px-6 py-4 md:px-8">
+        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 sm:px-6 lg:px-8">
           <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
           <button
             onClick={() => bottomFormRef.current?.scrollIntoView({ behavior: 'smooth' })}
-            className="rounded-md border border-white/20 px-4 py-2 text-sm font-medium text-white transition hover:bg-white/10"
+            className="rounded-md border border-neutral-700 bg-neutral-900/80 px-3 py-1.5 text-sm text-white transition hover:border-neutral-500 hover:bg-neutral-800/90"
           >
             Start building
           </button>
