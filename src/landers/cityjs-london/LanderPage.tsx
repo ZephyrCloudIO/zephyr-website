@@ -10,6 +10,7 @@ import nx from './assets/logo-nx.png';
 import rimac from './assets/logo-rimac.png';
 import sgws from './assets/logo-sgws.png';
 import ZephyrWordmark from './assets/logo-zephyr-wordmark.svg';
+import { HeroShader } from './HeroShader';
 import { HubspotInlineForm } from './HubspotInlineForm';
 
 const partners = [
@@ -133,6 +134,7 @@ export function CityjsLondonLanderPage() {
       `}</style>
 
       <section className="relative overflow-hidden">
+        <HeroShader reduceMotion={Boolean(reduceMotion)} />
         <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6">
           <header className="cityjs-rise flex items-center gap-6">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
