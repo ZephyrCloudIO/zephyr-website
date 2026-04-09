@@ -109,6 +109,7 @@ export function CityjsLondonLanderPage() {
 
   return (
     <main className="lander-shell overflow-hidden bg-[#0a0a0a] text-white [background-image:none]">
+      <HeroShader reduceMotion={Boolean(reduceMotion)} />
       <style>{`
         @keyframes cityjs-hero-rise {
           from { opacity: 0; transform: translateY(28px); }
@@ -133,8 +134,7 @@ export function CityjsLondonLanderPage() {
         }
       `}</style>
 
-      <section className="relative overflow-hidden">
-        <HeroShader reduceMotion={Boolean(reduceMotion)} />
+      <section className="relative z-[1] overflow-hidden">
         <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6">
           <header className="cityjs-rise flex items-center gap-6">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
@@ -198,7 +198,7 @@ export function CityjsLondonLanderPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1200px] px-8 pb-20 pt-6">
+      <section className="relative z-[1] mx-auto max-w-[1200px] bg-[#0a0a0a] px-8 pb-20 pt-6">
         <div ref={manifestoRef} className="py-64 text-4xl font-medium leading-[1.11]">
           {manifesto.split(' ').map((word, index, words) => (
             <ManifestoWord
@@ -375,7 +375,7 @@ export function CityjsLondonLanderPage() {
         </section>
       </section>
 
-      <footer className="mx-auto grid max-w-[1200px] gap-16 px-6 pb-20 pt-4 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
+      <footer className="relative z-[1] mx-auto grid max-w-[1200px] gap-16 bg-[#0a0a0a] px-6 pb-20 pt-4 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
         <div className="space-y-8">
           <div className="space-y-4">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
