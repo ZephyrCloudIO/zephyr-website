@@ -117,14 +117,14 @@ export function CityjsLondonLanderPage() {
         }
         @keyframes cityjs-marquee {
           from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+          to { transform: translateX(-33.333%); }
         }
         .cityjs-rise {
           animation: cityjs-hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
         .cityjs-marquee {
           width: max-content;
-          animation: cityjs-marquee 34s linear infinite;
+          animation: cityjs-marquee 55s linear infinite;
         }
         @media (prefers-reduced-motion: reduce) {
           .cityjs-rise,
@@ -176,10 +176,10 @@ export function CityjsLondonLanderPage() {
               Trusted teams already shipping with Zephyr
             </p>
             <div className="relative overflow-hidden">
-              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[#0a0a0a] to-transparent" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[#0a0a0a] to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-40 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-40 bg-gradient-to-l from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
               <div className="cityjs-marquee flex items-center gap-16 pr-16 md:gap-20 md:pr-20">
-                {[...partners, ...partners].map((partner, index) => (
+                {[...partners, ...partners, ...partners].map((partner, index) => (
                   <div
                     key={`${partner.name}-${index}`}
                     className="flex h-20 shrink-0 items-center justify-center"
