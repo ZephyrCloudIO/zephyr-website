@@ -116,8 +116,8 @@ export function CityjsLondonLanderPage() {
           to { opacity: 1; transform: translateY(0); }
         }
         @keyframes cityjs-marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-33.333%); }
+          from { transform: translateX(-33.333%); }
+          to { transform: translateX(0); }
         }
         .cityjs-rise {
           animation: cityjs-hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
