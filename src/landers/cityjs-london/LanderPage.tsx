@@ -428,10 +428,10 @@ function ManifestoChar({
   progress: ReturnType<typeof useScroll>['scrollYProgress'];
   reduceMotion: boolean;
 }) {
-  const start = (index / total) * 0.82;
-  const end = Math.min(start + 0.12, 1);
-  const opacity = useTransform(progress, [Math.max(start - 0.05, 0), end], [0.15, 1]);
-  const color = useTransform(progress, [Math.max(start - 0.05, 0), end], ['#262626', '#fafafa']);
+  const start = (index / total) * 0.88;
+  const end = Math.min(start + 0.04, 1);
+  const opacity = useTransform(progress, [Math.max(start - 0.01, 0), end], [0.15, 1]);
+  const color = useTransform(progress, [Math.max(start - 0.01, 0), end], ['#262626', '#fafafa']);
 
   return (
     <motion.span
