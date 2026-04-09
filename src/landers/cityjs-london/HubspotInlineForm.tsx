@@ -129,14 +129,16 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
   const inputClass = isHero ? 'pl-10 pr-4 text-[15px] text-white' : 'pl-9 pr-3 text-sm text-white';
 
   return (
-    <form onSubmit={handleSubmit} className={isHero ? 'w-full space-y-8' : 'w-full space-y-3 px-4 py-4 md:px-6'}>
-      <p
-        aria-live="polite"
-        aria-atomic="true"
-        className={`min-h-4 text-center text-[11px] font-medium leading-4 tracking-[0.01em] ${helperColor}`}
-      >
-        {helperText}
-      </p>
+    <form onSubmit={handleSubmit} className={isHero ? 'w-full space-y-4' : 'w-full space-y-3 px-4 py-4 md:px-6'}>
+      {helperText && (
+        <p
+          aria-live="polite"
+          aria-atomic="true"
+          className={`text-center text-[11px] font-medium leading-4 tracking-[0.01em] ${helperColor}`}
+        >
+          {helperText}
+        </p>
+      )}
 
       {isSuccess ? (
         <div
@@ -151,8 +153,8 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
           </div>
         </div>
       ) : (
-        <div className="space-y-8">
-          <div className="grid gap-8 sm:grid-cols-[1.15fr_1fr]">
+        <div className="space-y-4">
+          <div className="grid gap-4 sm:grid-cols-[1.15fr_1fr]">
             {[
               { name: 'fullName', label: 'Full name', type: 'text', icon: User },
               { name: 'email', label: 'Work email', type: 'email', icon: Mail },

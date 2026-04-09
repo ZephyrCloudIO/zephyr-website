@@ -59,24 +59,24 @@ const FRAG = /* glsl */ `
     float ang = atan(c.y, c.x) + 0.58 * exp(-r * 2.5);
     vec2 sw   = r * vec2(cos(ang), sin(ang));
 
-    // Very slow drift (speed: 30)
-    float t = u_time * 0.012;
+    // Slightly faster drift for more visible movement
+    float t = u_time * 0.022;
 
-    // FBM noise — drives the organic variation the user asked for
-    float n = fbm(sw * 2.2 + vec2(t * 0.22, t * 0.14))        // low freq shape
-            + fbm(sw * 4.5 - vec2(t * 0.13, t * 0.27)) * 0.4; // high freq detail
+    // FBM noise — more variation, larger amplitudes
+    float n = fbm(sw * 2.4 + vec2(t * 0.35, t * 0.22))         // low freq shape
+            + fbm(sw * 5.0 - vec2(t * 0.20, t * 0.42)) * 0.55  // high freq detail
+            + fbm(sw * 1.2 + vec2(t * 0.12, t * 0.08)) * 0.3;  // large-scale drift
 
-    // Wide radial falloff — fills full viewport width from above-top source
-    float glow = 1.0 - smoothstep(0.0, asp * 0.80, r);
-    glow = pow(glow, 0.55);
+    // Tighter radial falloff — purple stays near the top, not pooling in the middle
+    float glow = 1.0 - smoothstep(0.0, asp * 0.60, r);
+    glow = pow(glow, 0.75);
 
     // Height fade: strong at top (uv.y = 1), weak at bottom (uv.y = 0)
-    // Uses a gentle power curve so the upper 50 % stays bright
-    float heightFade = pow(uv.y, 0.4);
-    glow *= mix(0.2, 1.0, heightFade);
+    float heightFade = pow(uv.y, 0.55);
+    glow *= mix(0.05, 1.0, heightFade);
 
-    // Modulate with FBM for texture/variation
-    glow *= 0.55 + n * 0.45;
+    // Heavy FBM modulation so the purple breaks up into streaks, not a solid blob
+    glow *= 0.35 + n * 0.65;
 
     glow = clamp(glow, 0.0, 1.0);
 
