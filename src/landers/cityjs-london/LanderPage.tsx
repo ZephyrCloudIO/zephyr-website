@@ -156,7 +156,7 @@ export function CityjsLondonLanderPage() {
                 </p>
               </div>
               <div className="mx-auto max-w-[620px] space-y-4">
-                <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl md:p-5">
+                <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
                   <HubspotInlineForm mode="hero" />
                 </div>
               </div>

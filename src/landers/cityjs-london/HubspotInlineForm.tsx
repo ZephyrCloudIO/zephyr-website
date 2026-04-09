@@ -129,7 +129,7 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
   const inputClass = isHero ? 'pl-10 pr-4 text-[15px] text-white' : 'pl-9 pr-3 text-sm text-white';
 
   return (
-    <form onSubmit={handleSubmit} className={isHero ? 'w-full space-y-3' : 'w-full space-y-3 px-4 py-4 md:px-6'}>
+    <form onSubmit={handleSubmit} className={isHero ? 'w-full space-y-8' : 'w-full space-y-3 px-4 py-4 md:px-6'}>
       <p
         aria-live="polite"
         aria-atomic="true"
@@ -151,8 +151,8 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
           </div>
         </div>
       ) : (
-        <div className="space-y-3">
-          <div className="grid gap-3 sm:grid-cols-[1.15fr_1fr]">
+        <div className="space-y-8">
+          <div className="grid gap-8 sm:grid-cols-[1.15fr_1fr]">
             {[
               { name: 'fullName', label: 'Full name', type: 'text', icon: User },
               { name: 'email', label: 'Work email', type: 'email', icon: Mail },
