@@ -1,6 +1,6 @@
 import { Check, ChevronDown, X } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import AicpaSoc2 from './assets/aicpa-soc2.png';
 import heroImage from './assets/hero-image.png';
 import agoda from './assets/logo-agoda.png';
@@ -10,6 +10,7 @@ import nx from './assets/logo-nx.png';
 import rimac from './assets/logo-rimac.png';
 import sgws from './assets/logo-sgws.png';
 import ZephyrWordmark from './assets/logo-zephyr-wordmark.svg';
+import { HeroShader } from './HeroShader';
 import { HubspotInlineForm } from './HubspotInlineForm';
 
 const partners = [
@@ -42,35 +43,35 @@ const comparisonGroups = [
 
 const faqs = [
   {
-    question: 'What should we use Zephyr for at CityJS?',
+    question: 'How does Zephyr speed up development?',
     answer:
-      'Teams dealing with module federation, multi-app release risk, or operational sprawl. The page angle is orchestration, not just hosting.',
+      'Zephyr integrates with bundlers like Webpack, Rspack, and Vite to handle deployment automatically during your build process. Instead of configuring complex deployment pipelines, applications deploy to the edge network as part of standard builds — with instant deployments, automatic version management, and Bring Your Own Cloud support.',
   },
   {
-    question: 'Does this replace our current CI/CD setup?',
+    question: 'Do I need Micro-Frontend applications to use Zephyr?',
     answer:
-      'No. It sits above delivery plumbing and gives teams a deployable system model, instant rollback paths, and controlled release coordination.',
+      'No. Zephyr works with any application architecture: standalone applications without micro-frontends, micro-frontend applications with full Module Federation support, or hybrid architectures mixing standalone and federated modules.',
   },
   {
-    question: 'Can we bring our own cloud account?',
+    question: 'Do the Zephyr plugins affect my build performance?',
     answer:
-      'Yes. BYOC is one of the strongest differentiators worth calling out for conference traffic that is sensitive to lock-in.',
+      'No. Zephyr plugins only act during two phases: before the build starts (authentication and initialization) and after it completes (asset analysis and deployment). The actual build process runs normally without interference.',
   },
   {
-    question: 'Is this only for microfrontends?',
+    question: 'Can I use my own cloud provider?',
     answer:
-      'No. The framing starts with federated systems, but the value is broader: orchestration, deployment control, and runtime execution for distributed apps.',
+      'Yes. Zephyr supports Bring Your Own Cloud deployments with currently supported providers including Cloudflare, AWS, Fastly, and Akamai, with continuous expansion planned.',
   },
   {
-    question: 'What should the CTA do?',
+    question: 'What is the difference between Module Federation 1.0 and 2.0?',
     answer:
-      'Best fit for this first lander: book time with the team or start a product trial. Both match the design and event intent.',
+      'Module Federation 1.0 was built into Webpack core. Module Federation 2.0 is framework-agnostic (supporting Webpack, Rspack, Vite, and more) with enhanced capabilities including dynamic import types, a Federation Runtime, runtime plugin systems, improved TypeScript support, and better developer experience overall.',
   },
 ];
 
 const footerGroups = [
   {
-    title: 'Company',
+    title: 'Developers',
     links: [
       { label: 'Docs', href: 'https://docs.zephyr-cloud.io/' },
       { label: 'llms.txt', href: 'https://zephyr-cloud.io/llms.txt' },
@@ -79,10 +80,10 @@ const footerGroups = [
   {
     title: 'Company',
     links: [
-      { label: 'X', href: 'https://x.com/ZephyrCloudIO' },
-      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/96615966' },
       { label: 'GitHub', href: 'https://github.com/ZephyrCloudIO' },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/96615966' },
       { label: 'Discord', href: 'https://discord.gg/zephyrcloud' },
+      { label: 'X', href: 'https://x.com/ZephyrCloudIO' },
       { label: 'YouTube', href: 'https://www.youtube.com/@ZephyrCloud' },
       { label: 'Instagram', href: 'https://www.instagram.com/zephyrcloudio' },
     ],
@@ -93,33 +94,76 @@ const footerGroups = [
   },
 ];
 
+type ComparisonTab = 'zephyr' | 'competitorA' | 'competitorB';
+
 export function CityjsLondonLanderPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [comparisonTab, setComparisonTab] = useState<ComparisonTab>('zephyr');
+  const [navVisible, setNavVisible] = useState(false);
+  const lastScrollY = useRef(0);
   const manifesto = 'Microfrontends solved frontend scale. Now systems need orchestration. Zephyr makes it executable.';
   const manifestoRef = useRef<HTMLDivElement>(null);
+  const bottomFormRef = useRef<HTMLDivElement>(null);
   const reduceMotion = useReducedMotion();
+
+  useEffect(() => {
+    const onScroll = () => {
+      const currentY = window.scrollY;
+      const pastHero = currentY > window.innerHeight;
+      if (!pastHero) {
+        setNavVisible(false);
+      } else if (currentY < lastScrollY.current) {
+        setNavVisible(true); // scrolling up
+      } else if (currentY > lastScrollY.current) {
+        setNavVisible(false); // scrolling down
+      }
+      lastScrollY.current = currentY;
+    };
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
   const { scrollYProgress } = useScroll({
     target: manifestoRef,
-    offset: ['start 0.82', 'end 0.18'],
+    offset: ['start 0.85', 'end 0.55'],
   });
 
   return (
     <main className="lander-shell overflow-hidden bg-[#0a0a0a] text-white [background-image:none]">
+      <HeroShader reduceMotion={Boolean(reduceMotion)} />
+
+      {/* Scroll-triggered sticky nav — same behavior & styling as main zephyr-cloud.io header */}
+      <div
+        aria-hidden={!navVisible}
+        className="fixed left-0 right-0 top-0 z-50 bg-black/90 backdrop-blur-md transition-all duration-300"
+        style={{
+          transform: navVisible ? 'translateY(0)' : 'translateY(-100%)',
+        }}
+      >
+        <div className="mx-auto flex h-16 max-w-[1200px] items-center justify-between px-4 sm:px-6 lg:px-8">
+          <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
+          <button
+            onClick={() => bottomFormRef.current?.scrollIntoView({ behavior: 'smooth' })}
+            className="rounded-md border border-neutral-700 bg-neutral-900/80 px-3 py-1.5 text-sm text-white transition hover:border-neutral-500 hover:bg-neutral-800/90"
+          >
+            Start building
+          </button>
+        </div>
+      </div>
       <style>{`
         @keyframes cityjs-hero-rise {
           from { opacity: 0; transform: translateY(28px); }
           to { opacity: 1; transform: translateY(0); }
         }
         @keyframes cityjs-marquee {
-          from { transform: translateX(0); }
-          to { transform: translateX(-50%); }
+          from { transform: translateX(-33.333%); }
+          to { transform: translateX(0); }
         }
         .cityjs-rise {
           animation: cityjs-hero-rise 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
         }
         .cityjs-marquee {
           width: max-content;
-          animation: cityjs-marquee 34s linear infinite;
+          animation: cityjs-marquee 55s linear infinite;
         }
         @media (prefers-reduced-motion: reduce) {
           .cityjs-rise,
@@ -129,29 +173,29 @@ export function CityjsLondonLanderPage() {
         }
       `}</style>
 
-      <section className="relative overflow-hidden">
-        <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6 md:px-8 lg:px-10">
+      <section className="relative z-[1] overflow-hidden">
+        <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6">
           <header className="cityjs-rise flex items-center gap-6">
-            <img src={ZephyrWordmark} alt="Zephyr Cloud" className="h-[31px] w-[175px]" />
+            <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
           </header>
 
-          <div className="cityjs-rise flex flex-1 flex-col items-center justify-center gap-10 pt-20 text-center md:pt-28">
+          <div className="cityjs-rise flex flex-1 flex-col items-center justify-center gap-10 pt-20 text-center">
             <div className="max-w-[912px] space-y-8">
               <p className="mx-auto inline-flex rounded-md bg-violet-600 px-2 py-0.5 font-mono text-[12px] font-medium uppercase tracking-[0.12em] text-white">
                 CityJS London
               </p>
               <div className="space-y-6">
-                <h1 className="text-balance text-5xl font-medium leading-none tracking-[-0.04em] text-[#faf5ff] md:text-7xl">
+                <h1 className="text-balance text-5xl font-medium leading-none text-[#fafafa] md:text-7xl">
                   Build federated systems.
                   <br />
                   Deploy instantly.
                 </h1>
-                <p className="mx-auto max-w-2xl text-base leading-6 text-[#a3a3a3] md:text-lg">
+                <p className="mx-auto max-w-2xl text-base leading-6 text-[#A3A3A3]">
                   From Module Federation to AI orchestration - live in minutes
                 </p>
               </div>
               <div className="mx-auto max-w-[620px] space-y-4">
-                <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] p-4 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl md:p-5">
+                <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
                   <HubspotInlineForm mode="hero" />
                 </div>
               </div>
@@ -159,12 +203,8 @@ export function CityjsLondonLanderPage() {
 
             <div className="w-full max-w-[1136px]">
               <div className="rounded-[10px] bg-[rgba(255,255,255,0.15)] p-2 shadow-[0_32px_120px_rgba(0,0,0,0.55)]">
-                <div className="relative aspect-[1126/731] overflow-hidden rounded-[8px] bg-[#0f0f10]">
-                  <img
-                    src={heroImage}
-                    alt="Zephyr Cloud application interface"
-                    className="absolute left-0 top-0 h-[171.58%] w-full max-w-none"
-                  />
+                <div className="overflow-hidden rounded-[8px] bg-[#0f0f10]">
+                  <img src={heroImage} alt="Zephyr Cloud application interface" className="w-full h-auto block" />
                 </div>
               </div>
             </div>
@@ -175,10 +215,10 @@ export function CityjsLondonLanderPage() {
               Trusted teams already shipping with Zephyr
             </p>
             <div className="relative overflow-hidden">
-              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-28 bg-gradient-to-r from-[#0a0a0a] to-transparent" />
-              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-28 bg-gradient-to-l from-[#0a0a0a] to-transparent" />
-              <div className="cityjs-marquee flex items-center gap-16 pr-16 md:gap-20 md:pr-20">
-                {[...partners, ...partners].map((partner, index) => (
+              <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-56 bg-gradient-to-r from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent" />
+              <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-56 bg-gradient-to-l from-[#0a0a0a] via-[#0a0a0a]/90 to-transparent" />
+              <div className="cityjs-marquee flex items-center gap-28 pr-28 md:gap-36 md:pr-36">
+                {[...partners, ...partners, ...partners].map((partner, index) => (
                   <div
                     key={`${partner.name}-${index}`}
                     className="flex h-20 shrink-0 items-center justify-center"
@@ -197,27 +237,86 @@ export function CityjsLondonLanderPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1200px] px-6 pb-20 pt-6 md:px-8 lg:px-10">
-        <div
-          ref={manifestoRef}
-          className="py-36 text-[clamp(2.2rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.04em] md:py-44"
-        >
-          {manifesto.split(' ').map((word, index, words) => (
-            <ManifestoWord
-              key={`${word}-${index}`}
-              word={word}
-              index={index}
-              total={words.length}
-              progress={scrollYProgress}
-              reduceMotion={Boolean(reduceMotion)}
-            />
-          ))}
+      <section className="relative z-[1] mx-auto max-w-[1200px] bg-[#0a0a0a] px-8 pb-20 pt-6">
+        <div ref={manifestoRef} className="py-64 text-4xl font-medium leading-[1.11]">
+          {manifesto
+            .split('')
+            .map((char, index) =>
+              char === ' ' ? (
+                <span key={index}> </span>
+              ) : (
+                <ManifestoChar
+                  key={index}
+                  char={char}
+                  index={index}
+                  total={manifesto.length}
+                  progress={scrollYProgress}
+                  reduceMotion={Boolean(reduceMotion)}
+                />
+              ),
+            )}
         </div>
 
         <section className="space-y-8 pb-20">
-          <h2 className="text-4xl font-normal tracking-[-0.03em] text-[#faf5ff]">Comparison</h2>
+          <h2 className="text-4xl font-normal text-[#faf5ff]">Comparison</h2>
 
-          <div className="overflow-x-auto rounded-2xl border border-white/10 bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.28)]">
+          {/* Mobile: tab-based 2-column view */}
+          <div className="lg:hidden">
+            <div className="mb-4 flex gap-2">
+              {(
+                [
+                  { key: 'zephyr', label: 'Zephyr Cloud' },
+                  { key: 'competitorA', label: 'Traditional CI/CD' },
+                  { key: 'competitorB', label: 'Frontend cloud' },
+                ] as { key: ComparisonTab; label: string }[]
+              ).map(({ key, label }) => (
+                <button
+                  key={key}
+                  type="button"
+                  onClick={() => setComparisonTab(key)}
+                  className={`min-h-8 rounded-md px-3 py-1 text-xs font-medium transition ${
+                    comparisonTab === key ? 'bg-violet-600 text-white' : 'bg-[#262626] text-[#fafafa]'
+                  }`}
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
+
+            <div className="rounded-2xl border border-white/10 bg-[#0d0d0d]">
+              {comparisonGroups.map((group) => (
+                <div key={group.label}>
+                  <div className="grid grid-cols-2 bg-white/[0.05] text-sm text-neutral-300">
+                    <div className="px-4 py-3">{group.label}</div>
+                    <div className="px-4 py-3" />
+                  </div>
+                  {group.rows.map((row) => (
+                    <div
+                      key={row.feature}
+                      className="grid grid-cols-2 border-t border-t-[0.5px] border-white/[0.15] text-sm"
+                    >
+                      <div className="px-4 py-4 text-neutral-200">{row.feature}</div>
+                      <div className="flex min-h-[52px] items-center px-4 py-3">
+                        {renderComparisonValue(row[comparisonTab], comparisonTab === 'zephyr')}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-6 flex justify-center">
+              <a
+                href="#cityjs-hubspot-form"
+                className="inline-flex h-9 items-center justify-center rounded-md border border-white/20 bg-transparent px-4 text-sm font-medium text-[#fafafa] transition hover:bg-white/10"
+              >
+                Get started
+              </a>
+            </div>
+          </div>
+
+          {/* Desktop: full 4-column table */}
+          <div className="hidden overflow-x-auto rounded-2xl border border-white/10 bg-[#0d0d0d] shadow-[0_20px_60px_rgba(0,0,0,0.28)] lg:block">
             <div className="min-w-[980px]">
               <div className="grid grid-cols-[1.55fr_1fr_1fr_1fr] border-b border-white/10 bg-black text-sm">
                 <div className="px-5 py-5" />
@@ -245,7 +344,7 @@ export function CityjsLondonLanderPage() {
                   {group.rows.map((row) => (
                     <div
                       key={row.feature}
-                      className="grid grid-cols-[1.55fr_1fr_1fr_1fr] border-t border-white/10 text-sm text-[#faf5ff]"
+                      className="grid grid-cols-[1.55fr_1fr_1fr_1fr] border-t border-t-[0.5px] border-white/[0.15] text-sm text-[#faf5ff]"
                     >
                       <div className="px-5 py-5 text-neutral-200">{row.feature}</div>
                       <div className="flex min-h-[60px] items-center px-5 py-4">
@@ -265,11 +364,9 @@ export function CityjsLondonLanderPage() {
           </div>
         </section>
 
-        <section className="grid gap-12 pb-20 lg:grid-cols-[1fr_1fr]">
+        <section className="grid gap-8 pb-20 lg:grid-cols-[1fr_1fr]">
           <div>
-            <h2 className="max-w-md text-4xl font-normal tracking-[-0.03em] text-[#faf5ff]">
-              Everything you need to know
-            </h2>
+            <h2 className="max-w-md text-4xl font-normal text-[#faf5ff]">Everything you need to know</h2>
           </div>
 
           <div className="space-y-2">
@@ -283,7 +380,7 @@ export function CityjsLondonLanderPage() {
                 >
                   <button
                     type="button"
-                    className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left text-base text-[#fafafa]"
+                    className="flex w-full items-center justify-between gap-4 p-4 text-left text-base text-[#fafafa]"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
                   >
                     <span>{faq.question}</span>
@@ -298,7 +395,7 @@ export function CityjsLondonLanderPage() {
                         transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="px-5 pb-5 text-[15px] leading-7 text-neutral-400">{faq.answer}</p>
+                        <p className="px-4 pb-4 text-[15px] leading-7 text-neutral-400">{faq.answer}</p>
                       </motion.div>
                     ) : null}
                   </AnimatePresence>
@@ -308,7 +405,7 @@ export function CityjsLondonLanderPage() {
           </div>
         </section>
 
-        <section id="cityjs-hubspot-form" className="space-y-8 pb-20 pt-4 text-center">
+        <section ref={bottomFormRef} id="cityjs-hubspot-form" className="space-y-8 pb-20 pt-4 text-center">
           <div className="mx-auto max-w-[912px] space-y-8">
             <h2 className="text-balance text-4xl font-medium leading-none tracking-[-0.04em] text-[#faf5ff] md:text-6xl">
               Ready to run your system live?
@@ -323,16 +420,16 @@ export function CityjsLondonLanderPage() {
         </section>
       </section>
 
-      <footer className="mx-auto grid max-w-[1200px] gap-16 px-6 pb-20 pt-4 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
+      <footer className="relative z-[1] mx-auto grid max-w-[1200px] gap-16 bg-[#0a0a0a] px-6 pb-20 pt-4 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
         <div className="space-y-8">
           <div className="space-y-4">
-            <img src={ZephyrWordmark} alt="Zephyr Cloud" className="h-[31px] w-[175px]" />
+            <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
             <img src={AicpaSoc2} alt="SOC 2" className="h-12 w-12 rounded-full" />
           </div>
           <p className="text-neutral-500">© 2026 Zephyr Cloud, Inc.</p>
         </div>
 
-        <div className="grid gap-10 sm:grid-cols-3">
+        <div className="grid gap-10 md:grid-cols-3">
           {footerGroups.map((group) => (
             <div key={group.title} className="space-y-4">
               <p className="text-sm font-medium text-[#fafafa]">{group.title}</p>
@@ -357,35 +454,30 @@ export function CityjsLondonLanderPage() {
   );
 }
 
-function ManifestoWord({
-  word,
+function ManifestoChar({
+  char,
   index,
   total,
   progress,
   reduceMotion,
 }: {
-  word: string;
+  char: string;
   index: number;
   total: number;
   progress: ReturnType<typeof useScroll>['scrollYProgress'];
   reduceMotion: boolean;
 }) {
-  const start = (index / total) * 0.76;
-  const end = Math.min(start + 0.18, 1);
-  const opacity = useTransform(progress, [Math.max(start - 0.08, 0), end], [0.18, 1]);
-  const y = useTransform(progress, [Math.max(start - 0.08, 0), end], [18, 0]);
-  const color = useTransform(
-    progress,
-    [Math.max(start - 0.08, 0), end],
-    ['rgba(250,245,255,0.18)', 'rgba(250,245,255,1)'],
-  );
+  const start = (index / total) * 0.88;
+  const end = Math.min(start + 0.04, 1);
+  const opacity = useTransform(progress, [Math.max(start - 0.01, 0), end], [0.15, 1]);
+  const color = useTransform(progress, [Math.max(start - 0.01, 0), end], ['#262626', '#fafafa']);
 
   return (
     <motion.span
-      style={reduceMotion ? undefined : { opacity, y, color }}
-      className={reduceMotion ? 'text-[#faf5ff]' : 'inline-block will-change-transform'}
+      style={reduceMotion ? undefined : { opacity, color }}
+      className={reduceMotion ? 'text-[#faf5ff]' : undefined}
     >
-      {word}&nbsp;
+      {char}
     </motion.span>
   );
 }

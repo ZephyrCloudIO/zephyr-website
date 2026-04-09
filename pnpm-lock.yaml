@@ -105,8 +105,8 @@ importers:
         specifier: 2.1.4
         version: 2.1.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       zephyr-rspack-plugin:
-        specifier: ^0.1.16
-        version: 0.1.16(@rspack/core@1.7.9(@swc/helpers@0.5.19))(https-proxy-agent@7.0.6)(webpack@5.105.4)
+        specifier: ^1.0.1
+        version: 1.0.1(@rspack/core@1.7.9(@swc/helpers@0.5.19))(https-proxy-agent@7.0.6)(webpack@5.105.4)
     devDependencies:
       '@rsbuild/core':
         specifier: 1.7.3
@@ -2772,21 +2772,21 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zephyr-agent@0.1.16:
-    resolution: {integrity: sha512-wCdu7XLudq5xcMhitT7kLN5KRs/libIRf4wFi/fk4WrztY1l5yxExYq1oPDSayYiVNGmVMRHKua3iKqbqvpI6Q==}
+  zephyr-agent@1.0.1:
+    resolution: {integrity: sha512-WKkPvAT7L0iAvJDq0JR+GpvF0FYxAgc/0F3zY5oxgc+CBvvLFNyyZrsj0Hef2ytum9+LFudFbfZJqETKdYonxg==}
     peerDependencies:
       https-proxy-agent: ^7.0.6
 
-  zephyr-edge-contract@0.1.16:
-    resolution: {integrity: sha512-0gOznp1Etks30f+HLZNj6vv1YmEQ3Nhbsa2ICtYAjQveFDcRdhZmVaair9H88Hb/Efc+xLQFQNhbRvVaeHWnAQ==}
+  zephyr-edge-contract@1.0.1:
+    resolution: {integrity: sha512-2GHmmpY1PCr98sZykiPOsR0KCoHhT5ch0YnQL1WZhKcJ7wvTqEfwKJ9SshflrqCoXYlQ0QDtmUrCuO7YEkrIPA==}
 
-  zephyr-rspack-plugin@0.1.16:
-    resolution: {integrity: sha512-XFn6WbUV1Kb944MODWUkgN7ax2TGBHVAc7krwaVAjSKc1Ect9rh8kjP10UUPLbLMjiTBIV4To2guP4rCAmWQbw==}
+  zephyr-rspack-plugin@1.0.1:
+    resolution: {integrity: sha512-tV36y6ZjvhTbFNBQ4YmLeP7pAovnJ+RlQkefTj0duuZLwGZHYLSTO2RQmGFFEiZkpnqD2dPDx7Ah9uLBZm4caQ==}
     peerDependencies:
       '@rspack/core': ^1.0.0 || ^2.0.0-0
 
-  zephyr-xpack-internal@0.1.16:
-    resolution: {integrity: sha512-UuJur2YKvr45IX4sOnQJN/OxGEbIIUz5ByTLh8sUDUsShHOcSPsc8XCsvX9/7Lodja4MV8qH/xUjSN0P/5E+Ag==}
+  zephyr-xpack-internal@1.0.1:
+    resolution: {integrity: sha512-NxFzIiCi6ii/p227Oio7nanSMLkeNoDy6k+xfLeLKnzPBi0IY5FSukT/Naj9hSA9NSPAH7U7sUH3SIR34NLOVA==}
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
@@ -5703,7 +5703,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zephyr-agent@0.1.16(https-proxy-agent@7.0.6):
+  zephyr-agent@1.0.1(https-proxy-agent@7.0.6):
     dependencies:
       '@toon-format/toon': 0.9.0
       axios: 1.13.6(debug@4.4.3)
@@ -5718,31 +5718,31 @@ snapshots:
       open: 10.2.0
       proper-lockfile: 4.1.2
       tslib: 2.8.1
-      zephyr-edge-contract: 0.1.16
+      zephyr-edge-contract: 1.0.1
     transitivePeerDependencies:
       - supports-color
 
-  zephyr-edge-contract@0.1.16:
+  zephyr-edge-contract@1.0.1:
     dependencies:
       tslib: 2.8.1
 
-  zephyr-rspack-plugin@0.1.16(@rspack/core@1.7.9(@swc/helpers@0.5.19))(https-proxy-agent@7.0.6)(webpack@5.105.4):
+  zephyr-rspack-plugin@1.0.1(@rspack/core@1.7.9(@swc/helpers@0.5.19))(https-proxy-agent@7.0.6)(webpack@5.105.4):
     dependencies:
       '@rspack/core': 1.7.9(@swc/helpers@0.5.19)
       tslib: 2.8.1
-      zephyr-agent: 0.1.16(https-proxy-agent@7.0.6)
-      zephyr-xpack-internal: 0.1.16(https-proxy-agent@7.0.6)(webpack@5.105.4)
+      zephyr-agent: 1.0.1(https-proxy-agent@7.0.6)
+      zephyr-xpack-internal: 1.0.1(https-proxy-agent@7.0.6)(webpack@5.105.4)
     transitivePeerDependencies:
       - https-proxy-agent
       - supports-color
       - webpack
 
-  zephyr-xpack-internal@0.1.16(https-proxy-agent@7.0.6)(webpack@5.105.4):
+  zephyr-xpack-internal@1.0.1(https-proxy-agent@7.0.6)(webpack@5.105.4):
     dependencies:
       '@module-federation/automatic-vendor-federation': 1.2.1(webpack@5.105.4)
       tslib: 2.8.1
-      zephyr-agent: 0.1.16(https-proxy-agent@7.0.6)
-      zephyr-edge-contract: 0.1.16
+      zephyr-agent: 1.0.1(https-proxy-agent@7.0.6)
+      zephyr-edge-contract: 1.0.1
     transitivePeerDependencies:
       - https-proxy-agent
       - supports-color
