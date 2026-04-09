@@ -42,29 +42,29 @@ const comparisonGroups = [
 
 const faqs = [
   {
-    question: 'What should we use Zephyr for at CityJS?',
+    question: 'How does Zephyr speed up development?',
     answer:
-      'Teams dealing with module federation, multi-app release risk, or operational sprawl. The page angle is orchestration, not just hosting.',
+      'Zephyr integrates with bundlers like Webpack, Rspack, and Vite to handle deployment automatically during your build process. Instead of configuring complex deployment pipelines, applications deploy to the edge network as part of standard builds — with instant deployments, automatic version management, and Bring Your Own Cloud support.',
   },
   {
-    question: 'Does this replace our current CI/CD setup?',
+    question: 'Do I need Micro-Frontend applications to use Zephyr?',
     answer:
-      'No. It sits above delivery plumbing and gives teams a deployable system model, instant rollback paths, and controlled release coordination.',
+      'No. Zephyr works with any application architecture: standalone applications without micro-frontends, micro-frontend applications with full Module Federation support, or hybrid architectures mixing standalone and federated modules.',
   },
   {
-    question: 'Can we bring our own cloud account?',
+    question: 'Do the Zephyr plugins affect my build performance?',
     answer:
-      'Yes. BYOC is one of the strongest differentiators worth calling out for conference traffic that is sensitive to lock-in.',
+      'No. Zephyr plugins only act during two phases: before the build starts (authentication and initialization) and after it completes (asset analysis and deployment). The actual build process runs normally without interference.',
   },
   {
-    question: 'Is this only for microfrontends?',
+    question: 'Can I use my own cloud provider?',
     answer:
-      'No. The framing starts with federated systems, but the value is broader: orchestration, deployment control, and runtime execution for distributed apps.',
+      'Yes. Zephyr supports Bring Your Own Cloud deployments with currently supported providers including Cloudflare, AWS, Fastly, and Akamai, with continuous expansion planned.',
   },
   {
-    question: 'What should the CTA do?',
+    question: 'What is the difference between Module Federation 1.0 and 2.0?',
     answer:
-      'Best fit for this first lander: book time with the team or start a product trial. Both match the design and event intent.',
+      'Module Federation 1.0 was built into Webpack core. Module Federation 2.0 is framework-agnostic (supporting Webpack, Rspack, Vite, and more) with enhanced capabilities including dynamic import types, a Federation Runtime, runtime plugin systems, improved TypeScript support, and better developer experience overall.',
   },
 ];
 
@@ -130,12 +130,12 @@ export function CityjsLondonLanderPage() {
       `}</style>
 
       <section className="relative overflow-hidden">
-        <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6 md:px-8 lg:px-10">
+        <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6">
           <header className="cityjs-rise flex items-center gap-6">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" className="h-[31px] w-[175px]" />
           </header>
 
-          <div className="cityjs-rise flex flex-1 flex-col items-center justify-center gap-10 pt-20 text-center md:pt-28">
+          <div className="cityjs-rise flex flex-1 flex-col items-center justify-center gap-10 pt-20 text-center">
             <div className="max-w-[912px] space-y-8">
               <p className="mx-auto inline-flex rounded-md bg-violet-600 px-2 py-0.5 font-mono text-[12px] font-medium uppercase tracking-[0.12em] text-white">
                 CityJS London
@@ -159,12 +159,8 @@ export function CityjsLondonLanderPage() {
 
             <div className="w-full max-w-[1136px]">
               <div className="rounded-[10px] bg-[rgba(255,255,255,0.15)] p-2 shadow-[0_32px_120px_rgba(0,0,0,0.55)]">
-                <div className="relative aspect-[1126/731] overflow-hidden rounded-[8px] bg-[#0f0f10]">
-                  <img
-                    src={heroImage}
-                    alt="Zephyr Cloud application interface"
-                    className="absolute left-0 top-0 h-[171.58%] w-full max-w-none"
-                  />
+                <div className="overflow-hidden rounded-[8px] bg-[#0f0f10]">
+                  <img src={heroImage} alt="Zephyr Cloud application interface" className="w-full h-auto block" />
                 </div>
               </div>
             </div>
@@ -197,7 +193,7 @@ export function CityjsLondonLanderPage() {
         </div>
       </section>
 
-      <section className="mx-auto max-w-[1200px] px-6 pb-20 pt-6 md:px-8 lg:px-10">
+      <section className="mx-auto max-w-[1200px] px-8 pb-20 pt-6">
         <div
           ref={manifestoRef}
           className="py-36 text-[clamp(2.2rem,5vw,4.6rem)] font-medium leading-[1.02] tracking-[-0.04em] md:py-44"
@@ -265,7 +261,7 @@ export function CityjsLondonLanderPage() {
           </div>
         </section>
 
-        <section className="grid gap-12 pb-20 lg:grid-cols-[1fr_1fr]">
+        <section className="grid gap-8 pb-20 lg:grid-cols-[1fr_1fr]">
           <div>
             <h2 className="max-w-md text-4xl font-normal tracking-[-0.03em] text-[#faf5ff]">
               Everything you need to know
@@ -283,7 +279,7 @@ export function CityjsLondonLanderPage() {
                 >
                   <button
                     type="button"
-                    className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left text-base text-[#fafafa]"
+                    className="flex w-full items-center justify-between gap-4 p-4 text-left text-base text-[#fafafa]"
                     onClick={() => setOpenFaq(isOpen ? null : index)}
                   >
                     <span>{faq.question}</span>
@@ -298,7 +294,7 @@ export function CityjsLondonLanderPage() {
                         transition={{ duration: 0.34, ease: [0.22, 1, 0.36, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="px-5 pb-5 text-[15px] leading-7 text-neutral-400">{faq.answer}</p>
+                        <p className="px-4 pb-4 text-[15px] leading-7 text-neutral-400">{faq.answer}</p>
                       </motion.div>
                     ) : null}
                   </AnimatePresence>
