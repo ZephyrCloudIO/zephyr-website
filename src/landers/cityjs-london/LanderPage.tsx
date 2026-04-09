@@ -382,7 +382,7 @@ export function CityjsLondonLanderPage() {
       </section>
 
       <footer className="relative z-[1] mx-auto grid max-w-[1200px] gap-16 bg-[#0a0a0a] px-6 pb-20 pt-4 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
-        <div className="space-y-8">
+        <div className="order-last space-y-8 md:order-first">
           <div className="space-y-4">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
             <img src={AicpaSoc2} alt="SOC 2" className="h-12 w-12 rounded-full" />

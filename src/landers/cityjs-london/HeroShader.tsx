@@ -67,9 +67,11 @@ const FRAG = /* glsl */ `
             + fbm(sw * 5.0 - vec2(t * 0.20, t * 0.42)) * 0.55  // high freq detail
             + fbm(sw * 1.2 + vec2(t * 0.12, t * 0.08)) * 0.3;  // large-scale drift
 
-    // Tighter radial falloff — purple stays near the top, not pooling in the middle
-    float glow = 1.0 - smoothstep(0.0, asp * 0.60, r);
-    glow = pow(glow, 0.75);
+    // Clamp asp so portrait/mobile gets the same wide coverage as landscape.
+    // Without this, asp * 0.60 ≈ 0.27 on phones — glow dies before mid-screen.
+    float aspClamped = max(asp, 1.0);
+    float glow = 1.0 - smoothstep(0.0, aspClamped * 0.60, r);
+    glow = pow(glow, 0.65);
 
     // Height fade: strong at top (uv.y = 1), weak at bottom (uv.y = 0)
     float heightFade = pow(uv.y, 0.55);
