@@ -6,15 +6,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
-import {
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-  navigationMenuTriggerStyle,
-} from '@/components/ui/navigation-menu';
+import { PRODUCTS, RESOURCES } from '@/constants/navItems';
 import ZephyrLogo from '@/images/zephyr-logo.svg';
 import ZephyrWordmark from '@/images/zephyr-wordmark.svg';
 import { cn } from '@/lib/utils';
@@ -33,13 +25,50 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
+import {
+  NavigationMenu,
+  NavigationMenuContent,
+  NavigationMenuContentItem,
+  NavigationMenuItem,
+  NavigationMenuLink,
+  NavigationMenuList,
+  NavigationMenuTrigger,
+} from '../ui/navigation-menu';
 
 export const Header: React.FC = () => {
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [mobileResourcesOpen, setMobileResourcesOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [visible, setVisible] = useState(true);
+  const lastScrollY = React.useRef(0);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentY = window.scrollY;
+      const navHeight = 64;
+
+      setScrolled(currentY > navHeight);
+
+      if (currentY <= navHeight) {
+        // Always show at top
+        setVisible(true);
+      } else if (currentY < lastScrollY.current) {
+        // Scrolling up
+        setVisible(true);
+      } else if (currentY > lastScrollY.current) {
+        // Scrolling down
+        setVisible(false);
+      }
+
+      lastScrollY.current = currentY;
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleCopyLogo = async () => {
     try {
@@ -62,12 +91,18 @@ export const Header: React.FC = () => {
   };
 
   return (
-    <header className="sticky top-0 z-50 bg-black/80 backdrop-blur-md">
+    <header
+      className={cn(
+        'sticky top-0 z-50 transition-all duration-300',
+        scrolled ? 'bg-black/90 backdrop-blur-md' : 'bg-transparent',
+        visible ? 'translate-y-0' : '-translate-y-full',
+      )}
+    >
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         <div className="flex items-center gap-3">
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden p-2 text-neutral-400 hover:text-white"
+            className="lg:hidden p-2 text-neutral-400 hover:text-white"
             aria-label="Toggle menu"
           >
             {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
@@ -102,161 +137,47 @@ export const Header: React.FC = () => {
           </div>
         </div>
 
-        <NavigationMenu className="hidden md:block bg-black">
+        <NavigationMenu className="hidden lg:block">
           <NavigationMenuList>
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent text-neutral-400 hover:text-white hover:bg-transparent data-[state=open]:bg-transparent">
-                Products
-              </NavigationMenuTrigger>
+              <NavigationMenuTrigger>Products</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="w-[400px] gap-3 p-4 bg-black border-neutral-700">
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to="/"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
-                      >
-                        <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                          <Cloud className="h-4 w-4" />
-                          Zephyr Cloud
-                        </div>
-                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
-                          The modern development platform for web applications
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to="/products/ai"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
-                      >
-                        <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                          <Sparkles className="h-4 w-4" />
-                          Zephyr AI
-                        </div>
-                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
-                          Where humans and AI agents do real work
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
+                <ul className="flex flex-col w-100">
+                  {PRODUCTS.map((component) => (
+                    <NavigationMenuContentItem key={component.title} href={component.href}>
+                      <div className="flex items-center gap-2">
+                        {component.icon()}
+                        <h3 className="text-sm text-white">{component.title}</h3>
+                      </div>
+                      <p className="text-sm text-primary-muted">{component.description}</p>
+                    </NavigationMenuContentItem>
+                  ))}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
-              <NavigationMenuTrigger className="bg-transparent text-neutral-400 hover:text-white hover:bg-transparent data-[state=open]:bg-transparent">
-                Resources
-              </NavigationMenuTrigger>
+              <NavigationMenuTrigger>Resources</NavigationMenuTrigger>
               <NavigationMenuContent>
-                <ul className="grid w-[400px] gap-3 p-4 md:w-[500px] md:grid-cols-2 bg-black border-neutral-700">
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to="/blog"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
-                      >
-                        <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                          <FileText className="h-4 w-4" />
-                          Blog
-                        </div>
-                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">Latest news and insights</p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to="/changelog"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
-                      >
-                        <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                          <History className="h-4 w-4" />
-                          Changelog
-                        </div>
-                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
-                          Product updates and releases
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to="/press"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
-                      >
-                        <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                          <Newspaper className="h-4 w-4" />
-                          Press
-                        </div>
-                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
-                          Media kit and press releases
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to="/events"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
-                      >
-                        <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                          <Calendar className="h-4 w-4" />
-                          Events
-                        </div>
-                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
-                          Upcoming conferences and meetups
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
-                  <li>
-                    <NavigationMenuLink asChild>
-                      <Link
-                        to="/partners"
-                        className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
-                      >
-                        <div className="flex items-center gap-2 text-sm font-medium leading-none">
-                          <Users className="h-4 w-4" />
-                          Partners
-                        </div>
-                        <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
-                          Partner programs and integrations
-                        </p>
-                      </Link>
-                    </NavigationMenuLink>
-                  </li>
+                <ul className="grid w-100 md:w-125 md:grid-cols-2 lg:w-137.5">
+                  {RESOURCES.map((component) => (
+                    <NavigationMenuContentItem key={component.title} href={component.href}>
+                      <div className="flex items-center gap-2">
+                        {component.icon()}
+                        <h3 className="text-sm text-white">{component.title}</h3>
+                      </div>
+                      <p className="text-sm text-primary-muted">{component.description}</p>
+                    </NavigationMenuContentItem>
+                  ))}
                 </ul>
               </NavigationMenuContent>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
-              <a
-                href="https://docs.zephyr-cloud.io/"
-                target="_blank"
-                className={cn(
-                  navigationMenuTriggerStyle(),
-                  'bg-transparent text-neutral-400 hover:text-white hover:bg-transparent',
-                )}
-              >
+              <NavigationMenuLink href="https://docs.zephyr-cloud.io/" target="_blank">
                 Docs
-              </a>
+              </NavigationMenuLink>
             </NavigationMenuItem>
-
             <NavigationMenuItem>
-              <Link
-                to="/pricing"
-                className={cn(
-                  navigationMenuTriggerStyle(),
-                  'bg-transparent text-neutral-400 hover:text-white hover:bg-transparent',
-                )}
-              >
-                Pricing
-              </Link>
+              <NavigationMenuLink href="/pricing">Pricing</NavigationMenuLink>
             </NavigationMenuItem>
           </NavigationMenuList>
         </NavigationMenu>
@@ -265,7 +186,7 @@ export const Header: React.FC = () => {
           <a
             href="https://github.com/ZephyrCloudIO"
             target="_blank"
-            className="hidden sm:flex items-center gap-2 text-sm border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500"
+            className="hidden sm:flex items-center gap-2 text-sm bg-neutral-900/80 border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500 hover:bg-neutral-800/90 transition-colors"
           >
             <Github size={16} className="text-white" />
             <span className="text-white">GitHub</span>
@@ -273,7 +194,7 @@ export const Header: React.FC = () => {
           <a
             href="https://www.npmjs.com/org/zephyrcloud"
             target="_blank"
-            className="hidden sm:flex items-center gap-2 text-sm border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500"
+            className="hidden sm:flex items-center gap-2 text-sm bg-neutral-900/80 border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500 hover:bg-neutral-800/90 transition-colors"
           >
             <Package size={16} className="text-white" />
             <span className="text-white">npm</span>
@@ -288,14 +209,14 @@ export const Header: React.FC = () => {
 
       {/* Mobile Navigation Menu */}
       <div
-        className={`md:hidden fixed inset-0 z-40 transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
+        className={`lg:hidden fixed inset-0 z-40 transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
         onClick={() => setMobileMenuOpen(false)}
       >
         <div className="absolute inset-0 bg-black/50" />
       </div>
 
       <div
-        className={`md:hidden fixed left-0 top-16 bottom-0 w-72 bg-black opacity-95 backdrop-blur-md border-r border-neutral-800 transform transition-transform duration-300 z-50 ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
+        className={`lg:hidden fixed left-0 top-16 bottom-0 w-72 bg-black opacity-95 backdrop-blur-md border-r border-neutral-800 transform transition-transform duration-300 z-50 ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
       >
         <nav className="p-4 space-y-4 bg-black opacity-95">
           <div className="space-y-2">

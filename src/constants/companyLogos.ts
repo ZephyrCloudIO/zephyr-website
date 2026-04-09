@@ -5,7 +5,7 @@ import NxLogo from '@/images/companies/nx.webp';
 import RimacLogo from '@/images/companies/rimac.webp';
 import SGWSLogo from '@/images/companies/sgws.webp';
 
-export const companyLogos = [
+export const COMPANY_LOGOS = [
   {
     src: SGWSLogo,
     alt: 'SGWS',
