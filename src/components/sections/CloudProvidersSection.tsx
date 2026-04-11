@@ -55,9 +55,9 @@ const statusConfig = {
   available: {
     label: 'Available',
     icon: CheckCircle2,
-    className: 'text-emerald-500',
-    bgClassName: 'bg-emerald-500/10',
-    borderClassName: 'border-emerald-500/20',
+    className: 'text-violet-500',
+    bgClassName: 'bg-violet-500/10',
+    borderClassName: 'border-violet-500/20',
   },
   eap: {
     label: 'Early Access',
@@ -81,7 +81,7 @@ export const CloudProvidersSection: React.FC = () => {
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
           <h2 className="text-3xl font-medium leading-tighter text-white mb-4">Deploy Anywhere</h2>
-          <p className="text-neutral-400 max-w-2xl mx-auto">
+          <p className="text-muted-foreground max-w-2xl mx-auto">
             Zephyr Cloud integrates seamlessly with leading cloud providers, enabling instant deployments and runtime
             updates across your preferred infrastructure.
           </p>
@@ -127,7 +127,7 @@ export const CloudProvidersSection: React.FC = () => {
                 </div>
 
                 {/* Hover Effect Gradient */}
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-emerald-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none" />
+                <div className="absolute inset-0 rounded-lg bg-gradient-to-t from-violet-500/5 to-transparent opacity-0 transition-opacity group-hover:opacity-100 pointer-events-none" />
 
                 {/* Docs Link Indicator */}
                 {provider.docsLink && (
@@ -140,7 +140,7 @@ export const CloudProvidersSection: React.FC = () => {
 
             const cardClasses = cn(
               'relative group rounded-lg p-6 border transition-all duration-300',
-              'hover:border-neutral-700 hover:shadow-lg hover:shadow-emerald-500/5',
+              'hover:border-neutral-700 hover:shadow-lg hover:shadow-violet-500/5',
               provider.status === 'coming-soon' ? 'border-neutral-800/50' : 'border-neutral-800',
               provider.docsLink && 'cursor-pointer',
             );
@@ -166,7 +166,7 @@ export const CloudProvidersSection: React.FC = () => {
             Need support for a different cloud provider?{' '}
             <a
               href="mailto:inbound@zephyr-cloud.io"
-              className="text-emerald-400 hover:text-emerald-300 transition-colors"
+              className="text-neutral-400 underline underline-offset-2 decoration-neutral-600 hover:text-neutral-200 transition-colors"
             >
               Let us know
             </a>

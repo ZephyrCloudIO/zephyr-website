@@ -43,17 +43,17 @@ function CodeEliminationPerformancePage() {
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 mt-1">✓</span>
+                    <span className="text-violet-500 mt-1">✓</span>
                     <span className="text-neutral-300">Dead code elimination for disabled features</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 mt-1">✓</span>
+                    <span className="text-violet-500 mt-1">✓</span>
                     <span className="text-neutral-300">
                       Build-time and Fetch-time optimization with zero runtime overhead
                     </span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 mt-1">✓</span>
+                    <span className="text-violet-500 mt-1">✓</span>
                     <span className="text-neutral-300">Compatible with popular feature flag services</span>
                   </li>
                 </ul>
@@ -124,15 +124,15 @@ export function newFeature() {
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 mt-1">✓</span>
+                    <span className="text-violet-500 mt-1">✓</span>
                     <span className="text-neutral-300">Cross-application dependency optimization</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 mt-1">✓</span>
+                    <span className="text-violet-500 mt-1">✓</span>
                     <span className="text-neutral-300">Automatic shared module detection</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 mt-1">✓</span>
+                    <span className="text-violet-500 mt-1">✓</span>
                     <span className="text-neutral-300">Smart chunking strategies for optimal caching</span>
                   </li>
                 </ul>
@@ -154,15 +154,15 @@ export function newFeature() {
                 </p>
                 <ul className="space-y-3">
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 mt-1">✓</span>
+                    <span className="text-violet-500 mt-1">✓</span>
                     <span className="text-neutral-300">Up to 90% compression ratios for JavaScript</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 mt-1">✓</span>
+                    <span className="text-violet-500 mt-1">✓</span>
                     <span className="text-neutral-300">Shared dictionaries across micro-frontends</span>
                   </li>
                   <li className="flex items-start gap-2">
-                    <span className="text-emerald-500 mt-1">✓</span>
+                    <span className="text-violet-500 mt-1">✓</span>
                     <span className="text-neutral-300">Automatic dictionary optimization over time</span>
                   </li>
                 </ul>
@@ -179,12 +179,12 @@ export function newFeature() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-neutral-400">Dictionary Compressed</span>
-                    <span className="text-emerald-500 font-mono font-semibold">240 KB</span>
+                    <span className="text-violet-400 font-mono font-semibold">240 KB</span>
                   </div>
                   <div className="mt-4 pt-4 border-t border-neutral-700">
                     <div className="flex justify-between items-center">
                       <span className="text-neutral-300">Total Reduction</span>
-                      <span className="text-emerald-500 font-semibold">90%</span>
+                      <span className="text-violet-400 font-semibold">90%</span>
                     </div>
                   </div>
                 </div>

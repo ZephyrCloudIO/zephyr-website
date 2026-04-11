@@ -12,13 +12,16 @@ function PressPage() {
         {/* Header */}
         <div className="text-center mb-12">
           <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">Press</h1>
-          <p className="text-xl text-neutral-400 mb-8">Latest news and announcements from Zephyr Cloud</p>
+          <p className="text-xl text-muted-foreground mb-8">Latest news and announcements from Zephyr Cloud</p>
 
           {/* Contact */}
           <div className="flex items-center justify-center gap-2 text-neutral-300">
             <Mail className="w-5 h-5" />
             <span>Press inquiries:</span>
-            <a href="mailto:press@zephyr-cloud.io" className="text-emerald-400 hover:text-emerald-300 underline">
+            <a
+              href="mailto:press@zephyr-cloud.io"
+              className="text-neutral-400 underline underline-offset-2 decoration-neutral-600 hover:text-neutral-200 transition-colors"
+            >
               press@zephyr-cloud.io
             </a>
           </div>
@@ -32,7 +35,7 @@ function PressPage() {
           <article className="bg-neutral-900 border border-neutral-800 rounded-lg p-6 hover:border-neutral-700 transition-colors">
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
-                <h3 className="text-xl font-semibold mb-2 text-white">
+                <h3 className="text-xl font-semibold mb-2 text-foreground">
                   Zephyr Cloud Launches New PaaS Enabling Sub-Second Frontend Code Deployment
                 </h3>
                 <div className="flex items-center gap-4 text-sm text-neutral-400 mb-3">
@@ -52,7 +55,7 @@ function PressPage() {
                   href="https://www.prnewswire.com/news-releases/zephyr-cloud-launches-new-paas-enabling-sub-second-frontend-code-deployment-302242806.html"
                   target="_blank"
                   rel="noopener"
-                  className="inline-flex items-center gap-2 text-emerald-400 hover:text-emerald-300"
+                  className="inline-flex items-center gap-2 text-neutral-400 hover:text-neutral-200 transition-colors"
                 >
                   Read full article
                   <ExternalLink className="w-4 h-4" />
@@ -80,7 +83,10 @@ function PressPage() {
         <div className="mt-12 text-center">
           <p className="text-neutral-400">
             For press kit, logos, and additional resources, please contact{' '}
-            <a href="mailto:press@zephyr-cloud.io" className="text-emerald-400 hover:text-emerald-300 underline">
+            <a
+              href="mailto:press@zephyr-cloud.io"
+              className="text-neutral-400 underline underline-offset-2 decoration-neutral-600 hover:text-neutral-200 transition-colors"
+            >
               press@zephyr-cloud.io
             </a>
           </p>

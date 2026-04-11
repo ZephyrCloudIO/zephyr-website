@@ -46,7 +46,7 @@ interface FeatureDescriptionProps {
 }
 
 export const FeatureDescription: React.FC<FeatureDescriptionProps> = ({ children, className }) => {
-  return <p className={cn('mt-4 text-lg text-neutral-400 max-w-2xl mx-auto', className)}>{children}</p>;
+  return <p className={cn('mt-4 text-lg text-muted-foreground max-w-2xl mx-auto', className)}>{children}</p>;
 };
 
 interface FeatureContentProps {

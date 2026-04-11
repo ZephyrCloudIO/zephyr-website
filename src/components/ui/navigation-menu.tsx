@@ -51,8 +51,8 @@ export function NavigationMenuTrigger({ className, children, ...props }: Navigat
     <RadixNavigationMenu.Trigger
       data-slot="navigation-menu-trigger"
       className={cn(
-        'navigationMenuTrigger group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 font-medium text-sm hover:bg-main-foreground hover:text-primary',
-        'text-primary-muted focus:bg-main-foreground focus:text-primary disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-primary',
+        'navigationMenuTrigger group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 font-medium text-sm hover:bg-main-foreground hover:text-foreground',
+        'text-primary-muted focus:bg-main-foreground focus:text-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-foreground',
         'outline-none data-[state=open]:bg-main-foreground data-[state=open]:focus:bg-main-foreground',
         className,
       )}
@@ -152,8 +152,8 @@ export function NavigationMenuLink({ className, ...props }: NavigationMenuLinkPr
     <RadixNavigationMenu.Link
       data-slot="navigation-menu-link"
       className={cn(
-        'navigationMenuLink text-primary-muted data-[active=true]:bg-main-foreground data-[active=true]:text-primary data-[active=true]:focus:bg-main-foreground',
-        'flex hover:bg-main-foreground hover:text-primary focus:bg-main-foreground focus:text-primary data-[active=true]:hover:bg-main-foreground',
+        'navigationMenuLink text-primary-muted data-[active=true]:bg-main-foreground data-[active=true]:text-foreground data-[active=true]:focus:bg-main-foreground',
+        'flex hover:bg-main-foreground hover:text-foreground focus:bg-main-foreground focus:text-foreground data-[active=true]:hover:bg-main-foreground',
         'h-9 flex-col gap-1 rounded-md px-4 py-2 font-medium text-sm outline-none transition-all focus-within:ring-border focus-visible:outline-1',
         'focus-visible:ring-1 [&_svg:not([class*="size-"])]:size-4 [&_svg:not([class*="text-"])]:text-main-muted',
         className,
