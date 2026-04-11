@@ -130,8 +130,8 @@ function PricingPage() {
     <div className="container mx-auto px-4 py-16 max-w-7xl">
       {/* Hero Section */}
       <div className="text-center mb-8">
-        <h1 className="text-5xl font-bold mb-4">Pricing that scales with your team</h1>
-        <p className="text-xl text-muted-foreground mb-1 max-w-2xl mx-auto">Start free and scale as you grow.</p>
+        <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">Pricing that scales with your team</h1>
+        <p className="text-xl text-neutral-400 mb-1 max-w-2xl mx-auto">Start free and scale as you grow.</p>
       </div>
 
       {/* Key Features Banner */}
