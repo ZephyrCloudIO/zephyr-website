@@ -214,9 +214,7 @@ function EventsPage() {
 
         <div className="relative container mx-auto px-4 py-24 max-w-6xl">
           <div className="max-w-3xl">
-            <h1 className="text-5xl lg:text-6xl font-bold mb-6 bg-gradient-to-br from-white to-neutral-400 bg-clip-text text-transparent">
-              Build, Ship, Connect
-            </h1>
+            <h1 className="text-5xl lg:text-6xl font-medium leading-tighter mb-6 text-white">Build, Ship, Connect</h1>
             <p className="text-xl text-muted-foreground mb-8">
               Join our Zephyr Cloud community at conferences, workshops, and meetups worldwide.
             </p>

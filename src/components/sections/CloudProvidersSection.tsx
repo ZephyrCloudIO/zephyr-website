@@ -80,7 +80,7 @@ export const CloudProvidersSection: React.FC = () => {
     <section className="cloudProviders py-20 bg-neutral-950">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-12">
-          <h2 className="text-3xl font-bold mb-4">Deploy Anywhere</h2>
+          <h2 className="text-3xl font-medium leading-tighter text-white mb-4">Deploy Anywhere</h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
             Zephyr Cloud integrates seamlessly with leading cloud providers, enabling instant deployments and runtime
             updates across your preferred infrastructure.

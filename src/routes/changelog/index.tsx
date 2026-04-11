@@ -87,12 +87,12 @@ function ChangelogPage() {
               {/* Year and Month Header */}
               <div className="flex items-center gap-4 mb-8">
                 <div className="hidden lg:block w-[120px] text-right">
-                  <div className="text-2xl font-bold text-foreground">{group.year}</div>
+                  <div className="text-2xl font-bold text-white">{group.year}</div>
                   <div className="text-neutral-400">{group.month}</div>
                 </div>
                 <div className="hidden lg:block w-4 h-4 bg-violet-500 rounded-full relative z-10" />
                 <div className="lg:hidden">
-                  <div className="text-2xl font-bold text-foreground">
+                  <div className="text-2xl font-bold text-white">
                     {group.month} {group.year}
                   </div>
                 </div>

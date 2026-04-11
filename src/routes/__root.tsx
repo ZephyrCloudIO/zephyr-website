@@ -124,13 +124,13 @@ const mdxComponents = {
   tbody: (props: any) => <tbody className="divide-y divide-neutral-800" {...props} />,
   tr: (props: any) => <tr className="align-top" {...props} />,
   th: (props: any) => (
-    <th className="border-b border-neutral-700 px-4 py-3 font-semibold text-foreground whitespace-nowrap" {...props} />
+    <th className="border-b border-neutral-700 px-4 py-3 font-semibold text-white whitespace-nowrap" {...props} />
   ),
   td: (props: any) => <td className="px-4 py-3 align-top leading-relaxed" {...props} />,
   TwitterEmbed,
   a: (props: any) => <a className="text-violet-400 hover:text-violet-300 underline" {...props} />,
   img: (props: any) => <img className="rounded-lg my-6 max-w-full" {...props} />,
-  strong: (props: any) => <strong className="font-semibold text-foreground" {...props} />,
+  strong: (props: any) => <strong className="font-semibold text-white" {...props} />,
   em: (props: any) => <em className="italic" {...props} />,
 };
 
