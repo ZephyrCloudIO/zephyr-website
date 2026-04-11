@@ -114,13 +114,13 @@ function PricingPage() {
   const getTierButtonClassName = (tier: (typeof tiers)[number]) => {
     switch (tier.id) {
       case 'personal':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-violet-700/70 hover:bg-neutral-800';
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
       case 'team':
         return 'border border-violet-500/70 bg-violet-600 text-white shadow-lg shadow-violet-900/30 hover:bg-violet-500 hover:border-violet-400';
       case 'business':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-violet-700/70 hover:bg-neutral-800';
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
       case 'enterprise':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-violet-700/70 hover:bg-neutral-800';
+        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
       default:
         return 'bg-neutral-500 hover:bg-neutral-600';
     }
