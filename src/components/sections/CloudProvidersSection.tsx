@@ -38,6 +38,7 @@ const cloudProviders: CloudProvider[] = [
     name: 'AWS',
     status: 'available',
     logo: aws,
+    docsLink: 'https://docs.zephyr-cloud.io/cloud/aws',
   },
   {
     name: 'Vercel',
