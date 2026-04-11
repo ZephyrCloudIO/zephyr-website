@@ -72,7 +72,7 @@ export const TestimonialsSection: React.FC = () => {
         style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, #0d2d1f 0%, #0a0a0a 70%)' }}
       >
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-          <h2 className="text-center text-2xl font-semibold text-white uppercase">You can just ship</h2>
+          <h2 className="text-center text-2xl font-medium leading-tighter text-white">You can just ship</h2>
         </div>
 
         {/* Scrolling testimonials container */}
@@ -185,7 +185,7 @@ export const TestimonialsSection: React.FC = () => {
 
       <section className="companies">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-20 mb-12">
-          <h2 className="text-center text-2xl font-semibold text-white uppercase">Some folks who love Zephyr</h2>
+          <h2 className="text-center text-2xl font-medium leading-tighter text-white">Some folks who love Zephyr</h2>
         </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mt-12 flex flex-wrap justify-center items-center gap-x-20 gap-y-10">

@@ -16,7 +16,7 @@ function CodeEliminationPerformancePage() {
               <Zap className="w-12 h-12 text-white" />
             </div>
           </div>
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r from-violet-400 to-purple-600 bg-clip-text text-transparent">
+          <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">
             Enterprise Scale Code Elimination & Performance
           </h1>
           <p className="text-xl text-neutral-400 max-w-3xl mx-auto">

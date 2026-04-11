@@ -79,12 +79,10 @@ export const HeroSection: React.FC = () => {
           </div>
         )}
 
-        <h1 className="text-5xl md:text-6xl font-bold text-white leading-tight uppercase">
+        <h1 className="text-5xl md:text-6xl font-medium text-white leading-tighter">
           The fastest way to go from
           <br />
-          <span className="bg-gradient-to-b from-green-300 via-emerald-500 to-emerald-800 bg-clip-text text-transparent drop-shadow-[0_0_24px_rgba(16,185,129,0.3)]">
-            Idea to Production
-          </span>
+          <span>Idea to Production</span>
         </h1>
         <p className="mt-6 text-lg md:text-xl max-w-2xl mx-auto">
           From the team that brought you{' '}

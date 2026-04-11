@@ -18,7 +18,9 @@ export const BlogSection: React.FC = () => {
   return (
     <section className="py-20 md:py-28">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <h2 className="text-center text-3xl font-semibold text-white mb-4">Keep tabs on what we're shipping</h2>
+        <h2 className="text-center text-3xl font-medium leading-tighter text-white mb-4">
+          Keep tabs on what we're shipping
+        </h2>
         <p className="text-center mb-12">
           Follow us on{' '}
           <a
