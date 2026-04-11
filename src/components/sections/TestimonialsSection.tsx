@@ -67,9 +67,7 @@ export const TestimonialsSection: React.FC = () => {
 
   return (
     <>
-      <section
-        className="justShip relative py-16 overflow-hidden bg-neutral-950/50"
-      >
+      <section className="justShip relative py-16 overflow-hidden bg-neutral-950/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
           <p className="text-center text-xs font-mono text-neutral-500 tracking-widest uppercase">You can just ship</p>
         </div>
@@ -184,7 +182,7 @@ export const TestimonialsSection: React.FC = () => {
 
       <section className="companies">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mt-20 mb-12">
-          <h2 className="text-center text-2xl font-semibold text-neutral-100">Some folks who love Zephyr</h2>
+          <h2 className="text-center text-2xl font-medium leading-tighter text-white">Some folks who love Zephyr</h2>
         </div>
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mt-12 flex flex-wrap justify-center items-center gap-x-20 gap-y-10">

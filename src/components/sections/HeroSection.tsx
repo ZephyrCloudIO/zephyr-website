@@ -79,7 +79,7 @@ export const HeroSection: React.FC = () => {
           </div>
         )}
 
-        <h1 className="text-5xl md:text-7xl font-bold text-neutral-100 leading-tight">
+        <h1 className="text-5xl md:text-6xl font-medium text-white leading-tighter">
           The fastest way to go from
           <br />
           <span>Idea to Production</span>

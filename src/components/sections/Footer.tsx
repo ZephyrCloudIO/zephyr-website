@@ -17,7 +17,7 @@ export const Footer: React.FC = () => {
             <p className="text-xs text-neutral-500">&copy; {new Date().getFullYear()} Zephyr Cloud, Inc.</p>
           </div>
           <div>
-            <h5 className="font-semibold text-neutral-200 mb-3">Developers</h5>
+            <h5 className="font-medium text-white mb-3">Developers</h5>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="https://docs.zephyr-cloud.io/" target="_blank" className="text-neutral-400 hover:text-white">
@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-neutral-200 mb-3">Company</h5>
+            <h5 className="font-medium text-white mb-3">Company</h5>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
@@ -83,7 +83,7 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-neutral-200 mb-3">Legal</h5>
+            <h5 className="font-medium text-white mb-3">Legal</h5>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/privacy" className="text-neutral-400 hover:text-white">
