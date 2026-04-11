@@ -39,14 +39,9 @@ function BlogPage() {
     });
   }, [searchQuery, selectedTag, posts]);
 
-  // Split blog posts into two groups for featured and regular
-  const [featuredPosts, regularPosts] = filteredPosts.reduce<[BlogPost[], BlogPost[]]>(
-    (acc, post) => {
-      acc[post.featured ? 0 : 1].push(post);
-      return acc;
-    },
-    [[], []],
-  );
+  // First featured post is the hero; everything else follows as latest
+  const featuredPost = filteredPosts.find((post) => post.featured) ?? filteredPosts[0];
+  const latestPosts = filteredPosts.filter((post) => post !== featuredPost);
 
   return (
     <div className="min-h-screen bg-black text-white">
@@ -115,24 +110,19 @@ function BlogPage() {
           </div>
         )}
 
-        {/* Featured Posts */}
-        {featuredPosts.length > 0 && (
+        {/* Hero Featured Post */}
+        {featuredPost && (
           <div className="mb-16">
-            <h2 className="text-2xl font-semibold mb-6">Featured</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {featuredPosts.map((post) => (
-                <BlogCard key={post.slug} post={post} featured />
-              ))}
-            </div>
+            <BlogCard post={featuredPost} featured />
           </div>
         )}
 
-        {/* Regular Posts */}
-        {regularPosts.length > 0 && (
+        {/* Latest Posts */}
+        {latestPosts.length > 0 && (
           <div>
-            <h2 className="text-2xl font-semibold mb-6">{featuredPosts.length > 0 ? 'Latest Posts' : 'All Posts'}</h2>
+            <h2 className="text-2xl font-semibold mb-6">Latest Posts</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-              {regularPosts.map((post) => (
+              {latestPosts.map((post) => (
                 <BlogCard key={post.slug} post={post} />
               ))}
             </div>

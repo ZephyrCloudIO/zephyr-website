@@ -23,7 +23,6 @@ function BlogPostPage() {
       const blogPost = await getBlogPostBySlug(slug);
       if (blogPost) {
         setPost(blogPost);
-        // Dynamically import the MDX content
         try {
           const mdxModule = (await import(`@/content/blog/${slug}.mdx`)) as MDXBlogPost;
           setMDXContent(() => mdxModule.default);
@@ -36,6 +35,51 @@ function BlogPostPage() {
 
     loadPost();
   }, [slug]);
+
+  useEffect(() => {
+    if (!post) return;
+
+    const prevTitle = document.title;
+    document.title = `${post.title} | Zephyr Cloud`;
+
+    const setMeta = (selector: string, attr: string, value: string) => {
+      let el = document.querySelector<HTMLMetaElement>(selector);
+      if (!el) {
+        el = document.createElement('meta');
+        const [attrName, attrValue] = selector.replace('meta[', '').replace(']', '').split('=');
+        el.setAttribute(attrName, attrValue.replace(/"/g, ''));
+        document.head.appendChild(el);
+      }
+      el.setAttribute(attr, value);
+    };
+
+    const origin = typeof window !== 'undefined' ? window.location.origin : 'https://zephyr-cloud.io';
+    const url = `${origin}/blog/${post.slug}`;
+    const heroImage = typeof post.heroImage === 'string' ? post.heroImage : '';
+
+    setMeta('meta[name="description"]', 'content', post.description);
+    setMeta('meta[property="og:type"]', 'content', 'article');
+    setMeta('meta[property="og:title"]', 'content', post.title);
+    setMeta('meta[property="og:description"]', 'content', post.description);
+    setMeta('meta[property="og:url"]', 'content', url);
+    if (heroImage) setMeta('meta[property="og:image"]', 'content', heroImage);
+    setMeta('meta[name="twitter:card"]', 'content', 'summary_large_image');
+    setMeta('meta[name="twitter:title"]', 'content', post.title);
+    setMeta('meta[name="twitter:description"]', 'content', post.description);
+    if (heroImage) setMeta('meta[name="twitter:image"]', 'content', heroImage);
+
+    let canonical = document.querySelector<HTMLLinkElement>('link[rel="canonical"]');
+    if (!canonical) {
+      canonical = document.createElement('link');
+      canonical.rel = 'canonical';
+      document.head.appendChild(canonical);
+    }
+    canonical.href = url;
+
+    return () => {
+      document.title = prevTitle;
+    };
+  }, [post]);
 
   if (loading) {
     return (
