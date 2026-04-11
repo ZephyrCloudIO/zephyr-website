@@ -100,7 +100,7 @@ const mdxComponents = {
     // Check if this is inside a pre (for code blocks)
     const isInlineCode = !className?.includes('hljs');
     return isInlineCode ? (
-      <code className="bg-neutral-800 text-emerald-400 px-1 py-0.5 rounded" {...props} />
+      <code className="bg-neutral-800 text-violet-400 px-1 py-0.5 rounded" {...props} />
     ) : (
       <code className={className} {...props} />
     );
@@ -111,7 +111,7 @@ const mdxComponents = {
     </pre>
   ),
   blockquote: (props: any) => (
-    <blockquote className="border-l-4 border-emerald-600 pl-4 italic mb-4 text-neutral-400" {...props} />
+    <blockquote className="border-l-4 border-violet-600 pl-4 italic mb-4 text-neutral-400" {...props} />
   ),
   table: ({ children, ...props }: any) => (
     <div className="my-6 overflow-x-auto rounded-lg border border-neutral-800">
@@ -128,7 +128,7 @@ const mdxComponents = {
   ),
   td: (props: any) => <td className="px-4 py-3 align-top leading-relaxed" {...props} />,
   TwitterEmbed,
-  a: (props: any) => <a className="text-emerald-400 hover:text-emerald-300 underline" {...props} />,
+  a: (props: any) => <a className="text-violet-400 hover:text-violet-300 underline" {...props} />,
   img: (props: any) => <img className="rounded-lg my-6 max-w-full" {...props} />,
   strong: (props: any) => <strong className="font-semibold text-white" {...props} />,
   em: (props: any) => <em className="italic" {...props} />,

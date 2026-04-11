@@ -64,17 +64,17 @@ export const HeroSection: React.FC = () => {
               href={featuredEvent.link}
               target="_blank"
               rel="noopener"
-              className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-emerald-900/20 to-emerald-800/20 border border-emerald-700/30 hover:border-emerald-600/50 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/10"
+              className="group inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-violet-900/20 to-violet-800/20 border border-violet-700/30 hover:border-violet-600/50 transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/10"
             >
-              <CalendarDays size={16} className="text-emerald-400" />
+              <CalendarDays size={16} className="text-violet-400" />
               <span className="text-sm text-neutral-300">
-                <span className="font-medium text-emerald-400">{featuredEvent.title}</span>
+                <span className="font-medium text-violet-400">{featuredEvent.title}</span>
                 <span className="mx-2 text-neutral-500">•</span>
                 <span>{featuredEvent.date}</span>
                 <span className="mx-2 text-neutral-500">•</span>
                 <span>{featuredEvent.location}</span>
               </span>
-              <ArrowRight size={14} className="text-emerald-400 transition-transform group-hover:translate-x-0.5" />
+              <ArrowRight size={14} className="text-violet-400 transition-transform group-hover:translate-x-0.5" />
             </a>
           </div>
         )}
@@ -84,9 +84,13 @@ export const HeroSection: React.FC = () => {
           <br />
           <span>Idea to Production</span>
         </h1>
-        <p className="mt-6 text-lg md:text-xl max-w-2xl mx-auto">
+        <p className="mt-6 text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto">
           From the team that brought you{' '}
-          <a href="https://module-federation.io/" target="_blank" className="text-emerald-700 hover:underline">
+          <a
+            href="https://module-federation.io/"
+            target="_blank"
+            className="text-neutral-400 underline underline-offset-2 decoration-neutral-600 hover:text-neutral-200 transition-colors"
+          >
             Module Federation
           </a>
           ;
@@ -95,11 +99,14 @@ export const HeroSection: React.FC = () => {
         </p>
 
         <div className="mt-10 relative max-w-xl mx-auto">
-          <div className="relative group cursor-pointer" onClick={handleCopy}>
-            <CodeBlock className="text-left !bg-neutral-900/70 !border-neutral-700/70 backdrop-blur-sm transition-all group-hover:!bg-neutral-900/80">
-              <span className="text-emerald-700">$</span> npx create-zephyr-apps@latest
+          <div
+            className="relative group cursor-pointer transition-all duration-300 hover:shadow-lg hover:shadow-violet-500/15 rounded-md"
+            onClick={handleCopy}
+          >
+            <CodeBlock className="text-left !bg-neutral-900/70 !border-neutral-700/70 backdrop-blur-sm transition-all group-hover:!bg-neutral-900/80 group-hover:!border-violet-600">
+              <span className="text-violet-500">$</span> npx create-zephyr-apps@latest
               <br />
-              <span className="text-neutral-500 text-xs flex items-center gap-1 mt-1">
+              <span className="text-neutral-500 group-hover:text-white text-xs font-mono uppercase tracking-wider flex items-center gap-1 mt-1 transition-colors duration-200">
                 {copied ? (
                   <>
                     <Check className="w-3 h-3" />

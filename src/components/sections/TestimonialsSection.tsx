@@ -38,7 +38,7 @@ export const TestimonialsSection: React.FC = () => {
               <AvatarFallback>{testimonial.name.substring(0, 2).toUpperCase()}</AvatarFallback>
             </Avatar>
             <div>
-              <div className="font-semibold text-white text-sm">{testimonial.name}</div>
+              <div className="font-semibold text-foreground text-sm">{testimonial.name}</div>
               <div className="text-xs text-neutral-400">
                 {testimonial.role}, {testimonial.company}
               </div>
@@ -67,12 +67,9 @@ export const TestimonialsSection: React.FC = () => {
 
   return (
     <>
-      <section
-        className="justShip relative py-16 overflow-hidden"
-        style={{ background: 'radial-gradient(ellipse 80% 60% at 50% 50%, #0d2d1f 0%, #0a0a0a 70%)' }}
-      >
+      <section className="justShip relative py-16 overflow-hidden bg-neutral-950/50">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 mb-12">
-          <h2 className="text-center text-2xl font-medium leading-tighter text-white">You can just ship</h2>
+          <p className="text-center text-xs font-mono text-neutral-500 tracking-widest uppercase">You can just ship</p>
         </div>
 
         {/* Scrolling testimonials container */}
@@ -108,7 +105,7 @@ export const TestimonialsSection: React.FC = () => {
                               <AvatarFallback>{testimonial.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="font-semibold text-white text-sm">{testimonial.name}</div>
+                              <div className="font-semibold text-foreground text-sm">{testimonial.name}</div>
                               <div className="text-xs text-neutral-400">
                                 {testimonial.role}, {testimonial.company}
                               </div>
@@ -150,7 +147,7 @@ export const TestimonialsSection: React.FC = () => {
                               <AvatarFallback>{testimonial.name.substring(0, 2).toUpperCase()}</AvatarFallback>
                             </Avatar>
                             <div>
-                              <div className="font-semibold text-white text-sm">{testimonial.name}</div>
+                              <div className="font-semibold text-foreground text-sm">{testimonial.name}</div>
                               <div className="text-xs text-neutral-400">
                                 {testimonial.role}, {testimonial.company}
                               </div>
