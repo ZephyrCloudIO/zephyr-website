@@ -198,69 +198,71 @@ body {
 }
 
 /* ─── Dark mode (always active via html.dark) ────────────────────────────────
-   DS mapping: colors/*-dark  →  base/* (Collection "2. Theme" → "3. Mode")
-   Brand primary: indigo-500 (#6366f1) — confirmed from DS + Figma header screenshot.
-   Background:    #020917 — deep navy-black, matches DS colors/background-dark.
+   DS mapping: Collection "2. Theme" → dark values → Tailwind neutrals.
+   All surfaces and interaction tokens are pure neutral (no blue/purple tints).
+   Background: #020917 (site brand navy) intentionally overrides DS neutral.950.
+   Primary: violet.600 (#7c3aed) — DS JSON source of truth.
    ─────────────────────────────────────────────────────────────────────────── */
 .dark {
-  --main: oklch(0.15 0.02 263);
-  --main-foreground: oklch(0.22 0.018 263);
-  --main-muted: oklch(0.14 0.018 263);
+  /* Custom Zephyr surface tokens — DS: neutral.900 (#171717) */
+  --main: oklch(0.205 0 0);
+  --main-foreground: oklch(0.269 0 0);
+  --main-muted: oklch(0.205 0 0);
   --main-background: oklch(0.079 0.02 261);
 
-  /* Surface — DS: colors/background-dark ≈ #020917 */
+  /* Surface — background keeps brand navy; card/popover are DS neutral.900/.800 */
   --background: oklch(0.079 0.02 261);
   --foreground: oklch(0.985 0 0);
 
-  /* Card — DS: base/card (slightly elevated from background) */
-  --card: oklch(0.118 0.022 263);
+  /* DS: card-dark = neutral.900 (#171717); popover-dark = neutral.800 (#262626) */
+  --card: oklch(0.205 0 0);
   --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.118 0.022 263);
+  --popover: oklch(0.269 0 0);
   --popover-foreground: oklch(0.985 0 0);
 
-  /* Brand — DS: base/primary — indigo-500 (#6366f1) */
-  --primary: oklch(0.585 0.233 277.1);
+  /* Brand — DS: violet.600 (#7c3aed); primary-muted = violet.400 (#a78bfa) */
+  --primary: oklch(0.541 0.247 293);
   --primary-foreground: oklch(0.985 0 0);
-  --primary-muted: oklch(0.44 0.145 277.1);
+  --primary-muted: oklch(0.709 0.159 293.5);
 
-  /* DS: secondary / neutral elevated surfaces */
-  --secondary: oklch(0.193 0.024 263);
+  /* DS: secondary-dark = neutral.800 (#262626) */
+  --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
 
-  /* DS: base/muted — subdued background for less important elements */
-  --muted: oklch(0.193 0.024 263);
-  --muted-foreground: oklch(0.58 0.012 263);
+  /* DS: muted-dark = neutral.800 (#262626); muted-foreground = neutral.400 (#a3a3a3) */
+  --muted: oklch(0.269 0 0);
+  --muted-foreground: oklch(0.715 0 0);
 
-  /* DS: base/accent — indigo tint for hover/active states */
-  --accent: oklch(0.22 0.03 277);
+  /* DS: accent-dark = neutral.700 (#404040) */
+  --accent: oklch(0.371 0 0);
   --accent-foreground: oklch(0.985 0 0);
 
-  /* Feedback */
-  --destructive: oklch(0.704 0.191 22.216);
+  /* Feedback — DS: red.400 (#f87171) */
+  --destructive: oklch(0.711 0.166 22.2);
 
-  /* DS: base/border, base/input */
+  /* DS: border/input values unchanged */
   --border: oklch(1 0 0 / 10%);
   --input: oklch(1 0 0 / 15%);
 
-  /* DS: base/ring — indigo focus indicator */
-  --ring: oklch(0.585 0.233 277.1);
+  /* DS: ring-dark = neutral.500 (#737373) — neutral focus ring */
+  --ring: oklch(0.556 0 0);
 
   /* Data viz */
-  --chart-1: oklch(0.585 0.233 277.1);
+  --chart-1: oklch(0.541 0.247 293);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
 
-  /* Sidebar */
-  --sidebar: oklch(0.118 0.022 263);
+  /* Sidebar — DS: neutral.900; accent = neutral.800; ring = neutral.600 (#525252) */
+  --sidebar: oklch(0.205 0 0);
   --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.585 0.233 277.1);
+  --sidebar-primary: oklch(0.541 0.247 293);
   --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.22 0.03 277);
+  --sidebar-accent: oklch(0.269 0 0);
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.585 0.233 277.1);
+  --sidebar-ring: oklch(0.439 0 0);
 }
 
 @layer base {
