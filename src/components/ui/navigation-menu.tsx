@@ -52,7 +52,7 @@ export function NavigationMenuTrigger({ className, children, ...props }: Navigat
       data-slot="navigation-menu-trigger"
       className={cn(
         'navigationMenuTrigger group inline-flex h-9 w-max items-center justify-center rounded-md px-4 py-2 font-medium text-sm hover:bg-main-foreground hover:text-foreground',
-        'text-primary-muted focus:bg-main-foreground focus:text-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-foreground',
+        'text-muted-foreground focus:bg-main-foreground focus:text-foreground disabled:pointer-events-none disabled:opacity-50 data-[state=open]:text-foreground',
         'outline-none data-[state=open]:bg-main-foreground data-[state=open]:focus:bg-main-foreground',
         className,
       )}
@@ -84,7 +84,7 @@ export function NavigationMenuContent({ className, ...props }: NavigationMenuCon
     <RadixNavigationMenu.Content
       data-slot="navigation-menu-content"
       className={cn(
-        'navigationMenuContent top-full left-0 z-50 mt-1.5 w-full overflow-hidden rounded-xl border border-border bg-main-muted p-2.5 text-primary-muted shadow md:absolute md:left-1/2 md:w-auto',
+        'navigationMenuContent top-full left-0 z-50 mt-1.5 w-full overflow-hidden rounded-xl border border-border bg-main-muted p-2.5 text-muted-foreground shadow md:absolute md:left-1/2 md:w-auto',
         '**:data-[slot=navigation-menu-link]:focus:outline-none **:data-[slot=navigation-menu-link]:focus:ring-0',
         'motion-safe:data-[motion^=from-]:fade-in data-[motion^=to-]:fade-out data-[motion=from-end]:slide-in-from-right-52 data-[motion=from-start]:slide-in-from-left-52',
         'motion-safe:data-[motion=to-end]:slide-out-to-right-52 motion-safe:data-[motion=to-start]:slide-out-to-left-52 md:-translate-x-1/2',
@@ -152,7 +152,7 @@ export function NavigationMenuLink({ className, ...props }: NavigationMenuLinkPr
     <RadixNavigationMenu.Link
       data-slot="navigation-menu-link"
       className={cn(
-        'navigationMenuLink text-primary-muted data-[active=true]:bg-main-foreground data-[active=true]:text-foreground data-[active=true]:focus:bg-main-foreground',
+        'navigationMenuLink text-muted-foreground data-[active=true]:bg-main-foreground data-[active=true]:text-foreground data-[active=true]:focus:bg-main-foreground',
         'flex hover:bg-main-foreground hover:text-foreground focus:bg-main-foreground focus:text-foreground data-[active=true]:hover:bg-main-foreground',
         'h-9 flex-col gap-1 rounded-md px-4 py-2 font-medium text-sm outline-none transition-all focus-within:ring-border focus-visible:outline-1',
         'focus-visible:ring-1 [&_svg:not([class*="size-"])]:size-4 [&_svg:not([class*="text-"])]:text-main-muted',

@@ -147,9 +147,9 @@ export const Header: React.FC = () => {
                     <NavigationMenuContentItem key={component.title} href={component.href}>
                       <div className="flex items-center gap-2">
                         {component.icon()}
-                        <h3 className="text-sm text-white">{component.title}</h3>
+                        <h3 className="text-sm text-foreground">{component.title}</h3>
                       </div>
-                      <p className="text-sm text-primary-muted">{component.description}</p>
+                      <p className="text-sm text-muted-foreground">{component.description}</p>
                     </NavigationMenuContentItem>
                   ))}
                 </ul>
@@ -163,9 +163,9 @@ export const Header: React.FC = () => {
                     <NavigationMenuContentItem key={component.title} href={component.href}>
                       <div className="flex items-center gap-2">
                         {component.icon()}
-                        <h3 className="text-sm text-white">{component.title}</h3>
+                        <h3 className="text-sm text-foreground">{component.title}</h3>
                       </div>
-                      <p className="text-sm text-primary-muted">{component.description}</p>
+                      <p className="text-sm text-muted-foreground">{component.description}</p>
                     </NavigationMenuContentItem>
                   ))}
                 </ul>
