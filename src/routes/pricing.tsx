@@ -526,13 +526,13 @@ function PricingPage() {
                 color: C.grayDark,
                 textAlign: 'center',
                 marginTop: -16,
-                marginBottom: 16,
+                marginBottom: 12,
                 lineHeight: 1.5,
               }}
             >
               No credit card required · full Pro access · keep your data after trial
             </div>
-            <div style={{ fontSize: 12, color: C.grayDark, marginBottom: 20 }}>Up and running in under 15 minutes.</div>
+            <div style={{ fontSize: 12, color: C.grayDark, marginBottom: 16 }}>Up and running in under 15 minutes.</div>
             <ul style={s.featureList}>
               <FeatItem color="green">
                 <strong style={{ color: C.white }}>BYOC</strong> — any cloud
@@ -1290,7 +1290,7 @@ const s = {
     marginBottom: 18,
     borderBottom: `1px solid ${C.border}`,
   },
-  tierDesc: { fontSize: 13, color: C.gray, lineHeight: 1.65, marginBottom: 24, minHeight: 60 },
+  tierDesc: { fontSize: 13, color: C.gray, lineHeight: 1.65, marginBottom: 24 },
   featureList: { listStyle: 'none' as const, display: 'flex' as const, flexDirection: 'column' as const, gap: 10 },
 };
 
