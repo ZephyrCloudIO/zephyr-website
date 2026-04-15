@@ -147,6 +147,9 @@ function ScrollToTop() {
 
 // Root component
 function RootComponent() {
+  const location = useLocation();
+  const isWifiPage = location.pathname === '/wifi';
+
   useEffect(() => {
     if (!POSTHOG_KEY || hasInitializedPostHog) {
       return;
@@ -168,12 +171,12 @@ function RootComponent() {
         <ScrollToTop />
         <MDXProvider components={mdxComponents}>
           <div className="bg-black text-neutral-300 min-h-screen font-sans">
-            <Header />
+            {!isWifiPage && <Header />}
             <main>
               <Outlet />
             </main>
-            <Footer />
-            <IntercomButton />
+            {!isWifiPage && <Footer />}
+            {!isWifiPage && <IntercomButton />}
           </div>
         </MDXProvider>
       </PostHogProvider>

@@ -21,7 +21,13 @@ import { Route as PricingRouteImport } from './routes/pricing';
 import { Route as PrivacyRouteImport } from './routes/privacy';
 import { Route as ProductsAiRouteImport } from './routes/products/ai';
 import { Route as ProductsCodeEliminationPerformanceRouteImport } from './routes/products/code-elimination-performance';
+import { Route as WifiRouteImport } from './routes/wifi';
 
+const WifiRoute = WifiRouteImport.update({
+  id: '/wifi',
+  path: '/wifi',
+  getParentRoute: () => rootRouteImport,
+} as any);
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -90,6 +96,7 @@ export interface FileRoutesByFullPath {
   '/press': typeof PressRoute;
   '/pricing': typeof PricingRoute;
   '/privacy': typeof PrivacyRoute;
+  '/wifi': typeof WifiRoute;
   '/blog/$slug': typeof BlogSlugRoute;
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
@@ -104,6 +111,7 @@ export interface FileRoutesByTo {
   '/press': typeof PressRoute;
   '/pricing': typeof PricingRoute;
   '/privacy': typeof PrivacyRoute;
+  '/wifi': typeof WifiRoute;
   '/blog/$slug': typeof BlogSlugRoute;
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
@@ -119,6 +127,7 @@ export interface FileRoutesById {
   '/press': typeof PressRoute;
   '/pricing': typeof PricingRoute;
   '/privacy': typeof PrivacyRoute;
+  '/wifi': typeof WifiRoute;
   '/blog/$slug': typeof BlogSlugRoute;
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
@@ -135,6 +144,7 @@ export interface FileRouteTypes {
     | '/press'
     | '/pricing'
     | '/privacy'
+    | '/wifi'
     | '/blog/$slug'
     | '/changelog/$slug'
     | '/products/ai'
@@ -149,6 +159,7 @@ export interface FileRouteTypes {
     | '/press'
     | '/pricing'
     | '/privacy'
+    | '/wifi'
     | '/blog/$slug'
     | '/changelog/$slug'
     | '/products/ai'
@@ -163,6 +174,7 @@ export interface FileRouteTypes {
     | '/press'
     | '/pricing'
     | '/privacy'
+    | '/wifi'
     | '/blog/$slug'
     | '/changelog/$slug'
     | '/products/ai'
@@ -178,6 +190,7 @@ export interface RootRouteChildren {
   PressRoute: typeof PressRoute;
   PricingRoute: typeof PricingRoute;
   PrivacyRoute: typeof PrivacyRoute;
+  WifiRoute: typeof WifiRoute;
   BlogSlugRoute: typeof BlogSlugRoute;
   ChangelogSlugRoute: typeof ChangelogSlugRoute;
   ProductsAiRoute: typeof ProductsAiRoute;
@@ -188,6 +201,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wifi': {
+      id: '/wifi';
+      path: '/wifi';
+      fullPath: '/wifi';
+      preLoaderRoute: typeof WifiRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/privacy': {
       id: '/privacy';
       path: '/privacy';
@@ -282,6 +302,7 @@ const rootRouteChildren: RootRouteChildren = {
   PressRoute: PressRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
+  WifiRoute: WifiRoute,
   BlogSlugRoute: BlogSlugRoute,
   ChangelogSlugRoute: ChangelogSlugRoute,
   ProductsAiRoute: ProductsAiRoute,
