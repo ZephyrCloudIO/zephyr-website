@@ -89,7 +89,6 @@ function PricingPage() {
   const proYearly = Math.round(proSeats * proRate * 12 * ANNUAL_DISC);
   const proSave = Math.round(proSeats * proRate * 12 - proYearly);
   const proBandIdx = getProBandIdx(proSeats);
-  const proSliderPct = ((proSeats - 2) / 73) * 100;
 
   // Business calc
   const bizRate = getBizRate(bizSeats);
@@ -98,7 +97,6 @@ function PricingPage() {
   const bizYearly = Math.round(bizSeats * bizRate * 12 * ANNUAL_DISC);
   const bizSave = Math.round(bizSeats * bizRate * 12 - bizYearly);
   const bizBandIdx = getBizBandIdx(bizSeats);
-  const bizSliderPct = ((bizSeats - 2) / 198) * 100;
 
   const faqs = [
     {
@@ -838,7 +836,7 @@ function PricingPage() {
                 {calcTab === 'pro' ? 'Teams' : 'Business'} — see your exact price
               </h3>
               <p style={{ fontSize: 13, color: C.gray, maxWidth: 400, lineHeight: 1.6 }}>
-                The more seats you add, the less you pay per seat. Click a tier or drag the slider.
+                The more seats you add, the less you pay per seat. Click a tier to see your price.
               </p>
             </div>
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
@@ -863,35 +861,6 @@ function PricingPage() {
                   : `${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr with annual — save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`}
               </div>
             </div>
-          </div>
-
-          {/* Slider */}
-          <div style={{ marginBottom: 28 }}>
-            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-              <span style={{ fontSize: 12, color: C.grayDark, fontWeight: 500 }}>Seats</span>
-              <strong style={{ fontSize: 14, color: C.white, fontWeight: 800 }}>
-                {calcTab === 'pro' ? proSeats : bizSeats} seats
-              </strong>
-            </div>
-            <input
-              type="range"
-              min={2}
-              max={calcTab === 'pro' ? 75 : 200}
-              value={calcTab === 'pro' ? proSeats : bizSeats}
-              onChange={(e) =>
-                calcTab === 'pro' ? setProSeats(parseInt(e.target.value)) : setBizSeats(parseInt(e.target.value))
-              }
-              className={calcTab === 'pro' ? 'pricing-slider' : 'pricing-slider-biz'}
-              style={{
-                width: '100%',
-                height: 5,
-                borderRadius: 3,
-                outline: 'none',
-                WebkitAppearance: 'none',
-                cursor: 'pointer',
-                background: `linear-gradient(to right,${calcTab === 'pro' ? C.purple : C.amber} 0%,${calcTab === 'pro' ? C.purple : C.amber} ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%,${C.borderLight} ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%,${C.borderLight} 100%)`,
-              }}
-            />
           </div>
 
           {/* Band cards */}
@@ -1459,12 +1428,8 @@ function PricingPage() {
         </div>
       </section>
 
-      {/* Slider + responsive styles */}
+      {/* Responsive styles */}
       <style>{`
-        .pricing-slider::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:${C.purple}; cursor:pointer; box-shadow:0 0 0 4px rgba(139,92,246,0.2); border:2px solid ${C.white}; }
-        .pricing-slider::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:${C.purple}; cursor:pointer; border:2px solid ${C.white}; }
-        .pricing-slider-biz::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:${C.amber}; cursor:pointer; box-shadow:0 0 0 4px rgba(232,168,48,0.2); border:2px solid ${C.white}; }
-        .pricing-slider-biz::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:${C.amber}; cursor:pointer; border:2px solid ${C.white}; }
         @media (max-width: 960px) {
           .tier-grid { grid-template-columns: repeat(2,1fr) !important; }
         }
