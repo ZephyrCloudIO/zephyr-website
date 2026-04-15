@@ -180,47 +180,6 @@ function PricingPage() {
         <p style={{ fontSize: 14, color: C.gray, maxWidth: 520, margin: '0 auto 14px', lineHeight: 1.65 }}>
           Start free and scale as you grow.
         </p>
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'space-between',
-            flexWrap: 'nowrap',
-            gap: 0,
-            background: 'linear-gradient(135deg, #1A0F3A 0%, #0F0F1A 100%)',
-            border: `1px solid rgba(139,92,246,0.25)`,
-            borderRadius: 12,
-            padding: '14px 32px',
-            maxWidth: 860,
-            margin: '0 auto 20px',
-            overflowX: 'auto',
-          }}
-        >
-          {(
-            [
-              { icon: '∞', label: 'No build minutes' },
-              { icon: '⚡', label: 'Sub-second deployments' },
-              { icon: '☁', label: 'Bring Your Own Cloud (BYOC)' },
-              { icon: '✦', label: 'Unlimited preview environments' },
-            ] as { icon: string; label: string }[]
-          ).map(({ icon, label }) => (
-            <span
-              key={label}
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                gap: 7,
-                fontSize: 13,
-                color: C.gray,
-                whiteSpace: 'nowrap',
-              }}
-            >
-              <span style={{ color: C.purpleLight, fontSize: 15 }}>{icon}</span>
-              {label}
-            </span>
-          ))}
-        </div>
-
         {/* Path selector */}
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 16 }}>
           {(
@@ -304,6 +263,39 @@ function PricingPage() {
           </p>
         )}
       </section>
+
+      {/* ── FEATURE BAR ── */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
+          flexWrap: 'nowrap',
+          background: 'linear-gradient(135deg, #1A0F3A 0%, #0F0F1A 100%)',
+          borderTop: `1px solid rgba(139,92,246,0.2)`,
+          borderBottom: `1px solid rgba(139,92,246,0.2)`,
+          padding: '16px 40px',
+          width: '100%',
+          marginBottom: 0,
+        }}
+      >
+        {(
+          [
+            { icon: '∞', label: 'No build minutes' },
+            { icon: '⚡', label: 'Sub-second deployments' },
+            { icon: '☁', label: 'Bring Your Own Cloud (BYOC)' },
+            { icon: '✦', label: 'Unlimited preview environments' },
+          ] as { icon: string; label: string }[]
+        ).map(({ icon, label }) => (
+          <span
+            key={label}
+            style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: C.gray, whiteSpace: 'nowrap' }}
+          >
+            <span style={{ color: C.purpleLight, fontSize: 15 }}>{icon}</span>
+            {label}
+          </span>
+        ))}
+      </div>
 
       {/* ── VALUE PANELS ── */}
       <div ref={panelsRef}>
