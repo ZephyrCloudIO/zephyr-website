@@ -68,6 +68,7 @@ function PricingPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const billingRef = useRef<HTMLDivElement>(null);
   const tiersRef = useRef<HTMLElement>(null);
+  const panelsRef = useRef<HTMLDivElement>(null);
   const isAnnual = billing === 'annual';
 
   useEffect(() => {
@@ -78,7 +79,7 @@ function PricingPage() {
 
   function selectPath(p: 'mf' | 'nonmf') {
     setPath(p);
-    setTimeout(() => tiersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+    setTimeout(() => panelsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
   }
 
   // Pro calc
@@ -268,147 +269,151 @@ function PricingPage() {
       </section>
 
       {/* ── VALUE PANELS ── */}
-      {(['mf', 'nonmf'] as const).map((panelId) => {
-        const isMf = panelId === 'mf';
-        const visible = path === panelId;
-        const accent = isMf ? C.purpleLight : C.green;
-        const pains = isMf
-          ? [
-              {
-                problem:
-                  "CI is a bottleneck for critical deploys. You're waiting on pipelines to push a config change.",
-                solution: 'Environment Overrides',
-                mf: true,
-              },
-              {
-                problem:
-                  'Engineers maintain internal tooling to develop locally against MFEs. It eats sprint capacity every cycle.',
-                solution: 'Zephyr DevTools',
-                mf: true,
-              },
-              {
-                problem:
-                  'No visibility into who deployed what across remotes. Audit and compliance reviews are painful.',
-                solution: 'Audit logs + Activity',
-                mf: false,
-              },
-            ]
-          : [
-              {
-                problem: "You're locked to Vercel or Netlify. Migrating or going multi-cloud is a project in itself.",
-                solution: 'BYOC — bring your own cloud',
-                mf: false,
-              },
-              {
-                problem:
-                  "Rollbacks mean redeploying. When something breaks in production, you're waiting on the pipeline.",
-                solution: 'Instant rollbacks, any cloud',
-                mf: false,
-              },
-              {
-                problem:
-                  'Changing an environment variable triggers a full redeploy. Small config changes block shipping.',
-                solution: 'Env Variables, no redeploy',
-                mf: false,
-              },
-            ];
-        return (
-          <div
-            key={panelId}
-            style={{
-              maxWidth: 960,
-              padding: '0 24px',
-              overflow: 'hidden',
-              maxHeight: visible ? 600 : 0,
-              opacity: visible ? 1 : 0,
-              marginLeft: 'auto',
-              marginRight: 'auto',
-              marginTop: visible ? 48 : 0,
-              marginBottom: visible ? 56 : 0,
-              transition: 'max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease',
-            }}
-          >
+      <div ref={panelsRef}>
+        {(['mf', 'nonmf'] as const).map((panelId) => {
+          const isMf = panelId === 'mf';
+          const visible = path === panelId;
+          const accent = isMf ? C.purpleLight : C.green;
+          const pains = isMf
+            ? [
+                {
+                  problem:
+                    "CI is a bottleneck for critical deploys. You're waiting on pipelines to push a config change.",
+                  solution: 'Environment Overrides',
+                  mf: true,
+                },
+                {
+                  problem:
+                    'Engineers maintain internal tooling to develop locally against MFEs. It eats sprint capacity every cycle.',
+                  solution: 'Zephyr DevTools',
+                  mf: true,
+                },
+                {
+                  problem:
+                    'No visibility into who deployed what across remotes. Audit and compliance reviews are painful.',
+                  solution: 'Audit logs + Activity',
+                  mf: false,
+                },
+              ]
+            : [
+                {
+                  problem: "You're locked to Vercel or Netlify. Migrating or going multi-cloud is a project in itself.",
+                  solution: 'BYOC — bring your own cloud',
+                  mf: false,
+                },
+                {
+                  problem:
+                    "Rollbacks mean redeploying. When something breaks in production, you're waiting on the pipeline.",
+                  solution: 'Instant rollbacks, any cloud',
+                  mf: false,
+                },
+                {
+                  problem:
+                    'Changing an environment variable triggers a full redeploy. Small config changes block shipping.',
+                  solution: 'Env Variables, no redeploy',
+                  mf: false,
+                },
+              ];
+          return (
             <div
+              key={panelId}
               style={{
-                borderRadius: 14,
-                padding: '40px 48px',
-                background: isMf
-                  ? 'linear-gradient(135deg,#1A0F3A 0%,#0F0F1A 70%)'
-                  : 'linear-gradient(135deg,#062A1F 0%,#0F0F1A 70%)',
-                border: `1px solid ${isMf ? 'rgba(139,92,246,0.3)' : 'rgba(16,185,129,0.25)'}`,
+                maxWidth: 960,
+                padding: '0 24px',
+                overflow: 'hidden',
+                maxHeight: visible ? 600 : 0,
+                opacity: visible ? 1 : 0,
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: visible ? 48 : 0,
+                marginBottom: visible ? 56 : 0,
+                transition: 'max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease',
               }}
             >
-              <div style={{ marginBottom: 32 }}>
-                <div
-                  style={{
-                    fontSize: 10,
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '1.2px',
-                    color: accent,
-                    marginBottom: 10,
-                  }}
-                >
-                  {isMf ? 'For Module Federation teams' : 'For teams not yet on Module Federation'}
-                </div>
-                <h2 style={{ fontSize: 26, fontWeight: 900, letterSpacing: '-0.6px', lineHeight: 1.2, color: C.white }}>
-                  {isMf ? (
-                    <>
-                      You adopted MF. Now you need the platform{' '}
-                      <em style={{ fontStyle: 'normal', color: accent }}>built around it.</em>
-                    </>
-                  ) : (
-                    <>
-                      Your deployment stack shouldn't be{' '}
-                      <em style={{ fontStyle: 'normal', color: accent }}>owned by your cloud provider.</em>
-                    </>
-                  )}
-                </h2>
-              </div>
-              <div className="value-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
-                {pains.map((item, i) => (
+              <div
+                style={{
+                  borderRadius: 14,
+                  padding: '40px 48px',
+                  background: isMf
+                    ? 'linear-gradient(135deg,#1A0F3A 0%,#0F0F1A 70%)'
+                    : 'linear-gradient(135deg,#062A1F 0%,#0F0F1A 70%)',
+                  border: `1px solid ${isMf ? 'rgba(139,92,246,0.3)' : 'rgba(16,185,129,0.25)'}`,
+                }}
+              >
+                <div style={{ marginBottom: 32 }}>
                   <div
-                    key={i}
                     style={{
-                      background: 'rgba(255,255,255,0.04)',
-                      borderRadius: 10,
-                      padding: '18px 16px',
-                      border: '1px solid rgba(255,255,255,0.06)',
+                      fontSize: 10,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '1.2px',
+                      color: accent,
+                      marginBottom: 10,
                     }}
                   >
-                    <div
-                      style={{
-                        fontSize: 11,
-                        color: C.grayDark,
-                        marginBottom: 6,
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                      }}
-                    >
-                      The problem
-                    </div>
-                    <p style={{ fontSize: 13, color: C.gray, lineHeight: 1.5, marginBottom: 10 }}>{item.problem}</p>
-                    <div
-                      style={{
-                        fontSize: 12,
-                        fontWeight: 700,
-                        color: accent,
-                        display: 'flex',
-                        alignItems: 'center',
-                        gap: 6,
-                      }}
-                    >
-                      → {item.solution}
-                      {item.mf && <MfTag />}
-                    </div>
+                    {isMf ? 'For Module Federation teams' : 'For teams not yet on Module Federation'}
                   </div>
-                ))}
+                  <h2
+                    style={{ fontSize: 26, fontWeight: 900, letterSpacing: '-0.6px', lineHeight: 1.2, color: C.white }}
+                  >
+                    {isMf ? (
+                      <>
+                        You adopted MF. Now you need the platform{' '}
+                        <em style={{ fontStyle: 'normal', color: accent }}>built around it.</em>
+                      </>
+                    ) : (
+                      <>
+                        Your deployment stack shouldn't be{' '}
+                        <em style={{ fontStyle: 'normal', color: accent }}>owned by your cloud provider.</em>
+                      </>
+                    )}
+                  </h2>
+                </div>
+                <div className="value-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
+                  {pains.map((item, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: 'rgba(255,255,255,0.04)',
+                        borderRadius: 10,
+                        padding: '18px 16px',
+                        border: '1px solid rgba(255,255,255,0.06)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: C.grayDark,
+                          marginBottom: 6,
+                          fontWeight: 600,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                        }}
+                      >
+                        The problem
+                      </div>
+                      <p style={{ fontSize: 13, color: C.gray, lineHeight: 1.5, marginBottom: 10 }}>{item.problem}</p>
+                      <div
+                        style={{
+                          fontSize: 12,
+                          fontWeight: 700,
+                          color: accent,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                        }}
+                      >
+                        → {item.solution}
+                        {item.mf && <MfTag />}
+                      </div>
+                    </div>
+                  ))}
+                </div>
               </div>
             </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
 
       {/* ── BILLING TOGGLE ── */}
       <div ref={billingRef} style={{ textAlign: 'center', padding: '0 24px 24px' }}>
