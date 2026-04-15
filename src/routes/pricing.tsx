@@ -78,7 +78,7 @@ function PricingPage() {
 
   function selectPath(p: 'mf' | 'nonmf') {
     setPath(p);
-    setTimeout(() => billingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 500);
+    setTimeout(() => tiersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
   }
 
   // Pro calc
@@ -145,7 +145,7 @@ function PricingPage() {
   return (
     <div style={{ background: C.black, color: C.white, lineHeight: 1.6 }}>
       {/* ── HERO ── */}
-      <section style={{ textAlign: 'center', padding: '72px 40px 48px', maxWidth: 760, margin: '0 auto' }}>
+      <section style={{ textAlign: 'center', padding: '40px 40px 20px', maxWidth: 760, margin: '0 auto' }}>
         <div
           style={{
             display: 'inline-flex',
@@ -160,64 +160,28 @@ function PricingPage() {
             letterSpacing: '1.2px',
             padding: '5px 14px',
             borderRadius: 20,
-            marginBottom: 24,
+            marginBottom: 14,
           }}
         >
           ● Pricing
         </div>
         <h1
           style={{
-            fontSize: 'clamp(32px, 5vw, 52px)',
+            fontSize: 'clamp(26px, 4vw, 40px)',
             fontWeight: 900,
             letterSpacing: '-1.5px',
             lineHeight: 1.08,
-            marginBottom: 18,
+            marginBottom: 10,
           }}
         >
           Pricing that scales
           <br />
           with your team. <em style={{ fontStyle: 'normal', color: C.purpleLight }}>Not against it.</em>
         </h1>
-        <p style={{ fontSize: 16, color: C.gray, maxWidth: 520, margin: '0 auto 32px', lineHeight: 1.75 }}>
+        <p style={{ fontSize: 14, color: C.gray, maxWidth: 520, margin: '0 auto 20px', lineHeight: 1.65 }}>
           Start free. The more your team grows, the less you pay per seat — and every tier is justified by what's
           included.
         </p>
-
-        {/* Above-fold CTA */}
-        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 48 }}>
-          <button
-            onClick={() => tiersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
-            style={{
-              background: C.purple,
-              color: 'white',
-              fontSize: 14,
-              fontWeight: 700,
-              padding: '13px 28px',
-              borderRadius: 8,
-              border: 'none',
-              cursor: 'pointer',
-              fontFamily: 'inherit',
-            }}
-          >
-            Get Started
-          </button>
-          <a
-            href="mailto:inbound@zephyr-cloud.io?subject=Sales"
-            style={{
-              background: 'transparent',
-              border: `1px solid ${C.borderLight}`,
-              color: C.white,
-              fontSize: 14,
-              fontWeight: 600,
-              padding: '13px 28px',
-              borderRadius: 8,
-              textDecoration: 'none',
-              display: 'inline-block',
-            }}
-          >
-            Talk to sales
-          </a>
-        </div>
 
         {/* Path selector */}
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 16 }}>
@@ -447,7 +411,7 @@ function PricingPage() {
       })}
 
       {/* ── BILLING TOGGLE ── */}
-      <div ref={billingRef} style={{ textAlign: 'center', padding: '0 24px 48px' }}>
+      <div ref={billingRef} style={{ textAlign: 'center', padding: '0 24px 24px' }}>
         <div
           style={{
             display: 'inline-flex',
