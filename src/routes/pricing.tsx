@@ -180,38 +180,43 @@ function PricingPage() {
         <p style={{ fontSize: 14, color: C.gray, maxWidth: 520, margin: '0 auto 14px', lineHeight: 1.65 }}>
           Start free and scale as you grow.
         </p>
-        <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
-          {[
-            'No build minutes',
-            'Sub-second deployments',
-            'Bring Your Own Cloud (BYOC)',
-            'Unlimited preview environments',
-          ].map((f) => (
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexWrap: 'wrap',
+            gap: 28,
+            marginBottom: 20,
+            background: 'linear-gradient(135deg, #1A0F3A 0%, #0F0F1A 100%)',
+            border: `1px solid rgba(139,92,246,0.25)`,
+            borderRadius: 12,
+            padding: '14px 32px',
+            maxWidth: 760,
+            margin: '0 auto 20px',
+          }}
+        >
+          {(
+            [
+              { icon: '∞', label: 'No build minutes' },
+              { icon: '⚡', label: 'Sub-second deployments' },
+              { icon: '☁', label: 'Bring Your Own Cloud (BYOC)' },
+              { icon: '✦', label: 'Unlimited preview environments' },
+            ] as { icon: string; label: string }[]
+          ).map(({ icon, label }) => (
             <span
-              key={f}
+              key={label}
               style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: 6,
-                fontSize: 12,
+                gap: 7,
+                fontSize: 13,
                 color: C.gray,
-                background: C.black2,
-                border: `1px solid ${C.border}`,
-                borderRadius: 20,
-                padding: '4px 12px',
+                whiteSpace: 'nowrap',
               }}
             >
-              <span
-                style={{
-                  width: 5,
-                  height: 5,
-                  borderRadius: '50%',
-                  background: C.green,
-                  flexShrink: 0,
-                  display: 'inline-block',
-                }}
-              />
-              {f}
+              <span style={{ color: C.purpleLight, fontSize: 15 }}>{icon}</span>
+              {label}
             </span>
           ))}
         </div>
