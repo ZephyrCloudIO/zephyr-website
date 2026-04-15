@@ -184,16 +184,16 @@ function PricingPage() {
           style={{
             display: 'flex',
             alignItems: 'center',
-            justifyContent: 'center',
-            flexWrap: 'wrap',
-            gap: 28,
-            marginBottom: 20,
+            justifyContent: 'space-between',
+            flexWrap: 'nowrap',
+            gap: 0,
             background: 'linear-gradient(135deg, #1A0F3A 0%, #0F0F1A 100%)',
             border: `1px solid rgba(139,92,246,0.25)`,
             borderRadius: 12,
             padding: '14px 32px',
-            maxWidth: 760,
+            maxWidth: 860,
             margin: '0 auto 20px',
+            overflowX: 'auto',
           }}
         >
           {(
