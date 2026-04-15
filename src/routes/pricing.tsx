@@ -175,14 +175,46 @@ function PricingPage() {
             marginBottom: 10,
           }}
         >
-          Pricing that scales
-          <br />
-          with your team. <em style={{ fontStyle: 'normal', color: C.purpleLight }}>Not against it.</em>
+          Pricing that scales with your team
         </h1>
-        <p style={{ fontSize: 14, color: C.gray, maxWidth: 520, margin: '0 auto 20px', lineHeight: 1.65 }}>
-          Start free. The more your team grows, the less you pay per seat — and every tier is justified by what's
-          included.
+        <p style={{ fontSize: 14, color: C.gray, maxWidth: 520, margin: '0 auto 14px', lineHeight: 1.65 }}>
+          Start free and scale as you grow.
         </p>
+        <div style={{ display: 'flex', gap: 10, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 20 }}>
+          {[
+            'No build minutes',
+            'Sub-second deployments',
+            'Bring Your Own Cloud (BYOC)',
+            'Unlimited preview environments',
+          ].map((f) => (
+            <span
+              key={f}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 6,
+                fontSize: 12,
+                color: C.gray,
+                background: C.black2,
+                border: `1px solid ${C.border}`,
+                borderRadius: 20,
+                padding: '4px 12px',
+              }}
+            >
+              <span
+                style={{
+                  width: 5,
+                  height: 5,
+                  borderRadius: '50%',
+                  background: C.green,
+                  flexShrink: 0,
+                  display: 'inline-block',
+                }}
+              />
+              {f}
+            </span>
+          ))}
+        </div>
 
         {/* Path selector */}
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 16 }}>
