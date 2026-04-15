@@ -1,12 +1,12 @@
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
-import { useEffect, useRef, useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 
 export const Route = createFileRoute('/pricing')({
   component: PricingPage,
 });
 
-// ── Design tokens ─────────────────────────────────────────────────────────────
+// ── Design tokens ──────────────────────────────────────────────────────────────
 const C = {
   black: '#0A0A0F',
   black2: '#0F0F1A',
@@ -22,35 +22,52 @@ const C = {
   green: '#10B981',
   greenDim: '#064E3B',
   amber: '#E8A830',
+  amberDim: '#2A1F08',
 } as const;
 
-// ── Pro calculator bands ──────────────────────────────────────────────────────
+// ── Volume bands ───────────────────────────────────────────────────────────────
 const PRO_BANDS = [
   { min: 2, max: 10, rate: 39, midpoint: 6, label: '2 – 10 seats' },
   { min: 11, max: 25, rate: 32, midpoint: 18, label: '11 – 25 seats' },
   { min: 26, max: 50, rate: 27, midpoint: 38, label: '26 – 50 seats' },
   { min: 51, max: 75, rate: 24, midpoint: 63, label: '51 – 75 seats' },
 ];
-const INTRO_RATE = PRO_BANDS[0].rate;
+const BIZ_BANDS = [
+  { min: 2, max: 25, rate: 52, midpoint: 14, label: '2 – 25 seats' },
+  { min: 26, max: 75, rate: 45, midpoint: 50, label: '26 – 75 seats' },
+  { min: 76, max: 150, rate: 38, midpoint: 113, label: '76 – 150 seats' },
+  { min: 151, max: 200, rate: 34, midpoint: 175, label: '151 – 200 seats' },
+];
+const PRO_INTRO = PRO_BANDS[0].rate;
+const BIZ_INTRO = BIZ_BANDS[0].rate;
 const ANNUAL_DISC = 0.85;
 
-function getRate(seats: number) {
-  return PRO_BANDS.find((b) => seats >= b.min && seats <= b.max)?.rate ?? 24;
+function getProRate(s: number) {
+  return PRO_BANDS.find((b) => s >= b.min && s <= b.max)?.rate ?? 24;
 }
-function getBandIdx(seats: number) {
-  return PRO_BANDS.findIndex((b) => seats >= b.min && seats <= b.max);
+function getBizRate(s: number) {
+  return BIZ_BANDS.find((b) => s >= b.min && s <= b.max)?.rate ?? 34;
+}
+function getProBandIdx(s: number) {
+  return PRO_BANDS.findIndex((b) => s >= b.min && s <= b.max);
+}
+function getBizBandIdx(s: number) {
+  return BIZ_BANDS.findIndex((b) => s >= b.min && s <= b.max);
 }
 function fmt(n: number) {
   return '$' + Math.round(n).toLocaleString('en-US');
 }
 
-// ── Page ──────────────────────────────────────────────────────────────────────
+// ── Page ───────────────────────────────────────────────────────────────────────
 function PricingPage() {
   const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
   const [path, setPath] = useState<'mf' | 'nonmf' | null>(null);
-  const [seats, setSeats] = useState(2);
+  const [proSeats, setProSeats] = useState(6);
+  const [bizSeats, setBizSeats] = useState(14);
+  const [calcTab, setCalcTab] = useState<'pro' | 'biz'>('pro');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const billingRef = useRef<HTMLDivElement>(null);
+  const tiersRef = useRef<HTMLElement>(null);
   const isAnnual = billing === 'annual';
 
   useEffect(() => {
@@ -61,18 +78,26 @@ function PricingPage() {
 
   function selectPath(p: 'mf' | 'nonmf') {
     setPath(p);
-    setTimeout(() => billingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 400);
+    setTimeout(() => billingRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 500);
   }
 
-  // Calculator
-  const rate = getRate(seats);
-  const effRate = isAnnual ? Math.round(rate * ANNUAL_DISC * 100) / 100 : rate;
-  const moTotal = Math.round(seats * effRate);
-  const yrTotal = Math.round(seats * rate * 12 * ANNUAL_DISC);
-  const yrFull = seats * rate * 12;
-  const yrSave = Math.round(yrFull - yrTotal);
-  const bandIdx = getBandIdx(seats);
-  const sliderPct = ((seats - 2) / 73) * 100;
+  // Pro calc
+  const proRate = getProRate(proSeats);
+  const proEffRate = isAnnual ? Math.round(proRate * ANNUAL_DISC * 100) / 100 : proRate;
+  const proMonthly = Math.round(proSeats * proEffRate);
+  const proYearly = Math.round(proSeats * proRate * 12 * ANNUAL_DISC);
+  const proSave = Math.round(proSeats * proRate * 12 - proYearly);
+  const proBandIdx = getProBandIdx(proSeats);
+  const proSliderPct = ((proSeats - 2) / 73) * 100;
+
+  // Business calc
+  const bizRate = getBizRate(bizSeats);
+  const bizEffRate = isAnnual ? Math.round(bizRate * ANNUAL_DISC * 100) / 100 : bizRate;
+  const bizMonthly = Math.round(bizSeats * bizEffRate);
+  const bizYearly = Math.round(bizSeats * bizRate * 12 * ANNUAL_DISC);
+  const bizSave = Math.round(bizSeats * bizRate * 12 - bizYearly);
+  const bizBandIdx = getBizBandIdx(bizSeats);
+  const bizSliderPct = ((bizSeats - 2) / 198) * 100;
 
   const faqs = [
     {
@@ -80,24 +105,28 @@ function PricingPage() {
       a: 'No. BYOC, instant rollbacks, and environment variables without redeploying are available on Pro — none of them require Module Federation. MF-native features are additive. Many teams start without MF and adopt it later.',
     },
     {
-      q: 'How does Pro pricing work as the team grows?',
+      q: 'How does Pro pricing work?',
       a: "Pro starts at $39/seat for 2–10 seats. At 11–25 seats the rate drops to $32/seat. At 26–50 it's $27/seat. At 51–75 it's $24/seat — 38% less than the intro rate. Use the calculator to see your exact price.",
     },
     {
-      q: 'What happens when we hit 76 seats?',
-      a: 'You move to Enterprise — custom pricing, quoted same day, no RFP required. Enterprise is volume-based so the per-seat rate keeps decreasing. No cliff, no surprise.',
+      q: 'How does Business pricing work?',
+      a: 'Business starts at $52/seat for 2–25 seats, dropping to $45/seat at 26–75, $38/seat at 76–150, and $34/seat at 151–200. It includes everything in Pro plus SSO/SAML, advanced roles, approval workflows, webhook integrations, 90-day audit logs, and a 99.9% uptime SLA.',
+    },
+    {
+      q: 'When should I upgrade from Pro to Business?',
+      a: 'Upgrade to Business when you need SSO for your identity provider, SLA guarantees, advanced access controls, or 90-day audit retention. Most teams make the switch when IT or compliance asks for SSO, or when deployment approval workflows become a requirement.',
     },
     {
       q: 'What is BYOC — and what does it mean for our data?',
-      a: 'Bring Your Own Cloud. Deployments go to your own infrastructure — Cloudflare, AWS, Fastly, Akamai, or Vercel. Your data never leaves your cloud. This answers most data residency and DPA questions before your security team asks them.',
+      a: 'Bring Your Own Cloud. Deployments go to your own infrastructure — Cloudflare, AWS, Fastly, Akamai, or Vercel. Your data never leaves your cloud. BYOC is available on all plans including Free. This answers most data residency and DPA questions before your security team asks them.',
     },
     {
       q: 'Are there overage charges for bandwidth or storage?',
-      a: "Pro includes 1.5TB bandwidth and 500GB storage. We'll reach out before charging anything — no automatic overage fees. Enterprise limits are agreed upfront so procurement always knows the ceiling.",
+      a: "Pro includes 1.5TB bandwidth and 500GB storage. We'll reach out before charging anything — no automatic overage fees. Business and Enterprise limits are agreed upfront so procurement always knows the ceiling.",
     },
     {
       q: 'Can we pay by invoice or purchase order?',
-      a: "Yes. Enterprise invoicing and PO billing are standard. Pro is credit card monthly or annually. If procurement requires an invoice for Pro, contact sales and we'll accommodate it.",
+      a: "Yes. Business and Enterprise invoicing and PO billing are standard. Pro is credit card monthly or annually. If procurement requires an invoice for Pro, contact sales and we'll accommodate it.",
     },
     {
       q: 'What makes the MF-native features different?',
@@ -109,7 +138,7 @@ function PricingPage() {
     },
     {
       q: 'Is there an annual discount?',
-      a: 'Yes — 15% off Pro when billed annually. Toggle above to see annual pricing reflected live in the calculator.',
+      a: 'Yes — 15% off Pro and Business when billed annually. Toggle above to see annual pricing reflected live in the calculator.',
     },
   ];
 
@@ -145,14 +174,50 @@ function PricingPage() {
             marginBottom: 18,
           }}
         >
-          Deployment that fits
+          Pricing that scales
           <br />
-          where your team <em style={{ fontStyle: 'normal', color: C.purpleLight }}>actually is.</em>
+          with your team. <em style={{ fontStyle: 'normal', color: C.purpleLight }}>Not against it.</em>
         </h1>
-        <p style={{ fontSize: 16, color: C.gray, maxWidth: 520, margin: '0 auto 48px', lineHeight: 1.75 }}>
-          Whether you're running Module Federation or not, Zephyr meets you there — and the price goes down as your team
-          scales up.
+        <p style={{ fontSize: 16, color: C.gray, maxWidth: 520, margin: '0 auto 32px', lineHeight: 1.75 }}>
+          Start free. The more your team grows, the less you pay per seat — and every tier is justified by what's
+          included.
         </p>
+
+        {/* Above-fold CTA */}
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 48 }}>
+          <button
+            onClick={() => tiersRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })}
+            style={{
+              background: C.purple,
+              color: 'white',
+              fontSize: 14,
+              fontWeight: 700,
+              padding: '13px 28px',
+              borderRadius: 8,
+              border: 'none',
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+            }}
+          >
+            Get Started
+          </button>
+          <a
+            href="mailto:inbound@zephyr-cloud.io?subject=Sales"
+            style={{
+              background: 'transparent',
+              border: `1px solid ${C.borderLight}`,
+              color: C.white,
+              fontSize: 14,
+              fontWeight: 600,
+              padding: '13px 28px',
+              borderRadius: 8,
+              textDecoration: 'none',
+              display: 'inline-block',
+            }}
+          >
+            Talk to sales
+          </a>
+        </div>
 
         {/* Path selector */}
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 16 }}>
@@ -162,7 +227,7 @@ function PricingPage() {
                 id: 'mf',
                 icon: '⚡',
                 title: 'We use Module Federation',
-                sub: "We're running MF and need a proper deployment platform built around it.",
+                sub: "We're running MF and need a deployment platform built around it.",
               },
               {
                 id: 'nonmf',
@@ -176,11 +241,11 @@ function PricingPage() {
             const isMf = id === 'mf';
             const activeColor = isMf ? C.purple : C.green;
             return (
-              <div
+              <button
                 key={id}
                 onClick={() => selectPath(id)}
                 style={{
-                  background: C.black2,
+                  background: active ? (isMf ? 'rgba(139,92,246,0.12)' : 'rgba(16,185,129,0.1)') : C.black2,
                   borderRadius: 12,
                   padding: '22px 28px',
                   cursor: 'pointer',
@@ -192,9 +257,11 @@ function PricingPage() {
                   transition: 'all 0.25s',
                   border: `2px solid ${active ? activeColor : C.border}`,
                   boxShadow: active
-                    ? `0 0 0 1px ${activeColor}, 0 8px 32px ${isMf ? 'rgba(139,92,246,0.15)' : 'rgba(16,185,129,0.12)'}`
+                    ? `0 0 0 1px ${activeColor}, 0 8px 32px ${isMf ? 'rgba(139,92,246,0.2)' : 'rgba(16,185,129,0.15)'}`
                     : 'none',
                   transform: active ? 'translateY(-2px)' : 'none',
+                  fontFamily: 'inherit',
+                  color: C.white,
                 }}
               >
                 {active && (
@@ -203,15 +270,15 @@ function PricingPage() {
                       position: 'absolute',
                       top: 14,
                       right: 14,
-                      width: 20,
-                      height: 20,
+                      width: 22,
+                      height: 22,
                       borderRadius: '50%',
                       background: activeColor,
                       color: 'white',
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      fontSize: 10,
+                      fontSize: 11,
                       fontWeight: 900,
                     }}
                   >
@@ -225,7 +292,7 @@ function PricingPage() {
                   {title}
                 </div>
                 <div style={{ fontSize: 12, color: C.gray, lineHeight: 1.5 }}>{sub}</div>
-              </div>
+              </button>
             );
           })}
         </div>
@@ -334,7 +401,7 @@ function PricingPage() {
                   )}
                 </h2>
               </div>
-              <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
+              <div className="value-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
                 {pains.map((item, i) => (
                   <div
                     key={i}
@@ -435,8 +502,8 @@ function PricingPage() {
       </div>
 
       {/* ── TIER CARDS ── */}
-      <section style={{ maxWidth: 960, margin: '0 auto', padding: '0 24px 80px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16, alignItems: 'start' }}>
+      <section ref={tiersRef} id="tiers" style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 80px' }}>
+        <div className="tier-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14 }}>
           {/* FREE */}
           <div style={card()}>
             <TierName>Free</TierName>
@@ -444,14 +511,14 @@ function PricingPage() {
             <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>forever</div>
             <TierSeats>1 seat · no credit card required</TierSeats>
             <p style={desc()}>
-              For individuals exploring Zephyr. One cloud integration, all bundlers, and tag-based environments — free
-              forever.
+              For individuals exploring Zephyr. Full BYOC, all bundlers, and tag-based environments — free forever.
             </p>
             <Cta href="https://app.zephyr-cloud.io/" v="secondary">
               Get started free
             </Cta>
             <ul style={featList()}>
               {[
+                'BYOC — bring your own cloud',
                 '1 cloud integration',
                 'All 15 bundler plugins',
                 'Basic version history',
@@ -495,17 +562,17 @@ function PricingPage() {
             </div>
             <TierName purple>Pro</TierName>
             <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
-            <div style={amt()}>{isAnnual ? fmt(Math.round(INTRO_RATE * ANNUAL_DISC)) : fmt(INTRO_RATE)}</div>
+            <div style={amt()}>{isAnnual ? fmt(Math.round(PRO_INTRO * ANNUAL_DISC)) : fmt(PRO_INTRO)}</div>
             <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
               per seat / month ·{' '}
-              <a href="#pro-calc" style={{ color: C.purpleLight, textDecoration: 'none', fontWeight: 600 }}>
+              <a href="#calc" style={{ color: C.purpleLight, textDecoration: 'none', fontWeight: 600 }}>
                 use the calculator ↓
               </a>
             </div>
             <TierSeats>2 – 75 seats · costs decrease as your team scales</TierSeats>
             <p style={desc()}>
-              The full platform. BYOC, MF-native features, per-team permissions, and audit logs — everything a scaling
-              engineering team needs.
+              The full deployment platform. MF-native features, BYOC, per-team permissions, and audit logs — everything
+              a shipping team needs.
             </p>
             <Cta href="https://app.zephyr-cloud.io/" v="primary">
               Start free 30-day trial
@@ -516,18 +583,16 @@ function PricingPage() {
                 color: C.grayDark,
                 textAlign: 'center',
                 marginTop: -16,
-                marginBottom: 12,
+                marginBottom: 16,
                 lineHeight: 1.5,
               }}
             >
-              No credit card required · full Pro access · keep your data after trial
+              No credit card required · full Pro access
             </div>
-            <div style={{ fontSize: 12, color: C.grayDark, marginBottom: 16 }}>Up and running in under 15 minutes.</div>
             <ul style={featList()}>
               <Fi c="green">
-                <strong style={{ color: C.white }}>BYOC</strong> — any cloud
+                <strong style={{ color: C.white }}>BYOC</strong> — all cloud integrations
               </Fi>
-              <Fi c="green">All cloud integrations</Fi>
               <Fi c="green">Instant rollbacks</Fi>
               <Fi c="green">Full version history</Fi>
               <Divider />
@@ -548,9 +613,85 @@ function PricingPage() {
               </Fi>
               <Divider />
               <Fi c="green">Per-team deploy permissions</Fi>
-              <Fi c="amber">30-day audit logs</Fi>
-              <Fi c="amber">Application activity log</Fi>
+              <Fi c="green">30-day audit logs</Fi>
               <Fi c="green">Up to 75 collaborators</Fi>
+            </ul>
+          </div>
+
+          {/* BUSINESS */}
+          <div
+            style={{
+              ...card(),
+              background: 'linear-gradient(160deg,#2A1F08 0%,#0F0F1A 60%)',
+              border: `1px solid ${C.amber}`,
+              boxShadow: '0 0 48px rgba(232,168,48,0.1)',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                top: -12,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: C.amber,
+                color: '#0A0A0F',
+                fontSize: 10,
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.8px',
+                padding: '4px 14px',
+                borderRadius: 10,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              For Growing Teams
+            </div>
+            <TierName amber>Business</TierName>
+            <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
+            <div style={amt()}>{isAnnual ? fmt(Math.round(BIZ_INTRO * ANNUAL_DISC)) : fmt(BIZ_INTRO)}</div>
+            <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
+              per seat / month ·{' '}
+              <a
+                href="#calc"
+                onClick={() => setCalcTab('biz')}
+                style={{ color: C.amber, textDecoration: 'none', fontWeight: 600 }}
+              >
+                use the calculator ↓
+              </a>
+            </div>
+            <TierSeats>2 – 200 seats · SSO, SLAs, and governance included</TierSeats>
+            <p style={desc()}>
+              For teams that need SSO, approval workflows, and SLA guarantees. The governance layer between Pro and
+              Enterprise — without the Enterprise price tag.
+            </p>
+            <Cta href="https://app.zephyr-cloud.io/" v="amber">
+              Start free 30-day trial
+            </Cta>
+            <div
+              style={{
+                fontSize: 11,
+                color: C.grayDark,
+                textAlign: 'center',
+                marginTop: -16,
+                marginBottom: 16,
+                lineHeight: 1.5,
+              }}
+            >
+              No credit card required · full Business access
+            </div>
+            <ul style={featList()}>
+              <Fi c="amber">
+                <strong style={{ color: C.white }}>Everything in Pro</strong>
+              </Fi>
+              <Divider />
+              <Fi c="amber">SSO / SAML</Fi>
+              <Fi c="amber">Advanced roles &amp; permissions</Fi>
+              <Fi c="amber">Deployment approval workflows</Fi>
+              <Fi c="amber">Webhook integrations</Fi>
+              <Fi c="amber">90-day audit logs</Fi>
+              <Fi c="amber">99.9% uptime SLA</Fi>
+              <Fi c="amber">Priority support</Fi>
+              <Fi c="amber">Up to 200 collaborators</Fi>
             </ul>
           </div>
 
@@ -559,30 +700,31 @@ function PricingPage() {
             <TierName>Enterprise</TierName>
             <div style={amt()}>Custom</div>
             <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>&nbsp;</div>
-            <TierSeats>76+ seats · no RFP required · quote same day</TierSeats>
+            <TierSeats>200+ seats · no RFP required · quote same day</TierSeats>
             <p style={desc()}>
-              For large orgs and regulated sectors. SSO, extended audit retention, DPA, dedicated support, and custom
-              SLAs. Pay by invoice. POC / pilot available.
+              For large orgs and regulated sectors. SOC 2, DPA, dedicated CSM, and custom SLAs. Pay by invoice. POC /
+              pilot available.
             </p>
             <Cta href="mailto:inbound@zephyr-cloud.io?subject=Enterprise" v="secondary">
               Talk to sales
             </Cta>
             <ul style={featList()}>
               <Fi c="green">
-                <strong style={{ color: C.white }}>Everything in Pro</strong>
+                <strong style={{ color: C.white }}>Everything in Business</strong>
               </Fi>
               <Divider />
               {[
-                'SSO / SAML',
-                '60–90 day audit logs',
-                '99.9% uptime SLA',
+                'SOC 2 Type II compliance',
                 'Data Processing Agreement',
-                'SOC 2 compliant',
-                'Dedicated support',
+                'Dedicated CSM',
+                'Custom SLA (99.99%)',
+                'Negotiated contracts',
+                'Invoice / PO billing',
+                'White-glove onboarding',
                 'Custom bandwidth / storage',
-                'Custom SLAs',
+                'Unlimited collaborators',
               ].map((f) => (
-                <Fi key={f} c="amber">
+                <Fi key={f} c="green">
                   {f}
                 </Fi>
               ))}
@@ -592,7 +734,7 @@ function PricingPage() {
       </section>
 
       {/* ── ROI BANNER ── */}
-      <div style={{ maxWidth: 960, margin: '-56px auto 72px', padding: '0 24px', textAlign: 'center' }}>
+      <div style={{ maxWidth: 1160, margin: '-56px auto 72px', padding: '0 24px', textAlign: 'center' }}>
         <div
           style={{
             background: C.black3,
@@ -611,18 +753,71 @@ function PricingPage() {
         </div>
       </div>
 
-      {/* ── PRO CALCULATOR ── */}
-      <div id="pro-calc" style={{ maxWidth: 960, margin: '0 auto 72px', padding: '0 24px' }}>
+      {/* ── CALCULATOR ── */}
+      <div id="calc" style={{ maxWidth: 960, margin: '0 auto 72px', padding: '0 24px' }}>
+        {/* Tab switcher */}
         <div
           style={{
-            background: 'linear-gradient(160deg,#1A0F3A 0%,#0F0F1A 60%)',
-            border: `1px solid ${C.purple}`,
-            borderRadius: 14,
-            padding: '40px 48px',
+            display: 'flex',
+            borderRadius: '14px 14px 0 0',
+            overflow: 'hidden',
+            border: `1px solid ${calcTab === 'pro' ? C.purple : C.amber}`,
+            borderBottom: 'none',
           }}
         >
-          {/* Header */}
+          {(
+            [
+              {
+                id: 'pro',
+                label: 'Pro Calculator',
+                color: C.purple,
+                activeBg: 'linear-gradient(160deg,#1A0F3A 0%,#0F0F1A 60%)',
+              },
+              {
+                id: 'biz',
+                label: 'Business Calculator',
+                color: C.amber,
+                activeBg: 'linear-gradient(160deg,#2A1F08 0%,#0F0F1A 60%)',
+              },
+            ] as const
+          ).map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setCalcTab(tab.id)}
+              style={{
+                flex: 1,
+                padding: '12px 20px',
+                background: calcTab === tab.id ? tab.activeBg : C.black3,
+                border: 'none',
+                color: calcTab === tab.id ? tab.color : C.grayDark,
+                fontSize: 13,
+                fontWeight: 700,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                transition: 'all 0.2s',
+                letterSpacing: '0.3px',
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Calc body */}
+        <div
+          style={{
+            background:
+              calcTab === 'pro'
+                ? 'linear-gradient(160deg,#1A0F3A 0%,#0F0F1A 60%)'
+                : 'linear-gradient(160deg,#2A1F08 0%,#0F0F1A 60%)',
+            border: `1px solid ${calcTab === 'pro' ? C.purple : C.amber}`,
+            borderRadius: '0 0 14px 14px',
+            padding: '40px 48px',
+            transition: 'background 0.3s, border-color 0.3s',
+          }}
+        >
           <div
+            className="calc-header"
             style={{
               display: 'flex',
               justifyContent: 'space-between',
@@ -634,7 +829,7 @@ function PricingPage() {
           >
             <div>
               <h3 style={{ fontSize: 18, fontWeight: 900, letterSpacing: '-0.4px', color: C.white, marginBottom: 6 }}>
-                Pro — see your exact price
+                {calcTab === 'pro' ? 'Pro' : 'Business'} — see your exact price
               </h3>
               <p style={{ fontSize: 13, color: C.gray, maxWidth: 400, lineHeight: 1.6 }}>
                 The more seats you add, the less you pay per seat. Click a tier or drag the slider.
@@ -647,19 +842,19 @@ function PricingPage() {
                   fontWeight: 700,
                   textTransform: 'uppercase',
                   letterSpacing: '0.8px',
-                  color: C.purpleLight,
+                  color: calcTab === 'pro' ? C.purpleLight : C.amber,
                   marginBottom: 4,
                 }}
               >
                 {isAnnual ? 'Effective per month (annual)' : 'Total per month'}
               </div>
               <div style={{ fontSize: 42, fontWeight: 900, letterSpacing: '-1.5px', color: C.white, lineHeight: 1 }}>
-                {fmt(moTotal)}
+                {fmt(calcTab === 'pro' ? proMonthly : bizMonthly)}
               </div>
               <div style={{ fontSize: 12, color: C.gray, marginTop: 4 }}>
                 {isAnnual
-                  ? `Billed as ${fmt(yrTotal)}/yr · you save ${fmt(yrSave)}`
-                  : `${fmt(yrTotal)}/yr with annual billing — save ${fmt(yrSave)}`}
+                  ? `Billed as ${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr · you save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`
+                  : `${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr with annual — save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`}
               </div>
             </div>
           </div>
@@ -669,16 +864,18 @@ function PricingPage() {
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
               <span style={{ fontSize: 12, color: C.grayDark, fontWeight: 500 }}>Seats</span>
               <strong style={{ fontSize: 14, color: C.white, fontWeight: 800 }}>
-                {seats} seat{seats !== 1 ? 's' : ''}
+                {calcTab === 'pro' ? proSeats : bizSeats} seats
               </strong>
             </div>
             <input
               type="range"
               min={2}
-              max={75}
-              value={seats}
-              onChange={(e) => setSeats(parseInt(e.target.value))}
-              className="pricing-slider"
+              max={calcTab === 'pro' ? 75 : 200}
+              value={calcTab === 'pro' ? proSeats : bizSeats}
+              onChange={(e) =>
+                calcTab === 'pro' ? setProSeats(parseInt(e.target.value)) : setBizSeats(parseInt(e.target.value))
+              }
+              className={calcTab === 'pro' ? 'pricing-slider' : 'pricing-slider-biz'}
               style={{
                 width: '100%',
                 height: 5,
@@ -686,25 +883,31 @@ function PricingPage() {
                 outline: 'none',
                 WebkitAppearance: 'none',
                 cursor: 'pointer',
-                background: `linear-gradient(to right,${C.purple} 0%,${C.purple} ${sliderPct}%,${C.borderLight} ${sliderPct}%,${C.borderLight} 100%)`,
+                background: `linear-gradient(to right,${calcTab === 'pro' ? C.purple : C.amber} 0%,${calcTab === 'pro' ? C.purple : C.amber} ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%,${C.borderLight} ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%,${C.borderLight} 100%)`,
               }}
             />
           </div>
 
           {/* Band cards */}
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 10, marginBottom: 24 }}>
-            {PRO_BANDS.map((band, i) => {
+          <div
+            className="band-grid"
+            style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 10, marginBottom: 24 }}
+          >
+            {(calcTab === 'pro' ? PRO_BANDS : BIZ_BANDS).map((band, i) => {
+              const acColor = calcTab === 'pro' ? C.purple : C.amber;
+              const introRate = calcTab === 'pro' ? PRO_INTRO : BIZ_INTRO;
               const dr = isAnnual ? Math.round(band.rate * ANNUAL_DISC) : band.rate;
-              const saving = Math.round((1 - band.rate / INTRO_RATE) * 100);
-              const active = bandIdx === i;
+              const saving = Math.round((1 - band.rate / introRate) * 100);
+              const active = calcTab === 'pro' ? proBandIdx === i : bizBandIdx === i;
+              const rgbActive = calcTab === 'pro' ? '139,92,246' : '232,168,48';
               return (
                 <div
                   key={i}
-                  onClick={() => setSeats(band.midpoint)}
+                  onClick={() => (calcTab === 'pro' ? setProSeats(band.midpoint) : setBizSeats(band.midpoint))}
                   style={{
-                    background: active ? 'rgba(139,92,246,0.15)' : 'rgba(255,255,255,0.04)',
-                    border: `1px solid ${active ? C.purple : 'rgba(255,255,255,0.06)'}`,
-                    boxShadow: active ? '0 0 16px rgba(139,92,246,0.1)' : 'none',
+                    background: active ? `rgba(${rgbActive},0.15)` : 'rgba(255,255,255,0.04)',
+                    border: `1px solid ${active ? acColor : 'rgba(255,255,255,0.06)'}`,
+                    boxShadow: active ? `0 0 16px rgba(${rgbActive},0.1)` : 'none',
                     borderRadius: 8,
                     padding: '14px 12px',
                     textAlign: 'center',
@@ -718,7 +921,7 @@ function PricingPage() {
                       fontWeight: 700,
                       textTransform: 'uppercase',
                       letterSpacing: '0.5px',
-                      color: active ? C.purpleLight : C.grayDark,
+                      color: active ? acColor : C.grayDark,
                       marginBottom: 6,
                     }}
                   >
@@ -745,7 +948,7 @@ function PricingPage() {
             })}
           </div>
 
-          {/* Meta */}
+          {/* Meta row */}
           <div
             style={{
               display: 'flex',
@@ -760,15 +963,15 @@ function PricingPage() {
             <div style={{ fontSize: 12, color: C.gray }}>
               Per seat:{' '}
               <strong style={{ color: C.white }}>
-                {fmt(effRate)}
-                {isAnnual ? ` (was ${fmt(rate)})` : ''}
+                {fmt(calcTab === 'pro' ? proEffRate : bizEffRate)}
+                {isAnnual ? ` (was ${fmt(calcTab === 'pro' ? proRate : bizRate)})` : ''}
               </strong>
             </div>
             <div style={{ fontSize: 12, color: C.gray }}>
-              Monthly: <strong style={{ color: C.white }}>{fmt(moTotal)}</strong>
+              Monthly: <strong style={{ color: C.white }}>{fmt(calcTab === 'pro' ? proMonthly : bizMonthly)}</strong>
             </div>
             <div style={{ fontSize: 12, color: C.gray }}>
-              Annual: <strong style={{ color: C.white }}>{fmt(yrTotal)}</strong>
+              Annual: <strong style={{ color: C.white }}>{fmt(calcTab === 'pro' ? proYearly : bizYearly)}</strong>
               <span
                 style={{
                   display: 'inline-block',
@@ -781,18 +984,41 @@ function PricingPage() {
                   marginLeft: 6,
                 }}
               >
-                Save {fmt(yrSave)}
+                Save {fmt(calcTab === 'pro' ? proSave : bizSave)}
               </span>
             </div>
             <div style={{ fontSize: 12, color: C.gray }}>
-              Need 76+ seats?{' '}
-              <a
-                href="mailto:inbound@zephyr-cloud.io?subject=Enterprise"
-                style={{ color: C.purpleLight, textDecoration: 'none', fontWeight: 700 }}
-              >
-                Talk to sales
-              </a>{' '}
-              — volume rates, quoted same day.
+              {calcTab === 'pro' ? (
+                <>
+                  Need governance or SSO?{' '}
+                  <button
+                    onClick={() => setCalcTab('biz')}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: C.purpleLight,
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      fontSize: 12,
+                      fontFamily: 'inherit',
+                      padding: 0,
+                    }}
+                  >
+                    See Business pricing ↑
+                  </button>
+                </>
+              ) : (
+                <>
+                  Need 200+ seats?{' '}
+                  <a
+                    href="mailto:inbound@zephyr-cloud.io?subject=Enterprise"
+                    style={{ color: C.amber, textDecoration: 'none', fontWeight: 700 }}
+                  >
+                    Talk to sales
+                  </a>{' '}
+                  — quoted same day.
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -812,7 +1038,7 @@ function PricingPage() {
         }}
       >
         {[
-          { n: '6', s: ',213', l: 'Monthly active users' },
+          { n: '< 15', s: ' min', l: 'Avg. time to first deploy' },
           { n: '15', s: '+', l: 'Bundler integrations' },
           { n: '6', s: '+', l: 'Cloud integrations' },
           { n: '15', s: '+', l: 'Countries' },
@@ -888,6 +1114,7 @@ function PricingPage() {
           </div>
         </div>
         <div
+          className="stats-grid"
           style={{
             background: C.black2,
             border: `1px solid ${C.border}`,
@@ -941,146 +1168,174 @@ function PricingPage() {
       </section>
 
       {/* ── FEATURE TABLE ── */}
-      <section style={{ maxWidth: 960, margin: '0 auto 80px', padding: '0 24px' }}>
+      <section style={{ maxWidth: 1160, margin: '0 auto 80px', padding: '0 24px' }}>
         <div style={{ textAlign: 'center', marginBottom: 36 }}>
           <h2 style={{ fontSize: 28, fontWeight: 900, letterSpacing: '-0.6px', marginBottom: 8 }}>
             Everything in the platform
           </h2>
           <p style={{ fontSize: 14, color: C.gray }}>Every feature, every tier.</p>
         </div>
-        <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13 }}>
-          <thead>
-            <tr>
-              {[
-                ['Feature', 'left', C.grayDark, '40%'],
-                ['Free', 'center', C.grayDark],
-                ['Pro', 'center', C.purpleLight],
-                ['Enterprise', 'center', C.grayDark],
-              ].map(([label, align, color, w]) => (
-                <th
-                  key={label as string}
-                  style={{
-                    padding: '10px 16px',
-                    fontSize: 10,
-                    fontWeight: 700,
-                    textTransform: 'uppercase',
-                    letterSpacing: '0.8px',
-                    color: color as string,
-                    textAlign: align as 'left' | 'center',
-                    borderBottom: `1px solid ${C.border}`,
-                    width: w as string | undefined,
-                  }}
-                >
-                  {label}
-                </th>
-              ))}
-            </tr>
-          </thead>
-          <tbody>
-            {(
-              [
-                { g: 'Deployment' },
-                { f: 'Cloud integrations', fr: '1', pr: 'All', en: 'All' },
-                { f: 'Bundler plugins (15)', fr: '✓', pr: '✓', en: '✓' },
-                { f: 'BYOC', fr: '—', pr: '✓', en: '✓' },
-                { f: 'Instant rollbacks', fr: '—', pr: '✓', en: '✓' },
-                { f: 'Tag / branch env', fr: '✓', pr: '✓', en: '✓' },
-                { f: 'Version history', fr: 'Limited', pr: '✓', en: 'Custom' },
-                { g: 'Module Federation Native', mfg: true },
-                { f: 'Environment Overrides', fr: '—', pr: '✓', en: '✓', mf: true },
-                { f: 'Env Variables (no redeploy)', fr: '—', pr: '✓', en: '✓' },
-                { f: 'Zephyr DevTools', fr: '—', pr: '✓', en: '✓', mf: true },
-                { f: 'UML architecture map', fr: '—', pr: '✓', en: '✓', mf: true },
-                { f: 'zephyr.dependencies', fr: '—', pr: '✓', en: '✓', mf: true },
-                { g: 'Teams & Access' },
-                { f: 'Collaborators', fr: '—', pr: 'Up to 75', en: 'Unlimited' },
-                { f: 'Per-team permissions', fr: '—', pr: '✓', en: '✓' },
-                { f: 'SSO / SAML', fr: '—', pr: '—', en: '✓' },
-                { g: 'Security & Compliance' },
-                { f: 'Activity log', fr: '—', pr: '✓', en: '✓' },
-                { f: 'Audit log retention', fr: '—', pr: '30 days', en: '60–90 days' },
-                { f: 'SOC 2 compliance', fr: '—', pr: '—', en: '✓' },
-                { f: 'DPA', fr: '—', pr: '—', en: '✓' },
-                { f: 'Uptime SLA', fr: '—', pr: '—', en: '99.9%' },
-              ] as Array<{ g?: string; mfg?: boolean; f?: string; fr?: string; pr?: string; en?: string; mf?: boolean }>
-            ).map((row, i) => {
-              if (row.g)
-                return (
-                  <tr key={i}>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, minWidth: 680 }}>
+            <thead>
+              <tr>
+                {(
+                  [
+                    ['Feature', 'left', C.grayDark, '28%'],
+                    ['Free', 'center', C.grayDark, undefined],
+                    ['Pro', 'center', C.purpleLight, undefined],
+                    ['Business', 'center', C.amber, undefined],
+                    ['Enterprise', 'center', C.grayDark, undefined],
+                  ] as [string, string, string, string | undefined][]
+                ).map(([label, align, color, w]) => (
+                  <th
+                    key={label}
+                    style={{
+                      padding: '10px 16px',
+                      fontSize: 10,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.8px',
+                      color,
+                      textAlign: align as 'left' | 'center',
+                      borderBottom: `1px solid ${C.border}`,
+                      width: w,
+                    }}
+                  >
+                    {label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {(
+                [
+                  { g: 'Deployment' },
+                  { f: 'Cloud integrations', fr: '1', pr: 'All', bz: 'All', en: 'All' },
+                  { f: 'Bundler plugins (15)', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'BYOC', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Instant rollbacks', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Tag / branch env', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Version history', fr: 'Limited', pr: '✓', bz: '✓', en: 'Custom' },
+                  { g: 'Module Federation Native', mfg: true },
+                  { f: 'Environment Overrides', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'Env Variables (no redeploy)', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Zephyr DevTools', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'UML architecture map', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'zephyr.dependencies', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { g: 'Teams & Access' },
+                  { f: 'Collaborators', fr: '—', pr: 'Up to 75', bz: 'Up to 200', en: 'Unlimited' },
+                  { f: 'Per-team permissions', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Advanced roles', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'SSO / SAML', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Approval workflows', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Webhook integrations', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { g: 'Security & Compliance' },
+                  { f: 'Activity log', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Audit log retention', fr: '—', pr: '30 days', bz: '90 days', en: 'Custom' },
+                  { f: 'Uptime SLA', fr: '—', pr: '—', bz: '99.9%', en: '99.99%' },
+                  { f: 'SOC 2 compliance', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { f: 'DPA', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { g: 'Support' },
+                  { f: 'Community support', fr: '✓', pr: '—', bz: '—', en: '—' },
+                  { f: 'Email support', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Priority support', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Dedicated CSM', fr: '—', pr: '—', bz: '—', en: '✓' },
+                ] as Array<{
+                  g?: string;
+                  mfg?: boolean;
+                  f?: string;
+                  fr?: string;
+                  pr?: string;
+                  bz?: string;
+                  en?: string;
+                  mf?: boolean;
+                }>
+              ).map((row, i) => {
+                if (row.g)
+                  return (
+                    <tr key={i}>
+                      <td
+                        colSpan={5}
+                        style={{
+                          background: C.black3,
+                          color: C.grayDark,
+                          fontSize: 10,
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px',
+                          padding: '8px 16px',
+                          borderTop: `1px solid ${C.border}`,
+                        }}
+                      >
+                        {row.g}
+                        {row.mfg && (
+                          <span style={{ marginLeft: 6 }}>
+                            <MfTag />
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                const cell = (val = '', hl?: 'pro' | 'biz') => {
+                  const color =
+                    val === '✓'
+                      ? C.green
+                      : val === '—'
+                        ? C.borderLight
+                        : val === 'Limited'
+                          ? C.grayDark
+                          : val === 'Custom' || val === 'Unlimited'
+                            ? C.purpleLight
+                            : C.gray;
+                  return (
                     <td
-                      colSpan={4}
                       style={{
-                        background: C.black3,
-                        color: C.grayDark,
-                        fontSize: 10,
-                        fontWeight: 700,
-                        textTransform: 'uppercase',
-                        letterSpacing: '1px',
-                        padding: '8px 16px',
-                        borderTop: `1px solid ${C.border}`,
+                        padding: '11px 16px',
+                        borderBottom: `1px solid ${C.border}`,
+                        textAlign: 'center',
+                        color,
+                        background:
+                          hl === 'pro'
+                            ? 'rgba(139,92,246,0.04)'
+                            : hl === 'biz'
+                              ? 'rgba(232,168,48,0.04)'
+                              : 'transparent',
+                        fontSize: val === '✓' || val === '—' ? 14 : 11,
+                        fontWeight: val === 'Limited' || val === 'Custom' ? 700 : 400,
                       }}
                     >
-                      {row.g}
-                      {row.mfg && (
+                      {val}
+                    </td>
+                  );
+                };
+                return (
+                  <tr key={i} className={cn(path === 'nonmf' && row.mf && 'opacity-40')}>
+                    <td
+                      style={{
+                        padding: '11px 16px',
+                        borderBottom: `1px solid ${C.border}`,
+                        color: C.white,
+                        fontWeight: 500,
+                      }}
+                    >
+                      {row.f}
+                      {row.mf && (
                         <span style={{ marginLeft: 6 }}>
                           <MfTag />
                         </span>
                       )}
                     </td>
+                    {cell(row.fr)}
+                    {cell(row.pr, 'pro')}
+                    {cell(row.bz, 'biz')}
+                    {cell(row.en)}
                   </tr>
                 );
-              const cell = (val = '', isP = false) => {
-                const color =
-                  val === '✓'
-                    ? C.green
-                    : val === '—'
-                      ? C.borderLight
-                      : val === 'Limited'
-                        ? C.grayDark
-                        : val === 'Custom' || val === 'Unlimited'
-                          ? C.purpleLight
-                          : C.gray;
-                return (
-                  <td
-                    style={{
-                      padding: '11px 16px',
-                      borderBottom: `1px solid ${C.border}`,
-                      textAlign: 'center',
-                      color,
-                      background: isP ? 'rgba(139,92,246,0.04)' : 'transparent',
-                      fontSize: val === '✓' || val === '—' ? 14 : 11,
-                      fontWeight: val === 'Limited' || val === 'Custom' ? 700 : 400,
-                    }}
-                  >
-                    {val}
-                  </td>
-                );
-              };
-              return (
-                <tr key={i} className={cn(path === 'nonmf' && row.mf && 'opacity-40')}>
-                  <td
-                    style={{
-                      padding: '11px 16px',
-                      borderBottom: `1px solid ${C.border}`,
-                      color: C.white,
-                      fontWeight: 500,
-                    }}
-                  >
-                    {row.f}
-                    {row.mf && (
-                      <span style={{ marginLeft: 6 }}>
-                        <MfTag />
-                      </span>
-                    )}
-                  </td>
-                  {cell(row.fr)}
-                  {cell(row.pr, true)}
-                  {cell(row.en)}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+              })}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       {/* ── FAQ ── */}
@@ -1198,16 +1453,30 @@ function PricingPage() {
         </div>
       </section>
 
-      {/* Slider thumb styles */}
+      {/* Slider + responsive styles */}
       <style>{`
         .pricing-slider::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:${C.purple}; cursor:pointer; box-shadow:0 0 0 4px rgba(139,92,246,0.2); border:2px solid ${C.white}; }
         .pricing-slider::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:${C.purple}; cursor:pointer; border:2px solid ${C.white}; }
+        .pricing-slider-biz::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:${C.amber}; cursor:pointer; box-shadow:0 0 0 4px rgba(232,168,48,0.2); border:2px solid ${C.white}; }
+        .pricing-slider-biz::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:${C.amber}; cursor:pointer; border:2px solid ${C.white}; }
+        @media (max-width: 960px) {
+          .tier-grid { grid-template-columns: repeat(2,1fr) !important; }
+        }
+        @media (max-width: 600px) {
+          .tier-grid { grid-template-columns: 1fr !important; }
+          .band-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .value-grid { grid-template-columns: 1fr !important; }
+          .calc-header { flex-direction: column !important; }
+          .stats-grid { grid-template-columns: 1fr !important; }
+          .stats-grid > div:first-child { padding-right: 0 !important; border-right: none !important; padding-bottom: 24px; border-bottom: 1px solid ${C.border}; }
+          .stats-grid > div:last-child { padding-left: 0 !important; padding-top: 24px; }
+        }
       `}</style>
     </div>
   );
 }
 
-// ── Helpers ───────────────────────────────────────────────────────────────────
+// ── Helpers ────────────────────────────────────────────────────────────────────
 const card = () => ({
   background: C.black2,
   border: `1px solid ${C.border}`,
@@ -1222,9 +1491,11 @@ const featList = () => ({
   display: 'flex' as const,
   flexDirection: 'column' as const,
   gap: 10,
+  margin: 0,
+  padding: 0,
 });
 
-function TierName({ children, purple }: { children: React.ReactNode; purple?: boolean }) {
+function TierName({ children, purple, amber }: { children: ReactNode; purple?: boolean; amber?: boolean }) {
   return (
     <div
       style={{
@@ -1232,7 +1503,7 @@ function TierName({ children, purple }: { children: React.ReactNode; purple?: bo
         fontWeight: 700,
         textTransform: 'uppercase',
         letterSpacing: '1px',
-        color: purple ? C.purpleLight : C.grayDark,
+        color: purple ? C.purpleLight : amber ? C.amber : C.grayDark,
         marginBottom: 14,
       }}
     >
@@ -1240,7 +1511,7 @@ function TierName({ children, purple }: { children: React.ReactNode; purple?: bo
     </div>
   );
 }
-function TierSeats({ children }: { children: React.ReactNode }) {
+function TierSeats({ children }: { children: ReactNode }) {
   return (
     <div
       style={{
@@ -1255,11 +1526,22 @@ function TierSeats({ children }: { children: React.ReactNode }) {
     </div>
   );
 }
-function Cta({ href, children, v }: { href: string; children: React.ReactNode; v: 'primary' | 'secondary' }) {
+function Cta({
+  href,
+  children,
+  v,
+  onClick,
+}: {
+  href: string;
+  children: ReactNode;
+  v: 'primary' | 'secondary' | 'amber';
+  onClick?: () => void;
+}) {
   return (
     <a
       href={href}
       target="_blank"
+      onClick={onClick}
       style={{
         display: 'block',
         width: '100%',
@@ -1273,14 +1555,16 @@ function Cta({ href, children, v }: { href: string; children: React.ReactNode; v
         transition: 'all 0.2s',
         ...(v === 'primary'
           ? { background: C.purple, color: 'white' }
-          : { background: 'transparent', border: `1px solid ${C.borderLight}`, color: C.white }),
+          : v === 'amber'
+            ? { background: C.amber, color: '#0A0A0F' }
+            : { background: 'transparent', border: `1px solid ${C.borderLight}`, color: C.white }),
       }}
     >
       {children}
     </a>
   );
 }
-function Fi({ children, c, dim }: { children: React.ReactNode; c: 'green' | 'purple' | 'amber'; dim?: boolean }) {
+function Fi({ children, c, dim }: { children: ReactNode; c: 'green' | 'purple' | 'amber'; dim?: boolean }) {
   const ic = c === 'green' ? C.green : c === 'purple' ? C.purpleLight : C.amber;
   return (
     <li
@@ -1300,26 +1584,21 @@ function Fi({ children, c, dim }: { children: React.ReactNode; c: 'green' | 'pur
   );
 }
 function Divider() {
-  return (
-    <li>
-      <hr style={{ border: 'none', borderTop: `1px dashed ${C.border}`, margin: '6px 0' }} />
-    </li>
-  );
+  return <li style={{ listStyle: 'none', height: 1, background: C.border, margin: '4px 0' }} />;
 }
 function MfTag() {
   return (
     <span
       style={{
-        background: C.purpleDim,
-        color: C.purpleLight,
         fontSize: 9,
         fontWeight: 700,
         textTransform: 'uppercase',
         letterSpacing: '0.5px',
+        background: C.purpleDim,
+        color: C.purpleLight,
+        border: `1px solid rgba(139,92,246,0.3)`,
         padding: '1px 5px',
         borderRadius: 3,
-        marginLeft: 4,
-        verticalAlign: 'middle',
       }}
     >
       MF
