@@ -177,9 +177,45 @@ function PricingPage() {
         >
           Pricing that scales with your team
         </h1>
-        <p style={{ fontSize: 14, color: C.gray, maxWidth: 520, margin: '0 auto 14px', lineHeight: 1.65 }}>
+        <p style={{ fontSize: 14, color: C.gray, maxWidth: 520, margin: '0 auto 0', lineHeight: 1.65 }}>
           Start free and scale as you grow.
         </p>
+      </section>
+
+      {/* ── FEATURE BAR ── */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
+          flexWrap: 'nowrap',
+          background: 'linear-gradient(135deg, #1A0F3A 0%, #0F0F1A 100%)',
+          borderTop: `1px solid rgba(139,92,246,0.2)`,
+          borderBottom: `1px solid rgba(139,92,246,0.2)`,
+          padding: '16px 40px',
+          width: '100%',
+        }}
+      >
+        {(
+          [
+            { icon: '∞', label: 'No build minutes' },
+            { icon: '⚡', label: 'Sub-second deployments' },
+            { icon: '☁', label: 'Bring Your Own Cloud (BYOC)' },
+            { icon: '✦', label: 'Unlimited preview environments' },
+          ] as { icon: string; label: string }[]
+        ).map(({ icon, label }) => (
+          <span
+            key={label}
+            style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: C.gray, whiteSpace: 'nowrap' }}
+          >
+            <span style={{ color: C.purpleLight, fontSize: 15 }}>{icon}</span>
+            {label}
+          </span>
+        ))}
+      </div>
+
+      {/* ── PATH SELECTOR ── */}
+      <div style={{ textAlign: 'center', padding: '20px 40px', maxWidth: 760, margin: '0 auto' }}>
         {/* Path selector */}
         <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 16 }}>
           {(
@@ -262,39 +298,6 @@ function PricingPage() {
             Select your situation to see what matters most to your team.
           </p>
         )}
-      </section>
-
-      {/* ── FEATURE BAR ── */}
-      <div
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-evenly',
-          flexWrap: 'nowrap',
-          background: 'linear-gradient(135deg, #1A0F3A 0%, #0F0F1A 100%)',
-          borderTop: `1px solid rgba(139,92,246,0.2)`,
-          borderBottom: `1px solid rgba(139,92,246,0.2)`,
-          padding: '16px 40px',
-          width: '100%',
-          marginBottom: 0,
-        }}
-      >
-        {(
-          [
-            { icon: '∞', label: 'No build minutes' },
-            { icon: '⚡', label: 'Sub-second deployments' },
-            { icon: '☁', label: 'Bring Your Own Cloud (BYOC)' },
-            { icon: '✦', label: 'Unlimited preview environments' },
-          ] as { icon: string; label: string }[]
-        ).map(({ icon, label }) => (
-          <span
-            key={label}
-            style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: C.gray, whiteSpace: 'nowrap' }}
-          >
-            <span style={{ color: C.purpleLight, fontSize: 15 }}>{icon}</span>
-            {label}
-          </span>
-        ))}
       </div>
 
       {/* ── VALUE PANELS ── */}
