@@ -33,10 +33,10 @@ const PRO_BANDS = [
   { min: 51, max: 75, rate: 24, midpoint: 63, label: '51 – 75 seats' },
 ];
 const BIZ_BANDS = [
-  { min: 2, max: 25, rate: 52, midpoint: 14, label: '2 – 25 seats' },
-  { min: 26, max: 75, rate: 45, midpoint: 50, label: '26 – 75 seats' },
-  { min: 76, max: 150, rate: 38, midpoint: 113, label: '76 – 150 seats' },
-  { min: 151, max: 200, rate: 34, midpoint: 175, label: '151 – 200 seats' },
+  { min: 2, max: 25, rate: 99, midpoint: 14, label: '2 – 25 seats' },
+  { min: 26, max: 75, rate: 82, midpoint: 50, label: '26 – 75 seats' },
+  { min: 76, max: 150, rate: 69, midpoint: 113, label: '76 – 150 seats' },
+  { min: 151, max: 200, rate: 59, midpoint: 175, label: '151 – 200 seats' },
 ];
 const PRO_INTRO = PRO_BANDS[0].rate;
 const BIZ_INTRO = BIZ_BANDS[0].rate;
@@ -102,18 +102,18 @@ function PricingPage() {
   const faqs = [
     {
       q: 'Do I need Module Federation to get value from Zephyr?',
-      a: 'No. BYOC, instant rollbacks, and environment variables without redeploying are available on Pro — none of them require Module Federation. MF-native features are additive. Many teams start without MF and adopt it later.',
+      a: 'No. BYOC, instant rollbacks, and environment variables without redeploying are available on Teams — none of them require Module Federation. MF-native features are additive. Many teams start without MF and adopt it later.',
     },
     {
-      q: 'How does Pro pricing work?',
-      a: "Pro starts at $39/seat for 2–10 seats. At 11–25 seats the rate drops to $32/seat. At 26–50 it's $27/seat. At 51–75 it's $24/seat — 38% less than the intro rate. Use the calculator to see your exact price.",
+      q: 'How does Teams pricing work?',
+      a: "Teams starts at $39/seat for 2–10 seats. At 11–25 seats the rate drops to $32/seat. At 26–50 it's $27/seat. At 51–75 it's $24/seat — 38% less than the intro rate. Use the calculator to see your exact price.",
     },
     {
       q: 'How does Business pricing work?',
       a: 'Business starts at $52/seat for 2–25 seats, dropping to $45/seat at 26–75, $38/seat at 76–150, and $34/seat at 151–200. It includes everything in Pro plus SSO/SAML, advanced roles, approval workflows, webhook integrations, 90-day audit logs, and a 99.9% uptime SLA.',
     },
     {
-      q: 'When should I upgrade from Pro to Business?',
+      q: 'When should I upgrade from Teams to Business?',
       a: 'Upgrade to Business when you need SSO for your identity provider, SLA guarantees, advanced access controls, or 90-day audit retention. Most teams make the switch when IT or compliance asks for SSO, or when deployment approval workflows become a requirement.',
     },
     {
@@ -122,11 +122,11 @@ function PricingPage() {
     },
     {
       q: 'Are there overage charges for bandwidth or storage?',
-      a: "Pro includes 1.5TB bandwidth and 500GB storage. We'll reach out before charging anything — no automatic overage fees. Business and Enterprise limits are agreed upfront so procurement always knows the ceiling.",
+      a: "Teams includes 1.5TB bandwidth and 500GB storage. We'll reach out before charging anything — no automatic overage fees. Business and Enterprise limits are agreed upfront so procurement always knows the ceiling.",
     },
     {
       q: 'Can we pay by invoice or purchase order?',
-      a: "Yes. Business and Enterprise invoicing and PO billing are standard. Pro is credit card monthly or annually. If procurement requires an invoice for Pro, contact sales and we'll accommodate it.",
+      a: "Yes. Business and Enterprise invoicing and PO billing are standard. Teams is credit card monthly or annually. If procurement requires an invoice for Teams, contact sales and we'll accommodate it.",
     },
     {
       q: 'What makes the MF-native features different?',
@@ -138,7 +138,7 @@ function PricingPage() {
     },
     {
       q: 'Is there an annual discount?',
-      a: 'Yes — 15% off Pro and Business when billed annually. Toggle above to see annual pricing reflected live in the calculator.',
+      a: 'Yes — 15% off Teams and Business when billed annually. Toggle above to see annual pricing reflected live in the calculator.',
     },
   ];
 
@@ -560,7 +560,7 @@ function PricingPage() {
             >
               Most Popular
             </div>
-            <TierName purple>Pro</TierName>
+            <TierName purple>Teams</TierName>
             <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
             <div style={amt()}>{isAnnual ? fmt(Math.round(PRO_INTRO * ANNUAL_DISC)) : fmt(PRO_INTRO)}</div>
             <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
@@ -681,7 +681,7 @@ function PricingPage() {
             </div>
             <ul style={featList()}>
               <Fi c="amber">
-                <strong style={{ color: C.white }}>Everything in Pro</strong>
+                <strong style={{ color: C.white }}>Everything in Teams</strong>
               </Fi>
               <Divider />
               <Fi c="amber">SSO / SAML</Fi>
@@ -769,7 +769,7 @@ function PricingPage() {
             [
               {
                 id: 'pro',
-                label: 'Pro Calculator',
+                label: 'Teams Calculator',
                 color: C.purple,
                 activeBg: 'linear-gradient(160deg,#1A0F3A 0%,#0F0F1A 60%)',
               },
@@ -829,7 +829,7 @@ function PricingPage() {
           >
             <div>
               <h3 style={{ fontSize: 18, fontWeight: 900, letterSpacing: '-0.4px', color: C.white, marginBottom: 6 }}>
-                {calcTab === 'pro' ? 'Pro' : 'Business'} — see your exact price
+                {calcTab === 'pro' ? 'Teams' : 'Business'} — see your exact price
               </h3>
               <p style={{ fontSize: 13, color: C.gray, maxWidth: 400, lineHeight: 1.6 }}>
                 The more seats you add, the less you pay per seat. Click a tier or drag the slider.
@@ -1183,7 +1183,7 @@ function PricingPage() {
                   [
                     ['Feature', 'left', C.grayDark, '28%'],
                     ['Free', 'center', C.grayDark, undefined],
-                    ['Pro', 'center', C.purpleLight, undefined],
+                    ['Teams', 'center', C.purpleLight, undefined],
                     ['Business', 'center', C.amber, undefined],
                     ['Enterprise', 'center', C.grayDark, undefined],
                   ] as [string, string, string, string | undefined][]
