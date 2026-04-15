@@ -511,9 +511,6 @@ function PricingPage() {
             <div style={amt()}>$0</div>
             <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>forever</div>
             <TierSeats>1 seat · no credit card required</TierSeats>
-            <p style={desc()}>
-              For individuals exploring Zephyr. Full BYOC, all bundlers, and tag-based environments — free forever.
-            </p>
             <Cta href="https://app.zephyr-cloud.io/" v="secondary">
               Get started free
             </Cta>
@@ -571,10 +568,6 @@ function PricingPage() {
               </a>
             </div>
             <TierSeats>2 – 75 seats · costs decrease as your team scales</TierSeats>
-            <p style={desc()}>
-              The full deployment platform. MF-native features, BYOC, per-team permissions, and audit logs — everything
-              a shipping team needs.
-            </p>
             <Cta href="https://app.zephyr-cloud.io/" v="primary">
               Start free 30-day trial
             </Cta>
@@ -661,10 +654,6 @@ function PricingPage() {
               </a>
             </div>
             <TierSeats>2 – 200 seats · SSO, SLAs, and governance included</TierSeats>
-            <p style={desc()}>
-              For teams that need SSO, approval workflows, and SLA guarantees. The governance layer between Pro and
-              Enterprise — without the Enterprise price tag.
-            </p>
             <Cta href="https://app.zephyr-cloud.io/" v="amber">
               Start free 30-day trial
             </Cta>
@@ -702,10 +691,6 @@ function PricingPage() {
             <div style={amt()}>Custom</div>
             <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>&nbsp;</div>
             <TierSeats>200+ seats · no RFP required · quote same day</TierSeats>
-            <p style={desc()}>
-              For large orgs and regulated sectors. SOC 2, DPA, dedicated CSM, and custom SLAs. Pay by invoice. POC /
-              pilot available.
-            </p>
             <Cta href="mailto:inbound@zephyr-cloud.io?subject=Enterprise" v="secondary">
               Talk to sales
             </Cta>
@@ -1484,9 +1469,10 @@ const card = () => ({
   borderRadius: 14,
   padding: '32px 28px',
   position: 'relative' as const,
+  display: 'flex',
+  flexDirection: 'column' as const,
 });
 const amt = () => ({ fontSize: 48, fontWeight: 900, letterSpacing: '-2px', color: C.white, lineHeight: 1 });
-const desc = () => ({ fontSize: 13, color: C.gray, lineHeight: 1.65, marginBottom: 24 });
 const featList = () => ({
   listStyle: 'none' as const,
   display: 'flex' as const,
@@ -1552,6 +1538,7 @@ function Cta({
         fontSize: 14,
         fontWeight: 700,
         textDecoration: 'none',
+        marginTop: 'auto',
         marginBottom: 24,
         transition: 'all 0.2s',
         ...(v === 'primary'
