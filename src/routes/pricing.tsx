@@ -507,7 +507,7 @@ function PricingPage() {
         <div className="tier-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14 }}>
           {/* FREE */}
           <div style={card()}>
-            <div style={{ minHeight: 185 }}>
+            <div style={{ minHeight: 220 }}>
               <TierName>Free</TierName>
               <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
                 starting at
@@ -563,7 +563,7 @@ function PricingPage() {
             >
               Most Popular
             </div>
-            <div style={{ minHeight: 185 }}>
+            <div style={{ minHeight: 220 }}>
               <TierName purple>Teams</TierName>
               <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
               <div style={amt()}>{isAnnual ? fmt(Math.round(PRO_INTRO * ANNUAL_DISC)) : fmt(PRO_INTRO)}</div>
@@ -635,7 +635,7 @@ function PricingPage() {
             >
               For Growing Teams
             </div>
-            <div style={{ minHeight: 185 }}>
+            <div style={{ minHeight: 220 }}>
               <TierName amber>Business</TierName>
               <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
               <div style={amt()}>{isAnnual ? fmt(Math.round(BIZ_INTRO * ANNUAL_DISC)) : fmt(BIZ_INTRO)}</div>
@@ -672,7 +672,7 @@ function PricingPage() {
 
           {/* ENTERPRISE */}
           <div style={card()}>
-            <div style={{ minHeight: 185 }}>
+            <div style={{ minHeight: 220 }}>
               <TierName>Enterprise</TierName>
               <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
                 starting at
