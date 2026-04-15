@@ -997,6 +997,32 @@ function PricingPage() {
               )}
             </div>
           </div>
+
+          {/* Checkout CTA */}
+          <div style={{ marginTop: 24, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+            <a
+              href="https://app.zephyr-cloud.io/"
+              target="_blank"
+              rel="noopener"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '13px 28px',
+                borderRadius: 8,
+                fontWeight: 700,
+                fontSize: 14,
+                textDecoration: 'none',
+                transition: 'all 0.2s',
+                background: calcTab === 'pro' ? C.purple : C.amber,
+                color: calcTab === 'pro' ? 'white' : '#0A0A0F',
+              }}
+            >
+              Get started — {calcTab === 'pro' ? proSeats : bizSeats} seats ·{' '}
+              {fmt(calcTab === 'pro' ? proMonthly : bizMonthly)}/mo
+            </a>
+            <span style={{ fontSize: 12, color: C.grayDark }}>No credit card required · free 30-day trial</span>
+          </div>
         </div>
       </div>
 
