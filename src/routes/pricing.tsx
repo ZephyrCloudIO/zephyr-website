@@ -507,10 +507,15 @@ function PricingPage() {
         <div className="tier-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14 }}>
           {/* FREE */}
           <div style={card()}>
-            <TierName>Free</TierName>
-            <div style={amt()}>$0</div>
-            <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>forever</div>
-            <TierSeats>1 seat · no credit card required</TierSeats>
+            <div style={{ minHeight: 185 }}>
+              <TierName>Free</TierName>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
+                starting at
+              </div>
+              <div style={amt()}>$0</div>
+              <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>forever</div>
+              <TierSeats>1 seat · no credit card required</TierSeats>
+            </div>
             <Cta href="https://app.zephyr-cloud.io/" v="secondary">
               Get started free
             </Cta>
@@ -558,31 +563,21 @@ function PricingPage() {
             >
               Most Popular
             </div>
-            <TierName purple>Teams</TierName>
-            <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
-            <div style={amt()}>{isAnnual ? fmt(Math.round(PRO_INTRO * ANNUAL_DISC)) : fmt(PRO_INTRO)}</div>
-            <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
-              per seat / month ·{' '}
-              <a href="#calc" style={{ color: C.purpleLight, textDecoration: 'none', fontWeight: 600 }}>
-                use the calculator ↓
-              </a>
+            <div style={{ minHeight: 185 }}>
+              <TierName purple>Teams</TierName>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
+              <div style={amt()}>{isAnnual ? fmt(Math.round(PRO_INTRO * ANNUAL_DISC)) : fmt(PRO_INTRO)}</div>
+              <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
+                per seat / month ·{' '}
+                <a href="#calc" style={{ color: C.purpleLight, textDecoration: 'none', fontWeight: 600 }}>
+                  calculator ↓
+                </a>
+              </div>
+              <TierSeats>2 – 75 seats · costs decrease as your team scales</TierSeats>
             </div>
-            <TierSeats>2 – 75 seats · costs decrease as your team scales</TierSeats>
             <Cta href="https://app.zephyr-cloud.io/" v="primary">
               Start free 30-day trial
             </Cta>
-            <div
-              style={{
-                fontSize: 11,
-                color: C.grayDark,
-                textAlign: 'center',
-                marginTop: -16,
-                marginBottom: 16,
-                lineHeight: 1.5,
-              }}
-            >
-              No credit card required · full Pro access
-            </div>
             <ul style={featList()}>
               <Fi c="green">
                 <strong style={{ color: C.white }}>BYOC</strong> — all cloud integrations
@@ -640,35 +635,25 @@ function PricingPage() {
             >
               For Growing Teams
             </div>
-            <TierName amber>Business</TierName>
-            <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
-            <div style={amt()}>{isAnnual ? fmt(Math.round(BIZ_INTRO * ANNUAL_DISC)) : fmt(BIZ_INTRO)}</div>
-            <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
-              per seat / month ·{' '}
-              <a
-                href="#calc"
-                onClick={() => setCalcTab('biz')}
-                style={{ color: C.amber, textDecoration: 'none', fontWeight: 600 }}
-              >
-                use the calculator ↓
-              </a>
+            <div style={{ minHeight: 185 }}>
+              <TierName amber>Business</TierName>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
+              <div style={amt()}>{isAnnual ? fmt(Math.round(BIZ_INTRO * ANNUAL_DISC)) : fmt(BIZ_INTRO)}</div>
+              <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
+                per seat / month ·{' '}
+                <a
+                  href="#calc"
+                  onClick={() => setCalcTab('biz')}
+                  style={{ color: C.amber, textDecoration: 'none', fontWeight: 600 }}
+                >
+                  calculator ↓
+                </a>
+              </div>
+              <TierSeats>2 – 200 seats · SSO, SLAs, and governance included</TierSeats>
             </div>
-            <TierSeats>2 – 200 seats · SSO, SLAs, and governance included</TierSeats>
             <Cta href="https://app.zephyr-cloud.io/" v="amber">
               Start free 30-day trial
             </Cta>
-            <div
-              style={{
-                fontSize: 11,
-                color: C.grayDark,
-                textAlign: 'center',
-                marginTop: -16,
-                marginBottom: 16,
-                lineHeight: 1.5,
-              }}
-            >
-              No credit card required · full Business access
-            </div>
             <ul style={featList()}>
               <Fi c="amber">
                 <strong style={{ color: C.white }}>Everything in Teams</strong>
@@ -687,10 +672,15 @@ function PricingPage() {
 
           {/* ENTERPRISE */}
           <div style={card()}>
-            <TierName>Enterprise</TierName>
-            <div style={amt()}>Custom</div>
-            <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>&nbsp;</div>
-            <TierSeats>200+ seats · no RFP required · quote same day</TierSeats>
+            <div style={{ minHeight: 185 }}>
+              <TierName>Enterprise</TierName>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
+                starting at
+              </div>
+              <div style={amt()}>Custom</div>
+              <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>&nbsp;</div>
+              <TierSeats>200+ seats · no RFP required · quote same day</TierSeats>
+            </div>
             <Cta href="mailto:inbound@zephyr-cloud.io?subject=Enterprise" v="secondary">
               Talk to sales
             </Cta>
@@ -1538,7 +1528,6 @@ function Cta({
         fontSize: 14,
         fontWeight: 700,
         textDecoration: 'none',
-        marginTop: 'auto',
         marginBottom: 24,
         transition: 'all 0.2s',
         ...(v === 'primary'
