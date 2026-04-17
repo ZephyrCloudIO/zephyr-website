@@ -1,30 +1,9 @@
 import { ArrowRight, Check, Mail, User } from 'lucide-react';
-import { type FormEvent, useRef, useState } from 'react';
+import { type FormEvent, useState } from 'react';
 
-const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 const HUBSPOT_PORTAL_ID = '46982563';
 
 const HUBSPOT_FORM_ID = '138e92a5-c5b1-428f-98a4-3df4915c25a1';
-const FREE_EMAIL_DOMAINS = new Set([
-  'aol.com',
-  'fastmail.com',
-  'gmail.com',
-  'googlemail.com',
-  'gmx.com',
-  'hey.com',
-  'hotmail.com',
-  'icloud.com',
-  'live.com',
-  'mail.com',
-  'me.com',
-  'outlook.com',
-  'pm.me',
-  'proton.me',
-  'protonmail.com',
-  'yahoo.co.uk',
-  'yahoo.com',
-  'yandex.com',
-]);
 const DOMAIN_SECOND_LEVEL_SUFFIXES = new Set(['ac', 'co', 'com', 'edu', 'gov', 'net', 'org']);
 const INPUT_FIELDS = ['fullName', 'email'] as const;
 
@@ -42,7 +21,6 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
   });
   const [state, setState] = useState<'idle' | 'error' | 'submitting' | 'success'>('idle');
   const [errorText, setErrorText] = useState('');
-  const inputRefs = useRef<Partial<Record<InputFieldName, HTMLInputElement | null>>>({});
   const isHero = mode === 'hero';
 
   async function handleSubmit(event: FormEvent) {
@@ -54,38 +32,9 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
 
     const fullName = values.fullName.trim();
     const email = values.email.trim();
-
-    if (!fullName) {
-      setState('error');
-      setErrorText('Add your full name');
-      inputRefs.current.fullName?.focus();
-      return;
-    }
-
     const { firstName, lastName } = splitFullName(fullName);
 
-    if (!lastName) {
-      setState('error');
-      setErrorText('Add name and surname');
-      inputRefs.current.fullName?.focus();
-      return;
-    }
-
-    if (!EMAIL_RE.test(email)) {
-      setState('error');
-      setErrorText('Use a valid work email');
-      inputRefs.current.email?.focus();
-      return;
-    }
-
     const domain = getEmailDomain(email);
-
-    if (FREE_EMAIL_DOMAINS.has(domain)) {
-      setState('error');
-      setErrorText('Use your work email');
-      inputRefs.current.email?.focus();
-      return;
-    }
 
     setState('submitting');
     setErrorText('');
@@ -129,7 +78,11 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
   const inputClass = isHero ? 'pl-10 pr-4 text-[15px] text-white' : 'pl-9 pr-3 text-sm text-white';
 
   return (
-    <form onSubmit={handleSubmit} className={isHero ? 'w-full space-y-4' : 'w-full space-y-3 px-4 py-4 md:px-6'}>
+    <form
+      noValidate
+      onSubmit={handleSubmit}
+      className={isHero ? 'w-full space-y-4' : 'w-full space-y-3 px-4 py-4 md:px-6'}
+    >
       {helperText && (
         <p
           aria-live="polite"
@@ -165,9 +118,6 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
                   aria-hidden="true"
                 />
                 <input
-                  ref={(node) => {
-                    inputRefs.current[name as InputFieldName] = node;
-                  }}
                   type={type}
                   aria-label={label}
                   value={values[name as InputFieldName]}
