@@ -38,6 +38,14 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
 
 // Import all changelog entries
 const changelogModules: Record<string, () => Promise<MDXChangelogEntry>> = {
+  '2026-04-21-programmatic-api-access-faster-permissions-audit-logs': () =>
+    import('@/content/changelog/2026-04-21-programmatic-api-access-faster-permissions-audit-logs.mdx') as Promise<MDXChangelogEntry>,
+  '2026-04-14-redesigned-onboarding-faster-application-loading': () =>
+    import('@/content/changelog/2026-04-14-redesigned-onboarding-faster-application-loading.mdx') as Promise<MDXChangelogEntry>,
+  '2026-04-08-redesigned-navigation-server-tokens-performance': () =>
+    import('@/content/changelog/2026-04-08-redesigned-navigation-server-tokens-performance.mdx') as Promise<MDXChangelogEntry>,
+  '2026-03-31-membership-domains-billing-tag-environment-controls': () =>
+    import('@/content/changelog/2026-03-31-membership-domains-billing-tag-environment-controls.mdx') as Promise<MDXChangelogEntry>,
   '2026-03-24-version-controls-metadata-and-safer-cleanup': () =>
     import('@/content/changelog/2026-03-24-version-controls-metadata-and-safer-cleanup.mdx') as Promise<MDXChangelogEntry>,
   '2026-03-06-audit-logs-redeployments-ui-improvements': () =>
