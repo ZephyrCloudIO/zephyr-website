@@ -1,0 +1,59 @@
+---
+title: 'Product Update: Programmatic API Access, Faster Permissions, and Audit Log Improvements'
+date: '2026-04-21'
+version: 'Late April 2026 Product Update'
+summary: 'This release makes Zephyr easier to integrate into your own workflows, speeds up how permissions are evaluated across the platform, and improves the accuracy and visibility of audit logs for projects and applications.'
+tags: ['product', 'api', 'permissions', 'audit-logs']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release makes Zephyr easier to integrate into your own workflows, speeds up how permissions are evaluated across the platform, and improves the accuracy and visibility of audit logs for projects and applications.
+
+## Programmatic API Access with User Tokens (Beta)
+
+You can now interact with the Zephyr API using a personal user token, making it possible to automate workflows and integrate Zephyr into your own tooling without manual steps in the dashboard.
+
+- Generate and manage your token from account settings.
+- Use it to authenticate API calls scoped to your organization.
+- Useful for CI pipelines, internal scripts, or any workflow that needs to act on your behalf outside the UI.
+
+Programmatic API access is currently in beta. Reach out to the Zephyr team with your feedback!
+
+## Permissions Are Now Faster Across the Platform
+
+Permission checks have been moved server-side, so access decisions are evaluated faster and more consistently everywhere in the product.
+
+- Pages and actions that depend on your role load more quickly.
+- Behavior is unchanged — you'll see the same access you had before, just faster.
+
+## Audit Logs Are More Accurate and Better Scoped
+
+Several gaps in what gets recorded and shown in audit logs have been addressed.
+
+- Project and application audit logs now correctly capture rollbacks and version changes.
+- Deployment integration entries now show only the relevant details, keeping logs readable and focused.
+- Audit logs are no longer visible to viewer-role members, matching the access level that role is intended to have.
+
+## UML View Polish
+
+The dependency graph view received a round of visual and layout improvements based on designer feedback.
+
+- Refined styling and spacing make the graph easier to read.
+- The layout now holds up better on different screen sizes.
+- The minimap more accurately reflects the current graph state, making it easier to navigate large dependency trees.
+
+## Smaller Improvements
+
+- Applications now record who last made a change, making it easier to trace recent activity.
+- The feedback button and dropdown have been redesigned.
+- Session tracking in the dashboard is more reliable.
+
+## What This Means for Teams
+
+- Programmatic API access with user tokens lets you automate workflows and integrate Zephyr into your own tooling.
+- Faster, more consistent permission checks across the entire platform.
+- Cleaner audit trails that accurately reflect what changed and who changed it.
+- A more polished dependency graph for teams managing complex application relationships.
