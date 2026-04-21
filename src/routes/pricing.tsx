@@ -68,6 +68,7 @@ function PricingPage() {
   const [bizSeats, setBizSeats] = useState(14);
   const [calcTab, setCalcTab] = useState<'pro' | 'biz'>('pro');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [mobilePlan, setMobilePlan] = useState<'fr' | 'pr' | 'bz' | 'en'>('fr');
   const billingRef = useRef<HTMLDivElement>(null);
   const tiersRef = useRef<HTMLElement>(null);
   const panelsRef = useRef<HTMLDivElement>(null);
@@ -129,7 +130,7 @@ function PricingPage() {
     },
     {
       q: 'Can we pay by invoice or purchase order?',
-      a: "Yes. Business and Enterprise invoicing and PO billing are standard. Teams is credit card monthly or annually. If procurement requires an invoice for Teams, contact sales and we'll accommodate it.",
+      a: "Yes. Business and Enterprise invoicing and PO billing are standard. Teams is credit card monthly or yearly. If procurement requires an invoice for Teams, contact sales and we'll accommodate it.",
     },
     {
       q: 'What makes the MF-native features different?',
@@ -140,8 +141,8 @@ function PricingPage() {
       a: "Yes. DPAs are available on Enterprise. Zephyr is SOC 2 compliant and BYOC-first — your data stays in your own cloud. If you need a DPA as part of a POC, reach out and we'll accommodate it.",
     },
     {
-      q: 'Is there an annual discount?',
-      a: 'Yes — 15% off Teams and Business when billed annually. Toggle above to see annual pricing reflected live in the calculator.',
+      q: 'Is there a yearly discount?',
+      a: 'Yes — 15% off Teams and Business when billed yearly. Toggle above to see yearly pricing reflected live in the calculator.',
     },
   ];
 
@@ -433,7 +434,7 @@ function PricingPage() {
                 gap: 8,
               }}
             >
-              {mode === 'monthly' ? 'Monthly' : 'Annual'}
+              {mode === 'monthly' ? 'Monthly' : 'Yearly'}
               {mode === 'annual' && (
                 <span
                   style={{
@@ -464,7 +465,17 @@ function PricingPage() {
                 <p style={{ fontSize: 14, color: 'var(--muted-foreground)', lineHeight: 1.5 }}>1 seat</p>
               </div>
               <div>
-                <div style={{ fontSize: 12, color: 'transparent', marginBottom: 4, userSelect: 'none' }}>
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontFamily: 'var(--font-mono)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '4px',
+                    color: 'transparent',
+                    marginBottom: 4,
+                    userSelect: 'none',
+                  }}
+                >
                   starting at
                 </div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
@@ -481,7 +492,7 @@ function PricingPage() {
                     0
                   </span>
                   <span style={{ fontSize: 14, color: 'var(--muted-foreground)', marginLeft: 6, fontWeight: 400 }}>
-                    / seat / mo
+                    /seat/mo.
                   </span>
                 </div>
               </div>
@@ -537,7 +548,18 @@ function PricingPage() {
                 </div>
               </div>
               <div>
-                <div style={{ fontSize: 12, color: 'var(--muted-foreground)', marginBottom: 4 }}>starting at</div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontFamily: 'var(--font-mono)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    color: 'var(--muted-foreground)',
+                    marginBottom: 4,
+                  }}
+                >
+                  starting at
+                </div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
                   <span style={{ fontSize: 22, fontWeight: 600, color: 'var(--foreground)', lineHeight: 1 }}>$</span>
                   <span
@@ -552,7 +574,7 @@ function PricingPage() {
                     {isAnnual ? Math.round(PRO_INTRO * ANNUAL_DISC) : PRO_INTRO}
                   </span>
                   <span style={{ fontSize: 14, color: 'var(--muted-foreground)', marginLeft: 6, fontWeight: 400 }}>
-                    / seat / mo
+                    /seat/mo.
                   </span>
                 </div>
               </div>
@@ -603,7 +625,18 @@ function PricingPage() {
                 <p style={{ fontSize: 14, color: 'var(--muted-foreground)', lineHeight: 1.5 }}>2 – 200 seats</p>
               </div>
               <div>
-                <div style={{ fontSize: 12, color: 'var(--muted-foreground)', marginBottom: 4 }}>starting at</div>
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontFamily: 'var(--font-mono)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '1px',
+                    color: 'var(--muted-foreground)',
+                    marginBottom: 4,
+                  }}
+                >
+                  starting at
+                </div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
                   <span style={{ fontSize: 22, fontWeight: 600, color: 'var(--foreground)', lineHeight: 1 }}>$</span>
                   <span
@@ -618,7 +651,7 @@ function PricingPage() {
                     {isAnnual ? Math.round(BIZ_INTRO * ANNUAL_DISC) : BIZ_INTRO}
                   </span>
                   <span style={{ fontSize: 14, color: 'var(--muted-foreground)', marginLeft: 6, fontWeight: 400 }}>
-                    / seat / mo
+                    /seat/mo.
                   </span>
                 </div>
               </div>
@@ -652,7 +685,17 @@ function PricingPage() {
                 <p style={{ fontSize: 14, color: 'var(--muted-foreground)', lineHeight: 1.5 }}>200+ seats</p>
               </div>
               <div>
-                <div style={{ fontSize: 12, color: 'transparent', marginBottom: 4, userSelect: 'none' }}>
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontFamily: 'var(--font-mono)',
+                    textTransform: 'uppercase',
+                    letterSpacing: '4px',
+                    color: 'transparent',
+                    marginBottom: 4,
+                    userSelect: 'none',
+                  }}
+                >
                   starting at
                 </div>
                 <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
@@ -667,9 +710,7 @@ function PricingPage() {
                   >
                     Custom
                   </span>
-                  <span style={{ fontSize: 14, color: 'transparent', marginLeft: 6, fontWeight: 400 }}>
-                    / seat / mo
-                  </span>
+                  <span style={{ fontSize: 14, color: 'transparent', marginLeft: 6, fontWeight: 400 }}>/seat/mo.</span>
                 </div>
               </div>
               <Cta href="mailto:inbound@zephyr-cloud.io?subject=Enterprise" v="secondary">
@@ -806,7 +847,7 @@ function PricingPage() {
                     marginBottom: 4,
                   }}
                 >
-                  {isAnnual ? 'Effective per month (annual)' : 'Total per month'}
+                  {isAnnual ? 'Effective per month (yearly)' : 'Total per month'}
                 </div>
                 <div
                   style={{
@@ -822,7 +863,7 @@ function PricingPage() {
                 <div style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 4 }}>
                   {isAnnual
                     ? `Billed as ${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr · you save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`
-                    : `${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr with annual — save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`}
+                    : `${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr with yearly — save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`}
                 </div>
               </div>
             </div>
@@ -908,7 +949,7 @@ function PricingPage() {
                       {fmt(dr)}
                     </div>
                     <div style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>
-                      per seat / {isAnnual ? 'mo (annual)' : 'mo'}
+                      per seat / {isAnnual ? 'mo (yearly)' : 'mo'}
                     </div>
                     <div style={{ fontSize: 10, fontWeight: 500, color: C.green, marginTop: 5, minHeight: 14 }}>
                       {saving === 0 ? 'introductory rate' : `${saving}% less than intro`}
@@ -944,7 +985,7 @@ function PricingPage() {
                 </strong>
               </div>
               <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>
-                Annual:{' '}
+                Yearly:{' '}
                 <strong style={{ color: 'var(--foreground)' }}>{fmt(calcTab === 'pro' ? proYearly : bizYearly)}</strong>
                 <span
                   style={{
@@ -1069,19 +1110,32 @@ function PricingPage() {
       {/* ── SOCIAL PROOF ── */}
       <section style={{ maxWidth: 960, margin: '0 auto 80px', padding: '0 24px' }}>
         <div
+          className="testimonial-card"
           style={{
             background: 'var(--card)',
             border: '1px solid var(--border)',
             borderRadius: 12,
             padding: '28px 40px',
-            display: 'grid',
-            gridTemplateColumns: '1fr auto',
-            gap: 32,
-            alignItems: 'center',
             marginBottom: 16,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 32,
           }}
         >
-          <div>
+          <div style={{ flex: 1 }}>
+            <span
+              style={{
+                display: 'block',
+                fontSize: 11,
+                fontWeight: 600,
+                textTransform: 'uppercase',
+                letterSpacing: '1px',
+                color: 'var(--muted-foreground)',
+                marginBottom: 16,
+              }}
+            >
+              Enterprise customer
+            </span>
             <p
               style={{
                 fontSize: 16,
@@ -1117,33 +1171,12 @@ function PricingPage() {
               </strong>
             </p>
           </div>
-          <div
-            style={{
-              textAlign: 'right',
-              display: 'flex',
-              flexDirection: 'column',
-              alignItems: 'flex-end',
-              gap: 8,
-              whiteSpace: 'nowrap',
-            }}
-          >
-            <img
-              src={sgwsLogo}
-              alt="Southern Glazer's Wine & Spirits"
-              style={{ height: 36, width: 'auto', opacity: 0.9 }}
-            />
-            <span
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                color: 'var(--muted-foreground)',
-              }}
-            >
-              Enterprise customer
-            </span>
-          </div>
+          <img
+            className="testimonial-logo"
+            src={sgwsLogo}
+            alt="Southern Glazer's Wine & Spirits"
+            style={{ height: 72, width: 72, objectFit: 'contain', opacity: 0.9, flexShrink: 0 }}
+          />
         </div>
         <div
           className="stats-grid"
@@ -1223,7 +1256,42 @@ function PricingPage() {
           </h2>
           <p style={{ fontSize: 14, color: 'var(--muted-foreground)' }}>Every feature, every tier.</p>
         </div>
+
+        {/* ── Mobile plan badge switcher ── */}
+        <div className="feature-table-badges" style={{ display: 'none', marginBottom: 16, gap: 8, flexWrap: 'wrap' }}>
+          {(
+            [
+              { key: 'fr', label: 'Free' },
+              { key: 'pr', label: 'Teams' },
+              { key: 'bz', label: 'Business' },
+              { key: 'en', label: 'Enterprise' },
+            ] as { key: 'fr' | 'pr' | 'bz' | 'en'; label: string }[]
+          ).map(({ key, label }) => (
+            <button
+              key={key}
+              type="button"
+              onClick={() => setMobilePlan(key)}
+              style={{
+                padding: '2px 12px',
+                minHeight: 32,
+                borderRadius: 8,
+                fontSize: 12,
+                fontWeight: 500,
+                cursor: 'pointer',
+                border: 'none',
+                background: mobilePlan === key ? 'var(--primary)' : 'var(--secondary)',
+                color: mobilePlan === key ? 'var(--primary-foreground)' : 'var(--secondary-foreground)',
+                transition: 'background 0.15s, color 0.15s',
+              }}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── Desktop table ── */}
         <div
+          className="feature-table-desktop"
           style={{
             overflowX: 'auto',
             borderRadius: 16,
@@ -1382,6 +1450,166 @@ function PricingPage() {
             </tbody>
           </table>
         </div>
+
+        {/* ── Mobile table ── */}
+        <div
+          className="feature-table-mobile-table"
+          style={{
+            display: 'none',
+            borderRadius: 16,
+            border: '1px solid rgba(255,255,255,0.1)',
+            background: '#0d0d0d',
+            overflow: 'hidden',
+          }}
+        >
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+            <thead>
+              <tr style={{ background: 'black', borderBottom: '1px solid rgba(255,255,255,0.1)' }}>
+                <th
+                  style={{
+                    padding: '16px',
+                    fontSize: 14,
+                    fontWeight: 500,
+                    color: 'var(--foreground)',
+                    textAlign: 'left',
+                    width: '60%',
+                  }}
+                >
+                  Feature
+                </th>
+                <th
+                  style={{
+                    padding: '16px',
+                    fontSize: 14,
+                    fontWeight: 500,
+                    color: 'var(--foreground)',
+                    textAlign: 'center',
+                    borderLeft: '0.5px solid rgba(255,255,255,0.15)',
+                  }}
+                >
+                  {mobilePlan === 'fr'
+                    ? 'Free'
+                    : mobilePlan === 'pr'
+                      ? 'Teams'
+                      : mobilePlan === 'bz'
+                        ? 'Business'
+                        : 'Enterprise'}
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {(
+                [
+                  { g: 'Deployment' },
+                  { f: 'Cloud integrations', fr: '1', pr: 'All', bz: 'All', en: 'All' },
+                  { f: 'Bundler plugins (15)', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'BYOC', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Instant rollbacks', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Tag / branch env', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Version history', fr: 'Limited', pr: '✓', bz: '✓', en: 'Custom' },
+                  { g: 'Module Federation Native', mfg: true },
+                  { f: 'Environment Overrides', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'Env Variables (no redeploy)', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Zephyr DevTools', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'UML architecture map', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'zephyr.dependencies', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { g: 'Teams & Access' },
+                  { f: 'Collaborators', fr: '—', pr: 'Up to 75', bz: 'Up to 200', en: 'Unlimited' },
+                  { f: 'Per-team permissions', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Advanced roles', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'SSO / SAML', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Approval workflows', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Webhook integrations', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { g: 'Security & Compliance' },
+                  { f: 'Activity log', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Audit log retention', fr: '—', pr: '30 days', bz: '90 days', en: 'Custom' },
+                  { f: 'Uptime SLA', fr: '—', pr: '—', bz: '99.9%', en: '99.99%' },
+                  { f: 'SOC 2 compliance', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { f: 'DPA', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { g: 'Support' },
+                  { f: 'Community support', fr: '✓', pr: '—', bz: '—', en: '—' },
+                  { f: 'Email support', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Priority support', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Dedicated CSM', fr: '—', pr: '—', bz: '—', en: '✓' },
+                ] as Array<{
+                  g?: string;
+                  mfg?: boolean;
+                  f?: string;
+                  fr?: string;
+                  pr?: string;
+                  bz?: string;
+                  en?: string;
+                  mf?: boolean;
+                }>
+              ).map((row, i) => {
+                if (row.g)
+                  return (
+                    <tr key={i}>
+                      <td
+                        colSpan={2}
+                        style={{
+                          background: 'rgba(255,255,255,0.05)',
+                          color: 'var(--foreground)',
+                          fontSize: 16,
+                          fontWeight: 500,
+                          padding: '12px 16px',
+                        }}
+                      >
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                          {row.g}
+                          {row.mfg && <MfTag />}
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                const val = row[mobilePlan] ?? '';
+                const color =
+                  val === '✓'
+                    ? 'var(--foreground)'
+                    : val === '—'
+                      ? 'var(--input)'
+                      : val === 'Limited'
+                        ? 'var(--muted-foreground)'
+                        : val === 'Custom' || val === 'Unlimited'
+                          ? 'var(--primary-muted)'
+                          : 'var(--muted-foreground)';
+                return (
+                  <tr key={i} className={cn(path === 'nonmf' && row.mf && 'opacity-40')}>
+                    <td
+                      style={{
+                        padding: '14px 16px',
+                        borderTop: '0.5px solid rgba(255,255,255,0.15)',
+                        color: 'var(--foreground)',
+                        fontWeight: 400,
+                        fontSize: 13,
+                      }}
+                    >
+                      {row.f}
+                      {row.mf && (
+                        <span style={{ marginLeft: 6 }}>
+                          <MfTag />
+                        </span>
+                      )}
+                    </td>
+                    <td
+                      style={{
+                        padding: '14px 16px',
+                        borderTop: '0.5px solid rgba(255,255,255,0.15)',
+                        borderLeft: '0.5px solid rgba(255,255,255,0.15)',
+                        textAlign: 'center',
+                        color,
+                        fontSize: val === '✓' || val === '—' ? 15 : 12,
+                        fontWeight: val === 'Limited' || val === 'Custom' ? 600 : 400,
+                      }}
+                    >
+                      {val}
+                    </td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
       </section>
 
       {/* ── FAQ ── */}
@@ -1421,7 +1649,6 @@ function PricingPage() {
               position: 'relative',
               overflow: 'hidden',
               background: 'var(--card)',
-              border: '1px solid rgba(255,255,255,0.12)',
               borderRadius: 16,
               padding: '56px 48px',
               display: 'flex',
@@ -1431,15 +1658,7 @@ function PricingPage() {
             }}
           >
             {/* Purple gradient shader */}
-            <div
-              style={{
-                position: 'absolute',
-                inset: 0,
-                background:
-                  'linear-gradient(to left, oklch(0.541 0.247 293) 0%, oklch(0.541 0.247 293 / 0.85) 15%, oklch(0.38 0.18 285 / 0.45) 38%, oklch(0.22 0.07 270 / 0.1) 58%, transparent 72%)',
-                pointerEvents: 'none',
-              }}
-            />
+            <div className="cta-gradient" style={{ position: 'absolute', inset: 0, pointerEvents: 'none' }} />
             {/* Text */}
             <div style={{ position: 'relative', minWidth: 0 }}>
               <h2
@@ -1504,6 +1723,32 @@ function PricingPage() {
           .stats-grid > div:last-child { padding-left: 0 !important; padding-top: 24px; }
           .cta-card { flex-direction: column !important; padding: 32px 24px !important; }
           .cta-card > a { width: 100% !important; }
+          .testimonial-card { flex-direction: column !important; align-items: flex-start !important; padding: 24px !important; }
+          .testimonial-card > div:first-child { order: 2; }
+          .testimonial-card .testimonial-logo { order: 1; align-self: flex-end; }
+          .feature-table-badges { display: flex !important; }
+          .feature-table-mobile-table { display: block !important; }
+          .feature-table-desktop { display: none !important; }
+        }
+        @keyframes cta-gradient-shift {
+          from { background-position: 100% 50%; }
+          to   { background-position: 70% 50%; }
+        }
+        @keyframes cta-gradient-mobile-shift {
+          from { transform: translate(0px, 0px) scale(1); }
+          to   { transform: translate(16px, -20px) scale(1.12); }
+        }
+        .cta-gradient {
+          background: linear-gradient(to left, oklch(0.541 0.247 293) 0%, oklch(0.541 0.247 293 / 0.85) 12%, oklch(0.38 0.18 285 / 0.45) 28%, oklch(0.22 0.07 270 / 0.06) 42%, transparent 52%);
+          background-size: 180% 100%;
+          animation: cta-gradient-shift 5s ease-in-out infinite alternate;
+        }
+        @media (max-width: 600px) {
+          .cta-gradient {
+            background: radial-gradient(ellipse 140% 90% at 10% 110%, oklch(0.541 0.247 293) 0%, oklch(0.48 0.22 290 / 0.85) 25%, oklch(0.35 0.16 283 / 0.5) 50%, transparent 72%) !important;
+            background-size: 100% 100% !important;
+            animation: cta-gradient-mobile-shift 5s ease-in-out infinite alternate !important;
+          }
         }
       `}</style>
     </div>
@@ -1558,7 +1803,6 @@ function Cta({
         fontSize: 14,
         fontWeight: 500,
         textDecoration: 'none',
-        marginBottom: 24,
         transition: 'all 0.2s',
         ...(v === 'primary'
           ? { background: 'var(--primary)', color: 'var(--primary-foreground)' }
