@@ -1023,6 +1023,89 @@ function PricingPage() {
             </a>
             <span style={{ fontSize: 12, color: C.grayDark }}>No credit card required · free 30-day trial</span>
           </div>
+
+          {/* ── VALUE METRICS ── */}
+          {(() => {
+            const seats = calcTab === 'pro' ? proSeats : bizSeats;
+            const annualCost = calcTab === 'pro' ? proYearly : bizYearly;
+            const acColor = calcTab === 'pro' ? C.purple : C.amber;
+            const acRgb = calcTab === 'pro' ? '139,92,246' : '232,168,48';
+            // Conservative assumptions
+            const deploysPerSeatPerYear = 250; // 1/day × 250 working days
+            const minsSavedPerDeploy = 12; // 12 min wait/context-switch eliminated per deploy
+            const hourlyRate = 75; // blended frontend engineer rate
+            const rollbacksPerYear = seats; // 1 incident/seat/yr (very conservative)
+            const hoursPerRollback = 3; // detection + coordination + recovery
+            const hoursRecovered = Math.round(seats * deploysPerSeatPerYear * (minsSavedPerDeploy / 60));
+            const deployValueDollars = Math.round(hoursRecovered * hourlyRate);
+            const rollbackValueDollars = Math.round(rollbacksPerYear * hoursPerRollback * hourlyRate);
+            const totalValue = deployValueDollars + rollbackValueDollars;
+            const roi = annualCost > 0 ? Math.round(totalValue / annualCost) : 0;
+            const metrics = [
+              {
+                label: 'Engineering hours recovered / yr',
+                value: `${hoursRecovered.toLocaleString()} hrs`,
+                sub: `${seats} seats × 250 deploys × 12 min saved`,
+              },
+              {
+                label: 'Value of time recovered / yr',
+                value: `$${totalValue.toLocaleString()}`,
+                sub: 'Deploy wait + rollback incidents at $75/hr',
+              },
+              {
+                label: 'Return on investment',
+                value: `${roi}×`,
+                sub: `$${totalValue.toLocaleString()} value vs $${annualCost.toLocaleString()} annual cost`,
+              },
+            ];
+            return (
+              <div
+                style={{
+                  marginTop: 28,
+                  borderTop: `1px solid rgba(${acRgb},0.15)`,
+                  paddingTop: 24,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.8px',
+                    color: C.grayDark,
+                    marginBottom: 14,
+                  }}
+                >
+                  What this saves your team — based on {seats} seats
+                </div>
+                <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12 }}>
+                  {metrics.map(({ label, value, sub }) => (
+                    <div
+                      key={label}
+                      style={{
+                        background: `rgba(${acRgb},0.06)`,
+                        border: `1px solid rgba(${acRgb},0.15)`,
+                        borderRadius: 10,
+                        padding: '16px 18px',
+                      }}
+                    >
+                      <div style={{ fontSize: 11, color: C.grayDark, marginBottom: 6, lineHeight: 1.4 }}>{label}</div>
+                      <div
+                        style={{ fontSize: 26, fontWeight: 900, letterSpacing: '-1px', color: acColor, lineHeight: 1 }}
+                      >
+                        {value}
+                      </div>
+                      <div style={{ fontSize: 10, color: C.grayDark, marginTop: 6, lineHeight: 1.4 }}>{sub}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ fontSize: 10, color: C.grayDark, marginTop: 10, lineHeight: 1.5 }}>
+                  * Conservative model: 1 deploy/engineer/day, 12 min saved per deploy, $75/hr blended rate, 1 rollback
+                  incident/seat/yr at 3 hrs each. Drag the slider to see your numbers.
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
 
