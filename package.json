@@ -50,7 +50,7 @@
     "zephyr-rspack-plugin": "^1.0.1"
   },
   "devDependencies": {
-    "@rsbuild/core": "1.7.3",
+    "@rsbuild/core": "1.7.5",
     "@rsbuild/plugin-react": "1.4.6",
     "@tailwindcss/postcss": "4.2.2",
     "@tanstack/router-plugin": "1.167.1",
