@@ -25,35 +25,10 @@ const C = {
   amberDim: '#2A1F08',
 } as const;
 
-// ── Volume bands ───────────────────────────────────────────────────────────────
-const PRO_BANDS = [
-  { min: 2, max: 10, rate: 39, midpoint: 6, label: '2 – 10 seats' },
-  { min: 11, max: 25, rate: 32, midpoint: 18, label: '11 – 25 seats' },
-  { min: 26, max: 50, rate: 27, midpoint: 38, label: '26 – 50 seats' },
-  { min: 51, max: 75, rate: 24, midpoint: 63, label: '51 – 75 seats' },
-];
-const BIZ_BANDS = [
-  { min: 2, max: 25, rate: 99, midpoint: 14, label: '2 – 25 seats' },
-  { min: 26, max: 75, rate: 82, midpoint: 50, label: '26 – 75 seats' },
-  { min: 76, max: 150, rate: 69, midpoint: 113, label: '76 – 150 seats' },
-  { min: 151, max: 200, rate: 59, midpoint: 175, label: '151 – 200 seats' },
-];
-const PRO_INTRO = PRO_BANDS[0].rate;
-const BIZ_INTRO = BIZ_BANDS[0].rate;
+// ── Pricing constants ──────────────────────────────────────────────────────────
+const PRO_RATE = 39; // fixed per seat / month
+const BIZ_RATE = 99; // fixed per seat / month
 const ANNUAL_DISC = 0.85;
-
-function getProRate(s: number) {
-  return PRO_BANDS.find((b) => s >= b.min && s <= b.max)?.rate ?? 24;
-}
-function getBizRate(s: number) {
-  return BIZ_BANDS.find((b) => s >= b.min && s <= b.max)?.rate ?? 34;
-}
-function getProBandIdx(s: number) {
-  return PRO_BANDS.findIndex((b) => s >= b.min && s <= b.max);
-}
-function getBizBandIdx(s: number) {
-  return BIZ_BANDS.findIndex((b) => s >= b.min && s <= b.max);
-}
 function fmt(n: number) {
   return '$' + Math.round(n).toLocaleString('en-US');
 }
@@ -83,21 +58,17 @@ function PricingPage() {
   }
 
   // Pro calc
-  const proRate = getProRate(proSeats);
-  const proEffRate = isAnnual ? Math.round(proRate * ANNUAL_DISC * 100) / 100 : proRate;
+  const proEffRate = isAnnual ? Math.round(PRO_RATE * ANNUAL_DISC * 100) / 100 : PRO_RATE;
   const proMonthly = Math.round(proSeats * proEffRate);
-  const proYearly = Math.round(proSeats * proRate * 12 * ANNUAL_DISC);
-  const proSave = Math.round(proSeats * proRate * 12 - proYearly);
-  const proBandIdx = getProBandIdx(proSeats);
+  const proYearly = Math.round(proSeats * PRO_RATE * 12 * ANNUAL_DISC);
+  const proSave = Math.round(proSeats * PRO_RATE * 12 - proYearly);
   const proSliderPct = ((proSeats - 2) / 73) * 100;
 
   // Business calc
-  const bizRate = getBizRate(bizSeats);
-  const bizEffRate = isAnnual ? Math.round(bizRate * ANNUAL_DISC * 100) / 100 : bizRate;
+  const bizEffRate = isAnnual ? Math.round(BIZ_RATE * ANNUAL_DISC * 100) / 100 : BIZ_RATE;
   const bizMonthly = Math.round(bizSeats * bizEffRate);
-  const bizYearly = Math.round(bizSeats * bizRate * 12 * ANNUAL_DISC);
-  const bizSave = Math.round(bizSeats * bizRate * 12 - bizYearly);
-  const bizBandIdx = getBizBandIdx(bizSeats);
+  const bizYearly = Math.round(bizSeats * BIZ_RATE * 12 * ANNUAL_DISC);
+  const bizSave = Math.round(bizSeats * BIZ_RATE * 12 - bizYearly);
   const bizSliderPct = ((bizSeats - 2) / 198) * 100;
 
   const faqs = [
@@ -107,11 +78,11 @@ function PricingPage() {
     },
     {
       q: 'How does Teams pricing work?',
-      a: "Teams starts at $39/seat for 2–10 seats. At 11–25 seats the rate drops to $32/seat. At 26–50 it's $27/seat. At 51–75 it's $24/seat — 38% less than the intro rate. Use the calculator to see your exact price.",
+      a: 'Teams is $39/seat/month for 2–75 seats, billed monthly or annually. Annual billing saves 15%. Use the calculator to see your exact monthly and annual cost.',
     },
     {
       q: 'How does Business pricing work?',
-      a: 'Business starts at $52/seat for 2–25 seats, dropping to $45/seat at 26–75, $38/seat at 76–150, and $34/seat at 151–200. It includes everything in Pro plus SSO/SAML, advanced roles, approval workflows, webhook integrations, 90-day audit logs, and a 99.9% uptime SLA.',
+      a: 'Business is $99/seat/month for 2–200 seats, billed monthly or annually. Annual billing saves 15%. It includes everything in Teams plus SSO/SAML, advanced roles, approval workflows, webhook integrations, 90-day audit logs, and a 99.9% uptime SLA.',
     },
     {
       q: 'When should I upgrade from Teams to Business?',
@@ -565,15 +536,17 @@ function PricingPage() {
             </div>
             <div style={{ minHeight: 220 }}>
               <TierName purple>Teams</TierName>
-              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
-              <div style={amt()}>{isAnnual ? fmt(Math.round(PRO_INTRO * ANNUAL_DISC)) : fmt(PRO_INTRO)}</div>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
+                per seat
+              </div>
+              <div style={amt()}>{isAnnual ? fmt(Math.round(PRO_RATE * ANNUAL_DISC)) : fmt(PRO_RATE)}</div>
               <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
                 per seat / month ·{' '}
                 <a href="#calc" style={{ color: C.purpleLight, textDecoration: 'none', fontWeight: 600 }}>
                   calculator ↓
                 </a>
               </div>
-              <TierSeats>2 – 75 seats · costs decrease as your team scales</TierSeats>
+              <TierSeats>2 – 75 seats · more seats, more value</TierSeats>
             </div>
             <Cta href="https://app.zephyr-cloud.io/" v="primary">
               Start free 30-day trial
@@ -637,8 +610,10 @@ function PricingPage() {
             </div>
             <div style={{ minHeight: 220 }}>
               <TierName amber>Business</TierName>
-              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2 }}>starting at</div>
-              <div style={amt()}>{isAnnual ? fmt(Math.round(BIZ_INTRO * ANNUAL_DISC)) : fmt(BIZ_INTRO)}</div>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
+                per seat
+              </div>
+              <div style={amt()}>{isAnnual ? fmt(Math.round(BIZ_RATE * ANNUAL_DISC)) : fmt(BIZ_RATE)}</div>
               <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
                 per seat / month ·{' '}
                 <a
@@ -808,7 +783,7 @@ function PricingPage() {
                 {calcTab === 'pro' ? 'Teams' : 'Business'} — see your exact price
               </h3>
               <p style={{ fontSize: 13, color: C.gray, maxWidth: 400, lineHeight: 1.6 }}>
-                The more seats you add, the less you pay per seat. Click a tier or drag the slider.
+                Drag the slider to see your total cost and the value Zephyr returns at your team size.
               </p>
             </div>
             <div style={{ textAlign: 'right', flexShrink: 0 }}>
@@ -864,66 +839,6 @@ function PricingPage() {
             />
           </div>
 
-          {/* Band cards */}
-          <div
-            className="band-grid"
-            style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 10, marginBottom: 24 }}
-          >
-            {(calcTab === 'pro' ? PRO_BANDS : BIZ_BANDS).map((band, i) => {
-              const acColor = calcTab === 'pro' ? C.purple : C.amber;
-              const introRate = calcTab === 'pro' ? PRO_INTRO : BIZ_INTRO;
-              const dr = isAnnual ? Math.round(band.rate * ANNUAL_DISC) : band.rate;
-              const saving = Math.round((1 - band.rate / introRate) * 100);
-              const active = calcTab === 'pro' ? proBandIdx === i : bizBandIdx === i;
-              const rgbActive = calcTab === 'pro' ? '139,92,246' : '232,168,48';
-              return (
-                <div
-                  key={i}
-                  onClick={() => (calcTab === 'pro' ? setProSeats(band.midpoint) : setBizSeats(band.midpoint))}
-                  style={{
-                    background: active ? `rgba(${rgbActive},0.15)` : 'rgba(255,255,255,0.04)',
-                    border: `1px solid ${active ? acColor : 'rgba(255,255,255,0.06)'}`,
-                    boxShadow: active ? `0 0 16px rgba(${rgbActive},0.1)` : 'none',
-                    borderRadius: 8,
-                    padding: '14px 12px',
-                    textAlign: 'center',
-                    transition: 'all 0.25s',
-                    cursor: 'pointer',
-                  }}
-                >
-                  <div
-                    style={{
-                      fontSize: 10,
-                      fontWeight: 700,
-                      textTransform: 'uppercase',
-                      letterSpacing: '0.5px',
-                      color: active ? acColor : C.grayDark,
-                      marginBottom: 6,
-                    }}
-                  >
-                    {band.label}
-                  </div>
-                  <div
-                    style={{
-                      fontSize: 22,
-                      fontWeight: 900,
-                      letterSpacing: '-0.8px',
-                      color: C.white,
-                      lineHeight: 1,
-                      marginBottom: 3,
-                    }}
-                  >
-                    {fmt(dr)}
-                  </div>
-                  <div style={{ fontSize: 10, color: C.grayDark }}>per seat / {isAnnual ? 'mo (annual)' : 'mo'}</div>
-                  <div style={{ fontSize: 10, fontWeight: 700, color: C.green, marginTop: 5, minHeight: 14 }}>
-                    {saving === 0 ? 'introductory rate' : `${saving}% less than intro`}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-
           {/* Meta row */}
           <div
             style={{
@@ -940,7 +855,7 @@ function PricingPage() {
               Per seat:{' '}
               <strong style={{ color: C.white }}>
                 {fmt(calcTab === 'pro' ? proEffRate : bizEffRate)}
-                {isAnnual ? ` (was ${fmt(calcTab === 'pro' ? proRate : bizRate)})` : ''}
+                {isAnnual ? ` (was ${fmt(calcTab === 'pro' ? PRO_RATE : BIZ_RATE)})` : ''}
               </strong>
             </div>
             <div style={{ fontSize: 12, color: C.gray }}>
