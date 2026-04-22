@@ -1,370 +1,1608 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tab } from '@/components/ui/tab';
-import akamai from '@/images/clouds/akamai_white.webp';
-import aws from '@/images/clouds/aws_white.webp';
-import cloudflare from '@/images/clouds/cloudflare_white.webp';
-import fastly from '@/images/clouds/fastly_white.webp';
-import vercel from '@/images/clouds/vercel_white.webp';
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
-import { Check, ChevronRight, Cloud, Infinity, Sparkles, Zap } from 'lucide-react';
-import { useState } from 'react';
+import { type ReactNode, useEffect, useRef, useState } from 'react';
 
 export const Route = createFileRoute('/pricing')({
   component: PricingPage,
 });
 
-const tiers = [
-  {
-    name: 'Personal',
-    id: 'personal',
-    href: 'https://app.zephyr-cloud.io/',
-    price: { monthly: 0, annually: 0 },
-    description: 'Perfect for side projects and personal experiments',
-    features: [
-      '1 editing user',
-      'Unlimited view-only users',
-      '∞ Preview environments',
-      '120GB bandwidth',
-      '50GB storage',
-      'Community support',
-      'BYOC (Bring Your Own Cloud)',
-      'Sub-second deployments',
-    ],
-    cta: 'Get Started',
-    mostPopular: false,
-  },
-  {
-    name: 'Team',
-    id: 'team',
-    href: 'https://app.zephyr-cloud.io/',
-    // TODO: Can we make this drop into the subscription page for team
-    price: { monthly: 19, annually: 16 },
-    description: 'For teams building and shipping together',
-    features: [
-      'Up to 10 editing users',
-      'Unlimited view-only users',
-      '∞ Preview environments',
-      '1TB bandwidth',
-      '100GB storage',
-      'Email support',
-      'BYOC (Bring Your Own Cloud)',
-      'Sub-second deployments',
-      'Team collaboration',
-    ],
-    cta: 'Start Collaborating',
-    mostPopular: true,
-  },
-  {
-    name: 'Business',
-    id: 'business',
-    href: 'https://app.zephyr-cloud.io/',
-    // TODO: Can we make this drop into the subscription page for business
-    price: { monthly: 99, annually: 84 },
-    description: 'For growing companies with production workloads',
-    features: [
-      'Up to 20 editing users',
-      'Unlimited view-only users',
-      '∞ Preview environments',
-      '1.5TB bandwidth',
-      '500GB storage',
-      'Private Slack/Discord channel',
-      'BYOC Poly-Cloud Support (Bring Your Own Cloud)',
-      'Sub-second deployments',
-      'Team collaboration',
-      'Priority support',
-      'Advanced analytics',
-      '99.9% uptime SLA',
-    ],
-    cta: 'Start Scaling',
-    mostPopular: false,
-  },
-  {
-    name: 'Enterprise',
-    id: 'enterprise',
-    href: 'mailto:inbound@zephyr-cloud.io?subject=Enterprise',
-    price: { monthly: null, annually: null },
-    description: 'For organizations with advanced security and support needs',
-    features: [
-      'Unlimited editing users',
-      'Unlimited view-only users',
-      '∞ Preview environments',
-      'Custom bandwidth',
-      'Custom storage',
-      'Dedicated support manager',
-      'Advanced analytics',
-      'Team collaboration',
-      '99.9% uptime SLA',
-      'On-Site Training & Onboarding',
-      'BYOC Poly-Cloud Support (Bring Your Own Cloud)',
-      'Sub-second deployments',
-      'SSO & advanced security',
-      'Custom SLAs',
-      'Professional services',
-    ],
-    cta: 'Contact Sales',
-    mostPopular: false,
-  },
-];
+// ── Design tokens ──────────────────────────────────────────────────────────────
+const C = {
+  black: '#0A0A0F',
+  black2: '#0F0F1A',
+  black3: '#111118',
+  border: '#1E1E2E',
+  borderLight: '#2D2D3A',
+  purple: '#8B5CF6',
+  purpleLight: '#A78BFA',
+  purpleDim: '#1A0F3A',
+  white: '#F5F4F0',
+  gray: '#9CA3AF',
+  grayDark: '#6B7280',
+  green: '#10B981',
+  greenDim: '#064E3B',
+  amber: '#E8A830',
+  amberDim: '#2A1F08',
+} as const;
 
+// ── Pricing constants ──────────────────────────────────────────────────────────
+const PRO_RATE = 39; // fixed per seat / month
+const BIZ_RATE = 99; // fixed per seat / month
+const ANNUAL_DISC = 0.85;
+function fmt(n: number) {
+  return '$' + Math.round(n).toLocaleString('en-US');
+}
+
+// ── Page ───────────────────────────────────────────────────────────────────────
 function PricingPage() {
-  const [frequency, setFrequency] = useState<'monthly' | 'annually'>('monthly');
-  const isAnnual = frequency === 'annually';
-  const getTierButtonClassName = (tier: (typeof tiers)[number]) => {
-    switch (tier.id) {
-      case 'personal':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
-      case 'team':
-        return 'border border-violet-500/70 bg-violet-600 text-white shadow-lg shadow-violet-900/30 hover:bg-violet-500 hover:border-violet-400';
-      case 'business':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
-      case 'enterprise':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
-      default:
-        return 'bg-neutral-500 hover:bg-neutral-600';
-    }
-  };
+  const [billing, setBilling] = useState<'monthly' | 'annual'>('monthly');
+  const [path, setPath] = useState<'mf' | 'nonmf' | null>(null);
+  const [proSeats, setProSeats] = useState(6);
+  const [bizSeats, setBizSeats] = useState(14);
+  const [calcTab, setCalcTab] = useState<'pro' | 'biz'>('pro');
+  const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const billingRef = useRef<HTMLDivElement>(null);
+  const tiersRef = useRef<HTMLElement>(null);
+  const panelsRef = useRef<HTMLDivElement>(null);
+  const isAnnual = billing === 'annual';
+
+  useEffect(() => {
+    const p = new URLSearchParams(window.location.search).get('for');
+    if (p === 'mf') setPath('mf');
+    else if (p === 'teams' || p === 'nonmf') setPath('nonmf');
+  }, []);
+
+  function selectPath(p: 'mf' | 'nonmf') {
+    setPath(p);
+    setTimeout(() => panelsRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50);
+  }
+
+  // Pro calc
+  const proEffRate = isAnnual ? Math.round(PRO_RATE * ANNUAL_DISC * 100) / 100 : PRO_RATE;
+  const proMonthly = Math.round(proSeats * proEffRate);
+  const proYearly = Math.round(proSeats * PRO_RATE * 12 * ANNUAL_DISC);
+  const proSave = Math.round(proSeats * PRO_RATE * 12 - proYearly);
+  const proSliderPct = ((proSeats - 2) / 73) * 100;
+
+  // Business calc
+  const bizEffRate = isAnnual ? Math.round(BIZ_RATE * ANNUAL_DISC * 100) / 100 : BIZ_RATE;
+  const bizMonthly = Math.round(bizSeats * bizEffRate);
+  const bizYearly = Math.round(bizSeats * BIZ_RATE * 12 * ANNUAL_DISC);
+  const bizSave = Math.round(bizSeats * BIZ_RATE * 12 - bizYearly);
+  const bizSliderPct = ((bizSeats - 2) / 198) * 100;
+
+  const faqs = [
+    {
+      q: 'Do I need Module Federation to get value from Zephyr?',
+      a: 'No. BYOC, instant rollbacks, and environment variables without redeploying are available on Teams — none of them require Module Federation. MF-native features are additive. Many teams start without MF and adopt it later.',
+    },
+    {
+      q: 'How does Teams pricing work?',
+      a: 'Teams is $39/seat/month for 2–75 seats, billed monthly or annually. Annual billing saves 15%. Use the calculator to see your exact monthly and annual cost.',
+    },
+    {
+      q: 'How does Business pricing work?',
+      a: 'Business is $99/seat/month for 2–200 seats, billed monthly or annually. Annual billing saves 15%. It includes everything in Teams plus SSO/SAML, advanced roles, approval workflows, webhook integrations, 90-day audit logs, and a 99.9% uptime SLA.',
+    },
+    {
+      q: 'When should I upgrade from Teams to Business?',
+      a: 'Upgrade to Business when you need SSO for your identity provider, SLA guarantees, advanced access controls, or 90-day audit retention. Most teams make the switch when IT or compliance asks for SSO, or when deployment approval workflows become a requirement.',
+    },
+    {
+      q: 'What is BYOC — and what does it mean for our data?',
+      a: 'Bring Your Own Cloud. Deployments go to your own infrastructure — Cloudflare, AWS, Fastly, Akamai, or Vercel. Your data never leaves your cloud. BYOC is available on all plans including Free. This answers most data residency and DPA questions before your security team asks them.',
+    },
+    {
+      q: 'Are there overage charges for bandwidth or storage?',
+      a: "Teams includes 1.5TB bandwidth and 500GB storage. We'll reach out before charging anything — no automatic overage fees. Business and Enterprise limits are agreed upfront so procurement always knows the ceiling.",
+    },
+    {
+      q: 'Can we pay by invoice or purchase order?',
+      a: "Yes. Business and Enterprise invoicing and PO billing are standard. Teams is credit card monthly or annually. If procurement requires an invoice for Teams, contact sales and we'll accommodate it.",
+    },
+    {
+      q: 'What makes the MF-native features different?',
+      a: "They were built by the team that created Module Federation. Environment Overrides, DevTools, UML, and zephyr.dependencies aren't integrations — they require authorship-level understanding of MF. No other platform offers these.",
+    },
+    {
+      q: "Is a data processing agreement available? We're in a regulated sector.",
+      a: "Yes. DPAs are available on Enterprise. Zephyr is SOC 2 compliant and BYOC-first — your data stays in your own cloud. If you need a DPA as part of a POC, reach out and we'll accommodate it.",
+    },
+    {
+      q: 'Is there an annual discount?',
+      a: 'Yes — 15% off Teams and Business when billed annually. Toggle above to see annual pricing reflected live in the calculator.',
+    },
+  ];
 
   return (
-    <div className="container mx-auto px-4 py-16 max-w-7xl">
-      {/* Hero Section */}
-      <div className="text-center mb-8">
-        <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">Pricing that scales with your team</h1>
-        <p className="text-xl text-neutral-400 mb-1 max-w-2xl mx-auto">Start free and scale as you grow.</p>
-      </div>
-
-      {/* Key Features Banner */}
-      <div className="bg-gradient-to-r from-violet-900/20 to-violet-700/20 border border-violet-700/30 rounded-lg p-6 mb-12">
-        <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
-          <div className="flex items-center gap-2">
-            <Infinity className="h-4 w-4 text-violet-500" />
-            <span>No build minutes</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-violet-500" />
-            <span>Sub-second deployments</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Cloud className="h-4 w-4 text-violet-500" />
-            <span>Bring Your Own Cloud (BYOC)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-violet-500" />
-            <span>Unlimited preview environments</span>
-          </div>
+    <div style={{ background: C.black, color: C.white, lineHeight: 1.6 }}>
+      {/* ── HERO ── */}
+      <section style={{ textAlign: 'center', padding: '40px 40px 20px', maxWidth: 760, margin: '0 auto' }}>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 8,
+            background: C.purpleDim,
+            border: '1px solid rgba(139,92,246,0.3)',
+            color: C.purpleLight,
+            fontSize: 11,
+            fontWeight: 700,
+            textTransform: 'uppercase',
+            letterSpacing: '1.2px',
+            padding: '5px 14px',
+            borderRadius: 20,
+            marginBottom: 14,
+          }}
+        >
+          ● Pricing
         </div>
-      </div>
+        <h1
+          style={{
+            fontSize: 'clamp(26px, 4vw, 40px)',
+            fontWeight: 900,
+            letterSpacing: '-1.5px',
+            lineHeight: 1.08,
+            marginBottom: 10,
+          }}
+        >
+          Pricing that scales with your team
+        </h1>
+        <p style={{ fontSize: 14, color: C.gray, maxWidth: 520, margin: '0 auto 0', lineHeight: 1.65 }}>
+          Start free and scale as you grow.
+        </p>
+      </section>
 
-      {/* Billing Toggle */}
-      <div className="p-6 mb-6">
-        <div className="mx-auto flex w-fit rounded-full bg-neutral-900 p-1">
-          <Tab text="monthly" selected={frequency === 'monthly'} setSelected={() => setFrequency('monthly')} />
-          <Tab
-            text="annually"
-            selected={frequency === 'annually'}
-            setSelected={() => setFrequency('annually')}
-            discount={true}
-          />
-        </div>
-      </div>
-      {/* Pricing Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        {tiers.map((tier) => (
-          <Card
-            key={tier.id}
-            className={cn(
-              'relative flex flex-col',
-              tier.mostPopular && 'border-violet-700 shadow-lg shadow-violet-700/20',
-            )}
+      {/* ── FEATURE BAR ── */}
+      <div
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'space-evenly',
+          flexWrap: 'nowrap',
+          background: 'linear-gradient(135deg, #1A0F3A 0%, #0F0F1A 100%)',
+          borderTop: `1px solid rgba(139,92,246,0.2)`,
+          borderBottom: `1px solid rgba(139,92,246,0.2)`,
+          padding: '16px 40px',
+          width: '100%',
+        }}
+      >
+        {(
+          [
+            { icon: '∞', label: 'No build minutes' },
+            { icon: '⚡', label: 'Sub-second deployments' },
+            { icon: '☁', label: 'Bring Your Own Cloud (BYOC)' },
+            { icon: '✦', label: 'Unlimited preview environments' },
+          ] as { icon: string; label: string }[]
+        ).map(({ icon, label }) => (
+          <span
+            key={label}
+            style={{ display: 'flex', alignItems: 'center', gap: 8, fontSize: 13, color: C.gray, whiteSpace: 'nowrap' }}
           >
-            {tier.mostPopular && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-violet-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                  Most Popular
-                </span>
-              </div>
-            )}
-
-            <CardHeader>
-              <CardTitle className="text-2xl">{tier.name}</CardTitle>
-              <CardDescription className="text-sm">{tier.description}</CardDescription>
-
-              <div className="mt-4">
-                {tier.price.monthly !== null ? (
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold">${isAnnual ? tier.price.annually : tier.price.monthly}</span>
-                    <span className="text-neutral-400">/user/month</span>
-                  </div>
-                ) : (
-                  <div className="text-3xl font-bold">Custom pricing</div>
-                )}
-              </div>
-            </CardHeader>
-
-            <CardContent className="flex-1">
-              <ul className="space-y-3">
-                {tier.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-violet-500 mt-0.5 shrink-0" />
-                    <span className="text-sm text-neutral-300">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </CardContent>
-
-            <CardFooter>
-              <Button
-                className={cn(
-                  'w-full font-semibold transition-transform duration-200 hover:-translate-y-0.5',
-                  getTierButtonClassName(tier),
-                )}
-                asChild
-              >
-                <a href={tier.href} target="_blank">
-                  {tier.cta}
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </a>
-              </Button>
-            </CardFooter>
-          </Card>
+            <span style={{ color: C.purpleLight, fontSize: 15 }}>{icon}</span>
+            {label}
+          </span>
         ))}
       </div>
 
-      {/* BYOC Feature Section */}
-      <div className="bg-neutral-900 rounded-lg p-8 mb-16">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-4">
-              <Cloud className="inline-block h-8 w-8 text-foreground mr-2" />
-              Bring Your Own Cloud (BYOC)
-            </h2>
-            <p className="text-neutral-400 mb-6">
-              Deploy to your Cloudflare, Akamai, Vercel, or any of our supported cloud providers. Switch clouds
-              instantly, deploy to multiple clouds or multiple accounts on a cloud simultaneously.
-              <br />
-              With BYOC, you maintain complete control over your infrastructure and costs.
-            </p>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>No vendor lock-in. Ever.</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>Deploy to any cloud provider</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>Switch clouds with one click</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>Multi-cloud deployments</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>Your security, your compliance</span>
-              </li>
-            </ul>
-          </div>
-          <div className="bg-neutral-800 rounded-lg p-6">
-            <div className="space-y-4">
-              <div className="text-sm text-neutral-400 text-center">Deploy to your favorite cloud providers</div>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="flex items-center justify-center p-3">
-                  <img
-                    src={cloudflare}
-                    alt="Cloudflare"
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                  />
+      {/* ── PATH SELECTOR ── */}
+      <div style={{ textAlign: 'center', padding: '20px 40px', maxWidth: 760, margin: '0 auto' }}>
+        {/* Path selector */}
+        <div style={{ display: 'flex', gap: 14, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 16 }}>
+          {(
+            [
+              {
+                id: 'mf',
+                icon: '⚡',
+                title: 'We use Module Federation',
+                sub: "We're running MF and need a deployment platform built around it.",
+              },
+              {
+                id: 'nonmf',
+                icon: '🚀',
+                title: "We don't use MF yet",
+                sub: 'We want cloud-agnostic deployments, better rollbacks, and a faster pipeline.',
+              },
+            ] as const
+          ).map(({ id, icon, title, sub }) => {
+            const active = path === id;
+            const isMf = id === 'mf';
+            const activeColor = isMf ? C.purple : C.green;
+            return (
+              <button
+                key={id}
+                onClick={() => selectPath(id)}
+                style={{
+                  background: active ? (isMf ? 'rgba(139,92,246,0.12)' : 'rgba(16,185,129,0.1)') : C.black2,
+                  borderRadius: 12,
+                  padding: '22px 28px',
+                  cursor: 'pointer',
+                  textAlign: 'left',
+                  maxWidth: 280,
+                  width: '100%',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  transition: 'all 0.25s',
+                  border: `2px solid ${active ? activeColor : C.border}`,
+                  boxShadow: active
+                    ? `0 0 0 1px ${activeColor}, 0 8px 32px ${isMf ? 'rgba(139,92,246,0.2)' : 'rgba(16,185,129,0.15)'}`
+                    : 'none',
+                  transform: active ? 'translateY(-2px)' : 'none',
+                  fontFamily: 'inherit',
+                  color: C.white,
+                }}
+              >
+                {active && (
+                  <div
+                    style={{
+                      position: 'absolute',
+                      top: 14,
+                      right: 14,
+                      width: 22,
+                      height: 22,
+                      borderRadius: '50%',
+                      background: activeColor,
+                      color: 'white',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: 11,
+                      fontWeight: 900,
+                    }}
+                  >
+                    ✓
+                  </div>
+                )}
+                <div style={{ fontSize: 22, marginBottom: 10 }}>{icon}</div>
+                <div
+                  style={{ fontSize: 15, fontWeight: 800, color: C.white, marginBottom: 5, letterSpacing: '-0.3px' }}
+                >
+                  {title}
                 </div>
-                <div className="flex items-center justify-center p-3">
-                  <img
-                    src={fastly}
-                    alt="Fastly"
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                  />
+                <div style={{ fontSize: 12, color: C.gray, lineHeight: 1.5 }}>{sub}</div>
+              </button>
+            );
+          })}
+        </div>
+        {!path && (
+          <p style={{ fontSize: 12, color: C.grayDark }}>
+            Select your situation to see what matters most to your team.
+          </p>
+        )}
+      </div>
+
+      {/* ── VALUE PANELS ── */}
+      <div ref={panelsRef}>
+        {(['mf', 'nonmf'] as const).map((panelId) => {
+          const isMf = panelId === 'mf';
+          const visible = path === panelId;
+          const accent = isMf ? C.purpleLight : C.green;
+          const pains = isMf
+            ? [
+                {
+                  problem:
+                    "CI is a bottleneck for critical deploys. You're waiting on pipelines to push a config change.",
+                  solution: 'Environment Overrides',
+                  mf: true,
+                },
+                {
+                  problem:
+                    'Engineers maintain internal tooling to develop locally against MFEs. It eats sprint capacity every cycle.',
+                  solution: 'Zephyr DevTools',
+                  mf: true,
+                },
+                {
+                  problem:
+                    'No visibility into who deployed what across remotes. Audit and compliance reviews are painful.',
+                  solution: 'Audit logs + Activity',
+                  mf: false,
+                },
+              ]
+            : [
+                {
+                  problem: "You're locked to Vercel or Netlify. Migrating or going multi-cloud is a project in itself.",
+                  solution: 'BYOC — bring your own cloud',
+                  mf: false,
+                },
+                {
+                  problem:
+                    "Rollbacks mean redeploying. When something breaks in production, you're waiting on the pipeline.",
+                  solution: 'Instant rollbacks, any cloud',
+                  mf: false,
+                },
+                {
+                  problem:
+                    'Changing an environment variable triggers a full redeploy. Small config changes block shipping.',
+                  solution: 'Env Variables, no redeploy',
+                  mf: false,
+                },
+              ];
+          return (
+            <div
+              key={panelId}
+              style={{
+                maxWidth: 960,
+                padding: '0 24px',
+                overflow: 'hidden',
+                maxHeight: visible ? 600 : 0,
+                opacity: visible ? 1 : 0,
+                marginLeft: 'auto',
+                marginRight: 'auto',
+                marginTop: visible ? 48 : 0,
+                marginBottom: visible ? 56 : 0,
+                transition: 'max-height 0.5s ease, opacity 0.4s ease, margin 0.4s ease',
+              }}
+            >
+              <div
+                style={{
+                  borderRadius: 14,
+                  padding: '40px 48px',
+                  background: isMf
+                    ? 'linear-gradient(135deg,#1A0F3A 0%,#0F0F1A 70%)'
+                    : 'linear-gradient(135deg,#062A1F 0%,#0F0F1A 70%)',
+                  border: `1px solid ${isMf ? 'rgba(139,92,246,0.3)' : 'rgba(16,185,129,0.25)'}`,
+                }}
+              >
+                <div style={{ marginBottom: 32 }}>
+                  <div
+                    style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '1.2px',
+                      color: accent,
+                      marginBottom: 10,
+                    }}
+                  >
+                    {isMf ? 'For Module Federation teams' : 'For teams not yet on Module Federation'}
+                  </div>
+                  <h2
+                    style={{ fontSize: 26, fontWeight: 900, letterSpacing: '-0.6px', lineHeight: 1.2, color: C.white }}
+                  >
+                    {isMf ? (
+                      <>
+                        You adopted MF. Now you need the platform{' '}
+                        <em style={{ fontStyle: 'normal', color: accent }}>built around it.</em>
+                      </>
+                    ) : (
+                      <>
+                        Your deployment stack shouldn't be{' '}
+                        <em style={{ fontStyle: 'normal', color: accent }}>owned by your cloud provider.</em>
+                      </>
+                    )}
+                  </h2>
                 </div>
-                <div className="flex items-center justify-center p-3">
-                  <img
-                    src={akamai}
-                    alt="Akamai"
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-                <div className="flex items-center justify-center p-3">
-                  <img src={aws} alt="AWS" className="h-8 w-auto opacity-50 grayscale" title="Coming Soon" />
-                </div>
-                <div className="flex items-center justify-center p-3">
-                  <img src={vercel} alt="Vercel" className="h-8 w-auto opacity-50 grayscale" title="Coming Soon" />
+                <div className="value-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 16 }}>
+                  {pains.map((item, i) => (
+                    <div
+                      key={i}
+                      style={{
+                        background: 'rgba(255,255,255,0.04)',
+                        borderRadius: 10,
+                        padding: '18px 16px',
+                        border: '1px solid rgba(255,255,255,0.06)',
+                      }}
+                    >
+                      <div
+                        style={{
+                          fontSize: 11,
+                          color: C.grayDark,
+                          marginBottom: 6,
+                          fontWeight: 600,
+                          textTransform: 'uppercase',
+                          letterSpacing: '0.5px',
+                        }}
+                      >
+                        The problem
+                      </div>
+                      <p style={{ fontSize: 13, color: C.gray, lineHeight: 1.5, marginBottom: 10 }}>{item.problem}</p>
+                      <div
+                        style={{
+                          fontSize: 12,
+                          fontWeight: 700,
+                          color: accent,
+                          display: 'flex',
+                          alignItems: 'center',
+                          gap: 6,
+                        }}
+                      >
+                        → {item.solution}
+                        {item.mf && <MfTag />}
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
-              <div className="text-xs text-neutral-500 text-center pt-2">
-                Available on all paid plans • More providers coming soon
+            </div>
+          );
+        })}
+      </div>
+
+      {/* ── BILLING TOGGLE ── */}
+      <div ref={billingRef} style={{ textAlign: 'center', padding: '0 24px 24px' }}>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 4,
+            background: C.black3,
+            border: `1px solid ${C.border}`,
+            borderRadius: 40,
+            padding: 4,
+          }}
+        >
+          {(['monthly', 'annual'] as const).map((mode) => (
+            <button
+              key={mode}
+              onClick={() => setBilling(mode)}
+              style={{
+                background: billing === mode ? C.purple : 'none',
+                border: 'none',
+                color: billing === mode ? 'white' : C.gray,
+                fontSize: 13,
+                fontWeight: 600,
+                padding: '7px 18px',
+                borderRadius: 30,
+                cursor: 'pointer',
+                transition: 'all 0.2s',
+                fontFamily: 'inherit',
+                display: 'flex',
+                alignItems: 'center',
+                gap: 8,
+              }}
+            >
+              {mode === 'monthly' ? 'Monthly' : 'Annual'}
+              {mode === 'annual' && (
+                <span
+                  style={{
+                    background: C.greenDim,
+                    color: C.green,
+                    fontSize: 10,
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.5px',
+                    padding: '2px 7px',
+                    borderRadius: 8,
+                  }}
+                >
+                  Save 15%
+                </span>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* ── TIER CARDS ── */}
+      <section ref={tiersRef} id="tiers" style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 80px' }}>
+        <div className="tier-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14 }}>
+          {/* FREE */}
+          <div style={card()}>
+            <div style={{ minHeight: 220 }}>
+              <TierName>Free</TierName>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
+                starting at
+              </div>
+              <div style={amt()}>$0</div>
+              <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>forever</div>
+              <TierSeats>1 seat · no credit card required</TierSeats>
+            </div>
+            <Cta href="https://app.zephyr-cloud.io/" v="secondary">
+              Get started free
+            </Cta>
+            <ul style={featList()}>
+              {[
+                'BYOC — bring your own cloud',
+                '1 cloud integration',
+                'All 15 bundler plugins',
+                'Basic version history',
+                'Tag / branch env creation',
+                '120GB bandwidth · 50GB storage',
+              ].map((f) => (
+                <Fi key={f} c="green">
+                  {f}
+                </Fi>
+              ))}
+            </ul>
+          </div>
+
+          {/* PRO */}
+          <div
+            style={{
+              ...card(),
+              background: 'linear-gradient(160deg,#1A0F3A 0%,#0F0F1A 60%)',
+              border: `1px solid ${C.purple}`,
+              boxShadow: '0 0 48px rgba(139,92,246,0.12)',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                top: -12,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: C.purple,
+                color: 'white',
+                fontSize: 10,
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.8px',
+                padding: '4px 14px',
+                borderRadius: 10,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              Most Popular
+            </div>
+            <div style={{ minHeight: 220 }}>
+              <TierName purple>Teams</TierName>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
+                per seat
+              </div>
+              <div style={amt()}>{isAnnual ? fmt(Math.round(PRO_RATE * ANNUAL_DISC)) : fmt(PRO_RATE)}</div>
+              <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
+                per seat / month ·{' '}
+                <a href="#calc" style={{ color: C.purpleLight, textDecoration: 'none', fontWeight: 600 }}>
+                  calculator ↓
+                </a>
+              </div>
+              <TierSeats>2 – 75 seats · more seats, more value</TierSeats>
+            </div>
+            <Cta href="https://app.zephyr-cloud.io/" v="primary">
+              Start free 30-day trial
+            </Cta>
+            <ul style={featList()}>
+              <Fi c="green">
+                <strong style={{ color: C.white }}>BYOC</strong> — all cloud integrations
+              </Fi>
+              <Fi c="green">Instant rollbacks</Fi>
+              <Fi c="green">Full version history</Fi>
+              <Divider />
+              <Fi c="purple" dim={path === 'nonmf'}>
+                <strong style={{ color: C.white }}>Environment Overrides</strong> <MfTag />
+              </Fi>
+              <Fi c="purple">
+                <strong style={{ color: C.white }}>Env Variables</strong> — no redeploy
+              </Fi>
+              <Fi c="purple" dim={path === 'nonmf'}>
+                <strong style={{ color: C.white }}>Zephyr DevTools</strong> <MfTag />
+              </Fi>
+              <Fi c="purple" dim={path === 'nonmf'}>
+                <strong style={{ color: C.white }}>UML architecture map</strong> <MfTag />
+              </Fi>
+              <Fi c="purple" dim={path === 'nonmf'}>
+                <strong style={{ color: C.white }}>zephyr.dependencies</strong> <MfTag />
+              </Fi>
+              <Divider />
+              <Fi c="green">Per-team deploy permissions</Fi>
+              <Fi c="green">30-day audit logs</Fi>
+              <Fi c="green">Up to 75 collaborators</Fi>
+            </ul>
+          </div>
+
+          {/* BUSINESS */}
+          <div
+            style={{
+              ...card(),
+              background: 'linear-gradient(160deg,#2A1F08 0%,#0F0F1A 60%)',
+              border: `1px solid ${C.amber}`,
+              boxShadow: '0 0 48px rgba(232,168,48,0.1)',
+            }}
+          >
+            <div
+              style={{
+                position: 'absolute',
+                top: -12,
+                left: '50%',
+                transform: 'translateX(-50%)',
+                background: C.amber,
+                color: '#0A0A0F',
+                fontSize: 10,
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.8px',
+                padding: '4px 14px',
+                borderRadius: 10,
+                whiteSpace: 'nowrap',
+              }}
+            >
+              For Growing Teams
+            </div>
+            <div style={{ minHeight: 220 }}>
+              <TierName amber>Business</TierName>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
+                per seat
+              </div>
+              <div style={amt()}>{isAnnual ? fmt(Math.round(BIZ_RATE * ANNUAL_DISC)) : fmt(BIZ_RATE)}</div>
+              <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>
+                per seat / month ·{' '}
+                <a
+                  href="#calc"
+                  onClick={() => setCalcTab('biz')}
+                  style={{ color: C.amber, textDecoration: 'none', fontWeight: 600 }}
+                >
+                  calculator ↓
+                </a>
+              </div>
+              <TierSeats>2 – 200 seats · SSO, SLAs, and governance included</TierSeats>
+            </div>
+            <Cta href="https://app.zephyr-cloud.io/" v="amber">
+              Start free 30-day trial
+            </Cta>
+            <ul style={featList()}>
+              <Fi c="amber">
+                <strong style={{ color: C.white }}>Everything in Teams</strong>
+              </Fi>
+              <Divider />
+              <Fi c="amber">SSO / SAML</Fi>
+              <Fi c="amber">Advanced roles &amp; permissions</Fi>
+              <Fi c="amber">Deployment approval workflows</Fi>
+              <Fi c="amber">Webhook integrations</Fi>
+              <Fi c="amber">90-day audit logs</Fi>
+              <Fi c="amber">99.9% uptime SLA</Fi>
+              <Fi c="amber">Priority support</Fi>
+              <Fi c="amber">Up to 200 collaborators</Fi>
+            </ul>
+          </div>
+
+          {/* ENTERPRISE */}
+          <div style={card()}>
+            <div style={{ minHeight: 220 }}>
+              <TierName>Enterprise</TierName>
+              <div style={{ fontSize: 13, color: C.grayDark, fontWeight: 500, marginBottom: 2, visibility: 'hidden' }}>
+                starting at
+              </div>
+              <div style={amt()}>Custom</div>
+              <div style={{ fontSize: 13, color: C.gray, marginTop: 4, marginBottom: 6 }}>&nbsp;</div>
+              <TierSeats>200+ seats · no RFP required · quote same day</TierSeats>
+            </div>
+            <Cta href="mailto:inbound@zephyr-cloud.io?subject=Enterprise" v="secondary">
+              Talk to sales
+            </Cta>
+            <ul style={featList()}>
+              <Fi c="green">
+                <strong style={{ color: C.white }}>Everything in Business</strong>
+              </Fi>
+              <Divider />
+              {[
+                'SOC 2 Type II compliance',
+                'Data Processing Agreement',
+                'Dedicated CSM',
+                'Custom SLA (99.99%)',
+                'Negotiated contracts',
+                'Invoice / PO billing',
+                'White-glove onboarding',
+                'Custom bandwidth / storage',
+                'Unlimited collaborators',
+              ].map((f) => (
+                <Fi key={f} c="green">
+                  {f}
+                </Fi>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ── ROI BANNER ── */}
+      <div style={{ maxWidth: 1160, margin: '-56px auto 72px', padding: '0 24px', textAlign: 'center' }}>
+        <div
+          style={{
+            background: C.black3,
+            border: `1px solid ${C.border}`,
+            borderRadius: 10,
+            padding: '14px 24px',
+            display: 'inline-flex',
+            alignItems: 'center',
+            gap: 10,
+          }}
+        >
+          <span style={{ fontSize: 16, fontWeight: 900, color: C.purpleLight }}>1.5 sprints/quarter</span>
+          <span style={{ fontSize: 13, color: C.gray }}>
+            recovered by teams replacing internal MF tooling with Zephyr — based on customer data.
+          </span>
+        </div>
+      </div>
+
+      {/* ── CALCULATOR ── */}
+      <div id="calc" style={{ maxWidth: 960, margin: '0 auto 72px', padding: '0 24px' }}>
+        {/* Tab switcher */}
+        <div
+          style={{
+            display: 'flex',
+            borderRadius: '14px 14px 0 0',
+            overflow: 'hidden',
+            border: `1px solid ${calcTab === 'pro' ? C.purple : C.amber}`,
+            borderBottom: 'none',
+          }}
+        >
+          {(
+            [
+              {
+                id: 'pro',
+                label: 'Teams Calculator',
+                color: C.purple,
+                activeBg: 'linear-gradient(160deg,#1A0F3A 0%,#0F0F1A 60%)',
+              },
+              {
+                id: 'biz',
+                label: 'Business Calculator',
+                color: C.amber,
+                activeBg: 'linear-gradient(160deg,#2A1F08 0%,#0F0F1A 60%)',
+              },
+            ] as const
+          ).map((tab) => (
+            <button
+              key={tab.id}
+              onClick={() => setCalcTab(tab.id)}
+              style={{
+                flex: 1,
+                padding: '12px 20px',
+                background: calcTab === tab.id ? tab.activeBg : C.black3,
+                border: 'none',
+                color: calcTab === tab.id ? tab.color : C.grayDark,
+                fontSize: 13,
+                fontWeight: 700,
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                transition: 'all 0.2s',
+                letterSpacing: '0.3px',
+              }}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* Calc body */}
+        <div
+          style={{
+            background:
+              calcTab === 'pro'
+                ? 'linear-gradient(160deg,#1A0F3A 0%,#0F0F1A 60%)'
+                : 'linear-gradient(160deg,#2A1F08 0%,#0F0F1A 60%)',
+            border: `1px solid ${calcTab === 'pro' ? C.purple : C.amber}`,
+            borderRadius: '0 0 14px 14px',
+            padding: '40px 48px',
+            transition: 'background 0.3s, border-color 0.3s',
+          }}
+        >
+          <div
+            className="calc-header"
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'flex-start',
+              marginBottom: 32,
+              gap: 24,
+              flexWrap: 'wrap',
+            }}
+          >
+            <div>
+              <h3 style={{ fontSize: 18, fontWeight: 900, letterSpacing: '-0.4px', color: C.white, marginBottom: 6 }}>
+                {calcTab === 'pro' ? 'Teams' : 'Business'} — see your exact price
+              </h3>
+              <p style={{ fontSize: 13, color: C.gray, maxWidth: 400, lineHeight: 1.6 }}>
+                Drag the slider to see your total cost and the value Zephyr returns at your team size.
+              </p>
+            </div>
+            <div style={{ textAlign: 'right', flexShrink: 0 }}>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 700,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.8px',
+                  color: calcTab === 'pro' ? C.purpleLight : C.amber,
+                  marginBottom: 4,
+                }}
+              >
+                {isAnnual ? 'Effective per month (annual)' : 'Total per month'}
+              </div>
+              <div style={{ fontSize: 42, fontWeight: 900, letterSpacing: '-1.5px', color: C.white, lineHeight: 1 }}>
+                {fmt(calcTab === 'pro' ? proMonthly : bizMonthly)}
+              </div>
+              <div style={{ fontSize: 12, color: C.gray, marginTop: 4 }}>
+                {isAnnual
+                  ? `Billed as ${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr · you save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`
+                  : `${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr with annual — save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`}
               </div>
             </div>
           </div>
-        </div>
-      </div>
 
-      {/* Usage-Based Pricing */}
-      <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-center">Simple, transparent overages</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="bg-neutral-900">
-            <CardHeader>
-              <CardTitle className="text-lg">Personal</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-neutral-400">
-                <li>Bandwidth: $40 per 100GB</li>
-                <li>Storage: $10 per 50GB</li>
-              </ul>
-            </CardContent>
-          </Card>
+          {/* Slider */}
+          <div style={{ marginBottom: 28 }}>
+            <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
+              <span style={{ fontSize: 12, color: C.grayDark, fontWeight: 500 }}>Seats</span>
+              <strong style={{ fontSize: 14, color: C.white, fontWeight: 800 }}>
+                {calcTab === 'pro' ? proSeats : bizSeats} seats
+              </strong>
+            </div>
+            <input
+              type="range"
+              min={2}
+              max={calcTab === 'pro' ? 75 : 200}
+              value={calcTab === 'pro' ? proSeats : bizSeats}
+              onChange={(e) =>
+                calcTab === 'pro' ? setProSeats(parseInt(e.target.value)) : setBizSeats(parseInt(e.target.value))
+              }
+              className={calcTab === 'pro' ? 'pricing-slider' : 'pricing-slider-biz'}
+              style={{
+                width: '100%',
+                height: 5,
+                borderRadius: 3,
+                outline: 'none',
+                WebkitAppearance: 'none',
+                cursor: 'pointer',
+                background: `linear-gradient(to right,${calcTab === 'pro' ? C.purple : C.amber} 0%,${calcTab === 'pro' ? C.purple : C.amber} ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%,${C.borderLight} ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%,${C.borderLight} 100%)`,
+              }}
+            />
+          </div>
 
-          <Card className="bg-neutral-900">
-            <CardHeader>
-              <CardTitle className="text-lg">Team</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-neutral-400">
-                <li>Bandwidth: $30 per 100GB</li>
-                <li>Storage: $7 per 50GB</li>
-              </ul>
-            </CardContent>
-          </Card>
+          {/* Meta row */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'space-between',
+              alignItems: 'center',
+              paddingTop: 20,
+              borderTop: '1px solid rgba(255,255,255,0.07)',
+              flexWrap: 'wrap',
+              gap: 12,
+            }}
+          >
+            <div style={{ fontSize: 12, color: C.gray }}>
+              Per seat:{' '}
+              <strong style={{ color: C.white }}>
+                {fmt(calcTab === 'pro' ? proEffRate : bizEffRate)}
+                {isAnnual ? ` (was ${fmt(calcTab === 'pro' ? PRO_RATE : BIZ_RATE)})` : ''}
+              </strong>
+            </div>
+            <div style={{ fontSize: 12, color: C.gray }}>
+              Monthly: <strong style={{ color: C.white }}>{fmt(calcTab === 'pro' ? proMonthly : bizMonthly)}</strong>
+            </div>
+            <div style={{ fontSize: 12, color: C.gray }}>
+              Annual: <strong style={{ color: C.white }}>{fmt(calcTab === 'pro' ? proYearly : bizYearly)}</strong>
+              <span
+                style={{
+                  display: 'inline-block',
+                  background: C.greenDim,
+                  color: C.green,
+                  fontSize: 11,
+                  fontWeight: 700,
+                  padding: '2px 8px',
+                  borderRadius: 6,
+                  marginLeft: 6,
+                }}
+              >
+                Save {fmt(calcTab === 'pro' ? proSave : bizSave)}
+              </span>
+            </div>
+            <div style={{ fontSize: 12, color: C.gray }}>
+              {calcTab === 'pro' ? (
+                <>
+                  Need governance or SSO?{' '}
+                  <button
+                    onClick={() => setCalcTab('biz')}
+                    style={{
+                      background: 'none',
+                      border: 'none',
+                      color: C.purpleLight,
+                      fontWeight: 700,
+                      cursor: 'pointer',
+                      fontSize: 12,
+                      fontFamily: 'inherit',
+                      padding: 0,
+                    }}
+                  >
+                    See Business pricing ↑
+                  </button>
+                </>
+              ) : (
+                <>
+                  Need 200+ seats?{' '}
+                  <a
+                    href="mailto:inbound@zephyr-cloud.io?subject=Enterprise"
+                    style={{ color: C.amber, textDecoration: 'none', fontWeight: 700 }}
+                  >
+                    Talk to sales
+                  </a>{' '}
+                  — quoted same day.
+                </>
+              )}
+            </div>
+          </div>
 
-          <Card className="bg-neutral-900">
-            <CardHeader>
-              <CardTitle className="text-lg">Business</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-neutral-400">
-                <li>Bandwidth: $25 per 100GB</li>
-                <li>Storage: $5 per 50GB</li>
-              </ul>
-            </CardContent>
-          </Card>
-        </div>
-      </div>
-
-      {/* FAQ Section */}
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-4">Frequently asked questions</h2>
-        <p className="text-neutral-400 mb-6">Have questions? We're here to help.</p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Button variant="outline" asChild>
-            <a href="https://docs.zephyr-cloud.io/" target="_blank">
-              View Documentation
+          {/* Checkout CTA */}
+          <div style={{ marginTop: 24, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+            <a
+              href="https://app.zephyr-cloud.io/"
+              target="_blank"
+              rel="noopener"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 10,
+                padding: '13px 28px',
+                borderRadius: 8,
+                fontWeight: 700,
+                fontSize: 14,
+                textDecoration: 'none',
+                transition: 'all 0.2s',
+                background: calcTab === 'pro' ? C.purple : C.amber,
+                color: calcTab === 'pro' ? 'white' : '#0A0A0F',
+              }}
+            >
+              Get started — {calcTab === 'pro' ? proSeats : bizSeats} seats ·{' '}
+              {fmt(calcTab === 'pro' ? proMonthly : bizMonthly)}/mo
             </a>
-          </Button>
-          <Button variant="outline" asChild>
-            <a href="mailto:support@zephyr-cloud.io">Contact Support</a>
-          </Button>
+            <span style={{ fontSize: 12, color: C.grayDark }}>No credit card required · free 30-day trial</span>
+          </div>
+
+          {/* ── VALUE METRICS ── */}
+          {(() => {
+            const seats = calcTab === 'pro' ? proSeats : bizSeats;
+            const annualCost = calcTab === 'pro' ? proYearly : bizYearly;
+            const acColor = calcTab === 'pro' ? C.purple : C.amber;
+            const acRgb = calcTab === 'pro' ? '139,92,246' : '232,168,48';
+            // Conservative assumptions
+            const deploysPerSeatPerYear = 250; // 1/day × 250 working days
+            const minsSavedPerDeploy = 12; // 12 min wait/context-switch eliminated per deploy
+            const hourlyRate = 75; // blended frontend engineer rate
+            const rollbacksPerYear = seats; // 1 incident/seat/yr (very conservative)
+            const hoursPerRollback = 3; // detection + coordination + recovery
+            const hoursRecovered = Math.round(seats * deploysPerSeatPerYear * (minsSavedPerDeploy / 60));
+            const deployValueDollars = Math.round(hoursRecovered * hourlyRate);
+            const rollbackValueDollars = Math.round(rollbacksPerYear * hoursPerRollback * hourlyRate);
+            const totalValue = deployValueDollars + rollbackValueDollars;
+            const roi = annualCost > 0 ? Math.round(totalValue / annualCost) : 0;
+            const metrics = [
+              {
+                label: 'Engineering hours recovered / yr',
+                value: `${hoursRecovered.toLocaleString()} hrs`,
+                sub: `${seats} seats × 250 deploys × 12 min saved`,
+              },
+              {
+                label: 'Value of time recovered / yr',
+                value: `$${totalValue.toLocaleString()}`,
+                sub: 'Deploy wait + rollback incidents at $75/hr',
+              },
+              {
+                label: 'Return on investment',
+                value: `${roi}×`,
+                sub: `$${totalValue.toLocaleString()} value vs $${annualCost.toLocaleString()} annual cost`,
+              },
+            ];
+            return (
+              <div
+                style={{
+                  marginTop: 28,
+                  borderTop: `1px solid rgba(${acRgb},0.15)`,
+                  paddingTop: 24,
+                }}
+              >
+                <div
+                  style={{
+                    fontSize: 11,
+                    fontWeight: 700,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.8px',
+                    color: C.grayDark,
+                    marginBottom: 14,
+                  }}
+                >
+                  What this saves your team — based on {seats} seats
+                </div>
+                <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12 }}>
+                  {metrics.map(({ label, value, sub }) => (
+                    <div
+                      key={label}
+                      style={{
+                        background: `rgba(${acRgb},0.06)`,
+                        border: `1px solid rgba(${acRgb},0.15)`,
+                        borderRadius: 10,
+                        padding: '16px 18px',
+                      }}
+                    >
+                      <div style={{ fontSize: 11, color: C.grayDark, marginBottom: 6, lineHeight: 1.4 }}>{label}</div>
+                      <div
+                        style={{ fontSize: 26, fontWeight: 900, letterSpacing: '-1px', color: acColor, lineHeight: 1 }}
+                      >
+                        {value}
+                      </div>
+                      <div style={{ fontSize: 10, color: C.grayDark, marginTop: 6, lineHeight: 1.4 }}>{sub}</div>
+                    </div>
+                  ))}
+                </div>
+                <div style={{ fontSize: 10, color: C.grayDark, marginTop: 10, lineHeight: 1.5 }}>
+                  * Conservative model: 1 deploy/engineer/day, 12 min saved per deploy, $75/hr blended rate, 1 rollback
+                  incident/seat/yr at 3 hrs each. Drag the slider to see your numbers.
+                </div>
+              </div>
+            );
+          })()}
         </div>
       </div>
+
+      {/* ── PROOF BAR ── */}
+      <div
+        style={{
+          borderTop: `1px solid ${C.border}`,
+          borderBottom: `1px solid ${C.border}`,
+          padding: '20px 40px',
+          display: 'flex',
+          justifyContent: 'center',
+          gap: 48,
+          flexWrap: 'wrap',
+          marginBottom: 80,
+        }}
+      >
+        {[
+          { n: '< 15', s: ' min', l: 'Avg. time to first deploy' },
+          { n: '15', s: '+', l: 'Bundler integrations' },
+          { n: '6', s: '+', l: 'Cloud integrations' },
+          { n: '15', s: '+', l: 'Countries' },
+          { n: 'SOC', s: ' 2', l: 'Compliant' },
+        ].map((s) => (
+          <div key={s.l} style={{ textAlign: 'center' }}>
+            <div style={{ fontSize: 22, fontWeight: 900, letterSpacing: '-0.8px', color: C.white, lineHeight: 1 }}>
+              {s.n}
+              <span style={{ color: C.purpleLight }}>{s.s}</span>
+            </div>
+            <div style={{ fontSize: 11, color: C.grayDark, marginTop: 3 }}>{s.l}</div>
+          </div>
+        ))}
+      </div>
+
+      {/* ── SOCIAL PROOF ── */}
+      <section style={{ maxWidth: 960, margin: '0 auto 80px', padding: '0 24px' }}>
+        <div
+          style={{
+            background: C.black2,
+            border: `1px solid ${C.border}`,
+            borderRadius: 12,
+            padding: '32px 40px',
+            display: 'grid',
+            gridTemplateColumns: '1fr auto',
+            gap: 32,
+            alignItems: 'center',
+            marginBottom: 16,
+          }}
+        >
+          <div>
+            <p style={{ fontSize: 16, fontWeight: 600, color: C.white, lineHeight: 1.6, fontStyle: 'italic' }}>
+              <span style={{ color: C.purpleLight, fontSize: 24, lineHeight: 0, verticalAlign: -6, marginRight: 4 }}>
+                "
+              </span>
+              Zephyr gave us the deployment orchestration layer we'd been trying to build internally for two years. We
+              stopped writing tooling and started shipping product.
+              <span style={{ color: C.purpleLight, fontSize: 24, lineHeight: 0, verticalAlign: -6, marginLeft: 4 }}>
+                "
+              </span>
+            </p>
+            <p style={{ fontSize: 12, color: C.grayDark, marginTop: 10 }}>
+              Engineering leadership ·{' '}
+              <strong style={{ color: C.gray, fontWeight: 600 }}>Southern Glazer's Wine &amp; Spirits</strong>
+            </p>
+          </div>
+          <div
+            style={{
+              textAlign: 'right',
+              fontSize: 11,
+              fontWeight: 700,
+              textTransform: 'uppercase',
+              letterSpacing: '1px',
+              color: C.grayDark,
+              whiteSpace: 'nowrap',
+            }}
+          >
+            <span
+              style={{
+                display: 'block',
+                fontSize: 18,
+                fontWeight: 900,
+                color: C.white,
+                letterSpacing: '-0.5px',
+                marginBottom: 4,
+              }}
+            >
+              Southern
+              <br />
+              Glazer's
+            </span>
+            Enterprise customer
+          </div>
+        </div>
+        <div
+          className="stats-grid"
+          style={{
+            background: C.black2,
+            border: `1px solid ${C.border}`,
+            borderRadius: 12,
+            padding: '28px 40px',
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+          }}
+        >
+          <div style={{ paddingRight: 32, borderRight: `1px solid ${C.border}` }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.8px',
+                color: C.purpleLight,
+                marginBottom: 8,
+              }}
+            >
+              Teams using Zephyr report
+            </div>
+            <div style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-1px', color: C.white, lineHeight: 1 }}>
+              1.5 sprints
+            </div>
+            <div style={{ fontSize: 13, color: C.gray, marginTop: 4 }}>
+              recovered per quarter by eliminating internal MF tooling
+            </div>
+          </div>
+          <div style={{ paddingLeft: 32 }}>
+            <div
+              style={{
+                fontSize: 11,
+                fontWeight: 700,
+                textTransform: 'uppercase',
+                letterSpacing: '0.8px',
+                color: C.purpleLight,
+                marginBottom: 8,
+              }}
+            >
+              Average time to first deploy
+            </div>
+            <div style={{ fontSize: 32, fontWeight: 900, letterSpacing: '-1px', color: C.white, lineHeight: 1 }}>
+              &lt; 15 min
+            </div>
+            <div style={{ fontSize: 13, color: C.gray, marginTop: 4 }}>
+              from signup to first cloud deployment — no infrastructure migration required
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── FEATURE TABLE ── */}
+      <section style={{ maxWidth: 1160, margin: '0 auto 80px', padding: '0 24px' }}>
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <h2 style={{ fontSize: 28, fontWeight: 900, letterSpacing: '-0.6px', marginBottom: 8 }}>
+            Everything in the platform
+          </h2>
+          <p style={{ fontSize: 14, color: C.gray }}>Every feature, every tier.</p>
+        </div>
+        <div style={{ overflowX: 'auto' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 13, minWidth: 680 }}>
+            <thead>
+              <tr>
+                {(
+                  [
+                    ['Feature', 'left', C.grayDark, '28%'],
+                    ['Free', 'center', C.grayDark, undefined],
+                    ['Teams', 'center', C.purpleLight, undefined],
+                    ['Business', 'center', C.amber, undefined],
+                    ['Enterprise', 'center', C.grayDark, undefined],
+                  ] as [string, string, string, string | undefined][]
+                ).map(([label, align, color, w]) => (
+                  <th
+                    key={label}
+                    style={{
+                      padding: '10px 16px',
+                      fontSize: 10,
+                      fontWeight: 700,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.8px',
+                      color,
+                      textAlign: align as 'left' | 'center',
+                      borderBottom: `1px solid ${C.border}`,
+                      width: w,
+                    }}
+                  >
+                    {label}
+                  </th>
+                ))}
+              </tr>
+            </thead>
+            <tbody>
+              {(
+                [
+                  { g: 'Deployment' },
+                  { f: 'Cloud integrations', fr: '1', pr: 'All', bz: 'All', en: 'All' },
+                  { f: 'Bundler plugins (15)', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'BYOC', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Instant rollbacks', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Tag / branch env', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Version history', fr: 'Limited', pr: '✓', bz: '✓', en: 'Custom' },
+                  { g: 'Module Federation Native', mfg: true },
+                  { f: 'Environment Overrides', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'Env Variables (no redeploy)', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Zephyr DevTools', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'UML architecture map', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'zephyr.dependencies', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { g: 'Teams & Access' },
+                  { f: 'Collaborators', fr: '—', pr: 'Up to 75', bz: 'Up to 200', en: 'Unlimited' },
+                  { f: 'Per-team permissions', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Advanced roles', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'SSO / SAML', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Approval workflows', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Webhook integrations', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { g: 'Security & Compliance' },
+                  { f: 'Activity log', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Audit log retention', fr: '—', pr: '30 days', bz: '90 days', en: 'Custom' },
+                  { f: 'Uptime SLA', fr: '—', pr: '—', bz: '99.9%', en: '99.99%' },
+                  { f: 'SOC 2 compliance', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { f: 'DPA', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { g: 'Support' },
+                  { f: 'Community support', fr: '✓', pr: '—', bz: '—', en: '—' },
+                  { f: 'Email support', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Priority support', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Dedicated CSM', fr: '—', pr: '—', bz: '—', en: '✓' },
+                ] as Array<{
+                  g?: string;
+                  mfg?: boolean;
+                  f?: string;
+                  fr?: string;
+                  pr?: string;
+                  bz?: string;
+                  en?: string;
+                  mf?: boolean;
+                }>
+              ).map((row, i) => {
+                if (row.g)
+                  return (
+                    <tr key={i}>
+                      <td
+                        colSpan={5}
+                        style={{
+                          background: C.black3,
+                          color: C.grayDark,
+                          fontSize: 10,
+                          fontWeight: 700,
+                          textTransform: 'uppercase',
+                          letterSpacing: '1px',
+                          padding: '8px 16px',
+                          borderTop: `1px solid ${C.border}`,
+                        }}
+                      >
+                        {row.g}
+                        {row.mfg && (
+                          <span style={{ marginLeft: 6 }}>
+                            <MfTag />
+                          </span>
+                        )}
+                      </td>
+                    </tr>
+                  );
+                const cell = (val = '', hl?: 'pro' | 'biz') => {
+                  const color =
+                    val === '✓'
+                      ? C.green
+                      : val === '—'
+                        ? C.borderLight
+                        : val === 'Limited'
+                          ? C.grayDark
+                          : val === 'Custom' || val === 'Unlimited'
+                            ? C.purpleLight
+                            : C.gray;
+                  return (
+                    <td
+                      style={{
+                        padding: '11px 16px',
+                        borderBottom: `1px solid ${C.border}`,
+                        textAlign: 'center',
+                        color,
+                        background:
+                          hl === 'pro'
+                            ? 'rgba(139,92,246,0.04)'
+                            : hl === 'biz'
+                              ? 'rgba(232,168,48,0.04)'
+                              : 'transparent',
+                        fontSize: val === '✓' || val === '—' ? 14 : 11,
+                        fontWeight: val === 'Limited' || val === 'Custom' ? 700 : 400,
+                      }}
+                    >
+                      {val}
+                    </td>
+                  );
+                };
+                return (
+                  <tr key={i} className={cn(path === 'nonmf' && row.mf && 'opacity-40')}>
+                    <td
+                      style={{
+                        padding: '11px 16px',
+                        borderBottom: `1px solid ${C.border}`,
+                        color: C.white,
+                        fontWeight: 500,
+                      }}
+                    >
+                      {row.f}
+                      {row.mf && (
+                        <span style={{ marginLeft: 6 }}>
+                          <MfTag />
+                        </span>
+                      )}
+                    </td>
+                    {cell(row.fr)}
+                    {cell(row.pr, 'pro')}
+                    {cell(row.bz, 'biz')}
+                    {cell(row.en)}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section style={{ maxWidth: 680, margin: '0 auto 80px', padding: '0 24px' }}>
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <h2 style={{ fontSize: 28, fontWeight: 900, letterSpacing: '-0.6px' }}>Common questions</h2>
+        </div>
+        {faqs.map((faq, i) => (
+          <div key={i} style={{ borderBottom: `1px solid ${C.border}` }}>
+            <button
+              onClick={() => setOpenFaq(openFaq === i ? null : i)}
+              style={{
+                width: '100%',
+                background: 'none',
+                border: 'none',
+                color: C.white,
+                fontFamily: 'inherit',
+                fontSize: 14,
+                fontWeight: 600,
+                textAlign: 'left',
+                padding: '18px 0',
+                cursor: 'pointer',
+                display: 'flex',
+                justifyContent: 'space-between',
+                alignItems: 'center',
+                gap: 16,
+              }}
+            >
+              {faq.q}
+              <span
+                style={{
+                  color: openFaq === i ? C.purpleLight : C.grayDark,
+                  fontSize: 18,
+                  flexShrink: 0,
+                  transition: 'transform 0.2s',
+                  display: 'inline-block',
+                  transform: openFaq === i ? 'rotate(45deg)' : 'none',
+                }}
+              >
+                +
+              </span>
+            </button>
+            {openFaq === i && (
+              <div style={{ fontSize: 13, color: C.gray, lineHeight: 1.75, paddingBottom: 18 }}>{faq.a}</div>
+            )}
+          </div>
+        ))}
+      </section>
+
+      {/* ── FINAL CTA ── */}
+      <section style={{ textAlign: 'center', padding: '80px 40px 100px', borderTop: `1px solid ${C.border}` }}>
+        <h2 style={{ fontSize: 40, fontWeight: 900, letterSpacing: '-1px', lineHeight: 1.1, marginBottom: 14 }}>
+          Start free.
+          <br />
+          <span style={{ color: C.purpleLight }}>No cliff. No lock-in.</span>
+        </h2>
+        <p style={{ fontSize: 16, color: C.gray, marginBottom: 32 }}>
+          One cloud integration free, forever. Upgrade when your team is ready.
+        </p>
+        <div style={{ display: 'flex', gap: 12, justifyContent: 'center', flexWrap: 'wrap', marginBottom: 24 }}>
+          <a
+            href="https://app.zephyr-cloud.io/"
+            target="_blank"
+            style={{
+              background: C.purple,
+              color: 'white',
+              fontSize: 14,
+              fontWeight: 700,
+              padding: '14px 32px',
+              borderRadius: 8,
+              textDecoration: 'none',
+            }}
+          >
+            Start for free
+          </a>
+          <a
+            href="mailto:inbound@zephyr-cloud.io?subject=Sales"
+            target="_blank"
+            style={{
+              background: 'transparent',
+              border: `1px solid ${C.borderLight}`,
+              color: C.white,
+              fontSize: 14,
+              fontWeight: 600,
+              padding: '14px 32px',
+              borderRadius: 8,
+              textDecoration: 'none',
+            }}
+          >
+            Talk to sales
+          </a>
+        </div>
+        <div style={{ display: 'flex', gap: 20, justifyContent: 'center', flexWrap: 'wrap' }}>
+          {[
+            'No credit card required',
+            'Cancel anytime',
+            'BYOC — your data stays in your cloud',
+            'Invoice billing available',
+            'Export your data anytime',
+          ].map((t) => (
+            <span key={t} style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: C.grayDark }}>
+              <span
+                style={{
+                  width: 5,
+                  height: 5,
+                  borderRadius: '50%',
+                  background: C.green,
+                  flexShrink: 0,
+                  display: 'inline-block',
+                }}
+              />
+              {t}
+            </span>
+          ))}
+        </div>
+      </section>
+
+      {/* Slider + responsive styles */}
+      <style>{`
+        .pricing-slider::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:${C.purple}; cursor:pointer; box-shadow:0 0 0 4px rgba(139,92,246,0.2); border:2px solid ${C.white}; }
+        .pricing-slider::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:${C.purple}; cursor:pointer; border:2px solid ${C.white}; }
+        .pricing-slider-biz::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:${C.amber}; cursor:pointer; box-shadow:0 0 0 4px rgba(232,168,48,0.2); border:2px solid ${C.white}; }
+        .pricing-slider-biz::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:${C.amber}; cursor:pointer; border:2px solid ${C.white}; }
+        @media (max-width: 960px) {
+          .tier-grid { grid-template-columns: repeat(2,1fr) !important; }
+        }
+        @media (max-width: 600px) {
+          .tier-grid { grid-template-columns: 1fr !important; }
+          .band-grid { grid-template-columns: repeat(2,1fr) !important; }
+          .value-grid { grid-template-columns: 1fr !important; }
+          .calc-header { flex-direction: column !important; }
+          .stats-grid { grid-template-columns: 1fr !important; }
+          .stats-grid > div:first-child { padding-right: 0 !important; border-right: none !important; padding-bottom: 24px; border-bottom: 1px solid ${C.border}; }
+          .stats-grid > div:last-child { padding-left: 0 !important; padding-top: 24px; }
+        }
+      `}</style>
     </div>
+  );
+}
+
+// ── Helpers ────────────────────────────────────────────────────────────────────
+const card = () => ({
+  background: C.black2,
+  border: `1px solid ${C.border}`,
+  borderRadius: 14,
+  padding: '32px 28px',
+  position: 'relative' as const,
+  display: 'flex',
+  flexDirection: 'column' as const,
+});
+const amt = () => ({ fontSize: 48, fontWeight: 900, letterSpacing: '-2px', color: C.white, lineHeight: 1 });
+const featList = () => ({
+  listStyle: 'none' as const,
+  display: 'flex' as const,
+  flexDirection: 'column' as const,
+  gap: 10,
+  margin: 0,
+  padding: 0,
+});
+
+function TierName({ children, purple, amber }: { children: ReactNode; purple?: boolean; amber?: boolean }) {
+  return (
+    <div
+      style={{
+        fontSize: 12,
+        fontWeight: 700,
+        textTransform: 'uppercase',
+        letterSpacing: '1px',
+        color: purple ? C.purpleLight : amber ? C.amber : C.grayDark,
+        marginBottom: 14,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+function TierSeats({ children }: { children: ReactNode }) {
+  return (
+    <div
+      style={{
+        fontSize: 12,
+        color: C.grayDark,
+        paddingBottom: 18,
+        marginBottom: 18,
+        borderBottom: `1px solid ${C.border}`,
+      }}
+    >
+      {children}
+    </div>
+  );
+}
+function Cta({
+  href,
+  children,
+  v,
+  onClick,
+}: {
+  href: string;
+  children: ReactNode;
+  v: 'primary' | 'secondary' | 'amber';
+  onClick?: () => void;
+}) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      onClick={onClick}
+      style={{
+        display: 'block',
+        width: '100%',
+        textAlign: 'center',
+        padding: '12px 20px',
+        borderRadius: 8,
+        fontSize: 14,
+        fontWeight: 700,
+        textDecoration: 'none',
+        marginBottom: 24,
+        transition: 'all 0.2s',
+        ...(v === 'primary'
+          ? { background: C.purple, color: 'white' }
+          : v === 'amber'
+            ? { background: C.amber, color: '#0A0A0F' }
+            : { background: 'transparent', border: `1px solid ${C.borderLight}`, color: C.white }),
+      }}
+    >
+      {children}
+    </a>
+  );
+}
+function Fi({ children, c, dim }: { children: ReactNode; c: 'green' | 'purple' | 'amber'; dim?: boolean }) {
+  const ic = c === 'green' ? C.green : c === 'purple' ? C.purpleLight : C.amber;
+  return (
+    <li
+      style={{
+        fontSize: 13,
+        color: C.gray,
+        display: 'flex',
+        alignItems: 'flex-start',
+        gap: 9,
+        lineHeight: 1.45,
+        opacity: dim ? 0.4 : 1,
+      }}
+    >
+      <span style={{ color: ic, fontSize: 12, marginTop: 1, flexShrink: 0 }}>✓</span>
+      {children}
+    </li>
+  );
+}
+function Divider() {
+  return <li style={{ listStyle: 'none', height: 1, background: C.border, margin: '4px 0' }} />;
+}
+function MfTag() {
+  return (
+    <span
+      style={{
+        fontSize: 9,
+        fontWeight: 700,
+        textTransform: 'uppercase',
+        letterSpacing: '0.5px',
+        background: C.purpleDim,
+        color: C.purpleLight,
+        border: `1px solid rgba(139,92,246,0.3)`,
+        padding: '1px 5px',
+        borderRadius: 3,
+      }}
+    >
+      MF
+    </span>
   );
 }
