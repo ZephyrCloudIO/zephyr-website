@@ -8,24 +8,9 @@ export const Route = createFileRoute('/pricing')({
   component: PricingPage,
 });
 
-// ── Design tokens ──────────────────────────────────────────────────────────────
-const C = {
-  black: '#0A0A0F',
-  black2: '#0F0F1A',
-  black3: '#111118',
-  border: '#1E1E2E',
-  borderLight: '#2D2D3A',
-  purple: '#8B5CF6',
-  purpleLight: '#A78BFA',
-  purpleDim: '#1A0F3A',
-  white: '#F5F4F0',
-  gray: '#9CA3AF',
-  grayDark: '#6B7280',
-  green: '#10B981',
-  greenDim: '#064E3B',
-  amber: '#E8A830',
-  amberDim: '#2A1F08',
-} as const;
+// Non-MF path accent — no DS variable for green
+const GREEN = '#10B981';
+const GREEN_DIM = '#064E3B';
 
 // ── Volume bands ───────────────────────────────────────────────────────────────
 const PRO_BANDS = [
@@ -69,6 +54,9 @@ function PricingPage() {
   const [calcTab, setCalcTab] = useState<'pro' | 'biz'>('pro');
   const [openFaq, setOpenFaq] = useState<number | null>(null);
   const [mobilePlan, setMobilePlan] = useState<'fr' | 'pr' | 'bz' | 'en'>('fr');
+  const [showCalc, setShowCalc] = useState(false);
+  const [showOverages, setShowOverages] = useState(false);
+  const [animatedTotal, setAnimatedTotal] = useState(0);
   const billingRef = useRef<HTMLDivElement>(null);
   const tiersRef = useRef<HTMLElement>(null);
   const panelsRef = useRef<HTMLDivElement>(null);
@@ -102,6 +90,22 @@ function PricingPage() {
   const bizSave = Math.round(bizSeats * bizRate * 12 - bizYearly);
   const bizBandIdx = getBizBandIdx(bizSeats);
   const bizSliderPct = ((bizSeats - 2) / 198) * 100;
+
+  const calcMonthly = calcTab === 'pro' ? proMonthly : bizMonthly;
+  useEffect(() => {
+    const start = animatedTotal;
+    const end = calcMonthly;
+    const duration = 300;
+    const startTime = Date.now();
+    const animate = () => {
+      const elapsed = Date.now() - startTime;
+      const progress = Math.min(elapsed / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setAnimatedTotal(Math.round(start + (end - start) * eased));
+      if (progress < 1) requestAnimationFrame(animate);
+    };
+    requestAnimationFrame(animate);
+  }, [calcMonthly]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const faqs = [
     {
@@ -149,7 +153,7 @@ function PricingPage() {
   return (
     <div style={{ background: 'var(--background)', color: 'var(--foreground)', lineHeight: 1.6 }}>
       {/* ── HERO ── */}
-      <section style={{ textAlign: 'center', padding: '64px 40px 20px', maxWidth: 760, margin: '0 auto' }}>
+      <section style={{ textAlign: 'center', padding: '64px 40px 24px', maxWidth: 760, margin: '0 auto' }}>
         <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">Pricing that scales with your team</h1>
         <p className="text-xl text-muted-foreground">Start for free and scale as you grow.</p>
       </section>
@@ -176,13 +180,17 @@ function PricingPage() {
           ).map(({ id, icon, title, sub }) => {
             const active = path === id;
             const isMf = id === 'mf';
-            const activeColor = isMf ? 'var(--primary)' : C.green;
+            const activeColor = isMf ? 'var(--primary)' : GREEN;
             return (
               <button
                 key={id}
                 onClick={() => selectPath(id)}
                 style={{
-                  background: active ? (isMf ? 'rgba(139,92,246,0.12)' : 'rgba(16,185,129,0.1)') : 'var(--card)',
+                  background: active
+                    ? isMf
+                      ? 'color-mix(in oklch, var(--primary) 12%, transparent)'
+                      : `color-mix(in oklch, ${GREEN} 10%, transparent)`
+                    : 'var(--card)',
                   borderRadius: 12,
                   padding: '22px 28px',
                   cursor: 'pointer',
@@ -194,7 +202,7 @@ function PricingPage() {
                   transition: 'all 0.25s',
                   border: `2px solid ${active ? activeColor : 'var(--border)'}`,
                   boxShadow: active
-                    ? `0 0 0 1px ${activeColor}, 0 8px 32px ${isMf ? 'rgba(139,92,246,0.2)' : 'rgba(16,185,129,0.15)'}`
+                    ? `0 0 0 1px ${activeColor}, 0 8px 32px ${isMf ? 'color-mix(in oklch, var(--primary) 20%, transparent)' : `color-mix(in oklch, ${GREEN} 15%, transparent)`}`
                     : 'none',
                   transform: active ? 'translateY(-2px)' : 'none',
                   fontFamily: 'inherit',
@@ -251,7 +259,7 @@ function PricingPage() {
         {(['mf', 'nonmf'] as const).map((panelId) => {
           const isMf = panelId === 'mf';
           const visible = path === panelId;
-          const accent = isMf ? 'var(--primary-muted)' : C.green;
+          const accent = isMf ? 'var(--primary-muted)' : GREEN;
           const pains = isMf
             ? [
                 {
@@ -313,9 +321,9 @@ function PricingPage() {
                   borderRadius: 14,
                   padding: '40px 48px',
                   background: isMf
-                    ? 'linear-gradient(135deg,#1A0F3A 0%,#0F0F1A 70%)'
-                    : 'linear-gradient(135deg,#062A1F 0%,#0F0F1A 70%)',
-                  border: `1px solid ${isMf ? 'rgba(139,92,246,0.3)' : 'rgba(16,185,129,0.25)'}`,
+                    ? 'linear-gradient(135deg, color-mix(in oklch, var(--primary) 20%, var(--card)) 0%, var(--card) 70%)'
+                    : `linear-gradient(135deg, color-mix(in oklch, ${GREEN_DIM} 80%, var(--card)) 0%, var(--card) 70%)`,
+                  border: `1px solid ${isMf ? 'color-mix(in oklch, var(--primary) 30%, transparent)' : `color-mix(in oklch, ${GREEN} 25%, transparent)`}`,
                 }}
               >
                 <div style={{ marginBottom: 32 }}>
@@ -425,7 +433,7 @@ function PricingPage() {
                 fontSize: 13,
                 fontWeight: 600,
                 padding: '8px 16px',
-                borderRadius: 30,
+                borderRadius: 9999,
                 cursor: 'pointer',
                 transition: 'all 0.2s',
                 fontFamily: 'inherit',
@@ -435,27 +443,13 @@ function PricingPage() {
               }}
             >
               {mode === 'monthly' ? 'Monthly' : 'Yearly'}
-              {mode === 'annual' && (
-                <span
-                  style={{
-                    background: C.greenDim,
-                    color: C.green,
-                    fontSize: 12,
-                    fontWeight: 500,
-                    padding: '2px 8px',
-                    borderRadius: 8,
-                  }}
-                >
-                  Save 15%
-                </span>
-              )}
             </button>
           ))}
         </div>
       </div>
 
       {/* ── TIER CARDS ── */}
-      <section ref={tiersRef} id="tiers" style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 80px' }}>
+      <section ref={tiersRef} id="tiers" style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px 80px' }}>
         <div className="tier-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 14 }}>
           {/* FREE */}
           <div style={card()}>
@@ -491,7 +485,7 @@ function PricingPage() {
                   >
                     0
                   </span>
-                  <span style={{ fontSize: 14, color: 'var(--muted-foreground)', marginLeft: 6, fontWeight: 400 }}>
+                  <span style={{ fontSize: 14, color: 'var(--muted-foreground)', marginLeft: 4, fontWeight: 400 }}>
                     /seat/mo.
                   </span>
                 </div>
@@ -523,7 +517,8 @@ function PricingPage() {
           <div
             style={{
               ...card(),
-              background: 'linear-gradient(193.6deg, var(--card) 0%, rgba(124,58,237,0.35) 100%)',
+              background:
+                'linear-gradient(193.6deg, var(--card) 0%, color-mix(in oklch, var(--primary) 28%, transparent) 100%)',
               border: '2px solid var(--primary)',
             }}
           >
@@ -540,8 +535,8 @@ function PricingPage() {
                     color: 'var(--primary-foreground)',
                     fontSize: 11,
                     fontWeight: 600,
-                    padding: '3px 10px',
-                    borderRadius: 6,
+                    padding: '4px 8px',
+                    borderRadius: 8,
                   }}
                 >
                   Popular
@@ -573,7 +568,7 @@ function PricingPage() {
                   >
                     {isAnnual ? Math.round(PRO_INTRO * ANNUAL_DISC) : PRO_INTRO}
                   </span>
-                  <span style={{ fontSize: 14, color: 'var(--muted-foreground)', marginLeft: 6, fontWeight: 400 }}>
+                  <span style={{ fontSize: 14, color: 'var(--muted-foreground)', marginLeft: 4, fontWeight: 400 }}>
                     /seat/mo.
                   </span>
                 </div>
@@ -586,24 +581,24 @@ function PricingPage() {
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
               <ul style={featList()}>
                 <Fi c="green">
-                  <strong style={{ color: 'var(--foreground)' }}>BYOC</strong> — all cloud integrations
+                  <span style={{ color: 'var(--foreground)' }}>BYOC</span> — all cloud integrations
                 </Fi>
                 <Fi c="green">Instant rollbacks</Fi>
                 <Fi c="green">Full version history</Fi>
                 <Fi c="purple" dim={path === 'nonmf'} mf>
-                  <strong style={{ color: 'var(--foreground)' }}>Environment Overrides</strong>
+                  <span style={{ color: 'var(--foreground)' }}>Environment Overrides</span>
                 </Fi>
                 <Fi c="purple">
-                  <strong style={{ color: 'var(--foreground)' }}>Env Variables</strong> — no redeploy
+                  <span style={{ color: 'var(--foreground)' }}>Env Variables</span> — no redeploy
                 </Fi>
                 <Fi c="purple" dim={path === 'nonmf'} mf>
-                  <strong style={{ color: 'var(--foreground)' }}>Zephyr DevTools</strong>
+                  <span style={{ color: 'var(--foreground)' }}>Zephyr DevTools</span>
                 </Fi>
                 <Fi c="purple" dim={path === 'nonmf'} mf>
-                  <strong style={{ color: 'var(--foreground)' }}>UML architecture map</strong>
+                  <span style={{ color: 'var(--foreground)' }}>UML architecture map</span>
                 </Fi>
                 <Fi c="purple" dim={path === 'nonmf'} mf>
-                  <strong style={{ color: 'var(--foreground)' }}>zephyr.dependencies</strong>
+                  <span style={{ color: 'var(--foreground)' }}>zephyr.dependencies</span>
                 </Fi>
                 <Fi c="green">Per-team deploy permissions</Fi>
                 <Fi c="green">30-day audit logs</Fi>
@@ -650,7 +645,7 @@ function PricingPage() {
                   >
                     {isAnnual ? Math.round(BIZ_INTRO * ANNUAL_DISC) : BIZ_INTRO}
                   </span>
-                  <span style={{ fontSize: 14, color: 'var(--muted-foreground)', marginLeft: 6, fontWeight: 400 }}>
+                  <span style={{ fontSize: 14, color: 'var(--muted-foreground)', marginLeft: 4, fontWeight: 400 }}>
                     /seat/mo.
                   </span>
                 </div>
@@ -698,19 +693,17 @@ function PricingPage() {
                 >
                   starting at
                 </div>
-                <div style={{ display: 'flex', alignItems: 'baseline', gap: 2 }}>
+                <div style={{ display: 'flex', alignItems: 'center', minHeight: 36 }}>
                   <span
                     style={{
-                      fontSize: 36,
+                      fontSize: 20,
                       fontWeight: 600,
                       color: 'var(--foreground)',
-                      letterSpacing: '-1px',
                       lineHeight: 1,
                     }}
                   >
-                    Custom
+                    Custom pricing
                   </span>
-                  <span style={{ fontSize: 14, color: 'transparent', marginLeft: 6, fontWeight: 400 }}>/seat/mo.</span>
                 </div>
               </div>
               <Cta href="mailto:inbound@zephyr-cloud.io?subject=Enterprise" v="secondary">
@@ -745,377 +738,310 @@ function PricingPage() {
       </section>
 
       {/* ── CALCULATOR ── */}
-      <div id="calc" style={{ maxWidth: 960, margin: '0 auto 72px', padding: '0 24px' }}>
-        {/* Single outer border wraps tabs + body — no double borders */}
-        <div
-          style={{
-            border: `1px solid ${calcTab === 'pro' ? 'var(--primary)' : 'rgba(255,255,255,0.18)'}`,
-            borderRadius: 14,
-            overflow: 'hidden',
-            transition: 'border-color 0.3s',
-          }}
-        >
-          {/* Tab switcher */}
-          <div
+      <div id="calc" style={{ maxWidth: 640, margin: '0 auto 72px', padding: '0 24px' }}>
+        <div style={{ textAlign: 'center', marginBottom: 24 }}>
+          <p style={{ fontSize: 14, color: 'var(--muted-foreground)', marginBottom: 16 }}>
+            Seats-based pricing — see your exact monthly total.
+          </p>
+          <button
+            onClick={() => setShowCalc((v) => !v)}
             style={{
-              display: 'flex',
-              borderBottom: `1px solid ${calcTab === 'pro' ? 'var(--primary)' : 'rgba(255,255,255,0.18)'}`,
-              transition: 'border-color 0.3s',
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '8px 16px',
+              borderRadius: 8,
+              background: 'var(--secondary)',
+              color: 'var(--secondary-foreground)',
+              border: 'none',
+              fontSize: 14,
+              fontWeight: 500,
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              transition: 'opacity 0.2s',
             }}
           >
-            {(
-              [
-                {
-                  id: 'pro',
-                  label: 'Teams Calculator',
-                  color: 'var(--foreground)' as string,
-                  activeBg: 'linear-gradient(160deg,#1A0F3A 0%,#0F0F1A 60%)',
-                },
-                {
-                  id: 'biz',
-                  label: 'Business Calculator',
-                  color: 'var(--foreground)' as string,
-                  activeBg: 'var(--card)',
-                },
-              ] as const
-            ).map((tab) => (
-              <button
-                key={tab.id}
-                onClick={() => setCalcTab(tab.id)}
-                style={{
-                  flex: 1,
-                  padding: '8px 16px',
-                  background: calcTab === tab.id ? tab.activeBg : 'var(--card)',
-                  border: 'none',
-                  color: calcTab === tab.id ? tab.color : 'var(--muted-foreground)',
-                  fontSize: 14,
-                  fontWeight: 500,
-                  cursor: 'pointer',
-                  fontFamily: 'inherit',
-                  transition: 'all 0.2s',
-                  letterSpacing: '0.3px',
-                }}
-              >
-                {tab.label}
-              </button>
-            ))}
-          </div>
-
-          {/* Calc body */}
-          <div
-            style={{
-              background: calcTab === 'pro' ? 'linear-gradient(160deg,#1A0F3A 0%,#0F0F1A 60%)' : 'var(--card)',
-              padding: '40px 48px',
-              transition: 'background 0.3s',
-            }}
-          >
-            <div
-              className="calc-header"
+            {showCalc ? 'Hide calculator' : 'Open pricing calculator'}
+            <span
               style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'flex-start',
-                marginBottom: 32,
-                gap: 24,
-                flexWrap: 'wrap',
+                display: 'inline-block',
+                transition: 'transform 0.3s',
+                transform: showCalc ? 'rotate(45deg)' : 'rotate(0deg)',
+                fontSize: 16,
+                lineHeight: 1,
               }}
             >
-              <div>
-                <h3
+              +
+            </span>
+          </button>
+        </div>
+        <div
+          style={{
+            maxHeight: showCalc ? 800 : 0,
+            overflow: 'hidden',
+            transition: 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        >
+          <div
+            style={{
+              background:
+                'linear-gradient(180deg, color-mix(in oklch, var(--primary) 6%, transparent) 0%, var(--card) 40%)',
+              border: '1px solid var(--border)',
+              borderRadius: 16,
+              overflow: 'hidden',
+            }}
+          >
+            {/* Tab switcher */}
+            <div style={{ display: 'flex', position: 'relative', borderBottom: '1px solid var(--border)' }}>
+              <div
+                style={{
+                  position: 'absolute',
+                  bottom: 0,
+                  left: calcTab === 'pro' ? '0%' : '50%',
+                  width: '50%',
+                  height: 2,
+                  background: 'var(--primary)',
+                  transition: 'left 0.3s',
+                  borderRadius: '1px 1px 0 0',
+                }}
+              />
+              {(['pro', 'biz'] as const).map((t) => (
+                <button
+                  key={t}
+                  onClick={() => {
+                    if (t === 'biz') setBizSeats(Math.min(proSeats, 200));
+                    else setProSeats(Math.min(bizSeats, 75));
+                    setCalcTab(t);
+                  }}
                   style={{
-                    fontSize: 18,
-                    fontWeight: 600,
-                    letterSpacing: '-0.4px',
-                    color: 'var(--foreground)',
-                    marginBottom: 6,
+                    flex: 1,
+                    padding: '16px 0',
+                    border: 'none',
+                    background: 'rgba(255,255,255,0.03)',
+                    color: calcTab === t ? 'var(--foreground)' : 'var(--muted-foreground)',
+                    fontSize: 14,
+                    fontWeight: 500,
+                    cursor: 'pointer',
+                    fontFamily: 'inherit',
+                    transition: 'color 0.2s',
+                    letterSpacing: '0.02em',
                   }}
                 >
-                  {calcTab === 'pro' ? 'Teams' : 'Business'} — see your exact price
-                </h3>
-                <p style={{ fontSize: 13, color: 'var(--muted-foreground)', maxWidth: 400, lineHeight: 1.6 }}>
-                  The more seats you add, the less you pay per seat. Click a tier or drag the slider.
-                </p>
-              </div>
-              <div style={{ textAlign: 'right', flexShrink: 0 }}>
+                  {t === 'pro' ? 'Teams' : 'Business'}
+                </button>
+              ))}
+            </div>
+
+            <div style={{ padding: '32px' }}>
+              {/* CSS Grid: two-column on desktop, stacked on mobile — see index.css .calc-output */}
+              <div className="calc-output">
                 <div
+                  className="calc-output-label"
                   style={{
                     fontSize: 11,
                     fontWeight: 600,
                     textTransform: 'uppercase',
-                    letterSpacing: '0.8px',
-                    color: calcTab === 'pro' ? 'var(--primary-muted)' : 'var(--muted-foreground)',
-                    marginBottom: 4,
+                    letterSpacing: '1px',
+                    fontFamily: 'var(--font-mono)',
+                    color: 'var(--muted-foreground)',
                   }}
                 >
-                  {isAnnual ? 'Effective per month (yearly)' : 'Total per month'}
+                  Monthly total
                 </div>
-                <div
+                <button
+                  className="calc-output-switch"
+                  onClick={() => setBilling((b) => (b === 'annual' ? 'monthly' : 'annual'))}
                   style={{
-                    fontSize: 42,
-                    fontWeight: 600,
-                    letterSpacing: '-1.5px',
-                    color: 'var(--foreground)',
-                    lineHeight: 1,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 8,
+                    background: 'none',
+                    border: 'none',
+                    cursor: 'pointer',
+                    padding: 0,
+                    fontFamily: 'inherit',
                   }}
                 >
-                  {fmt(calcTab === 'pro' ? proMonthly : bizMonthly)}
-                </div>
-                <div style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 4 }}>
-                  {isAnnual
-                    ? `Billed as ${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr · you save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`
-                    : `${fmt(calcTab === 'pro' ? proYearly : bizYearly)}/yr with yearly — save ${fmt(calcTab === 'pro' ? proSave : bizSave)}`}
-                </div>
-              </div>
-            </div>
-
-            {/* Slider */}
-            <div style={{ marginBottom: 28 }}>
-              <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: 8 }}>
-                <span style={{ fontSize: 12, color: 'var(--muted-foreground)', fontWeight: 500 }}>Seats</span>
-                <strong style={{ fontSize: 14, color: 'var(--foreground)', fontWeight: 600 }}>
-                  {calcTab === 'pro' ? proSeats : bizSeats} seats
-                </strong>
-              </div>
-              <input
-                type="range"
-                min={2}
-                max={calcTab === 'pro' ? 75 : 200}
-                value={calcTab === 'pro' ? proSeats : bizSeats}
-                onChange={(e) =>
-                  calcTab === 'pro' ? setProSeats(parseInt(e.target.value)) : setBizSeats(parseInt(e.target.value))
-                }
-                className={calcTab === 'pro' ? 'pricing-slider' : 'pricing-slider-biz'}
-                style={{
-                  width: '100%',
-                  height: 5,
-                  borderRadius: 3,
-                  outline: 'none',
-                  WebkitAppearance: 'none',
-                  cursor: 'pointer',
-                  background: `linear-gradient(to right,${calcTab === 'pro' ? 'var(--primary)' : 'var(--foreground)'} 0%,${calcTab === 'pro' ? 'var(--primary)' : 'var(--foreground)'} ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%,var(--input) ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%,var(--input) 100%)`,
-                }}
-              />
-            </div>
-
-            {/* Band cards */}
-            <div
-              className="band-grid"
-              style={{ display: 'grid', gridTemplateColumns: 'repeat(4,1fr)', gap: 10, marginBottom: 24 }}
-            >
-              {(calcTab === 'pro' ? PRO_BANDS : BIZ_BANDS).map((band, i) => {
-                const acColor = calcTab === 'pro' ? 'var(--primary)' : 'var(--muted-foreground)';
-                const introRate = calcTab === 'pro' ? PRO_INTRO : BIZ_INTRO;
-                const dr = isAnnual ? Math.round(band.rate * ANNUAL_DISC) : band.rate;
-                const saving = Math.round((1 - band.rate / introRate) * 100);
-                const active = calcTab === 'pro' ? proBandIdx === i : bizBandIdx === i;
-                const rgbActive = calcTab === 'pro' ? '139,92,246' : '115,115,115';
-                return (
-                  <div
-                    key={i}
-                    onClick={() => (calcTab === 'pro' ? setProSeats(band.midpoint) : setBizSeats(band.midpoint))}
+                  <span
                     style={{
-                      background: active ? `rgba(${rgbActive},0.15)` : 'rgba(255,255,255,0.04)',
-                      border: `1px solid ${active ? acColor : 'rgba(255,255,255,0.06)'}`,
-                      boxShadow: active ? `0 0 16px rgba(${rgbActive},0.1)` : 'none',
-                      borderRadius: 8,
-                      padding: '14px 12px',
-                      textAlign: 'center',
-                      transition: 'all 0.25s',
-                      cursor: 'pointer',
+                      fontSize: 11,
+                      fontWeight: 600,
+                      letterSpacing: '1.5px',
+                      textTransform: 'uppercase',
+                      color: 'var(--muted-foreground)',
+                    }}
+                  >
+                    Annual
+                  </span>
+                  <div
+                    style={{
+                      width: 36,
+                      height: 20,
+                      borderRadius: 9999,
+                      background: isAnnual ? 'var(--primary)' : 'var(--input)',
+                      padding: 2,
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: isAnnual ? 'flex-end' : 'flex-start',
+                      transition: 'background 0.2s',
+                      flexShrink: 0,
                     }}
                   >
                     <div
                       style={{
-                        fontSize: 10,
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.5px',
-                        color: active ? 'var(--foreground)' : 'var(--muted-foreground)',
-                        marginBottom: 6,
+                        width: 16,
+                        height: 16,
+                        borderRadius: 9999,
+                        background: 'var(--primary-foreground)',
+                        boxShadow: '0 1px 3px rgba(0,0,0,0.2)',
+                        transition: 'transform 0.2s',
                       }}
-                    >
-                      {band.label}
-                    </div>
-                    <div
-                      style={{
-                        fontSize: 22,
-                        fontWeight: 600,
-                        letterSpacing: '-0.8px',
-                        color: 'var(--foreground)',
-                        lineHeight: 1,
-                        marginBottom: 3,
-                      }}
-                    >
-                      {fmt(dr)}
-                    </div>
-                    <div style={{ fontSize: 10, color: 'var(--muted-foreground)' }}>
-                      per seat / {isAnnual ? 'mo (yearly)' : 'mo'}
-                    </div>
-                    <div style={{ fontSize: 10, fontWeight: 500, color: C.green, marginTop: 5, minHeight: 14 }}>
-                      {saving === 0 ? 'introductory rate' : `${saving}% less than intro`}
-                    </div>
+                    />
                   </div>
-                );
-              })}
-            </div>
-
-            {/* Meta row */}
-            <div
-              style={{
-                display: 'flex',
-                justifyContent: 'space-between',
-                alignItems: 'center',
-                paddingTop: 20,
-                borderTop: '1px solid rgba(255,255,255,0.07)',
-                flexWrap: 'wrap',
-                gap: 12,
-              }}
-            >
-              <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>
-                Per seat:{' '}
-                <strong style={{ color: 'var(--foreground)' }}>
-                  {fmt(calcTab === 'pro' ? proEffRate : bizEffRate)}
-                  {isAnnual ? ` (was ${fmt(calcTab === 'pro' ? proRate : bizRate)})` : ''}
-                </strong>
-              </div>
-              <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>
-                Monthly:{' '}
-                <strong style={{ color: 'var(--foreground)' }}>
-                  {fmt(calcTab === 'pro' ? proMonthly : bizMonthly)}
-                </strong>
-              </div>
-              <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>
-                Yearly:{' '}
-                <strong style={{ color: 'var(--foreground)' }}>{fmt(calcTab === 'pro' ? proYearly : bizYearly)}</strong>
-                <span
+                </button>
+                <div
+                  className="calc-output-number"
                   style={{
-                    display: 'inline-block',
-                    background: C.greenDim,
-                    color: C.green,
-                    fontSize: 12,
-                    fontWeight: 500,
-                    padding: '2px 8px',
-                    borderRadius: 8,
-                    marginLeft: 6,
+                    fontSize: 56,
+                    fontWeight: 600,
+                    color: 'var(--foreground)',
+                    lineHeight: 1,
+                    letterSpacing: '-0.02em',
                   }}
                 >
-                  Save {fmt(calcTab === 'pro' ? proSave : bizSave)}
+                  <span style={{ fontSize: 32, opacity: 0.5, marginRight: 2 }}>$</span>
+                  {animatedTotal.toLocaleString('en-US')}
+                </div>
+                <div className="calc-output-rate">
+                  <div style={{ fontSize: 14, color: 'var(--muted-foreground)', lineHeight: 1 }}>
+                    {fmt(calcTab === 'pro' ? proEffRate : bizEffRate)}
+                    <span style={{ fontSize: 12, opacity: 0.6 }}>/seat</span>
+                  </div>
+                  <div style={{ fontSize: 12, color: 'var(--muted-foreground)', fontWeight: 500, lineHeight: 1 }}>
+                    Save {fmt(calcTab === 'pro' ? proSave : bizSave)}/yr on yearly
+                  </div>
+                </div>
+              </div>
+
+              {/* Divider */}
+              <div
+                style={{
+                  height: 1,
+                  background: 'linear-gradient(90deg, transparent, var(--border), transparent)',
+                  margin: '24px 0',
+                }}
+              />
+
+              {/* Seats row + slider */}
+              <div
+                style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 16 }}
+              >
+                <span style={{ fontSize: 14, color: 'var(--muted-foreground)', fontWeight: 500 }}>Seats</span>
+                <span style={{ fontSize: 28, fontWeight: 600, color: 'var(--foreground)' }}>
+                  {calcTab === 'pro' ? proSeats : bizSeats}
                 </span>
               </div>
-              <div style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>
-                {calcTab === 'pro' ? (
-                  <>
-                    Need governance or SSO?{' '}
+              <div style={{ marginBottom: 24 }}>
+                <input
+                  type="range"
+                  min={2}
+                  max={calcTab === 'pro' ? 75 : 200}
+                  value={calcTab === 'pro' ? proSeats : bizSeats}
+                  onChange={(e) =>
+                    calcTab === 'pro' ? setProSeats(parseInt(e.target.value)) : setBizSeats(parseInt(e.target.value))
+                  }
+                  className={calcTab === 'pro' ? 'pricing-slider' : 'pricing-slider-biz'}
+                  style={{
+                    width: '100%',
+                    height: 6,
+                    borderRadius: 3,
+                    outline: 'none',
+                    WebkitAppearance: 'none',
+                    cursor: 'pointer',
+                    background: `linear-gradient(to right, var(--primary) 0%, var(--primary) ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%, var(--input) ${calcTab === 'pro' ? proSliderPct : bizSliderPct}%, var(--input) 100%)`,
+                  }}
+                />
+              </div>
+
+              {/* Tier pills */}
+              <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginBottom: 24 }}>
+                {(calcTab === 'pro' ? PRO_BANDS : BIZ_BANDS).map((band, i) => {
+                  const active = calcTab === 'pro' ? proBandIdx === i : bizBandIdx === i;
+                  return (
                     <button
-                      onClick={() => setCalcTab('biz')}
+                      key={i}
+                      onClick={() => (calcTab === 'pro' ? setProSeats(band.midpoint) : setBizSeats(band.midpoint))}
                       style={{
-                        background: 'none',
-                        border: 'none',
-                        color: 'var(--primary-muted)',
-                        fontWeight: 600,
+                        padding: '6px 14px',
+                        borderRadius: 999,
+                        fontSize: 13,
+                        fontWeight: 500,
                         cursor: 'pointer',
-                        fontSize: 12,
+                        border: `1px solid ${active ? 'var(--primary)' : 'var(--border)'}`,
+                        background: active ? 'color-mix(in oklch, var(--primary) 15%, transparent)' : 'transparent',
+                        color: active ? 'var(--primary-muted)' : 'var(--muted-foreground)',
                         fontFamily: 'inherit',
-                        padding: 0,
+                        transition: 'all 0.2s',
+                        whiteSpace: 'nowrap',
                       }}
                     >
-                      See Business pricing ↑
+                      {band.min}–{band.max} seats
                     </button>
-                  </>
-                ) : (
-                  <>
-                    Need 200+ seats?{' '}
-                    <a
-                      href="mailto:inbound@zephyr-cloud.io?subject=Enterprise"
-                      style={{ color: 'var(--foreground)', textDecoration: 'none', fontWeight: 600 }}
-                    >
-                      Talk to sales
-                    </a>{' '}
-                    — quoted same day.
-                  </>
-                )}
+                  );
+                })}
               </div>
-            </div>
 
-            {/* Checkout CTA */}
-            <div style={{ marginTop: 24, display: 'flex', alignItems: 'center', gap: 16, flexWrap: 'wrap' }}>
+              {/* Divider */}
+              <div
+                style={{
+                  height: 1,
+                  background: 'linear-gradient(90deg, transparent, var(--border), transparent)',
+                  margin: '0 0 32px',
+                }}
+              />
+
+              {/* CTA */}
               <a
                 href="https://app.zephyr-cloud.io/"
                 target="_blank"
                 rel="noopener"
                 style={{
-                  display: 'inline-flex',
-                  alignItems: 'center',
-                  gap: 10,
-                  padding: '8px 16px',
+                  display: 'block',
+                  width: '100%',
+                  textAlign: 'center',
+                  padding: '10px 24px',
                   borderRadius: 8,
-                  fontWeight: 500,
+                  background: 'var(--primary)',
+                  color: 'var(--primary-foreground)',
                   fontSize: 14,
+                  fontWeight: 500,
                   textDecoration: 'none',
-                  transition: 'all 0.2s',
-                  background: calcTab === 'pro' ? 'var(--primary)' : 'var(--secondary)',
-                  color: calcTab === 'pro' ? 'var(--primary-foreground)' : 'var(--secondary-foreground)',
+                  transition: 'opacity 0.2s',
                 }}
               >
                 Get started — {calcTab === 'pro' ? proSeats : bizSeats} seats ·{' '}
                 {fmt(calcTab === 'pro' ? proMonthly : bizMonthly)}/mo
               </a>
-              <span style={{ fontSize: 12, color: 'var(--muted-foreground)' }}>
+              <div style={{ textAlign: 'center', marginTop: 16, fontSize: 13, color: 'var(--muted-foreground)' }}>
                 No credit card required · free 30-day trial
-              </span>
+              </div>
             </div>
           </div>
         </div>
-        {/* end outer border wrapper */}
+        {/* end collapse wrapper */}
       </div>
 
-      {/* ── PROOF BAR ── */}
-      <div
-        style={{
-          borderTop: '1px solid var(--border)',
-          borderBottom: '1px solid var(--border)',
-          padding: '20px 40px',
-          display: 'flex',
-          justifyContent: 'center',
-          gap: 48,
-          flexWrap: 'wrap',
-          marginBottom: 80,
-        }}
-      >
-        {[
-          { n: '< 15', s: ' min', l: 'Avg. time to first deploy' },
-          { n: '15', s: '+', l: 'Bundler integrations' },
-          { n: '6', s: '+', l: 'Cloud integrations' },
-          { n: '15', s: '+', l: 'Countries' },
-          { n: 'SOC', s: ' 2', l: 'Compliant' },
-        ].map((s) => (
-          <div key={s.l} style={{ textAlign: 'center' }}>
-            <div
-              style={{
-                fontSize: 22,
-                fontWeight: 600,
-                letterSpacing: '-0.8px',
-                color: 'var(--foreground)',
-                lineHeight: 1,
-              }}
-            >
-              {s.n}
-              <span style={{ color: 'var(--primary-muted)' }}>{s.s}</span>
-            </div>
-            <div style={{ fontSize: 11, color: 'var(--muted-foreground)', marginTop: 3 }}>{s.l}</div>
-          </div>
-        ))}
-      </div>
+      {/* ── PROOF BAR ── (hidden) */}
 
       {/* ── SOCIAL PROOF ── */}
       <section style={{ maxWidth: 960, margin: '0 auto 80px', padding: '0 24px' }}>
         <div
           className="testimonial-card"
           style={{
-            background: 'var(--card)',
+            background: '#0d0d0d',
             border: '1px solid var(--border)',
-            borderRadius: 12,
-            padding: '28px 40px',
+            borderRadius: 16,
+            padding: '32px 40px',
             marginBottom: 16,
             display: 'flex',
             alignItems: 'center',
@@ -1164,7 +1090,7 @@ function PricingPage() {
                 "
               </span>
             </p>
-            <p style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 10 }}>
+            <p style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 8 }}>
               Engineering leadership ·{' '}
               <strong style={{ color: 'var(--foreground)', fontWeight: 600 }}>
                 Southern Glazer's Wine &amp; Spirits
@@ -1183,8 +1109,8 @@ function PricingPage() {
           style={{
             background: 'var(--card)',
             border: '1px solid var(--border)',
-            borderRadius: 12,
-            padding: '28px 40px',
+            borderRadius: 16,
+            padding: '32px 40px',
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
           }}
@@ -1249,8 +1175,8 @@ function PricingPage() {
       </section>
 
       {/* ── FEATURE TABLE ── */}
-      <section style={{ maxWidth: 1160, margin: '0 auto 80px', padding: '0 24px' }}>
-        <div style={{ marginBottom: 36 }}>
+      <section style={{ maxWidth: 1280, margin: '0 auto 80px', padding: '0 24px' }}>
+        <div style={{ marginBottom: 32 }}>
           <h2 className="text-4xl font-normal text-[#faf5ff]" style={{ marginBottom: 8 }}>
             Everything in the platform
           </h2>
@@ -1272,7 +1198,7 @@ function PricingPage() {
               type="button"
               onClick={() => setMobilePlan(key)}
               style={{
-                padding: '2px 12px',
+                padding: '4px 8px',
                 minHeight: 32,
                 borderRadius: 8,
                 fontSize: 12,
@@ -1316,12 +1242,12 @@ function PricingPage() {
                     key={label || 'feature'}
                     style={{
                       padding: '20px',
-                      fontSize: 14,
+                      fontSize: 16,
                       fontWeight: 500,
                       color: 'var(--foreground)',
                       textAlign: align as 'left' | 'center',
                       width: w,
-                      borderLeft: i > 0 ? '0.5px solid rgba(255,255,255,0.15)' : undefined,
+                      borderRight: i < 4 ? '1px solid rgba(255,255,255,0.15)' : undefined,
                     }}
                   >
                     {label}
@@ -1332,39 +1258,40 @@ function PricingPage() {
             <tbody>
               {(
                 [
-                  { g: 'Deployment' },
+                  { g: 'Deployment', sub: 'Preview environments, rollbacks, and pipeline control' },
                   { f: 'Cloud integrations', fr: '1', pr: 'All', bz: 'All', en: 'All' },
                   { f: 'Bundler plugins (15)', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'BYOC', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Instant rollbacks', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Tag / branch env', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Version history', fr: 'Limited', pr: '✓', bz: '✓', en: 'Custom' },
-                  { g: 'Module Federation Native', mfg: true },
+                  { g: 'Module Federation Native', sub: 'Built for MF teams, not bolted on', mfg: true },
                   { f: 'Environment Overrides', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
                   { f: 'Env Variables (no redeploy)', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Zephyr DevTools', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
                   { f: 'UML architecture map', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
                   { f: 'zephyr.dependencies', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
-                  { g: 'Teams & Access' },
+                  { g: 'Teams & Access', sub: 'Roles, seat management, and permissions' },
                   { f: 'Collaborators', fr: '—', pr: 'Up to 75', bz: 'Up to 200', en: 'Unlimited' },
                   { f: 'Per-team permissions', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Advanced roles', fr: '—', pr: '—', bz: '✓', en: '✓' },
                   { f: 'SSO / SAML', fr: '—', pr: '—', bz: '✓', en: '✓' },
                   { f: 'Approval workflows', fr: '—', pr: '—', bz: '✓', en: '✓' },
                   { f: 'Webhook integrations', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { g: 'Security & Compliance' },
+                  { g: 'Security & Compliance', sub: 'Audit logs, certifications, and data governance' },
                   { f: 'Activity log', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Audit log retention', fr: '—', pr: '30 days', bz: '90 days', en: 'Custom' },
                   { f: 'Uptime SLA', fr: '—', pr: '—', bz: '99.9%', en: '99.99%' },
                   { f: 'SOC 2 compliance', fr: '—', pr: '—', bz: '—', en: '✓' },
                   { f: 'DPA', fr: '—', pr: '—', bz: '—', en: '✓' },
-                  { g: 'Support' },
+                  { g: 'Support', sub: 'Help when you need it' },
                   { f: 'Community support', fr: '✓', pr: '—', bz: '—', en: '—' },
                   { f: 'Email support', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Priority support', fr: '—', pr: '—', bz: '✓', en: '✓' },
                   { f: 'Dedicated CSM', fr: '—', pr: '—', bz: '—', en: '✓' },
                 ] as Array<{
                   g?: string;
+                  sub?: string;
                   mfg?: boolean;
                   f?: string;
                   fr?: string;
@@ -1380,17 +1307,29 @@ function PricingPage() {
                       <td
                         colSpan={5}
                         style={{
-                          background: 'rgba(255,255,255,0.05)',
-                          color: 'var(--foreground)',
-                          fontSize: 20,
-                          fontWeight: 500,
-                          padding: '16px 20px',
+                          background: 'transparent',
+                          borderTop: '1px solid rgba(255,255,255,0.1)',
+                          padding: '32px 24px 24px',
                         }}
                       >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          {row.g}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: row.sub ? 8 : 0 }}>
+                          <span
+                            style={{
+                              fontSize: 24,
+                              fontWeight: 400,
+                              color: 'var(--foreground)',
+                              letterSpacing: '-0.3px',
+                            }}
+                          >
+                            {row.g}
+                          </span>
                           {row.mfg && <MfTag />}
                         </div>
+                        {row.sub && (
+                          <div style={{ fontSize: 16, color: 'var(--muted-foreground)', fontWeight: 400 }}>
+                            {row.sub}
+                          </div>
+                        )}
                       </td>
                     </tr>
                   );
@@ -1409,8 +1348,8 @@ function PricingPage() {
                     <td
                       style={{
                         padding: '16px 20px',
-                        borderTop: '0.5px solid rgba(255,255,255,0.15)',
-                        borderLeft: '0.5px solid rgba(255,255,255,0.15)',
+                        borderTop: '1px solid rgba(255,255,255,0.1)',
+                        borderLeft: '1px solid rgba(255,255,255,0.1)',
                         textAlign: 'center',
                         color,
                         minHeight: 60,
@@ -1427,7 +1366,7 @@ function PricingPage() {
                     <td
                       style={{
                         padding: '20px',
-                        borderTop: '0.5px solid rgba(255,255,255,0.15)',
+                        borderTop: '1px solid rgba(255,255,255,0.1)',
                         color: 'var(--foreground)',
                         fontWeight: 400,
                         fontSize: 14,
@@ -1435,7 +1374,7 @@ function PricingPage() {
                     >
                       {row.f}
                       {row.mf && (
-                        <span style={{ marginLeft: 6 }}>
+                        <span style={{ marginLeft: 8 }}>
                           <MfTag />
                         </span>
                       )}
@@ -1484,7 +1423,7 @@ function PricingPage() {
                     fontWeight: 500,
                     color: 'var(--foreground)',
                     textAlign: 'center',
-                    borderLeft: '0.5px solid rgba(255,255,255,0.15)',
+                    borderLeft: '1px solid rgba(255,255,255,0.1)',
                   }}
                 >
                   {mobilePlan === 'fr'
@@ -1500,39 +1439,40 @@ function PricingPage() {
             <tbody>
               {(
                 [
-                  { g: 'Deployment' },
+                  { g: 'Deployment', sub: 'Preview environments, rollbacks, and pipeline control' },
                   { f: 'Cloud integrations', fr: '1', pr: 'All', bz: 'All', en: 'All' },
                   { f: 'Bundler plugins (15)', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'BYOC', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Instant rollbacks', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Tag / branch env', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Version history', fr: 'Limited', pr: '✓', bz: '✓', en: 'Custom' },
-                  { g: 'Module Federation Native', mfg: true },
+                  { g: 'Module Federation Native', sub: 'Built for MF teams, not bolted on', mfg: true },
                   { f: 'Environment Overrides', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
                   { f: 'Env Variables (no redeploy)', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Zephyr DevTools', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
                   { f: 'UML architecture map', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
                   { f: 'zephyr.dependencies', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
-                  { g: 'Teams & Access' },
+                  { g: 'Teams & Access', sub: 'Roles, seat management, and permissions' },
                   { f: 'Collaborators', fr: '—', pr: 'Up to 75', bz: 'Up to 200', en: 'Unlimited' },
                   { f: 'Per-team permissions', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Advanced roles', fr: '—', pr: '—', bz: '✓', en: '✓' },
                   { f: 'SSO / SAML', fr: '—', pr: '—', bz: '✓', en: '✓' },
                   { f: 'Approval workflows', fr: '—', pr: '—', bz: '✓', en: '✓' },
                   { f: 'Webhook integrations', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { g: 'Security & Compliance' },
+                  { g: 'Security & Compliance', sub: 'Audit logs, certifications, and data governance' },
                   { f: 'Activity log', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Audit log retention', fr: '—', pr: '30 days', bz: '90 days', en: 'Custom' },
                   { f: 'Uptime SLA', fr: '—', pr: '—', bz: '99.9%', en: '99.99%' },
                   { f: 'SOC 2 compliance', fr: '—', pr: '—', bz: '—', en: '✓' },
                   { f: 'DPA', fr: '—', pr: '—', bz: '—', en: '✓' },
-                  { g: 'Support' },
+                  { g: 'Support', sub: 'Help when you need it' },
                   { f: 'Community support', fr: '✓', pr: '—', bz: '—', en: '—' },
                   { f: 'Email support', fr: '—', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Priority support', fr: '—', pr: '—', bz: '✓', en: '✓' },
                   { f: 'Dedicated CSM', fr: '—', pr: '—', bz: '—', en: '✓' },
                 ] as Array<{
                   g?: string;
+                  sub?: string;
                   mfg?: boolean;
                   f?: string;
                   fr?: string;
@@ -1548,17 +1488,29 @@ function PricingPage() {
                       <td
                         colSpan={2}
                         style={{
-                          background: 'rgba(255,255,255,0.05)',
-                          color: 'var(--foreground)',
-                          fontSize: 16,
-                          fontWeight: 500,
-                          padding: '12px 16px',
+                          background: 'transparent',
+                          borderTop: '1px solid rgba(255,255,255,0.1)',
+                          padding: '24px 16px 16px',
                         }}
                       >
-                        <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
-                          {row.g}
+                        <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: row.sub ? 8 : 0 }}>
+                          <span
+                            style={{
+                              fontSize: 20,
+                              fontWeight: 400,
+                              color: 'var(--foreground)',
+                              letterSpacing: '-0.3px',
+                            }}
+                          >
+                            {row.g}
+                          </span>
                           {row.mfg && <MfTag />}
                         </div>
+                        {row.sub && (
+                          <div style={{ fontSize: 14, color: 'var(--muted-foreground)', fontWeight: 400 }}>
+                            {row.sub}
+                          </div>
+                        )}
                       </td>
                     </tr>
                   );
@@ -1577,8 +1529,8 @@ function PricingPage() {
                   <tr key={i} className={cn(path === 'nonmf' && row.mf && 'opacity-40')}>
                     <td
                       style={{
-                        padding: '14px 16px',
-                        borderTop: '0.5px solid rgba(255,255,255,0.15)',
+                        padding: '16px',
+                        borderTop: '1px solid rgba(255,255,255,0.1)',
                         color: 'var(--foreground)',
                         fontWeight: 400,
                         fontSize: 13,
@@ -1586,16 +1538,16 @@ function PricingPage() {
                     >
                       {row.f}
                       {row.mf && (
-                        <span style={{ marginLeft: 6 }}>
+                        <span style={{ marginLeft: 8 }}>
                           <MfTag />
                         </span>
                       )}
                     </td>
                     <td
                       style={{
-                        padding: '14px 16px',
-                        borderTop: '0.5px solid rgba(255,255,255,0.15)',
-                        borderLeft: '0.5px solid rgba(255,255,255,0.15)',
+                        padding: '16px',
+                        borderTop: '1px solid rgba(255,255,255,0.1)',
+                        borderLeft: '1px solid rgba(255,255,255,0.1)',
                         textAlign: 'center',
                         color,
                         fontSize: val === '✓' || val === '—' ? 15 : 12,
@@ -1612,10 +1564,221 @@ function PricingPage() {
         </div>
       </section>
 
+      {/* ── OVERAGES ── */}
+      <section style={{ maxWidth: 1280, margin: '0 auto 80px', padding: '0 24px' }}>
+        <div style={{ textAlign: 'center', marginBottom: 24 }}>
+          <button
+            onClick={() => setShowOverages((v) => !v)}
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 8,
+              padding: '8px 16px',
+              borderRadius: 8,
+              background: 'var(--secondary)',
+              color: 'var(--secondary-foreground)',
+              border: 'none',
+              fontSize: 14,
+              fontWeight: 500,
+              cursor: 'pointer',
+              fontFamily: 'inherit',
+              transition: 'opacity 0.2s',
+            }}
+          >
+            {showOverages ? 'Hide overage rates' : 'View overage rates'}
+            <span
+              style={{
+                display: 'inline-block',
+                transition: 'transform 0.3s',
+                transform: showOverages ? 'rotate(45deg)' : 'rotate(0deg)',
+                fontSize: 16,
+                lineHeight: 1,
+              }}
+            >
+              +
+            </span>
+          </button>
+        </div>
+        <div
+          style={{
+            maxHeight: showOverages ? 600 : 0,
+            overflow: 'hidden',
+            transition: 'max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
+          }}
+        >
+          {/* Desktop */}
+          <div
+            className="feature-table-desktop"
+            style={{
+              overflowX: 'auto',
+              borderRadius: 16,
+              border: '1px solid rgba(255,255,255,0.1)',
+              background: '#0d0d0d',
+              boxShadow: '0 20px 60px rgba(0,0,0,0.28)',
+            }}
+          >
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14, minWidth: 680 }}>
+              <colgroup>
+                <col style={{ width: '28%' }} />
+                <col style={{ width: '18%' }} />
+                <col style={{ width: '18%' }} />
+                <col style={{ width: '18%' }} />
+                <col style={{ width: '18%' }} />
+              </colgroup>
+              <tbody>
+                {/* Group header */}
+                <tr>
+                  <td
+                    colSpan={5}
+                    style={{
+                      background: 'transparent',
+                      borderTop: '1px solid rgba(255,255,255,0.1)',
+                      padding: '32px 24px 24px',
+                    }}
+                  >
+                    <span
+                      style={{ fontSize: 24, fontWeight: 400, color: 'var(--foreground)', letterSpacing: '-0.3px' }}
+                    >
+                      Overages
+                    </span>
+                    <div style={{ fontSize: 16, color: 'var(--muted-foreground)', fontWeight: 400, marginTop: 8 }}>
+                      Transparent rates for usage beyond your plan limits.
+                    </div>
+                  </td>
+                </tr>
+                {[
+                  { f: 'Bandwidth', fr: '$40 / 100 GB', pr: '$30 / 100 GB', bz: '$25 / 100 GB', en: 'Custom' },
+                  { f: 'Storage', fr: '$10 / 50 GB', pr: '$7 / 50 GB', bz: '$5 / 50 GB', en: 'Custom' },
+                ].map((row, i) => {
+                  const cell = (val = '') => {
+                    const color =
+                      val === '—'
+                        ? 'var(--input)'
+                        : val === 'Custom'
+                          ? 'var(--primary-muted)'
+                          : 'var(--muted-foreground)';
+                    return (
+                      <td
+                        style={{
+                          padding: '16px 20px',
+                          borderTop: '1px solid rgba(255,255,255,0.1)',
+                          borderLeft: '1px solid rgba(255,255,255,0.1)',
+                          textAlign: 'center',
+                          color,
+                          fontSize: val === '—' ? 15 : 13,
+                          fontWeight: val === 'Custom' ? 600 : 400,
+                        }}
+                      >
+                        {val}
+                      </td>
+                    );
+                  };
+                  return (
+                    <tr key={i}>
+                      <td
+                        style={{
+                          padding: '20px',
+                          borderTop: '1px solid rgba(255,255,255,0.1)',
+                          color: 'var(--foreground)',
+                          fontWeight: 400,
+                          fontSize: 14,
+                        }}
+                      >
+                        {row.f}
+                      </td>
+                      {cell(row.fr)}
+                      {cell(row.pr)}
+                      {cell(row.bz)}
+                      {cell(row.en)}
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Mobile */}
+          <div
+            className="feature-table-mobile-table"
+            style={{
+              display: 'none',
+              borderRadius: 16,
+              border: '1px solid rgba(255,255,255,0.1)',
+              background: '#0d0d0d',
+              overflow: 'hidden',
+            }}
+          >
+            <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 14 }}>
+              <tbody>
+                <tr>
+                  <td
+                    colSpan={2}
+                    style={{
+                      background: 'transparent',
+                      borderTop: '1px solid rgba(255,255,255,0.1)',
+                      padding: '24px 16px 16px',
+                    }}
+                  >
+                    <span
+                      style={{ fontSize: 20, fontWeight: 400, color: 'var(--foreground)', letterSpacing: '-0.3px' }}
+                    >
+                      Overages
+                    </span>
+                    <div style={{ fontSize: 14, color: 'var(--muted-foreground)', fontWeight: 400, marginTop: 8 }}>
+                      Transparent rates for usage beyond your plan limits.
+                    </div>
+                  </td>
+                </tr>
+                {[
+                  { f: 'Bandwidth', fr: '$40 / 100 GB', pr: '$30 / 100 GB', bz: '$25 / 100 GB', en: 'Custom' },
+                  { f: 'Storage', fr: '$10 / 50 GB', pr: '$7 / 50 GB', bz: '$5 / 50 GB', en: 'Custom' },
+                ].map((row, i) => {
+                  const val = (row as Record<string, string>)[mobilePlan] ?? '';
+                  const color =
+                    val === '—'
+                      ? 'var(--input)'
+                      : val === 'Custom'
+                        ? 'var(--primary-muted)'
+                        : 'var(--muted-foreground)';
+                  return (
+                    <tr key={i}>
+                      <td
+                        style={{
+                          padding: '16px',
+                          borderTop: '1px solid rgba(255,255,255,0.1)',
+                          color: 'var(--foreground)',
+                          fontWeight: 400,
+                          fontSize: 13,
+                        }}
+                      >
+                        {row.f}
+                      </td>
+                      <td
+                        style={{
+                          padding: '16px',
+                          borderTop: '1px solid rgba(255,255,255,0.1)',
+                          borderLeft: '1px solid rgba(255,255,255,0.1)',
+                          textAlign: 'center',
+                          color,
+                          fontSize: val === '—' ? 15 : 12,
+                          fontWeight: val === 'Custom' ? 600 : 400,
+                        }}
+                      >
+                        {val}
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
       {/* ── FAQ ── */}
       <section
         className="grid gap-8 pb-20 lg:grid-cols-[1fr_1fr]"
-        style={{ maxWidth: 1160, margin: '0 auto', padding: '0 24px 80px' }}
+        style={{ maxWidth: 1280, margin: '0 auto', padding: '0 24px 80px' }}
       >
         <div>
           <h2 className="max-w-md text-4xl font-normal text-foreground">Common questions</h2>
@@ -1642,13 +1805,13 @@ function PricingPage() {
 
       {/* ── FINAL CTA ── */}
       <section style={{ padding: '80px 24px 100px', borderTop: '1px solid var(--border)' }}>
-        <div style={{ maxWidth: 1160, margin: '0 auto' }}>
+        <div style={{ maxWidth: 1280, margin: '0 auto' }}>
           <div
             className="cta-card"
             style={{
               position: 'relative',
               overflow: 'hidden',
-              background: 'var(--card)',
+              background: '#0d0d0d',
               borderRadius: 16,
               padding: '56px 48px',
               display: 'flex',
@@ -1687,7 +1850,7 @@ function PricingPage() {
                 alignItems: 'center',
                 justifyContent: 'center',
                 background: 'rgba(255,255,255,0.92)',
-                color: '#0A0A0F',
+                color: 'var(--background)',
                 fontSize: 14,
                 fontWeight: 500,
                 padding: '8px 16px',
@@ -1706,7 +1869,7 @@ function PricingPage() {
 
       {/* Slider + responsive styles */}
       <style>{`
-        .pricing-slider::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--primary); cursor:pointer; box-shadow:0 0 0 4px rgba(139,92,246,0.2); border:2px solid var(--foreground); }
+        .pricing-slider::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--primary); cursor:pointer; box-shadow:0 0 0 4px color-mix(in oklch, var(--primary) 20%, transparent); border:2px solid var(--foreground); }
         .pricing-slider::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:var(--primary); cursor:pointer; border:2px solid var(--foreground); }
         .pricing-slider-biz::-webkit-slider-thumb { -webkit-appearance:none; width:22px; height:22px; border-radius:50%; background:var(--foreground); cursor:pointer; box-shadow:0 0 0 4px rgba(255,255,255,0.1); border:2px solid var(--border); }
         .pricing-slider-biz::-moz-range-thumb { width:22px; height:22px; border-radius:50%; background:var(--foreground); cursor:pointer; border:2px solid var(--border); }
@@ -1732,20 +1895,20 @@ function PricingPage() {
         }
         @keyframes cta-gradient-shift {
           from { background-position: 100% 50%; }
-          to   { background-position: 70% 50%; }
+          to   { background-position: 80% 50%; }
         }
         @keyframes cta-gradient-mobile-shift {
           from { transform: translate(0px, 0px) scale(1); }
           to   { transform: translate(16px, -20px) scale(1.12); }
         }
         .cta-gradient {
-          background: linear-gradient(to left, oklch(0.541 0.247 293) 0%, oklch(0.541 0.247 293 / 0.85) 12%, oklch(0.38 0.18 285 / 0.45) 28%, oklch(0.22 0.07 270 / 0.06) 42%, transparent 52%);
-          background-size: 180% 100%;
+          background: linear-gradient(to left, var(--primary) 0%, color-mix(in oklch, var(--primary) 85%, transparent) 8%, color-mix(in oklch, var(--primary) 45%, transparent) 18%, color-mix(in oklch, var(--primary) 4%, transparent) 28%, transparent 35%);
+          background-size: 200% 100%;
           animation: cta-gradient-shift 5s ease-in-out infinite alternate;
         }
         @media (max-width: 600px) {
           .cta-gradient {
-            background: radial-gradient(ellipse 140% 90% at 10% 110%, oklch(0.541 0.247 293) 0%, oklch(0.48 0.22 290 / 0.85) 25%, oklch(0.35 0.16 283 / 0.5) 50%, transparent 72%) !important;
+            background: radial-gradient(ellipse 140% 90% at 10% 110%, var(--primary) 0%, color-mix(in oklch, var(--primary) 85%, transparent) 25%, color-mix(in oklch, var(--primary) 50%, transparent) 50%, transparent 72%) !important;
             background-size: 100% 100% !important;
             animation: cta-gradient-mobile-shift 5s ease-in-out infinite alternate !important;
           }
@@ -1770,7 +1933,7 @@ const featList = () => ({
   listStyle: 'none' as const,
   display: 'flex' as const,
   flexDirection: 'column' as const,
-  gap: 12,
+  gap: 16,
   margin: 0,
   padding: 0,
 });
@@ -1815,7 +1978,7 @@ function Cta({
 }
 function Fi({
   children,
-  c,
+  c: _c,
   dim,
   mf,
 }: {
@@ -1832,12 +1995,12 @@ function Fi({
         color: 'var(--muted-foreground)',
         display: 'flex',
         alignItems: 'flex-start',
-        gap: 9,
+        gap: 8,
         lineHeight: 1.45,
         opacity: dim ? 0.4 : 1,
       }}
     >
-      <Check size={16} style={{ color: ic, flexShrink: 0, marginTop: 1 }} />
+      <Check size={16} style={{ color: ic, flexShrink: 0 }} />
       <span style={{ flex: 1 }}>{children}</span>
       {mf && (
         <span style={{ flexShrink: 0, marginTop: 2 }}>
@@ -1847,9 +2010,6 @@ function Fi({
     </li>
   );
 }
-function Divider() {
-  return <li style={{ listStyle: 'none', height: 1, background: 'var(--accent)', margin: '4px 0' }} />;
-}
 function MfTag() {
   return (
     <span
@@ -1858,11 +2018,11 @@ function MfTag() {
         fontWeight: 600,
         textTransform: 'uppercase',
         letterSpacing: '0.5px',
-        background: 'rgba(124,58,237,0.15)',
+        background: 'color-mix(in oklch, var(--primary) 15%, transparent)',
         color: 'var(--primary-muted)',
-        border: `1px solid rgba(139,92,246,0.3)`,
-        padding: '1px 5px',
-        borderRadius: 3,
+        border: '1px solid color-mix(in oklch, var(--primary) 30%, transparent)',
+        padding: '2px 4px',
+        borderRadius: 4,
       }}
     >
       MF
