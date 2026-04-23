@@ -1069,11 +1069,9 @@ function PricingPage() {
                   >
                     <div
                       style={{
-                        fontSize: 11,
-                        fontWeight: 600,
-                        textTransform: 'uppercase',
-                        letterSpacing: '0.8px',
-                        color: 'var(--muted-foreground)',
+                        fontSize: 14,
+                        fontWeight: 500,
+                        color: 'var(--foreground)',
                         marginBottom: 14,
                       }}
                     >
@@ -1093,9 +1091,7 @@ function PricingPage() {
                             padding: '16px 18px',
                           }}
                         >
-                          <div
-                            style={{ fontSize: 11, color: 'var(--muted-foreground)', marginBottom: 6, lineHeight: 1.4 }}
-                          >
+                          <div style={{ fontSize: 11, color: 'var(--foreground)', marginBottom: 6, lineHeight: 1.4 }}>
                             {label}
                           </div>
                           <div
