@@ -6,6 +6,16 @@ const HUBSPOT_PORTAL_ID = '46982563';
 const HUBSPOT_FORM_ID = '138e92a5-c5b1-428f-98a4-3df4915c25a1';
 const DOMAIN_SECOND_LEVEL_SUFFIXES = new Set(['ac', 'co', 'com', 'edu', 'gov', 'net', 'org']);
 const INPUT_FIELDS = ['fullName', 'email'] as const;
+const webMcpFormAttributes: Record<string, string> = {
+  'tool-name': 'book_cityjs_briefing',
+  'tool-description': 'Submit contact details to request a Zephyr Cloud CityJS briefing.',
+};
+const webMcpEmailInputAttributes: Record<string, string> = {
+  'tool-param-description': 'Work email for the person requesting the CityJS briefing.',
+};
+const webMcpNameInputAttributes: Record<string, string> = {
+  'tool-param-description': 'Full name for the person requesting the CityJS briefing.',
+};
 
 type InputFieldName = (typeof INPUT_FIELDS)[number];
 type FormValues = Record<InputFieldName, string>;
@@ -79,6 +89,7 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
 
   return (
     <form
+      {...webMcpFormAttributes}
       noValidate
       onSubmit={handleSubmit}
       className={isHero ? 'w-full space-y-4' : 'w-full space-y-3 px-4 py-4 md:px-6'}
@@ -112,28 +123,36 @@ export function HubspotInlineForm({ mode = 'compact' }: HubspotInlineFormProps) 
               { name: 'fullName', label: 'Full name', type: 'text', icon: User },
               { name: 'email', label: 'Work email', type: 'email', icon: Mail },
             ].map(({ name, label, type, icon: Icon }) => (
-              <label key={name} className={`${fieldBaseClass} flex items-center ${fieldHeightClass}`}>
-                <Icon
-                  className={`pointer-events-none absolute left-3 text-white/35 transition group-focus-within:text-[#8dc0ff] ${iconClass}`}
-                  aria-hidden="true"
-                />
-                <input
-                  type={type}
-                  aria-label={label}
-                  value={values[name as InputFieldName]}
-                  onChange={(event) => {
-                    setValues((current) => ({ ...current, [name]: event.target.value }));
-                    if (state !== 'idle') {
-                      setState('idle');
-                    }
-                    if (errorText) {
-                      setErrorText('');
-                    }
-                  }}
-                  placeholder={label}
-                  className={`h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-white/30 ${inputClass}`}
-                />
-              </label>
+              <div key={name} className="space-y-2">
+                <label htmlFor={`cityjs-${name}`} className="sr-only">
+                  {label}
+                </label>
+                <div className={`${fieldBaseClass} flex items-center ${fieldHeightClass}`}>
+                  <Icon
+                    className={`pointer-events-none absolute left-3 text-white/35 transition group-focus-within:text-[#8dc0ff] ${iconClass}`}
+                    aria-hidden="true"
+                  />
+                  <input
+                    {...(name === 'email' ? webMcpEmailInputAttributes : webMcpNameInputAttributes)}
+                    id={`cityjs-${name}`}
+                    name={name}
+                    type={type}
+                    aria-label={label}
+                    value={values[name as InputFieldName]}
+                    onChange={(event) => {
+                      setValues((current) => ({ ...current, [name]: event.target.value }));
+                      if (state !== 'idle') {
+                        setState('idle');
+                      }
+                      if (errorText) {
+                        setErrorText('');
+                      }
+                    }}
+                    placeholder={label}
+                    className={`h-full min-w-0 flex-1 bg-transparent outline-none placeholder:text-white/30 ${inputClass}`}
+                  />
+                </div>
+              </div>
             ))}
           </div>
           <button

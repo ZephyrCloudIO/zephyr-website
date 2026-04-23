@@ -4,8 +4,16 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const HUBSPOT_PORTAL_ID = '46982563';
 const HUBSPOT_FORM_ID = 'f1595bbd-95a2-4ee1-b7db-c8071152dc5b';
+const webMcpFormAttributes: Record<string, string> = {
+  'tool-name': 'request_early_access',
+  'tool-description': 'Submit a work email to request Zephyr Cloud early access.',
+};
+const webMcpInputAttributes: Record<string, string> = {
+  'tool-param-description': 'Work email for the user requesting Zephyr Cloud early access.',
+};
 
 export function SignupForm() {
+  const emailFieldId = 'signup-work-email';
   const [email, setEmail] = useState('');
   const [state, setState] = useState<'idle' | 'error' | 'submitting' | 'success'>('idle');
   const [shaking, setShaking] = useState(false);
@@ -59,9 +67,13 @@ export function SignupForm() {
 
   return (
     <form
+      {...webMcpFormAttributes}
       onSubmit={handleSubmit}
       className="flex w-full max-w-[560px] shrink-0 flex-col gap-2.5 md:w-auto md:max-w-none"
     >
+      <label htmlFor={emailFieldId} className="sr-only">
+        Work email
+      </label>
       <p className="px-1 text-left text-[13px] font-medium leading-5 transition-colors duration-200 md:pr-3 md:text-right">
         {isError ? (
           <span className="text-red-400">Please check your email</span>
@@ -98,7 +110,10 @@ export function SignupForm() {
         </div>
 
         <input
+          {...webMcpInputAttributes}
           ref={inputRef}
+          id={emailFieldId}
+          name="email"
           type="text"
           value={email}
           onChange={(e) => {

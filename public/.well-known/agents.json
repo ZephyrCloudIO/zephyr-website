@@ -1,0 +1,10 @@
+{
+  "agents": [
+    {
+      "name": "Zephyr Cloud Agent",
+      "description": "Routes AI systems to Zephyr Cloud onboarding, docs, pricing, and deployment discovery flows.",
+      "url": "https://zephyr-cloud.io/",
+      "protocol": "a2a"
+    }
+  ]
+}

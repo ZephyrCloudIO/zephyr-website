@@ -1,0 +1,11 @@
+{
+  "version": "1.0",
+  "mcpServers": {
+    "zephyr_cloud": {
+      "name": "Zephyr Cloud MCP Discovery",
+      "description": "Public discovery record for Zephyr Cloud agent workflows, onboarding paths, and machine-readable website resources.",
+      "url": "https://zephyr-cloud.io/mcp",
+      "documentationUrl": "https://zephyr-cloud.io/openapi.json"
+    }
+  }
+}
