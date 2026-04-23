@@ -1025,6 +1025,105 @@ function PricingPage() {
               <div style={{ textAlign: 'center', marginTop: 16, fontSize: 13, color: 'var(--muted-foreground)' }}>
                 No credit card required · free 30-day trial
               </div>
+
+              {/* ── VALUE METRICS ── */}
+              {(() => {
+                const seats = calcTab === 'pro' ? proSeats : bizSeats;
+                const annualCost = calcTab === 'pro' ? proYearly : bizYearly;
+                const acColor = calcTab === 'pro' ? 'var(--primary)' : 'var(--muted-foreground)';
+                const acRgb = calcTab === 'pro' ? 'var(--primary)' : 'var(--muted-foreground)';
+                const deploysPerSeatPerYear = 250;
+                const minsSavedPerDeploy = 12;
+                const hourlyRate = 75;
+                const rollbacksPerYear = seats;
+                const hoursPerRollback = 3;
+                const hoursRecovered = Math.round(seats * deploysPerSeatPerYear * (minsSavedPerDeploy / 60));
+                const deployValueDollars = Math.round(hoursRecovered * hourlyRate);
+                const rollbackValueDollars = Math.round(rollbacksPerYear * hoursPerRollback * hourlyRate);
+                const totalValue = deployValueDollars + rollbackValueDollars;
+                const roi = annualCost > 0 ? Math.round(totalValue / annualCost) : 0;
+                const metrics = [
+                  {
+                    label: 'Engineering hours recovered / yr',
+                    value: `${hoursRecovered.toLocaleString()} hrs`,
+                    sub: `${seats} seats × 250 deploys × 12 min saved`,
+                  },
+                  {
+                    label: 'Value of time recovered / yr',
+                    value: `$${totalValue.toLocaleString()}`,
+                    sub: 'Deploy wait + rollback incidents at $75/hr',
+                  },
+                  {
+                    label: 'Return on investment',
+                    value: `${roi}×`,
+                    sub: `$${totalValue.toLocaleString()} value vs $${annualCost.toLocaleString()} annual cost`,
+                  },
+                ];
+                return (
+                  <div
+                    style={{
+                      marginTop: 28,
+                      borderTop: `1px solid color-mix(in oklch, ${acColor} 15%, transparent)`,
+                      paddingTop: 24,
+                    }}
+                  >
+                    <div
+                      style={{
+                        fontSize: 11,
+                        fontWeight: 600,
+                        textTransform: 'uppercase',
+                        letterSpacing: '0.8px',
+                        color: 'var(--muted-foreground)',
+                        marginBottom: 14,
+                      }}
+                    >
+                      What this saves your team — based on {seats} seats
+                    </div>
+                    <div
+                      className="stats-grid"
+                      style={{ display: 'grid', gridTemplateColumns: 'repeat(3,1fr)', gap: 12 }}
+                    >
+                      {metrics.map(({ label, value, sub }) => (
+                        <div
+                          key={label}
+                          style={{
+                            background: `color-mix(in oklch, ${acColor} 6%, transparent)`,
+                            border: `1px solid color-mix(in oklch, ${acColor} 15%, transparent)`,
+                            borderRadius: 10,
+                            padding: '16px 18px',
+                          }}
+                        >
+                          <div
+                            style={{ fontSize: 11, color: 'var(--muted-foreground)', marginBottom: 6, lineHeight: 1.4 }}
+                          >
+                            {label}
+                          </div>
+                          <div
+                            style={{
+                              fontSize: 26,
+                              fontWeight: 600,
+                              letterSpacing: '-1px',
+                              color: acColor,
+                              lineHeight: 1,
+                            }}
+                          >
+                            {value}
+                          </div>
+                          <div
+                            style={{ fontSize: 10, color: 'var(--muted-foreground)', marginTop: 6, lineHeight: 1.4 }}
+                          >
+                            {sub}
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                    <div style={{ fontSize: 10, color: 'var(--muted-foreground)', marginTop: 10, lineHeight: 1.5 }}>
+                      * Conservative model: 1 deploy/engineer/day, 12 min saved per deploy, $75/hr blended rate, 1
+                      rollback incident/seat/yr at 3 hrs each. Drag the slider to see your numbers.
+                    </div>
+                  </div>
+                );
+              })()}
             </div>
           </div>
         </div>
