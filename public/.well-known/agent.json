@@ -1,0 +1,32 @@
+{
+  "name": "Zephyr Cloud Agent",
+  "description": "An agent entry point for Zephyr Cloud discovery, onboarding, documentation, and deployment workflows.",
+  "url": "https://zephyr-cloud.io/",
+  "provider": {
+    "organization": "Zephyr Cloud",
+    "url": "https://zephyr-cloud.io"
+  },
+  "version": "1.0.0",
+  "documentationUrl": "https://docs.zephyr-cloud.io",
+  "capabilities": {
+    "streaming": false,
+    "pushNotifications": false
+  },
+  "skills": [
+    {
+      "id": "start-onboarding",
+      "name": "Start onboarding",
+      "description": "Route a user into Zephyr Cloud onboarding and setup."
+    },
+    {
+      "id": "explore-docs",
+      "name": "Explore docs",
+      "description": "Send developers to the Zephyr Cloud documentation."
+    },
+    {
+      "id": "review-pricing",
+      "name": "Review pricing",
+      "description": "Open Zephyr Cloud pricing for plan comparison."
+    }
+  ]
+}

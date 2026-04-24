@@ -1,0 +1,101 @@
+{
+  "spec": "webmcp/0.1",
+  "tools": [
+    {
+      "name": "start_onboarding",
+      "description": "Open the Zephyr Cloud application and begin onboarding for a user.",
+      "url": "https://app.zephyr-cloud.io/",
+      "method": "GET",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Work email for the person starting onboarding in Zephyr Cloud.",
+            "minLength": 6,
+            "maxLength": 254,
+            "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+          }
+        },
+        "required": ["email"]
+      },
+      "parameters": [
+        {
+          "name": "email",
+          "type": "string",
+          "description": "Work email for the person starting onboarding in Zephyr Cloud."
+        }
+      ]
+    },
+    {
+      "name": "request_early_access",
+      "description": "Submit a work email to request Zephyr Cloud early access.",
+      "url": "https://api.hsforms.com/submissions/v3/integration/submit/46982563/f1595bbd-95a2-4ee1-b7db-c8071152dc5b",
+      "method": "POST",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Work email for the user requesting Zephyr Cloud early access.",
+            "minLength": 6,
+            "maxLength": 254,
+            "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+          }
+        },
+        "required": ["email"]
+      },
+      "parameters": [
+        {
+          "name": "email",
+          "type": "string",
+          "description": "Work email for the user requesting Zephyr Cloud early access."
+        }
+      ]
+    },
+    {
+      "name": "book_cityjs_briefing",
+      "description": "Submit contact details to request a Zephyr Cloud CityJS briefing.",
+      "url": "https://api.hsforms.com/submissions/v3/integration/submit/46982563/138e92a5-c5b1-428f-98a4-3df4915c25a1",
+      "method": "POST",
+      "inputSchema": {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "fullName": {
+            "type": "string",
+            "description": "Full name for the person requesting the CityJS briefing.",
+            "minLength": 2,
+            "maxLength": 120,
+            "pattern": "^[\\p{L}\\p{N} .,'-]+$"
+          },
+          "email": {
+            "type": "string",
+            "format": "email",
+            "description": "Work email for the person requesting the CityJS briefing.",
+            "minLength": 6,
+            "maxLength": 254,
+            "pattern": "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$"
+          }
+        },
+        "required": ["fullName", "email"]
+      },
+      "parameters": [
+        {
+          "name": "fullName",
+          "type": "string",
+          "description": "Full name for the person requesting the CityJS briefing."
+        },
+        {
+          "name": "email",
+          "type": "string",
+          "description": "Work email for the person requesting the CityJS briefing."
+        }
+      ]
+    }
+  ]
+}

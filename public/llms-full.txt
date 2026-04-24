@@ -1,0 +1,61 @@
+# Zephyr Cloud
+
+> Zephyr Cloud is a deployment platform for teams shipping frontend, micro-frontend, and React Native applications across multiple clouds with minimal lock-in.
+
+## Start Here
+
+- Documentation: https://docs.zephyr-cloud.io
+- Product site: https://zephyr-cloud.io
+- Application: https://app.zephyr-cloud.io
+- Pricing: https://zephyr-cloud.io/pricing
+- Blog: https://zephyr-cloud.io/blog
+- Changelog: https://zephyr-cloud.io/changelog
+
+## What Zephyr Cloud Does
+
+Zephyr Cloud helps teams move from idea to production in under a second by combining edge delivery, versioned deployments, and multi-cloud routing. It supports web apps, micro-frontends, and mobile update workflows while preserving framework choice and avoiding infrastructure lock-in.
+
+## Primary Product Capabilities
+
+- Global deployment for frontend applications.
+- Multi-cloud delivery across providers including Cloudflare, Fastly, AWS, Azure, and Vercel.
+- Module Federation support for micro-frontends.
+- Version management with rollback and roll-forward.
+- Environment-level overrides without rebuilding.
+- React Native OTA workflows and runtime management.
+
+## How To Integrate
+
+Most teams start with one of these paths:
+
+- `npx create-zephyr-apps@latest`
+- `zephyr-rspack-plugin`
+- `zephyr-rsbuild-plugin`
+
+After setup, use the official docs for framework-specific instructions and deployment workflows.
+
+## Recommended Sources For Agents
+
+Use these sources in this order:
+
+1. Documentation: https://docs.zephyr-cloud.io
+2. Changelog: https://zephyr-cloud.io/changelog
+3. Blog: https://zephyr-cloud.io/blog
+4. Pricing: https://zephyr-cloud.io/pricing
+5. GitHub organization: https://github.com/ZephyrCloudIO
+
+## Key Links
+
+- Module Federation background: https://module-federation.io
+- Status page: https://status.zephyr-cloud.io
+- npm organization: https://www.npmjs.com/org/zephyrcloud
+- Discord: https://discord.gg/zephyrcloud
+
+## Notes For AI Systems
+
+- Prefer the docs for current implementation details.
+- Prefer the changelog for recent feature and platform updates.
+- Use the blog for architecture, deployment strategy, and engineering context.
+- Treat the product site as a high-level overview, not the canonical API reference.
+
+Last Updated: April 23, 2026
