@@ -8,30 +8,6 @@ import posthog from 'posthog-js';
 import { type ReactNode, useEffect } from 'react';
 import { IntercomProvider } from 'react-use-intercom';
 
-const GoogleAnalytics = () => (
-  <>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH" />
-    <script
-      dangerouslySetInnerHTML={{
-        __html: `
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-B7G266JZDH', {
-          page_path: window.location.pathname,
-          linker: {
-            domains: ['app.zephyr-cloud.io', 'zephyr-cloud.io', 'docs.zephyr-cloud.io']
-          }
-        });
-        gtag('set', 'linker', {
-          accept_incoming: true,
-        })
-      `,
-      }}
-    />
-  </>
-);
-
 const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY;
 const POSTHOG_API_HOST = import.meta.env.PUBLIC_POSTHOG_HOST;
 const POSTHOG_UI_HOST = 'https://us.posthog.com';
@@ -161,12 +137,12 @@ function RootComponent() {
       ui_host: POSTHOG_UI_HOST,
       defaults: '2026-01-30',
       person_profiles: 'identified_only',
+      capture_pageview: 'history_change',
     } as const);
   }, []);
 
   return (
     <IntercomProvider appId="xyxkmxlj">
-      <GoogleAnalytics />
       <PostHogProvider client={posthog}>
         <ScrollToTop />
         <MDXProvider components={mdxComponents}>
