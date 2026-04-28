@@ -1,7 +1,7 @@
 import sgwsLogo from '@/images/companies/sgws.webp';
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
-import { Check, ChevronDown } from 'lucide-react';
+import { Check, ChevronDown, X as XIcon } from 'lucide-react';
 import { type ReactNode, useEffect, useRef, useState } from 'react';
 
 export const Route = createFileRoute('/pricing')({
@@ -1148,7 +1148,7 @@ function PricingPage() {
           <div
             className="testimonial-card"
             style={{
-              background: '#0d0d0d',
+              background: 'transparent',
               border: '1px solid var(--border)',
               borderRadius: 16,
               padding: '32px 40px',
@@ -1339,7 +1339,7 @@ function PricingPage() {
             overflowX: 'auto',
             borderRadius: 16,
             border: '1px solid rgba(255,255,255,0.1)',
-            background: '#0d0d0d',
+            background: 'transparent',
             boxShadow: '0 20px 60px rgba(0,0,0,0.28)',
           }}
         >
@@ -1379,33 +1379,33 @@ function PricingPage() {
                   { f: 'Cloud integrations', fr: '1', pr: 'All', bz: 'All', en: 'All' },
                   { f: 'Bundler plugins (15)', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'BYOC', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Instant rollbacks', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Instant rollbacks', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Tag / branch env', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Version history', fr: 'Limited', pr: '✓', bz: '✓', en: 'Custom' },
                   { g: 'Module Federation Native', sub: 'Built for MF teams, not bolted on', mfg: true },
-                  { f: 'Environment Overrides', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
-                  { f: 'Env Variables (no redeploy)', fr: '—', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Zephyr DevTools', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
-                  { f: 'UML architecture map', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
-                  { f: 'zephyr.dependencies', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'Environment Overrides', fr: '✕', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'Env Variables (no redeploy)', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Zephyr DevTools', fr: '✕', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'UML architecture map', fr: '✕', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'zephyr.dependencies', fr: '✕', pr: '✓', bz: '✓', en: '✓', mf: true },
                   { g: 'Teams & Access', sub: 'Roles, seat management, and permissions' },
-                  { f: 'Collaborators', fr: '—', pr: 'Up to 75', bz: 'Up to 200', en: 'Unlimited' },
-                  { f: 'Per-team permissions', fr: '—', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Advanced roles', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { f: 'SSO / SAML', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { f: 'Approval workflows', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { f: 'Webhook integrations', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Collaborators', fr: '✕', pr: 'Up to 75', bz: 'Up to 200', en: 'Unlimited' },
+                  { f: 'Per-team permissions', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Advanced roles', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
+                  { f: 'SSO / SAML', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
+                  { f: 'Approval workflows', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
+                  { f: 'Webhook integrations', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
                   { g: 'Security & Compliance', sub: 'Audit logs, certifications, and data governance' },
-                  { f: 'Activity log', fr: '—', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Audit log retention', fr: '—', pr: '30 days', bz: '90 days', en: 'Custom' },
-                  { f: 'Uptime SLA', fr: '—', pr: '—', bz: '99.9%', en: '99.99%' },
-                  { f: 'SOC 2 compliance', fr: '—', pr: '—', bz: '—', en: '✓' },
-                  { f: 'DPA', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { f: 'Activity log', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Audit log retention', fr: '✕', pr: '30 days', bz: '90 days', en: 'Custom' },
+                  { f: 'Uptime SLA', fr: '✕', pr: '✕', bz: '99.9%', en: '99.99%' },
+                  { f: 'SOC 2 compliance', fr: '✕', pr: '✕', bz: '✕', en: '✓' },
+                  { f: 'DPA', fr: '✕', pr: '✕', bz: '✕', en: '✓' },
                   { g: 'Support', sub: 'Help when you need it' },
-                  { f: 'Community support', fr: '✓', pr: '—', bz: '—', en: '—' },
-                  { f: 'Email support', fr: '—', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Priority support', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { f: 'Dedicated CSM', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { f: 'Community support', fr: '✓', pr: '✕', bz: '✕', en: '✕' },
+                  { f: 'Email support', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Priority support', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
+                  { f: 'Dedicated CSM', fr: '✕', pr: '✕', bz: '✕', en: '✓' },
                 ] as Array<{
                   g?: string;
                   sub?: string;
@@ -1454,8 +1454,8 @@ function PricingPage() {
                   const color =
                     val === '✓'
                       ? 'var(--foreground)'
-                      : val === '—'
-                        ? 'var(--input)'
+                      : val === '✕'
+                        ? 'var(--muted-foreground)'
                         : val === 'Limited'
                           ? 'var(--muted-foreground)'
                           : val === 'Custom' || val === 'Unlimited'
@@ -1470,11 +1470,11 @@ function PricingPage() {
                         textAlign: 'center',
                         color,
                         minHeight: 60,
-                        fontSize: val === '✓' || val === '—' ? 15 : 13,
+                        fontSize: val === '✓' ? 15 : 13,
                         fontWeight: val === 'Limited' || val === 'Custom' ? 600 : 400,
                       }}
                     >
-                      {val}
+                      {val === '✕' ? <XIcon size={14} strokeWidth={2.5} style={{ display: 'inline-block' }} /> : val}
                     </td>
                   );
                 };
@@ -1514,7 +1514,7 @@ function PricingPage() {
             display: 'none',
             borderRadius: 16,
             border: '1px solid rgba(255,255,255,0.1)',
-            background: '#0d0d0d',
+            background: 'transparent',
             overflow: 'hidden',
           }}
         >
@@ -1560,33 +1560,33 @@ function PricingPage() {
                   { f: 'Cloud integrations', fr: '1', pr: 'All', bz: 'All', en: 'All' },
                   { f: 'Bundler plugins (15)', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'BYOC', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Instant rollbacks', fr: '—', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Instant rollbacks', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Tag / branch env', fr: '✓', pr: '✓', bz: '✓', en: '✓' },
                   { f: 'Version history', fr: 'Limited', pr: '✓', bz: '✓', en: 'Custom' },
                   { g: 'Module Federation Native', sub: 'Built for MF teams, not bolted on', mfg: true },
-                  { f: 'Environment Overrides', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
-                  { f: 'Env Variables (no redeploy)', fr: '—', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Zephyr DevTools', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
-                  { f: 'UML architecture map', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
-                  { f: 'zephyr.dependencies', fr: '—', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'Environment Overrides', fr: '✕', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'Env Variables (no redeploy)', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Zephyr DevTools', fr: '✕', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'UML architecture map', fr: '✕', pr: '✓', bz: '✓', en: '✓', mf: true },
+                  { f: 'zephyr.dependencies', fr: '✕', pr: '✓', bz: '✓', en: '✓', mf: true },
                   { g: 'Teams & Access', sub: 'Roles, seat management, and permissions' },
-                  { f: 'Collaborators', fr: '—', pr: 'Up to 75', bz: 'Up to 200', en: 'Unlimited' },
-                  { f: 'Per-team permissions', fr: '—', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Advanced roles', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { f: 'SSO / SAML', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { f: 'Approval workflows', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { f: 'Webhook integrations', fr: '—', pr: '—', bz: '✓', en: '✓' },
+                  { f: 'Collaborators', fr: '✕', pr: 'Up to 75', bz: 'Up to 200', en: 'Unlimited' },
+                  { f: 'Per-team permissions', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Advanced roles', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
+                  { f: 'SSO / SAML', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
+                  { f: 'Approval workflows', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
+                  { f: 'Webhook integrations', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
                   { g: 'Security & Compliance', sub: 'Audit logs, certifications, and data governance' },
-                  { f: 'Activity log', fr: '—', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Audit log retention', fr: '—', pr: '30 days', bz: '90 days', en: 'Custom' },
-                  { f: 'Uptime SLA', fr: '—', pr: '—', bz: '99.9%', en: '99.99%' },
-                  { f: 'SOC 2 compliance', fr: '—', pr: '—', bz: '—', en: '✓' },
-                  { f: 'DPA', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { f: 'Activity log', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Audit log retention', fr: '✕', pr: '30 days', bz: '90 days', en: 'Custom' },
+                  { f: 'Uptime SLA', fr: '✕', pr: '✕', bz: '99.9%', en: '99.99%' },
+                  { f: 'SOC 2 compliance', fr: '✕', pr: '✕', bz: '✕', en: '✓' },
+                  { f: 'DPA', fr: '✕', pr: '✕', bz: '✕', en: '✓' },
                   { g: 'Support', sub: 'Help when you need it' },
-                  { f: 'Community support', fr: '✓', pr: '—', bz: '—', en: '—' },
-                  { f: 'Email support', fr: '—', pr: '✓', bz: '✓', en: '✓' },
-                  { f: 'Priority support', fr: '—', pr: '—', bz: '✓', en: '✓' },
-                  { f: 'Dedicated CSM', fr: '—', pr: '—', bz: '—', en: '✓' },
+                  { f: 'Community support', fr: '✓', pr: '✕', bz: '✕', en: '✕' },
+                  { f: 'Email support', fr: '✕', pr: '✓', bz: '✓', en: '✓' },
+                  { f: 'Priority support', fr: '✕', pr: '✕', bz: '✓', en: '✓' },
+                  { f: 'Dedicated CSM', fr: '✕', pr: '✕', bz: '✕', en: '✓' },
                 ] as Array<{
                   g?: string;
                   sub?: string;
@@ -1635,8 +1635,8 @@ function PricingPage() {
                 const color =
                   val === '✓'
                     ? 'var(--foreground)'
-                    : val === '—'
-                      ? 'var(--input)'
+                    : val === '✕'
+                      ? 'var(--muted-foreground)'
                       : val === 'Limited'
                         ? 'var(--muted-foreground)'
                         : val === 'Custom' || val === 'Unlimited'
@@ -1667,11 +1667,11 @@ function PricingPage() {
                         borderLeft: '1px solid rgba(255,255,255,0.1)',
                         textAlign: 'center',
                         color,
-                        fontSize: val === '✓' || val === '—' ? 15 : 12,
+                        fontSize: val === '✓' ? 15 : 12,
                         fontWeight: val === 'Limited' || val === 'Custom' ? 600 : 400,
                       }}
                     >
-                      {val}
+                      {val === '✕' ? <XIcon size={14} strokeWidth={2.5} style={{ display: 'inline-block' }} /> : val}
                     </td>
                   </tr>
                 );
@@ -1730,7 +1730,7 @@ function PricingPage() {
               overflowX: 'auto',
               borderRadius: 16,
               border: '1px solid rgba(255,255,255,0.1)',
-              background: '#0d0d0d',
+              background: 'transparent',
               boxShadow: '0 20px 60px rgba(0,0,0,0.28)',
             }}
           >
@@ -1769,8 +1769,8 @@ function PricingPage() {
                 ].map((row, i) => {
                   const cell = (val = '') => {
                     const color =
-                      val === '—'
-                        ? 'var(--input)'
+                      val === '✕'
+                        ? 'var(--muted-foreground)'
                         : val === 'Custom'
                           ? 'var(--primary-muted)'
                           : 'var(--muted-foreground)';
@@ -1782,7 +1782,7 @@ function PricingPage() {
                           borderLeft: '1px solid rgba(255,255,255,0.1)',
                           textAlign: 'center',
                           color,
-                          fontSize: val === '—' ? 15 : 13,
+                          fontSize: 13,
                           fontWeight: val === 'Custom' ? 600 : 400,
                         }}
                       >
@@ -1821,7 +1821,7 @@ function PricingPage() {
               display: 'none',
               borderRadius: 16,
               border: '1px solid rgba(255,255,255,0.1)',
-              background: '#0d0d0d',
+              background: 'transparent',
               overflow: 'hidden',
             }}
           >
@@ -1852,8 +1852,8 @@ function PricingPage() {
                 ].map((row, i) => {
                   const val = (row as Record<string, string>)[mobilePlan] ?? '';
                   const color =
-                    val === '—'
-                      ? 'var(--input)'
+                    val === '✕'
+                      ? 'var(--muted-foreground)'
                       : val === 'Custom'
                         ? 'var(--primary-muted)'
                         : 'var(--muted-foreground)';
@@ -1877,7 +1877,7 @@ function PricingPage() {
                           borderLeft: '1px solid rgba(255,255,255,0.1)',
                           textAlign: 'center',
                           color,
-                          fontSize: val === '—' ? 15 : 12,
+                          fontSize: 12,
                           fontWeight: val === 'Custom' ? 600 : 400,
                         }}
                       >
@@ -1928,7 +1928,7 @@ function PricingPage() {
             style={{
               position: 'relative',
               overflow: 'hidden',
-              background: '#0d0d0d',
+              background: 'var(--card)',
               borderRadius: 16,
               padding: '56px 48px',
               display: 'flex',
