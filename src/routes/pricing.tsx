@@ -415,19 +415,36 @@ function PricingPage() {
           style={{
             display: 'inline-flex',
             alignItems: 'center',
-            gap: 4,
+            position: 'relative',
             background: 'var(--card)',
             border: '1px solid var(--border)',
             borderRadius: 40,
             padding: 4,
           }}
         >
+          {/* sliding pill */}
+          <div
+            style={{
+              position: 'absolute',
+              top: 4,
+              bottom: 4,
+              left: 4,
+              width: 'calc(50% - 4px)',
+              background: 'var(--primary)',
+              borderRadius: 9999,
+              transform: isAnnual ? 'translateX(100%)' : 'translateX(0)',
+              transition: 'transform 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
+              pointerEvents: 'none',
+            }}
+          />
           {(['monthly', 'annual'] as const).map((mode) => (
             <button
               key={mode}
               onClick={() => setBilling(mode)}
               style={{
-                background: billing === mode ? 'var(--primary)' : 'none',
+                position: 'relative',
+                zIndex: 1,
+                background: 'none',
                 border: 'none',
                 color: billing === mode ? 'var(--primary-foreground)' : 'var(--muted-foreground)',
                 fontSize: 13,
@@ -435,11 +452,9 @@ function PricingPage() {
                 padding: '8px 16px',
                 borderRadius: 9999,
                 cursor: 'pointer',
-                transition: 'all 0.2s',
+                transition: 'color 0.25s cubic-bezier(0.4, 0, 0.2, 1)',
                 fontFamily: 'inherit',
-                display: 'flex',
-                alignItems: 'center',
-                gap: 8,
+                minWidth: 80,
               }}
             >
               {mode === 'monthly' ? 'Monthly' : 'Yearly'}
@@ -1031,7 +1046,6 @@ function PricingPage() {
                 const seats = calcTab === 'pro' ? proSeats : bizSeats;
                 const annualCost = calcTab === 'pro' ? proYearly : bizYearly;
                 const acColor = calcTab === 'pro' ? 'var(--primary)' : 'var(--muted-foreground)';
-                const acRgb = calcTab === 'pro' ? 'var(--primary)' : 'var(--muted-foreground)';
                 const deploysPerSeatPerYear = 250;
                 const minsSavedPerDeploy = 12;
                 const hourlyRate = 75;
@@ -1128,146 +1142,154 @@ function PricingPage() {
 
       {/* ── PROOF BAR ── (hidden) */}
 
-      {/* ── SOCIAL PROOF ── */}
-      <section style={{ maxWidth: 960, margin: '0 auto 80px', padding: '0 24px' }}>
-        <div
-          className="testimonial-card"
-          style={{
-            background: '#0d0d0d',
-            border: '1px solid var(--border)',
-            borderRadius: 16,
-            padding: '32px 40px',
-            marginBottom: 16,
-            display: 'flex',
-            alignItems: 'center',
-            gap: 32,
-          }}
-        >
-          <div style={{ flex: 1 }}>
-            <span
-              style={{
-                display: 'block',
-                fontSize: 11,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '1px',
-                color: 'var(--muted-foreground)',
-                marginBottom: 16,
-              }}
-            >
-              Enterprise customer
-            </span>
-            <p
-              style={{
-                fontSize: 16,
-                fontWeight: 600,
-                color: 'var(--foreground)',
-                lineHeight: 1.6,
-                fontStyle: 'italic',
-              }}
-            >
+      {/* ── SOCIAL PROOF ── (hidden) */}
+      {false && (
+        <section style={{ maxWidth: 960, margin: '0 auto 80px', padding: '0 24px' }}>
+          <div
+            className="testimonial-card"
+            style={{
+              background: '#0d0d0d',
+              border: '1px solid var(--border)',
+              borderRadius: 16,
+              padding: '32px 40px',
+              marginBottom: 16,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 32,
+            }}
+          >
+            <div style={{ flex: 1 }}>
               <span
                 style={{
-                  color: 'var(--primary-muted)',
-                  fontSize: 24,
-                  lineHeight: 0,
-                  verticalAlign: -6,
-                  marginRight: 4,
+                  display: 'block',
+                  fontSize: 11,
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '1px',
+                  color: 'var(--muted-foreground)',
+                  marginBottom: 16,
                 }}
               >
-                "
+                Enterprise customer
               </span>
-              Zephyr gave us the deployment orchestration layer we'd been trying to build internally for two years. We
-              stopped writing tooling and started shipping product.
-              <span
-                style={{ color: 'var(--primary-muted)', fontSize: 24, lineHeight: 0, verticalAlign: -6, marginLeft: 4 }}
+              <p
+                style={{
+                  fontSize: 16,
+                  fontWeight: 600,
+                  color: 'var(--foreground)',
+                  lineHeight: 1.6,
+                  fontStyle: 'italic',
+                }}
               >
-                "
-              </span>
-            </p>
-            <p style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 8 }}>
-              Engineering leadership ·{' '}
-              <strong style={{ color: 'var(--foreground)', fontWeight: 600 }}>
-                Southern Glazer's Wine &amp; Spirits
-              </strong>
-            </p>
+                <span
+                  style={{
+                    color: 'var(--primary-muted)',
+                    fontSize: 24,
+                    lineHeight: 0,
+                    verticalAlign: -6,
+                    marginRight: 4,
+                  }}
+                >
+                  "
+                </span>
+                Zephyr gave us the deployment orchestration layer we'd been trying to build internally for two years. We
+                stopped writing tooling and started shipping product.
+                <span
+                  style={{
+                    color: 'var(--primary-muted)',
+                    fontSize: 24,
+                    lineHeight: 0,
+                    verticalAlign: -6,
+                    marginLeft: 4,
+                  }}
+                >
+                  "
+                </span>
+              </p>
+              <p style={{ fontSize: 12, color: 'var(--muted-foreground)', marginTop: 8 }}>
+                Engineering leadership ·{' '}
+                <strong style={{ color: 'var(--foreground)', fontWeight: 600 }}>
+                  Southern Glazer's Wine &amp; Spirits
+                </strong>
+              </p>
+            </div>
+            <img
+              className="testimonial-logo"
+              src={sgwsLogo}
+              alt="Southern Glazer's Wine & Spirits"
+              style={{ height: 72, width: 72, objectFit: 'contain', opacity: 0.9, flexShrink: 0 }}
+            />
           </div>
-          <img
-            className="testimonial-logo"
-            src={sgwsLogo}
-            alt="Southern Glazer's Wine & Spirits"
-            style={{ height: 72, width: 72, objectFit: 'contain', opacity: 0.9, flexShrink: 0 }}
-          />
-        </div>
-        <div
-          className="stats-grid"
-          style={{
-            background: 'var(--card)',
-            border: '1px solid var(--border)',
-            borderRadius: 16,
-            padding: '32px 40px',
-            display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-          }}
-        >
-          <div style={{ paddingRight: 32, borderRight: '1px solid var(--border)' }}>
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.8px',
-                color: 'var(--muted-foreground)',
-                marginBottom: 8,
-              }}
-            >
-              Teams using Zephyr report
+          <div
+            className="stats-grid"
+            style={{
+              background: 'var(--card)',
+              border: '1px solid var(--border)',
+              borderRadius: 16,
+              padding: '32px 40px',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+            }}
+          >
+            <div style={{ paddingRight: 32, borderRight: '1px solid var(--border)' }}>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.8px',
+                  color: 'var(--muted-foreground)',
+                  marginBottom: 8,
+                }}
+              >
+                Teams using Zephyr report
+              </div>
+              <div
+                style={{
+                  fontSize: 32,
+                  fontWeight: 600,
+                  letterSpacing: '-1px',
+                  color: 'var(--foreground)',
+                  lineHeight: 1,
+                }}
+              >
+                1.5 sprints
+              </div>
+              <div style={{ fontSize: 13, color: 'var(--muted-foreground)', marginTop: 4 }}>
+                recovered per quarter by eliminating internal MF tooling
+              </div>
             </div>
-            <div
-              style={{
-                fontSize: 32,
-                fontWeight: 600,
-                letterSpacing: '-1px',
-                color: 'var(--foreground)',
-                lineHeight: 1,
-              }}
-            >
-              1.5 sprints
-            </div>
-            <div style={{ fontSize: 13, color: 'var(--muted-foreground)', marginTop: 4 }}>
-              recovered per quarter by eliminating internal MF tooling
-            </div>
-          </div>
-          <div style={{ paddingLeft: 32 }}>
-            <div
-              style={{
-                fontSize: 11,
-                fontWeight: 600,
-                textTransform: 'uppercase',
-                letterSpacing: '0.8px',
-                color: 'var(--muted-foreground)',
-                marginBottom: 8,
-              }}
-            >
-              Average time to first deploy
-            </div>
-            <div
-              style={{
-                fontSize: 32,
-                fontWeight: 600,
-                letterSpacing: '-1px',
-                color: 'var(--foreground)',
-                lineHeight: 1,
-              }}
-            >
-              &lt; 15 min
-            </div>
-            <div style={{ fontSize: 13, color: 'var(--muted-foreground)', marginTop: 4 }}>
-              from signup to first cloud deployment — no infrastructure migration required
+            <div style={{ paddingLeft: 32 }}>
+              <div
+                style={{
+                  fontSize: 11,
+                  fontWeight: 600,
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.8px',
+                  color: 'var(--muted-foreground)',
+                  marginBottom: 8,
+                }}
+              >
+                Average time to first deploy
+              </div>
+              <div
+                style={{
+                  fontSize: 32,
+                  fontWeight: 600,
+                  letterSpacing: '-1px',
+                  color: 'var(--foreground)',
+                  lineHeight: 1,
+                }}
+              >
+                &lt; 15 min
+              </div>
+              <div style={{ fontSize: 13, color: 'var(--muted-foreground)', marginTop: 4 }}>
+                from signup to first cloud deployment — no infrastructure migration required
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
 
       {/* ── FEATURE TABLE ── */}
       <section style={{ maxWidth: 1280, margin: '0 auto 80px', padding: '0 24px' }}>
