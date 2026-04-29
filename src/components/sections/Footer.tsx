@@ -35,11 +35,6 @@ export const Footer: React.FC = () => {
             <h5 className="font-medium text-white mb-3">Company</h5>
             <ul className="space-y-2 text-sm">
               <li>
-                <Link to="/brand" className="text-neutral-400 hover:text-white">
-                  Brand
-                </Link>
-              </li>
-              <li>
                 <a
                   href="https://github.com/ZephyrCloudIO"
                   target="_blank"
@@ -84,6 +79,11 @@ export const Footer: React.FC = () => {
                 >
                   Instagram
                 </a>
+              </li>
+              <li>
+                <Link to="/brand" className="text-neutral-400 hover:text-white">
+                  Brand
+                </Link>
               </li>
             </ul>
           </div>
