@@ -114,7 +114,8 @@ export function SignupForm() {
           ref={inputRef}
           id={emailFieldId}
           name="email"
-          type="text"
+          type="email"
+          autoComplete="email"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
