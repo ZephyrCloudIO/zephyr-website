@@ -50,7 +50,7 @@ function ColorSwatch({ name, hex, rgb, light, onCopy }: BrandColor & { onCopy: (
         variant="secondary"
         size="sm"
         onClick={handleCopy}
-        className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+        className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
       >
         {active ? <Check className="size-3" /> : <Copy className="size-3" />}
         {active ? 'Copied!' : 'Copy hex'}
@@ -157,7 +157,7 @@ function BrandPage() {
                 variant="secondary"
                 size="sm"
                 asChild
-                className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
               >
                 <a href={WordmarkLight} download="zephyr-wordmark-light.svg">
                   <Download className="size-3" />
@@ -171,7 +171,7 @@ function BrandPage() {
                 variant="secondary"
                 size="sm"
                 asChild
-                className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
               >
                 <a href={WordmarkDark} download="zephyr-wordmark-dark.svg">
                   <Download className="size-3" />
@@ -199,7 +199,7 @@ function BrandPage() {
                 variant="secondary"
                 size="sm"
                 asChild
-                className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
               >
                 <a href={LogoLight} download="zephyr-logo-light.svg">
                   <Download className="size-3" />
@@ -213,7 +213,7 @@ function BrandPage() {
                 variant="secondary"
                 size="sm"
                 asChild
-                className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+                className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
               >
                 <a href={LogoDark} download="zephyr-logo-dark.svg">
                   <Download className="size-3" />
@@ -229,7 +229,10 @@ function BrandPage() {
         {/* Colors */}
         <section>
           <h2 className="text-2xl font-medium mb-2">Colors</h2>
-          <p className="text-muted-foreground mb-8">Our core brand palette. Hover any swatch to copy the hex value.</p>
+          <p className="text-muted-foreground mb-8">
+            Our core brand palette. <span className="sm:hidden">Tap any swatch to copy the hex value.</span>
+            <span className="hidden sm:inline">Hover any swatch to copy the hex value.</span>
+          </p>
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {BRAND_COLORS.map((color) => (
               <ColorSwatch key={color.hex} {...color} onCopy={(hex) => showToast(`${hex} copied to clipboard`)} />
