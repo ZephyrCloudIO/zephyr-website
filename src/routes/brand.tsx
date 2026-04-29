@@ -112,8 +112,10 @@ function BrandPage() {
         <section>
           <h2 className="text-2xl font-medium mb-2">Wordmark</h2>
           <p className="text-muted-foreground mb-8">
-            The wordmark is our primary text-based identity. Use it when space allows and legibility is a priority.
-            Always download the SVG — do not rasterize.
+            The wordmark is our primary brand identifier, combining the logo mark and the Zephyr Cloud logotype. It's
+            the preferred asset for most contexts — headers, presentations, co-marketing materials, and anywhere the
+            brand needs to be clearly identified. Use the light version on dark backgrounds and the dark version on
+            light backgrounds. Always use the SVG; never stretch, recolor, or rasterize it.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div className="bg-card border border-border rounded-xl p-12 flex items-center justify-center">
@@ -139,8 +141,9 @@ function BrandPage() {
         <section>
           <h2 className="text-2xl font-medium mb-2">Logo Mark</h2>
           <p className="text-muted-foreground mb-8">
-            The logo mark is used when space is limited — app icons, favicons, social media profile pictures, and
-            situations where the wordmark would be too small to read.
+            The logo mark is the standalone symbol — the interconnected arcs that form the Zephyr Cloud icon. Use it in
+            compact spaces where the full wordmark wouldn't be legible: app icons, favicons, social media avatars, and
+            small UI contexts. It should never appear at a size where the detail is lost.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
             <div className="bg-card border border-border rounded-xl p-12 flex items-center justify-center">
