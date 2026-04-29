@@ -51,8 +51,16 @@ export default defineConfig(async () => {
     },
     output: {
       copy: [
+        { from: 'public/.well-known/agent.json', to: './.well-known/agent.json' },
+        { from: 'public/.well-known/agents.json', to: './.well-known/agents.json' },
+        { from: 'public/.well-known/mcp.json', to: './.well-known/mcp.json' },
+        { from: 'public/.well-known/openapi', to: './.well-known/openapi' },
+        { from: 'public/.well-known/webmcp.json', to: './.well-known/webmcp.json' },
+        { from: 'public/_headers', to: './_headers' },
         { from: 'public/favicon.ico', to: './favicon.ico' },
+        { from: 'public/llms-full.txt', to: './llms-full.txt' },
         { from: 'public/llms.txt', to: './llms.txt' },
+        { from: 'public/openapi.json', to: './openapi.json' },
         { from: 'public/robots.txt', to: './robots.txt' },
       ],
     },
