@@ -1,3 +1,4 @@
+import { Button } from '@/components/ui/button';
 import LogoDark from '@/images/logo-dark.svg';
 import LogoLight from '@/images/logo-light.svg';
 import WordmarkDark from '@/images/wordmark-dark.svg';
@@ -35,27 +36,26 @@ function ColorSwatch({ name, hex, rgb, light, onCopy }: BrandColor & { onCopy: (
 
   const textClass = light ? 'text-black/80' : 'text-white/80';
   const metaClass = light ? 'text-black/40' : 'text-white/40';
-  const btnClass = light
-    ? 'text-black/50 border border-black/10 bg-black/5'
-    : 'text-white/70 border border-white/10 bg-white/5';
   const borderStyle = light ? { border: '1px solid var(--border)' } : undefined;
 
   return (
     <div
-      className="group relative rounded-xl min-h-52 flex flex-col justify-end p-5 overflow-hidden"
+      className="group relative rounded-xl min-h-52 flex flex-col justify-end items-center text-center p-5 overflow-hidden"
       style={{ backgroundColor: hex, ...borderStyle }}
     >
       <p className={`text-sm font-medium ${textClass}`}>{name}</p>
       <p className={`text-xs mt-0.5 font-mono ${metaClass}`}>
         {hex} · {rgb[0]}, {rgb[1]}, {rgb[2]}
       </p>
-      <button
+      <Button
+        variant="secondary"
+        size="sm"
         onClick={handleCopy}
-        className={`absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity ${btnClass}`}
+        className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
       >
-        {active ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+        {active ? <Check className="size-3" /> : <Copy className="size-3" />}
         {active ? 'Copied!' : 'Copy hex'}
-      </button>
+      </Button>
     </div>
   );
 }
@@ -67,7 +67,7 @@ function SectionDivider() {
 function CopyToast({ message, visible }: { message: string; visible: boolean }) {
   return (
     <div
-      className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3.5 bg-card border border-border rounded-xl shadow-lg text-sm text-foreground transition-all duration-300 whitespace-nowrap ${
+      className={`fixed bottom-6 right-6 z-50 flex items-center gap-3 px-5 py-3.5 bg-card border border-border rounded-xl shadow-lg text-sm text-foreground transition-all duration-300 whitespace-nowrap ${
         visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
       }`}
     >
@@ -152,28 +152,34 @@ function BrandPage() {
             light backgrounds. Always use the SVG; never stretch, recolor, or rasterize it.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <a
-              href={WordmarkLight}
-              download="zephyr-wordmark-light.svg"
-              className="group relative bg-card border border-border rounded-xl flex items-center justify-center min-h-52"
-            >
+            <div className="group relative bg-card border border-border rounded-xl flex items-center justify-center min-h-52">
               <img src={WordmarkLight} alt="Zephyr Cloud wordmark — light" width={160} />
-              <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white/70 border border-white/10 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Download className="h-3 w-3" />
-                Download SVG
-              </span>
-            </a>
-            <a
-              href={WordmarkDark}
-              download="zephyr-wordmark-dark.svg"
-              className="group relative bg-white border border-border rounded-xl flex items-center justify-center min-h-52"
-            >
+              <Button
+                variant="secondary"
+                size="sm"
+                asChild
+                className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+              >
+                <a href={WordmarkLight} download="zephyr-wordmark-light.svg">
+                  <Download className="size-3" />
+                  Download SVG
+                </a>
+              </Button>
+            </div>
+            <div className="group relative bg-white border border-border rounded-xl flex items-center justify-center min-h-52">
               <img src={WordmarkDark} alt="Zephyr Cloud wordmark — dark" width={160} />
-              <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-black/50 border border-black/10 rounded-lg bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Download className="h-3 w-3" />
-                Download SVG
-              </span>
-            </a>
+              <Button
+                variant="secondary"
+                size="sm"
+                asChild
+                className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+              >
+                <a href={WordmarkDark} download="zephyr-wordmark-dark.svg">
+                  <Download className="size-3" />
+                  Download SVG
+                </a>
+              </Button>
+            </div>
           </div>
         </section>
 
@@ -188,28 +194,34 @@ function BrandPage() {
             small UI contexts. It should never appear at a size where the detail is lost.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <a
-              href={LogoLight}
-              download="zephyr-logo-light.svg"
-              className="group relative bg-card border border-border rounded-xl flex items-center justify-center min-h-52"
-            >
+            <div className="group relative bg-card border border-border rounded-xl flex items-center justify-center min-h-52">
               <img src={LogoLight} alt="Zephyr Cloud logo — light" width={64} />
-              <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white/70 border border-white/10 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Download className="h-3 w-3" />
-                Download SVG
-              </span>
-            </a>
-            <a
-              href={LogoDark}
-              download="zephyr-logo-dark.svg"
-              className="group relative bg-white border border-border rounded-xl flex items-center justify-center min-h-52"
-            >
+              <Button
+                variant="secondary"
+                size="sm"
+                asChild
+                className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+              >
+                <a href={LogoLight} download="zephyr-logo-light.svg">
+                  <Download className="size-3" />
+                  Download SVG
+                </a>
+              </Button>
+            </div>
+            <div className="group relative bg-white border border-border rounded-xl flex items-center justify-center min-h-52">
               <img src={LogoDark} alt="Zephyr Cloud logo — dark" width={64} />
-              <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-black/50 border border-black/10 rounded-lg bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity">
-                <Download className="h-3 w-3" />
-                Download SVG
-              </span>
-            </a>
+              <Button
+                variant="secondary"
+                size="sm"
+                asChild
+                className="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity text-xs"
+              >
+                <a href={LogoDark} download="zephyr-logo-dark.svg">
+                  <Download className="size-3" />
+                  Download SVG
+                </a>
+              </Button>
+            </div>
           </div>
         </section>
 
