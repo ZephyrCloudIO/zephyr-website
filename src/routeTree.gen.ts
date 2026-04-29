@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root';
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug';
 import { Route as BlogIndexRouteImport } from './routes/blog/index';
+import { Route as BrandRouteImport } from './routes/brand';
 import { Route as ChangelogSlugRouteImport } from './routes/changelog/$slug';
 import { Route as ChangelogIndexRouteImport } from './routes/changelog/index';
 import { Route as EventsRouteImport } from './routes/events';
@@ -53,6 +54,11 @@ const EventsRoute = EventsRouteImport.update({
   path: '/events',
   getParentRoute: () => rootRouteImport,
 } as any);
+const BrandRoute = BrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
+  getParentRoute: () => rootRouteImport,
+} as any);
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
@@ -91,6 +97,7 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
+  '/brand': typeof BrandRoute;
   '/events': typeof EventsRoute;
   '/partners': typeof PartnersRoute;
   '/press': typeof PressRoute;
@@ -106,6 +113,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
+  '/brand': typeof BrandRoute;
   '/events': typeof EventsRoute;
   '/partners': typeof PartnersRoute;
   '/press': typeof PressRoute;
@@ -122,6 +130,7 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   '/': typeof IndexRoute;
+  '/brand': typeof BrandRoute;
   '/events': typeof EventsRoute;
   '/partners': typeof PartnersRoute;
   '/press': typeof PressRoute;
@@ -139,6 +148,7 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
+    | '/brand'
     | '/events'
     | '/partners'
     | '/press'
@@ -154,6 +164,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
+    | '/brand'
     | '/events'
     | '/partners'
     | '/press'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/brand'
     | '/events'
     | '/partners'
     | '/press'
@@ -185,6 +197,7 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  BrandRoute: typeof BrandRoute;
   EventsRoute: typeof EventsRoute;
   PartnersRoute: typeof PartnersRoute;
   PressRoute: typeof PressRoute;
@@ -243,6 +256,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof EventsRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    '/brand': {
+      id: '/brand';
+      path: '/brand';
+      fullPath: '/brand';
+      preLoaderRoute: typeof BrandRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/': {
       id: '/';
       path: '/';
@@ -297,6 +317,7 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BrandRoute: BrandRoute,
   EventsRoute: EventsRoute,
   PartnersRoute: PartnersRoute,
   PressRoute: PressRoute,

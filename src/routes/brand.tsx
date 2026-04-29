@@ -3,48 +3,59 @@ import LogoLight from '@/images/logo-light.svg';
 import WordmarkDark from '@/images/wordmark-dark.svg';
 import WordmarkLight from '@/images/wordmark-light.svg';
 import { createFileRoute } from '@tanstack/react-router';
-import { Check, Copy, Download } from 'lucide-react';
+import { Check, Code2, Copy, Download } from 'lucide-react';
 import { useState } from 'react';
 
 export const Route = createFileRoute('/brand')({
   component: BrandPage,
 });
 
-const BRAND_COLORS = [
-  { name: 'Brand Navy', hex: '#020917', description: 'Primary background' },
-  { name: 'White', hex: '#FFFFFF', description: 'Primary foreground' },
-  { name: 'Violet', hex: '#7C3AED', description: 'Primary / CTA' },
-  { name: 'Surface', hex: '#171717', description: 'Cards & panels' },
+type BrandColor = {
+  name: string;
+  hex: string;
+  rgb: [number, number, number];
+  light: boolean;
+};
+
+const BRAND_COLORS: BrandColor[] = [
+  { name: 'Black', hex: '#0A0A0A', rgb: [10, 10, 10], light: false },
+  { name: 'White', hex: '#FFFFFF', rgb: [255, 255, 255], light: true },
+  { name: 'Violet', hex: '#7C3AED', rgb: [124, 58, 237], light: false },
 ];
 
-function ColorSwatch({ name, hex, description }: { name: string; hex: string; description: string }) {
-  const [copied, setCopied] = useState(false);
+function ColorSwatch({ name, hex, rgb, light, onCopy }: BrandColor & { onCopy: (hex: string) => void }) {
+  const [active, setActive] = useState(false);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(hex);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 1500);
+    setActive(true);
+    setTimeout(() => setActive(false), 1500);
+    onCopy(hex);
   };
 
-  const isLight = hex === '#FFFFFF';
+  const textClass = light ? 'text-black/80' : 'text-white/80';
+  const metaClass = light ? 'text-black/40' : 'text-white/40';
+  const btnClass = light
+    ? 'text-black/50 border border-black/10 bg-black/5'
+    : 'text-white/70 border border-white/10 bg-white/5';
+  const borderStyle = light ? { border: '1px solid var(--border)' } : undefined;
 
   return (
-    <div className="bg-card border border-border rounded-xl overflow-hidden">
-      <div
-        className="h-32 w-full"
-        style={{ backgroundColor: hex, border: isLight ? '1px solid var(--border)' : undefined }}
-      />
-      <div className="p-4">
-        <p className="text-sm font-medium text-foreground">{name}</p>
-        <p className="text-xs text-muted-foreground mb-3">{description}</p>
-        <button
-          onClick={handleCopy}
-          className="inline-flex items-center gap-1.5 text-xs text-muted-foreground hover:text-foreground transition-colors font-mono"
-        >
-          {copied ? <Check className="h-3 w-3 text-emerald-500" /> : <Copy className="h-3 w-3" />}
-          {copied ? 'Copied!' : hex}
-        </button>
-      </div>
+    <div
+      className="group relative rounded-xl min-h-52 flex flex-col justify-end p-5 overflow-hidden"
+      style={{ backgroundColor: hex, ...borderStyle }}
+    >
+      <p className={`text-sm font-medium ${textClass}`}>{name}</p>
+      <p className={`text-xs mt-0.5 font-mono ${metaClass}`}>
+        {hex} · {rgb[0]}, {rgb[1]}, {rgb[2]}
+      </p>
+      <button
+        onClick={handleCopy}
+        className={`absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium rounded-lg opacity-0 group-hover:opacity-100 transition-opacity ${btnClass}`}
+      >
+        {active ? <Check className="h-3 w-3" /> : <Copy className="h-3 w-3" />}
+        {active ? 'Copied!' : 'Copy hex'}
+      </button>
     </div>
   );
 }
@@ -53,9 +64,31 @@ function SectionDivider() {
   return <div className="border-t border-border my-16" />;
 }
 
-function BrandPage() {
+function CopyToast({ message, visible }: { message: string; visible: boolean }) {
   return (
-    <div className="min-h-screen bg-background text-white">
+    <div
+      className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3.5 bg-card border border-border rounded-xl shadow-lg text-sm text-foreground transition-all duration-300 whitespace-nowrap ${
+        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
+      }`}
+    >
+      <Code2 className="h-4 w-4 text-muted-foreground shrink-0" />
+      <span>{message}</span>
+    </div>
+  );
+}
+
+function BrandPage() {
+  const [toastMsg, setToastMsg] = useState('');
+  const [toastVisible, setToastVisible] = useState(false);
+
+  const showToast = (message: string) => {
+    setToastMsg(message);
+    setToastVisible(true);
+    setTimeout(() => setToastVisible(false), 2000);
+  };
+
+  return (
+    <div className="min-h-screen bg-background text-foreground">
       <div className="container mx-auto px-4 py-16 max-w-4xl">
         {/* Hero */}
         <div className="text-center mb-20">
@@ -67,7 +100,7 @@ function BrandPage() {
           <a
             href="/ZephyrCloud-Brand-Assets.zip"
             download="ZephyrCloud-Brand-Assets.zip"
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-white text-black text-sm font-medium rounded-lg hover:bg-neutral-200 transition-colors"
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-secondary-foreground text-sm font-medium rounded-lg hover:bg-secondary/80 transition-colors"
           >
             <Download className="h-4 w-4" />
             Download Brand Assets
@@ -185,16 +218,16 @@ function BrandPage() {
         {/* Colors */}
         <section>
           <h2 className="text-2xl font-medium mb-2">Colors</h2>
-          <p className="text-muted-foreground mb-8">
-            These are the core colors of the Zephyr Cloud brand. Click any hex value to copy it to your clipboard.
-          </p>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <p className="text-muted-foreground mb-8">Our core brand palette. Hover any swatch to copy the hex value.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             {BRAND_COLORS.map((color) => (
-              <ColorSwatch key={color.hex} {...color} />
+              <ColorSwatch key={color.hex} {...color} onCopy={(hex) => showToast(`${hex} copied to clipboard`)} />
             ))}
           </div>
         </section>
       </div>
+
+      <CopyToast message={toastMsg} visible={toastVisible} />
     </div>
   );
 }

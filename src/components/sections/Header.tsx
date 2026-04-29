@@ -14,7 +14,9 @@ import { Link, useNavigate } from '@tanstack/react-router';
 import {
   BookOpen,
   Calendar,
+  Check,
   Cloud,
+  Code2,
   Download,
   FileText,
   Github,
@@ -47,6 +49,15 @@ export const Header: React.FC = () => {
   const [scrolled, setScrolled] = useState(false);
   const [visible, setVisible] = useState(true);
   const lastScrollY = React.useRef(0);
+  const [toastMsg, setToastMsg] = useState('');
+  const [toastVisible, setToastVisible] = useState(false);
+  const [copyActive, setCopyActive] = useState<string | null>(null);
+
+  const showToast = (message: string) => {
+    setToastMsg(message);
+    setToastVisible(true);
+    setTimeout(() => setToastVisible(false), 2000);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -78,6 +89,9 @@ export const Header: React.FC = () => {
       const response = await fetch(LogoLight);
       const svgText = await response.text();
       await navigator.clipboard.writeText(svgText);
+      setCopyActive('logo');
+      setTimeout(() => setCopyActive(null), 1500);
+      showToast('Logo SVG copied to clipboard');
     } catch (err) {
       console.error('Failed to copy logo:', err);
     }
@@ -88,6 +102,9 @@ export const Header: React.FC = () => {
       const response = await fetch(WordmarkLight);
       const svgText = await response.text();
       await navigator.clipboard.writeText(svgText);
+      setCopyActive('wordmark');
+      setTimeout(() => setCopyActive(null), 1500);
+      showToast('Wordmark SVG copied to clipboard');
     } catch (err) {
       console.error('Failed to copy wordmark:', err);
     }
@@ -139,12 +156,16 @@ export const Header: React.FC = () => {
                 sideOffset={5}
               >
                 <DropdownMenuItem onClick={handleCopyLogo} className="flex items-center gap-2">
-                  <img src={LogoLight} alt="Logo" className="h-4 w-4" />
-                  <span className="flex-1">Copy Logo Icon SVG</span>
+                  {copyActive === 'logo' ? (
+                    <Check className="h-4 w-4" />
+                  ) : (
+                    <img src={LogoLight} alt="Logo" className="h-4 w-4" />
+                  )}
+                  <span className="flex-1">{copyActive === 'logo' ? 'Copied!' : 'Copy Logo Icon SVG'}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleCopyWordmark} className="flex items-center gap-2">
-                  <Type className="h-4 w-4" />
-                  <span className="flex-1">Copy Wordmark SVG</span>
+                  {copyActive === 'wordmark' ? <Check className="h-4 w-4" /> : <Type className="h-4 w-4" />}
+                  <span className="flex-1">{copyActive === 'wordmark' ? 'Copied!' : 'Copy Wordmark SVG'}</span>
                 </DropdownMenuItem>
                 <DropdownMenuItem onClick={handleDownloadAssets} className="flex items-center gap-2">
                   <Download className="h-4 w-4" />
@@ -374,6 +395,15 @@ export const Header: React.FC = () => {
             </a>
           </div>
         </nav>
+      </div>
+
+      <div
+        className={`fixed bottom-6 left-1/2 -translate-x-1/2 z-50 flex items-center gap-3 px-5 py-3.5 bg-card border border-border rounded-xl shadow-lg text-sm text-foreground transition-all duration-300 whitespace-nowrap ${
+          toastVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
+        }`}
+      >
+        <Code2 className="h-4 w-4 text-muted-foreground shrink-0" />
+        <span>{toastMsg}</span>
       </div>
     </header>
   );
