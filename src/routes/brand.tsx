@@ -122,27 +122,23 @@ function BrandPage() {
             <a
               href={WordmarkLight}
               download="zephyr-wordmark-light.svg"
-              className="group relative overflow-hidden bg-card border border-border rounded-xl p-12 flex items-center justify-center"
+              className="group relative bg-card border border-border rounded-xl flex items-center justify-center min-h-52"
             >
               <img src={WordmarkLight} alt="Zephyr Cloud wordmark — light" width={160} />
-              <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-lg bg-white/10">
-                  <Download className="h-4 w-4" />
-                  Download SVG
-                </span>
+              <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white/70 border border-white/10 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Download className="h-3 w-3" />
+                Download SVG
               </span>
             </a>
             <a
               href={WordmarkDark}
               download="zephyr-wordmark-dark.svg"
-              className="group relative overflow-hidden bg-white border border-border rounded-xl p-12 flex items-center justify-center"
+              className="group relative bg-white border border-border rounded-xl flex items-center justify-center min-h-52"
             >
               <img src={WordmarkDark} alt="Zephyr Cloud wordmark — dark" width={160} />
-              <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-lg bg-black/20">
-                  <Download className="h-4 w-4" />
-                  Download SVG
-                </span>
+              <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-black/50 border border-black/10 rounded-lg bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Download className="h-3 w-3" />
+                Download SVG
               </span>
             </a>
           </div>
@@ -162,27 +158,23 @@ function BrandPage() {
             <a
               href={LogoLight}
               download="zephyr-logo-light.svg"
-              className="group relative overflow-hidden bg-card border border-border rounded-xl p-12 flex items-center justify-center"
+              className="group relative bg-card border border-border rounded-xl flex items-center justify-center min-h-52"
             >
-              <img src={LogoLight} alt="Zephyr Cloud logo — light" width={80} />
-              <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/60 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-lg bg-white/10">
-                  <Download className="h-4 w-4" />
-                  Download SVG
-                </span>
+              <img src={LogoLight} alt="Zephyr Cloud logo — light" width={64} />
+              <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-white/70 border border-white/10 rounded-lg bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Download className="h-3 w-3" />
+                Download SVG
               </span>
             </a>
             <a
               href={LogoDark}
               download="zephyr-logo-dark.svg"
-              className="group relative overflow-hidden bg-white border border-border rounded-xl p-12 flex items-center justify-center"
+              className="group relative bg-white border border-border rounded-xl flex items-center justify-center min-h-52"
             >
-              <img src={LogoDark} alt="Zephyr Cloud logo — dark" width={80} />
-              <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
-                <span className="inline-flex items-center gap-2 px-4 py-2 text-sm font-medium text-white border border-white/20 rounded-lg bg-black/20">
-                  <Download className="h-4 w-4" />
-                  Download SVG
-                </span>
+              <img src={LogoDark} alt="Zephyr Cloud logo — dark" width={64} />
+              <span className="absolute bottom-4 right-4 inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-medium text-black/50 border border-black/10 rounded-lg bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity">
+                <Download className="h-3 w-3" />
+                Download SVG
               </span>
             </a>
           </div>
