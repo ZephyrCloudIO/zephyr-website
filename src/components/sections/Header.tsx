@@ -3,17 +3,19 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import { PRODUCTS, RESOURCES } from '@/constants/navItems';
-import ZephyrLogo from '@/images/zephyr-logo.svg';
-import ZephyrWordmark from '@/images/zephyr-wordmark.svg';
+import LogoLight from '@/images/logo-light.svg';
+import WordmarkLight from '@/images/wordmark-light.svg';
 import { cn } from '@/lib/utils';
-import { Link } from '@tanstack/react-router';
+import { Link, useNavigate } from '@tanstack/react-router';
 import {
+  BookOpen,
   Calendar,
   Cloud,
+  Download,
   FileText,
   Github,
   History,
@@ -37,6 +39,7 @@ import {
 } from '../ui/navigation-menu';
 
 export const Header: React.FC = () => {
+  const navigate = useNavigate();
   const [dropdownOpen, setDropdownOpen] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
@@ -72,7 +75,7 @@ export const Header: React.FC = () => {
 
   const handleCopyLogo = async () => {
     try {
-      const response = await fetch(ZephyrLogo);
+      const response = await fetch(LogoLight);
       const svgText = await response.text();
       await navigator.clipboard.writeText(svgText);
     } catch (err) {
@@ -82,12 +85,19 @@ export const Header: React.FC = () => {
 
   const handleCopyWordmark = async () => {
     try {
-      const response = await fetch(ZephyrWordmark);
+      const response = await fetch(WordmarkLight);
       const svgText = await response.text();
       await navigator.clipboard.writeText(svgText);
     } catch (err) {
       console.error('Failed to copy wordmark:', err);
     }
+  };
+
+  const handleDownloadAssets = () => {
+    const a = document.createElement('a');
+    a.href = '/ZephyrCloud-Brand-Assets.zip';
+    a.download = 'ZephyrCloud-Brand-Assets.zip';
+    a.click();
   };
 
   return (
@@ -116,21 +126,40 @@ export const Header: React.FC = () => {
                 setDropdownOpen(true);
               }}
             >
-              <img src={ZephyrWordmark} alt="Zephyr Logo" width={128} />
+              <img src={WordmarkLight} alt="Zephyr Logo" width={128} />
             </Link>
             <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
               <DropdownMenuTrigger asChild>
                 <span className="sr-only">Logo menu</span>
               </DropdownMenuTrigger>
-              <DropdownMenuContent className="w-56 border-neutral-700" align="start" alignOffset={-5} sideOffset={5}>
-                <DropdownMenuLabel>Platform</DropdownMenuLabel>
-                <DropdownMenuItem onClick={handleCopyLogo} className="flex items-center gap-2 hover:bg-neutral-700">
-                  <img src={ZephyrLogo} alt="Logo" className="h-4 w-4" />
+              <DropdownMenuContent
+                className="w-56 bg-main-muted border-border"
+                align="start"
+                alignOffset={-5}
+                sideOffset={5}
+              >
+                <DropdownMenuItem onClick={handleCopyLogo} className="flex items-center gap-2">
+                  <img src={LogoLight} alt="Logo" className="h-4 w-4" />
                   <span className="flex-1">Copy Logo Icon SVG</span>
                 </DropdownMenuItem>
-                <DropdownMenuItem onClick={handleCopyWordmark} className="flex items-center gap-2 hover:bg-neutral-700">
+                <DropdownMenuItem onClick={handleCopyWordmark} className="flex items-center gap-2">
                   <Type className="h-4 w-4" />
                   <span className="flex-1">Copy Wordmark SVG</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={handleDownloadAssets} className="flex items-center gap-2">
+                  <Download className="h-4 w-4" />
+                  <span className="flex-1">Download brand assets</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    navigate({ to: '/brand' });
+                  }}
+                  className="flex items-center gap-2"
+                >
+                  <BookOpen className="h-4 w-4" />
+                  <span className="flex-1">Visit brand guidelines</span>
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
