@@ -36,12 +36,11 @@ function ColorSwatch({ name, hex, rgb, light, onCopy }: BrandColor & { onCopy: (
 
   const textClass = light ? 'text-black/80' : 'text-white/80';
   const metaClass = light ? 'text-black/40' : 'text-white/40';
-  const borderStyle = light ? { border: '1px solid var(--border)' } : undefined;
 
   return (
     <div
-      className="group relative rounded-xl min-h-52 flex flex-col justify-end items-center text-center p-5 overflow-hidden"
-      style={{ backgroundColor: hex, ...borderStyle }}
+      className="group relative rounded-xl min-h-52 flex flex-col justify-center p-5 overflow-hidden border border-border"
+      style={{ backgroundColor: hex }}
     >
       <p className={`text-sm font-medium ${textClass}`}>{name}</p>
       <p className={`text-xs mt-0.5 font-mono ${metaClass}`}>
