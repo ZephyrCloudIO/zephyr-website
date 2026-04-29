@@ -8,7 +8,7 @@ read_when:
 
 # AI readiness
 
-The site keeps a crawler-readable fallback in [index.html](/Users/nsttt/work/zephyr-website/index.html).
+The site keeps a crawler-readable fallback in [index.html](../index.html).
 
 - `index.html`: semantic non-JS shell for agents and crawlers
 - `public/robots.txt`: crawler allow rules plus sitemap
