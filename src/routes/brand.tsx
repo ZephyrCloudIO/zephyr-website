@@ -79,33 +79,10 @@ function BrandPage() {
         {/* Naming */}
         <section>
           <h2 className="text-2xl font-medium mb-4">Naming</h2>
-          <p className="text-muted-foreground mb-6">
-            When referring to us in writing, use <strong className="text-foreground">Zephyr Cloud</strong> — two words,
-            both capitalized. Do not use "ZephyrCloud", "zephyr cloud", or "zephyr" as a standalone product name.
+          <p className="text-muted-foreground">
+            When referring to us in writing, use Zephyr Cloud — two words, both capitalized. Zephyr is also acceptable
+            as a shorthand. Do not use "ZephyrCloud" or "zephyr cloud".
           </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <div className="bg-card border border-border rounded-xl p-6">
-              <p className="text-xs font-medium text-emerald-500 uppercase tracking-wider mb-3">Correct</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-emerald-500 shrink-0" />
-                  Zephyr Cloud
-                </li>
-                <li className="flex items-center gap-2">
-                  <Check className="h-4 w-4 text-emerald-500 shrink-0" />
-                  Built with Zephyr Cloud
-                </li>
-              </ul>
-            </div>
-            <div className="bg-card border border-border rounded-xl p-6">
-              <p className="text-xs font-medium text-red-500 uppercase tracking-wider mb-3">Incorrect</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-center gap-2 line-through opacity-60">ZephyrCloud</li>
-                <li className="flex items-center gap-2 line-through opacity-60">zephyr cloud</li>
-                <li className="flex items-center gap-2 line-through opacity-60">Zephyr (as a product name alone)</li>
-              </ul>
-            </div>
-          </div>
         </section>
 
         <SectionDivider />
