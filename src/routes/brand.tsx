@@ -58,9 +58,9 @@ function BrandPage() {
     <div className="min-h-screen bg-background text-white">
       <div className="container mx-auto px-4 py-20 max-w-4xl">
         {/* Hero */}
-        <div className="mb-20">
+        <div className="text-center mb-20">
           <h1 className="text-5xl font-medium leading-tight mb-4">Zephyr Cloud Brand Guidelines</h1>
-          <p className="text-xl text-muted-foreground mb-8 max-w-2xl">
+          <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
             Resources and guidelines for using our brand assets. Please read these guidelines before using our logo,
             wordmark, or colors.
           </p>
