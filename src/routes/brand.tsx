@@ -81,7 +81,8 @@ function BrandPage() {
           <h2 className="text-2xl font-medium mb-4">Naming</h2>
           <p className="text-muted-foreground">
             When referring to us in writing, use Zephyr Cloud — two words, both capitalized. Zephyr is also acceptable
-            as a shorthand. Do not use "ZephyrCloud" or "zephyr cloud".
+            as a shorthand in informal or repeated references. Do not use "ZephyrCloud" as one word, all-lowercase
+            variants, or abbreviations we haven't used ourselves.
           </p>
         </section>
 
