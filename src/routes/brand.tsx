@@ -56,7 +56,7 @@ function SectionDivider() {
 function BrandPage() {
   return (
     <div className="min-h-screen bg-background text-white">
-      <div className="container mx-auto px-4 py-20 max-w-4xl">
+      <div className="container mx-auto px-4 py-16 max-w-4xl">
         {/* Hero */}
         <div className="text-center mb-20">
           <h1 className="text-5xl font-medium leading-tight mb-4">Zephyr Cloud Brand Guidelines</h1>
