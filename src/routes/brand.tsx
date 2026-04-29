@@ -1,11 +1,12 @@
+import { CopyToast } from '@/components/CopyToast';
 import { Button } from '@/components/ui/button';
 import LogoDark from '@/images/logo-dark.svg';
 import LogoLight from '@/images/logo-light.svg';
 import WordmarkDark from '@/images/wordmark-dark.svg';
 import WordmarkLight from '@/images/wordmark-light.svg';
 import { createFileRoute } from '@tanstack/react-router';
-import { Check, Code2, Copy, Download } from 'lucide-react';
-import { useState } from 'react';
+import { Check, Copy, Download } from 'lucide-react';
+import { useEffect, useRef, useState } from 'react';
 
 export const Route = createFileRoute('/brand')({
   component: BrandPage,
@@ -24,13 +25,24 @@ const BRAND_COLORS: BrandColor[] = [
   { name: 'Violet', hex: '#7C3AED', rgb: [124, 58, 237], light: false },
 ];
 
+const CARD_BTN =
+  'opacity-100 sm:opacity-0 sm:group-hover:opacity-100 sm:group-focus-within:opacity-100 transition-opacity text-xs';
+
 function ColorSwatch({ name, hex, rgb, light, onCopy }: BrandColor & { onCopy: (hex: string) => void }) {
   const [active, setActive] = useState(false);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    };
+  }, []);
 
   const handleCopy = async () => {
     await navigator.clipboard.writeText(hex);
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
     setActive(true);
-    setTimeout(() => setActive(false), 1500);
+    timeoutRef.current = setTimeout(() => setActive(false), 1500);
     onCopy(hex);
   };
 
@@ -46,12 +58,7 @@ function ColorSwatch({ name, hex, rgb, light, onCopy }: BrandColor & { onCopy: (
       <p className={`text-xs mt-0.5 font-mono ${metaClass}`}>
         {hex} · {rgb[0]}, {rgb[1]}, {rgb[2]}
       </p>
-      <Button
-        variant="secondary"
-        size="sm"
-        onClick={handleCopy}
-        className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
-      >
+      <Button variant="secondary" size="sm" onClick={handleCopy} className={`absolute bottom-4 right-4 ${CARD_BTN}`}>
         {active ? <Check className="size-3" /> : <Copy className="size-3" />}
         {active ? 'Copied!' : 'Copy hex'}
       </Button>
@@ -63,27 +70,22 @@ function SectionDivider() {
   return <div className="border-t border-border my-16" />;
 }
 
-function CopyToast({ message, visible }: { message: string; visible: boolean }) {
-  return (
-    <div
-      className={`fixed bottom-6 right-6 z-[2147483647] flex items-center gap-3 px-5 py-3.5 bg-card border border-border rounded-xl shadow-lg text-sm text-foreground transition-all duration-300 whitespace-nowrap ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
-      }`}
-    >
-      <Code2 className="h-4 w-4 text-muted-foreground shrink-0" />
-      <span>{message}</span>
-    </div>
-  );
-}
-
 function BrandPage() {
   const [toastMsg, setToastMsg] = useState('');
   const [toastVisible, setToastVisible] = useState(false);
+  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    };
+  }, []);
 
   const showToast = (message: string) => {
     setToastMsg(message);
     setToastVisible(true);
-    setTimeout(() => setToastVisible(false), 2000);
+    if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    toastTimeoutRef.current = setTimeout(() => setToastVisible(false), 2000);
   };
 
   return (
@@ -153,12 +155,7 @@ function BrandPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="group relative bg-card border border-border rounded-xl flex items-center justify-center min-h-52">
               <img src={WordmarkLight} alt="Zephyr Cloud wordmark — light" width={160} />
-              <Button
-                variant="secondary"
-                size="sm"
-                asChild
-                className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
-              >
+              <Button variant="secondary" size="sm" asChild className={`absolute bottom-4 right-4 ${CARD_BTN}`}>
                 <a href={WordmarkLight} download="zephyr-wordmark-light.svg">
                   <Download className="size-3" />
                   Download SVG
@@ -167,12 +164,7 @@ function BrandPage() {
             </div>
             <div className="group relative bg-white border border-border rounded-xl flex items-center justify-center min-h-52">
               <img src={WordmarkDark} alt="Zephyr Cloud wordmark — dark" width={160} />
-              <Button
-                variant="secondary"
-                size="sm"
-                asChild
-                className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
-              >
+              <Button variant="secondary" size="sm" asChild className={`absolute bottom-4 right-4 ${CARD_BTN}`}>
                 <a href={WordmarkDark} download="zephyr-wordmark-dark.svg">
                   <Download className="size-3" />
                   Download SVG
@@ -195,12 +187,7 @@ function BrandPage() {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="group relative bg-card border border-border rounded-xl flex items-center justify-center min-h-52">
               <img src={LogoLight} alt="Zephyr Cloud logo — light" width={64} />
-              <Button
-                variant="secondary"
-                size="sm"
-                asChild
-                className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
-              >
+              <Button variant="secondary" size="sm" asChild className={`absolute bottom-4 right-4 ${CARD_BTN}`}>
                 <a href={LogoLight} download="zephyr-logo-light.svg">
                   <Download className="size-3" />
                   Download SVG
@@ -209,12 +196,7 @@ function BrandPage() {
             </div>
             <div className="group relative bg-white border border-border rounded-xl flex items-center justify-center min-h-52">
               <img src={LogoDark} alt="Zephyr Cloud logo — dark" width={64} />
-              <Button
-                variant="secondary"
-                size="sm"
-                asChild
-                className="absolute bottom-4 right-4 opacity-100 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity text-xs"
-              >
+              <Button variant="secondary" size="sm" asChild className={`absolute bottom-4 right-4 ${CARD_BTN}`}>
                 <a href={LogoDark} download="zephyr-logo-dark.svg">
                   <Download className="size-3" />
                   Download SVG

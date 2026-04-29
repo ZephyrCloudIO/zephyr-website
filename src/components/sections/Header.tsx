@@ -1,3 +1,4 @@
+import { CopyToast } from '@/components/CopyToast';
 import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
@@ -16,7 +17,6 @@ import {
   Calendar,
   Check,
   Cloud,
-  Code2,
   Download,
   FileText,
   Github,
@@ -29,7 +29,7 @@ import {
   Users,
   X,
 } from 'lucide-react';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
   NavigationMenu,
@@ -53,11 +53,21 @@ export const Header: React.FC = () => {
   const [toastMsg, setToastMsg] = useState('');
   const [toastVisible, setToastVisible] = useState(false);
   const [copyActive, setCopyActive] = useState<string | null>(null);
+  const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
+      if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    };
+  }, []);
 
   const showToast = (message: string) => {
     setToastMsg(message);
     setToastVisible(true);
-    setTimeout(() => setToastVisible(false), 2000);
+    if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
+    toastTimeoutRef.current = setTimeout(() => setToastVisible(false), 2000);
   };
 
   useEffect(() => {
@@ -90,8 +100,9 @@ export const Header: React.FC = () => {
       const response = await fetch(LogoLight);
       const svgText = await response.text();
       await navigator.clipboard.writeText(svgText);
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
       setCopyActive('logo');
-      setTimeout(() => setCopyActive(null), 1500);
+      copyTimeoutRef.current = setTimeout(() => setCopyActive(null), 1500);
       showToast('Logo SVG copied to clipboard');
     } catch (err) {
       console.error('Failed to copy logo:', err);
@@ -103,8 +114,9 @@ export const Header: React.FC = () => {
       const response = await fetch(WordmarkLight);
       const svgText = await response.text();
       await navigator.clipboard.writeText(svgText);
+      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
       setCopyActive('wordmark');
-      setTimeout(() => setCopyActive(null), 1500);
+      copyTimeoutRef.current = setTimeout(() => setCopyActive(null), 1500);
       showToast('Wordmark SVG copied to clipboard');
     } catch (err) {
       console.error('Failed to copy wordmark:', err);
@@ -116,6 +128,7 @@ export const Header: React.FC = () => {
     a.href = '/ZephyrCloud-Brand-Assets.zip';
     a.download = 'ZephyrCloud-Brand-Assets.zip';
     a.click();
+    a.remove();
   };
 
   return (
@@ -140,6 +153,7 @@ export const Header: React.FC = () => {
               <Link
                 to="/"
                 className="flex items-center gap-2"
+                aria-label="Zephyr Cloud (right-click for logo menu)"
                 onContextMenu={(e) => {
                   e.preventDefault();
                   setDropdownOpen(true);
@@ -400,17 +414,7 @@ export const Header: React.FC = () => {
         </div>
       </header>
 
-      {createPortal(
-        <div
-          className={`fixed bottom-6 right-6 z-[2147483647] flex items-center gap-3 px-5 py-3.5 bg-card border border-border rounded-xl shadow-lg text-sm text-foreground transition-all duration-300 whitespace-nowrap ${
-            toastVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
-          }`}
-        >
-          <Code2 className="h-4 w-4 text-muted-foreground shrink-0" />
-          <span>{toastMsg}</span>
-        </div>,
-        document.body,
-      )}
+      {createPortal(<CopyToast message={toastMsg} visible={toastVisible} />, document.body)}
     </>
   );
 };
