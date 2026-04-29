@@ -90,35 +90,13 @@ function BrandPage() {
         {/* Usage */}
         <section>
           <h2 className="text-2xl font-medium mb-4">Usage</h2>
-          <p className="text-muted-foreground mb-6">
-            Our brand assets are protected intellectual property. You may use them to reference Zephyr Cloud in
-            editorial contexts. You may not use them in a way that implies endorsement, partnership, or affiliation
-            without written permission.
+          <p className="text-muted-foreground mb-4">
+            You're welcome to use our assets to reference Zephyr Cloud — in articles, talks, integrations, or anywhere
+            you're talking about us. Please don't modify the logo or wordmark, and avoid using them in ways that suggest
+            an official partnership or endorsement.
           </p>
-          <div className="bg-card border border-border rounded-xl p-6 space-y-3 text-sm text-muted-foreground">
-            <p className="flex items-start gap-3">
-              <span className="text-red-500 font-medium shrink-0">✕</span>
-              Do not modify, distort, rotate, or recolor the logo or wordmark.
-            </p>
-            <p className="flex items-start gap-3">
-              <span className="text-red-500 font-medium shrink-0">✕</span>
-              Do not place the logo on backgrounds that reduce legibility.
-            </p>
-            <p className="flex items-start gap-3">
-              <span className="text-red-500 font-medium shrink-0">✕</span>
-              Do not combine our logo with other logos or icons without approval.
-            </p>
-            <p className="flex items-start gap-3">
-              <span className="text-emerald-500 font-medium shrink-0">✓</span>
-              Use the light version on dark backgrounds, and the dark version on light backgrounds.
-            </p>
-            <p className="flex items-start gap-3">
-              <span className="text-emerald-500 font-medium shrink-0">✓</span>
-              Maintain clear space equal to the height of the "Z" on all sides of the mark.
-            </p>
-          </div>
-          <p className="text-sm text-muted-foreground mt-4">
-            For licensing inquiries, email{' '}
+          <p className="text-muted-foreground">
+            Questions?{' '}
             <a
               href="mailto:press@zephyr-cloud.io"
               className="text-foreground underline underline-offset-2 decoration-border hover:decoration-foreground transition-colors"
