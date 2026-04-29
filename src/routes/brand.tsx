@@ -99,7 +99,7 @@ function BrandPage() {
             wordmark, or colors.
           </p>
           <a
-            href="/ZephyrCloud-Brand-Assets.zip"
+            href="https://assets.zephyr-cloud.io/ZephyrCloud-Brand-Assets.zip"
             download="ZephyrCloud-Brand-Assets.zip"
             className="inline-flex items-center gap-2 px-5 py-2.5 bg-secondary text-secondary-foreground text-sm font-medium rounded-lg hover:bg-secondary/80 transition-colors"
           >

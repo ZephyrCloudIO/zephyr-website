@@ -125,7 +125,7 @@ export const Header: React.FC = () => {
 
   const handleDownloadAssets = () => {
     const a = document.createElement('a');
-    a.href = '/ZephyrCloud-Brand-Assets.zip';
+    a.href = 'https://assets.zephyr-cloud.io/ZephyrCloud-Brand-Assets.zip';
     a.download = 'ZephyrCloud-Brand-Assets.zip';
     a.click();
     a.remove();
