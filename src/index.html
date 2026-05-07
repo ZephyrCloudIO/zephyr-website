@@ -109,102 +109,112 @@
         }
       }
     </script>
+    <style>
+      html.js #static-fallback {
+        display: none;
+      }
+    </style>
+    <script>
+      document.documentElement.classList.add('js');
+    </script>
     <title>Zephyr Cloud</title>
   </head>
   <body>
     <div id="root">
-      <header>
-        <nav aria-label="Primary">
-          <a href="/" aria-current="page">Zephyr Cloud home</a>
-          <a href="https://docs.zephyr-cloud.io/">Read the Zephyr Cloud docs</a>
-          <a href="/pricing">View pricing</a>
-          <a href="/blog">Read the engineering blog</a>
-          <a href="/changelog">Review recent product updates</a>
-        </nav>
-      </header>
+      <div id="static-fallback">
+        <header>
+          <nav aria-label="Primary">
+            <a href="/" aria-current="page">Zephyr Cloud home</a>
+            <a href="https://docs.zephyr-cloud.io/">Read the Zephyr Cloud docs</a>
+            <a href="/pricing">View pricing</a>
+            <a href="/blog">Read the engineering blog</a>
+            <a href="/changelog">Review recent product updates</a>
+          </nav>
+        </header>
 
-      <main>
-        <article>
-          <h1>Zephyr Cloud helps teams ship web and mobile apps globally in under a second.</h1>
-          <p>
-            Built by the team behind Module Federation, Zephyr Cloud gives engineering teams a faster path from idea to
-            production with multi-cloud deployment, versioned rollbacks, and zero vendor lock-in. The platform supports
-            web, micro-frontends, and React Native OTA workflows from the same delivery layer.
-          </p>
-
-          <section aria-labelledby="what-can-teams-deploy">
-            <h2 id="what-can-teams-deploy">What can teams deploy with Zephyr Cloud?</h2>
+        <main>
+          <article>
+            <h1>Zephyr Cloud helps teams ship web and mobile apps globally in under a second.</h1>
             <p>
-              Teams can deploy frontend applications, micro-frontends, and mobile update flows across Cloudflare,
-              Fastly, AWS, Azure, Vercel, and other providers without rebuilding the app for each environment. Zephyr
-              keeps releases versioned, observable, and easy to roll forward or back.
+              Built by the team behind Module Federation, Zephyr Cloud gives engineering teams a faster path from idea
+              to production with multi-cloud deployment, versioned rollbacks, and zero vendor lock-in. The platform
+              supports web, micro-frontends, and React Native OTA workflows from the same delivery layer.
             </p>
-          </section>
 
-          <section aria-labelledby="how-does-integration-work">
-            <h2 id="how-does-integration-work">How does Zephyr Cloud fit into an existing stack?</h2>
-            <p>
-              Most teams start with <code>npx create-zephyr-apps@latest</code> or the official Rsbuild and Rspack
-              plugins. From there, Zephyr wires application delivery into the existing repository, preserves framework
-              choice, and keeps docs.zephyr-cloud.io as the source of truth for implementation details.
-            </p>
-          </section>
+            <section aria-labelledby="what-can-teams-deploy">
+              <h2 id="what-can-teams-deploy">What can teams deploy with Zephyr Cloud?</h2>
+              <p>
+                Teams can deploy frontend applications, micro-frontends, and mobile update flows across Cloudflare,
+                Fastly, AWS, Azure, Vercel, and other providers without rebuilding the app for each environment. Zephyr
+                keeps releases versioned, observable, and easy to roll forward or back.
+              </p>
+            </section>
 
-          <section aria-labelledby="where-should-agents-start">
-            <h2 id="where-should-agents-start">Where should developers and AI agents start?</h2>
-            <p>
-              Start with the product docs, then review pricing, blog posts, and changelog entries for current platform
-              capabilities. These links cover setup, supported frameworks, deployment workflows, and recent releases.
-            </p>
-            <ul>
-              <li><a href="https://docs.zephyr-cloud.io/">Explore the documentation</a></li>
-              <li><a href="https://app.zephyr-cloud.io/">Open the Zephyr Cloud app</a></li>
-              <li><a href="/pricing">Compare pricing plans</a></li>
-              <li><a href="/blog">Browse technical articles</a></li>
-              <li><a href="/changelog">See the latest changelog entries</a></li>
-            </ul>
-            <p>
-              Last content refresh:
-              <time datetime="2026-04-23T00:00:00Z">April 23, 2026</time>
-            </p>
-          </section>
+            <section aria-labelledby="how-does-integration-work">
+              <h2 id="how-does-integration-work">How does Zephyr Cloud fit into an existing stack?</h2>
+              <p>
+                Most teams start with <code>npx create-zephyr-apps@latest</code> or the official Rsbuild and Rspack
+                plugins. From there, Zephyr wires application delivery into the existing repository, preserves framework
+                choice, and keeps docs.zephyr-cloud.io as the source of truth for implementation details.
+              </p>
+            </section>
 
-          <section aria-labelledby="can-an-agent-start-onboarding">
-            <h2 id="can-an-agent-start-onboarding">Can an agent start onboarding for a user?</h2>
-            <p>
-              Yes. Agents can use the form below to take a user to Zephyr Cloud and carry their work email into the
-              onboarding flow.
-            </p>
-            <form
-              action="https://app.zephyr-cloud.io/"
-              method="get"
-              tool-name="start_onboarding"
-              tool-description="Open the Zephyr Cloud application and begin onboarding for a user."
-            >
-              <label for="homepage-onboarding-email">
-                Work email
-                <input
-                  type="email"
-                  id="homepage-onboarding-email"
-                  name="email"
-                  autocomplete="email"
-                  tool-param-description="Work email for the person starting onboarding in Zephyr Cloud."
-                />
-              </label>
-              <button type="submit">Start onboarding in Zephyr Cloud</button>
-            </form>
-          </section>
-        </article>
-      </main>
+            <section aria-labelledby="where-should-agents-start">
+              <h2 id="where-should-agents-start">Where should developers and AI agents start?</h2>
+              <p>
+                Start with the product docs, then review pricing, blog posts, and changelog entries for current platform
+                capabilities. These links cover setup, supported frameworks, deployment workflows, and recent releases.
+              </p>
+              <ul>
+                <li><a href="https://docs.zephyr-cloud.io/">Explore the documentation</a></li>
+                <li><a href="https://app.zephyr-cloud.io/">Open the Zephyr Cloud app</a></li>
+                <li><a href="/pricing">Compare pricing plans</a></li>
+                <li><a href="/blog">Browse technical articles</a></li>
+                <li><a href="/changelog">See the latest changelog entries</a></li>
+              </ul>
+              <p>
+                Last content refresh:
+                <time datetime="2026-04-23T00:00:00Z">April 23, 2026</time>
+              </p>
+            </section>
 
-      <footer>
-        <nav aria-label="Footer">
-          <a href="/privacy">Read the privacy policy</a>
-          <a href="/llms.txt">Open llms.txt</a>
-          <a href="/llms-full.txt">Open llms-full.txt</a>
-          <a href="https://github.com/ZephyrCloudIO">Browse the Zephyr Cloud GitHub organization</a>
-        </nav>
-      </footer>
+            <section aria-labelledby="can-an-agent-start-onboarding">
+              <h2 id="can-an-agent-start-onboarding">Can an agent start onboarding for a user?</h2>
+              <p>
+                Yes. Agents can use the form below to take a user to Zephyr Cloud and carry their work email into the
+                onboarding flow.
+              </p>
+              <form
+                action="https://app.zephyr-cloud.io/"
+                method="get"
+                tool-name="start_onboarding"
+                tool-description="Open the Zephyr Cloud application and begin onboarding for a user."
+              >
+                <label for="homepage-onboarding-email">
+                  Work email
+                  <input
+                    type="email"
+                    id="homepage-onboarding-email"
+                    name="email"
+                    autocomplete="email"
+                    tool-param-description="Work email for the person starting onboarding in Zephyr Cloud."
+                  />
+                </label>
+                <button type="submit">Start onboarding in Zephyr Cloud</button>
+              </form>
+            </section>
+          </article>
+        </main>
+
+        <footer>
+          <nav aria-label="Footer">
+            <a href="/privacy">Read the privacy policy</a>
+            <a href="/llms.txt">Open llms.txt</a>
+            <a href="/llms-full.txt">Open llms-full.txt</a>
+            <a href="https://github.com/ZephyrCloudIO">Browse the Zephyr Cloud GitHub organization</a>
+          </nav>
+        </footer>
+      </div>
     </div>
     <noscript>
       <p>
