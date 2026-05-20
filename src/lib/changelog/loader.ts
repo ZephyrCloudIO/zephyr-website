@@ -38,6 +38,8 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
 
 // Import all changelog entries
 const changelogModules: Record<string, () => Promise<MDXChangelogEntry>> = {
+  '2026-05-19-ci-tokens-manual-deploys-audit-logs': () =>
+    import('@/content/changelog/2026-05-19-ci-tokens-manual-deploys-audit-logs.mdx') as Promise<MDXChangelogEntry>,
   '2026-05-12-custom-domains-cloudflare-worker-routes': () =>
     import('@/content/changelog/2026-05-12-custom-domains-cloudflare-worker-routes.mdx') as Promise<MDXChangelogEntry>,
   '2026-05-05-faster-pages-smoother-settings': () =>
