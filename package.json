@@ -73,7 +73,7 @@
     ],
     "overrides": {
       "form-data": ">=4.0.4",
-      "axios": "1.15.0",
+      "axios": "1.15.2",
       "qs": ">=6.14.1",
       "webpack": "5.105.4",
       "protobufjs": ">=7.5.5"

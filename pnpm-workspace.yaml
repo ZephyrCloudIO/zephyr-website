@@ -7,5 +7,5 @@ minimumReleaseAge: 1440
 # no git/tarball dependencies, only from trusted registry
 blockExoticSubdeps: true
 minimumReleaseAgeExclude:
-  # Renovate security update: axios@1.15.0
-  - axios@1.15.0
+  # Renovate security update: axios@1.15.0 || 1.15.2
+  - axios@1.15.0 || 1.15.2
