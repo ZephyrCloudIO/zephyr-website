@@ -106,9 +106,9 @@ importers:
       unicornstudio-react:
         specifier: 2.1.4
         version: 2.1.4(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
-      zephyr-rspack-plugin:
-        specifier: ^1.0.1
-        version: 1.0.1(@rspack/core@1.7.9(@swc/helpers@0.5.19))(https-proxy-agent@7.0.6)(webpack@5.105.4)
+      zephyr-rsbuild-plugin:
+        specifier: ^1.1.1
+        version: 1.1.1(@rsbuild/core@1.7.3)(@rspack/core@1.7.9(@swc/helpers@0.5.19))(webpack@5.105.4)
     devDependencies:
       '@rsbuild/core':
         specifier: 1.7.3
@@ -2796,21 +2796,24 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
 
-  zephyr-agent@1.0.1:
-    resolution: {integrity: sha512-WKkPvAT7L0iAvJDq0JR+GpvF0FYxAgc/0F3zY5oxgc+CBvvLFNyyZrsj0Hef2ytum9+LFudFbfZJqETKdYonxg==}
+  zephyr-agent@1.1.1:
+    resolution: {integrity: sha512-EnWAhkEB56T/c/A+aZbKC6fTOtLzr3i963kZ6rUFpAwGQpHr1dmQyY/uGRTThC+om8YRpoFaN5WV/z5dRpF+fg==}
+
+  zephyr-edge-contract@1.1.1:
+    resolution: {integrity: sha512-1t3lHsNWnMCBw1f1V6pHquVYf9k4GxO76gdS9gH+HVPpQk46FK7PZ154vr7Ewa305BhFb2SZB2tkRspNq7EjNg==}
+
+  zephyr-rsbuild-plugin@1.1.1:
+    resolution: {integrity: sha512-q4gAJLsVO1td/vnO7Zm9X7Y9rJ/Wp3nIQCc63eQ7RlqlPS2H7Ti1KYLasbK0hFJxvFCnJIUXPDBQTVQZqoyq7g==}
     peerDependencies:
-      https-proxy-agent: ^7.0.6
+      '@rsbuild/core': ^1.0.0 || ^2.0.0-0
 
-  zephyr-edge-contract@1.0.1:
-    resolution: {integrity: sha512-2GHmmpY1PCr98sZykiPOsR0KCoHhT5ch0YnQL1WZhKcJ7wvTqEfwKJ9SshflrqCoXYlQ0QDtmUrCuO7YEkrIPA==}
-
-  zephyr-rspack-plugin@1.0.1:
-    resolution: {integrity: sha512-tV36y6ZjvhTbFNBQ4YmLeP7pAovnJ+RlQkefTj0duuZLwGZHYLSTO2RQmGFFEiZkpnqD2dPDx7Ah9uLBZm4caQ==}
+  zephyr-rspack-plugin@1.1.1:
+    resolution: {integrity: sha512-1qogIS/k23+ivl8CFrzicqiTe6B4jClt9473Qwu+kEuJVh89bqOH2UL3XTQv/9Y2MXY+E3Gp9OpalmF+GQ4KUA==}
     peerDependencies:
       '@rspack/core': ^1.0.0 || ^2.0.0-0
 
-  zephyr-xpack-internal@1.0.1:
-    resolution: {integrity: sha512-NxFzIiCi6ii/p227Oio7nanSMLkeNoDy6k+xfLeLKnzPBi0IY5FSukT/Naj9hSA9NSPAH7U7sUH3SIR34NLOVA==}
+  zephyr-xpack-internal@1.1.1:
+    resolution: {integrity: sha512-AMMiYj+cD/wFpi5sG/EDlOmhFtHR2oEniW/BqvrOcBkMoTFp0OhnihNdCxt9PUBWza5wOS/c7dUxuuvK0q8c4A==}
 
   zod@3.25.76:
     resolution: {integrity: sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ==}
@@ -5742,7 +5745,7 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zephyr-agent@1.0.1(https-proxy-agent@7.0.6):
+  zephyr-agent@1.1.1:
     dependencies:
       '@toon-format/toon': 0.9.0
       axios: 1.16.1(debug@4.4.3)
@@ -5757,33 +5760,40 @@ snapshots:
       open: 10.2.0
       proper-lockfile: 4.1.2
       tslib: 2.8.1
-      zephyr-edge-contract: 1.0.1
+      zephyr-edge-contract: 1.1.1
     transitivePeerDependencies:
       - supports-color
 
-  zephyr-edge-contract@1.0.1:
+  zephyr-edge-contract@1.1.1:
     dependencies:
       tslib: 2.8.1
 
-  zephyr-rspack-plugin@1.0.1(@rspack/core@1.7.9(@swc/helpers@0.5.19))(https-proxy-agent@7.0.6)(webpack@5.105.4):
+  zephyr-rsbuild-plugin@1.1.1(@rsbuild/core@1.7.3)(@rspack/core@1.7.9(@swc/helpers@0.5.19))(webpack@5.105.4):
     dependencies:
-      '@rspack/core': 1.7.9(@swc/helpers@0.5.19)
-      tslib: 2.8.1
-      zephyr-agent: 1.0.1(https-proxy-agent@7.0.6)
-      zephyr-xpack-internal: 1.0.1(https-proxy-agent@7.0.6)(webpack@5.105.4)
+      '@rsbuild/core': 1.7.3
+      zephyr-rspack-plugin: 1.1.1(@rspack/core@1.7.9(@swc/helpers@0.5.19))(webpack@5.105.4)
     transitivePeerDependencies:
-      - https-proxy-agent
+      - '@rspack/core'
       - supports-color
       - webpack
 
-  zephyr-xpack-internal@1.0.1(https-proxy-agent@7.0.6)(webpack@5.105.4):
+  zephyr-rspack-plugin@1.1.1(@rspack/core@1.7.9(@swc/helpers@0.5.19))(webpack@5.105.4):
+    dependencies:
+      '@rspack/core': 1.7.9(@swc/helpers@0.5.19)
+      tslib: 2.8.1
+      zephyr-agent: 1.1.1
+      zephyr-xpack-internal: 1.1.1(webpack@5.105.4)
+    transitivePeerDependencies:
+      - supports-color
+      - webpack
+
+  zephyr-xpack-internal@1.1.1(webpack@5.105.4):
     dependencies:
       '@module-federation/automatic-vendor-federation': 1.2.1(webpack@5.105.4)
       tslib: 2.8.1
-      zephyr-agent: 1.0.1(https-proxy-agent@7.0.6)
-      zephyr-edge-contract: 1.0.1
+      zephyr-agent: 1.1.1
+      zephyr-edge-contract: 1.1.1
     transitivePeerDependencies:
-      - https-proxy-agent
       - supports-color
       - webpack
 

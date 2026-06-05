@@ -7,19 +7,9 @@ import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
-import { withZephyr } from 'zephyr-rspack-plugin';
+import { withZephyr } from 'zephyr-rsbuild-plugin';
 import { getLanderEntries } from './scripts/landers.js';
 import { sitemapGeneratorPlugin } from './src/plugins/sitemap-generator';
-
-const zephyrRsbuildPlugin = () => ({
-  name: 'zephyr-rsbuild-plugin',
-  setup(api: { modifyRspackConfig: (config: any) => Promise<void> }) {
-    api.modifyRspackConfig(async (config: any) => {
-      // this is important to avoid multiple zephyr build triggers
-      config.name === 'web' && (await withZephyr()(config));
-    });
-  },
-});
 
 function formatEntryTitle(entryName: string) {
   if (entryName === 'index') {
@@ -82,7 +72,7 @@ export default defineConfig(async () => {
         })),
       },
     },
-    plugins: [pluginReact(), sitemapGeneratorPlugin(), zephyrRsbuildPlugin()],
+    plugins: [pluginReact(), sitemapGeneratorPlugin(), withZephyr()],
     tools: {
       htmlPlugin: (config, { entryName }) => {
         config.filename = entryName === 'index' ? 'index.html' : `${entryName}/index.html`;
