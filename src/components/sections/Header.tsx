@@ -305,14 +305,14 @@ export const Header: React.FC = () => {
                     <Cloud className="h-4 w-4" />
                     Zephyr Cloud
                   </Link>
-                  <Link
-                    to="/products/ai"
+                  <a
+                    href="https://theaiplatform.app"
                     onClick={() => setMobileMenuOpen(false)}
                     className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
                   >
                     <Sparkles className="h-4 w-4" />
-                    Zephyr AI
-                  </Link>
+                    The AI Platform
+                  </a>
                 </div>
               )}
             </div>
