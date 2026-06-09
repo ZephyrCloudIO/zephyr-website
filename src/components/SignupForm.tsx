@@ -4,8 +4,16 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const HUBSPOT_PORTAL_ID = '46982563';
 const HUBSPOT_FORM_ID = 'f1595bbd-95a2-4ee1-b7db-c8071152dc5b';
+const webMcpFormAttributes: Record<string, string> = {
+  'tool-name': 'request_early_access',
+  'tool-description': 'Submit a work email to request Zephyr Cloud early access.',
+};
+const webMcpInputAttributes: Record<string, string> = {
+  'tool-param-description': 'Work email for the user requesting Zephyr Cloud early access.',
+};
 
 export function SignupForm() {
+  const emailFieldId = 'signup-work-email';
   const [email, setEmail] = useState('');
   const [state, setState] = useState<'idle' | 'error' | 'submitting' | 'success'>('idle');
   const [shaking, setShaking] = useState(false);
@@ -59,9 +67,13 @@ export function SignupForm() {
 
   return (
     <form
+      {...webMcpFormAttributes}
       onSubmit={handleSubmit}
       className="flex w-full max-w-[560px] shrink-0 flex-col gap-2.5 md:w-auto md:max-w-none"
     >
+      <label htmlFor={emailFieldId} className="sr-only">
+        Work email
+      </label>
       <p className="px-1 text-left text-[13px] font-medium leading-5 transition-colors duration-200 md:pr-3 md:text-right">
         {isError ? (
           <span className="text-red-400">Please check your email</span>
@@ -77,10 +89,10 @@ export function SignupForm() {
             : isError
               ? 'border-red-400/60 bg-red-950/20'
               : focused
-                ? 'border-[#008CFF] bg-black/50'
+                ? 'border-violet-500 bg-black/50'
                 : 'border-white/20 bg-black/50'
         } ${shaking ? 'animate-shake' : ''}`}
-        style={focused && !isError && !isSuccess ? { boxShadow: '0px 0px 4px rgba(0, 166, 255, 0.45)' } : undefined}
+        style={focused && !isError && !isSuccess ? { boxShadow: '0px 0px 4px rgba(124, 58, 237, 0.45)' } : undefined}
       >
         <div className="relative h-4 w-4 shrink-0">
           <svg
@@ -98,8 +110,12 @@ export function SignupForm() {
         </div>
 
         <input
+          {...webMcpInputAttributes}
           ref={inputRef}
-          type="text"
+          id={emailFieldId}
+          name="email"
+          type="email"
+          autoComplete="email"
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
@@ -118,11 +134,11 @@ export function SignupForm() {
           disabled={state === 'submitting'}
           className={`h-9 shrink-0 whitespace-nowrap rounded-full px-3.5 py-2 text-xs font-semibold text-white transition-all duration-500 sm:px-4 sm:text-[13px] ${isSuccess ? 'pointer-events-none opacity-0' : 'opacity-100'} ${state === 'submitting' ? 'opacity-70' : ''}`}
           style={{
-            background: `linear-gradient(177.57deg, rgba(255,255,255,0.48) 2.04%, rgba(255,255,255,0) 68.68%), ${hovered ? '#0084FF' : '#006AFF'}`,
+            background: `linear-gradient(177.57deg, rgba(255,255,255,0.48) 2.04%, rgba(255,255,255,0) 68.68%), ${hovered ? '#8b5cf6' : '#7c3aed'}`,
             backgroundBlendMode: 'overlay, normal',
             boxShadow: isSuccess
               ? 'none'
-              : '0px 2px 4px -1.5px rgba(9,9,11,0.16), 0px 0px 0px 1px rgba(32,0,60,0.6), inset 0px -2px 3px rgba(46,220,255,0.35), inset 0px 1px 0px rgba(255,255,255,0.2)',
+              : '0px 2px 4px -1.5px rgba(9,9,11,0.16), 0px 0px 0px 1px rgba(32,0,60,0.6), inset 0px -2px 3px rgba(124,58,237,0.35), inset 0px 1px 0px rgba(255,255,255,0.2)',
           }}
         >
           {state === 'submitting' ? 'Signing up...' : 'Sign up'}

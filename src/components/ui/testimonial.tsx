@@ -21,13 +21,13 @@ export default function Testimonial({ author, role, children, avatar, linkedIn }
             />
           )}
           <div>
-            <div className="text-lg font-semibold text-white">
+            <div className="text-lg font-semibold text-foreground">
               {linkedIn ? (
                 <a
                   href={linkedIn}
                   target="_blank"
                   rel="noopener"
-                  className="hover:text-emerald-400 transition-colors duration-200"
+                  className="hover:text-violet-400 transition-colors duration-200"
                 >
                   {author}
                 </a>

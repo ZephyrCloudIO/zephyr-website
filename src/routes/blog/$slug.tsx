@@ -40,7 +40,7 @@ function BlogPostPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-400"></div>
       </div>
     );
   }
@@ -65,9 +65,12 @@ function BlogPostPage() {
   return (
     <article className="bg-black text-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-b from-emerald-900/20 to-black">
+      <div className="relative bg-gradient-to-b from-violet-900/20 to-black">
         <div className="relative container mx-auto pt-10 px-4 flex flex-col justify-end max-w-4xl">
-          <Link to="/blog" className="inline-flex items-center text-emerald-400 hover:text-emerald-300 mb-6">
+          <Link
+            to="/blog"
+            className="inline-flex items-center text-neutral-400 hover:text-neutral-200 transition-colors mb-6"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Blog
           </Link>
@@ -107,7 +110,7 @@ function BlogPostPage() {
 
           <div className="flex flex-wrap gap-2 mb-4 pt-8">
             {post.tags.map((tag) => (
-              <span key={tag} className="text-sm px-3 py-1 rounded-full bg-emerald-900/30 text-emerald-400">
+              <span key={tag} className="text-sm px-3 py-1 rounded-full bg-violet-900/30 text-violet-400">
                 {tagLabels[tag]}
               </span>
             ))}
@@ -130,7 +133,7 @@ function BlogPostPage() {
                   <img src={author.avatar} alt={author.displayName} className="w-16 h-16 rounded-full" />
                   <div className="flex-1">
                     <h4 className="font-semibold mb-1">{author.displayName}</h4>
-                    {author.zephyrMember && <p className="text-sm text-emerald-400 mb-2">Zephyr Team</p>}
+                    {author.zephyrMember && <p className="text-sm text-muted-foreground mb-2">Zephyr Team</p>}
                     {author.socialLinks && author.socialLinks.length > 0 && (
                       <div className="flex gap-3">
                         {author.socialLinks.map((social, i) => (

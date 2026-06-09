@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root';
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug';
 import { Route as BlogIndexRouteImport } from './routes/blog/index';
+import { Route as BrandRouteImport } from './routes/brand';
 import { Route as ChangelogSlugRouteImport } from './routes/changelog/$slug';
 import { Route as ChangelogIndexRouteImport } from './routes/changelog/index';
 import { Route as EventsRouteImport } from './routes/events';
@@ -21,7 +22,13 @@ import { Route as PricingRouteImport } from './routes/pricing';
 import { Route as PrivacyRouteImport } from './routes/privacy';
 import { Route as ProductsAiRouteImport } from './routes/products/ai';
 import { Route as ProductsCodeEliminationPerformanceRouteImport } from './routes/products/code-elimination-performance';
+import { Route as WifiRouteImport } from './routes/wifi';
 
+const WifiRoute = WifiRouteImport.update({
+  id: '/wifi',
+  path: '/wifi',
+  getParentRoute: () => rootRouteImport,
+} as any);
 const PrivacyRoute = PrivacyRouteImport.update({
   id: '/privacy',
   path: '/privacy',
@@ -45,6 +52,11 @@ const PartnersRoute = PartnersRouteImport.update({
 const EventsRoute = EventsRouteImport.update({
   id: '/events',
   path: '/events',
+  getParentRoute: () => rootRouteImport,
+} as any);
+const BrandRoute = BrandRouteImport.update({
+  id: '/brand',
+  path: '/brand',
   getParentRoute: () => rootRouteImport,
 } as any);
 const IndexRoute = IndexRouteImport.update({
@@ -85,11 +97,13 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute;
+  '/brand': typeof BrandRoute;
   '/events': typeof EventsRoute;
   '/partners': typeof PartnersRoute;
   '/press': typeof PressRoute;
   '/pricing': typeof PricingRoute;
   '/privacy': typeof PrivacyRoute;
+  '/wifi': typeof WifiRoute;
   '/blog/$slug': typeof BlogSlugRoute;
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
@@ -99,11 +113,13 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute;
+  '/brand': typeof BrandRoute;
   '/events': typeof EventsRoute;
   '/partners': typeof PartnersRoute;
   '/press': typeof PressRoute;
   '/pricing': typeof PricingRoute;
   '/privacy': typeof PrivacyRoute;
+  '/wifi': typeof WifiRoute;
   '/blog/$slug': typeof BlogSlugRoute;
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
@@ -114,11 +130,13 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   '/': typeof IndexRoute;
+  '/brand': typeof BrandRoute;
   '/events': typeof EventsRoute;
   '/partners': typeof PartnersRoute;
   '/press': typeof PressRoute;
   '/pricing': typeof PricingRoute;
   '/privacy': typeof PrivacyRoute;
+  '/wifi': typeof WifiRoute;
   '/blog/$slug': typeof BlogSlugRoute;
   '/changelog/$slug': typeof ChangelogSlugRoute;
   '/products/ai': typeof ProductsAiRoute;
@@ -130,11 +148,13 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | '/'
+    | '/brand'
     | '/events'
     | '/partners'
     | '/press'
     | '/pricing'
     | '/privacy'
+    | '/wifi'
     | '/blog/$slug'
     | '/changelog/$slug'
     | '/products/ai'
@@ -144,11 +164,13 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo;
   to:
     | '/'
+    | '/brand'
     | '/events'
     | '/partners'
     | '/press'
     | '/pricing'
     | '/privacy'
+    | '/wifi'
     | '/blog/$slug'
     | '/changelog/$slug'
     | '/products/ai'
@@ -158,11 +180,13 @@ export interface FileRouteTypes {
   id:
     | '__root__'
     | '/'
+    | '/brand'
     | '/events'
     | '/partners'
     | '/press'
     | '/pricing'
     | '/privacy'
+    | '/wifi'
     | '/blog/$slug'
     | '/changelog/$slug'
     | '/products/ai'
@@ -173,11 +197,13 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute;
+  BrandRoute: typeof BrandRoute;
   EventsRoute: typeof EventsRoute;
   PartnersRoute: typeof PartnersRoute;
   PressRoute: typeof PressRoute;
   PricingRoute: typeof PricingRoute;
   PrivacyRoute: typeof PrivacyRoute;
+  WifiRoute: typeof WifiRoute;
   BlogSlugRoute: typeof BlogSlugRoute;
   ChangelogSlugRoute: typeof ChangelogSlugRoute;
   ProductsAiRoute: typeof ProductsAiRoute;
@@ -188,6 +214,13 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/wifi': {
+      id: '/wifi';
+      path: '/wifi';
+      fullPath: '/wifi';
+      preLoaderRoute: typeof WifiRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     '/privacy': {
       id: '/privacy';
       path: '/privacy';
@@ -221,6 +254,13 @@ declare module '@tanstack/react-router' {
       path: '/events';
       fullPath: '/events';
       preLoaderRoute: typeof EventsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    '/brand': {
+      id: '/brand';
+      path: '/brand';
+      fullPath: '/brand';
+      preLoaderRoute: typeof BrandRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     '/': {
@@ -277,11 +317,13 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  BrandRoute: BrandRoute,
   EventsRoute: EventsRoute,
   PartnersRoute: PartnersRoute,
   PressRoute: PressRoute,
   PricingRoute: PricingRoute,
   PrivacyRoute: PrivacyRoute,
+  WifiRoute: WifiRoute,
   BlogSlugRoute: BlogSlugRoute,
   ChangelogSlugRoute: ChangelogSlugRoute,
   ProductsAiRoute: ProductsAiRoute,

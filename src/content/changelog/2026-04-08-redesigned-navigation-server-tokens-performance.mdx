@@ -1,0 +1,50 @@
+---
+title: 'Product Update: Redesigned Navigation, Server Tokens, and Performance Improvements'
+date: '2026-04-08'
+version: 'Early April 2026 Product Update'
+summary: 'This release brings a redesigned sidebar, org switcher, and project and application list pages, along with a refreshed server token management interface. API performance has also been improved across environment and application queries.'
+tags: ['product', 'navigation', 'performance', 'tokens']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release brings a redesigned sidebar, org switcher, and project and application list pages, along with a refreshed server token management interface. API performance has also been improved across environment and application queries.
+
+## Redesigned Navigation
+
+The main navigation surfaces have been redesigned to feel more consistent and easier to use.
+
+- The sidebar has been updated with a cleaner structure and improved visual hierarchy.
+- The organization switcher has been redesigned to match the latest design system.
+- The organization-level projects and applications list pages have been redesigned for better readability and scannability.
+
+## Server Token Management Redesign
+
+The server tokens interface has been refreshed with an updated layout and improved usability, making it easier to manage tokens across your organization.
+
+## Faster API Responses
+
+Several performance improvements reduce how long common actions take to complete.
+
+- Request latency for development and cloud environment queries has been reduced.
+- The UML dependency graph loads faster, particularly for organizations with a large number of applications.
+- Project overview pages load faster after removing unnecessary counter queries.
+
+## Open Membership Auto-Promotion
+
+Users who join through an open membership domain are now automatically promoted to the correct role, removing the need for manual role assignment after joining.
+
+## Permissions and Integration Fixes
+
+- Role assignment is now properly restricted based on your own role — you can no longer assign roles above your permission level.
+- Integration delimiter handling has been fixed across all deployment integrations, not just Netlify.
+- The redeployment page has been fixed to load correctly.
+
+## What This Means for Teams
+
+- A more consistent and polished navigation experience across the dashboard.
+- Faster page loads for environment, project, and application views.
+- Simpler token management with the redesigned server tokens interface.
+- Members joining via open domains are set up with the right role automatically.
