@@ -38,6 +38,8 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
 
 // Import all changelog entries
 const changelogModules: Record<string, () => Promise<MDXChangelogEntry>> = {
+  '2026-06-10-audit-logs-environment-scope-tag-attribution': () =>
+    import('@/content/changelog/2026-06-10-audit-logs-environment-scope-tag-attribution.mdx') as Promise<MDXChangelogEntry>,
   '2026-06-02-activity-environments-polish': () =>
     import('@/content/changelog/2026-06-02-activity-environments-polish.mdx') as Promise<MDXChangelogEntry>,
   '2026-05-26-redesigned-server-tokens-settings': () =>
