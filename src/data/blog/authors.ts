@@ -1,4 +1,5 @@
 import loisAvatar from '@/images/authors/lois.webp';
+import lucaAvatar from '@/images/authors/luca.webp';
 import nestorAvatar from '@/images/authors/nestor.webp';
 import rodrigoAvatar from '@/images/authors/rodrigo.webp';
 import shaneAvatar from '@/images/authors/shane.webp';
@@ -67,5 +68,17 @@ export const Rodrigo: Author = {
     { link: 'https://x.com/ryok90', platform: 'X' },
     { link: 'https://www.linkedin.com/in/rodrigo-yokota/', platform: 'LinkedIn' },
     { link: 'https://github.com/ryok90', platform: 'Github' },
+  ],
+};
+
+export const Luca: Author = {
+  displayName: 'Luca Mezzalira',
+  zephyrMember: true,
+  avatar: lucaAvatar,
+  socialLinks: [
+    { link: 'https://www.linkedin.com/in/lucamezzalira/', platform: 'LinkedIn' },
+    { link: 'https://x.com/lucamezzalira', platform: 'X' },
+    { link: 'https://github.com/lucamezzalira/', platform: 'Github' },
+    { link: 'https://www.youtube.com/@my50c', platform: 'YouTube' },
   ],
 };

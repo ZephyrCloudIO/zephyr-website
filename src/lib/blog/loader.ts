@@ -36,6 +36,7 @@ const authorMap: Record<string, Author> = {
   'Lois Zhao': authors.Lois,
   'Néstor López': authors.Nestor,
   'Rodrigo Yokota': authors.Rodrigo,
+  'Luca Mezzalira': authors.Luca,
 };
 
 // Convert MDX metadata to BlogPost format
@@ -73,6 +74,7 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
             lois: 'Lois Zhao',
             nestor: 'Néstor',
             rodrigo: 'Rodrigo',
+            luca: 'Luca Mezzalira',
           };
           const authorName = idToName[authorId] || authorId;
           return authorMap[authorName];
@@ -131,6 +133,7 @@ const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
   'nitro-v3-zephyr': () => import('@/content/blog/nitro-v3-zephyr.mdx') as Promise<MDXBlogPost>,
   'nextjs-without-lock-in-vinext-on-zephyr': () =>
     import('@/content/blog/nextjs-without-lock-in-vinext-on-zephyr.mdx') as Promise<MDXBlogPost>,
+  'micro-frontend-canvas': () => import('@/content/blog/micro-frontend-canvas.mdx') as Promise<MDXBlogPost>,
 };
 
 // Get all blog posts

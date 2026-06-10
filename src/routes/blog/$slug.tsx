@@ -1,5 +1,6 @@
 import { Button } from '@/components/ui/button';
 import { XIcon } from '@/components/ui/x-icon';
+import { YoutubeIcon } from '@/components/ui/youtube-icon';
 import type { MDXBlogPost } from '@/lib/blog/loader';
 import { getBlogPostBySlug } from '@/lib/blog/loader';
 import { tagLabels } from '@/lib/blog/tags';
@@ -147,6 +148,7 @@ function BlogPostPage() {
                             {social.platform === 'X' && <XIcon size={20} />}
                             {social.platform === 'LinkedIn' && <Linkedin className="w-5 h-5" />}
                             {social.platform === 'Github' && <Github className="w-5 h-5" />}
+                            {social.platform === 'YouTube' && <YoutubeIcon className="w-5 h-5" />}
                           </a>
                         ))}
                       </div>
