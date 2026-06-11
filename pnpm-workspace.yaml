@@ -9,3 +9,5 @@ blockExoticSubdeps: true
 minimumReleaseAgeExclude:
   # Renovate security update: axios@1.15.0
   - axios@1.15.0
+  # Renovate security update: protobufjs@7.5.8
+  - protobufjs@7.5.8
