@@ -8,6 +8,7 @@ overrides:
   form-data: '>=4.0.4'
   axios: '>=1.15.1'
   qs: '>=6.14.1'
+  webpack: 5.105.4
   protobufjs: 7.5.6
   fast-uri: '>=3.1.2'
 
@@ -207,7 +208,7 @@ packages:
   '@module-federation/automatic-vendor-federation@1.2.1':
     resolution: {integrity: sha512-73wxkXM7pbRZ6GGM90JP5IPTPvY3fvrhQyTVdMCUx85cQRWqnbzbibcsz3pkOMOeXyYAO4tXXsG13yNaEEGhJA==}
     peerDependencies:
-      webpack: ^5.0.0-beta.16
+      webpack: 5.105.4
 
   '@napi-rs/wasm-runtime@1.0.7':
     resolution: {integrity: sha512-SeDnOO0Tk7Okiq6DbXmmBODgOAb9dp9gjlphokTUxmt8U3liIP1ZsozBahH69j/RJv+Rfs6IwUKHTgQYJ/HBAw==}
@@ -2507,7 +2508,7 @@ packages:
       '@swc/core': '*'
       esbuild: '*'
       uglify-js: '*'
-      webpack: ^5.1.0
+      webpack: 5.105.4
     peerDependenciesMeta:
       '@swc/core':
         optional: true
@@ -3816,7 +3817,7 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios-retry@4.5.0(axios@1.18.0(debug@4.4.3)):
+  axios-retry@4.5.0(axios@1.18.0):
     dependencies:
       axios: 1.18.0(debug@4.4.3)
       is-retry-allowed: 2.2.0
@@ -5686,7 +5687,7 @@ snapshots:
     dependencies:
       '@toon-format/toon': 0.9.0
       axios: 1.18.0(debug@4.4.3)
-      axios-retry: 4.5.0(axios@1.18.0(debug@4.4.3))
+      axios-retry: 4.5.0(axios@1.18.0)
       debug: 4.4.3
       eventsource: 4.1.0
       git-url-parse: 15.0.0

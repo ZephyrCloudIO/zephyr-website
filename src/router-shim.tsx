@@ -50,3 +50,11 @@ export function useLocation() {
 
   return { pathname: window.location.pathname };
 }
+
+export function useNavigate() {
+  return ({ to }: { to: string }) => {
+    if (typeof window !== 'undefined') {
+      window.location.href = to;
+    }
+  };
+}

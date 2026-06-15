@@ -38,7 +38,7 @@ function ChangelogEntryPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-black text-white flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-emerald-400"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-violet-400"></div>
       </div>
     );
   }
@@ -65,7 +65,7 @@ function ChangelogEntryPage() {
       case 'performance':
         return <Zap className="w-5 h-5 text-yellow-500" />;
       case 'feature':
-        return <Rocket className="w-5 h-5 text-emerald-500" />;
+        return <Rocket className="w-5 h-5 text-violet-500" />;
       case 'integration':
         return <Package className="w-5 h-5 text-blue-500" />;
       case 'security':
@@ -82,9 +82,12 @@ function ChangelogEntryPage() {
   return (
     <article className="bg-black text-white">
       {/* Hero Section */}
-      <div className="relative bg-gradient-to-b from-emerald-900/20 to-black">
+      <div className="relative bg-gradient-to-b from-violet-900/20 to-black">
         <div className="relative container mx-auto pt-10 px-4 flex flex-col justify-end max-w-4xl">
-          <Link to="/changelog" className="inline-flex items-center text-emerald-400 hover:text-emerald-300 mb-6">
+          <Link
+            to="/changelog"
+            className="inline-flex items-center text-neutral-400 hover:text-neutral-200 transition-colors mb-6"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Changelog
           </Link>
