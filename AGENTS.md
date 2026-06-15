@@ -2,28 +2,33 @@
 
 ## Project Structure & Module Organization
 
-- `src/routes/`: TanStack Router pages for the main site.
+- `docs/`: Rspress route root; files here become static SSG pages.
+- `docs/public/`: public files deployed at the site root.
+- `src/routes/`: reusable page components rendered by thin `docs/*.mdx` wrappers.
 - `src/components/`: shared UI, section blocks, and form components.
 - `src/content/`: MDX content for blog and changelog entries.
 - `src/lib/` and `src/data/`: loaders, helpers, and static data.
 - `src/images/`: site assets; keep optimized images here.
-- `src/landers/`: standalone campaign landers with separate entrypoints. Read [`docs/landers.md`](docs/landers.md) before adding one.
+- `src/landers/`: standalone campaign lander components exposed through Rspress wrappers. Read [`rspress-maintenance-guide.md`](rspress-maintenance-guide.md) before adding one.
 - `scripts/`: maintenance utilities such as image conversion and lander scaffolding.
 
 ## Build, Test, and Development Commands
 
-- `pnpm dev`: start the local Rsbuild dev server.
-- `pnpm build`: production build for the main app and any enabled landers.
+- `pnpm dev`: generate Rspress content and start the local Rspress dev server.
+- `pnpm build`: generate content, build the Rspress SSG site, and run the Zephyr plugin.
 - `pnpm preview`: preview the built output locally.
 - `pnpm typecheck`: run TypeScript without emitting files.
 - `pnpm format`: format the repo with Prettier.
 - `pnpm create-lander <slug>`: scaffold a new standalone lander in `src/landers/<slug>`.
+- `pnpm run generate:rspress-content`: regenerate static blog/changelog route wrappers and metadata.
 
-For landers, use the allowlist env var when building or previewing, for example:
+For gated landers, use the allowlist env var when building or previewing, for example:
 
 ```bash
 ZE_PUBLIC_ENABLED_LANDERS=cityjs-london pnpm build
 ```
+
+Blog and changelog source lives in `src/content/**`; generated route wrappers live in `docs/blog/**` and `docs/changelog/**` and should be regenerated rather than hand-edited.
 
 ## Coding Style & Naming Conventions
 
@@ -37,6 +42,7 @@ ZE_PUBLIC_ENABLED_LANDERS=cityjs-london pnpm build
 
 - There is no dedicated test runner yet; the minimum gate is `pnpm typecheck` plus `pnpm build`.
 - For UI/content changes, verify the affected route or lander in preview and include screenshots for major visual updates.
+- For SEO/content changes, verify generated metadata and direct route refresh on the Zephyr preview URL.
 - If you add logic that can be unit tested later, keep it isolated in `src/lib/` or a small helper module.
 
 ## Commit & Pull Request Guidelines

@@ -6,10 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 This is a Zephyr Cloud website built with:
 
-- React 19.1.0
+- React 19
 - Rspress 2.0.5 (SSG docs/site framework)
-- TypeScript 5.8.3
-- Tailwind CSS 4.1.10
+- TypeScript 5.9
+- Tailwind CSS 4.2
 - Shadcn UI components
 - Rspress routing with MDX pages and generated static blog/changelog routes
 - MDX for blog content with frontmatter support
@@ -49,15 +49,15 @@ src/
 │   ├── features.ts       # Feature sections data
 │   ├── blogPosts.ts      # Blog posts data
 │   └── companyLogos.ts   # Company logos imports
-├── routes/               # File-based routes
+├── routes/               # Reusable route/page components rendered by docs wrappers
 │   ├── index.tsx        # Home page
 │   ├── privacy.tsx      # Privacy policy page
 │   └── blog/
 │       ├── index.tsx    # Blog landing page
 │       └── $slug.tsx    # Dynamic blog post pages
 ├── content/
-│   └── blog/            # MDX blog posts
-│       └── *.mdx        # Individual blog posts
+│   ├── blog/            # Canonical MDX blog posts
+│   └── changelog/       # Canonical MDX changelog entries
 ├── lib/
 │   ├── blog/            # Blog utilities
 │   │   ├── loader.ts    # Blog post loader
@@ -85,6 +85,8 @@ src/
 - Shared layout and head handling live in `theme/index.tsx`
 - Blog/changelog detail pages are generated statically into `docs/blog/*.mdx` and `docs/changelog/*.mdx`
 - Some legacy page components from `src/routes/` are rendered via `RouteRenderer` in docs pages
+- `src/router-shim.tsx` provides small compatibility helpers for legacy `@tanstack/react-router` imports
+- Public files belong in `docs/public/`, not the old root `public/` directory
 - External links use standard `<a>` tags with `target="_blank"`
 
 ### Path Aliases
@@ -174,17 +176,27 @@ This project uses **pnpm**. Always use pnpm commands, not npm or yarn.
 - Responsive design with mobile-first approach
 - No state management library (using React hooks)
 - No testing framework configured
-- No linting tools (ESLint/Prettier) set up
+- Prettier is configured for formatting
 
-### Blog System
+### Blog And Changelog System
 
 - MDX files in `src/content/blog/` with frontmatter metadata
+- Changelog MDX files in `src/content/changelog/`
+- Static route wrappers are generated into `docs/blog/` and `docs/changelog/`
+- Generated metadata is written to `src/generated/blog-metadata.ts` and `src/generated/changelog-metadata.ts`
 - Blog images stored in `src/images/blog/` and imported in loader
-- Dynamic blog post routes using `$slug` parameter
 - Tag-based filtering system with 8 categories
 - Author system with avatars and social links
 - Blog landing page with search and filtering
 - Automatic home page integration showing latest 4 posts
+
+After changing blog or changelog content, run:
+
+```bash
+pnpm run generate:rspress-content
+```
+
+Commit both source content and generated route wrappers.
 
 ### Zephyr Cloud Integration
 
@@ -196,6 +208,8 @@ The website is built with Rspress SSG and deployed through the Zephyr Cloud webs
 - `scripts/generate-rspress-content.mjs` - Generates static blog/changelog wrappers and metadata
 - `theme/index.tsx` - Site layout wrapper and head integration
 - `src/components/sections/Header.tsx` - Navigation with dropdown menus
+- `rspress-maintenance-guide.md` - How to add blogs, changelogs, pages, landers, and public files
+- `rspress-pr-migration-guide.md` - How other open PRs should adapt after the migration
 - `.vscode/settings.json` - Excludes generated files from editing
 
 ### Adding New Routes

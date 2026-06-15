@@ -1,6 +1,6 @@
 # Zephyr Cloud Website
 
-This is a rewrite of the Zephyr Cloud website to be based on Tailwind 4, Shadcn, React19, and Zephyr Cloud
+This is the Zephyr Cloud website built with React 19, Rspress SSG, Tailwind CSS 4, Shadcn UI, and Zephyr Cloud deployment.
 
 ## Setup
 
@@ -30,9 +30,37 @@ Build the static site for production:
 pnpm build
 ```
 
+Run the type checker:
+
+```bash
+pnpm run typecheck
+```
+
+## Rspress SSG
+
+Rspress uses `docs/` as the static route root. The site does not use SSR and should not restore the old Rsbuild app shell.
+
+- `docs/*.mdx`: static pages and route wrappers.
+- `docs/public/`: public files deployed at the site root, such as `robots.txt`, `llms.txt`, and `.well-known/*`.
+- `theme/index.tsx`: global layout, header/footer, providers, and page head rendering.
+- `src/routes/`: reusable page components rendered by thin `docs/*.mdx` wrappers.
+- `src/content/blog/`: canonical blog MDX source.
+- `src/content/changelog/`: canonical changelog MDX source.
+- `scripts/generate-rspress-content.mjs`: generates `docs/blog/*.mdx`, `docs/changelog/*.mdx`, and `src/generated/*-metadata.ts`.
+
+After adding or editing blog/changelog content, regenerate static routes:
+
+```bash
+pnpm run generate:rspress-content
+```
+
+Commit both source content and generated route wrappers.
+
+For detailed maintenance steps, see [`rspress-maintenance-guide.md`](rspress-maintenance-guide.md).
+
 ## Standalone Landers
 
-Special campaign landers live in `src/landers/<slug>` and ship as their own HTML entrypoints. They do not use the main TanStack router shell.
+Special campaign landers live in `src/landers/<slug>` and are exposed through Rspress wrappers in `docs/<slug>.mdx`. Use `hideChrome: true` for landers that should not render the global header/footer.
 
 Create one from the template:
 
@@ -46,7 +74,7 @@ Enable one or more landers:
 ZE_PUBLIC_ENABLED_LANDERS=founder-briefing,partner-launch
 ```
 
-Each enabled lander builds to `dist/<slug>/index.html`.
+If a lander should respect `ZE_PUBLIC_ENABLED_LANDERS`, render it with `LanderRoute` from the Rspress wrapper.
 
 ## Image Conversion
 
