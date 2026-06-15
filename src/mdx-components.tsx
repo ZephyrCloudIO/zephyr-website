@@ -19,14 +19,16 @@ function removeAutoHeadingAnchor(children: ReactNode): ReactNode {
 
   const first = nodes[0];
 
-  if (!isValidElement<{ href?: string; children?: ReactNode }>(first) || first.type !== 'a') {
+  if (!isValidElement<Record<string, unknown> & { href?: string; children?: ReactNode }>(first)) {
     return children;
   }
 
   const href = typeof first.props.href === 'string' ? first.props.href : '';
   const anchorLabel = typeof first.props.children === 'string' ? first.props.children.trim() : '';
+  const className = typeof first.props.className === 'string' ? first.props.className : '';
+  const isAriaHidden = first.props['aria-hidden'] === true || first.props['aria-hidden'] === 'true';
 
-  if (!href.startsWith('#') || anchorLabel !== '#') {
+  if (!href.startsWith('#') || (!isAriaHidden && anchorLabel !== '#' && !className.includes('rp-header-anchor'))) {
     return children;
   }
 
@@ -72,25 +74,25 @@ function TwitterEmbed({ children, mediaMaxWidth = 560 }: { children: ReactNode; 
 }
 
 export const mdxComponents = {
-  h1: (props: any) => <h1 className="text-4xl font-bold mb-6 text-white text-balance" {...props} />,
+  h1: (props: any) => <h1 className="text-4xl font-bold mb-6 text-white" {...props} />,
   h2: ({ children, ...props }: any) => (
-    <h2 className="text-3xl font-semibold mb-4 mt-8 text-white text-balance" {...props}>
+    <h2 className="text-3xl font-medium leading-tighter mb-4 mt-8 text-white" {...props}>
       {removeAutoHeadingAnchor(children)}
     </h2>
   ),
   h3: ({ children, ...props }: any) => (
-    <h3 className="text-2xl font-semibold mb-3 mt-6 text-white text-balance" {...props}>
+    <h3 className="text-2xl font-medium leading-tighter mb-3 mt-6 text-white" {...props}>
       {removeAutoHeadingAnchor(children)}
     </h3>
   ),
   h4: ({ children, ...props }: any) => (
-    <h4 className="text-xl font-semibold mb-2 mt-4 text-white text-balance" {...props}>
+    <h4 className="text-xl font-medium leading-tighter mb-2 mt-4 text-white" {...props}>
       {removeAutoHeadingAnchor(children)}
     </h4>
   ),
-  p: (props: any) => <p className="mb-4 text-neutral-300 leading-relaxed text-pretty" {...props} />,
-  ul: (props: any) => <ul className="list-disc list-inside mb-4 text-neutral-300" {...props} />,
-  ol: (props: any) => <ol className="list-decimal list-inside mb-4 text-neutral-300" {...props} />,
+  p: (props: any) => <p className="mb-4 text-neutral-300 leading-relaxed" {...props} />,
+  ul: (props: any) => <ul className="list-disc list-inside mb-4 text-neutral-300 leading-normal" {...props} />,
+  ol: (props: any) => <ol className="list-decimal list-inside mb-4 text-neutral-300 leading-normal" {...props} />,
   li: (props: any) => <li className="mb-2" {...props} />,
   code: ({ className, children, ...props }: any) => {
     const hasStructuredChildren =
@@ -113,7 +115,7 @@ export const mdxComponents = {
     </pre>
   ),
   blockquote: (props: any) => (
-    <blockquote className="border-l-4 border-emerald-600 pl-4 italic mb-4 text-neutral-400" {...props} />
+    <blockquote className="border-l-4 border-violet-600 pl-4 italic mb-4 text-neutral-400 leading-normal" {...props} />
   ),
   table: ({ children, ...props }: any) => (
     <div className="my-6 overflow-x-auto rounded-lg border border-neutral-800">
@@ -130,7 +132,7 @@ export const mdxComponents = {
   ),
   td: (props: any) => <td className="px-4 py-3 align-top leading-relaxed" {...props} />,
   TwitterEmbed,
-  a: (props: any) => <a className="text-emerald-400 hover:text-emerald-300 underline" rel="noopener" {...props} />,
+  a: (props: any) => <a className="text-violet-400 hover:text-violet-300 underline" rel="noopener" {...props} />,
   img: (props: any) => <img className="rounded-lg my-6 max-w-full" {...props} />,
   strong: (props: any) => <strong className="font-semibold text-white" {...props} />,
   em: (props: any) => <em className="italic" {...props} />,

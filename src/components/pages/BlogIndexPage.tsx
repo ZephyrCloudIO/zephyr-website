@@ -31,10 +31,8 @@ export function BlogIndexPage() {
     <div className="min-h-screen bg-black text-white">
       <div className="container mx-auto px-4 py-16 max-w-7xl">
         <div className="text-center mb-12">
-          <h1 className="text-5xl font-bold mb-4 bg-gradient-to-r pb-2 from-emerald-400 to-emerald-600 bg-clip-text text-transparent">
-            Blog
-          </h1>
-          <p className="text-xl text-neutral-400">Insights, updates, and tutorials from the Zephyr team</p>
+          <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">Blog</h1>
+          <p className="text-xl text-muted-foreground">Insights, updates, and tutorials from the Zephyr team</p>
         </div>
 
         <div className="flex flex-col sm:flex-row gap-4 mb-12">

@@ -24,7 +24,7 @@ export function ChangelogArticlePage({ slug, metadata, children }: ChangelogArti
       case 'performance':
         return <Zap className="w-5 h-5 text-yellow-500" />;
       case 'feature':
-        return <Rocket className="w-5 h-5 text-emerald-500" />;
+        return <Rocket className="w-5 h-5 text-violet-500" />;
       case 'integration':
         return <Package className="w-5 h-5 text-blue-500" />;
       case 'security':
@@ -40,9 +40,12 @@ export function ChangelogArticlePage({ slug, metadata, children }: ChangelogArti
 
   return (
     <article className="bg-black text-white">
-      <div className="relative bg-gradient-to-b from-emerald-900/20 to-black">
+      <div className="relative bg-gradient-to-b from-violet-900/20 to-black">
         <div className="relative container mx-auto pt-10 px-4 flex flex-col justify-end max-w-4xl">
-          <a href="/changelog" className="inline-flex items-center text-emerald-400 hover:text-emerald-300 mb-6">
+          <a
+            href="/changelog"
+            className="inline-flex items-center text-neutral-400 hover:text-neutral-200 transition-colors mb-6"
+          >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Changelog
           </a>
