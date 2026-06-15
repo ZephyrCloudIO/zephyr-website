@@ -15,32 +15,6 @@ const POSTHOG_API_HOST = import.meta.env.PUBLIC_POSTHOG_HOST;
 const POSTHOG_UI_HOST = 'https://us.posthog.com';
 let hasInitializedPostHog = false;
 
-function GoogleAnalytics() {
-  return (
-    <>
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-B7G266JZDH" />
-      <script
-        dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'G-B7G266JZDH', {
-              page_path: window.location.pathname,
-              linker: {
-                domains: ['app.zephyr-cloud.io', 'zephyr-cloud.io', 'docs.zephyr-cloud.io']
-              }
-            });
-            gtag('set', 'linker', {
-              accept_incoming: true,
-            });
-          `,
-        }}
-      />
-    </>
-  );
-}
-
 function renderFrontmatterHead(frontmatterHead: unknown): ReactElement[] {
   if (!Array.isArray(frontmatterHead)) {
     return [];
@@ -71,6 +45,7 @@ export function Layout() {
   const frontmatter = (frontmatterData.frontmatter ?? {}) as Record<string, unknown>;
   const pageTitle = typeof frontmatter.title === 'string' ? frontmatter.title : 'Zephyr Cloud';
   const pageDescription = typeof frontmatter.description === 'string' ? frontmatter.description : undefined;
+  const hideChrome = frontmatter.hideChrome === true;
 
   useEffect(() => {
     if (!POSTHOG_KEY || hasInitializedPostHog) {
@@ -94,16 +69,15 @@ export function Layout() {
         {renderFrontmatterHead(frontmatter.head)}
       </Head>
       <IntercomProvider appId="xyxkmxlj">
-        <GoogleAnalytics />
         <PostHogProvider client={posthog}>
           <MDXProvider components={mdxComponents as any}>
             <div className="dark bg-black text-neutral-300 min-h-screen font-sans">
-              <Header />
+              {hideChrome ? null : <Header />}
               <main>
                 <Content />
               </main>
-              <Footer />
-              <IntercomButton />
+              {hideChrome ? null : <Footer />}
+              {hideChrome ? null : <IntercomButton />}
             </div>
           </MDXProvider>
         </PostHogProvider>

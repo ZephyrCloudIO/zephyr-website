@@ -203,4 +203,147 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-03-24-version-controls-metadata-and-safer-cleanup',
+    metadata: {
+      title: 'Product Update: Version Controls, Metadata, and Safer Cleanup',
+      date: '2026-03-24',
+      version: 'Late March 2026 Product Update',
+      summary:
+        'This release adds lock controls for tags and environments, richer version metadata, a redesigned UML view, safer delete flows, and a broad set of reliability fixes across application and environment workflows.',
+      tags: ['product', 'versions', 'environments', 'uml', 'reliability'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-03-31-membership-domains-billing-tag-environment-controls',
+    metadata: {
+      title: 'Product Update: Membership Domains, Billing Improvements, and Tag and Environment Controls',
+      date: '2026-03-31',
+      version: 'Late March 2026 Product Update',
+      summary:
+        'This release adds email-verified open membership domains, tightens billing and subscription accuracy, and improves how teams manage tags, environments, and pinned versions.',
+      tags: ['product', 'billing', 'membership', 'environments', 'tags'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-04-08-redesigned-navigation-server-tokens-performance',
+    metadata: {
+      title: 'Product Update: Redesigned Navigation, Server Tokens, and Performance Improvements',
+      date: '2026-04-08',
+      version: 'Early April 2026 Product Update',
+      summary:
+        'This release brings a redesigned sidebar, org switcher, and project and application list pages, along with a refreshed server token management interface. API performance has also been improved across environment and application queries.',
+      tags: ['product', 'navigation', 'performance', 'tokens'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-04-14-redesigned-onboarding-faster-application-loading',
+    metadata: {
+      title: 'Product Update: Redesigned Onboarding and Faster Application Loading',
+      date: '2026-04-14',
+      version: 'Mid April 2026 Product Update',
+      summary:
+        'This release focuses on getting new users to their first deployment faster with a redesigned onboarding experience, alongside performance improvements to application list loading for larger organizations.',
+      tags: ['product', 'onboarding', 'performance'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-04-21-programmatic-api-access-faster-permissions-audit-logs',
+    metadata: {
+      title: 'Product Update: Programmatic API Access, Faster Permissions, and Audit Log Improvements',
+      date: '2026-04-21',
+      version: 'Late April 2026 Product Update',
+      summary:
+        'This release makes Zephyr easier to integrate into your own workflows, speeds up how permissions are evaluated across the platform, and improves the accuracy and visibility of audit logs for projects and applications.',
+      tags: ['product', 'api', 'permissions', 'audit-logs'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-04-28-faster-permissions-stability-ui-polish',
+    metadata: {
+      title: 'Product Update: Faster Permissions, More Stable Workflows, and UI Polish',
+      date: '2026-04-28',
+      version: 'Late April 2026 Product Update',
+      summary:
+        'This release makes Zephyr feel faster and more reliable across day-to-day workflows, with quicker permission checks, more resilient backend behavior, and targeted UI polish in navigation and discovery surfaces.',
+      tags: ['product', 'permissions', 'performance', 'reliability', 'ux'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-05-05-faster-pages-smoother-settings',
+    metadata: {
+      title: 'Product Update: Faster Pages and Smoother Settings',
+      date: '2026-05-05',
+      version: 'Early May 2026 Product Update',
+      summary:
+        'This release improves page performance, permission reliability, audit log handling, and settings workflows across Zephyr. Teams should see faster organization pages, clearer loading states, and fewer interruptions when managing access, integrations, tags, and environments.',
+      tags: ['product', 'performance', 'permissions', 'audit-logs', 'ui'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-05-12-custom-domains-cloudflare-worker-routes',
+    metadata: {
+      title: 'Product Update: Custom Domains on Cloudflare Worker Routes',
+      date: '2026-05-12',
+      version: 'Mid May 2026 Product Update',
+      summary:
+        'Custom DNS for environments now runs on Cloudflare Worker Routes for a more direct setup flow and cleaner teardown. Plus shorter environment and tag names, a fix for the org settings form, and integration modal polish.',
+      tags: ['product', 'custom-domains', 'ui'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-05-19-ci-tokens-manual-deploys-audit-logs',
+    metadata: {
+      title: 'Product Update: CI Tokens, Improved Manual Deploys, and Audit Log Enhancements',
+      date: '2026-05-19',
+      version: 'May 2026 Product Update',
+      summary:
+        'This release introduces dedicated CI tokens for automated workflows, makes manual redeploys more reliable by routing them through the same gateway as standard deploys, and improves the detail and accuracy of audit logs.',
+      tags: ['product', 'ci', 'deployments', 'audit-logs', 'security'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-05-26-redesigned-server-tokens-settings',
+    metadata: {
+      title: 'Product Update: Redesigned Server Tokens Settings',
+      date: '2026-05-26',
+      version: 'Late May 2026 Product Update',
+      summary:
+        'The Server Tokens settings page has been redesigned to make managing tokens clearer and easier, with a better layout for creating, editing, copying, and deleting tokens.',
+      tags: ['product', 'server-tokens', 'settings', 'ui'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-06-02-activity-environments-polish',
+    metadata: {
+      title: 'Product Update: Activity Insights, Environment Stability, and UI Polish',
+      date: '2026-06-02',
+      version: 'Early June 2026 Product Update',
+      summary:
+        'This release improves the Activity tab with better filtering and clearer counters, fixes environment stability issues, and makes copying server tokens easier with a built-in environment variable hint.',
+      tags: ['product', 'activity', 'environments', 'server-tokens', 'ui'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;

@@ -1,0 +1,67 @@
+---
+title: 'Product Update: Version Controls, Metadata, and Safer Cleanup'
+date: '2026-03-24'
+version: 'Late March 2026 Product Update'
+summary: 'This release adds lock controls for tags and environments, richer version metadata, a redesigned UML view, safer delete flows, and a broad set of reliability fixes across application and environment workflows.'
+tags: ['product', 'versions', 'environments', 'uml', 'reliability']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release focuses on the parts of Zephyr teams touch every day: version detail pages, deployment controls, dependency visibility, and cleanup flows. You should see clearer version context, tighter control over automatic updates, and fewer edge-case failures across app, project, and environment workflows.
+
+## More Control Over Tags and Environments
+
+You can now lock both tags and environments to keep them pinned to the version you choose.
+
+- Locked tags and environments no longer auto-advance when newer matching builds arrive.
+- You can lock a tag during deploy and lock an environment after a rollback.
+- Locked items are clearly labeled in the UI, so teams can see at a glance what is intentionally pinned.
+
+This is especially useful for production or shared environments where silent roll-forwards are risky.
+
+## Version Pages Are Easier to Share and Understand
+
+Version detail URLs now use version names instead of opaque UUIDs, which makes them easier to read, share, and debug.
+
+- Version links now handle dots and slashes correctly, so direct navigation and preview links are more reliable.
+- Version detail pages now surface more deployment metadata, including bundler, plugin version, deployment integration version, and commit hash when available.
+- Several version history and rollback refresh issues were fixed, so the UI stays in sync after rollbacks and version changes.
+
+## Safer Cleanup and Rebuild Flows
+
+Application and project cleanup behavior has been tightened so teams can remove resources without leaving behind broken identity state.
+
+- Applications can now be permanently deleted from settings with clearer warnings, including when other apps still consume them as remotes.
+- Deleted application identities are archived cleanly, which frees up the original slug for reuse.
+- Project deletion now archives child application identities correctly, so recreating a project and rebuilding the same app starts from a clean state instead of reviving archived records.
+
+## UML View Redesign
+
+The UML dependency view has been redesigned to make large dependency graphs easier to inspect.
+
+- New floating filters make it easier to switch between version, tag, and environment references.
+- A minimap gives better spatial awareness when navigating larger graphs.
+- The side panel now shows richer context, including authorship, timestamps, and more accurate consume/consumed-by relationships.
+- Backend and frontend work also reduced extra loading and improved graph responsiveness.
+
+## Reliability and Workflow Improvements
+
+This release also includes a broad set of fixes across application, environment, and permissions flows.
+
+- Rollbacks now show up correctly in environment audit logs.
+- Protected environments now enforce membership before deploy actions can proceed.
+- Environment remote dependency refreshes stay in sync when new versions are applied automatically.
+- The environment variable editor was improved with more reliable drag-and-drop, better cancel behavior, and stronger upload validation.
+- Application and project queries were tightened to avoid stale soft-deleted relations and reduce slow-loading pages.
+- Access checks for restricted settings and related API routes now happen earlier, improving permission consistency and reducing accidental data exposure.
+
+## What This Means for Teams
+
+- More predictable release flows for tags and environments.
+- Better visibility into what a version was built with and where it came from.
+- Easier cleanup when retiring applications or recreating projects.
+- Faster, clearer dependency analysis in the UML view.
+- Fewer workflow breaks in version detail, rollback, dependency, and environment management screens.

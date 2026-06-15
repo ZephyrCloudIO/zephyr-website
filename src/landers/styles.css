@@ -1,0 +1,63 @@
+@import '../index.css';
+
+:root {
+  --lander-surface: rgba(7, 13, 24, 0.82);
+  --lander-border: rgba(148, 163, 184, 0.18);
+  --lander-accent: #8bffb0;
+  --lander-copy: rgba(226, 232, 240, 0.82);
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  background: #0a0a0a;
+  background-image: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+.lander-shell {
+  min-height: 100vh;
+  background: #0a0a0a;
+}
+
+.lander-disabled {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+.lander-disabled__panel {
+  width: min(32rem, 100%);
+  border: 1px solid var(--lander-border);
+  background: var(--lander-surface);
+  border-radius: 1.5rem;
+  padding: 2rem;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+}
+
+.lander-disabled__panel h1 {
+  margin: 0.75rem 0 1rem;
+  font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.lander-disabled__panel p {
+  color: var(--lander-copy);
+  line-height: 1.7;
+}
+
+.lander-eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 0.75rem;
+  color: var(--lander-accent);
+}

@@ -4,6 +4,7 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuLabel,
+  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
 import {
@@ -22,6 +23,7 @@ import { Link } from '@tanstack/react-router';
 import {
   Calendar,
   Cloud,
+  Download,
   FileText,
   Github,
   History,
@@ -59,6 +61,14 @@ export const Header: React.FC = () => {
     } catch (err) {
       console.error('Failed to copy wordmark:', err);
     }
+  };
+
+  const handleDownloadAssets = () => {
+    const link = document.createElement('a');
+    link.href = 'https://assets.zephyr-cloud.io/ZephyrCloud-Brand-Assets.zip';
+    link.download = 'ZephyrCloud-Brand-Assets.zip';
+    link.click();
+    link.remove();
   };
 
   return (
@@ -99,6 +109,24 @@ export const Header: React.FC = () => {
                   <Type className="h-4 w-4" />
                   <span className="flex-1">Copy Wordmark SVG</span>
                 </DropdownMenuItem>
+                <DropdownMenuItem
+                  onClick={handleDownloadAssets}
+                  className="flex items-center gap-2 hover:bg-neutral-700"
+                >
+                  <Download className="h-4 w-4" />
+                  <span className="flex-1">Download brand assets</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  onClick={() => {
+                    setDropdownOpen(false);
+                    window.location.href = '/brand';
+                  }}
+                  className="flex items-center gap-2 hover:bg-neutral-700"
+                >
+                  <FileText className="h-4 w-4" />
+                  <span className="flex-1">Visit brand guidelines</span>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
           </div>
@@ -130,18 +158,18 @@ export const Header: React.FC = () => {
                   </li>
                   <li>
                     <NavigationMenuLink asChild>
-                      <Link
-                        to="/products/ai"
+                      <a
+                        href="https://theaiplatform.app"
                         className="block select-none space-y-1 rounded-md p-3 leading-none no-underline outline-none transition-colors hover:bg-neutral-800 hover:text-white focus:bg-neutral-800 focus:text-white"
                       >
                         <div className="flex items-center gap-2 text-sm font-medium leading-none">
                           <Sparkles className="h-4 w-4" />
-                          Zephyr AI
+                          The AI Platform
                         </div>
                         <p className="line-clamp-2 text-sm leading-snug text-neutral-400">
                           Where humans and AI agents do real work
                         </p>
-                      </Link>
+                      </a>
                     </NavigationMenuLink>
                   </li>
                 </ul>
@@ -321,14 +349,14 @@ export const Header: React.FC = () => {
                   <Cloud className="h-4 w-4" />
                   Zephyr Cloud
                 </Link>
-                <Link
-                  to="/products/ai"
+                <a
+                  href="https://theaiplatform.app"
                   onClick={() => setMobileMenuOpen(false)}
                   className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
                 >
                   <Sparkles className="h-4 w-4" />
-                  Zephyr AI
-                </Link>
+                  The AI Platform
+                </a>
               </div>
             )}
           </div>

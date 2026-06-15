@@ -3,6 +3,7 @@ interface ImportMetaEnv {
   readonly VITE_INTERCOM_APP_ID?: string;
   readonly PUBLIC_POSTHOG_KEY?: string;
   readonly PUBLIC_POSTHOG_HOST?: string;
+  readonly ZE_PUBLIC_ENABLED_LANDERS?: string;
 }
 
 interface ImportMeta {
@@ -15,6 +16,11 @@ declare module '*.svg' {
 }
 
 declare module '*.png' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.jpg' {
   const src: string;
   export default src;
 }

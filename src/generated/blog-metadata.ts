@@ -132,6 +132,22 @@ export const blogMetadataEntries = [
     },
   },
   {
+    slug: 'micro-frontend-canvas',
+    metadata: {
+      title: 'The Micro-Frontend Canvas: a practical tool for better boundaries',
+      slug: 'micro-frontend-canvas',
+      date: '2026-06-10',
+      heroImage: '/images/blog/micro-frontend-canvas/design-phase.webp',
+      listingImage: '/images/blog/micro-frontend-canvas/canvas-overview.webp',
+      description:
+        'The Micro-Frontend Canvas is a structured one-page tool that helps teams design boundaries before they become code problems — and audit existing micro-frontends when friction shows up.',
+      authors: ['Luca Mezzalira'],
+      tags: ['micro-frontends', 'architecture', 'engineering', 'web', 'product'],
+      featured: true,
+      readingTime: 9,
+    },
+  },
+  {
     slug: 'mobilefirst',
     metadata: {
       title: 'Launch Week 2: Kickoff',
@@ -194,17 +210,17 @@ export const blogMetadataEntries = [
   {
     slug: 'nuxt-goes-zephyr-native',
     metadata: {
-      title: 'Nuxt Goes Zephyr-Native: The End of Deployment Scripts',
+      title: 'Nuxt Is Now Native on Zephyr',
       slug: 'nuxt-goes-zephyr-native',
       date: '2026-03-17',
       heroImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp',
       listingImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp',
       description:
-        'Nuxt apps now deploy as native Zephyr artifacts: build once, ship SSR or CSR automatically, and control releases at serve time.',
+        'Nuxt now deploys on Zephyr as a first-class release artifact, with immutable versions, preview URLs, environment controls, and rollback built in.',
       authors: ['Néstor López'],
       tags: ['announcement', 'deployment', 'edge', 'web', 'product'],
       featured: true,
-      readingTime: 7,
+      readingTime: 4,
     },
   },
   {
