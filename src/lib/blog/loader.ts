@@ -36,6 +36,7 @@ const authorMap: Record<string, Author> = {
   'Lois Zhao': authors.Lois,
   'Néstor López': authors.Nestor,
   'Rodrigo Yokota': authors.Rodrigo,
+  'Luca Mezzalira': authors.Luca,
 };
 
 // Convert MDX metadata to BlogPost format
@@ -73,6 +74,7 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
             lois: 'Lois Zhao',
             nestor: 'Néstor',
             rodrigo: 'Rodrigo',
+            luca: 'Luca Mezzalira',
           };
           const authorName = idToName[authorId] || authorId;
           return authorMap[authorName];
