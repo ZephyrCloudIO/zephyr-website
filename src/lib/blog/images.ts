@@ -9,6 +9,8 @@ import doraMetricsHeroImage from '@/images/blog/dora-metrics/hero.webp';
 import envVariablesAndZephyrHeroImage from '@/images/blog/env-variables/hero.webp';
 import geoHeroImage from '@/images/blog/generative-engine-optimization/hero.webp';
 import infrastructurelessHeroImage from '@/images/blog/infrastructureless/hero.webp';
+import microFrontendCanvasOverviewImage from '@/images/blog/micro-frontend-canvas/canvas-overview.webp';
+import microFrontendCanvasDesignPhaseImage from '@/images/blog/micro-frontend-canvas/design-phase.webp';
 import mobilefirstHeroImage from '@/images/blog/mobilefirst/hero.webp';
 import moduleFederationVsNativeEsmHeroImage from '@/images/blog/module-federation-vs-native-esm/hero.webp';
 import nextjsWithoutLockInVinextOnZephyrHeroImage from '@/images/blog/nextjs-without-lock-in-vinext-on-zephyr/hero.webp';
@@ -123,5 +125,9 @@ export const blogImages = {
   'env-variables-and-zephyr': {
     heroImage: envVariablesAndZephyrHeroImage,
     listingImage: envVariablesAndZephyrHeroImage,
+  },
+  'micro-frontend-canvas': {
+    heroImage: microFrontendCanvasDesignPhaseImage,
+    listingImage: microFrontendCanvasOverviewImage,
   },
 };

@@ -17,9 +17,9 @@ export const FeatureListItem: React.FC<FeatureListItemProps> = ({
 }) => (
   <div className="border-t border-neutral-700 py-6">
     <div className="flex items-start gap-4">
-      <Icon className="w-5 h-5 mt-1 text-emerald-700 shrink-0" />
+      <Icon className="w-5 h-5 mt-1 text-violet-500 shrink-0" />
       <div>
-        <h4 className="font-semibold text-white">{title}</h4>
+        <h4 className="font-semibold text-neutral-100">{title}</h4>
         <p className="text-neutral-400 text-sm mt-1">{description}</p>
       </div>
       {diagramQuery && (

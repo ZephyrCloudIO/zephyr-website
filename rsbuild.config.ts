@@ -7,19 +7,9 @@ import rehypeSlug from 'rehype-slug';
 import remarkFrontmatter from 'remark-frontmatter';
 import remarkGfm from 'remark-gfm';
 import remarkMdxFrontmatter from 'remark-mdx-frontmatter';
-import { withZephyr } from 'zephyr-rspack-plugin';
+import { withZephyr } from 'zephyr-rsbuild-plugin';
 import { getLanderEntries } from './scripts/landers.js';
 import { sitemapGeneratorPlugin } from './src/plugins/sitemap-generator';
-
-const zephyrRsbuildPlugin = () => ({
-  name: 'zephyr-rsbuild-plugin',
-  setup(api: { modifyRspackConfig: (config: any) => Promise<void> }) {
-    api.modifyRspackConfig(async (config: any) => {
-      // this is important to avoid multiple zephyr build triggers
-      config.name === 'web' && (await withZephyr()(config));
-    });
-  },
-});
 
 function formatEntryTitle(entryName: string) {
   if (entryName === 'index') {
@@ -51,8 +41,16 @@ export default defineConfig(async () => {
     },
     output: {
       copy: [
+        { from: 'public/.well-known/agent.json', to: './.well-known/agent.json' },
+        { from: 'public/.well-known/agents.json', to: './.well-known/agents.json' },
+        { from: 'public/.well-known/mcp.json', to: './.well-known/mcp.json' },
+        { from: 'public/.well-known/openapi', to: './.well-known/openapi' },
+        { from: 'public/.well-known/webmcp.json', to: './.well-known/webmcp.json' },
+        { from: 'public/_headers', to: './_headers' },
         { from: 'public/favicon.ico', to: './favicon.ico' },
+        { from: 'public/llms-full.txt', to: './llms-full.txt' },
         { from: 'public/llms.txt', to: './llms.txt' },
+        { from: 'public/openapi.json', to: './openapi.json' },
         { from: 'public/robots.txt', to: './robots.txt' },
       ],
     },
@@ -74,7 +72,7 @@ export default defineConfig(async () => {
         })),
       },
     },
-    plugins: [pluginReact(), sitemapGeneratorPlugin(), zephyrRsbuildPlugin()],
+    plugins: [pluginReact(), sitemapGeneratorPlugin(), withZephyr()],
     tools: {
       htmlPlugin: (config, { entryName }) => {
         config.filename = entryName === 'index' ? 'index.html' : `${entryName}/index.html`;

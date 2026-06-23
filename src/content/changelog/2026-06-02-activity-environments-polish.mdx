@@ -1,0 +1,41 @@
+---
+title: 'Product Update: Activity Insights, Environment Stability, and UI Polish'
+date: '2026-06-02'
+version: 'Early June 2026 Product Update'
+summary: 'This release improves the Activity tab with better filtering and clearer counters, fixes environment stability issues, and makes copying server tokens easier with a built-in environment variable hint.'
+tags: ['product', 'activity', 'environments', 'server-tokens', 'ui']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release improves the Activity tab with better filtering and clearer counters, fixes environment stability issues, and makes copying server tokens easier with a built-in environment variable hint.
+
+## Better Activity Filtering and Counters
+
+The Activity tab at the application level has been updated with two improvements that make it easier to review what's happening in your project.
+
+- The time-range filter now lets you narrow activity to a specific window, so you can focus on what matters without scrolling through unrelated events.
+- Counter colors have been updated to be more readable and consistent with the rest of the interface.
+
+## More Stable Environment Management
+
+Two issues with environment handling have been resolved to make the experience smoother and more reliable.
+
+- Environments that have been deleted or renamed no longer trigger repeated data fetches after confirming the action — the UI now correctly stops updating once the change is done.
+- The current version is now correctly preserved when viewing environment details, so you always see accurate version information without unexpected resets.
+
+## Server Token Copy Now Shows Environment Variable Hint
+
+When copying a server token from the dialog, you'll now see a hint for the `ZE_SERVER_TOKEN` environment variable alongside it. This makes it easier to know exactly where to use the token in your CI/CD setup without having to look it up separately.
+
+## Smaller Improvements
+
+- Page padding is now consistent across the platform, giving the interface a more uniform and polished feel.
+
+## What This Means for Teams
+
+- Narrowing down activity by time range helps teams quickly audit what changed and when.
+- Environments behave more predictably after deletions and renames, reducing confusion during cleanup.
+- Server token setup in CI/CD pipelines is more self-explanatory with the environment variable hint shown inline.

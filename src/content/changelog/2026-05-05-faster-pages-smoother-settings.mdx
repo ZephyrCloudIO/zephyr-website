@@ -1,0 +1,51 @@
+---
+title: 'Product Update: Faster Pages and Smoother Settings'
+date: '2026-05-05'
+version: 'Early May 2026 Product Update'
+summary: 'This release improves page performance, permission reliability, audit log handling, and settings workflows across Zephyr. Teams should see faster organization pages, clearer loading states, and fewer interruptions when managing access, integrations, tags, and environments.'
+tags: ['product', 'performance', 'permissions', 'audit-logs', 'ui']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release improves page performance, permission reliability, audit log handling, and settings workflows across Zephyr. Teams should see faster organization pages, clearer loading states, and fewer interruptions when managing access, integrations, tags, and environments.
+
+## Faster Organization Pages
+
+Organization and account-related pages now handle larger workspaces more efficiently. Teams with many organizations or complex access setups should see fewer slowdowns when switching context or loading organization lists.
+
+- Organization lists load more reliably for users with access to many workspaces
+- Access checks are cached more efficiently without mixing permissions between users
+- Newly created organizations become available immediately without temporary permission errors
+
+## Smoother Settings Workflows
+
+Settings and confirmation dialogs now provide clearer feedback while actions are running. This makes destructive or account-level actions easier to trust because the UI shows when Zephyr is processing the request.
+
+- Delete, invite, subscription, token, and integration dialogs now show loading states
+- Confirm buttons are disabled while requests are in progress to reduce duplicate actions
+- Environment edit flows now handle navigation away from open modals more safely
+
+## More Reliable Audit Logs
+
+Audit log processing has been tightened to better support high-activity teams. This helps Zephyr record activity more efficiently while reducing background load during busy periods.
+
+- Audit events are processed in batches for better performance
+- Gateway activity is tracked with cleaner telemetry
+- Permission checks around audit-related activity are more consistent
+
+## Smaller Improvements
+
+- Integration icons now keep a consistent size inside setup modals
+- Application tag forms have cleaner spacing and alignment
+- Profile and navigation screens were simplified by removing retired pin controls
+- Redeployment, navigation, and permissions flows received additional test coverage
+
+## What This Means for Teams
+
+- Large teams should see faster organization and access-related pages
+- Admins get clearer feedback when making important settings changes
+- Audit logs and permission checks behave more consistently under load
+- Everyday workflows around integrations, tags, environments, and profile pages feel more polished

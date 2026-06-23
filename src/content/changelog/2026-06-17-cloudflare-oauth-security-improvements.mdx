@@ -1,0 +1,30 @@
+---
+title: 'Product Update: Cloudflare OAuth and Security Improvements'
+date: '2026-06-17'
+version: 'Mid June 2026 Product Update'
+summary: 'You can now connect your Cloudflare account using OAuth, making setup faster and more secure. This release also includes under-the-hood security patches.'
+tags: ['product', 'cloudflare', 'security', 'integrations']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+You can now connect your Cloudflare account using OAuth, making setup faster and more secure. This release also includes under-the-hood security patches.
+
+## Connect Cloudflare with OAuth
+
+Setting up your Cloudflare integration is now simpler. Instead of manually generating and copying API tokens, you can authorize Zephyr directly through Cloudflare's OAuth flow.
+
+- Faster setup — no manual token creation in the Cloudflare dashboard.
+- More secure — access is granted through Cloudflare's standard authorization flow and can be revoked at any time from your Cloudflare account.
+- Offline access is requested so Zephyr can continue to operate on your behalf without requiring you to re-authorize frequently.
+
+## Smaller Improvements
+
+- Addressed several security vulnerabilities in underlying dependencies to keep the platform secure.
+
+## What This Means for Teams
+
+- Cloudflare integration setup is now a guided OAuth flow rather than a manual copy-paste of API tokens.
+- The platform stays up to date with security best practices through dependency patching.

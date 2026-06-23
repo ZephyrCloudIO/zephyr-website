@@ -48,7 +48,10 @@ function PrivacyPolicy() {
         <p>
           If you have any questions or concern about this privacy notice or the privacy practices at Zephyr, please
           contact us by emailing us at{' '}
-          <a href="mailto:support@zephyr-cloud.io" className="text-blue-400 hover:text-blue-300">
+          <a
+            href="mailto:support@zephyr-cloud.io"
+            className="text-neutral-400 underline underline-offset-2 decoration-neutral-600 hover:text-neutral-200 transition-colors"
+          >
             support@zephyr-cloud.io
           </a>
           .

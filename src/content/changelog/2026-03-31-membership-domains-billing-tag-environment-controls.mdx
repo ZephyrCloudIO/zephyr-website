@@ -1,0 +1,62 @@
+---
+title: 'Product Update: Membership Domains, Billing Improvements, and Tag and Environment Controls'
+date: '2026-03-31'
+version: 'Late March 2026 Product Update'
+summary: 'This release adds email-verified open membership domains, tightens billing and subscription accuracy, and improves how teams manage tags, environments, and pinned versions.'
+tags: ['product', 'billing', 'membership', 'environments', 'tags']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release adds email-verified open membership domains, tightens billing and subscription accuracy, and improves how teams manage tags, environments, and pinned versions. A range of reliability and UI fixes are included across the dashboard.
+
+## Open Membership with Email Domain Verification
+
+Organizations can now configure open membership domains so that anyone with a verified company email address can join automatically.
+
+- Members who join through an open domain are assigned the correct role without manual approval.
+- Organization admins can manage allowed domains from organization settings.
+- Role assignments also update automatically when seats are downgraded, so access levels stay consistent with your subscription without manual intervention.
+
+## Billing and Subscription Fixes
+
+Several billing-related issues have been resolved to make subscription management more reliable.
+
+- Billing history now loads correctly.
+- Coupon discounts are applied consistently across the dashboard and email receipts.
+- Coupon removal now works as expected.
+- Payment method management has been improved with a clearer UI.
+
+## Tag and Environment Naming Improvements
+
+Renaming tags and environments is more reliable, and a few edge cases have been resolved.
+
+- Tag and environment rename flows have been improved for accuracy and consistency.
+- Names as short as two characters are now accepted for both environments and tags.
+- Domain delimiter handling has been fixed to prevent formatting issues.
+
+## Email Notifications Now Show Environment Context
+
+Notification emails for non-production deployments now include the environment name in the subject line, making it easier to identify which environment triggered an alert without opening the email.
+
+## Pinning and Navigation
+
+- Pinning a version now shows a confirmation toast so you can tell the action was applied.
+- Pin options are now paginated, improving performance when you have a large number of pinnable items.
+- The sidebar has been improved for better navigation across the dashboard.
+
+## Reliability Fixes
+
+- Manual deploys now correctly respect version ownership policy.
+- Retrying a failed deployment integration setup now properly re-runs the integration.
+- Duplicate floating error notifications have been resolved.
+- Usernames generated from email addresses now use the correct email part.
+
+## What This Means for Teams
+
+- Onboard teammates faster with email-verified open membership domains.
+- More accurate billing history, coupon handling, and payment management.
+- Fewer friction points when naming and renaming tags and environments.
+- Clearer email alerts for non-production deployments.

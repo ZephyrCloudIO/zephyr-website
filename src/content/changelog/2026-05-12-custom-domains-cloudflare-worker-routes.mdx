@@ -1,0 +1,40 @@
+---
+title: 'Product Update: Custom Domains on Cloudflare Worker Routes'
+date: '2026-05-12'
+version: 'Mid May 2026 Product Update'
+summary: 'Custom DNS for environments now runs on Cloudflare Worker Routes for a more direct setup flow and cleaner teardown. Plus shorter environment and tag names, a fix for the org settings form, and integration modal polish.'
+tags: ['product', 'custom-domains', 'ui']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+Custom DNS for environments now runs on Cloudflare Worker Routes for a more direct setup flow and cleaner teardown. Plus shorter environment and tag names, a fix for the org settings form, and integration modal polish.
+
+## Custom Domains on Cloudflare Worker Routes
+
+Custom DNS for environments has migrated off Entri and onto Cloudflare Worker Routes. Setup is more direct, status reflects what's actually live, and removal cleans up the upstream resources automatically.
+
+- Connect a custom domain with a clearer setup flow
+- Non-Cloudflare environments resolve correctly during the connect step
+- Removed custom domains tear down their Worker Routes cleanly
+
+## Shorter Environment and Tag Names
+
+Environment and tag names can now be as short as 2 characters, with validation enforced consistently across the dashboard, API, and CLI. Short, conventional names like `qa` and `v1` work as expected.
+
+## Smaller Improvements
+
+- Organization settings form now preserves your values after saving
+- Default integration selection and checkbox state are correctly restored in the integration setup modal
+
+## What This Means for Teams
+
+- **Operators** of custom domains get a more direct setup flow and cleaner teardown
+- **Anyone naming environments or tags** can use shorter, conventional names
+- **Admins** no longer have to re-enter org settings after each save
+
+## Support
+
+If you encounter unexpected behavior, please contact the Zephyr team via chat or join our Discord: [discord.gg/zephyrcloud](https://discord.gg/zephyrcloud).

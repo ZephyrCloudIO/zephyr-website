@@ -12,7 +12,7 @@ function PartnersPage() {
         {/* Header */}
         <div className="mb-16">
           <h1 className="text-5xl font-bold mb-4">Partners</h1>
-          <p className="text-xl text-neutral-400">
+          <p className="text-xl text-muted-foreground">
             Everything is better with friends. Check out these Zephyr Cloud partners for the best experience when
             building.
           </p>
@@ -39,12 +39,12 @@ function PartnersPage() {
 
               {/* Partner Types */}
               <div className="mb-3">
-                <p className="text-xs uppercase tracking-wider text-neutral-500 mb-2">Type</p>
+                <p className="text-xs uppercase tracking-wider font-mono text-neutral-500 mb-2">Type</p>
                 <div className="flex flex-wrap gap-2">
                   {partner.types.map((type) => (
                     <span
                       key={type}
-                      className="inline-block px-3 py-1 bg-emerald-900/30 text-emerald-400 text-sm rounded-full"
+                      className="inline-block px-3 py-1 bg-violet-900/30 text-violet-400 text-sm rounded-full"
                     >
                       {formatPartnerType(type)}
                     </span>
@@ -54,7 +54,7 @@ function PartnersPage() {
 
               {/* Capabilities */}
               <div>
-                <p className="text-xs uppercase tracking-wider text-neutral-500 mb-2">Capabilities</p>
+                <p className="text-xs uppercase tracking-wider font-mono text-neutral-500 mb-2">Capabilities</p>
                 <div className="flex flex-wrap gap-2">
                   {partner.capabilities.map((capability) => (
                     <span
@@ -73,12 +73,12 @@ function PartnersPage() {
         {/* CTA Section */}
         <div className="mt-24 text-center bg-neutral-900 rounded-lg p-12">
           <h2 className="text-3xl font-bold mb-4">Become a Partner</h2>
-          <p className="text-lg text-neutral-400 mb-8 max-w-2xl mx-auto">
+          <p className="text-lg text-muted-foreground mb-8 max-w-2xl mx-auto">
             Join our partner ecosystem and help organizations build the future on Zephyr Cloud
           </p>
           <a
             href="mailto:inbound@zephyr-cloud.io?subject=partners"
-            className="inline-flex items-center px-6 py-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg transition-colors"
+            className="inline-flex items-center px-6 py-3 bg-violet-600 hover:bg-violet-500 text-white font-semibold rounded-lg transition-colors"
           >
             Contact Us
           </a>

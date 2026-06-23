@@ -68,7 +68,7 @@ export const DeploymentSection: React.FC = () => {
               href="https://docs.zephyr-cloud.io/recipes"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-neutral-400 hover:text-emerald-700 transition-colors text-sm font-semibold"
+              className="text-neutral-400 hover:text-violet-500 transition-colors text-sm font-semibold"
             >
               See all examples
             </a>
