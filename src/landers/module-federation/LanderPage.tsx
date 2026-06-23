@@ -1,3 +1,4 @@
+import { COMPANY_LOGOS } from '@/constants/companyLogos';
 import ZephyrWordmark from '@/landers/cityjs-london/assets/logo-zephyr-wordmark.svg';
 import posthog from 'posthog-js';
 import { useEffect, useRef, useState } from 'react';
@@ -135,7 +136,7 @@ export function ModuleFederationLanderPage() {
           }}
         >
           <div style={{ width: 6, height: 6, background: 'var(--purple)', borderRadius: '50%' }} />
-          Built for Module Federation teams
+          From the creators of Module Federation
         </div>
 
         <h1
@@ -235,48 +236,50 @@ export function ModuleFederationLanderPage() {
         style={{
           borderTop: '1px solid var(--border)',
           borderBottom: '1px solid var(--border)',
-          padding: '28px 40px',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap: 16,
-          flexWrap: 'wrap',
+          padding: '40px 40px',
+          textAlign: 'center',
         }}
       >
-        <span
+        <div
           style={{
             fontSize: 12,
             color: 'var(--muted)',
-            letterSpacing: '0.08em',
+            letterSpacing: '0.12em',
             textTransform: 'uppercase',
-            marginRight: 8,
+            marginBottom: 24,
           }}
         >
-          Trusted by
-        </span>
-        {[
-          { mark: 'MF Creator', label: 'Zack Jackson' },
-          { mark: "Southern Glazer's", label: "North America's largest wine & spirits distributor" },
-          { mark: 'ByteDance', label: 'Scale proven' },
-          { mark: '7,685', label: 'monthly active users' },
-        ].map((p) => (
-          <div
-            key={p.mark}
-            style={{
-              background: 'var(--card)',
-              border: '1px solid var(--border)',
-              borderRadius: 6,
-              padding: '8px 18px',
-              fontSize: 13,
-              color: 'var(--muted)',
-              display: 'flex',
-              alignItems: 'center',
-              gap: 8,
-            }}
-          >
-            <strong style={{ color: '#F5F4F0' }}>{p.mark}</strong> <span>{p.label}</span>
-          </div>
-        ))}
+          Production MF, powered by Zephyr Cloud
+        </div>
+        <div
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: 48,
+            flexWrap: 'wrap',
+            maxWidth: 1100,
+            margin: '0 auto',
+          }}
+        >
+          {COMPANY_LOGOS.map((logo) => (
+            <a
+              key={logo.alt}
+              href={logo.url}
+              target="_blank"
+              rel="noopener"
+              style={{ opacity: 0.6, transition: 'opacity 0.2s' }}
+              onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
+              onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}
+            >
+              <img
+                src={logo.src}
+                alt={logo.alt}
+                style={{ height: 56, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
+              />
+            </a>
+          ))}
+        </div>
       </div>
 
       {/* PROBLEM / SOLUTION */}
@@ -388,8 +391,8 @@ export function ModuleFederationLanderPage() {
           Live in minutes.
         </h2>
         <p style={{ fontSize: 18, color: 'var(--muted)', maxWidth: 600, lineHeight: 1.6, marginBottom: 56 }}>
-          Zephyr wraps your existing build config. No pipeline rewrite. No new toolchain. Works with webpack, rspack,
-          and rsbuild.
+          Zephyr wraps your existing build config. Works with webpack, rspack, and rsbuild — and drops into the CI/CD
+          you already run (GitHub Actions, GitLab, Jenkins, CircleCI, Buildkite).
         </p>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
