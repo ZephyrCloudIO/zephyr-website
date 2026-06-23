@@ -52,29 +52,29 @@ export function ModuleFederationLanderPage() {
 
   return (
     <main
-      className="min-h-screen overflow-hidden bg-[#110D1A] text-[#F5F4F0]"
-      style={{ fontFamily: 'system-ui, -apple-system, sans-serif' }}
+      className="min-h-screen overflow-hidden bg-black text-white"
+      style={{ fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif' }}
     >
       <style>{`
         :root {
-          --purple: #8B5CF6;
-          --purple-glow: rgba(139,92,246,0.08);
-          --border: #2D2048;
-          --card: #16121E;
-          --muted: #8888AA;
-          --deep: #0F0C1A;
+          --purple: #10b981;
+          --purple-glow: rgba(16,185,129,0.08);
+          --border: #262626;
+          --card: #171717;
+          --muted: #a3a3a3;
+          --deep: #0a0a0a;
         }
         .mf-nav-link { color: var(--muted); text-decoration: none; font-size: 14px; transition: color 0.2s; }
-        .mf-nav-link:hover { color: #F5F4F0; }
-        .mf-btn-primary { background: var(--purple); color: #F5F4F0; padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; transition: opacity 0.2s; display: inline-block; }
+        .mf-nav-link:hover { color: #ffffff; }
+        .mf-btn-primary { background: var(--purple); color: #ffffff; padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: 700; text-decoration: none; transition: opacity 0.2s; display: inline-block; }
         .mf-btn-primary:hover { opacity: 0.9; }
         .mf-btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 14px 28px; border-radius: 8px; font-size: 15px; font-weight: 600; text-decoration: none; transition: border-color 0.2s, color 0.2s; display: inline-block; }
-        .mf-btn-ghost:hover { border-color: var(--purple); color: #F5F4F0; }
+        .mf-btn-ghost:hover { border-color: var(--purple); color: #ffffff; }
         .mf-price-cta { display: block; text-align: center; margin-top: 20px; padding: 10px; border-radius: 6px; font-size: 13px; font-weight: 600; text-decoration: none; border: 1px solid var(--border); color: var(--muted); transition: border-color 0.2s, color 0.2s; }
-        .mf-price-cta:hover { border-color: var(--purple); color: #F5F4F0; }
-        .mf-price-cta.featured { background: var(--purple); border-color: var(--purple); color: #F5F4F0; }
+        .mf-price-cta:hover { border-color: var(--purple); color: #ffffff; }
+        .mf-price-cta.featured { background: var(--purple); border-color: var(--purple); color: #ffffff; }
         .mf-footer-link { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
-        .mf-footer-link:hover { color: #F5F4F0; }
+        .mf-footer-link:hover { color: #ffffff; }
       `}</style>
 
       {/* NAV */}
@@ -141,7 +141,7 @@ export function ModuleFederationLanderPage() {
 
         <h1
           style={{
-            fontFamily: 'Georgia, serif',
+            fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
             fontSize: 'clamp(42px, 6vw, 76px)',
             fontWeight: 900,
             lineHeight: 1.0,
@@ -166,14 +166,14 @@ export function ModuleFederationLanderPage() {
           }}
         >
           Module Federation removed the coupling from your architecture.{' '}
-          <strong style={{ color: '#F5F4F0' }}>Zephyr removes it from your deploys.</strong> Commit to edge in under a
+          <strong style={{ color: '#ffffff' }}>Zephyr removes it from your deploys.</strong> Commit to edge in under a
           second — every remote, every team, independently.
         </p>
 
         {/* Terminal */}
         <div
           style={{
-            background: '#0A0A0F',
+            background: '#0a0a0a',
             border: '1px solid var(--border)',
             borderRadius: 10,
             padding: '20px 24px',
@@ -207,7 +207,7 @@ export function ModuleFederationLanderPage() {
             <span>{CMD}</span>
           </div>
           <div style={{ fontFamily: 'monospace', fontSize: 12, color: 'var(--muted)', marginTop: 10 }}>
-            <span style={{ color: '#6a5a8a' }}># </span>Or wrap your existing config: withZephyr(yourConfig)
+            <span style={{ color: '#737373' }}># </span>Or wrap your existing config: withZephyr(yourConfig)
           </div>
           <CopyButton text={CMD} />
         </div>
@@ -272,11 +272,7 @@ export function ModuleFederationLanderPage() {
               onMouseEnter={(e) => (e.currentTarget.style.opacity = '1')}
               onMouseLeave={(e) => (e.currentTarget.style.opacity = '0.6')}
             >
-              <img
-                src={logo.src}
-                alt={logo.alt}
-                style={{ height: 56, width: 'auto', objectFit: 'contain', filter: 'brightness(0) invert(1)' }}
-              />
+              <img src={logo.src} alt={logo.alt} style={{ height: 56, width: 'auto', objectFit: 'contain' }} />
             </a>
           ))}
         </div>
@@ -298,7 +294,7 @@ export function ModuleFederationLanderPage() {
         </span>
         <h2
           style={{
-            fontFamily: 'Georgia, serif',
+            fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
             fontSize: 'clamp(28px, 4vw, 44px)',
             fontWeight: 900,
             lineHeight: 1.1,
@@ -378,7 +374,7 @@ export function ModuleFederationLanderPage() {
         </span>
         <h2
           style={{
-            fontFamily: 'Georgia, serif',
+            fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
             fontSize: 'clamp(28px, 4vw, 44px)',
             fontWeight: 900,
             lineHeight: 1.1,
@@ -440,7 +436,7 @@ export function ModuleFederationLanderPage() {
         </span>
         <h2
           style={{
-            fontFamily: 'Georgia, serif',
+            fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
             fontSize: 'clamp(28px, 4vw, 44px)',
             fontWeight: 900,
             lineHeight: 1.1,
@@ -554,7 +550,7 @@ export function ModuleFederationLanderPage() {
             <div key={s.val}>
               <div
                 style={{
-                  fontFamily: 'Georgia, serif',
+                  fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
                   fontSize: 48,
                   fontWeight: 900,
                   color: 'var(--purple)',
@@ -586,7 +582,7 @@ export function ModuleFederationLanderPage() {
         </span>
         <h2
           style={{
-            fontFamily: 'Georgia, serif',
+            fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
             fontSize: 'clamp(28px, 4vw, 44px)',
             fontWeight: 900,
             lineHeight: 1.1,
@@ -623,7 +619,7 @@ export function ModuleFederationLanderPage() {
           </div>
           <p
             style={{
-              fontFamily: 'Georgia, serif',
+              fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
               fontSize: 'clamp(18px, 2.5vw, 24px)',
               fontStyle: 'italic',
               lineHeight: 1.5,
@@ -645,7 +641,7 @@ export function ModuleFederationLanderPage() {
                     fontSize: 28,
                     fontWeight: 900,
                     color: 'var(--purple)',
-                    fontFamily: 'Georgia, serif',
+                    fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
                     lineHeight: 1,
                   }}
                 >
@@ -676,7 +672,7 @@ export function ModuleFederationLanderPage() {
         </span>
         <h2
           style={{
-            fontFamily: 'Georgia, serif',
+            fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
             fontSize: 'clamp(28px, 4vw, 44px)',
             fontWeight: 900,
             lineHeight: 1.1,
@@ -769,7 +765,7 @@ export function ModuleFederationLanderPage() {
           />
         </div>
         <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--muted)', marginTop: 20 }}>
-          <strong style={{ color: '#F5F4F0' }}>Annual billing saves 15%.</strong> All plans include a free trial. No
+          <strong style={{ color: '#ffffff' }}>Annual billing saves 15%.</strong> All plans include a free trial. No
           card required to start.
         </p>
       </div>
@@ -780,12 +776,12 @@ export function ModuleFederationLanderPage() {
           padding: '100px 40px',
           textAlign: 'center',
           borderTop: '1px solid var(--border)',
-          background: 'linear-gradient(180deg, #110D1A 0%, #0F0C1A 100%)',
+          background: 'linear-gradient(180deg, #000000 0%, #0a0a0a 100%)',
         }}
       >
         <h2
           style={{
-            fontFamily: 'Georgia, serif',
+            fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
             fontSize: 'clamp(32px, 5vw, 56px)',
             fontWeight: 900,
             lineHeight: 1.1,
@@ -817,7 +813,7 @@ export function ModuleFederationLanderPage() {
         </div>
         <div
           style={{
-            background: '#0A0A0F',
+            background: '#0a0a0a',
             border: '1px solid var(--border)',
             borderRadius: 10,
             padding: '20px 24px',
@@ -851,7 +847,7 @@ export function ModuleFederationLanderPage() {
       {/* FOOTER */}
       <footer
         style={{
-          background: '#0A0A0F',
+          background: '#0a0a0a',
           borderTop: '1px solid var(--border)',
           padding: '32px 40px',
           display: 'flex',
@@ -873,7 +869,7 @@ export function ModuleFederationLanderPage() {
             Sales
           </a>
         </div>
-        <div style={{ fontSize: 12, color: '#444460' }}>© 2025 Zephyr Cloud. Built for the web.</div>
+        <div style={{ fontSize: 12, color: '#525252' }}>© 2026 Zephyr Cloud. Built for the web.</div>
       </footer>
     </main>
   );
@@ -924,7 +920,7 @@ function SplitCard({
         >
           <span style={{ fontSize: 16, flexShrink: 0, marginTop: 1 }}>{isProblem ? '✗' : '✓'}</span>
           <p style={{ color: 'var(--muted)' }}>
-            <strong style={{ color: '#F5F4F0', display: 'block', marginBottom: 2 }}>{item.head}</strong>
+            <strong style={{ color: '#ffffff', display: 'block', marginBottom: 2 }}>{item.head}</strong>
             {item.body}
           </p>
         </div>
@@ -948,20 +944,28 @@ function HowCard({ step, title, body, code }: { step: string; title: string; bod
       >
         Step {step}
       </div>
-      <h3 style={{ fontSize: 18, fontWeight: 700, fontFamily: 'Georgia, serif', marginBottom: 10, lineHeight: 1.2 }}>
+      <h3
+        style={{
+          fontSize: 18,
+          fontWeight: 700,
+          fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
+          marginBottom: 10,
+          lineHeight: 1.2,
+        }}
+      >
         {title}
       </h3>
       <p style={{ fontSize: 14, color: 'var(--muted)', lineHeight: 1.6 }}>{body}</p>
       <pre
         style={{
           marginTop: 16,
-          background: '#0F0C1A',
+          background: '#0a0a0a',
           border: '1px solid var(--border)',
           borderRadius: 6,
           padding: '12px 14px',
           fontFamily: "'Menlo',monospace",
           fontSize: 12,
-          color: '#F5F4F0',
+          color: '#ffffff',
           lineHeight: 1.6,
           whiteSpace: 'pre-wrap',
           overflowWrap: 'break-word',
@@ -997,7 +1001,7 @@ function PriceCard({
   return (
     <div
       style={{
-        background: featured ? 'linear-gradient(135deg, #16121E 0%, #1e1530 100%)' : 'var(--card)',
+        background: featured ? 'linear-gradient(135deg, #171717 0%, #052e1a 100%)' : 'var(--card)',
         border: `1px solid ${featured ? 'var(--purple)' : 'var(--border)'}`,
         borderRadius: 10,
         padding: '28px 24px',
@@ -1012,7 +1016,7 @@ function PriceCard({
             left: '50%',
             transform: 'translateX(-50%)',
             background: 'var(--purple)',
-            color: '#F5F4F0',
+            color: '#ffffff',
             fontSize: 11,
             fontWeight: 700,
             padding: '3px 12px',
@@ -1035,7 +1039,15 @@ function PriceCard({
       >
         {tier}
       </div>
-      <div style={{ fontSize: 36, fontWeight: 900, fontFamily: 'Georgia, serif', lineHeight: 1, marginBottom: 4 }}>
+      <div
+        style={{
+          fontSize: 36,
+          fontWeight: 900,
+          fontFamily: 'Inter, Avenir, Helvetica, Arial, sans-serif',
+          lineHeight: 1,
+          marginBottom: 4,
+        }}
+      >
         {price}
         {period && (
           <span style={{ fontSize: 16, color: 'var(--muted)', fontFamily: 'system-ui', fontWeight: 400 }}>
