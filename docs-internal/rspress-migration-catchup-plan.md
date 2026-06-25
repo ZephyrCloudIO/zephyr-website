@@ -227,7 +227,7 @@ Expected result:
 - Rspress emits static pages.
 - Blog and changelog generated pages exist under `docs/blog/` and `docs/changelog/`.
 - No SSR-specific dependency or runtime path is introduced.
-- No generated content is stale after running `pnpm run generate:rspress-content`.
+- No generated content is stale after running `pnpm run generate:rspress-content`, and the working tree stays clean (the generator Prettier-formats its output, so there is no formatting drift).
 
 Additional local checks:
 

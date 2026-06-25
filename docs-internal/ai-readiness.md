@@ -21,6 +21,11 @@ The site keeps crawler-readable static output through the Rspress homepage sourc
 - `docs/public/.well-known/openapi`: OpenAPI discovery alias
 - `docs/public/.well-known/webmcp.json`: WebMCP tool manifest
 - `docs/public/_headers`: deploy-time security headers
+- `docs/public/images/og/default-1200x630.png`: shared default social preview image
+
+## Social preview image
+
+The homepage and every static page expose a default Open Graph / Twitter image (`docs/public/images/og/default-1200x630.png`) through their frontmatter `head`, so links unfurl with a preview even without page-specific art. Replace it with a page-specific `og:image`/`twitter:image` when a page has its own social image. Blog and changelog pages get per-entry images (with the same default fallback) from `scripts/generate-rspress-content.mjs`.
 
 ## When homepage copy changes
 
