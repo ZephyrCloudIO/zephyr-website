@@ -1,6 +1,7 @@
 # https://www.robotstxt.org/robotstxt.html
 User-agent: *
 Allow: /
+Crawl-delay: 1
 
 # Explicit AI crawler policy
 User-agent: GPTBot
@@ -86,7 +87,3 @@ Allow: /
 
 User-agent: Slackbot
 Allow: /
-
-# Crawl-delay for polite crawling
-User-agent: *
-Crawl-delay: 1
