@@ -24,8 +24,10 @@ export function BlogIndexPage() {
     });
   }, [searchQuery, selectedTag]);
 
-  const featuredPosts = filteredPosts.filter((post) => post.featured);
-  const regularPosts = filteredPosts.filter((post) => !post.featured);
+  // Show only the latest two featured posts; the rest fall through to the general listing.
+  const featuredPosts = filteredPosts.filter((post) => post.featured).slice(0, 2);
+  const featuredSlugs = new Set(featuredPosts.map((post) => post.slug));
+  const regularPosts = filteredPosts.filter((post) => !featuredSlugs.has(post.slug));
 
   return (
     <div className="min-h-screen bg-black text-white">
