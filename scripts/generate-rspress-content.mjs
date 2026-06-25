@@ -1,7 +1,10 @@
+import { execFile } from 'node:child_process';
 import { access, copyFile, mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { inspect } from 'node:util';
+import { inspect, promisify } from 'node:util';
 import YAML from 'yaml';
+
+const execFileAsync = promisify(execFile);
 
 const ROOT = process.cwd();
 const BLOG_SOURCE_DIR = path.join(ROOT, 'src/content/blog');
@@ -387,5 +390,24 @@ export const pageMetadata = ${asJsObject(metadata)}
   );
 }
 
+// Normalize the generated files with the project's Prettier config so their
+// output is byte-identical to what the pre-commit hook would produce. Without
+// this, every `generate`/`build` rewrites these files in raw `util.inspect`
+// format and leaves the working tree dirty.
+async function formatGeneratedOutput() {
+  const prettierBin = path.join(ROOT, 'node_modules', '.bin', 'prettier');
+
+  try {
+    await execFileAsync(
+      prettierBin,
+      ['--write', '--log-level', 'warn', 'docs/blog/**/*.mdx', 'docs/changelog/**/*.mdx', 'src/generated/**/*.ts'],
+      { cwd: ROOT },
+    );
+  } catch (error) {
+    console.warn(`[generate-rspress-content] Prettier formatting skipped: ${error.message}`);
+  }
+}
+
 await generateBlogPages();
 await generateChangelogPages();
+await formatGeneratedOutput();
