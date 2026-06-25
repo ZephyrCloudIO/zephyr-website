@@ -5,19 +5,19 @@
   "type": "module",
   "scripts": {
     "batch-convert": "node scripts/batch-convert.js",
-    "build": "rsbuild build",
+    "build": "pnpm run generate:rspress-content && rspress build",
     "create-lander": "node scripts/create-lander.js",
-    "dev": "rsbuild dev",
+    "dev": "pnpm run generate:rspress-content && rspress dev",
     "format": "prettier --write .",
+    "generate:rspress-content": "node scripts/generate-rspress-content.mjs",
     "imgc": "./image-converter/target/release/imgc",
     "imgc-build": "cd image-converter && cargo build --release",
     "imgc-help": "./image-converter/target/release/imgc --help",
     "prepare": "husky",
-    "preview": "rsbuild preview",
+    "preview": "rspress preview",
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@mdx-js/loader": "^3.1.1",
     "@mdx-js/react": "^3.1.1",
     "@posthog/react": "^1.8.2",
     "@radix-ui/react-avatar": "^1.1.11",
@@ -46,24 +46,23 @@
     "tailwind-merge": "^3.5.0",
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.4.0",
-    "unicornstudio-react": "2.1.4",
-    "zephyr-rsbuild-plugin": "^1.1.1"
+    "unicornstudio-react": "2.1.4"
   },
   "devDependencies": {
-    "@rsbuild/core": "1.7.3",
-    "@rsbuild/plugin-react": "1.4.6",
-    "@tailwindcss/postcss": "4.2.2",
-    "@tanstack/router-plugin": "1.167.1",
+    "@rspress/core": "^2.0.5",
+    "@rspress/plugin-sitemap": "^2.0.5",
+    "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "^24.7.2",
     "@types/react": "^19.2.14",
     "@types/react-dom": "^19.2.3",
-    "husky": "9.1.7",
-    "prettier": "3.8.1",
-    "prettier-plugin-organize-imports": "4.3.0",
-    "prettier-plugin-tailwindcss": "0.7.2",
-    "tailwindcss": "4.2.2",
-    "typescript": "5.9.3",
-    "webpack": "5.105.4"
+    "husky": "^9.1.7",
+    "prettier": "^3.8.1",
+    "prettier-plugin-organize-imports": "^4.3.0",
+    "prettier-plugin-tailwindcss": "^0.7.2",
+    "tailwindcss": "^4.2.2",
+    "typescript": "^5.9.3",
+    "yaml": "^2.8.1",
+    "zephyr-rspress-plugin": "^1.1.1"
   },
   "pnpm": {
     "onlyBuiltDependencies": [

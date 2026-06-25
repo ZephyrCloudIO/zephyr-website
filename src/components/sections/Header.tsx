@@ -53,10 +53,13 @@ export const Header: React.FC = () => {
   const [toastMsg, setToastMsg] = useState('');
   const [toastVisible, setToastVisible] = useState(false);
   const [copyActive, setCopyActive] = useState<string | null>(null);
+  const [mounted, setMounted] = useState(false);
   const copyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const toastTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   useEffect(() => {
+    setMounted(true);
+
     return () => {
       if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
       if (toastTimeoutRef.current) clearTimeout(toastTimeoutRef.current);
@@ -414,7 +417,9 @@ export const Header: React.FC = () => {
         </div>
       </header>
 
-      {createPortal(<CopyToast message={toastMsg} visible={toastVisible} />, document.body)}
+      {mounted && typeof document !== 'undefined'
+        ? createPortal(<CopyToast message={toastMsg} visible={toastVisible} />, document.body)
+        : null}
     </>
   );
 };
