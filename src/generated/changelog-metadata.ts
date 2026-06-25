@@ -346,4 +346,30 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-06-10-audit-logs-environment-scope-tag-attribution',
+    metadata: {
+      title: 'Product Update: Environment-Scoped Audit Logs and Tag Attribution',
+      date: '2026-06-10',
+      version: 'Mid June 2026 Product Update',
+      summary:
+        'Audit logs now show which environment each action occurred in, tags are attributed to who added them, and settings navigation has been restored.',
+      tags: ['product', 'audit-logs', 'environments', 'tags', 'settings'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-06-17-cloudflare-oauth-security-improvements',
+    metadata: {
+      title: 'Product Update: Cloudflare OAuth and Security Improvements',
+      date: '2026-06-17',
+      version: 'Mid June 2026 Product Update',
+      summary:
+        'You can now connect your Cloudflare account using OAuth, making setup faster and more secure. This release also includes under-the-hood security patches.',
+      tags: ['product', 'cloudflare', 'security', 'integrations'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
