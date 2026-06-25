@@ -1,11 +1,12 @@
 import { IntercomButton } from '@/components/IntercomButton';
+import { NotFoundPage } from '@/components/pages/NotFoundPage';
 import { Footer } from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import '@/index.css';
 import { mdxComponents } from '@/mdx-components';
 import { MDXProvider } from '@mdx-js/react';
 import { PostHogProvider } from '@posthog/react';
-import { Content, Head, useFrontmatter } from '@rspress/core/runtime';
+import { Content, Head, useFrontmatter, usePageData } from '@rspress/core/runtime';
 import posthog from 'posthog-js';
 import { createElement, type ReactElement, useEffect } from 'react';
 import { IntercomProvider } from 'react-use-intercom';
@@ -43,7 +44,14 @@ function renderFrontmatterHead(frontmatterHead: unknown): ReactElement[] {
 export function Layout() {
   const frontmatterData = useFrontmatter() as { frontmatter?: { head?: unknown } };
   const frontmatter = (frontmatterData.frontmatter ?? {}) as Record<string, unknown>;
-  const pageTitle = typeof frontmatter.title === 'string' ? frontmatter.title : 'Zephyr Cloud';
+  const { page } = usePageData() as { page?: { pageType?: string } };
+  const isNotFound = page?.pageType === '404';
+  const pageTitle =
+    typeof frontmatter.title === 'string'
+      ? frontmatter.title
+      : isNotFound
+        ? 'Page not found | Zephyr Cloud'
+        : 'Zephyr Cloud';
   const pageDescription = typeof frontmatter.description === 'string' ? frontmatter.description : undefined;
   const hideChrome = frontmatter.hideChrome === true;
 
@@ -66,6 +74,7 @@ export function Layout() {
       <Head>
         <title>{pageTitle}</title>
         {pageDescription ? <meta name="description" content={pageDescription} /> : null}
+        {isNotFound ? <meta name="robots" content="noindex" /> : null}
         {renderFrontmatterHead(frontmatter.head)}
       </Head>
       <IntercomProvider appId="xyxkmxlj">
@@ -73,9 +82,7 @@ export function Layout() {
           <MDXProvider components={mdxComponents as any}>
             <div className="dark bg-black text-neutral-300 min-h-screen font-sans">
               {hideChrome ? null : <Header />}
-              <main>
-                <Content />
-              </main>
+              <main>{isNotFound ? <NotFoundPage /> : <Content />}</main>
               {hideChrome ? null : <Footer />}
               {hideChrome ? null : <IntercomButton />}
             </div>
