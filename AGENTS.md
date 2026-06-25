@@ -9,7 +9,7 @@
 - `src/content/`: MDX content for blog and changelog entries.
 - `src/lib/` and `src/data/`: loaders, helpers, and static data.
 - `src/images/`: site assets; keep optimized images here.
-- `src/landers/`: standalone campaign lander components exposed through Rspress wrappers. Read [`rspress-maintenance-guide.md`](rspress-maintenance-guide.md) before adding one.
+- `src/landers/`: standalone campaign lander components exposed through Rspress wrappers. Read [`docs-internal/rspress-maintenance-guide.md`](docs-internal/rspress-maintenance-guide.md) before adding one.
 - `scripts/`: maintenance utilities such as image conversion and lander scaffolding.
 
 ## Build, Test, and Development Commands

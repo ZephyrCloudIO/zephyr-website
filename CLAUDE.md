@@ -208,8 +208,8 @@ The website is built with Rspress SSG and deployed through the Zephyr Cloud webs
 - `scripts/generate-rspress-content.mjs` - Generates static blog/changelog wrappers and metadata
 - `theme/index.tsx` - Site layout wrapper and head integration
 - `src/components/sections/Header.tsx` - Navigation with dropdown menus
-- `rspress-maintenance-guide.md` - How to add blogs, changelogs, pages, landers, and public files
-- `rspress-pr-migration-guide.md` - How other open PRs should adapt after the migration
+- `docs-internal/rspress-maintenance-guide.md` - How to add blogs, changelogs, pages, landers, and public files
+- `docs-internal/rspress-pr-migration-guide.md` - How other open PRs should adapt after the migration
 - `.vscode/settings.json` - Excludes generated files from editing
 
 ### Adding New Routes

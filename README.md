@@ -56,7 +56,7 @@ pnpm run generate:rspress-content
 
 Commit both source content and generated route wrappers.
 
-For detailed maintenance steps, see [`rspress-maintenance-guide.md`](rspress-maintenance-guide.md).
+For detailed maintenance steps, see [`docs-internal/rspress-maintenance-guide.md`](docs-internal/rspress-maintenance-guide.md).
 
 ## Standalone Landers
 
