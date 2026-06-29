@@ -11,6 +11,8 @@ featured: false
 readingTime: 5
 ---
 
+import { Tab, Tabs } from '@rspress/core/theme';
+
 Once a team starts using agents for real work, the same problem shows up quickly: context.
 
 Not generic context. The annoying, specific kind. What is the actual difference between a version, a tag, and an environment? Why is this remote not resolving in staging? Which URL should QA be testing? Which docs page is the source of truth here?
@@ -23,7 +25,12 @@ We just shipped the first set as portable skill folders that work across Claude 
 
 ## Install Zephyr Skills
 
-For Claude Code, install Zephyr Skills from the plugin marketplace:
+Pick the tab that matches your agent and copy the command or path.
+
+<Tabs defaultValue="claude-code">
+<Tab label="Claude Code" value="claude-code">
+
+Install Zephyr Skills from the plugin marketplace:
 
 ```bash
 /plugin marketplace add ZephyrCloudIO/skills
@@ -31,19 +38,28 @@ For Claude Code, install Zephyr Skills from the plugin marketplace:
 /reload-plugins
 ```
 
-For agents that support the `npx skills` CLI, install directly from GitHub:
+</Tab>
+<Tab label="npx skills" value="npx-skills">
+
+Install directly from GitHub:
 
 ```bash
 npx skills add https://github.com/ZephyrCloudIO/skills
 ```
 
-For Cursor, import the repository through **Settings > Rules > Project Rules > Add Rule > Remote Rule (GitHub)** and use this URL:
+</Tab>
+<Tab label="Cursor" value="cursor">
+
+Import the repository through **Settings > Rules > Project Rules > Add Rule > Remote Rule (GitHub)** and use this URL:
 
 ```text
 https://github.com/ZephyrCloudIO/skills
 ```
 
-You can also clone or copy the skill folders into your agent's skills directory:
+</Tab>
+<Tab label="Manual copy" value="manual-copy">
+
+Clone or copy the skill folders into your agent's skills directory:
 
 | Agent        | Skill directory              |
 | ------------ | ---------------------------- |
@@ -52,6 +68,9 @@ You can also clone or copy the skill folders into your agent's skills directory:
 | OpenAI Codex | `~/.codex/skills/`           |
 | OpenCode     | `~/.config/opencode/skills/` |
 | Pi           | `~/.pi/agent/skills/`        |
+
+</Tab>
+</Tabs>
 
 ## The Context Problem
 

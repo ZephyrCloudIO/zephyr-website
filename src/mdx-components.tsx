@@ -104,13 +104,16 @@ export const mdxComponents = {
         {children}
       </code>
     ) : (
-      <code className={className} {...props}>
+      <code className={`block ${className ?? ''}`} {...props}>
         {children}
       </code>
     );
   },
-  pre: ({ children, ...props }: any) => (
-    <pre className="bg-neutral-900 border border-neutral-800 rounded-lg p-4 mb-4 overflow-x-auto" {...props}>
+  pre: ({ className, children, ...props }: any) => (
+    <pre
+      className={`mb-6 overflow-x-auto rounded-lg border border-neutral-800 bg-neutral-900 p-4 leading-relaxed ${className ?? ''}`}
+      {...props}
+    >
       {children}
     </pre>
   ),
