@@ -60,7 +60,7 @@
     "prettier-plugin-organize-imports": "^4.3.0",
     "prettier-plugin-tailwindcss": "^0.7.2",
     "tailwindcss": "^4.2.2",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.0",
     "yaml": "^2.8.3",
     "zephyr-rspress-plugin": "^1.1.1"
   },
