@@ -21,7 +21,6 @@ export interface MDXBlogPost {
     author?: string; // Single author format (used in new posts)
     authors?: (string | { id: string })[]; // Can be author names or objects with id
     tags: string[];
-    featured?: boolean;
     readingTime?: number;
   };
   default: React.ComponentType;
@@ -99,105 +98,6 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
     description: metadata.description || metadata.excerpt || '',
     authors: authorsList,
     tags: metadata.tags as BlogTag[],
-    featured: metadata.featured || false,
     readingTime: metadata.readingTime,
   };
-}
-
-// Import all blog posts
-// We'll use a static import map for now, but this could be made dynamic with glob imports
-const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
-  soc2: () => import('@/content/blog/soc2.mdx') as Promise<MDXBlogPost>,
-  'ai-e2e-testing': () => import('@/content/blog/ai-e2e-testing.mdx') as Promise<MDXBlogPost>,
-  'all-the-pipelines': () => import('@/content/blog/all-the-pipelines.mdx') as Promise<MDXBlogPost>,
-  'create-zephyr-apps': () => import('@/content/blog/create-zephyr-apps.mdx') as Promise<MDXBlogPost>,
-  infrastructureless: () => import('@/content/blog/infrastructureless.mdx') as Promise<MDXBlogPost>,
-  mobilefirst: () => import('@/content/blog/mobilefirst.mdx') as Promise<MDXBlogPost>,
-  'ota-with-zephyr': () => import('@/content/blog/ota-with-zephyr.mdx') as Promise<MDXBlogPost>,
-  'serve-time': () => import('@/content/blog/serve-time.mdx') as Promise<MDXBlogPost>,
-  'sgws-case-study': () => import('@/content/blog/sgws-case-study.mdx') as Promise<MDXBlogPost>,
-  'the-team-first-architecture': () => import('@/content/blog/the-team-first-architecture.mdx') as Promise<MDXBlogPost>,
-  'three-sdlcs-one-zephyr': () => import('@/content/blog/three-sdlcs-one-zephyr.mdx') as Promise<MDXBlogPost>,
-  'vibe-coding': () => import('@/content/blog/vibe-coding.mdx') as Promise<MDXBlogPost>,
-  'week-3-runtime-ota': () => import('@/content/blog/week-3-runtime-ota.mdx') as Promise<MDXBlogPost>,
-  'whos-your-cloud-daddy': () => import('@/content/blog/whos-your-cloud-daddy.mdx') as Promise<MDXBlogPost>,
-  'aws-byoc': () => import('@/content/blog/aws-byoc.mdx') as Promise<MDXBlogPost>,
-  'generative-engine-optimization': () =>
-    import('@/content/blog/generative-engine-optimization.mdx') as Promise<MDXBlogPost>,
-  'dora-metrics': () => import('@/content/blog/dora-metrics.mdx') as Promise<MDXBlogPost>,
-  'true-ventures-ai-audit': () => import('@/content/blog/true-ventures-ai-audit.mdx') as Promise<MDXBlogPost>,
-  'cloudflare-workers-aws-outage': () =>
-    import('@/content/blog/cloudflare-workers-aws-outage.mdx') as Promise<MDXBlogPost>,
-  'module-federation-vs-native-esm': () =>
-    import('@/content/blog/module-federation-vs-native-esm.mdx') as Promise<MDXBlogPost>,
-  'env-variables-and-zephyr': () => import('@/content/blog/env-variables-and-zephyr.mdx') as Promise<MDXBlogPost>,
-  'zephyr-skills': () => import('@/content/blog/zephyr-skills.mdx') as Promise<MDXBlogPost>,
-  'nuxt-goes-zephyr-native': () => import('@/content/blog/nuxt-goes-zephyr-native.mdx') as Promise<MDXBlogPost>,
-  'nitro-v3-zephyr': () => import('@/content/blog/nitro-v3-zephyr.mdx') as Promise<MDXBlogPost>,
-  'nextjs-without-lock-in-vinext-on-zephyr': () =>
-    import('@/content/blog/nextjs-without-lock-in-vinext-on-zephyr.mdx') as Promise<MDXBlogPost>,
-  'micro-frontend-canvas': () => import('@/content/blog/micro-frontend-canvas.mdx') as Promise<MDXBlogPost>,
-};
-
-// Get all blog posts
-export async function getAllBlogPosts(): Promise<BlogPost[]> {
-  try {
-    const posts = await Promise.all(
-      Object.entries(blogPostModules).map(async ([key, modulePromise]) => {
-        const module = await modulePromise();
-        return mdxToBlogPost(module as MDXBlogPost, key);
-      }),
-    );
-
-    // Sort by date, newest first
-    return posts.sort((a, b) => b.date.getTime() - a.date.getTime());
-  } catch (error) {
-    console.error('Error loading blog posts:', error);
-    return [];
-  }
-}
-
-// Get a single blog post by slug
-export async function getBlogPostBySlug(slug: string): Promise<BlogPost | null> {
-  try {
-    const modulePromise = blogPostModules[slug];
-    if (!modulePromise) return null;
-
-    const module = await modulePromise();
-    return mdxToBlogPost(module as MDXBlogPost, slug);
-  } catch (error) {
-    console.error(`Error loading blog post ${slug}:`, error);
-    return null;
-  }
-}
-
-// Get blog posts by tag
-export async function getBlogPostsByTag(tag: BlogTag): Promise<BlogPost[]> {
-  const allPosts = await getAllBlogPosts();
-  return allPosts.filter((post) => post.tags.includes(tag));
-}
-
-// Get featured blog posts
-export async function getFeaturedBlogPosts(): Promise<BlogPost[]> {
-  const allPosts = await getAllBlogPosts();
-  return allPosts.filter((post) => post.featured);
-}
-
-// Get latest blog posts (for home page)
-export async function getLatestBlogPosts(count: number = 4): Promise<BlogPost[]> {
-  const allPosts = await getAllBlogPosts();
-  return allPosts.slice(0, count);
-}
-
-// Search blog posts
-export async function searchBlogPosts(query: string): Promise<BlogPost[]> {
-  const allPosts = await getAllBlogPosts();
-  const lowercaseQuery = query.toLowerCase();
-
-  return allPosts.filter(
-    (post) =>
-      post.title.toLowerCase().includes(lowercaseQuery) ||
-      post.description.toLowerCase().includes(lowercaseQuery) ||
-      post.tags.some((tag) => tag.includes(lowercaseQuery)),
-  );
 }

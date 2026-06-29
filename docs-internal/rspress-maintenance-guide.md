@@ -31,6 +31,8 @@ pnpm preview
 
 Use `date: YYYY-MM-DD` in the post frontmatter. Dates are parsed as UTC (see `parseLocalDate` in `src/lib/utils.ts`) so the static build and client hydration render the same day in every timezone.
 
+The blog index automatically features the **two most recent posts** (by `date`) — there is no per-post `featured` flag. Publishing a newer post promotes it into the Featured section and pushes the previous one down into the main listing. Selection lives in `src/components/pages/BlogIndexPage.tsx`.
+
 1. Add the source MDX file:
 
 ```text
@@ -79,19 +81,13 @@ docs/public/images/blog/<slug>/...   # if copied by the generator
 src/content/changelog/<slug>.mdx
 ```
 
-2. Register it in:
-
-```text
-src/lib/changelog/loader.ts
-```
-
-3. Regenerate static routes:
+2. Regenerate static routes (entries are auto-discovered by scanning `src/content/changelog/` — no manual registration needed):
 
 ```bash
 pnpm run generate:rspress-content
 ```
 
-4. Commit both the source and generated output:
+3. Commit both the source and generated output:
 
 ```text
 src/content/changelog/<slug>.mdx
