@@ -100,7 +100,7 @@ export const mdxComponents = {
     const isInlineCode = !className && !hasStructuredChildren;
 
     return isInlineCode ? (
-      <code className="bg-neutral-800 text-emerald-400 px-1 py-0.5 rounded" {...props}>
+      <code className="bg-neutral-800 text-violet-300 px-1 py-0.5 rounded" {...props}>
         {children}
       </code>
     ) : (

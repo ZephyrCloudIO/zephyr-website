@@ -21,6 +21,38 @@ Zephyr Skills are meant to clean that up.
 
 We just shipped the first set as portable skill folders that work across Claude Code, Cursor, OpenCode, Codex, and other tools that support the Agent Skills model. The point is simple: package Zephyr knowledge in a form agents can load when the task actually needs it.
 
+## Install Zephyr Skills
+
+For Claude Code, install Zephyr Skills from the plugin marketplace:
+
+```bash
+/plugin marketplace add ZephyrCloudIO/skills
+/plugin install zephyr@zephyr-cloud
+/reload-plugins
+```
+
+For agents that support the `npx skills` CLI, install directly from GitHub:
+
+```bash
+npx skills add https://github.com/ZephyrCloudIO/skills
+```
+
+For Cursor, import the repository through **Settings > Rules > Project Rules > Add Rule > Remote Rule (GitHub)** and use this URL:
+
+```text
+https://github.com/ZephyrCloudIO/skills
+```
+
+You can also clone or copy the skill folders into your agent's skills directory:
+
+| Agent        | Skill directory              |
+| ------------ | ---------------------------- |
+| Claude Code  | `~/.claude/skills/`          |
+| Cursor       | `~/.cursor/skills/`          |
+| OpenAI Codex | `~/.codex/skills/`           |
+| OpenCode     | `~/.config/opencode/skills/` |
+| Pi           | `~/.pi/agent/skills/`        |
+
 ## The Context Problem
 
 Docs are necessary. They are not enough.
@@ -108,7 +140,7 @@ This is also a better path than stuffing everything into one giant system prompt
 
 ## Where To Start
 
-If you want to explore the first release, start here:
+If you want to inspect the release or learn more, start here:
 
 - [Zephyr Skills repository](https://github.com/ZephyrCloudIO/skills)
 - [Zephyr documentation](https://docs.zephyr-cloud.io)
