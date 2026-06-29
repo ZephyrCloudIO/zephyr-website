@@ -1,3 +1,4 @@
+import arthurAvatar from '@/images/authors/arthur.webp';
 import loisAvatar from '@/images/authors/lois.webp';
 import lucaAvatar from '@/images/authors/luca.webp';
 import nestorAvatar from '@/images/authors/nestor.webp';
@@ -80,5 +81,16 @@ export const Luca: Author = {
     { link: 'https://x.com/lucamezzalira', platform: 'X' },
     { link: 'https://github.com/lucamezzalira/', platform: 'Github' },
     { link: 'https://www.youtube.com/@my50c', platform: 'YouTube' },
+  ],
+};
+
+export const Arthur: Author = {
+  displayName: 'Arthur Fiorette',
+  zephyrMember: true,
+  avatar: arthurAvatar,
+  socialLinks: [
+    { link: 'https://x.com/arthurfiorette', platform: 'X' },
+    { link: 'https://linkedin.com/in/arthurfiorette', platform: 'LinkedIn' },
+    { link: 'https://github.com/arthurfiorette', platform: 'Github' },
   ],
 };
