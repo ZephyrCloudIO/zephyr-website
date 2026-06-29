@@ -373,4 +373,20 @@ export const blogMetadataEntries = [
       tags: ['polycloud', 'deployment'],
     },
   },
+  {
+    slug: 'zephyr-skills',
+    metadata: {
+      title: 'Zephyr Skills Turn Repetition Into Infrastructure',
+      slug: 'zephyr-skills',
+      date: '2026-06-29',
+      heroImage: '/images/blog/zephyr-skills/hero.webp',
+      listingImage: '/images/blog/zephyr-skills/hero.webp',
+      description:
+        'Zephyr Skills package setup, deployment, and Module Federation knowledge into portable agent skills teams can reuse across Claude Code, Cursor, OpenCode, Codex, and more.',
+      authors: ['Arthur Fiorette'],
+      tags: ['announcement', 'ai', 'dx', 'deployment', 'product'],
+      featured: false,
+      readingTime: 5,
+    },
+  },
 ] as const;
