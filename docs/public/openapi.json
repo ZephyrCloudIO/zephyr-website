@@ -1,0 +1,309 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "Zephyr Cloud Public Discovery API",
+    "version": "1.0.0",
+    "summary": "Machine-readable public discovery endpoints for Zephyr Cloud.",
+    "description": "This specification documents the public machine-readable resources exposed from zephyr-cloud.io for agents and developer tooling. Product implementation details live in the Zephyr Cloud docs."
+  },
+  "jsonSchemaDialect": "https://json-schema.org/draft/2020-12/schema",
+  "servers": [
+    {
+      "url": "https://zephyr-cloud.io",
+      "description": "Production website"
+    }
+  ],
+  "tags": [
+    {
+      "name": "Discovery",
+      "description": "Public discovery resources for crawlers, agents, and developer tools."
+    },
+    {
+      "name": "Content",
+      "description": "Public content indexes and machine-readable site resources."
+    }
+  ],
+  "paths": {
+    "/openapi.json": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Get the Zephyr Cloud public OpenAPI specification",
+        "operationId": "getOpenApiSpec",
+        "responses": {
+          "200": {
+            "description": "OpenAPI 3.1 specification",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/$defs/openapiDocument"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/.well-known/openapi": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Get the well-known OpenAPI discovery document",
+        "operationId": "getWellKnownOpenApi",
+        "responses": {
+          "200": {
+            "description": "OpenAPI discovery alias",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/$defs/openapiDocument"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/.well-known/agent.json": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Get the A2A agent card",
+        "operationId": "getAgentCard",
+        "responses": {
+          "200": {
+            "description": "A2A agent card for Zephyr Cloud",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/$defs/agentCard"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/.well-known/agents.json": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Get the public agents directory",
+        "operationId": "getAgentsDirectory",
+        "responses": {
+          "200": {
+            "description": "Directory of public Zephyr Cloud agent endpoints",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/$defs/agentsDirectory"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/.well-known/mcp.json": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Get the MCP discovery document",
+        "operationId": "getMcpDiscoveryDocument",
+        "responses": {
+          "200": {
+            "description": "MCP discovery document for Zephyr Cloud",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/$defs/mcpDiscoveryDocument"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/.well-known/webmcp.json": {
+      "get": {
+        "tags": ["Discovery"],
+        "summary": "Get the WebMCP tool manifest",
+        "operationId": "getWebMcpManifest",
+        "responses": {
+          "200": {
+            "description": "WebMCP manifest with public tool definitions",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/$defs/webMcpManifest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llms.txt": {
+      "get": {
+        "tags": ["Content"],
+        "summary": "Get the short llms.txt index",
+        "operationId": "getLlmsIndex",
+        "responses": {
+          "200": {
+            "description": "Short-form LLM index",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/llms-full.txt": {
+      "get": {
+        "tags": ["Content"],
+        "summary": "Get the expanded llms-full.txt guide",
+        "operationId": "getLlmsFullIndex",
+        "responses": {
+          "200": {
+            "description": "Expanded LLM guide",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/robots.txt": {
+      "get": {
+        "tags": ["Content"],
+        "summary": "Get crawler directives",
+        "operationId": "getRobotsTxt",
+        "responses": {
+          "200": {
+            "description": "robots.txt directives",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/sitemap.xml": {
+      "get": {
+        "tags": ["Content"],
+        "summary": "Get the XML sitemap",
+        "operationId": "getSitemap",
+        "responses": {
+          "200": {
+            "description": "XML sitemap for Zephyr Cloud pages",
+            "content": {
+              "application/xml": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "$defs": {
+    "openapiDocument": {
+      "type": "object",
+      "required": ["openapi", "info", "paths"],
+      "properties": {
+        "openapi": {
+          "type": "string"
+        },
+        "info": {
+          "type": "object"
+        },
+        "paths": {
+          "type": "object"
+        }
+      }
+    },
+    "agentCard": {
+      "type": "object",
+      "required": ["name", "description", "url", "capabilities"],
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "capabilities": {
+          "type": "object"
+        }
+      }
+    },
+    "mcpDiscoveryDocument": {
+      "type": "object",
+      "required": ["version", "mcpServers"],
+      "properties": {
+        "version": {
+          "type": "string"
+        },
+        "mcpServers": {
+          "type": "object"
+        }
+      }
+    },
+    "agentsDirectory": {
+      "type": "object",
+      "required": ["agents"],
+      "properties": {
+        "agents": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "required": ["name", "description", "url", "protocol"],
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "description": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string",
+                "format": "uri"
+              },
+              "protocol": {
+                "type": "string"
+              }
+            }
+          }
+        }
+      }
+    },
+    "webMcpManifest": {
+      "type": "object",
+      "required": ["spec", "tools"],
+      "properties": {
+        "spec": {
+          "type": "string"
+        },
+        "tools": {
+          "type": "array",
+          "items": {
+            "type": "object"
+          }
+        }
+      }
+    }
+  }
+}

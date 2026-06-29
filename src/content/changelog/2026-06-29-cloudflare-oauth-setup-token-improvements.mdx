@@ -1,0 +1,39 @@
+---
+title: 'Product Update: Smoother Cloudflare Setup and Auth Token Improvements'
+date: '2026-06-29'
+version: 'Late June 2026 Product Update'
+summary: 'This release simplifies Cloudflare integration setup by defaulting to OAuth, fixes auth token descriptions being lost on rename, and cleans up a few navigation and onboarding rough edges.'
+tags: ['product', 'cloudflare', 'auth-tokens', 'ux']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release simplifies Cloudflare integration setup by defaulting to OAuth, fixes auth token descriptions being lost on rename, and cleans up a few navigation and onboarding rough edges.
+
+## Cloudflare Integration Now Defaults to OAuth
+
+When connecting Cloudflare to your workspace, the setup flow now defaults to OAuth — the option most teams should use. This removes an unnecessary decision point and gets you connected faster.
+
+- OAuth is now pre-selected when you start the Cloudflare setup wizard.
+- Teams using API tokens can still switch to that mode manually.
+- No changes are required for existing Cloudflare integrations.
+
+## Auth Token Description Preserved on Rename
+
+Renaming a user auth token used to silently clear its description. That's fixed — your description is now preserved when you rename a token.
+
+- Descriptions you've set on auth tokens survive renames.
+- No more re-entering descriptions after routine name updates.
+
+## Smaller Improvements
+
+- Deleting an organization now redirects you to a valid page instead of leaving you on a broken URL.
+- The disclaimer shown during organization creation has been removed, simplifying the flow.
+
+## What This Means for Teams
+
+- Getting Cloudflare connected is now one step simpler for most teams.
+- Auth token metadata stays intact across renames, keeping your token list organized.
+- Fewer dead-end states when managing organizations in the dashboard.

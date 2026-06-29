@@ -1,0 +1,64 @@
+---
+title: 'The Future of Infrastructure: Beyond Serverless | Zephyr Cloud'
+description: "Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading. What many of us hoped for was a genuinely 'infrastructureless' paradigm."
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'The Future of Infrastructure: Beyond Serverless'
+  - - meta
+    - property: og:description
+      content: "Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading. What many of us hoped for was a genuinely 'infrastructureless' paradigm."
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/infrastructureless'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/infrastructureless/hero.webp'
+  - - meta
+    - property: og:image:type
+      content: 'image/webp'
+  - - meta
+    - property: og:image:secure_url
+      content: 'https://zephyr-cloud.io/images/blog/infrastructureless/hero.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'The Future of Infrastructure: Beyond Serverless'
+  - - meta
+    - name: twitter:description
+      content: "Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading. What many of us hoped for was a genuinely 'infrastructureless' paradigm."
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/infrastructureless/hero.webp'
+  - - meta
+    - name: twitter:image:type
+      content: 'image/webp'
+  - - meta
+    - name: twitter:image:src
+      content: 'https://zephyr-cloud.io/images/blog/infrastructureless/hero.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/infrastructureless'
+---
+
+import PostBody from '@/content/blog/infrastructureless.mdx';
+import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'The Future of Infrastructure: Beyond Serverless',
+  description:
+    "Serverless computing has been hailed as a groundbreaking shift in web infrastructure. Yet, the term is somewhat misleading. What many of us hoped for was a genuinely 'infrastructureless' paradigm.",
+  date: '2024-09-12',
+  author: 'Zack Jackson',
+  tags: ['engineering', 'architecture', 'enterprise'],
+  image: 'infrastructureless/hero.webp',
+};
+
+<BlogArticlePage slug={'infrastructureless'} metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

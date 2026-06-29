@@ -1,5 +1,5 @@
 import SOC2Logo from '@/images/soc2-logo.webp';
-import ZephyrWordmark from '@/images/zephyr-wordmark.svg';
+import WordmarkLight from '@/images/wordmark-light.svg';
 import { Link } from '@tanstack/react-router';
 import { Activity } from 'lucide-react';
 import React from 'react';
@@ -11,13 +11,13 @@ export const Footer: React.FC = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
           <div className="col-span-2 md:col-span-1">
             <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src={ZephyrWordmark} alt="Zephyr Logo" width={128} />
+              <img src={WordmarkLight} alt="Zephyr Logo" width={128} />
             </Link>
             <img src={SOC2Logo} alt="SOC2 Compliant" className="h-12 mb-4" />
             <p className="text-xs text-neutral-500">&copy; {new Date().getFullYear()} Zephyr Cloud, Inc.</p>
           </div>
           <div>
-            <h5 className="font-semibold text-white mb-3">Developers</h5>
+            <h5 className="font-medium text-white mb-3">Developers</h5>
             <ul className="space-y-2 text-sm">
               <li>
                 <a href="https://docs.zephyr-cloud.io/" target="_blank" className="text-neutral-400 hover:text-white">
@@ -32,7 +32,7 @@ export const Footer: React.FC = () => {
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-white mb-3">Company</h5>
+            <h5 className="font-medium text-white mb-3">Company</h5>
             <ul className="space-y-2 text-sm">
               <li>
                 <a
@@ -80,10 +80,15 @@ export const Footer: React.FC = () => {
                   Instagram
                 </a>
               </li>
+              <li>
+                <Link to="/brand" className="text-neutral-400 hover:text-white">
+                  Brand
+                </Link>
+              </li>
             </ul>
           </div>
           <div>
-            <h5 className="font-semibold text-white mb-3">Legal</h5>
+            <h5 className="font-medium text-white mb-3">Legal</h5>
             <ul className="space-y-2 text-sm">
               <li>
                 <Link to="/privacy" className="text-neutral-400 hover:text-white">

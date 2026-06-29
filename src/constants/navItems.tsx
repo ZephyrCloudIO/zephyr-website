@@ -8,10 +8,10 @@ const PRODUCTS = [
     href: '/',
   },
   {
-    title: 'Zephyr AI',
+    title: 'The AI Platform',
     description: 'Where humans and AI agents do real work',
     icon: () => <Sparkles className="h-4 w-4" />,
-    href: '/products/ai',
+    href: 'https://theaiplatform.app',
   },
 ];
 

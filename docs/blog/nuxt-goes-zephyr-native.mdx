@@ -1,0 +1,68 @@
+---
+title: 'Nuxt Is Now Native on Zephyr | Zephyr Cloud'
+description: 'Nuxt now deploys on Zephyr as a first-class release artifact, with immutable versions, preview URLs, environment controls, and rollback built in.'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'Nuxt Is Now Native on Zephyr'
+  - - meta
+    - property: og:description
+      content: 'Nuxt now deploys on Zephyr as a first-class release artifact, with immutable versions, preview URLs, environment controls, and rollback built in.'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/nuxt-goes-zephyr-native'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/nuxt-goes-zephyr-native/hero.webp'
+  - - meta
+    - property: og:image:type
+      content: 'image/webp'
+  - - meta
+    - property: og:image:secure_url
+      content: 'https://zephyr-cloud.io/images/blog/nuxt-goes-zephyr-native/hero.webp'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'Nuxt Is Now Native on Zephyr'
+  - - meta
+    - name: twitter:description
+      content: 'Nuxt now deploys on Zephyr as a first-class release artifact, with immutable versions, preview URLs, environment controls, and rollback built in.'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/nuxt-goes-zephyr-native/hero.webp'
+  - - meta
+    - name: twitter:image:type
+      content: 'image/webp'
+  - - meta
+    - name: twitter:image:src
+      content: 'https://zephyr-cloud.io/images/blog/nuxt-goes-zephyr-native/hero.webp'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/nuxt-goes-zephyr-native'
+---
+
+import PostBody from '@/content/blog/nuxt-goes-zephyr-native.mdx';
+import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'Nuxt Is Now Native on Zephyr',
+  slug: 'nuxt-goes-zephyr-native',
+  date: '2026-03-17',
+  heroImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp',
+  listingImage: '/images/blog/nuxt-goes-zephyr-native/hero.webp',
+  description:
+    'Nuxt now deploys on Zephyr as a first-class release artifact, with immutable versions, preview URLs, environment controls, and rollback built in.',
+  authors: ['Néstor López'],
+  tags: ['announcement', 'deployment', 'edge', 'web', 'product'],
+  featured: true,
+  readingTime: 4,
+};
+
+<BlogArticlePage slug={'nuxt-goes-zephyr-native'} metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

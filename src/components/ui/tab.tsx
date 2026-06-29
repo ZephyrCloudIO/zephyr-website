@@ -29,10 +29,10 @@ export const Tab = ({ text, selected, setSelected, discount = false }: TabProps)
       {discount && (
         <Badge
           className={cn(
-            'relative z-10 whitespace-nowrap bg-gray-100 text-xs text-black shadow-none hover:bg-gray-100',
+            'relative z-10 whitespace-nowrap text-xs shadow-none',
             selected
-              ? 'bg-[#F3F4F6] hover:bg-[#F3F4F6] dark:bg-emerald-600 dark:text-white dark:hover:bg-neutral-800'
-              : 'bg-gray-300 hover:bg-gray-300 dark:bg-emerald-800 dark:text-neutral-300 dark:hover:bg-neutral-700',
+              ? 'bg-violet-600 text-white hover:bg-violet-600'
+              : 'bg-violet-900/40 text-violet-400 hover:bg-violet-900/40',
           )}
         >
           Save 15%

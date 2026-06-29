@@ -1,0 +1,62 @@
+---
+title: 'One Build. Many Clouds. Zero Headaches. | Zephyr Cloud'
+description: 'Multi-CDN deployments in Zephyr Cloud - push the same build to multiple cloud providers and domains in a single, seamless flow'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'One Build. Many Clouds. Zero Headaches.'
+  - - meta
+    - property: og:description
+      content: 'Multi-CDN deployments in Zephyr Cloud - push the same build to multiple cloud providers and domains in a single, seamless flow'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/all-the-pipelines'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/all-the-pipelines/hero.svg'
+  - - meta
+    - property: og:image:secure_url
+      content: 'https://zephyr-cloud.io/images/blog/all-the-pipelines/hero.svg'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'One Build. Many Clouds. Zero Headaches.'
+  - - meta
+    - name: twitter:description
+      content: 'Multi-CDN deployments in Zephyr Cloud - push the same build to multiple cloud providers and domains in a single, seamless flow'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/all-the-pipelines/hero.svg'
+  - - meta
+    - name: twitter:image:src
+      content: 'https://zephyr-cloud.io/images/blog/all-the-pipelines/hero.svg'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/all-the-pipelines'
+---
+
+import PostBody from '@/content/blog/all-the-pipelines.mdx';
+import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'One Build. Many Clouds. Zero Headaches.',
+  slug: 'all-the-pipelines',
+  date: '2025-04-24',
+  heroImage: '/images/blog/all-the-pipelines/hero.svg',
+  listingImage: '/images/blog/all-the-pipelines/hero.svg',
+  description:
+    'Multi-CDN deployments in Zephyr Cloud - push the same build to multiple cloud providers and domains in a single, seamless flow',
+  authors: ['Rodrigo Yokota'],
+  tags: ['cloud', 'devops', 'announcement'],
+  featured: false,
+  readingTime: 5,
+};
+
+<BlogArticlePage slug={'all-the-pipelines'} metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

@@ -1,0 +1,41 @@
+---
+title: 'Product Update: CI Tokens, Improved Manual Deploys, and Audit Log Enhancements'
+date: '2026-05-19'
+version: 'May 2026 Product Update'
+summary: 'This release introduces dedicated CI tokens for automated workflows, makes manual redeploys more reliable by routing them through the same gateway as standard deploys, and improves the detail and accuracy of audit logs.'
+tags: ['product', 'ci', 'deployments', 'audit-logs', 'security']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release introduces dedicated CI tokens for automated workflows, makes manual redeploys more reliable by routing them through the same gateway as standard deploys, and improves the detail and accuracy of audit logs.
+
+## Dedicated CI Tokens
+
+You can now generate separate tokens specifically for use in CI/CD pipelines, keeping your automated workflows independent from personal user credentials.
+
+- CI tokens are scoped for machine use — ideal for GitHub Actions, deploy scripts, and other automation.
+- Manage CI tokens from your account settings without affecting your personal access.
+- Improves security posture by avoiding the use of personal tokens in automated environments.
+
+## Manual Deploys Are Now More Consistent
+
+Manual redeploys triggered from the dashboard are now routed through the same gateway as standard deployments.
+
+- Redeploys behave the same way regardless of how they're triggered — from the UI or from CI.
+- Reduces edge-case failures that could occur when manual and automated deploy paths diverged.
+
+## Richer Audit Logs
+
+Audit log entries now include environment information directly, making it easier to understand exactly what changed and where.
+
+- Environment is now shown on each audit log entry without needing to cross-reference.
+- Improves traceability for teams managing multiple environments.
+
+## What This Means for Teams
+
+- CI pipelines can authenticate with dedicated tokens instead of personal credentials.
+- Manual redeploys from the UI are as reliable as automated deploys.
+- Audit logs give a clearer, more complete picture of activity across environments.
