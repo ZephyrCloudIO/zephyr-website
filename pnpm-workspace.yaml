@@ -14,3 +14,5 @@ minimumReleaseAgeExclude:
   - axios@1.15.0
   # Renovate security update: protobufjs@7.6.3
   - protobufjs@7.6.3
+  # Renovate security update: yaml@2.8.3
+  - yaml@2.8.3
