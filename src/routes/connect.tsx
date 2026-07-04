@@ -3,6 +3,7 @@ import theAiPlatformQr from '@/images/connect/theaiplatform.svg';
 import xAiPlatformQr from '@/images/connect/x-aiplatform.svg';
 import xZephyrQr from '@/images/connect/x-zephyr.svg';
 import zephyrCloudQr from '@/images/connect/zephyr-cloud.svg';
+import ZephyrWordmark from '@/images/wordmark-light.svg';
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
 import { ArrowUpRight, Globe, Linkedin, ScanLine, Sparkles, type LucideIcon } from 'lucide-react';
@@ -171,6 +172,9 @@ function ConnectPage() {
 
       <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-4 py-16 sm:px-6 lg:px-8">
         <header className="mx-auto max-w-2xl text-center">
+          <a href="/" aria-label="Zephyr Cloud home" className="mx-auto mb-8 flex w-fit">
+            <img src={ZephyrWordmark} alt="Zephyr" className="h-8 w-auto" />
+          </a>
           <span className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm font-medium text-violet-200">
             <ScanLine className="h-4 w-4" />
             Scan to connect
