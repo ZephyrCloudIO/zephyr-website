@@ -20,7 +20,7 @@ import {
   Youtube,
   type LucideIcon,
 } from 'lucide-react';
-import { useState, type ComponentType } from 'react';
+import { type ComponentType } from 'react';
 
 export const Route = createFileRoute('/all-links')({
   component: AllLinksPage,
@@ -138,65 +138,41 @@ const links: QrLink[] = [
   },
 ];
 
-function QrCard({ link, active, onToggle }: { link: QrLink; active: boolean; onToggle: () => void }) {
+function QrCard({ link }: { link: QrLink }) {
   const Icon = link.icon;
 
   return (
-    <article
-      className={cn(
-        'group relative flex w-full max-w-[300px] flex-col overflow-hidden rounded-3xl border bg-white/5 p-5 backdrop-blur transition-all duration-300 sm:w-[300px]',
-        active
-          ? 'border-violet-400/40 shadow-2xl shadow-violet-950/40 ring-1 ring-violet-400/30'
-          : 'border-white/10 hover:border-white/20',
-      )}
-    >
-      <button
-        type="button"
-        onClick={onToggle}
-        aria-pressed={active}
-        aria-label={active ? `Hide ${link.label} QR code` : `Reveal ${link.label} QR code`}
-        className="relative aspect-square w-full overflow-hidden rounded-2xl bg-white outline-none focus-visible:ring-2 focus-visible:ring-violet-400 focus-visible:ring-offset-2 focus-visible:ring-offset-black"
+    <article className="flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 backdrop-blur sm:p-5">
+      <a
+        href={link.href}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label={`Open ${link.label}`}
+        className="block aspect-square w-full overflow-hidden rounded-2xl bg-white"
       >
         <img
           src={link.qr}
-          alt={active ? `QR code linking to ${link.href}` : ''}
-          className={cn(
-            'h-full w-full object-contain p-4 transition-all duration-500 ease-out',
-            active ? 'scale-100 blur-0' : 'scale-105 blur-[10px]',
-          )}
+          alt={`QR code for ${link.label}`}
+          className="h-full w-full object-contain p-2 sm:p-4"
           draggable={false}
         />
+      </a>
 
-        <div
-          aria-hidden={active}
-          className={cn(
-            'absolute inset-0 flex flex-col items-center justify-center gap-2 bg-neutral-950/45 text-white transition-opacity duration-300',
-            active ? 'pointer-events-none opacity-0' : 'opacity-100',
-          )}
-        >
-          <span className="flex h-12 w-12 items-center justify-center rounded-full border border-white/30 bg-black/30 backdrop-blur">
-            <ScanLine className="h-6 w-6" />
-          </span>
-          <span className="text-sm font-medium tracking-wide">Tap to reveal</span>
-        </div>
-      </button>
-
-      <div className="mt-5 flex items-start justify-between gap-3">
-        <div className="min-w-0">
+      <div className="mt-4 flex flex-col gap-2 sm:mt-5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
+        <a href={link.href} target="_blank" rel="noopener noreferrer" className="min-w-0">
           <div className="flex items-center gap-2">
             <Icon className={cn('h-4 w-4 shrink-0', link.accent)} />
             <h2 className="text-base font-semibold leading-tight text-white">{link.label}</h2>
           </div>
-          <p className="mt-1 text-sm break-words text-neutral-400">{link.handle}</p>
-        </div>
+          <p className="mt-1 hidden break-words text-sm text-neutral-400 sm:block">{link.handle}</p>
+        </a>
 
         <a
           href={link.href}
           target="_blank"
           rel="noopener noreferrer"
-          onClick={(event) => event.stopPropagation()}
           aria-label={`Open ${link.label} in a new tab`}
-          className="inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-neutral-300 transition-colors hover:border-white/30 hover:bg-white/10 hover:text-white"
+          className="hidden sm:inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-neutral-300 transition-colors hover:border-white/30 hover:bg-white/10 hover:text-white"
         >
           <ArrowUpRight className="h-4 w-4" />
         </a>
@@ -206,20 +182,6 @@ function QrCard({ link, active, onToggle }: { link: QrLink; active: boolean; onT
 }
 
 function AllLinksPage() {
-  const [revealed, setRevealed] = useState<Set<string>>(() => new Set());
-
-  const toggle = (id: string) => {
-    setRevealed((current) => {
-      const next = new Set(current);
-      if (next.has(id)) {
-        next.delete(id);
-      } else {
-        next.add(id);
-      }
-      return next;
-    });
-  };
-
   return (
     <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
       <header className="mx-auto max-w-2xl text-center">
@@ -230,12 +192,11 @@ function AllLinksPage() {
         <h1 className="mt-6 text-4xl font-medium leading-tight text-white sm:text-5xl lg:text-6xl">
           Connect with Zephyr
         </h1>
-        <p className="mt-5 text-base leading-relaxed text-neutral-300 sm:text-lg">Tap any code to reveal it.</p>
       </header>
 
-      <div className="mt-12 flex flex-wrap justify-center gap-6">
+      <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
         {links.map((link) => (
-          <QrCard key={link.id} link={link} active={revealed.has(link.id)} onToggle={() => toggle(link.id)} />
+          <QrCard key={link.id} link={link} />
         ))}
       </div>
     </div>
