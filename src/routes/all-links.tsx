@@ -221,29 +221,22 @@ function AllLinksPage() {
   };
 
   return (
-    <div className="relative overflow-hidden text-white">
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(124,58,237,0.22),transparent_45%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_85%,rgba(59,130,246,0.18),transparent_42%)]" />
-      </div>
+    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
+      <header className="mx-auto max-w-2xl text-center">
+        <span className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm font-medium text-violet-200">
+          <ScanLine className="h-4 w-4" />
+          Scan to connect
+        </span>
+        <h1 className="mt-6 text-4xl font-medium leading-tight text-white sm:text-5xl lg:text-6xl">
+          Connect with Zephyr
+        </h1>
+        <p className="mt-5 text-base leading-relaxed text-neutral-300 sm:text-lg">Tap any code to reveal it.</p>
+      </header>
 
-      <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-        <header className="mx-auto max-w-2xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm font-medium text-violet-200">
-            <ScanLine className="h-4 w-4" />
-            Scan to connect
-          </span>
-          <h1 className="mt-6 text-4xl font-medium leading-tight text-white sm:text-5xl lg:text-6xl">
-            Connect with Zephyr
-          </h1>
-          <p className="mt-5 text-base leading-relaxed text-neutral-300 sm:text-lg">Tap any code to reveal it.</p>
-        </header>
-
-        <div className="mt-12 flex flex-wrap justify-center gap-6">
-          {links.map((link) => (
-            <QrCard key={link.id} link={link} active={revealed.has(link.id)} onToggle={() => toggle(link.id)} />
-          ))}
-        </div>
+      <div className="mt-12 flex flex-wrap justify-center gap-6">
+        {links.map((link) => (
+          <QrCard key={link.id} link={link} active={revealed.has(link.id)} onToggle={() => toggle(link.id)} />
+        ))}
       </div>
     </div>
   );
