@@ -7,7 +7,6 @@ import xAiPlatformQr from '@/images/all-links/x-aiplatform.svg';
 import xZephyrQr from '@/images/all-links/x-zephyr.svg';
 import youtubeQr from '@/images/all-links/youtube.svg';
 import zephyrCloudQr from '@/images/all-links/zephyr-cloud.svg';
-import ZephyrWordmark from '@/images/wordmark-light.svg';
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
 import {
@@ -222,17 +221,14 @@ function AllLinksPage() {
   };
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-black text-white">
+    <div className="relative overflow-hidden text-white">
       <div className="pointer-events-none absolute inset-0">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_15%,rgba(124,58,237,0.22),transparent_45%)]" />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_85%_85%,rgba(59,130,246,0.18),transparent_42%)]" />
       </div>
 
-      <div className="relative mx-auto flex min-h-screen max-w-6xl flex-col justify-center px-4 py-16 sm:px-6 lg:px-8">
+      <div className="relative mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
         <header className="mx-auto max-w-2xl text-center">
-          <a href="/" aria-label="Zephyr Cloud home" className="mx-auto mb-8 flex w-fit">
-            <img src={ZephyrWordmark} alt="Zephyr" className="h-8 w-auto" />
-          </a>
           <span className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm font-medium text-violet-200">
             <ScanLine className="h-4 w-4" />
             Scan to connect
