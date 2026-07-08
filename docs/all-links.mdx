@@ -11,7 +11,7 @@ head:
       content: Scan a QR code to connect with Zephyr Cloud and The AI Platform across the web and social.
   - - meta
     - property: og:url
-      content: https://zephyr-cloud.io/connect
+      content: https://zephyr-cloud.io/all-links
   - - meta
     - name: twitter:card
       content: summary_large_image
@@ -47,10 +47,10 @@ head:
       content: https://zephyr-cloud.io/images/og/default-1200x630.png
   - - link
     - rel: canonical
-      href: https://zephyr-cloud.io/connect
+      href: https://zephyr-cloud.io/all-links
 ---
 
 import { RouteRenderer } from '../src/components/pages/RouteRenderer';
-import { Route as ConnectRoute } from '../src/routes/connect';
+import { Route as AllLinksRoute } from '../src/routes/all-links';
 
-<RouteRenderer route={ConnectRoute} />
+<RouteRenderer route={AllLinksRoute} />
