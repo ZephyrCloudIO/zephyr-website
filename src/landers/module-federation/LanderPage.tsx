@@ -689,79 +689,90 @@ export function ModuleFederationLanderPage() {
           billing saves 15%.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16, marginBottom: 16 }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 16 }}>
           <PriceCard
             tier="Personal"
-            price="Free"
-            seats="1 seat — forever free"
-            features={['withZephyr() integration', 'Sub-second deploys', 'Version management', 'Zephyr Cloud hosting']}
-            href="https://app.zephyr-cloud.io"
+            price="$0"
+            period="/user/mo"
+            seats="1 editing user"
+            features={[
+              'Unlimited view-only users',
+              '∞ Preview environments',
+              '120GB bandwidth',
+              '50GB storage',
+              'Community support',
+              'BYOC (Bring Your Own Cloud)',
+              'Sub-second deployments',
+            ]}
+            href="https://app.zephyr-cloud.io/"
+            ctaLabel="Get Started"
             onCta={() => handleCta('app.zephyr-cloud.io', 'Pricing Personal')}
           />
           <PriceCard
             tier="Team"
             price="$19"
-            period="/seat/mo"
-            seats="2–10 seats"
+            period="/user/mo"
+            seats="Up to 10 editing users"
             features={[
-              'Everything in Personal',
-              'BYOC (Cloudflare, Fastly, Akamai)',
-              'Unlimited preview environments',
-              'Semver + npm-style version tags',
-              'Team deploy management',
+              'Unlimited view-only users',
+              '∞ Preview environments',
+              '1TB bandwidth',
+              '100GB storage',
+              'Email support',
+              'BYOC (Bring Your Own Cloud)',
+              'Sub-second deployments',
+              'Team collaboration',
             ]}
-            href="https://app.zephyr-cloud.io"
+            href="https://app.zephyr-cloud.io/"
             featured
+            ctaLabel="Start Collaborating"
             onCta={() => handleCta('app.zephyr-cloud.io', 'Pricing Team')}
           />
           <PriceCard
-            tier="Growth"
-            price="$49"
-            period="/seat/mo"
-            seats="11–25 seats"
+            tier="Business"
+            price="$99"
+            period="/user/mo"
+            seats="Up to 20 editing users"
             features={[
-              'Everything in Team',
+              'Unlimited view-only users',
+              '∞ Preview environments',
+              '1.5TB bandwidth',
+              '500GB storage',
+              'Private Slack/Discord channel',
+              'BYOC Poly-Cloud Support',
+              'Sub-second deployments',
+              'Team collaboration',
               'Priority support',
-              '99.9% SLA',
-              'Advanced rollback controls',
-              'Deploy analytics',
+              'Advanced analytics',
+              '99.9% uptime SLA',
             ]}
-            href="https://app.zephyr-cloud.io"
-            onCta={() => handleCta('app.zephyr-cloud.io', 'Pricing Growth')}
-          />
-        </div>
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 16 }}>
-          <PriceCard
-            tier="Scale"
-            price="$35"
-            period="/seat/mo"
-            seats="26–75 seats"
-            features={['Everything in Growth', 'SAML SSO', 'Custom domains', 'SOC 2 Type II']}
-            href="https://app.zephyr-cloud.io"
-            onCta={() => handleCta('app.zephyr-cloud.io', 'Pricing Scale')}
+            href="https://app.zephyr-cloud.io/"
+            ctaLabel="Start Scaling"
+            onCta={() => handleCta('app.zephyr-cloud.io', 'Pricing Business')}
           />
           <PriceCard
             tier="Enterprise"
-            price="$25"
-            period="/seat/mo"
-            seats="76–200 seats"
-            features={['Everything in Scale', 'Custom SLA', 'Dedicated support', 'Audit logs']}
-            href="https://app.zephyr-cloud.io"
-            onCta={() => handleCta('app.zephyr-cloud.io', 'Pricing Enterprise')}
-          />
-          <PriceCard
-            tier="Enterprise+"
             price="Custom"
-            seats="200+ seats"
+            seats="Unlimited editing users"
             features={[
-              'Everything in Enterprise',
-              'Custom contract',
-              'On-prem / private cloud',
-              'White-glove onboarding',
+              'Unlimited view-only users',
+              '∞ Preview environments',
+              'Custom bandwidth',
+              'Custom storage',
+              'Dedicated support manager',
+              'Advanced analytics',
+              'Team collaboration',
+              '99.9% uptime SLA',
+              'On-Site Training & Onboarding',
+              'BYOC Poly-Cloud Support',
+              'Sub-second deployments',
+              'SSO & advanced security',
+              'Custom SLAs',
+              'Professional services',
             ]}
-            href="mailto:sales@zephyr-cloud.io"
-            onCta={() => handleCta('sales@zephyr-cloud.io', 'Pricing Enterprise+')}
-            ctaLabel="Talk to us"
+            href="mailto:inbound@zephyr-cloud.io?subject=Enterprise"
+            ctaLabel="Contact Sales"
+            onCta={() => handleCta('inbound@zephyr-cloud.io', 'Pricing Enterprise')}
           />
         </div>
         <p style={{ textAlign: 'center', fontSize: 13, color: 'var(--muted)', marginTop: 20 }}>
