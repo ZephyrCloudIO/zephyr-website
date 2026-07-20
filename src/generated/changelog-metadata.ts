@@ -372,4 +372,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-06-29-cloudflare-oauth-setup-token-improvements',
+    metadata: {
+      title: 'Product Update: Smoother Cloudflare Setup and Auth Token Improvements',
+      date: '2026-06-29',
+      version: 'Late June 2026 Product Update',
+      summary:
+        'This release simplifies Cloudflare integration setup by defaulting to OAuth, fixes auth token descriptions being lost on rename, and cleans up a few navigation and onboarding rough edges.',
+      tags: ['product', 'cloudflare', 'auth-tokens', 'ux'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;

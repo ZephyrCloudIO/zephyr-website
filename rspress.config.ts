@@ -58,7 +58,8 @@ function findDisabledLanderRoutes(): string[] {
       }
 
       const contents = fs.readFileSync(fullPath, 'utf8');
-      const match = contents.match(/<LanderRoute\s+slug=["']([^"']+)["']/);
+      const landerRouteTag = contents.match(/<LanderRoute\b[^>]*>/s)?.[0];
+      const match = landerRouteTag?.match(/\bslug\s*=\s*["']([^"']+)["']/);
 
       if (match && !isLanderEnabled(match[1])) {
         // `route.exclude` globs are matched relative to the `docs` root.
