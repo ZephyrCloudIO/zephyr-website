@@ -1,5 +1,5 @@
 import * as authors from '@/data/blog/authors';
-import { BlogTag } from '@/lib/blog/tags.ts';
+import type { BlogTag } from '@/lib/blog/tags.ts';
 import { parseLocalDate } from '@/lib/utils';
 import { blogImages } from './images';
 import type { Author, BlogPost } from './types';
@@ -36,6 +36,7 @@ const authorMap: Record<string, Author> = {
   'Lois Zhao': authors.Lois,
   'Néstor López': authors.Nestor,
   'Rodrigo Yokota': authors.Rodrigo,
+  'Arthur Fiorette': authors.Arthur,
   'Luca Mezzalira': authors.Luca,
 };
 
@@ -74,6 +75,7 @@ export function mdxToBlogPost(mdx: MDXBlogPost, moduleKey?: string): BlogPost {
             lois: 'Lois Zhao',
             nestor: 'Néstor',
             rodrigo: 'Rodrigo',
+            arthur: 'Arthur Fiorette',
             luca: 'Luca Mezzalira',
           };
           const authorName = idToName[authorId] || authorId;
@@ -129,6 +131,7 @@ const blogPostModules: Record<string, () => Promise<MDXBlogPost>> = {
   'module-federation-vs-native-esm': () =>
     import('@/content/blog/module-federation-vs-native-esm.mdx') as Promise<MDXBlogPost>,
   'env-variables-and-zephyr': () => import('@/content/blog/env-variables-and-zephyr.mdx') as Promise<MDXBlogPost>,
+  'zephyr-skills': () => import('@/content/blog/zephyr-skills.mdx') as Promise<MDXBlogPost>,
   'nuxt-goes-zephyr-native': () => import('@/content/blog/nuxt-goes-zephyr-native.mdx') as Promise<MDXBlogPost>,
   'nitro-v3-zephyr': () => import('@/content/blog/nitro-v3-zephyr.mdx') as Promise<MDXBlogPost>,
   'nextjs-without-lock-in-vinext-on-zephyr': () =>

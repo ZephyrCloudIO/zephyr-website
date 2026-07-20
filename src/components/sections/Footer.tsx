@@ -35,6 +35,11 @@ export const Footer: React.FC = () => {
             <h5 className="font-medium text-white mb-3">Company</h5>
             <ul className="space-y-2 text-sm">
               <li>
+                <Link to="/all-links" className="text-neutral-400 hover:text-white">
+                  All Links
+                </Link>
+              </li>
+              <li>
                 <a
                   href="https://github.com/ZephyrCloudIO"
                   target="_blank"
