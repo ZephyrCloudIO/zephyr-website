@@ -1,7 +1,7 @@
 import { execFile } from 'node:child_process';
 import { access, copyFile, mkdir, readdir, readFile, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
-import { inspect, promisify } from 'node:util';
+import { promisify } from 'node:util';
 import YAML from 'yaml';
 
 const execFileAsync = promisify(execFile);
@@ -120,14 +120,14 @@ async function normalizeChangelogOgImage(slug, metadata) {
   return `${SITE_URL_SOCIALS}/${relativeImagePath}`;
 }
 
+// Serialize a parsed-frontmatter value into a valid JS/TS object literal.
+// We use JSON.stringify (not util.inspect) so non-primitive YAML values can't
+// emit invalid JS. In particular, an unquoted YAML `date:` parses to a JS Date;
+// util.inspect prints it unquoted (`2025-01-01T00:00:00.000Z`), which is a
+// syntax error, whereas JSON.stringify emits a quoted ISO string (via the
+// replacer / Date.toJSON()). The output is re-formatted by Prettier afterwards.
 function asJsObject(value) {
-  return inspect(value, {
-    depth: null,
-    compact: false,
-    breakLength: 100,
-    colors: false,
-    sorted: false,
-  });
+  return JSON.stringify(value, (_key, val) => (val instanceof Date ? val.toISOString() : val), 2);
 }
 
 function yamlSingleQuoted(value) {

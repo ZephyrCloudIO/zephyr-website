@@ -34,6 +34,21 @@ jobs:
       - name: Install dependencies
         run: pnpm i
 
+      - name: Typecheck
+        if: github.event.action != 'closed'
+        run: pnpm run typecheck
+
+      - name: Verify generated content is up to date
+        if: github.event.action != 'closed'
+        run: |
+          pnpm run generate:rspress-content
+          if [ -n "$(git status --porcelain docs/blog docs/changelog src/generated)" ]; then
+            echo "::error::Generated content is out of date. Run 'pnpm run generate:rspress-content' and commit the result."
+            git status --porcelain docs/blog docs/changelog src/generated
+            git --no-pager diff -- docs/blog docs/changelog src/generated
+            exit 1
+          fi
+
       - name: Run build for non-merged PR
         if: github.event.action != 'closed' && github.event.pull_request.merged != true
         id: build_non_merge
@@ -48,7 +63,6 @@ jobs:
           echo "Extracted VERSION: $VERSION"
           echo "version=$VERSION" >> "$GITHUB_OUTPUT"
           echo "url=$URL" >> "$GITHUB_OUTPUT"
-          OUTPUT=$(pnpm run build)
 
       - name: Run build for merged PR on main or development
         if: github.event.pull_request.merged == true &&
