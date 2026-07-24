@@ -22,6 +22,7 @@ export function BlogArticlePage({ slug, metadata, children }: BlogArticlePagePro
   );
 
   const pageUrl = `https://zephyr-cloud.io/blog/${slug}`;
+  const heroImage = post.heroImage || '/images/og/default-1200x630.png';
 
   return (
     <article className="bg-black text-white">
@@ -35,7 +36,7 @@ export function BlogArticlePage({ slug, metadata, children }: BlogArticlePagePro
             Back to Blog
           </a>
 
-          <img src={post.heroImage} alt={post.title} className="w-full max-w-3xl mx-auto mb-6 rounded-lg" />
+          <img src={heroImage} alt={post.title} className="w-full max-w-3xl mx-auto mb-6 rounded-lg" />
 
           <h1 className="text-4xl md:text-5xl font-bold mb-6 text-balance">{post.title}</h1>
 
