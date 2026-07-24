@@ -19,6 +19,5 @@ export interface BlogPost {
   description: string;
   authors: Author[];
   tags: BlogTag[];
-  featured?: boolean;
   readingTime?: number;
 }

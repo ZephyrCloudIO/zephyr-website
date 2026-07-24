@@ -346,4 +346,56 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-06-10-audit-logs-environment-scope-tag-attribution',
+    metadata: {
+      title: 'Product Update: Environment-Scoped Audit Logs and Tag Attribution',
+      date: '2026-06-10',
+      version: 'Mid June 2026 Product Update',
+      summary:
+        'Audit logs now show which environment each action occurred in, tags are attributed to who added them, and settings navigation has been restored.',
+      tags: ['product', 'audit-logs', 'environments', 'tags', 'settings'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-06-17-cloudflare-oauth-security-improvements',
+    metadata: {
+      title: 'Product Update: Cloudflare OAuth and Security Improvements',
+      date: '2026-06-17',
+      version: 'Mid June 2026 Product Update',
+      summary:
+        'You can now connect your Cloudflare account using OAuth, making setup faster and more secure. This release also includes under-the-hood security patches.',
+      tags: ['product', 'cloudflare', 'security', 'integrations'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-06-29-cloudflare-oauth-setup-token-improvements',
+    metadata: {
+      title: 'Product Update: Smoother Cloudflare Setup and Auth Token Improvements',
+      date: '2026-06-29',
+      version: 'Late June 2026 Product Update',
+      summary:
+        'This release simplifies Cloudflare integration setup by defaulting to OAuth, fixes auth token descriptions being lost on rename, and cleans up a few navigation and onboarding rough edges.',
+      tags: ['product', 'cloudflare', 'auth-tokens', 'ux'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-07-20-project-editors-logos-billing-fixes',
+    metadata: {
+      title: 'Product Update: Project Editors, Organization Logos, and Billing Fixes',
+      date: '2026-07-20',
+      version: 'Mid-July 2026 Product Update',
+      summary:
+        'This release surfaces who last edited a project, fixes organization logo display across the dashboard, and resolves a billing issue with adding payment cards — plus early infrastructure support for The AI Platform mini-app catalog.',
+      tags: ['product', 'projects', 'billing', 'reliability', 'tap'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
