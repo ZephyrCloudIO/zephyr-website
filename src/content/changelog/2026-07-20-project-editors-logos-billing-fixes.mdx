@@ -1,0 +1,48 @@
+---
+title: 'Product Update: Project Editors, Organization Logos, and Billing Fixes'
+date: '2026-07-20'
+version: 'Mid-July 2026 Product Update'
+summary: 'This release surfaces who last edited a project, fixes organization logo display across the dashboard, and resolves a billing issue with adding payment cards — plus early infrastructure support for The AI Platform mini-app catalog.'
+tags: ['product', 'projects', 'billing', 'reliability', 'tap']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release surfaces who last edited a project, fixes organization logo display across the dashboard, and resolves a billing issue with adding payment cards — plus early infrastructure support for The AI Platform mini-app catalog.
+
+## Projects Now Show Who Last Made a Change
+
+The projects list now displays the last editor for each project, making it easier to understand recent activity at a glance without digging through audit logs.
+
+- Each project row shows the name of the person who most recently made a change.
+- Useful for teams managing multiple projects who want to quickly identify ownership or recent activity.
+
+## Organization Logos Now Display Correctly
+
+Organization logos were not appearing in the header or organization switcher after upload. This has been fixed.
+
+- Logos now show consistently after being uploaded through settings.
+- The switcher and header both reflect the correct logo immediately.
+
+## Smaller Improvements
+
+- Fixed an issue where adding a new payment card was failing in billing settings.
+- TAP artifact URL resolution now preserves HTTPS correctly in more scenarios.
+- TAP snapshot uniqueness is now properly scoped, preventing edge-case conflicts.
+- Improved TAP receipt timestamp ordering.
+
+## The AI Platform: Mini-App Catalog Foundation
+
+As part of the ongoing integration between Zephyr and The AI Platform (TAP), this release lays the backend groundwork for the TAP mini-app catalog. Mini-apps are a TAP feature that lets teams build and distribute lightweight tools directly inside the AI platform — and Zephyr is becoming the delivery layer that powers them.
+
+- Catalog entries can now be managed through a dedicated control plane.
+- TAP release data is exposed through canonical read endpoints, enabling reliable catalog reads.
+- This infrastructure underpins the mini-app publishing and lifecycle flows coming in future releases.
+
+## What This Means for Teams
+
+- Project editors are now visible in the list view, reducing friction when tracking who changed what.
+- Logo and billing fixes remove friction from day-to-day account management.
+- Teams using The AI Platform will benefit from more reliable mini-app delivery as the Zephyr-backed catalog matures.

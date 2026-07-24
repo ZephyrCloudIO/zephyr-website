@@ -385,4 +385,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-07-20-project-editors-logos-billing-fixes',
+    metadata: {
+      title: 'Product Update: Project Editors, Organization Logos, and Billing Fixes',
+      date: '2026-07-20',
+      version: 'Mid-July 2026 Product Update',
+      summary:
+        'This release surfaces who last edited a project, fixes organization logo display across the dashboard, and resolves a billing issue with adding payment cards — plus early infrastructure support for The AI Platform mini-app catalog.',
+      tags: ['product', 'projects', 'billing', 'reliability', 'tap'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
