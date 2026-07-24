@@ -3,11 +3,11 @@ import ZephyrWordmark from '@/landers/cityjs-london/assets/logo-zephyr-wordmark.
 import posthog from 'posthog-js';
 import { useEffect, useRef, useState } from 'react';
 
-posthog.init('phc_2BnQabLbt7YVrKbGN02UBKA9kBFH17SXme0Cf5G2iob', {
-  api_host: 'https://us.i.posthog.com',
-});
-
 function track(event: string, props?: Record<string, unknown>) {
+  // Guard against SSG/SSR: posthog-js is browser-only.
+  if (typeof window === 'undefined') {
+    return;
+  }
   posthog.capture(event, props);
 }
 
@@ -34,6 +34,12 @@ export function ModuleFederationLanderPage() {
   const engagedRef = useRef(false);
 
   useEffect(() => {
+    if (!posthog.__loaded) {
+      posthog.init('phc_2BnQabLbt7YVrKbGN02UBKA9kBFH17SXme0Cf5G2iob', {
+        api_host: 'https://us.i.posthog.com',
+      });
+    }
+
     track('asset_viewed', { asset: 'mf-landing-page', referrer: document.referrer, url: window.location.href });
 
     const timer = setTimeout(() => {
