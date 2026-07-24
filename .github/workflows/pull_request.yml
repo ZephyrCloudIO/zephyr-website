@@ -55,14 +55,11 @@ jobs:
         env:
           ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}
         run: |
-          OUTPUT=$(pnpm run build)
-          echo "$OUTPUT"
-          URL=$(echo "$OUTPUT" | grep -oE 'https://[^ ]+' | grep 'zephyr-cloud\.io' | tail -n1)
-          VERSION=$(echo "$OUTPUT" | grep -oP 'ZEPHYR\s+\K\S+(?=#)')
-          echo "Extracted Zephyr URL: $URL"
-          echo "Extracted VERSION: $VERSION"
-          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
-          echo "url=$URL" >> "$GITHUB_OUTPUT"
+          if [ -z "$ZE_SECRET_TOKEN" ]; then
+            echo "::error::ZE_SECRET_TOKEN is missing. The Zephyr build requires this token; without it the deploy falls back to an interactive login prompt and hangs. (Note: secrets are not available on PRs from forks.)"
+            exit 1
+          fi
+          pnpm run build
 
       - name: Run build for merged PR on main or development
         if: github.event.pull_request.merged == true &&
