@@ -1,0 +1,37 @@
+---
+title: 'Product Update: Permissions Reliability, GitHub Login Fixes, and Integration Defaults'
+date: '2026-07-31'
+version: 'Late July 2026 Product Update'
+summary: 'This release fixes permissions for newly created organizations, improves GitHub login reliability, and tightens up integration defaults.'
+tags: ['product', 'permissions', 'github', 'integrations']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release fixes permissions for newly created organizations, improves GitHub login reliability, and tightens up integration defaults.
+
+## Permissions Work Correctly for New Organizations
+
+When a new organization was created, members could encounter incorrect access states until a session refresh. This has been resolved — permissions are now evaluated correctly from the moment an organization is created.
+
+- New organization members see accurate access immediately.
+- No workarounds or session refreshes needed to get the correct permissions applied.
+
+## GitHub Login Now Captures Username and Email
+
+When signing in with GitHub, your username and email are now correctly linked to your Zephyr account. Previously, this information could be missing, which affected profile data and team attribution.
+
+- GitHub-authenticated users will have complete profile information going forward.
+- Teams using GitHub SSO will see accurate member details in their organization.
+
+## Smaller Improvements
+
+- New integrations now default to non-default, preventing unintended changes to your primary integration configuration.
+
+## What This Means for Teams
+
+- New organizations get correct permissions immediately — no extra steps needed after setup.
+- GitHub-authenticated team members will have accurate profile data linked to their accounts.
+- Integration setup is safer by default, with less risk of accidentally overriding an existing default.
