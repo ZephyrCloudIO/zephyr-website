@@ -398,4 +398,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-07-31-permissions-github-login-integration-defaults',
+    metadata: {
+      title: 'Product Update: Permissions Reliability, GitHub Login Fixes, and Integration Defaults',
+      date: '2026-07-31',
+      version: 'Late July 2026 Product Update',
+      summary:
+        'This release fixes permissions for newly created organizations, improves GitHub login reliability, and tightens up integration defaults.',
+      tags: ['product', 'permissions', 'github', 'integrations'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
