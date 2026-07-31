@@ -74,7 +74,7 @@
       "axios": ">=1.15.1",
       "qs": "6.15.2",
       "webpack": "5.105.4",
-      "protobufjs": "7.6.3",
+      "protobufjs": "7.6.5",
       "fast-uri": ">=3.1.2",
       "dompurify@<3.4.0": ">=3.4.0",
       "picomatch@>=2.0.0 <2.3.2": "2.3.2",
