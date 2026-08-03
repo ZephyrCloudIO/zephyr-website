@@ -32,7 +32,7 @@
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.577.0",
     "motion": "^12.38.0",
-    "posthog-js": "^1.363.1",
+    "posthog-js": "^1.409.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-use-intercom": "^5.5.0",
