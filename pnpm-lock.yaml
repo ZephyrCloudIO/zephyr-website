@@ -4,20 +4,6 @@ settings:
   autoInstallPeers: true
   excludeLinksFromLockfile: false
 
-overrides:
-  form-data: 4.0.6
-  axios: '>=1.15.1'
-  qs: 6.15.2
-  webpack: 5.105.4
-  protobufjs: 7.6.3
-  fast-uri: '>=3.1.2'
-  dompurify@<3.4.0: '>=3.4.0'
-  picomatch@>=2.0.0 <2.3.2: 2.3.2
-  picomatch@>=4.0.0 <4.0.4: 4.0.4
-  react-router: '>=7.14.2 <8'
-  lodash-es: '>=4.18.0'
-  postcss: '>=8.5.18'
-
 importers:
 
   .:
@@ -87,10 +73,10 @@ importers:
         version: 6.0.0
       remark-frontmatter:
         specifier: ^5.0.0
-        version: 5.0.0
+        version: 5.0.0(supports-color@8.1.1)
       remark-gfm:
         specifier: ^4.0.1
-        version: 4.0.1
+        version: 4.0.1(supports-color@8.1.1)
       remark-mdx-frontmatter:
         specifier: ^5.2.0
         version: 5.2.0
@@ -109,10 +95,10 @@ importers:
     devDependencies:
       '@rspress/core':
         specifier: ^2.0.5
-        version: 2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2)
+        version: 2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1)
       '@rspress/plugin-sitemap':
         specifier: ^2.0.5
-        version: 2.0.5(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2))
+        version: 2.0.5(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1))
       '@tailwindcss/postcss':
         specifier: ^4.2.2
         version: 4.2.2
@@ -148,7 +134,7 @@ importers:
         version: 2.8.3
       zephyr-rspress-plugin:
         specifier: ^1.1.1
-        version: 1.1.1(@rsbuild/core@2.0.0-beta.6(core-js@3.49.0))(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2))(webpack@5.105.4)
+        version: 1.1.1(@rsbuild/core@2.0.0-beta.6(core-js@3.49.0))(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1))(supports-color@8.1.1)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23))
 
 packages:
 
@@ -211,7 +197,7 @@ packages:
   '@module-federation/automatic-vendor-federation@1.2.1':
     resolution: {integrity: sha512-73wxkXM7pbRZ6GGM90JP5IPTPvY3fvrhQyTVdMCUx85cQRWqnbzbibcsz3pkOMOeXyYAO4tXXsG13yNaEEGhJA==}
     peerDependencies:
-      webpack: 5.105.4
+      webpack: ^5.0.0-beta.16
 
   '@napi-rs/wasm-runtime@1.0.7':
     resolution: {integrity: sha512-SeDnOO0Tk7Okiq6DbXmmBODgOAb9dp9gjlphokTUxmt8U3liIP1ZsozBahH69j/RJv+Rfs6IwUKHTgQYJ/HBAw==}
@@ -1044,7 +1030,7 @@ packages:
   axios-retry@4.5.0:
     resolution: {integrity: sha512-aR99oXhpEDGo0UuAlYcn2iGRds30k366Zfa05XWScR9QaQD4JYiP3/1Qt1u7YlefUOK+cn0CcwoL1oefavQUlQ==}
     peerDependencies:
-      axios: '>=1.15.1'
+      axios: 0.x || 1.x
 
   axios@1.18.0:
     resolution: {integrity: sha512-E32NzpYKp++W7XRe52rHiXV2ehxmh3wbdgO7MHeFM+vqxLBYHzt0ElkiImtOBxtOmyp0yoC8C6uESVV84Y2/hw==}
@@ -1327,7 +1313,7 @@ packages:
     resolution: {integrity: sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==}
     engines: {node: '>=12.0.0'}
     peerDependencies:
-      picomatch: 4.0.4
+      picomatch: ^3 || ^4
     peerDependenciesMeta:
       picomatch:
         optional: true
@@ -2367,7 +2353,7 @@ packages:
       lightningcss: '*'
       postcss: '*'
       uglify-js: '*'
-      webpack: 5.105.4
+      webpack: ^5.1.0
     peerDependenciesMeta:
       '@minify-html/node':
         optional: true
@@ -2649,7 +2635,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.5
 
-  '@mdx-js/mdx@3.1.1':
+  '@mdx-js/mdx@3.1.1(supports-color@8.1.1)':
     dependencies:
       '@types/estree': 1.0.9
       '@types/estree-jsx': 1.0.5
@@ -2661,14 +2647,14 @@ snapshots:
       estree-util-is-identifier-name: 3.0.0
       estree-util-scope: 1.0.0
       estree-walker: 3.0.3
-      hast-util-to-jsx-runtime: 2.3.6
+      hast-util-to-jsx-runtime: 2.3.6(supports-color@8.1.1)
       markdown-extensions: 2.0.0
       recma-build-jsx: 1.0.0
       recma-jsx: 1.0.1(acorn@8.17.0)
       recma-stringify: 1.0.0
-      rehype-recma: 1.0.0
-      remark-mdx: 3.1.1
-      remark-parse: 11.0.0
+      rehype-recma: 1.0.0(supports-color@8.1.1)
+      remark-mdx: 3.1.1(supports-color@8.1.1)
+      remark-parse: 11.0.0(supports-color@8.1.1)
       remark-rehype: 11.1.2
       source-map: 0.7.6
       unified: 11.0.5
@@ -2685,10 +2671,10 @@ snapshots:
       '@types/react': 19.2.14
       react: 19.2.4
 
-  '@module-federation/automatic-vendor-federation@1.2.1(webpack@5.105.4)':
+  '@module-federation/automatic-vendor-federation@1.2.1(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23))':
     dependencies:
       find-package-json: 1.2.0
-      webpack: 5.105.4
+      webpack: 5.105.4(lightningcss@1.32.0)(postcss@8.5.23)
 
   '@napi-rs/wasm-runtime@1.0.7':
     dependencies:
@@ -3168,9 +3154,9 @@ snapshots:
       html-entities: 2.6.0
       react-refresh: 0.18.0
 
-  '@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2)':
+  '@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1)':
     dependencies:
-      '@mdx-js/mdx': 3.1.1
+      '@mdx-js/mdx': 3.1.1(supports-color@8.1.1)
       '@mdx-js/react': 3.1.1(@types/react@19.2.14)(react@19.2.4)
       '@rsbuild/core': 2.0.0-beta.6(core-js@3.49.0)
       '@rsbuild/plugin-react': 1.4.5(@rsbuild/core@2.0.0-beta.6(core-js@3.49.0))
@@ -3186,10 +3172,10 @@ snapshots:
       flexsearch: 0.8.212
       github-slugger: 2.0.0
       hast-util-heading-rank: 3.0.0
-      hast-util-to-jsx-runtime: 2.3.6
+      hast-util-to-jsx-runtime: 2.3.6(supports-color@8.1.1)
       lodash-es: 4.18.1
-      mdast-util-mdx: 3.0.0
-      mdast-util-mdxjs-esm: 2.0.1
+      mdast-util-mdx: 3.0.0(supports-color@8.1.1)
+      mdast-util-mdxjs-esm: 2.0.1(supports-color@8.1.1)
       medium-zoom: 1.1.0
       nprogress: 0.2.0
       picocolors: 1.1.1
@@ -3201,11 +3187,11 @@ snapshots:
       react-router-dom: 7.18.1(react-dom@19.2.4(react@19.2.4))(react@19.2.4)
       rehype-external-links: 3.0.0
       rehype-raw: 7.0.0
-      remark-cjk-friendly: 2.0.1(@types/mdast@4.0.4)(micromark-util-types@2.0.2)(micromark@4.0.2)(unified@11.0.5)
-      remark-cjk-friendly-gfm-strikethrough: 2.0.1(@types/mdast@4.0.4)(micromark-util-types@2.0.2)(micromark@4.0.2)(unified@11.0.5)
-      remark-gfm: 4.0.1
-      remark-mdx: 3.1.1
-      remark-parse: 11.0.0
+      remark-cjk-friendly: 2.0.1(@types/mdast@4.0.4)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(unified@11.0.5)
+      remark-cjk-friendly-gfm-strikethrough: 2.0.1(@types/mdast@4.0.4)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(unified@11.0.5)
+      remark-gfm: 4.0.1(supports-color@8.1.1)
+      remark-mdx: 3.1.1(supports-color@8.1.1)
+      remark-parse: 11.0.0(supports-color@8.1.1)
       remark-stringify: 11.0.0
       scroll-into-view-if-needed: 3.1.0
       shiki: 4.0.2
@@ -3225,9 +3211,9 @@ snapshots:
       - supports-color
       - webpack-hot-middleware
 
-  '@rspress/plugin-sitemap@2.0.5(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2))':
+  '@rspress/plugin-sitemap@2.0.5(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1))':
     dependencies:
-      '@rspress/core': 2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2)
+      '@rspress/core': 2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1)
 
   '@rspress/shared@2.0.5(core-js@3.49.0)':
     dependencies:
@@ -3519,9 +3505,9 @@ snapshots:
 
   acorn@8.17.0: {}
 
-  agent-base@6.0.2:
+  agent-base@6.0.2(supports-color@8.1.1):
     dependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -3560,16 +3546,16 @@ snapshots:
 
   asynckit@0.4.0: {}
 
-  axios-retry@4.5.0(axios@1.18.0):
+  axios-retry@4.5.0(axios@1.18.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)):
     dependencies:
-      axios: 1.18.0(debug@4.4.3)
+      axios: 1.18.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
       is-retry-allowed: 2.2.0
 
-  axios@1.18.0(debug@4.4.3):
+  axios@1.18.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1):
     dependencies:
-      follow-redirects: 1.16.0(debug@4.4.3)
+      follow-redirects: 1.16.0(debug@4.4.3(supports-color@8.1.1))
       form-data: 4.0.6
-      https-proxy-agent: 5.0.1
+      https-proxy-agent: 5.0.1(supports-color@8.1.1)
       proxy-from-env: 2.1.0
     transitivePeerDependencies:
       - debug
@@ -3664,9 +3650,11 @@ snapshots:
 
   csstype@3.2.3: {}
 
-  debug@4.4.3:
+  debug@4.4.3(supports-color@8.1.1):
     dependencies:
       ms: 2.1.3
+    optionalDependencies:
+      supports-color: 8.1.1
 
   decode-named-character-reference@1.3.0:
     dependencies:
@@ -3839,9 +3827,9 @@ snapshots:
 
   flexsearch@0.8.212: {}
 
-  follow-redirects@1.16.0(debug@4.4.3):
+  follow-redirects@1.16.0(debug@4.4.3(supports-color@8.1.1)):
     optionalDependencies:
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
 
   form-data@4.0.6:
     dependencies:
@@ -3968,7 +3956,7 @@ snapshots:
       web-namespaces: 2.0.1
       zwitch: 2.0.4
 
-  hast-util-to-estree@3.1.3:
+  hast-util-to-estree@3.1.3(supports-color@8.1.1):
     dependencies:
       '@types/estree': 1.0.9
       '@types/estree-jsx': 1.0.5
@@ -3978,9 +3966,9 @@ snapshots:
       estree-util-attach-comments: 3.0.0
       estree-util-is-identifier-name: 3.0.0
       hast-util-whitespace: 3.0.0
-      mdast-util-mdx-expression: 2.0.1
-      mdast-util-mdx-jsx: 3.2.0
-      mdast-util-mdxjs-esm: 2.0.1
+      mdast-util-mdx-expression: 2.0.1(supports-color@8.1.1)
+      mdast-util-mdx-jsx: 3.2.0(supports-color@8.1.1)
+      mdast-util-mdxjs-esm: 2.0.1(supports-color@8.1.1)
       property-information: 7.1.0
       space-separated-tokens: 2.0.2
       style-to-js: 1.1.21
@@ -4003,7 +3991,7 @@ snapshots:
       stringify-entities: 4.0.4
       zwitch: 2.0.4
 
-  hast-util-to-jsx-runtime@2.3.6:
+  hast-util-to-jsx-runtime@2.3.6(supports-color@8.1.1):
     dependencies:
       '@types/estree': 1.0.9
       '@types/hast': 3.0.4
@@ -4012,9 +4000,9 @@ snapshots:
       devlop: 1.1.0
       estree-util-is-identifier-name: 3.0.0
       hast-util-whitespace: 3.0.0
-      mdast-util-mdx-expression: 2.0.1
-      mdast-util-mdx-jsx: 3.2.0
-      mdast-util-mdxjs-esm: 2.0.1
+      mdast-util-mdx-expression: 2.0.1(supports-color@8.1.1)
+      mdast-util-mdx-jsx: 3.2.0(supports-color@8.1.1)
+      mdast-util-mdxjs-esm: 2.0.1(supports-color@8.1.1)
       property-information: 7.1.0
       space-separated-tokens: 2.0.2
       style-to-js: 1.1.21
@@ -4064,17 +4052,17 @@ snapshots:
 
   html-void-elements@3.0.0: {}
 
-  https-proxy-agent@5.0.1:
+  https-proxy-agent@5.0.1(supports-color@8.1.1):
     dependencies:
-      agent-base: 6.0.2
-      debug: 4.4.3
+      agent-base: 6.0.2(supports-color@8.1.1)
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
-  https-proxy-agent@7.0.6:
+  https-proxy-agent@7.0.6(supports-color@8.1.1):
     dependencies:
       agent-base: 7.1.4
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -4234,14 +4222,14 @@ snapshots:
       unist-util-is: 6.0.0
       unist-util-visit-parents: 6.0.1
 
-  mdast-util-from-markdown@2.0.2:
+  mdast-util-from-markdown@2.0.2(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       '@types/unist': 3.0.3
       decode-named-character-reference: 1.3.0
       devlop: 1.1.0
       mdast-util-to-string: 4.0.0
-      micromark: 4.0.2
+      micromark: 4.0.2(supports-color@8.1.1)
       micromark-util-decode-numeric-character-reference: 2.0.2
       micromark-util-decode-string: 2.0.1
       micromark-util-normalize-identifier: 2.0.1
@@ -4251,12 +4239,12 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-frontmatter@2.0.1:
+  mdast-util-frontmatter@2.0.1(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       escape-string-regexp: 5.0.0
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
       micromark-extension-frontmatter: 2.0.0
     transitivePeerDependencies:
@@ -4270,67 +4258,67 @@ snapshots:
       mdast-util-find-and-replace: 3.0.2
       micromark-util-character: 2.1.1
 
-  mdast-util-gfm-footnote@2.1.0:
+  mdast-util-gfm-footnote@2.1.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
       micromark-util-normalize-identifier: 2.0.1
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-strikethrough@2.0.0:
+  mdast-util-gfm-strikethrough@2.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-table@2.0.0:
+  mdast-util-gfm-table@2.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
       markdown-table: 3.0.4
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm-task-list-item@2.0.0:
+  mdast-util-gfm-task-list-item@2.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-gfm@3.1.0:
+  mdast-util-gfm@3.1.0(supports-color@8.1.1):
     dependencies:
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       mdast-util-gfm-autolink-literal: 2.0.1
-      mdast-util-gfm-footnote: 2.1.0
-      mdast-util-gfm-strikethrough: 2.0.0
-      mdast-util-gfm-table: 2.0.0
-      mdast-util-gfm-task-list-item: 2.0.0
+      mdast-util-gfm-footnote: 2.1.0(supports-color@8.1.1)
+      mdast-util-gfm-strikethrough: 2.0.0(supports-color@8.1.1)
+      mdast-util-gfm-table: 2.0.0(supports-color@8.1.1)
+      mdast-util-gfm-task-list-item: 2.0.0(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-mdx-expression@2.0.1:
+  mdast-util-mdx-expression@2.0.1(supports-color@8.1.1):
     dependencies:
       '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-mdx-jsx@3.2.0:
+  mdast-util-mdx-jsx@3.2.0(supports-color@8.1.1):
     dependencies:
       '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
@@ -4338,7 +4326,7 @@ snapshots:
       '@types/unist': 3.0.3
       ccount: 2.0.1
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
       parse-entities: 4.0.2
       stringify-entities: 4.0.4
@@ -4347,23 +4335,23 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-mdx@3.0.0:
+  mdast-util-mdx@3.0.0(supports-color@8.1.1):
     dependencies:
-      mdast-util-from-markdown: 2.0.2
-      mdast-util-mdx-expression: 2.0.1
-      mdast-util-mdx-jsx: 3.2.0
-      mdast-util-mdxjs-esm: 2.0.1
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
+      mdast-util-mdx-expression: 2.0.1(supports-color@8.1.1)
+      mdast-util-mdx-jsx: 3.2.0(supports-color@8.1.1)
+      mdast-util-mdxjs-esm: 2.0.1(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
 
-  mdast-util-mdxjs-esm@2.0.1:
+  mdast-util-mdxjs-esm@2.0.1(supports-color@8.1.1):
     dependencies:
       '@types/estree-jsx': 1.0.5
       '@types/hast': 3.0.4
       '@types/mdast': 4.0.4
       devlop: 1.1.0
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       mdast-util-to-markdown: 2.1.2
     transitivePeerDependencies:
       - supports-color
@@ -4424,11 +4412,11 @@ snapshots:
       micromark-util-symbol: 2.0.1
       micromark-util-types: 2.0.2
 
-  micromark-extension-cjk-friendly-gfm-strikethrough@2.0.1(micromark-util-types@2.0.2)(micromark@4.0.2):
+  micromark-extension-cjk-friendly-gfm-strikethrough@2.0.1(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1)):
     dependencies:
       devlop: 1.1.0
       get-east-asian-width: 1.5.0
-      micromark: 4.0.2
+      micromark: 4.0.2(supports-color@8.1.1)
       micromark-extension-cjk-friendly-util: 3.0.1(micromark-util-types@2.0.2)
       micromark-util-character: 2.1.1
       micromark-util-chunked: 2.0.1
@@ -4445,10 +4433,10 @@ snapshots:
     optionalDependencies:
       micromark-util-types: 2.0.2
 
-  micromark-extension-cjk-friendly@2.0.1(micromark-util-types@2.0.2)(micromark@4.0.2):
+  micromark-extension-cjk-friendly@2.0.1(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1)):
     dependencies:
       devlop: 1.1.0
-      micromark: 4.0.2
+      micromark: 4.0.2(supports-color@8.1.1)
       micromark-extension-cjk-friendly-util: 3.0.1(micromark-util-types@2.0.2)
       micromark-util-chunked: 2.0.1
       micromark-util-resolve-all: 2.0.1
@@ -4686,10 +4674,10 @@ snapshots:
 
   micromark-util-types@2.0.2: {}
 
-  micromark@4.0.2:
+  micromark@4.0.2(supports-color@8.1.1):
     dependencies:
       '@types/debug': 4.1.13
-      debug: 4.4.3
+      debug: 4.4.3(supports-color@8.1.1)
       decode-named-character-reference: 1.3.0
       devlop: 1.1.0
       micromark-core-commonmark: 2.0.3
@@ -4982,11 +4970,11 @@ snapshots:
       hast-util-raw: 9.1.0
       vfile: 6.0.3
 
-  rehype-recma@1.0.0:
+  rehype-recma@1.0.0(supports-color@8.1.1):
     dependencies:
       '@types/estree': 1.0.9
       '@types/hast': 3.0.4
-      hast-util-to-estree: 3.1.3
+      hast-util-to-estree: 3.1.3(supports-color@8.1.1)
     transitivePeerDependencies:
       - supports-color
 
@@ -4998,9 +4986,9 @@ snapshots:
       hast-util-to-string: 3.0.1
       unist-util-visit: 5.1.0
 
-  remark-cjk-friendly-gfm-strikethrough@2.0.1(@types/mdast@4.0.4)(micromark-util-types@2.0.2)(micromark@4.0.2)(unified@11.0.5):
+  remark-cjk-friendly-gfm-strikethrough@2.0.1(@types/mdast@4.0.4)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(unified@11.0.5):
     dependencies:
-      micromark-extension-cjk-friendly-gfm-strikethrough: 2.0.1(micromark-util-types@2.0.2)(micromark@4.0.2)
+      micromark-extension-cjk-friendly-gfm-strikethrough: 2.0.1(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))
       unified: 11.0.5
     optionalDependencies:
       '@types/mdast': 4.0.4
@@ -5008,9 +4996,9 @@ snapshots:
       - micromark
       - micromark-util-types
 
-  remark-cjk-friendly@2.0.1(@types/mdast@4.0.4)(micromark-util-types@2.0.2)(micromark@4.0.2)(unified@11.0.5):
+  remark-cjk-friendly@2.0.1(@types/mdast@4.0.4)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(unified@11.0.5):
     dependencies:
-      micromark-extension-cjk-friendly: 2.0.1(micromark-util-types@2.0.2)(micromark@4.0.2)
+      micromark-extension-cjk-friendly: 2.0.1(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))
       unified: 11.0.5
     optionalDependencies:
       '@types/mdast': 4.0.4
@@ -5018,21 +5006,21 @@ snapshots:
       - micromark
       - micromark-util-types
 
-  remark-frontmatter@5.0.0:
+  remark-frontmatter@5.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-frontmatter: 2.0.1
+      mdast-util-frontmatter: 2.0.1(supports-color@8.1.1)
       micromark-extension-frontmatter: 2.0.0
       unified: 11.0.5
     transitivePeerDependencies:
       - supports-color
 
-  remark-gfm@4.0.1:
+  remark-gfm@4.0.1(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-gfm: 3.1.0
+      mdast-util-gfm: 3.1.0(supports-color@8.1.1)
       micromark-extension-gfm: 3.0.0
-      remark-parse: 11.0.0
+      remark-parse: 11.0.0(supports-color@8.1.1)
       remark-stringify: 11.0.0
       unified: 11.0.5
     transitivePeerDependencies:
@@ -5047,17 +5035,17 @@ snapshots:
       unist-util-mdx-define: 1.1.2
       yaml: 2.8.3
 
-  remark-mdx@3.1.1:
+  remark-mdx@3.1.1(supports-color@8.1.1):
     dependencies:
-      mdast-util-mdx: 3.0.0
+      mdast-util-mdx: 3.0.0(supports-color@8.1.1)
       micromark-extension-mdxjs: 3.0.0
     transitivePeerDependencies:
       - supports-color
 
-  remark-parse@11.0.0:
+  remark-parse@11.0.0(supports-color@8.1.1):
     dependencies:
       '@types/mdast': 4.0.4
-      mdast-util-from-markdown: 2.0.2
+      mdast-util-from-markdown: 2.0.2(supports-color@8.1.1)
       micromark-util-types: 2.0.2
       unified: 11.0.5
     transitivePeerDependencies:
@@ -5162,13 +5150,16 @@ snapshots:
 
   tapable@2.3.3: {}
 
-  terser-webpack-plugin@5.6.1(webpack@5.105.4):
+  terser-webpack-plugin@5.6.1(lightningcss@1.32.0)(postcss@8.5.23)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.31
       jest-worker: 27.5.1
       schema-utils: 4.3.3
       terser: 5.48.0
-      webpack: 5.105.4
+      webpack: 5.105.4(lightningcss@1.32.0)(postcss@8.5.23)
+    optionalDependencies:
+      lightningcss: 1.32.0
+      postcss: 8.5.23
 
   terser@5.48.0:
     dependencies:
@@ -5325,7 +5316,7 @@ snapshots:
 
   webpack-sources@3.5.0: {}
 
-  webpack@5.105.4:
+  webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.9
@@ -5349,7 +5340,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.3
       tapable: 2.3.3
-      terser-webpack-plugin: 5.6.1(webpack@5.105.4)
+      terser-webpack-plugin: 5.6.1(lightningcss@1.32.0)(postcss@8.5.23)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23))
       watchpack: 2.5.2
       webpack-sources: 3.5.0
     transitivePeerDependencies:
@@ -5374,15 +5365,15 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zephyr-agent@1.1.1:
+  zephyr-agent@1.1.1(supports-color@8.1.1):
     dependencies:
       '@toon-format/toon': 0.9.0
-      axios: 1.18.0(debug@4.4.3)
-      axios-retry: 4.5.0(axios@1.18.0)
-      debug: 4.4.3
+      axios: 1.18.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1)
+      axios-retry: 4.5.0(axios@1.18.0(debug@4.4.3(supports-color@8.1.1))(supports-color@8.1.1))
+      debug: 4.4.3(supports-color@8.1.1)
       eventsource: 4.1.0
       git-url-parse: 15.0.0
-      https-proxy-agent: 7.0.6
+      https-proxy-agent: 7.0.6(supports-color@8.1.1)
       is-ci: 4.1.0
       jose: 5.10.0
       node-persist: 4.0.4
@@ -5397,44 +5388,44 @@ snapshots:
     dependencies:
       tslib: 2.8.1
 
-  zephyr-rsbuild-plugin@1.1.1(@rsbuild/core@2.0.0-beta.6(core-js@3.49.0))(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(webpack@5.105.4):
+  zephyr-rsbuild-plugin@1.1.1(@rsbuild/core@2.0.0-beta.6(core-js@3.49.0))(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(supports-color@8.1.1)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23)):
     dependencies:
       '@rsbuild/core': 2.0.0-beta.6(core-js@3.49.0)
-      zephyr-rspack-plugin: 1.1.1(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(webpack@5.105.4)
+      zephyr-rspack-plugin: 1.1.1(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(supports-color@8.1.1)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23))
     transitivePeerDependencies:
       - '@rspack/core'
       - supports-color
       - webpack
 
-  zephyr-rspack-plugin@1.1.1(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(webpack@5.105.4):
+  zephyr-rspack-plugin@1.1.1(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(supports-color@8.1.1)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23)):
     dependencies:
       '@rspack/core': 2.0.0-beta.3(@swc/helpers@0.5.23)
       tslib: 2.8.1
-      zephyr-agent: 1.1.1
-      zephyr-xpack-internal: 1.1.1(webpack@5.105.4)
+      zephyr-agent: 1.1.1(supports-color@8.1.1)
+      zephyr-xpack-internal: 1.1.1(supports-color@8.1.1)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23))
     transitivePeerDependencies:
       - supports-color
       - webpack
 
-  zephyr-rspress-plugin@1.1.1(@rsbuild/core@2.0.0-beta.6(core-js@3.49.0))(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2))(webpack@5.105.4):
+  zephyr-rspress-plugin@1.1.1(@rsbuild/core@2.0.0-beta.6(core-js@3.49.0))(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(@rspress/core@2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1))(supports-color@8.1.1)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23)):
     dependencies:
-      '@rspress/core': 2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2)
+      '@rspress/core': 2.0.5(@types/mdast@4.0.4)(@types/react@19.2.14)(core-js@3.49.0)(micromark-util-types@2.0.2)(micromark@4.0.2(supports-color@8.1.1))(supports-color@8.1.1)
       tslib: 2.8.1
-      zephyr-agent: 1.1.1
+      zephyr-agent: 1.1.1(supports-color@8.1.1)
       zephyr-edge-contract: 1.1.1
-      zephyr-rsbuild-plugin: 1.1.1(@rsbuild/core@2.0.0-beta.6(core-js@3.49.0))(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(webpack@5.105.4)
-      zephyr-xpack-internal: 1.1.1(webpack@5.105.4)
+      zephyr-rsbuild-plugin: 1.1.1(@rsbuild/core@2.0.0-beta.6(core-js@3.49.0))(@rspack/core@2.0.0-beta.3(@swc/helpers@0.5.23))(supports-color@8.1.1)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23))
+      zephyr-xpack-internal: 1.1.1(supports-color@8.1.1)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23))
     transitivePeerDependencies:
       - '@rsbuild/core'
       - '@rspack/core'
       - supports-color
       - webpack
 
-  zephyr-xpack-internal@1.1.1(webpack@5.105.4):
+  zephyr-xpack-internal@1.1.1(supports-color@8.1.1)(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23)):
     dependencies:
-      '@module-federation/automatic-vendor-federation': 1.2.1(webpack@5.105.4)
+      '@module-federation/automatic-vendor-federation': 1.2.1(webpack@5.105.4(lightningcss@1.32.0)(postcss@8.5.23))
       tslib: 2.8.1
-      zephyr-agent: 1.1.1
+      zephyr-agent: 1.1.1(supports-color@8.1.1)
       zephyr-edge-contract: 1.1.1
     transitivePeerDependencies:
       - supports-color
