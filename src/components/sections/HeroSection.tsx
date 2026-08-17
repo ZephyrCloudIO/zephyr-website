@@ -156,6 +156,20 @@ export const HeroSection: React.FC = () => {
             </svg>
           </div>
         </div>
+
+        <a
+          className="mt-8 inline-flex"
+          href="https://www.producthunt.com/products/the-ai-platform?embed=true&utm_source=badge-featured&utm_medium=badge&utm_campaign=badge-the-ai-platform"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <img
+            alt="The AI Platform - Maximizing Human Potential | Product Hunt"
+            width="250"
+            height="54"
+            src="https://api.producthunt.com/widgets/embed-image/v1/featured.svg?post_id=1222188&theme=dark&t=1786968625141"
+          />
+        </a>
       </div>
     </section>
   );
