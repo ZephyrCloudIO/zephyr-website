@@ -357,6 +357,20 @@ export const blogMetadataEntries = [
     },
   },
   {
+    slug: 'zephyr-cloud-china-tech-trip',
+    metadata: {
+      title: 'Zephyr Cloud in China: Building Partnerships Across the Tech Ecosystem',
+      slug: 'zephyr-cloud-china-tech-trip',
+      date: '2026-07-28',
+      heroImage: '/images/default-cloud.webp',
+      listingImage: '/images/default-cloud.webp',
+      description:
+        'Inside Zephyr Cloud’s trip to Hangzhou and Shanghai to meet the teams behind Module Federation, Rstack, Zvec, Spark Lab, and Lynx.',
+      authors: [],
+      tags: ['community', 'partnerships', 'module-federation', 'open-source'],
+    },
+  },
+  {
     slug: 'zephyr-skills',
     metadata: {
       title: 'Zephyr Skills Turn Repetition Into Infrastructure',
