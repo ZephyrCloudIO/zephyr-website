@@ -1,4 +1,4 @@
-import { defineConfig } from '@rspress/core';
+import { defineConfig, type UserConfig } from '@rspress/core';
 import { pluginSitemap } from '@rspress/plugin-sitemap';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -108,6 +108,6 @@ export default defineConfig({
       defaultChangeFreq: 'weekly',
       defaultPriority: '0.6',
     }),
-    withZephyr(),
+    withZephyr<UserConfig>(),
   ],
 });
