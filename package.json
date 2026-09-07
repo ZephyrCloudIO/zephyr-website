@@ -48,7 +48,7 @@
     "unicornstudio-react": "2.1.4"
   },
   "devDependencies": {
-    "@rspress/core": "2.0.5",
+    "@rspress/core": "2.0.21",
     "@rspress/plugin-sitemap": "2.0.5",
     "@tailwindcss/postcss": "4.2.2",
     "@types/node": "24.13.2",
