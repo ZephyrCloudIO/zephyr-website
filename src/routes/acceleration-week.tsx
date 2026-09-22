@@ -130,6 +130,25 @@ const faqs = [
   },
 ];
 
+const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const;
+
+const tracks: { label: string; marks: number[]; kind: 'frame' | 'work' | 'demo' }[] = [
+  { label: 'Breakfast and morning standup', marks: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0], kind: 'frame' },
+  { label: 'Welcome, examples, benchmarks', marks: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], kind: 'work' },
+  { label: 'Agent roles and group critique', marks: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], kind: 'work' },
+  { label: 'Method, tools, and context', marks: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0], kind: 'work' },
+  { label: 'Build and score the workflows', marks: [0, 0, 0, 1, 1, 1, 1, 1, 1, 0], kind: 'work' },
+  { label: 'Demo to the full room', marks: [0, 0, 0, 0, 0, 1, 0, 1, 0, 0], kind: 'demo' },
+  { label: 'Executive demo', marks: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], kind: 'demo' },
+  { label: 'Standup and retro', marks: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1], kind: 'frame' },
+];
+
+const barClass = {
+  frame: 'bg-primary/25',
+  work: 'bg-primary',
+  demo: 'bg-violet-200',
+} as const;
+
 const interviews = [
   {
     src: '/videos/terry-fritsch.mp4',
@@ -212,6 +231,65 @@ function AccelerationWeekPage() {
         </section>
 
         <section className="mt-16">
+          <h2 className="text-2xl font-semibold text-white">What an Acceleration Week would look like for you</h2>
+          <div className="mt-6 overflow-x-auto rounded-xl border border-neutral-800">
+            <div className="min-w-[760px]">
+              <div className="grid grid-cols-[220px_repeat(10,minmax(0,1fr))] border-b border-neutral-800 bg-neutral-950 text-center text-xs text-neutral-300">
+                <div />
+                {dayLabels.map((day) => (
+                  <div key={day} className="col-span-2 border-l border-neutral-800 py-2 font-medium text-white">
+                    {day}
+                  </div>
+                ))}
+                <div className="border-t border-neutral-800" />
+                {dayLabels.flatMap((day) =>
+                  ['AM', 'PM'].map((half) => (
+                    <div
+                      key={`${day}-${half}`}
+                      className="border-t border-l border-neutral-800 py-1 text-[11px] tracking-wide text-neutral-500"
+                    >
+                      {half}
+                    </div>
+                  )),
+                )}
+              </div>
+              {tracks.map((track) => (
+                <div
+                  key={track.label}
+                  className="grid grid-cols-[220px_repeat(10,minmax(0,1fr))] border-b border-neutral-800 last:border-b-0"
+                >
+                  <div className="flex items-center px-3 py-3 text-sm text-neutral-200">{track.label}</div>
+                  {track.marks.map((on, index) => (
+                    <div key={`${track.label}-${index}`} className="border-l border-neutral-800 p-1.5">
+                      {on === 1 ? (
+                        <div className={`h-7 rounded-sm ${barClass[track.kind]}`} />
+                      ) : (
+                        <div className="h-7" />
+                      )}
+                    </div>
+                  ))}
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-neutral-400">
+            <span className="inline-flex items-center gap-2">
+              <span className="h-3 w-3 rounded-sm bg-primary/25" /> Whole room, together
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <span className="h-3 w-3 rounded-sm bg-primary" /> Working session
+            </span>
+            <span className="inline-flex items-center gap-2">
+              <span className="h-3 w-3 rounded-sm bg-violet-200" /> Demo
+            </span>
+          </div>
+          <p className="mt-4 max-w-3xl text-neutral-300">
+            In the room: product, design, engineering, architecture, QA, security, cloud, and delivery leads. Zephyr
+            works in the groups. Leadership joins the Friday demo.
+          </p>
+        </section>
+
+        <section className="mt-16">
           <div className="rounded-2xl border border-neutral-800 bg-neutral-950 p-6 sm:p-8">
             <p className="text-xs font-medium tracking-[0.2em] text-primary uppercase">Acceleration Week case study</p>
             <div className="mt-5 flex items-center gap-4">
@@ -222,11 +300,20 @@ function AccelerationWeekPage() {
               />
               <p className="text-lg font-medium text-white">Southern Glazer’s Wine &amp; Spirits</p>
             </div>
-            <p className="mt-4 max-w-3xl text-neutral-300">
-              Southern Glazer’s is the company this case study is about. The recap above is their second Acceleration
-              Week, in 2025, aimed at AI. The numbers further down are from the first week, when the release path came
-              together.
-            </p>
+            <div className="mt-4 max-w-3xl space-y-3 text-neutral-300">
+              <p>
+                Southern Glazer’s Wine &amp; Spirits is the largest wine and spirits distributor in the United States.
+                The company is family-owned and operates in 47 U.S. markets and Canada, with travel-retail reach into
+                the Caribbean and Latin America. It is one of the country’s largest private companies.
+              </p>
+              <p>
+                The business is regulated at the federal level and differently in every state: what can be sold, how it
+                is labeled, and how customer data can be used. Compliance sat in the room with engineering. The week
+                brought more than 40 people from digital engineering, QA, architecture, product, and compliance. They
+                have run Acceleration Week twice with Zephyr. The second, in 2025, was aimed at AI. The numbers further
+                down are from the first week.
+              </p>
+            </div>
             <div className="mt-8 space-y-5 border-t border-neutral-800 pt-8 text-base leading-relaxed text-neutral-300">
               <h2 className="text-2xl font-semibold text-white">The week</h2>
               <p>
