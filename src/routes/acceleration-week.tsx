@@ -189,9 +189,7 @@ function AccelerationWeekPage() {
 
       <section className="mt-16">
         <div className="rounded-2xl border border-neutral-800 bg-neutral-950 p-6 sm:p-8">
-          <p className="text-xs font-medium tracking-[0.2em] text-primary uppercase">
-            Southern Glazer’s Acceleration Week
-          </p>
+          <p className="text-xs font-medium tracking-[0.2em] text-primary uppercase">Acceleration Week case study</p>
           <div className="mt-5 flex items-center gap-4">
             <img
               src={SGWSLogo}
@@ -201,29 +199,29 @@ function AccelerationWeekPage() {
             <p className="text-lg font-medium text-white">Southern Glazer’s Wine &amp; Spirits</p>
           </div>
           <p className="mt-4 max-w-3xl text-neutral-300">
-            Southern Glazer’s is the company this page highlights. The recap above is their second Acceleration Week, in
-            2025, aimed at AI. The numbers below are from the first week, when the release path came together.
+            Southern Glazer’s is the company this case study is about. The recap above is their second Acceleration
+            Week, in 2025, aimed at AI. The numbers further down are from the first week, when the release path came
+            together.
           </p>
-        </div>
-
-        <div className="mt-10 space-y-5 text-base leading-relaxed text-neutral-300">
-          <h2 className="text-2xl font-semibold text-white">The week</h2>
-          <p>
-            Southern Glazer’s ran Acceleration Week with Zephyr, and the destination was already chosen: a
-            micro-frontend architecture on Zephyr Cloud, covering their customer-facing experiences and the
-            backend-for-frontend services behind them. Releases stayed in their account, on the cloud they already ran.
-            The AI Platform sat on the real work: code, tests, documentation, troubleshooting, delivery, and platform
-            management.
-          </p>
-          <p>
-            Their first week pulled a release path they had chased for six years into five days. Their second week, in
-            2025, pointed the same room at AI across how the organization works. The recap above is that second week.
-          </p>
-          <p>
-            People at Southern Glazer’s often arrived unsure why they were in the room. The week still had a plan, and
-            the room executed it. By the end, separate conversations had become one shared picture of the problem, and
-            that picture went back to work with them.
-          </p>
+          <div className="mt-8 space-y-5 border-t border-neutral-800 pt-8 text-base leading-relaxed text-neutral-300">
+            <h2 className="text-2xl font-semibold text-white">The week</h2>
+            <p>
+              Southern Glazer’s ran Acceleration Week with Zephyr, and the destination was already chosen: a
+              micro-frontend architecture on Zephyr Cloud, covering their customer-facing experiences and the
+              backend-for-frontend services behind them. Releases stayed in their account, on the cloud they already
+              ran. The AI Platform sat on the real work: code, tests, documentation, troubleshooting, delivery, and
+              platform management.
+            </p>
+            <p>
+              Their first week pulled a release path they had chased for six years into five days. Their second week, in
+              2025, pointed the same room at AI across how the organization works. The recap above is that second week.
+            </p>
+            <p>
+              People at Southern Glazer’s often arrived unsure why they were in the room. The week still had a plan, and
+              the room executed it. By the end, separate conversations had become one shared picture of the problem, and
+              that picture went back to work with them.
+            </p>
+          </div>
         </div>
 
         <h2 className="mt-10 text-2xl font-semibold text-white">What their first Acceleration Week achieved</h2>
