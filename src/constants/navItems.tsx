@@ -1,4 +1,4 @@
-import { Calendar, Cloud, FileText, History, Newspaper, Sparkles, Users } from 'lucide-react';
+import { Calendar, Cloud, FileText, History, Newspaper, Sparkles, Users, Zap } from 'lucide-react';
 
 const PRODUCTS = [
   {
@@ -12,6 +12,12 @@ const PRODUCTS = [
     description: 'Where humans and AI agents do real work',
     icon: () => <Sparkles className="h-4 w-4" />,
     href: 'https://theaiplatform.app',
+  },
+  {
+    title: 'Acceleration Week',
+    description: 'A week with a destination, on your cloud',
+    icon: () => <Zap className="h-4 w-4" />,
+    href: '/acceleration-week',
   },
 ];
 
