@@ -134,12 +134,9 @@ function AccelerationWeekPage() {
   return (
     <div className="mx-auto max-w-5xl px-4 pt-10 pb-24 sm:px-6 lg:px-8">
       <p className="text-sm font-medium tracking-[0.18em] text-primary uppercase">Zephyr</p>
-      <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-6xl">
-        What is Acceleration Week.
-      </h1>
+      <h1 className="mt-3 max-w-3xl text-4xl font-semibold tracking-tight text-white sm:text-6xl">Acceleration Week</h1>
       <p className="mt-5 max-w-2xl text-lg text-neutral-300">
-        A week with a destination the business has already chosen. Product, design, engineering, architecture, and
-        security spend it making that direction real. Zephyr is in the room.
+        The fastest path from idea to production for your entire org.
       </p>
 
       <figure className="mt-10">
@@ -160,20 +157,20 @@ function AccelerationWeekPage() {
       <section className="mt-16 space-y-5 text-base leading-relaxed text-neutral-300">
         <h2 className="text-2xl font-semibold text-white">The week</h2>
         <p>
-          For a front-end modernization, the destination is a micro-frontend architecture on Zephyr Cloud. Releases land
-          in your account, on the cloud you choose. Cloudflare is included. The scope is the customer-facing experiences
-          and the backend-for-frontend services behind them. The AI Platform is used on that same work: code, tests,
-          documentation, troubleshooting, delivery, and platform management.
+          This is Southern Glazer’s Wine &amp; Spirits. They ran Acceleration Week with Zephyr, and the destination was
+          already chosen: a micro-frontend architecture on Zephyr Cloud, covering their customer-facing experiences and
+          the backend-for-frontend services behind them. Releases stayed in their account, on the cloud they already
+          ran. The AI Platform sat on the real work: code, tests, documentation, troubleshooting, delivery, and platform
+          management.
         </p>
         <p>
-          Adoption follows the date you set. That date can leave room for a cloud transition and a security review. The
-          week can run first, so the path is proven before the organization depends on it. If those items clear sooner,
-          the start can move up.
+          Their first week pulled a release path they had chased for six years into five days. Their second week, in
+          2025, pointed the same room at AI across how the organization works. The recap above is that second week.
         </p>
         <p>
-          People often arrive unsure why they are in the room. The week still has a plan, and the room executes it. By
-          the end, the separate conversations have become one shared picture of the problem, and that picture carries
-          back to the work.
+          People at Southern Glazer’s often arrived unsure why they were in the room. The week still had a plan, and the
+          room executed it. By the end, separate conversations had become one shared picture of the problem, and that
+          picture went back to work with them.
         </p>
       </section>
 
