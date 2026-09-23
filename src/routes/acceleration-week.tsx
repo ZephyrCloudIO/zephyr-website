@@ -130,24 +130,13 @@ const faqs = [
   },
 ];
 
-const dayLabels = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'] as const;
-
-const tracks: { label: string; marks: number[]; kind: 'frame' | 'work' | 'demo' }[] = [
-  { label: 'Breakfast and morning standup', marks: [1, 0, 1, 0, 1, 0, 1, 0, 1, 0], kind: 'frame' },
-  { label: 'Welcome, examples, benchmarks', marks: [1, 0, 0, 0, 0, 0, 0, 0, 0, 0], kind: 'work' },
-  { label: 'Agent roles and group critique', marks: [0, 1, 0, 0, 0, 0, 0, 0, 0, 0], kind: 'work' },
-  { label: 'Method, tools, and context', marks: [0, 0, 1, 0, 0, 0, 0, 0, 0, 0], kind: 'work' },
-  { label: 'Build and score the workflows', marks: [0, 0, 0, 1, 1, 1, 1, 1, 1, 0], kind: 'work' },
-  { label: 'Demo to the full room', marks: [0, 0, 0, 0, 0, 1, 0, 1, 0, 0], kind: 'demo' },
-  { label: 'Executive demo', marks: [0, 0, 0, 0, 0, 0, 0, 0, 0, 1], kind: 'demo' },
-  { label: 'Standup and retro', marks: [0, 1, 0, 1, 0, 1, 0, 1, 0, 1], kind: 'frame' },
+const layers = [
+  { day: 'Monday', added: 'Level set, benchmarks, and agent roles' },
+  { day: 'Tuesday', added: 'Method, tools, and a first scored run' },
+  { day: 'Wednesday', added: 'Workflows a person can run, scored in a demo' },
+  { day: 'Thursday', added: 'Those workflows hand work across disciplines' },
+  { day: 'Friday', added: 'The whole week, shown to leadership' },
 ];
-
-const barClass = {
-  frame: 'bg-primary/25',
-  work: 'bg-primary',
-  demo: 'bg-violet-200',
-} as const;
 
 const interviews = [
   {
@@ -232,60 +221,35 @@ function AccelerationWeekPage() {
 
         <section className="mt-16">
           <h2 className="text-2xl font-semibold text-white">What an Acceleration Week would look like for you</h2>
-          <div className="mt-6 overflow-x-auto rounded-xl border border-neutral-800">
-            <div className="min-w-[760px]">
-              <div className="grid grid-cols-[220px_repeat(10,minmax(0,1fr))] border-b border-neutral-800 bg-neutral-950 text-center text-xs text-neutral-300">
-                <div />
-                {dayLabels.map((day) => (
-                  <div key={day} className="col-span-2 border-l border-neutral-800 py-2 font-medium text-white">
-                    {day}
-                  </div>
-                ))}
-                <div className="border-t border-neutral-800" />
-                {dayLabels.flatMap((day) =>
-                  ['AM', 'PM'].map((half) => (
-                    <div
-                      key={`${day}-${half}`}
-                      className="border-t border-l border-neutral-800 py-1 text-[11px] tracking-wide text-neutral-500"
-                    >
-                      {half}
-                    </div>
-                  )),
-                )}
-              </div>
-              {tracks.map((track) => (
-                <div
-                  key={track.label}
-                  className="grid grid-cols-[220px_repeat(10,minmax(0,1fr))] border-b border-neutral-800 last:border-b-0"
-                >
-                  <div className="flex items-center px-3 py-3 text-sm text-neutral-200">{track.label}</div>
-                  {track.marks.map((on, index) => (
-                    <div key={`${track.label}-${index}`} className="border-l border-neutral-800 p-1.5">
-                      {on === 1 ? (
-                        <div className={`h-7 rounded-sm ${barClass[track.kind]}`} />
-                      ) : (
-                        <div className="h-7" />
-                      )}
-                    </div>
+          <div className="mt-6 space-y-3">
+            {layers.map((layer, index) => (
+              <div
+                key={layer.day}
+                className="grid grid-cols-1 items-center gap-2 sm:grid-cols-[88px_1fr_280px] sm:gap-4"
+              >
+                <div className="text-sm font-medium text-white">{layer.day}</div>
+                <div className="flex h-9 overflow-hidden rounded-md bg-neutral-900">
+                  {Array.from({ length: index }, (_, carried) => (
+                    <div key={carried} className="h-full w-1/5 bg-primary/30" />
                   ))}
+                  <div className="h-full w-1/5 bg-primary" />
                 </div>
-              ))}
-            </div>
+                <p className="text-sm text-neutral-300">{layer.added}</p>
+              </div>
+            ))}
           </div>
           <div className="mt-4 flex flex-wrap gap-x-6 gap-y-2 text-sm text-neutral-400">
             <span className="inline-flex items-center gap-2">
-              <span className="h-3 w-3 rounded-sm bg-primary/25" /> Whole room, together
+              <span className="h-3 w-3 rounded-sm bg-primary/30" /> Carried forward
             </span>
             <span className="inline-flex items-center gap-2">
-              <span className="h-3 w-3 rounded-sm bg-primary" /> Working session
-            </span>
-            <span className="inline-flex items-center gap-2">
-              <span className="h-3 w-3 rounded-sm bg-violet-200" /> Demo
+              <span className="h-3 w-3 rounded-sm bg-primary" /> Added that day
             </span>
           </div>
           <p className="mt-4 max-w-3xl text-neutral-300">
-            In the room: product, design, engineering, architecture, QA, security, cloud, and delivery leads. Zephyr
-            works in the groups. Leadership joins the Friday demo.
+            Each afternoon the room runs the work and scores it. The next morning starts from what was missing. In the
+            room: product, design, engineering, architecture, QA, security, cloud, and delivery leads. Zephyr works in
+            the groups. Leadership joins the Friday demo.
           </p>
         </section>
 
