@@ -28,6 +28,7 @@ import {
   Type,
   Users,
   X,
+  Zap,
 } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
@@ -246,6 +247,9 @@ export const Header: React.FC = () => {
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <NavigationMenuLink href="/acceleration-week">Acceleration Week</NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <NavigationMenuLink href="/pricing">Pricing</NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -316,6 +320,14 @@ export const Header: React.FC = () => {
                     <Sparkles className="h-4 w-4" />
                     The AI Platform
                   </a>
+                  <Link
+                    to="/acceleration-week"
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
+                  >
+                    <Zap className="h-4 w-4" />
+                    Acceleration Week
+                  </Link>
                 </div>
               )}
             </div>
@@ -384,6 +396,14 @@ export const Header: React.FC = () => {
             >
               Docs
             </a>
+
+            <Link
+              to="/acceleration-week"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-neutral-400 hover:text-white py-2"
+            >
+              Acceleration Week
+            </Link>
 
             <Link
               to="/pricing"
