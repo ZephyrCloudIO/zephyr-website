@@ -1,10 +1,7 @@
-import { BlogSection } from '@/components/sections/BlogSection';
-import { CloudProvidersSection } from '@/components/sections/CloudProvidersSection';
-import { DeploymentSection } from '@/components/sections/DeploymentSection';
-import { HeroSection } from '@/components/sections/HeroSection';
-import MicrofrontendSection from '@/components/sections/MicrofrontendSection';
-import { TestimonialsSection } from '@/components/sections/TestimonialsSection';
-import { WorkflowsSection } from '@/components/sections/WorkflowsSection';
+import { LatestPosts } from '@/components/home/LatestPosts';
+import { ProofSection } from '@/components/home/ProofSection';
+import { HomeStory } from '@/components/home/story/HomeStory';
+import { WaysIn } from '@/components/home/WaysIn';
 import { createFileRoute } from '@tanstack/react-router';
 
 export const Route = createFileRoute('/')({
@@ -14,14 +11,10 @@ export const Route = createFileRoute('/')({
 function HomePage() {
   return (
     <>
-      <HeroSection />
-      <TestimonialsSection />
-      {/* Feature Sections */}
-      <WorkflowsSection />
-      <CloudProvidersSection />
-      <DeploymentSection />
-      <MicrofrontendSection />
-      <BlogSection />
+      <HomeStory />
+      <ProofSection />
+      <WaysIn />
+      <LatestPosts />
     </>
   );
 }

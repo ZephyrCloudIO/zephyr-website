@@ -1,3 +1,4 @@
+import { cn } from '@/lib/utils';
 import { useRef, useState } from 'react';
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
@@ -74,29 +75,33 @@ export function SignupForm() {
       <label htmlFor={emailFieldId} className="sr-only">
         Work email
       </label>
-      <p className="px-1 text-left text-[13px] font-medium leading-5 transition-colors duration-200 md:pr-3 md:text-right">
+      <p className="m-0 px-1 text-left text-[0.8125rem] leading-5 font-medium transition-colors duration-200 md:pr-3 md:text-right">
         {isError ? (
-          <span className="text-red-400">Please check your email</span>
+          <span className="text-fault">Please check your email</span>
         ) : (
           <span className="shimmer-text">Now in early access</span>
         )}
       </p>
 
       <div
-        className={`relative flex items-center gap-2.5 rounded-full border py-1.5 pl-4 pr-1.5 transition-all duration-500 sm:gap-3 sm:pl-5 ${
+        className={cn(
+          'relative flex items-center gap-2.5 rounded-xl border py-1.5 pr-1.5 pl-4 backdrop-blur-md transition-[border-color,background-color,box-shadow] duration-300 sm:gap-3',
           isSuccess
-            ? 'border-white/20 bg-black/50'
+            ? 'border-line-strong bg-night/70'
             : isError
-              ? 'border-red-400/60 bg-red-950/20'
+              ? 'border-fault/60 bg-fault/10'
               : focused
-                ? 'border-violet-500 bg-black/50'
-                : 'border-white/20 bg-black/50'
-        } ${shaking ? 'animate-shake' : ''}`}
-        style={focused && !isError && !isSuccess ? { boxShadow: '0px 0px 4px rgba(124, 58, 237, 0.45)' } : undefined}
+                ? 'border-released-ink/70 bg-night/70 ring-2 ring-released/25'
+                : 'border-line-strong bg-night/70',
+          shaking && 'animate-shake',
+        )}
       >
         <div className="relative h-4 w-4 shrink-0">
           <svg
-            className={`absolute inset-0 h-4 w-4 text-white transition-opacity duration-300 ${isSuccess ? 'opacity-0' : 'opacity-100'}`}
+            className={cn(
+              'absolute inset-0 h-4 w-4 text-ink-faint transition-opacity duration-300',
+              isSuccess ? 'opacity-0' : 'opacity-100',
+            )}
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -124,7 +129,10 @@ export function SignupForm() {
           placeholder="Work email"
           onFocus={() => setFocused(true)}
           onBlur={() => setFocused(false)}
-          className={`min-w-0 flex-1 bg-transparent text-sm font-medium text-white placeholder-white/40 outline-none transition-opacity duration-500 sm:text-[13px] ${isSuccess ? 'opacity-0' : 'opacity-100'}`}
+          className={cn(
+            'min-w-0 flex-1 bg-transparent text-sm font-medium text-ink outline-none transition-opacity duration-500 placeholder:text-ink-faint sm:text-[0.8125rem]',
+            isSuccess ? 'opacity-0' : 'opacity-100',
+          )}
         />
 
         <button
@@ -132,25 +140,24 @@ export function SignupForm() {
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
           disabled={state === 'submitting'}
-          className={`h-9 shrink-0 whitespace-nowrap rounded-full px-3.5 py-2 text-xs font-semibold text-white transition-all duration-500 sm:px-4 sm:text-[13px] ${isSuccess ? 'pointer-events-none opacity-0' : 'opacity-100'} ${state === 'submitting' ? 'opacity-70' : ''}`}
-          style={{
-            background: `linear-gradient(177.57deg, rgba(255,255,255,0.48) 2.04%, rgba(255,255,255,0) 68.68%), ${hovered ? '#8b5cf6' : '#7c3aed'}`,
-            backgroundBlendMode: 'overlay, normal',
-            boxShadow: isSuccess
-              ? 'none'
-              : '0px 2px 4px -1.5px rgba(9,9,11,0.16), 0px 0px 0px 1px rgba(32,0,60,0.6), inset 0px -2px 3px rgba(124,58,237,0.35), inset 0px 1px 0px rgba(255,255,255,0.2)',
-          }}
+          className={cn(
+            'h-9 shrink-0 rounded-lg px-3.5 text-xs font-medium whitespace-nowrap text-white transition-[background-color,opacity] duration-300 outline-none focus-visible:ring-2 focus-visible:ring-released-ink focus-visible:ring-offset-2 focus-visible:ring-offset-night sm:px-4 sm:text-[0.8125rem]',
+            hovered ? 'bg-[#8b4df5]' : 'bg-released',
+            isSuccess ? 'pointer-events-none opacity-0' : 'opacity-100',
+            state === 'submitting' && 'opacity-70',
+          )}
         >
           {state === 'submitting' ? 'Signing up...' : 'Sign up'}
         </button>
 
         <div
-          className={`pointer-events-none absolute inset-0 flex items-center justify-center gap-2 transition-all duration-500 ${
-            isSuccess ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0'
-          }`}
+          className={cn(
+            'pointer-events-none absolute inset-0 flex items-center justify-center gap-2 transition-all duration-500',
+            isSuccess ? 'translate-y-0 opacity-100' : '-translate-y-3 opacity-0',
+          )}
         >
           <svg
-            className="h-4 w-4 shrink-0 text-emerald-400"
+            className="h-4 w-4 shrink-0 text-live"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -160,7 +167,7 @@ export function SignupForm() {
           >
             <path d="M20 6 9 17l-5-5" />
           </svg>
-          <span className="text-[13px] font-medium text-emerald-400">Signed up</span>
+          <span className="text-[0.8125rem] font-medium text-ink">Signed up</span>
         </div>
       </div>
     </form>

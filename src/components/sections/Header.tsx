@@ -1,5 +1,4 @@
 import { CopyToast } from '@/components/CopyToast';
-import { Button } from '@/components/ui/button';
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,23 +11,7 @@ import LogoLight from '@/images/logo-light.svg';
 import WordmarkLight from '@/images/wordmark-light.svg';
 import { cn } from '@/lib/utils';
 import { Link, useNavigate } from '@tanstack/react-router';
-import {
-  BookOpen,
-  Calendar,
-  Check,
-  Cloud,
-  Download,
-  FileText,
-  Github,
-  History,
-  Menu,
-  Newspaper,
-  Package,
-  Sparkles,
-  Type,
-  Users,
-  X,
-} from 'lucide-react';
+import { ArrowRight, BookOpen, Check, ChevronDown, Download, Github, Menu, Package, Type, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
@@ -40,6 +23,38 @@ import {
   NavigationMenuList,
   NavigationMenuTrigger,
 } from '../ui/navigation-menu';
+
+const NAV_HEIGHT = 64;
+
+function MobileGroup({
+  label,
+  open,
+  onToggle,
+  children,
+}: {
+  label: string;
+  open: boolean;
+  onToggle: () => void;
+  children: React.ReactNode;
+}) {
+  return (
+    <div>
+      <button
+        type="button"
+        onClick={onToggle}
+        aria-expanded={open}
+        className="flex w-full items-center justify-between rounded-lg px-3 py-2.5 text-left text-ink-muted hover:bg-surface-2 hover:text-ink"
+      >
+        {label}
+        <ChevronDown className={cn('size-4 transition-transform duration-200', open && 'rotate-180')} />
+      </button>
+      {open ? <div className="mt-1 space-y-0.5 pl-3">{children}</div> : null}
+    </div>
+  );
+}
+
+const mobileLinkClass =
+  'flex items-center gap-2.5 rounded-lg px-3 py-2 text-sm text-ink-muted hover:bg-surface-2 hover:text-ink';
 
 export const Header: React.FC = () => {
   const navigate = useNavigate();
@@ -66,6 +81,15 @@ export const Header: React.FC = () => {
     };
   }, []);
 
+  useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const onKey = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setMobileMenuOpen(false);
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [mobileMenuOpen]);
+
   const showToast = (message: string) => {
     setToastMsg(message);
     setToastVisible(true);
@@ -76,53 +100,36 @@ export const Header: React.FC = () => {
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
-      const navHeight = 64;
 
-      setScrolled(currentY > navHeight);
+      setScrolled(currentY > 8);
 
-      if (currentY <= navHeight) {
-        // Always show at top
+      if (currentY <= NAV_HEIGHT) {
         setVisible(true);
       } else if (currentY < lastScrollY.current) {
-        // Scrolling up
         setVisible(true);
       } else if (currentY > lastScrollY.current) {
-        // Scrolling down
         setVisible(false);
       }
 
       lastScrollY.current = currentY;
     };
 
+    handleScroll();
     window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const handleCopyLogo = async () => {
+  const copySvg = async (src: string, key: 'logo' | 'wordmark', message: string) => {
     try {
-      const response = await fetch(LogoLight);
+      const response = await fetch(src);
       const svgText = await response.text();
       await navigator.clipboard.writeText(svgText);
       if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
-      setCopyActive('logo');
+      setCopyActive(key);
       copyTimeoutRef.current = setTimeout(() => setCopyActive(null), 1500);
-      showToast('Logo SVG copied to clipboard');
+      showToast(message);
     } catch (err) {
-      console.error('Failed to copy logo:', err);
-    }
-  };
-
-  const handleCopyWordmark = async () => {
-    try {
-      const response = await fetch(WordmarkLight);
-      const svgText = await response.text();
-      await navigator.clipboard.writeText(svgText);
-      if (copyTimeoutRef.current) clearTimeout(copyTimeoutRef.current);
-      setCopyActive('wordmark');
-      copyTimeoutRef.current = setTimeout(() => setCopyActive(null), 1500);
-      showToast('Wordmark SVG copied to clipboard');
-    } catch (err) {
-      console.error('Failed to copy wordmark:', err);
+      console.error(`Failed to copy ${key}:`, err);
     }
   };
 
@@ -134,57 +141,74 @@ export const Header: React.FC = () => {
     a.remove();
   };
 
+  const closeMobile = () => setMobileMenuOpen(false);
+
   return (
     <>
       <header
         className={cn(
-          'sticky top-0 z-50 transition-all duration-300',
-          scrolled ? 'bg-black/90 backdrop-blur-md' : 'bg-transparent',
-          visible ? 'translate-y-0' : '-translate-y-full',
+          'sticky top-0 z-50 border-b transition-[background-color,border-color,transform] duration-300',
+          scrolled || mobileMenuOpen ? 'border-line bg-night/80 backdrop-blur-xl' : 'border-transparent bg-transparent',
+          visible || mobileMenuOpen ? 'translate-y-0' : '-translate-y-full',
         )}
       >
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-3">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-3 focus:left-3 focus:rounded-lg focus:bg-surface-2 focus:px-3 focus:py-2 focus:text-sm focus:text-ink"
+        >
+          Skip to content
+        </a>
+        <div className="mx-auto flex h-16 max-w-[1320px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
+          <div className="flex items-center gap-2">
             <button
+              type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 text-neutral-400 hover:text-white"
-              aria-label="Toggle menu"
+              className="-ml-2 rounded-lg p-2 text-ink-muted hover:text-ink lg:hidden"
+              aria-label={mobileMenuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-nav"
             >
-              {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              {mobileMenuOpen ? <X size={22} /> : <Menu size={22} />}
             </button>
             <div className="relative">
               <Link
                 to="/"
-                className="flex items-center gap-2"
-                aria-label="Zephyr Cloud (right-click for logo menu)"
+                className="flex items-center rounded-md outline-none focus-visible:ring-2 focus-visible:ring-released-ink"
+                aria-label="Zephyr Cloud home (right-click for brand assets)"
                 onContextMenu={(e) => {
                   e.preventDefault();
                   setDropdownOpen(true);
                 }}
               >
-                <img src={WordmarkLight} alt="Zephyr Logo" width={128} />
+                <img src={WordmarkLight} alt="Zephyr Cloud" width={124} height={24} />
               </Link>
               <DropdownMenu open={dropdownOpen} onOpenChange={setDropdownOpen}>
                 <DropdownMenuTrigger asChild>
-                  <span className="sr-only">Logo menu</span>
+                  <span className="sr-only">Brand assets menu</span>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
-                  className="w-56 bg-main-muted border-border"
+                  className="w-56 border-line bg-surface-2"
                   align="start"
                   alignOffset={-5}
-                  sideOffset={5}
+                  sideOffset={8}
                 >
-                  <DropdownMenuItem onClick={handleCopyLogo} className="flex items-center gap-2">
+                  <DropdownMenuItem
+                    onClick={() => copySvg(LogoLight, 'logo', 'Logo SVG copied to clipboard')}
+                    className="flex items-center gap-2"
+                  >
                     {copyActive === 'logo' ? (
                       <Check className="h-4 w-4" />
                     ) : (
-                      <img src={LogoLight} alt="Logo" className="h-4 w-4" />
+                      <img src={LogoLight} alt="" className="h-4 w-4" />
                     )}
-                    <span className="flex-1">{copyActive === 'logo' ? 'Copied!' : 'Copy Logo Icon SVG'}</span>
+                    <span className="flex-1">{copyActive === 'logo' ? 'Copied!' : 'Copy logo icon SVG'}</span>
                   </DropdownMenuItem>
-                  <DropdownMenuItem onClick={handleCopyWordmark} className="flex items-center gap-2">
+                  <DropdownMenuItem
+                    onClick={() => copySvg(WordmarkLight, 'wordmark', 'Wordmark SVG copied to clipboard')}
+                    className="flex items-center gap-2"
+                  >
                     {copyActive === 'wordmark' ? <Check className="h-4 w-4" /> : <Type className="h-4 w-4" />}
-                    <span className="flex-1">{copyActive === 'wordmark' ? 'Copied!' : 'Copy Wordmark SVG'}</span>
+                    <span className="flex-1">{copyActive === 'wordmark' ? 'Copied!' : 'Copy wordmark SVG'}</span>
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={handleDownloadAssets} className="flex items-center gap-2">
                     <Download className="h-4 w-4" />
@@ -211,12 +235,12 @@ export const Header: React.FC = () => {
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Products</NavigationMenuTrigger>
                 <NavigationMenuContent>
-                  <ul className="flex flex-col w-100">
+                  <ul className="flex w-100 flex-col">
                     {PRODUCTS.map((component) => (
                       <NavigationMenuContentItem key={component.title} href={component.href}>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 text-ink">
                           {component.icon()}
-                          <h3 className="text-sm text-foreground">{component.title}</h3>
+                          <span className="text-sm">{component.title}</span>
                         </div>
                         <p className="text-sm text-muted-foreground">{component.description}</p>
                       </NavigationMenuContentItem>
@@ -230,9 +254,9 @@ export const Header: React.FC = () => {
                   <ul className="grid w-100 md:w-125 md:grid-cols-2 lg:w-137.5">
                     {RESOURCES.map((component) => (
                       <NavigationMenuContentItem key={component.title} href={component.href}>
-                        <div className="flex items-center gap-2">
+                        <div className="flex items-center gap-2 text-ink">
                           {component.icon()}
-                          <h3 className="text-sm text-foreground">{component.title}</h3>
+                          <span className="text-sm">{component.title}</span>
                         </div>
                         <p className="text-sm text-muted-foreground">{component.description}</p>
                       </NavigationMenuContentItem>
@@ -241,7 +265,7 @@ export const Header: React.FC = () => {
                 </NavigationMenuContent>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <NavigationMenuLink href="https://docs.zephyr-cloud.io/" target="_blank">
+                <NavigationMenuLink href="https://docs.zephyr-cloud.io/" target="_blank" rel="noopener">
                   Docs
                 </NavigationMenuLink>
               </NavigationMenuItem>
@@ -251,171 +275,122 @@ export const Header: React.FC = () => {
             </NavigationMenuList>
           </NavigationMenu>
 
-          <div className="flex items-center gap-4">
+          <div className="flex items-center gap-1.5">
             <a
               href="https://github.com/ZephyrCloudIO"
               target="_blank"
-              className="hidden sm:flex items-center gap-2 text-sm bg-neutral-900/80 border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500 hover:bg-neutral-800/90 transition-colors"
+              rel="noopener"
+              className="hidden h-9 items-center gap-2 rounded-lg px-3 text-sm text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink sm:inline-flex"
             >
-              <Github size={16} className="text-white" />
-              <span className="text-white">GitHub</span>
+              <Github size={16} aria-hidden />
+              GitHub
             </a>
             <a
               href="https://www.npmjs.com/org/zephyrcloud"
               target="_blank"
-              className="hidden sm:flex items-center gap-2 text-sm bg-neutral-900/80 border border-neutral-700 px-3 py-1.5 rounded-md hover:border-neutral-500 hover:bg-neutral-800/90 transition-colors"
+              rel="noopener"
+              className="hidden h-9 items-center gap-2 rounded-lg px-3 text-sm text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink md:inline-flex"
             >
-              <Package size={16} className="text-white" />
-              <span className="text-white">npm</span>
+              <Package size={16} aria-hidden />
+              npm
             </a>
-            <Button variant="outline" className="text-sm h-9">
-              <a href="https://app.zephyr-cloud.io/" target="_blank">
-                Get Started
-              </a>
-            </Button>
+            <a
+              href="https://app.zephyr-cloud.io/"
+              target="_blank"
+              rel="noopener"
+              className="ml-1.5 inline-flex h-9 items-center gap-1.5 rounded-lg bg-released px-3.5 text-sm font-medium text-white transition-colors hover:bg-[#8b4df5] focus-visible:ring-2 focus-visible:ring-released-ink focus-visible:ring-offset-2 focus-visible:ring-offset-night"
+            >
+              Get started
+              <ArrowRight className="size-3.5" aria-hidden />
+            </a>
           </div>
         </div>
-
-        {/* Mobile Navigation Menu */}
-        <div
-          className={`lg:hidden fixed inset-0 z-40 transition-opacity duration-300 ${mobileMenuOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}
-          onClick={() => setMobileMenuOpen(false)}
-        >
-          <div className="absolute inset-0 bg-black/50" />
-        </div>
-
-        <div
-          className={`lg:hidden fixed left-0 top-16 bottom-0 w-72 bg-black opacity-95 backdrop-blur-md border-r border-neutral-800 transform transition-transform duration-300 z-50 ${mobileMenuOpen ? 'translate-x-0' : '-translate-x-full'}`}
-        >
-          <nav className="p-4 space-y-4 bg-black opacity-95">
-            <div className="space-y-2">
-              <button
-                onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
-                className="w-full text-left text-neutral-400 hover:text-white flex items-center justify-between py-2"
-              >
-                Products
-                <Cloud
-                  className={`h-4 w-4 transition-transform duration-200 ${mobileProductsOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-              {mobileProductsOpen && (
-                <div className="pl-4 space-y-2">
-                  <Link
-                    to="/"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
-                  >
-                    <Cloud className="h-4 w-4" />
-                    Zephyr Cloud
-                  </Link>
-                  <a
-                    href="https://theaiplatform.app"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
-                  >
-                    <Sparkles className="h-4 w-4" />
-                    The AI Platform
-                  </a>
-                </div>
-              )}
-            </div>
-
-            <div className="space-y-2">
-              <button
-                onClick={() => setMobileResourcesOpen(!mobileResourcesOpen)}
-                className="w-full text-left text-neutral-400 hover:text-white flex items-center justify-between py-2"
-              >
-                Resources
-                <FileText
-                  className={`h-4 w-4 transition-transform duration-200 ${mobileResourcesOpen ? 'rotate-180' : ''}`}
-                />
-              </button>
-              {mobileResourcesOpen && (
-                <div className="pl-4 space-y-2">
-                  <Link
-                    to="/blog"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
-                  >
-                    <FileText className="h-4 w-4" />
-                    Blog
-                  </Link>
-                  <Link
-                    to="/changelog"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
-                  >
-                    <History className="h-4 w-4" />
-                    Changelog
-                  </Link>
-                  <Link
-                    to="/press"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
-                  >
-                    <Newspaper className="h-4 w-4" />
-                    Press
-                  </Link>
-                  <Link
-                    to="/events"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
-                  >
-                    <Calendar className="h-4 w-4" />
-                    Events
-                  </Link>
-                  <Link
-                    to="/partners"
-                    onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center gap-2 text-neutral-400 hover:text-white py-2"
-                  >
-                    <Users className="h-4 w-4" />
-                    Partners
-                  </Link>
-                </div>
-              )}
-            </div>
-
-            <a
-              href="https://docs.zephyr-cloud.io/"
-              target="_blank"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-neutral-400 hover:text-white py-2"
-            >
-              Docs
-            </a>
-
-            <Link
-              to="/pricing"
-              onClick={() => setMobileMenuOpen(false)}
-              className="block text-neutral-400 hover:text-white py-2"
-            >
-              Pricing
-            </Link>
-
-            <div className="pt-4 space-y-3 border-t border-neutral-800">
-              <a
-                href="https://github.com/ZephyrCloudIO"
-                target="_blank"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 text-sm border border-neutral-700 px-3 py-2 rounded-md hover:border-neutral-500"
-              >
-                <Github size={16} className="text-white" />
-                <span className="text-white">GitHub</span>
-              </a>
-              <a
-                href="https://www.npmjs.com/org/zephyrcloud"
-                target="_blank"
-                onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center gap-2 text-sm border border-neutral-700 px-3 py-2 rounded-md hover:border-neutral-500"
-              >
-                <Package size={16} className="text-white" />
-                <span className="text-white">npm</span>
-              </a>
-            </div>
-          </nav>
-        </div>
       </header>
+
+      {/* Outside <header>: its transform and backdrop blur would become the drawer's containing block. */}
+      <div
+        className={cn(
+          'fixed inset-0 top-16 z-40 bg-night/60 transition-opacity duration-300 lg:hidden',
+          mobileMenuOpen ? 'pointer-events-auto opacity-100' : 'pointer-events-none opacity-0',
+        )}
+        onClick={closeMobile}
+        aria-hidden
+      />
+      <nav
+        id="mobile-nav"
+        aria-label="Mobile"
+        className={cn(
+          'fixed top-16 bottom-0 left-0 z-50 w-76 max-w-[85vw] overflow-y-auto border-r border-line bg-night p-4 transition-transform duration-300 lg:hidden',
+          mobileMenuOpen ? 'translate-x-0' : 'pointer-events-none -translate-x-full',
+        )}
+        inert={!mobileMenuOpen}
+      >
+        <div className="space-y-1">
+          <MobileGroup
+            label="Products"
+            open={mobileProductsOpen}
+            onToggle={() => setMobileProductsOpen(!mobileProductsOpen)}
+          >
+            {PRODUCTS.map((item) => (
+              <a key={item.title} href={item.href} onClick={closeMobile} className={mobileLinkClass}>
+                {item.icon()}
+                {item.title}
+              </a>
+            ))}
+          </MobileGroup>
+          <MobileGroup
+            label="Resources"
+            open={mobileResourcesOpen}
+            onToggle={() => setMobileResourcesOpen(!mobileResourcesOpen)}
+          >
+            {RESOURCES.map((item) => (
+              <a key={item.title} href={item.href} onClick={closeMobile} className={mobileLinkClass}>
+                {item.icon()}
+                {item.title}
+              </a>
+            ))}
+          </MobileGroup>
+          <a
+            href="https://docs.zephyr-cloud.io/"
+            target="_blank"
+            rel="noopener"
+            onClick={closeMobile}
+            className="block rounded-lg px-3 py-2.5 text-ink-muted hover:bg-surface-2 hover:text-ink"
+          >
+            Docs
+          </a>
+          <Link
+            to="/pricing"
+            onClick={closeMobile}
+            className="block rounded-lg px-3 py-2.5 text-ink-muted hover:bg-surface-2 hover:text-ink"
+          >
+            Pricing
+          </Link>
+        </div>
+
+        <div className="mt-4 space-y-1 border-t border-line pt-4">
+          <a
+            href="https://github.com/ZephyrCloudIO"
+            target="_blank"
+            rel="noopener"
+            onClick={closeMobile}
+            className={mobileLinkClass}
+          >
+            <Github size={16} aria-hidden />
+            GitHub
+          </a>
+          <a
+            href="https://www.npmjs.com/org/zephyrcloud"
+            target="_blank"
+            rel="noopener"
+            onClick={closeMobile}
+            className={mobileLinkClass}
+          >
+            <Package size={16} aria-hidden />
+            npm
+          </a>
+        </div>
+      </nav>
 
       {mounted && typeof document !== 'undefined'
         ? createPortal(<CopyToast message={toastMsg} visible={toastVisible} />, document.body)

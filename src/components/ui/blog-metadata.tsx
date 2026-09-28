@@ -1,4 +1,4 @@
-import { Calendar, Linkedin } from 'lucide-react';
+import { LinkedinIcon } from './linkedin-icon';
 import { XIcon } from './x-icon';
 
 interface BlogMetadataProps {
@@ -14,33 +14,31 @@ interface BlogMetadataProps {
 
 export default function BlogMetadata({ author, position, avatar, publishDate, socialLinks = [] }: BlogMetadataProps) {
   return (
-    <div className="flex items-center justify-between py-6 mb-8 border-y border-neutral-800">
-      <div className="flex items-center gap-4">
-        <img src={avatar} alt={author} className="w-16 h-16 rounded-full" />
-        <div>
-          <h4 className="font-semibold text-lg">{author}</h4>
-          <p className="text-neutral-400">{position}</p>
+    <div className="mb-8 flex flex-wrap items-center justify-between gap-4 border-y border-line py-6">
+      <div className="flex min-w-0 items-center gap-4">
+        <img src={avatar} alt="" width={48} height={48} className="size-12 shrink-0 rounded-full object-cover" />
+        <div className="min-w-0">
+          <p className="m-0 truncate font-medium text-ink">{author}</p>
+          <p className="m-0 text-sm text-ink-faint">{position}</p>
         </div>
       </div>
 
-      <div className="flex items-center gap-6">
-        <div className="flex items-center gap-2 text-neutral-400">
-          <Calendar className="w-4 h-4" />
-          <time>{publishDate}</time>
-        </div>
+      <div className="flex items-center gap-5">
+        <time className="text-sm text-ink-faint">{publishDate}</time>
 
         {socialLinks.length > 0 && (
           <div className="flex gap-3">
-            {socialLinks.map((social, i) => (
+            {socialLinks.map((social) => (
               <a
-                key={i}
+                key={social.url}
                 href={social.url}
                 target="_blank"
                 rel="noopener"
-                className="text-neutral-400 hover:text-white transition-colors"
+                aria-label={`${author} on ${social.platform}`}
+                className="text-ink-faint transition-colors hover:text-ink"
               >
-                {social.platform === 'X' && <XIcon size={20} />}
-                {social.platform === 'LinkedIn' && <Linkedin className="w-5 h-5" />}
+                {social.platform === 'X' && <XIcon size={15} />}
+                {social.platform === 'LinkedIn' && <LinkedinIcon size={15} />}
               </a>
             ))}
           </div>

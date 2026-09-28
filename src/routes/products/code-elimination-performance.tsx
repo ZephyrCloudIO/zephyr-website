@@ -1,67 +1,22 @@
-import { createFileRoute } from '@tanstack/react-router';
-import { Flag, Layers, Package2, Zap } from 'lucide-react';
+import { Panel } from '@/components/home/stage/Panel';
+import { cn } from '@/lib/utils';
+import { createFileRoute, Link } from '@tanstack/react-router';
+import { ArrowRight, Flag, FlaskConical, Layers, Package2, type LucideIcon } from 'lucide-react';
+import type { CSSProperties, ReactNode } from 'react';
 
 export const Route = createFileRoute('/products/code-elimination-performance')({
   component: CodeEliminationPerformancePage,
 });
 
-function CodeEliminationPerformancePage() {
-  return (
-    <div className="min-h-screen bg-black text-white">
-      <div className="container mx-auto px-4 py-16 max-w-7xl">
-        {/* Header */}
-        <div className="text-center mb-16">
-          <div className="flex justify-center mb-6">
-            <div className="p-4 bg-gradient-to-br from-violet-600 to-purple-600 rounded-2xl">
-              <Zap className="w-12 h-12 text-white" />
-            </div>
-          </div>
-          <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">
-            Enterprise Scale Code Elimination & Performance
-          </h1>
-          <p className="text-xl text-neutral-400 max-w-3xl mx-auto">
-            Advanced optimization techniques to reduce bundle size, eliminate dead code, and maximize application
-            performance at scale.
-            <br />
-            Available with Enterprise custom pricing.
-          </p>
-        </div>
+// None of this ships in a Zephyr product yet: keep the "Research preview" framing and label examples as illustrative.
 
-        {/* Features Grid */}
-        <div className="grid gap-12 md:gap-16">
-          {/* Feature Flag Shaking */}
-          <section className="relative">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <Flag className="w-8 h-8 text-violet-500" />
-                  <h2 className="text-3xl font-semibold">Feature Flag Shaking</h2>
-                </div>
-                <p className="text-neutral-400 mb-6">
-                  Automatically eliminate unused feature flag code at build time. Our advanced tree shaking capabilities
-                  removes all code paths for disabled features, resulting in smaller bundles and faster load times.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2">
-                    <span className="text-violet-500 mt-1">✓</span>
-                    <span className="text-neutral-300">Dead code elimination for disabled features</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-violet-500 mt-1">✓</span>
-                    <span className="text-neutral-300">
-                      Build-time and Fetch-time optimization with zero runtime overhead
-                    </span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-violet-500 mt-1">✓</span>
-                    <span className="text-neutral-300">Compatible with popular feature flag services</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
-                <pre className="text-sm overflow-x-auto">
-                  <code className="language-javascript">{`
-/* @common:if [condition="featureFlags.enableNewFeature"] */
+const CONTAINER = 'mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-10';
+const BUTTON =
+  'inline-flex h-11 items-center justify-center gap-2 rounded-xl px-5 text-[0.9375rem] font-medium transition-colors';
+
+const delay = (ms: number) => ({ '--reveal-delay': `${ms}ms` }) as CSSProperties;
+
+const FLAG_SAMPLE = `/* @common:if [condition="featureFlags.enableNewFeature"] */
 export function newFeature() {
   // This function references the utility functions above
   if (!validateFeature()) {
@@ -79,20 +34,9 @@ export function newFeature() {
     timestamp: new Date().toISOString()
   };
 }
-/* @common:endif */
-                  `}</code>
-                </pre>
-              </div>
-            </div>
-          </section>
+/* @common:endif */`;
 
-          {/* Module Federation Tree Shaking */}
-          <section className="relative">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div className="order-2 md:order-1">
-                <div className="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
-                  <pre className="text-sm overflow-x-auto">
-                    <code className="language-javascript">{`// Shared module configuration
+const FEDERATION_SAMPLE = `// Shared module configuration
 {
   shared: {
     react: {
@@ -108,109 +52,258 @@ export function newFeature() {
   }
 }
 
-// Result: 87% reduction in shared deps`}</code>
-                  </pre>
-                </div>
-              </div>
-              <div className="order-1 md:order-2">
-                <div className="flex items-center gap-3 mb-4">
-                  <Package2 className="w-8 h-8 text-violet-500" />
-                  <h2 className="text-3xl font-semibold">Module Federation Tree Shaking</h2>
-                </div>
-                <p className="text-neutral-400 mb-6">
-                  Intelligent tree shaking across federated modules ensures only the code you actually use is included
-                  in your bundles. Eliminate duplicate dependencies and reduce overall application size across
-                  micro-frontends.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2">
-                    <span className="text-violet-500 mt-1">✓</span>
-                    <span className="text-neutral-300">Cross-application dependency optimization</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-violet-500 mt-1">✓</span>
-                    <span className="text-neutral-300">Automatic shared module detection</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-violet-500 mt-1">✓</span>
-                    <span className="text-neutral-300">Smart chunking strategies for optimal caching</span>
-                  </li>
-                </ul>
-              </div>
-            </div>
-          </section>
+// Result: 87% reduction in shared deps`;
 
-          {/* Advanced Dictionary Compression */}
-          <section className="relative">
-            <div className="grid md:grid-cols-2 gap-8 items-center">
-              <div>
-                <div className="flex items-center gap-3 mb-4">
-                  <Layers className="w-8 h-8 text-violet-500" />
-                  <h2 className="text-3xl font-semibold">Advanced Dictionary Compression</h2>
-                </div>
-                <p className="text-neutral-400 mb-6">
-                  Leverage shared dictionaries and advanced compression algorithms to achieve unprecedented reduction in
-                  asset sizes. Our compression engine learns from your codebase patterns to create optimal dictionaries.
-                </p>
-                <ul className="space-y-3">
-                  <li className="flex items-start gap-2">
-                    <span className="text-violet-500 mt-1">✓</span>
-                    <span className="text-neutral-300">Up to 90% compression ratios for JavaScript</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-violet-500 mt-1">✓</span>
-                    <span className="text-neutral-300">Shared dictionaries across micro-frontends</span>
-                  </li>
-                  <li className="flex items-start gap-2">
-                    <span className="text-violet-500 mt-1">✓</span>
-                    <span className="text-neutral-300">Automatic dictionary optimization over time</span>
-                  </li>
-                </ul>
-              </div>
-              <div className="bg-neutral-900 rounded-lg p-6 border border-neutral-800">
-                <div className="space-y-4">
-                  <div className="flex justify-between items-center">
-                    <span className="text-neutral-400">Original Size</span>
-                    <span className="text-white font-mono">2.4 MB</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-neutral-400">Gzip Compressed</span>
-                    <span className="text-white font-mono">780 KB</span>
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <span className="text-neutral-400">Dictionary Compressed</span>
-                    <span className="text-violet-400 font-mono font-semibold">240 KB</span>
-                  </div>
-                  <div className="mt-4 pt-4 border-t border-neutral-700">
-                    <div className="flex justify-between items-center">
-                      <span className="text-neutral-300">Total Reduction</span>
-                      <span className="text-violet-400 font-semibold">90%</span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </section>
-        </div>
+const SIZES = [
+  { label: 'Original size', value: '2.4 MB', kb: 2400 },
+  { label: 'Gzip compressed', value: '780 KB', kb: 780 },
+  { label: 'Dictionary compressed', value: '240 KB', kb: 240 },
+] as const;
 
-        {/* CTA Section */}
-        <div className="mt-24 text-center">
-          <div className="bg-gradient-to-r from-violet-900/20 to-purple-900/20 rounded-2xl p-12 border border-violet-900/30">
-            <h3 className="text-3xl font-semibold mb-4">Ready to Optimize?</h3>
-            <p className="text-neutral-300 mb-8 max-w-2xl mx-auto">
-              Start eliminating unnecessary code and boost your application's performance today.
-            </p>
-            <div className="flex gap-4 justify-center">
-              <a
-                href="mailto:inbound@zephyr-cloud.io?subject=code-performance"
-                className="px-6 py-3 bg-violet-600 hover:bg-violet-700 rounded-lg transition-colors"
-              >
-                Contact Us
-              </a>
+function CodeSample({
+  code,
+  label,
+  mark,
+}: {
+  code: string;
+  label: string;
+  /** Lines to call out, like the markers that fence off flagged code. */
+  mark?: (line: string) => boolean;
+}) {
+  return (
+    <div translate="no" className="overflow-x-auto">
+      <ol aria-label={label} className="m-0 w-max min-w-full list-none p-0 text-ident text-[0.78rem] leading-[1.8]">
+        {code.split('\n').map((line, i) => {
+          const marked = mark?.(line) ?? false;
+          const comment = line.trimStart().startsWith('//');
+          return (
+            <li
+              key={i}
+              className={cn(
+                'flex gap-3 pr-5',
+                marked ? 'bg-surface-3/80 text-ink' : comment ? 'text-ink-faint' : 'text-ink-muted',
+              )}
+            >
+              <span aria-hidden className="w-8 shrink-0 text-right text-ink-faint/60 tabular-nums select-none">
+                {i + 1}
+              </span>
+              <span className="whitespace-pre">{line || ' '}</span>
+            </li>
+          );
+        })}
+      </ol>
+    </div>
+  );
+}
+
+function CompressionSample() {
+  const original = SIZES[0].kb;
+  return (
+    <div className="grid gap-5 py-1">
+      {SIZES.map((row, i) => {
+        const result = i === SIZES.length - 1;
+        return (
+          <div key={row.label}>
+            <div className="flex items-baseline justify-between gap-4 text-sm">
+              <span className={result ? 'text-ink' : 'text-ink-muted'}>{row.label}</span>
+              <span className={cn('tabular-nums', result ? 'font-medium text-ink' : 'text-ink-muted')}>
+                {row.value}
+              </span>
+            </div>
+            <div aria-hidden className="mt-2 h-1.5 overflow-hidden rounded-full bg-surface-3">
+              <div
+                className={cn('h-full rounded-full', result ? 'bg-ink' : 'bg-deployed/60')}
+                style={{ width: `${(row.kb / original) * 100}%` }}
+              />
             </div>
           </div>
-        </div>
+        );
+      })}
+      <div className="flex items-baseline justify-between gap-4 border-t border-line pt-4 text-sm">
+        <span className="text-ink-muted">Total reduction</span>
+        <span className="font-medium text-ink tabular-nums">90%</span>
       </div>
     </div>
+  );
+}
+
+interface ResearchArea {
+  id: string;
+  icon: LucideIcon;
+  title: string;
+  body: string;
+  points: string[];
+  visual: ReactNode;
+}
+
+const AREAS: ResearchArea[] = [
+  {
+    id: 'feature-flag-shaking',
+    icon: Flag,
+    title: 'Feature flag shaking',
+    body: 'Automatically eliminate unused feature flag code at build time. Our advanced tree shaking capabilities remove all code paths for disabled features, resulting in smaller bundles and faster load times.',
+    points: [
+      'Dead code elimination for disabled features',
+      'Build-time and fetch-time optimization with zero runtime overhead',
+      'Compatible with popular feature flag services',
+    ],
+    visual: (
+      <Panel title="new-feature.js" aside="Illustrative" bodyClassName="px-0 py-3">
+        <CodeSample
+          code={FLAG_SAMPLE}
+          label="Illustrative feature flag markers around a function"
+          mark={(line) => line.startsWith('/* @common:')}
+        />
+      </Panel>
+    ),
+  },
+  {
+    id: 'module-federation-tree-shaking',
+    icon: Package2,
+    title: 'Module Federation tree shaking',
+    body: 'Intelligent tree shaking across federated modules ensures only the code you actually use is included in your bundles. Eliminate duplicate dependencies and reduce overall application size across micro-frontends.',
+    points: [
+      'Cross-application dependency optimization',
+      'Automatic shared module detection',
+      'Smart chunking strategies for optimal caching',
+    ],
+    visual: (
+      <Panel title="module-federation.config.js" aside="Illustrative" bodyClassName="px-0 py-3">
+        <CodeSample
+          code={FEDERATION_SAMPLE}
+          label="Illustrative shared module configuration"
+          mark={(line) => line.includes("import: ['Button', 'Modal']")}
+        />
+      </Panel>
+    ),
+  },
+  {
+    id: 'dictionary-compression',
+    icon: Layers,
+    title: 'Advanced dictionary compression',
+    body: 'Leverage shared dictionaries and advanced compression algorithms to achieve unprecedented reduction in asset sizes. Our compression engine learns from your codebase patterns to create optimal dictionaries.',
+    points: [
+      'Up to 90% compression ratios for JavaScript',
+      'Shared dictionaries across micro-frontends',
+      'Automatic dictionary optimization over time',
+    ],
+    visual: (
+      <Panel title="dist/main.js" aside="Illustrative numbers" bodyClassName="px-5 py-5">
+        <CompressionSample />
+      </Panel>
+    ),
+  },
+];
+
+function Area({ area, index }: { area: ResearchArea; index: number }) {
+  const Icon = area.icon;
+  const flip = index % 2 === 1;
+
+  return (
+    <article
+      aria-labelledby={`${area.id}-title`}
+      className={cn(
+        'grid gap-10 lg:items-center lg:gap-16',
+        // The visual gets the wider column so the samples read without scrolling on desktop.
+        flip ? 'lg:grid-cols-[minmax(0,7fr)_minmax(0,5fr)]' : 'lg:grid-cols-[minmax(0,5fr)_minmax(0,7fr)]',
+      )}
+    >
+      <div className={cn('reveal min-w-0', flip && 'lg:order-2')}>
+        <span className="mb-6 flex size-10 items-center justify-center rounded-xl border border-line bg-surface text-ink-muted">
+          <Icon className="size-5" aria-hidden />
+        </span>
+        <h3 id={`${area.id}-title`} className="text-title m-0 text-ink">
+          {area.title}
+        </h3>
+        <p className="mt-4 mb-0 max-w-xl text-[1.0625rem] leading-relaxed text-ink-muted">{area.body}</p>
+        <ul className="m-0 mt-6 grid list-none gap-3 p-0">
+          {area.points.map((point) => (
+            <li key={point} className="flex items-start gap-3 text-[0.9375rem] leading-normal text-ink-muted">
+              {/* Hollow markers, not checks: none of these are shipped. */}
+              <span aria-hidden className="mt-[0.55em] size-1.5 shrink-0 rounded-full border border-ink-faint" />
+              {point}
+            </li>
+          ))}
+        </ul>
+      </div>
+      <div className={cn('reveal min-w-0', flip && 'lg:order-1')} style={delay(90)}>
+        {area.visual}
+      </div>
+    </article>
+  );
+}
+
+function CodeEliminationPerformancePage() {
+  return (
+    <>
+      <section aria-labelledby="research-title" className="pt-16 pb-24 lg:pt-24 lg:pb-32">
+        <div className={CONTAINER}>
+          <p className="m-0 mb-8 inline-flex max-w-full items-center gap-2 rounded-full border border-dashed border-line-strong px-3.5 py-1.5 text-sm text-ink">
+            <FlaskConical className="size-4 shrink-0 text-ink-muted" aria-hidden />
+            Research preview
+            <span aria-hidden className="text-ink-faint">
+              ·
+            </span>
+            <span className="text-ink-muted">Not yet available</span>
+          </p>
+          <h1 id="research-title" className="text-display m-0 max-w-5xl text-ink">
+            Enterprise scale code elimination &amp; performance
+          </h1>
+          <p className="text-lead mt-7 mb-0 max-w-2xl text-ink-muted">
+            Advanced optimization techniques to reduce bundle size, eliminate dead code, and maximize application
+            performance at scale.
+          </p>
+          <p className="mt-8 mb-0 max-w-2xl rounded-xl border border-line-strong bg-surface/70 px-4 py-3 text-[0.9375rem] leading-relaxed text-ink">
+            These are things the Zephyr team is researching, not shipped features you can use today.
+          </p>
+        </div>
+      </section>
+
+      <section aria-labelledby="areas-title" className="border-t border-line py-24 lg:py-32">
+        <div className={CONTAINER}>
+          <div className="reveal max-w-2xl">
+            <p className="mb-3 text-sm text-ink-faint">Research areas</p>
+            <h2 id="areas-title" className="text-headline m-0 text-ink">
+              What we’re exploring.
+            </h2>
+          </div>
+          <div className="mt-16 grid gap-24 lg:mt-20 lg:gap-32">
+            {AREAS.map((area, i) => (
+              <Area key={area.id} area={area} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="research-cta-title" className="border-t border-line py-24 lg:py-32">
+        <div className={cn(CONTAINER, 'reveal flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between')}>
+          <div className="max-w-2xl">
+            <p className="mb-3 text-sm text-ink-faint">Research preview</p>
+            <h2 id="research-cta-title" className="text-headline m-0 text-ink">
+              Interested in this research?
+            </h2>
+            <p className="text-lead mt-5 mb-0 text-ink-muted">
+              None of this is available in Zephyr yet. If shipping less code at scale matters to your team, we’d like to
+              hear about it.
+            </p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="mailto:inbound@zephyr-cloud.io?subject=code-performance"
+              className={cn(BUTTON, 'bg-released text-white hover:bg-[#8b4df5]')}
+            >
+              Talk to us about this research
+              <ArrowRight className="size-4" aria-hidden />
+            </a>
+            <Link
+              to="/"
+              className={cn(BUTTON, 'border border-line-strong text-ink-muted hover:border-deployed/60 hover:text-ink')}
+            >
+              See what’s available today
+            </Link>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

@@ -1,126 +1,102 @@
 import SOC2Logo from '@/images/soc2-logo.webp';
 import WordmarkLight from '@/images/wordmark-light.svg';
 import { Link } from '@tanstack/react-router';
-import { Activity } from 'lucide-react';
+import { ArrowUpRight } from 'lucide-react';
 import React from 'react';
+
+interface FooterLink {
+  label: string;
+  href: string;
+  external?: boolean;
+}
+
+const COLUMNS: { title: string; links: FooterLink[] }[] = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'Pricing', href: '/pricing' },
+      { label: 'Changelog', href: '/changelog' },
+      { label: 'Service status', href: 'https://status.zephyr-cloud.io/', external: true },
+      { label: 'The AI Platform', href: 'https://theaiplatform.app', external: true },
+    ],
+  },
+  {
+    title: 'Developers',
+    links: [
+      { label: 'Docs', href: 'https://docs.zephyr-cloud.io/', external: true },
+      { label: 'npm packages', href: 'https://www.npmjs.com/org/zephyrcloud', external: true },
+      { label: 'llms.txt', href: '/llms.txt' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'Blog', href: '/blog' },
+      { label: 'Events', href: '/events' },
+      { label: 'Partners', href: '/partners' },
+      { label: 'Press', href: '/press' },
+      { label: 'Brand', href: '/brand' },
+      { label: 'All links', href: '/all-links' },
+    ],
+  },
+  {
+    title: 'Community',
+    links: [
+      { label: 'GitHub', href: 'https://github.com/ZephyrCloudIO', external: true },
+      { label: 'Discord', href: 'https://discord.gg/zephyrcloud', external: true },
+      { label: 'X', href: 'https://x.com/ZephyrCloudIO', external: true },
+      { label: 'LinkedIn', href: 'https://www.linkedin.com/company/96615966', external: true },
+      { label: 'YouTube', href: 'https://www.youtube.com/@ZephyrCloud', external: true },
+      { label: 'Instagram', href: 'https://www.instagram.com/zephyrcloudio', external: true },
+    ],
+  },
+];
+
+const linkClass = 'inline-flex items-center gap-1 text-sm text-ink-muted transition-colors hover:text-ink';
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="py-16 bg-neutral-950 border-t border-neutral-800">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mb-12">
-          <div className="col-span-2 md:col-span-1">
-            <Link to="/" className="flex items-center gap-2 mb-4">
-              <img src={WordmarkLight} alt="Zephyr Logo" width={128} />
+    <footer className="border-t border-line bg-night">
+      <div className="mx-auto max-w-[1320px] px-5 pt-16 pb-10 sm:px-8 lg:px-10">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-12 md:grid-cols-4 lg:grid-cols-[1.4fr_repeat(4,1fr)]">
+          <div className="col-span-2 md:col-span-4 lg:col-span-1">
+            <Link to="/" className="inline-flex rounded-md">
+              <img src={WordmarkLight} alt="Zephyr Cloud" width={124} height={24} />
             </Link>
-            <img src={SOC2Logo} alt="SOC2 Compliant" className="h-12 mb-4" />
-            <p className="text-xs text-neutral-500">&copy; {new Date().getFullYear()} Zephyr Cloud, Inc.</p>
+            <p className="mt-5 max-w-[16rem] text-sm leading-relaxed text-ink-faint">
+              Always deployed. Released when you’re ready.
+            </p>
+            <img src={SOC2Logo} alt="SOC 2 compliant" height={48} className="mt-6 h-12 w-auto" loading="lazy" />
           </div>
-          <div>
-            <h5 className="font-medium text-white mb-3">Developers</h5>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <a href="https://docs.zephyr-cloud.io/" target="_blank" className="text-neutral-400 hover:text-white">
-                  Docs
-                </a>
-              </li>
-              <li>
-                <Link to="./llms.txt" target="_blank" className="text-neutral-400 hover:text-white">
-                  llms.txt
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h5 className="font-medium text-white mb-3">Company</h5>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/all-links" className="text-neutral-400 hover:text-white">
-                  All Links
-                </Link>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/ZephyrCloudIO"
-                  target="_blank"
-                  className="text-neutral-400 hover:text-white"
-                >
-                  GitHub
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.linkedin.com/company/96615966"
-                  target="_blank"
-                  className="text-neutral-400 hover:text-white"
-                >
-                  LinkedIn
-                </a>
-              </li>
-              <li>
-                <a href="https://discord.gg/zephyrcloud" target="_blank" className="text-neutral-400 hover:text-white">
-                  Discord
-                </a>
-              </li>
-              <li>
-                <a href="https://x.com/ZephyrCloudIO" target="_blank" className="text-neutral-400 hover:text-white">
-                  X
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.youtube.com/@ZephyrCloud"
-                  target="_blank"
-                  className="text-neutral-400 hover:text-white"
-                >
-                  YouTube
-                </a>
-              </li>
-              <li>
-                <a
-                  href="https://www.instagram.com/zephyrcloudio"
-                  target="_blank"
-                  className="text-neutral-400 hover:text-white"
-                >
-                  Instagram
-                </a>
-              </li>
-              <li>
-                <Link to="/brand" className="text-neutral-400 hover:text-white">
-                  Brand
-                </Link>
-              </li>
-            </ul>
-          </div>
-          <div>
-            <h5 className="font-medium text-white mb-3">Legal</h5>
-            <ul className="space-y-2 text-sm">
-              <li>
-                <Link to="/privacy" className="text-neutral-400 hover:text-white">
-                  Privacy Policy
-                </Link>
-              </li>
-            </ul>
-          </div>
+
+          {COLUMNS.map((column) => (
+            <nav key={column.title} aria-label={column.title}>
+              <h2 className="m-0 mb-4 text-sm font-medium text-ink">{column.title}</h2>
+              <ul className="m-0 list-none space-y-2.5 p-0">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    {link.external ? (
+                      <a href={link.href} target="_blank" rel="noopener" className={linkClass}>
+                        {link.label}
+                        <ArrowUpRight aria-hidden className="size-3 text-ink-faint" />
+                      </a>
+                    ) : (
+                      <Link to={link.href} className={linkClass}>
+                        {link.label}
+                      </Link>
+                    )}
+                  </li>
+                ))}
+              </ul>
+            </nav>
+          ))}
         </div>
 
-        {/* Status Widget */}
-        <div className="mt-12 pt-8 border-t border-neutral-800">
-          <div className="flex items-center justify-center">
-            <a
-              href="https://status.zephyr-cloud.io/"
-              target="_blank"
-              rel="noopener"
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-neutral-900 border border-neutral-800 hover:border-neutral-700 transition-colors group"
-            >
-              <div className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
-              </div>
-              <span className="text-sm text-neutral-400 group-hover:text-neutral-300">All systems operational</span>
-              <Activity size={14} className="text-neutral-500 group-hover:text-neutral-400" />
-            </a>
-          </div>
+        <div className="mt-14 flex flex-col gap-3 border-t border-line pt-6 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
+          <p className="m-0">&copy; {new Date().getFullYear()} Zephyr Cloud, Inc.</p>
+          <Link to="/privacy" className="transition-colors hover:text-ink-muted">
+            Privacy policy
+          </Link>
         </div>
       </div>
     </footer>

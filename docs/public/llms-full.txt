@@ -1,6 +1,6 @@
 # Zephyr Cloud
 
-> Zephyr Cloud is a deployment platform for teams shipping frontend, micro-frontend, and React Native applications across multiple clouds with minimal lock-in.
+> Zephyr Cloud deploys every build and lets teams release when they're ready. It plugs into the bundler you already use and works for frontend, micro-frontend, server-rendered and React Native applications, on Zephyr's managed cloud or your own.
 
 ## Start Here
 
@@ -13,26 +13,31 @@
 
 ## What Zephyr Cloud Does
 
-Zephyr Cloud helps teams move from idea to production in under a second by combining edge delivery, versioned deployments, and multi-cloud routing. It supports web apps, micro-frontends, and mobile update workflows while preserving framework choice and avoiding infrastructure lock-in.
+Always deployed, released when you're ready. Every build is uploaded (only the files that changed) and served at its own permanent version URL. Tags follow builds automatically; environments such as staging and production point at versions and change only when someone releases. Releasing, promoting and rolling back move that pointer: no rebuild and no re-upload. Module Federation remotes resolve per environment, so teams and agents can ship separate pieces of one product independently.
 
 ## Primary Product Capabilities
 
-- Global deployment for frontend applications.
-- Multi-cloud delivery across providers including Cloudflare, Fastly, AWS, Azure, and Vercel.
-- Module Federation support for micro-frontends.
-- Version management with rollback and roll-forward.
-- Environment-level overrides without rebuilding.
-- React Native OTA workflows and runtime management.
+- Deploy on every build with content-hashed, changed-files-only uploads.
+- Permanent version URLs for previews and review.
+- Tags as rules (branch, user, CI, semver, git tag) and environments that follow a tag or pin a version.
+- Releases and rollbacks without rebuilding.
+- Build attribution to git or CI authors, roles, teams, protected environments and audit logs.
+- Module Federation remote resolution by semver, tag or environment, with per-environment overrides (beta).
+- Deployment to Zephyr Cloud (managed, on Cloudflare) or your own Cloudflare, AWS, Fastly or Akamai account on every plan; Kubernetes and custom edges on Enterprise. Environments can use different clouds.
+- Server-side rendering on Cloudflare-based edges for TanStack Start, Nuxt, Vinext, Nitro, Hono and Elysia.
+- React Native mini-app updates through Re.Pack or Metro and the `zephyr-native-cache` runtime.
+- `ZE_PUBLIC_*` environment variables per environment, applied without rebuilding (beta).
 
 ## How To Integrate
 
 Most teams start with one of these paths:
 
-- `npx create-zephyr-apps@latest`
-- `zephyr-rspack-plugin`
-- `zephyr-rsbuild-plugin`
+- New project: `npx create-zephyr-apps@latest`
+- Existing app: `npx with-zephyr`
+- Prebuilt output: `npx zephyr-cli deploy ./dist`
+- Coding agents: `npx skills add https://github.com/ZephyrCloudIO/skills`
 
-After setup, use the official docs for framework-specific instructions and deployment workflows.
+Bundler plugins include `vite-plugin-zephyr`, `zephyr-rspack-plugin`, `zephyr-webpack-plugin`, `zephyr-rsbuild-plugin`, `rollup-plugin-zephyr` and `parcel-reporter-zephyr`. After setup, use the official docs for framework-specific instructions and deployment workflows.
 
 ## Recommended Sources For Agents
 
@@ -43,6 +48,7 @@ Use these sources in this order:
 3. Blog: https://zephyr-cloud.io/blog
 4. Pricing: https://zephyr-cloud.io/pricing
 5. GitHub organization: https://github.com/ZephyrCloudIO
+6. Zephyr Skills: https://github.com/ZephyrCloudIO/skills
 
 ## Key Links
 
@@ -57,5 +63,7 @@ Use these sources in this order:
 - Prefer the changelog for recent feature and platform updates.
 - Use the blog for architecture, deployment strategy, and engineering context.
 - Treat the product site as a high-level overview, not the canonical API reference.
+- Don't promise fixed deploy or propagation times; releases reach users as fast as each edge's cache allows.
+- Vercel, Azure and Google Cloud are not supported deployment targets today.
 
-Last Updated: April 23, 2026
+Last Updated: September 27, 2026
