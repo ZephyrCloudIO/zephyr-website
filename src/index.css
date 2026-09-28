@@ -2,89 +2,98 @@
 @import 'tw-animate-css';
 @plugin 'tailwindcss-animate';
 
-/* Import highlight.js theme for code syntax highlighting */
-@import 'highlight.js/styles/github-dark.css';
-
-/* Testimonial scrolling animation */
-@keyframes scroll {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-50%);
-  }
-}
-
-.scrolling-container {
-  animation: scroll 40s linear infinite;
-}
-
-.scrolling-container:hover {
-  animation-play-state: paused;
-}
-
-body {
-  margin: 0;
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  background-color: var(--background);
-  background-image:
-    radial-gradient(ellipse at 20% 0%, oklch(0.541 0.247 293 / 0.06) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 100%, oklch(0.541 0.247 293 / 0.04) 0%, transparent 60%),
-    linear-gradient(to bottom, oklch(0.079 0.02 261), oklch(0.095 0.022 262), oklch(0.11 0.022 263));
-}
-
-.content {
-  display: flex;
-  min-height: 100vh;
-  line-height: 1.1;
-  text-align: center;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.content h1 {
-  font-size: 3.6rem;
-  font-weight: 500;
-}
-
-.content p {
-  font-size: 1.2rem;
-  font-weight: 400;
-  opacity: 0.5;
-}
-
-.mdx-content ul li > p {
-  display: inline;
-  margin: 0;
-}
-
-.mdx-content ul {
-  list-style-position: inside;
-}
-
-/* Prevent orphans in blog content */
-.mdx-content h1,
-.mdx-content h2,
-.mdx-content h3,
-.mdx-content h4,
-.mdx-content h5,
-.mdx-content h6 {
-  text-wrap: balance;
-}
-
-.mdx-content p,
-.mdx-content li {
-  text-wrap: pretty;
-}
-
 @custom-variant dark (&:is(.dark *));
 
+/* ─── Zephyr tokens ──────────────────────────────────────────────────────────
+   Color carries meaning, not mood:
+   - released (violet #7C3AED, brand)  → what users are served; primary action
+   - deployed (steel)                  → every build, live at its own URL
+   - live (green)                      → status dots only
+   - fault (coral)                     → a bad release, nothing else
+   Fonts are self-hosted (CSP blocks third-party stylesheets): Inter Variable
+   with optical sizing, Chivo Mono for literal product identifiers only.
+   ─────────────────────────────────────────────────────────────────────────── */
+:root {
+  --ze-night: #07080c;
+  --ze-surface: #0d0f15;
+  --ze-surface-2: #131620;
+  --ze-surface-3: #1a1e2a;
+  --ze-line: rgb(237 238 243 / 0.08);
+  --ze-line-strong: rgb(237 238 243 / 0.16);
+  --ze-ink: #edeef3;
+  --ze-ink-muted: #a1a6b8;
+  --ze-ink-faint: #7f8498;
+  --ze-deployed: #8a90a6;
+  --ze-released: #7c3aed;
+  --ze-released-ink: #b69dff;
+  --ze-live: #34d399;
+  --ze-fault: #fb7185;
+  /* The Zephyr plugin prints its log prefix on a cyan background; kept literal. */
+  --ze-log-badge: #22d3ee;
+
+  --ease-out-soft: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out-cam: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* Shiki code blocks and Rspress components used in MDX (e.g. <Tabs>) read these. Rspress only defines dark
+   values under html.rp-dark, which this site never sets; html:root outranks its :root/:where() rules. */
+html:root {
+  --shiki-background: #0a0c11;
+  --shiki-foreground: #d4d7e1;
+  --shiki-token-comment: #7f8498;
+  --shiki-token-keyword: #9fb3e8;
+  --shiki-token-function: #edeef3;
+  --shiki-token-parameter: #e6c89c;
+  --shiki-token-string: #dcc59f;
+  --shiki-token-string-expression: #dcc59f;
+  --shiki-token-constant: #e8ae8e;
+  --shiki-token-punctuation: #8a90a6;
+  --shiki-token-link: #9fb3e8;
+  --shiki-token-inserted: #8fd4ae;
+  --shiki-token-deleted: #f59aa6;
+  --rp-c-bg: var(--ze-surface);
+  --rp-c-bg-soft: var(--ze-surface-3);
+  --rp-c-bg-mute: var(--ze-surface-2);
+  --rp-c-divider: var(--ze-line-strong);
+  --rp-c-divider-light: var(--ze-line);
+  --rp-c-text-0: var(--ze-ink);
+  --rp-c-text-1: var(--ze-ink);
+  --rp-c-text-2: var(--ze-ink-muted);
+  --rp-code-title-bg: var(--ze-surface);
+  --rp-code-block-bg: #0a0c11;
+  --rp-code-block-border: 1px solid var(--ze-line);
+  --rp-code-block-shadow: none;
+  --rp-radius: 0.875rem;
+  --rp-radius-small: 0.5rem;
+}
+
 @theme inline {
+  --color-night: var(--ze-night);
+  --color-surface: var(--ze-surface);
+  --color-surface-2: var(--ze-surface-2);
+  --color-surface-3: var(--ze-surface-3);
+  --color-line: var(--ze-line);
+  --color-line-strong: var(--ze-line-strong);
+  --color-ink: var(--ze-ink);
+  --color-ink-muted: var(--ze-ink-muted);
+  --color-ink-faint: var(--ze-ink-faint);
+  --color-deployed: var(--ze-deployed);
+  --color-released: var(--ze-released);
+  --color-released-ink: var(--ze-released-ink);
+  --color-live: var(--ze-live);
+  --color-fault: var(--ze-fault);
+  --color-log-badge: var(--ze-log-badge);
+
+  --font-sans: 'Inter Variable', Inter, ui-sans-serif, system-ui, sans-serif;
+  --font-mono: 'Chivo Mono Variable', 'Chivo Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  --ease-out-soft: var(--ease-out-soft);
+  --ease-in-out-cam: var(--ease-in-out-cam);
+
   --color-main: var(--main);
   --color-main-foreground: var(--main-foreground);
   --color-main-muted: var(--main-muted);
   --color-main-background: var(--main-background);
-  --font-mono: 'Chivo Mono', monospace;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-sidebar-ring: var(--sidebar-ring);
@@ -137,10 +146,258 @@ body {
   }
 }
 
-/* ─── Light mode ─────────────────────────────────────────────────────────────
-   DS mapping: colors/*-light  →  base/* (Collection "2. Theme" → "3. Mode")
-   Primary brand color: violet.600 (#7c3aed) — DS JSON source of truth.
+/* ─── Type scale ─────────────────────────────────────────────────────────── */
+@utility text-display {
+  font-size: clamp(2.75rem, 1.2rem + 3.9vw, 4.75rem);
+  line-height: 0.98;
+  letter-spacing: -0.038em;
+  font-weight: 620;
+  text-wrap: balance;
+}
+
+@utility text-headline {
+  font-size: clamp(2rem, 1.25rem + 2.3vw, 3.25rem);
+  line-height: 1.04;
+  letter-spacing: -0.03em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+@utility text-title {
+  font-size: clamp(1.25rem, 1.1rem + 0.45vw, 1.5rem);
+  line-height: 1.2;
+  letter-spacing: -0.016em;
+  font-weight: 600;
+  text-wrap: balance;
+}
+
+@utility text-lead {
+  font-size: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+  line-height: 1.55;
+  text-wrap: pretty;
+}
+
+/* Literal product identifiers: `production`, `#42`, URLs, commands. */
+@utility text-ident {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  font-weight: 450;
+  letter-spacing: -0.01em;
+  font-variant-ligatures: none;
+}
+
+/* ─── Scroll reveals ─────────────────────────────────────────────────────────
+   A pre-paint head script sets html[data-motion='on'] only when JS runs, so
+   text is never hidden for crawlers, no-JS visitors, or failed hydration.
    ─────────────────────────────────────────────────────────────────────────── */
+[data-motion='on'] .reveal {
+  opacity: 0;
+  transform: translateY(14px);
+  transition:
+    opacity 700ms var(--ease-out-soft),
+    transform 700ms var(--ease-out-soft);
+  transition-delay: var(--reveal-delay, 0ms);
+}
+
+[data-motion='on'] .reveal.is-in {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-motion='on'] .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ─── Hero headline: deployed (steel) → marker lands → released (ink) ────────
+   CSS rather than JS so the SSR headline never waits on hydration.
+   ─────────────────────────────────────────────────────────────────────────── */
+[data-motion='on'] .hero-deployed {
+  animation: ze-rise 720ms var(--ease-out-soft) both;
+}
+
+[data-motion='on'] .hero-released {
+  animation:
+    ze-rise 720ms var(--ease-out-soft) 140ms both,
+    ze-release 520ms var(--ease-out-soft) 980ms both;
+}
+
+[data-motion='on'] .hero-marker {
+  animation: ze-marker-land 640ms var(--ease-out-soft) 560ms both;
+}
+
+@keyframes ze-rise {
+  from {
+    opacity: 0;
+    transform: translateY(0.16em);
+  }
+}
+
+@keyframes ze-release {
+  from {
+    color: var(--ze-deployed);
+  }
+  to {
+    color: var(--ze-ink);
+  }
+}
+
+@keyframes ze-marker-land {
+  from {
+    opacity: 0;
+    transform: translate(-0.35em, -0.85em);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-motion='on'] .hero-deployed,
+  [data-motion='on'] .hero-released,
+  [data-motion='on'] .hero-marker {
+    animation: none;
+  }
+}
+
+/* ─── Home story below lg: one figure per chapter, its steps as tabs ────────
+   Step copy stacks in a single grid cell (the tallest step sets the height), so
+   switching steps never moves the page. Without JS every step shows, in order.
+   ─────────────────────────────────────────────────────────────────────────── */
+@media (width < 64rem) {
+  [data-motion='on'] .story-panels {
+    display: grid;
+  }
+
+  .story-panels > * + * {
+    margin-top: 2.5rem;
+  }
+
+  [data-motion='on'] .story-panels > * {
+    grid-area: 1 / 1;
+    margin-top: 0;
+  }
+
+  [data-motion='on'] .story-panels > :not([data-active]) {
+    visibility: hidden;
+  }
+
+  [data-motion='on'] .story-panels > [data-active] {
+    animation: ze-step-in 420ms var(--ease-out-soft) both;
+  }
+}
+
+:root:not([data-motion='on']) .story-tabs {
+  display: none;
+}
+
+@keyframes ze-step-in {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+}
+
+@keyframes story-progress {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-motion='on'] .story-panels > [data-active] {
+    animation: none;
+  }
+}
+
+/* The home stage's pause control (WCAG 2.2.2) freezes every CSS loop inside it. */
+[data-paused] *,
+[data-paused] *::before,
+[data-paused] *::after {
+  animation-play-state: paused !important;
+}
+
+/* Testimonials: phones show the first few until expanded; without JS, all of them. */
+@media (width < 48rem) {
+  [data-motion='on'] .proof-quotes:not([data-expanded]) > .proof-extra {
+    display: none;
+  }
+}
+
+:root:not([data-motion='on']) .proof-more {
+  display: none;
+}
+
+/* Testimonial marquee */
+@keyframes scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.scrolling-container {
+  animation: scroll 60s linear infinite;
+}
+
+.scrolling-container:hover,
+.scrolling-container:focus-within {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .scrolling-container {
+    animation: none;
+  }
+}
+
+html {
+  color-scheme: dark;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  background-color: var(--ze-night);
+  color: var(--ze-ink);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: rgb(124 58 237 / 0.45);
+  color: #fff;
+}
+
+.content {
+  display: flex;
+  min-height: 100vh;
+  line-height: 1.1;
+  text-align: center;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.content h1 {
+  font-size: 3.6rem;
+  font-weight: 500;
+}
+
+.content p {
+  font-size: 1.2rem;
+  font-weight: 400;
+  opacity: 0.5;
+}
+
+/* ─── Light mode (unused by default; kept for shadcn primitives) ───────────── */
 :root {
   --main: oklch(0.97 0 0);
   --main-foreground: oklch(0.925 0 0);
@@ -148,7 +405,6 @@ body {
   --main-background: oklch(0.97 0 0);
   --radius: 0.625rem;
 
-  /* Surface */
   --background: oklch(0.985 0 0);
   --foreground: oklch(0.145 0 0);
   --card: oklch(1 0 0);
@@ -156,37 +412,30 @@ body {
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
 
-  /* Brand — DS: violet.600 (#7c3aed); muted = violet.500 (#8b5cf6) */
   --primary: oklch(0.541 0.247 293);
   --primary-foreground: oklch(0.985 0 0);
   --primary-muted: oklch(0.627 0.22 293);
 
-  /* Neutral surfaces */
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
   --muted: oklch(0.97 0 0);
   --muted-foreground: oklch(0.556 0 0);
 
-  /* Accent — soft violet tint for hover/active states */
   --accent: oklch(0.94 0.02 293);
   --accent-foreground: oklch(0.541 0.247 293);
 
-  /* Feedback */
   --destructive: oklch(0.577 0.245 27.325);
 
-  /* Borders & focus */
   --border: oklch(0.922 0 0);
   --input: oklch(0.922 0 0);
   --ring: oklch(0.541 0.247 293);
 
-  /* Data viz */
   --chart-1: oklch(0.541 0.247 293);
   --chart-2: oklch(0.696 0.17 162.48);
   --chart-3: oklch(0.769 0.188 70.08);
   --chart-4: oklch(0.627 0.265 303.9);
   --chart-5: oklch(0.645 0.246 16.439);
 
-  /* Sidebar */
   --sidebar: oklch(0.985 0 0);
   --sidebar-foreground: oklch(0.145 0 0);
   --sidebar-primary: oklch(0.541 0.247 293);
@@ -197,72 +446,57 @@ body {
   --sidebar-ring: oklch(0.541 0.247 293);
 }
 
-/* ─── Dark mode (always active via html.dark) ────────────────────────────────
-   DS mapping: Collection "2. Theme" → dark values → Tailwind neutrals.
-   All surfaces and interaction tokens are pure neutral (no blue/purple tints).
-   Background: #020917 (site brand navy) intentionally overrides DS neutral.950.
-   Primary: violet.600 (#7c3aed) — DS JSON source of truth.
+/* ─── Dark mode (always active via the .dark layout wrapper) ─────────────────
+   shadcn tokens mapped onto the Zephyr palette above.
    ─────────────────────────────────────────────────────────────────────────── */
 .dark {
-  /* Custom Zephyr surface tokens — DS: neutral.900 (#171717) */
-  --main: oklch(0.205 0 0);
-  --main-foreground: oklch(0.269 0 0);
-  --main-muted: oklch(0.205 0 0);
-  --main-background: oklch(0.079 0.02 261);
+  --main: var(--ze-surface-2);
+  --main-foreground: var(--ze-surface-3);
+  --main-muted: var(--ze-surface-2);
+  --main-background: var(--ze-night);
 
-  /* Surface — background keeps brand navy; card/popover are DS neutral.900/.800 */
-  --background: oklch(0.079 0.02 261);
-  --foreground: oklch(0.985 0 0);
+  --background: var(--ze-night);
+  --foreground: var(--ze-ink);
 
-  /* DS: card-dark = neutral.900 (#171717); popover-dark = neutral.800 (#262626) */
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.269 0 0);
-  --popover-foreground: oklch(0.985 0 0);
+  --card: var(--ze-surface);
+  --card-foreground: var(--ze-ink);
+  --popover: var(--ze-surface-2);
+  --popover-foreground: var(--ze-ink);
 
-  /* Brand — DS: violet.600 (#7c3aed); primary-muted = violet.400 (#a78bfa) */
-  --primary: oklch(0.541 0.247 293);
-  --primary-foreground: oklch(0.985 0 0);
-  --primary-muted: oklch(0.709 0.159 293.5);
+  --primary: var(--ze-released);
+  --primary-foreground: #ffffff;
+  --primary-muted: var(--ze-released-ink);
 
-  /* DS: secondary-dark = neutral.800 (#262626) */
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
+  --secondary: var(--ze-surface-2);
+  --secondary-foreground: var(--ze-ink);
 
-  /* DS: muted-dark = neutral.800 (#262626); muted-foreground = neutral.400 (#a3a3a3) */
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.715 0 0);
+  --muted: var(--ze-surface-2);
+  --muted-foreground: var(--ze-ink-muted);
 
-  /* DS: accent-dark = neutral.700 (#404040) */
-  --accent: oklch(0.371 0 0);
-  --accent-foreground: oklch(0.985 0 0);
+  --accent: var(--ze-surface-3);
+  --accent-foreground: var(--ze-ink);
 
-  /* Feedback — DS: red.400 (#f87171) */
-  --destructive: oklch(0.711 0.166 22.2);
+  --destructive: var(--ze-fault);
 
-  /* DS: border/input values unchanged */
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
+  --border: var(--ze-line);
+  --input: var(--ze-line-strong);
 
-  /* DS: ring-dark = neutral.500 (#737373) — neutral focus ring */
-  --ring: oklch(0.556 0 0);
+  --ring: var(--ze-released-ink);
 
-  /* Data viz */
-  --chart-1: oklch(0.541 0.247 293);
-  --chart-2: oklch(0.696 0.17 162.48);
+  --chart-1: var(--ze-released);
+  --chart-2: var(--ze-live);
   --chart-3: oklch(0.769 0.188 70.08);
-  --chart-4: oklch(0.627 0.265 303.9);
-  --chart-5: oklch(0.645 0.246 16.439);
+  --chart-4: var(--ze-released-ink);
+  --chart-5: var(--ze-fault);
 
-  /* Sidebar — DS: neutral.900; accent = neutral.800; ring = neutral.600 (#525252) */
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.541 0.247 293);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.439 0 0);
+  --sidebar: var(--ze-surface);
+  --sidebar-foreground: var(--ze-ink);
+  --sidebar-primary: var(--ze-released);
+  --sidebar-primary-foreground: #ffffff;
+  --sidebar-accent: var(--ze-surface-2);
+  --sidebar-accent-foreground: var(--ze-ink);
+  --sidebar-border: var(--ze-line);
+  --sidebar-ring: var(--ze-released-ink);
 }
 
 @layer base {
@@ -271,5 +505,17 @@ body {
   }
   body {
     @apply bg-background text-foreground;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ze-released-ink);
+    outline-offset: 2px;
+  }
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  a,
+  button,
+  [role='slider'] {
+    touch-action: manipulation;
   }
 }

@@ -1,8 +1,11 @@
-import { Button } from '@/components/ui/button';
 import { formatDateLong } from '@/date';
 import { mdxToChangelogEntry, type MDXChangelogEntry } from '@/lib/changelog/loader';
-import { ArrowLeft, Calendar, Clock, Code, Globe, Package, Rocket, Shield, Zap } from 'lucide-react';
-import type { ReactNode } from 'react';
+import { cn } from '@/lib/utils';
+import { ArrowLeft } from 'lucide-react';
+import { useRef, type ReactNode } from 'react';
+import { ARTICLE_COLUMN, ArticleBody, ArticleHeader, ArticleHero, SECONDARY_BUTTON } from './ArticleLayout';
+import { ChangelogCategoryLabel } from './ChangelogCategory';
+import { ReadingProgress } from './ReadingProgress';
 
 interface ChangelogArticlePageProps {
   slug: string;
@@ -18,77 +21,43 @@ export function ChangelogArticlePage({ slug, metadata, children }: ChangelogArti
     },
     slug,
   );
-
-  const getCategoryIcon = () => {
-    switch (entry.category) {
-      case 'performance':
-        return <Zap className="w-5 h-5 text-yellow-500" />;
-      case 'feature':
-        return <Rocket className="w-5 h-5 text-violet-500" />;
-      case 'integration':
-        return <Package className="w-5 h-5 text-blue-500" />;
-      case 'security':
-        return <Shield className="w-5 h-5 text-red-500" />;
-      case 'platform':
-        return <Globe className="w-5 h-5 text-purple-500" />;
-      case 'dx':
-        return <Code className="w-5 h-5 text-orange-500" />;
-      default:
-        return null;
-    }
-  };
+  const articleRef = useRef<HTMLElement>(null);
 
   return (
-    <article className="bg-black text-white">
-      <div className="relative bg-gradient-to-b from-violet-900/20 to-black">
-        <div className="relative container mx-auto pt-10 px-4 flex flex-col justify-end max-w-4xl">
-          <a
-            href="/changelog"
-            className="inline-flex items-center text-neutral-400 hover:text-neutral-200 transition-colors mb-6"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Changelog
-          </a>
+    <article ref={articleRef} className="pb-24 lg:pb-32">
+      <ReadingProgress target={articleRef} />
 
-          {entry.image && (
-            <img src={entry.image} alt={entry.title} className="w-full max-w-3xl mx-auto mb-6 rounded-lg" />
-          )}
-
-          <div className="flex items-center gap-3 mb-4">
-            {getCategoryIcon()}
-            <span className="text-sm text-neutral-400 uppercase tracking-wider">{entry.category}</span>
-          </div>
-
-          <h1 className="text-4xl md:text-5xl font-bold mb-6">{entry.title}</h1>
-
-          <div className="flex items-center gap-6 text-neutral-300 mb-8">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <time dateTime={entry.date.toISOString()}>{formatDateLong(entry.date)}</time>
-            </div>
-
-            {entry.readingTime && (
-              <div className="flex items-center gap-2">
-                <Clock className="w-4 h-4" />
+      <ArticleHeader
+        back={{ href: '/changelog', label: 'Changelog' }}
+        eyebrow={
+          <span className="inline-flex flex-wrap items-center gap-x-2 gap-y-1">
+            <ChangelogCategoryLabel category={entry.category} />
+            {entry.category ? <span aria-hidden>·</span> : null}
+            <time dateTime={entry.date.toISOString()}>{formatDateLong(entry.date)}</time>
+            {entry.readingTime ? (
+              <>
+                <span aria-hidden>·</span>
                 <span>{entry.readingTime} min read</span>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
+              </>
+            ) : null}
+          </span>
+        }
+        title={entry.title}
+        lead={entry.summary || undefined}
+      />
 
-      <div className="container mx-auto px-4 py-12 max-w-4xl">
-        <div className="mdx-content">{children}</div>
+      {entry.image ? <ArticleHero src={entry.image} alt={entry.title} /> : null}
 
-        <div className="mt-12 pt-8 border-t border-neutral-800">
-          <a href="/changelog">
-            <Button variant="outline">
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back to Changelog
-            </Button>
+      <ArticleBody title={entry.title}>{children}</ArticleBody>
+
+      <footer className={cn(ARTICLE_COLUMN, 'mt-16')}>
+        <div className="border-t border-line pt-10">
+          <a href="/changelog" className={SECONDARY_BUTTON}>
+            <ArrowLeft className="size-4" aria-hidden />
+            All updates
           </a>
         </div>
-      </div>
+      </footer>
     </article>
   );
 }

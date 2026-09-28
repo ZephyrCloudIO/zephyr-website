@@ -1,15 +1,14 @@
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
-import { Tab } from '@/components/ui/tab';
+import { EASE_OUT, SPRING_MARKER } from '@/components/motion/tokens';
 import akamai from '@/images/clouds/akamai_white.webp';
 import aws from '@/images/clouds/aws_white.webp';
 import cloudflare from '@/images/clouds/cloudflare_white.webp';
 import fastly from '@/images/clouds/fastly_white.webp';
-import vercel from '@/images/clouds/vercel_white.webp';
+import zephyr from '@/images/logo-light.svg';
 import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
-import { Check, ChevronRight, Cloud, Infinity, Sparkles, Zap } from 'lucide-react';
-import { useState } from 'react';
+import { ArrowRight, ArrowUpRight, Check, Cloud, Infinity as InfinityIcon, Sparkles, Zap } from 'lucide-react';
+import { AnimatePresence, motion, useReducedMotion } from 'motion/react';
+import { useId, useRef, useState, type CSSProperties, type KeyboardEvent } from 'react';
 
 export const Route = createFileRoute('/pricing')({
   component: PricingPage,
@@ -108,263 +107,357 @@ const tiers = [
   },
 ];
 
-function PricingPage() {
-  const [frequency, setFrequency] = useState<'monthly' | 'annually'>('monthly');
-  const isAnnual = frequency === 'annually';
-  const getTierButtonClassName = (tier: (typeof tiers)[number]) => {
-    switch (tier.id) {
-      case 'personal':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
-      case 'team':
-        return 'border border-violet-500/70 bg-violet-600 text-white shadow-lg shadow-violet-900/30 hover:bg-violet-500 hover:border-violet-400';
-      case 'business':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
-      case 'enterprise':
-        return 'border border-neutral-700 bg-neutral-900 text-white shadow-xs hover:border-neutral-500 hover:bg-neutral-800';
-      default:
-        return 'bg-neutral-500 hover:bg-neutral-600';
-    }
+type Tier = (typeof tiers)[number];
+type Frequency = 'monthly' | 'annually';
+
+const FREQUENCIES: readonly { value: Frequency; label: string; note?: string }[] = [
+  { value: 'monthly', label: 'Monthly' },
+  { value: 'annually', label: 'Annually', note: 'Save 15%' },
+];
+
+const HIGHLIGHTS = [
+  { icon: InfinityIcon, label: 'No build minutes' },
+  { icon: Zap, label: 'Sub-second deployments' },
+  { icon: Cloud, label: 'Bring your own cloud (BYOC)' },
+  { icon: Sparkles, label: 'Unlimited preview environments' },
+] as const;
+
+const BYOC_POINTS = [
+  'No vendor lock-in. Ever.',
+  'Deploy to any supported cloud provider',
+  'Switch clouds with one click',
+  'Multi-cloud deployments',
+  'Your security, your compliance',
+] as const;
+
+// Integrations the dashboard offers on every plan: the managed default, or your own account.
+const PROVIDERS = [
+  { name: 'Zephyr Cloud', logo: zephyr, caption: 'Managed', logoClassName: 'size-6' },
+  { name: 'Cloudflare', logo: cloudflare, logoClassName: 'h-7' },
+  { name: 'AWS', logo: aws, logoClassName: 'h-12' },
+  { name: 'Fastly', logo: fastly, logoClassName: 'h-7' },
+  { name: 'Akamai', logo: akamai, logoClassName: 'h-8' },
+] as const;
+
+const OVERAGES = [
+  { plan: 'Personal', bandwidth: '$40 per 100GB', storage: '$10 per 50GB' },
+  { plan: 'Team', bandwidth: '$30 per 100GB', storage: '$7 per 50GB' },
+  { plan: 'Business', bandwidth: '$25 per 100GB', storage: '$5 per 50GB' },
+] as const;
+
+const CONTAINER = 'mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-10';
+const SECTION = 'border-t border-line py-24 lg:py-32';
+const BUTTON =
+  'inline-flex h-11 items-center justify-center gap-2 rounded-xl px-5 text-[0.9375rem] font-medium transition-colors';
+const BUTTON_PRIMARY = 'bg-released text-white hover:bg-[#8b4df5]';
+const BUTTON_SECONDARY = 'border border-line-strong text-ink-muted hover:border-deployed/60 hover:text-ink';
+
+const PRICE_SWAP = { duration: 0.28, ease: EASE_OUT } as const;
+
+const delay = (ms: number) => ({ '--reveal-delay': `${ms}ms` }) as CSSProperties;
+
+/** Monthly / annual billing as a radio group; the pill glides between options. */
+function BillingSwitch({ value, onChange }: { value: Frequency; onChange: (value: Frequency) => void }) {
+  const reduce = useReducedMotion();
+  const switchId = useId();
+  const radios = useRef<(HTMLButtonElement | null)[]>([]);
+
+  const onKeyDown = (event: KeyboardEvent<HTMLButtonElement>, index: number) => {
+    const last = FREQUENCIES.length - 1;
+    let next: number | null = null;
+    if (event.key === 'ArrowRight' || event.key === 'ArrowDown') next = index === last ? 0 : index + 1;
+    if (event.key === 'ArrowLeft' || event.key === 'ArrowUp') next = index === 0 ? last : index - 1;
+    if (event.key === 'Home') next = 0;
+    if (event.key === 'End') next = last;
+    if (next === null) return;
+    event.preventDefault();
+    onChange(FREQUENCIES[next].value);
+    radios.current[next]?.focus();
   };
 
   return (
-    <div className="container mx-auto px-4 py-16 max-w-7xl">
-      {/* Hero Section */}
-      <div className="text-center mb-8">
-        <h1 className="text-5xl font-medium leading-tighter mb-4 text-white">Pricing that scales with your team</h1>
-        <p className="text-xl text-neutral-400 mb-1 max-w-2xl mx-auto">Start free and scale as you grow.</p>
-      </div>
-
-      {/* Key Features Banner */}
-      <div className="bg-gradient-to-r from-violet-900/20 to-violet-700/20 border border-violet-700/30 rounded-lg p-6 mb-12">
-        <div className="flex flex-wrap items-center justify-center gap-6 text-sm">
-          <div className="flex items-center gap-2">
-            <Infinity className="h-4 w-4 text-violet-500" />
-            <span>No build minutes</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Zap className="h-4 w-4 text-violet-500" />
-            <span>Sub-second deployments</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Cloud className="h-4 w-4 text-violet-500" />
-            <span>Bring Your Own Cloud (BYOC)</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <Sparkles className="h-4 w-4 text-violet-500" />
-            <span>Unlimited preview environments</span>
-          </div>
-        </div>
-      </div>
-
-      {/* Billing Toggle */}
-      <div className="p-6 mb-6">
-        <div className="mx-auto flex w-fit rounded-full bg-neutral-900 p-1">
-          <Tab text="monthly" selected={frequency === 'monthly'} setSelected={() => setFrequency('monthly')} />
-          <Tab
-            text="annually"
-            selected={frequency === 'annually'}
-            setSelected={() => setFrequency('annually')}
-            discount={true}
-          />
-        </div>
-      </div>
-      {/* Pricing Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
-        {tiers.map((tier) => (
-          <Card
-            key={tier.id}
-            className={cn(
-              'relative flex flex-col',
-              tier.mostPopular && 'border-violet-700 shadow-lg shadow-violet-700/20',
-            )}
+    <div
+      role="radiogroup"
+      aria-label="Billing period"
+      className="inline-flex shrink-0 self-start rounded-full border border-line-strong bg-surface p-1 lg:self-auto"
+    >
+      {FREQUENCIES.map((option, i) => {
+        const checked = option.value === value;
+        return (
+          <button
+            key={option.value}
+            ref={(el) => {
+              radios.current[i] = el;
+            }}
+            type="button"
+            role="radio"
+            aria-checked={checked}
+            tabIndex={checked ? 0 : -1}
+            onClick={() => onChange(option.value)}
+            onKeyDown={(event) => onKeyDown(event, i)}
+            className="group relative inline-flex h-9 items-center gap-2 rounded-full px-4 text-sm outline-none focus-visible:ring-2 focus-visible:ring-released-ink"
           >
-            {tier.mostPopular && (
-              <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                <span className="bg-violet-600 text-white text-xs font-semibold px-3 py-1 rounded-full">
-                  Most Popular
-                </span>
-              </div>
-            )}
-
-            <CardHeader>
-              <CardTitle className="text-2xl">{tier.name}</CardTitle>
-              <CardDescription className="text-sm">{tier.description}</CardDescription>
-
-              <div className="mt-4">
-                {tier.price.monthly !== null ? (
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-4xl font-bold">${isAnnual ? tier.price.annually : tier.price.monthly}</span>
-                    <span className="text-neutral-400">/user/month</span>
-                  </div>
-                ) : (
-                  <div className="text-3xl font-bold">Custom pricing</div>
+            {checked ? (
+              <motion.span
+                layoutId={`billing-${switchId}`}
+                className="absolute inset-0 rounded-full bg-surface-3 ring-1 ring-line-strong"
+                transition={reduce ? { duration: 0 } : SPRING_MARKER}
+              />
+            ) : null}
+            <span
+              className={cn('relative transition-colors', checked ? 'text-ink' : 'text-ink-muted group-hover:text-ink')}
+            >
+              {option.label}
+            </span>
+            {/* The space keeps the accessible name "Annually Save 15%"; flex drops it visually. */}
+            {option.note ? ' ' : null}
+            {option.note ? (
+              <span
+                className={cn(
+                  'relative rounded-full border px-2 py-px text-xs transition-colors',
+                  checked ? 'border-line-strong text-ink' : 'border-line text-ink-faint group-hover:text-ink-muted',
                 )}
-              </div>
-            </CardHeader>
+              >
+                {option.note}
+              </span>
+            ) : null}
+          </button>
+        );
+      })}
+    </div>
+  );
+}
 
-            <CardContent className="flex-1">
-              <ul className="space-y-3">
-                {tier.features.map((feature, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <Check className="h-4 w-4 text-violet-500 mt-0.5 shrink-0" />
-                    <span className="text-sm text-neutral-300">{feature}</span>
+/** Swaps the number in place when the billing period changes. */
+function Price({ amount }: { amount: number }) {
+  const reduce = useReducedMotion();
+  return (
+    <span className="relative inline-flex overflow-hidden text-[2.75rem] leading-none font-semibold tracking-[-0.035em] text-ink tabular-nums">
+      <AnimatePresence mode="popLayout" initial={false}>
+        <motion.span
+          key={amount}
+          className="inline-block"
+          initial={reduce ? false : { opacity: 0, y: '70%' }}
+          animate={{ opacity: 1, y: 0 }}
+          exit={reduce ? { opacity: 0, transition: { duration: 0 } } : { opacity: 0, y: '-70%' }}
+          transition={PRICE_SWAP}
+        >
+          ${amount}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  );
+}
+
+function TierCard({ tier, frequency }: { tier: Tier; frequency: Frequency }) {
+  const featured = tier.mostPopular;
+  const amount =
+    tier.price.monthly === null ? null : frequency === 'annually' ? tier.price.annually : tier.price.monthly;
+  const external = !tier.href.startsWith('mailto:');
+
+  return (
+    // Subgrid rows keep names, prices, buttons and lists aligned across cards.
+    <li
+      className={cn(
+        'row-span-4 grid grid-rows-subgrid rounded-2xl border bg-surface/70 p-6 transition-colors',
+        featured ? 'border-released/55' : 'border-line hover:border-line-strong',
+      )}
+    >
+      <div>
+        <div className="flex items-center justify-between gap-3">
+          <h2 className="text-title m-0 text-ink">{tier.name}</h2>
+          {featured ? (
+            <span className="rounded-full border border-released/60 bg-released/[0.14] px-2.5 py-0.5 text-xs font-medium whitespace-nowrap text-released-ink">
+              Most popular
+            </span>
+          ) : null}
+        </div>
+        <p className="mt-2 mb-0 text-sm leading-relaxed text-ink-muted">{tier.description}</p>
+      </div>
+
+      <div className="flex min-h-11 items-baseline gap-1.5 pt-3">
+        {amount === null ? (
+          <span className="text-[1.75rem] leading-none font-semibold tracking-[-0.025em] text-ink">Custom pricing</span>
+        ) : (
+          <>
+            <Price amount={amount} />
+            <span className="text-sm text-ink-faint">/user/month</span>
+          </>
+        )}
+      </div>
+
+      <a
+        href={tier.href}
+        {...(external ? { target: '_blank', rel: 'noopener' } : {})}
+        className={cn(BUTTON, 'mt-1 w-full', featured ? BUTTON_PRIMARY : BUTTON_SECONDARY)}
+      >
+        {tier.cta}
+        <ArrowRight className="size-4" aria-hidden />
+      </a>
+
+      <ul className="m-0 mt-2 list-none space-y-2.5 border-t border-line p-0 pt-5">
+        {tier.features.map((feature) => (
+          <li key={feature} className="flex items-start gap-2.5 text-sm leading-snug text-ink-muted">
+            <Check className="mt-[3px] size-4 shrink-0 text-ink-faint" aria-hidden />
+            <span>{feature}</span>
+          </li>
+        ))}
+      </ul>
+    </li>
+  );
+}
+
+function PricingPage() {
+  const [frequency, setFrequency] = useState<Frequency>('monthly');
+
+  return (
+    <>
+      <section aria-labelledby="pricing-title" className="pt-16 pb-24 lg:pt-24 lg:pb-32">
+        <div className={CONTAINER}>
+          <div className="flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+            <div className="min-w-0">
+              <p className="mb-3 text-sm text-ink-faint">Plans</p>
+              <h1 id="pricing-title" className="text-display m-0 max-w-3xl text-ink">
+                Pricing that scales with your team.
+              </h1>
+              <p className="text-lead mt-6 mb-0 text-ink-muted">Start free and scale as you grow.</p>
+              <ul className="m-0 mt-8 flex list-none flex-wrap gap-x-6 gap-y-2.5 p-0 text-sm text-ink-muted">
+                {HIGHLIGHTS.map(({ icon: Icon, label }) => (
+                  <li key={label} className="flex items-center gap-2">
+                    <Icon className="size-4 shrink-0 text-ink-faint" aria-hidden />
+                    {label}
                   </li>
                 ))}
               </ul>
-            </CardContent>
+            </div>
+            <BillingSwitch value={frequency} onChange={setFrequency} />
+          </div>
 
-            <CardFooter>
-              <Button
-                className={cn(
-                  'w-full font-semibold transition-transform duration-200 hover:-translate-y-0.5',
-                  getTierButtonClassName(tier),
-                )}
-                asChild
-              >
-                <a href={tier.href} target="_blank">
-                  {tier.cta}
-                  <ChevronRight className="ml-1 h-4 w-4" />
-                </a>
-              </Button>
-            </CardFooter>
-          </Card>
-        ))}
-      </div>
+          <ul className="m-0 mt-12 grid list-none gap-4 p-0 md:grid-cols-2 xl:grid-cols-4">
+            {tiers.map((tier) => (
+              <TierCard key={tier.id} tier={tier} frequency={frequency} />
+            ))}
+          </ul>
+        </div>
+      </section>
 
-      {/* BYOC Feature Section */}
-      <div className="bg-neutral-900 rounded-lg p-8 mb-16">
-        <div className="grid lg:grid-cols-2 gap-8 items-center">
-          <div>
-            <h2 className="text-3xl font-bold mb-4">
-              <Cloud className="inline-block h-8 w-8 text-foreground mr-2" />
-              Bring Your Own Cloud (BYOC)
+      <section aria-labelledby="byoc-title" className={SECTION}>
+        <div className={cn(CONTAINER, 'grid gap-12 lg:grid-cols-2 lg:items-center lg:gap-16')}>
+          <div className="reveal">
+            <p className="mb-3 text-sm text-ink-faint">Multi-cloud</p>
+            <h2 id="byoc-title" className="text-headline m-0 text-ink">
+              Bring your own cloud (BYOC).
             </h2>
-            <p className="text-neutral-400 mb-6">
-              Deploy to your Cloudflare, Akamai, Vercel, or any of our supported cloud providers. Switch clouds
-              instantly, deploy to multiple clouds or multiple accounts on a cloud simultaneously.
-              <br />
+            <p className="mt-6 mb-0 max-w-xl text-[1.0625rem] leading-relaxed text-ink-muted">
+              Deploy to your Cloudflare, Akamai, AWS, or any of our supported cloud providers. Switch clouds with a
+              setting, deploy to multiple clouds or multiple accounts on a cloud simultaneously.
+            </p>
+            <p className="mt-4 mb-0 max-w-xl text-[1.0625rem] leading-relaxed text-ink-muted">
               With BYOC, you maintain complete control over your infrastructure and costs.
             </p>
-            <ul className="space-y-2">
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>No vendor lock-in. Ever.</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>Deploy to any cloud provider</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>Switch clouds with one click</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>Multi-cloud deployments</span>
-              </li>
-              <li className="flex items-center gap-2">
-                <Check className="h-5 w-5 text-violet-500" />
-                <span>Your security, your compliance</span>
-              </li>
+            <ul className="m-0 mt-8 grid list-none gap-3 p-0">
+              {BYOC_POINTS.map((point) => (
+                <li key={point} className="flex items-start gap-3 text-[0.9375rem] leading-normal text-ink">
+                  <Check className="mt-1 size-4 shrink-0 text-ink-faint" aria-hidden />
+                  {point}
+                </li>
+              ))}
             </ul>
           </div>
-          <div className="bg-neutral-800 rounded-lg p-6">
-            <div className="space-y-4">
-              <div className="text-sm text-neutral-400 text-center">Deploy to your favorite cloud providers</div>
-              <div className="grid grid-cols-3 gap-4">
-                <div className="flex items-center justify-center p-3">
-                  <img
-                    src={cloudflare}
-                    alt="Cloudflare"
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-                <div className="flex items-center justify-center p-3">
-                  <img
-                    src={fastly}
-                    alt="Fastly"
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-                <div className="flex items-center justify-center p-3">
-                  <img
-                    src={akamai}
-                    alt="Akamai"
-                    className="h-8 w-auto opacity-80 hover:opacity-100 transition-opacity"
-                  />
-                </div>
-                <div className="flex items-center justify-center p-3">
-                  <img src={aws} alt="AWS" className="h-8 w-auto opacity-50 grayscale" title="Coming Soon" />
-                </div>
-                <div className="flex items-center justify-center p-3">
-                  <img src={vercel} alt="Vercel" className="h-8 w-auto opacity-50 grayscale" title="Coming Soon" />
-                </div>
-              </div>
-              <div className="text-xs text-neutral-500 text-center pt-2">
-                Available on all paid plans • More providers coming soon
-              </div>
-            </div>
+
+          <div className="reveal rounded-2xl border border-line bg-surface/70 p-5 sm:p-6" style={delay(90)}>
+            <p className="m-0 text-sm text-ink-muted">Deploy to your favorite cloud providers</p>
+            <ul className="m-0 mt-5 grid list-none grid-cols-2 gap-2.5 p-0 sm:grid-cols-3">
+              {PROVIDERS.map((provider) => (
+                <li
+                  key={provider.name}
+                  className="flex h-24 flex-col items-center justify-center gap-1.5 rounded-xl border border-line bg-night/50 px-3 text-center"
+                >
+                  {'caption' in provider ? (
+                    <>
+                      <img src={provider.logo} alt="" className={cn('w-auto', provider.logoClassName)} />
+                      <span className="text-sm leading-tight font-medium whitespace-nowrap text-ink">
+                        {provider.name}
+                        <span className="block text-xs font-normal text-ink-faint">{provider.caption}</span>
+                      </span>
+                    </>
+                  ) : (
+                    <img
+                      src={provider.logo}
+                      alt={provider.name}
+                      className={cn('w-auto max-w-full object-contain opacity-90', provider.logoClassName)}
+                      loading="lazy"
+                    />
+                  )}
+                </li>
+              ))}
+              <li className="flex h-24 flex-col items-center justify-center gap-1 rounded-xl border border-dashed border-line-strong px-3 text-center">
+                <span className="text-sm text-ink-muted">Kubernetes &amp; custom edges</span>
+                <span className="text-xs text-ink-faint">Enterprise</span>
+              </li>
+            </ul>
+            <p className="m-0 mt-5 text-sm text-ink-faint">Bring your own cloud on every plan, including Personal.</p>
           </div>
         </div>
-      </div>
+      </section>
 
-      {/* Usage-Based Pricing */}
-      <div className="mb-16">
-        <h2 className="text-2xl font-bold mb-6 text-center">Simple, transparent overages</h2>
-        <div className="grid md:grid-cols-3 gap-6">
-          <Card className="bg-neutral-900">
-            <CardHeader>
-              <CardTitle className="text-lg">Personal</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-neutral-400">
-                <li>Bandwidth: $40 per 100GB</li>
-                <li>Storage: $10 per 50GB</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-neutral-900">
-            <CardHeader>
-              <CardTitle className="text-lg">Team</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-neutral-400">
-                <li>Bandwidth: $30 per 100GB</li>
-                <li>Storage: $7 per 50GB</li>
-              </ul>
-            </CardContent>
-          </Card>
-
-          <Card className="bg-neutral-900">
-            <CardHeader>
-              <CardTitle className="text-lg">Business</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-2 text-sm text-neutral-400">
-                <li>Bandwidth: $25 per 100GB</li>
-                <li>Storage: $5 per 50GB</li>
-              </ul>
-            </CardContent>
-          </Card>
+      <section aria-labelledby="overages-title" className={SECTION}>
+        <div className={CONTAINER}>
+          <div className="reveal max-w-2xl">
+            <p className="mb-3 text-sm text-ink-faint">Usage-based pricing</p>
+            <h2 id="overages-title" className="text-headline m-0 text-ink">
+              Simple, transparent overages.
+            </h2>
+          </div>
+          <ul className="m-0 mt-12 grid list-none gap-4 p-0 md:grid-cols-3">
+            {OVERAGES.map((row, i) => (
+              <li
+                key={row.plan}
+                className="reveal rounded-2xl border border-line bg-surface/70 p-6"
+                style={delay(i * 80)}
+              >
+                <h3 className="text-title m-0 text-ink">{row.plan}</h3>
+                <dl className="m-0 mt-5 grid gap-3 text-sm">
+                  <div className="flex items-baseline justify-between gap-4 border-t border-line pt-3">
+                    <dt className="text-ink-muted">Bandwidth</dt>
+                    <dd className="m-0 text-ink tabular-nums">{row.bandwidth}</dd>
+                  </div>
+                  <div className="flex items-baseline justify-between gap-4 border-t border-line pt-3">
+                    <dt className="text-ink-muted">Storage</dt>
+                    <dd className="m-0 text-ink tabular-nums">{row.storage}</dd>
+                  </div>
+                </dl>
+              </li>
+            ))}
+          </ul>
         </div>
-      </div>
+      </section>
 
-      {/* FAQ Section */}
-      <div className="text-center">
-        <h2 className="text-2xl font-bold mb-4">Frequently asked questions</h2>
-        <p className="text-neutral-400 mb-6">Have questions? We're here to help.</p>
-        <div className="flex flex-wrap justify-center gap-4">
-          <Button variant="outline" asChild>
-            <a href="https://docs.zephyr-cloud.io/" target="_blank">
+      <section aria-labelledby="faq-title" className={SECTION}>
+        <div className={cn(CONTAINER, 'reveal flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between')}>
+          <div className="max-w-2xl">
+            <p className="mb-3 text-sm text-ink-faint">Help</p>
+            <h2 id="faq-title" className="text-headline m-0 text-ink">
+              Frequently asked questions
+            </h2>
+            <p className="text-lead mt-5 mb-0 text-ink-muted">Have questions? We’re here to help.</p>
+          </div>
+          <div className="flex flex-wrap gap-3">
+            <a
+              href="https://docs.zephyr-cloud.io/"
+              target="_blank"
+              rel="noopener"
+              className={cn(BUTTON, BUTTON_SECONDARY)}
+            >
               View Documentation
+              <ArrowUpRight className="size-4" aria-hidden />
             </a>
-          </Button>
-          <Button variant="outline" asChild>
-            <a href="mailto:support@zephyr-cloud.io">Contact Support</a>
-          </Button>
+            <a href="mailto:support@zephyr-cloud.io" className={cn(BUTTON, BUTTON_SECONDARY)}>
+              Contact Support
+            </a>
+          </div>
         </div>
-      </div>
-    </div>
+      </section>
+    </>
   );
 }

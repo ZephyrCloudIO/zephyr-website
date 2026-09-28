@@ -1,5 +1,5 @@
-import { Button } from '@/components/ui/button';
-import { ArrowLeft, Home } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { useEffect, useState } from 'react';
 
 const popularLinks = [
   { label: 'Blog', href: '/blog' },
@@ -9,47 +9,49 @@ const popularLinks = [
 ];
 
 export function NotFoundPage() {
+  // The 404 page is prerendered once, so the requested path is only known in the browser.
+  const [path, setPath] = useState<string | null>(null);
+
+  useEffect(() => {
+    setPath(window.location.pathname);
+  }, []);
+
   return (
-    <section className="relative bg-gradient-to-b from-violet-900/20 to-black">
-      <div className="container mx-auto flex min-h-[70vh] max-w-3xl flex-col items-center justify-center px-4 py-24 text-center">
-        <p className="bg-gradient-to-b from-white to-neutral-600 bg-clip-text text-7xl font-bold tracking-tight text-transparent md:text-9xl">
-          404
-        </p>
+    <section className="flex min-h-[calc(100svh-4rem)] items-center py-24">
+      <div className="mx-auto w-full max-w-[1320px] px-5 sm:px-8 lg:px-10">
+        <div className="max-w-2xl">
+          <p className="mb-6 text-sm text-ink-faint">404 · Page not found</p>
+          <h1 className="text-display m-0 text-ink">This page isn’t deployed.</h1>
+          <p className="text-lead mt-7 mb-0 max-w-[34rem] text-ink-muted">
+            Nothing is live at{' '}
+            {path ? (
+              <span className="text-ident text-[0.9em] text-ink [overflow-wrap:anywhere]">{path}</span>
+            ) : (
+              'this address'
+            )}
+            . It may have moved, or it was never released.
+          </p>
 
-        <h1 className="mt-6 text-3xl font-bold text-balance text-white md:text-4xl">Page not found</h1>
-
-        <p className="mt-4 max-w-xl text-neutral-400">
-          The page you&apos;re looking for doesn&apos;t exist or may have moved. Let&apos;s get you back on track.
-        </p>
-
-        <div className="mt-10 flex flex-col items-center gap-4 sm:flex-row">
-          <a href="/">
-            <Button size="lg">
-              <Home className="h-4 w-4" />
-              Back to home
-            </Button>
+          <a
+            href="/"
+            className="mt-9 inline-flex h-11 items-center gap-2 rounded-xl bg-released px-5 text-[0.9375rem] font-medium text-white transition-colors hover:bg-[#8b4df5] focus-visible:ring-2 focus-visible:ring-released-ink focus-visible:ring-offset-2 focus-visible:ring-offset-night"
+          >
+            Back to home
+            <ArrowRight className="size-4" aria-hidden />
           </a>
-          <a href="/blog">
-            <Button size="lg" variant="outline">
-              <ArrowLeft className="h-4 w-4" />
-              Explore the blog
-            </Button>
-          </a>
-        </div>
 
-        <div className="mt-12 w-full border-t border-neutral-800 pt-8">
-          <p className="text-sm text-neutral-500">Popular destinations</p>
-          <div className="mt-4 flex flex-wrap items-center justify-center gap-x-6 gap-y-3">
-            {popularLinks.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                className="text-sm text-neutral-300 transition-colors hover:text-violet-400"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
+          <nav aria-label="Popular destinations" className="mt-16 border-t border-line pt-6">
+            <p className="m-0 text-sm text-ink-faint">Popular destinations</p>
+            <ul className="m-0 mt-3 flex list-none flex-wrap gap-x-6 gap-y-2 p-0">
+              {popularLinks.map((link) => (
+                <li key={link.href}>
+                  <a href={link.href} className="text-sm text-ink-muted transition-colors hover:text-ink">
+                    {link.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
         </div>
       </div>
     </section>

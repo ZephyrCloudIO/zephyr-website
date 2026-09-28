@@ -37,6 +37,8 @@ Blog and changelog source lives in `src/content/**`; generated route wrappers li
 - Prefer PascalCase for components (`HeroSection.tsx`), camelCase for helpers, kebab-case for content filenames.
 - Keep files focused; split large sections into smaller components when needed.
 - Reuse existing UI primitives in `src/components/ui/` before creating new ones.
+- Follow [`docs-internal/design-system.md`](docs-internal/design-system.md) for tokens, type, motion, and which product claims the site can make.
+- Don't run `pnpm build` on a machine with a cached Zephyr token (`~/.zephyr`) unless you intend to deploy a preview: the build runs the Zephyr plugin and uploads.
 
 ## Testing Guidelines
 

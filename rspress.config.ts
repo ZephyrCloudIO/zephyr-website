@@ -83,7 +83,8 @@ if (disabledLanderRoutes.length > 0) {
 export default defineConfig({
   root: 'docs',
   title: 'Zephyr Cloud',
-  description: 'The fastest way to go from Idea to Production',
+  description:
+    "Always deployed. Released when you're ready. Every build gets its own live URL; production changes only when you release.",
   icon: '/favicon.ico',
   route: {
     cleanUrls: true,
@@ -93,6 +94,10 @@ export default defineConfig({
   head: [
     ['meta', { name: 'viewport', content: 'width=device-width, initial-scale=1.0' }],
     ['meta', { property: 'og:site_name', content: 'Zephyr Cloud' }],
+    ['meta', { name: 'theme-color', content: '#07080c' }],
+    // Opt into scroll reveals before first paint. Without JS this never runs, so content stays visible;
+    // if the app never mounts (MotionReveal sets the flag), reveal targets are shown again.
+    '<script>(function(d){d.dataset.motion="on";setTimeout(function(){if(!window.__zeMotionReady)d.dataset.motion="off"},3000)})(document.documentElement)</script>',
   ],
   builderConfig: {
     resolve: {
