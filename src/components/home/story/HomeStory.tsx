@@ -342,7 +342,7 @@ function StoryChapter({ chapter, epoch, isDesktop }: StoryChapterProps) {
             id={`${step.beat}-panel`}
             role={isDesktop === false ? 'tabpanel' : undefined}
             aria-labelledby={isDesktop === false ? `${step.beat}-tab` : undefined}
-            className="lg:flex lg:min-h-[78vh] lg:flex-col lg:justify-center lg:py-24"
+            className={`lg:flex lg:flex-col lg:justify-center ${i === 0 ? 'lg:pt-[20vh]' : 'lg:pt-[10vh]'}`}
           >
             <div className="max-w-[35rem]">
               {i === 0 && showDesktop ? (
@@ -387,7 +387,7 @@ export function HomeStory() {
         <div className="pb-24 lg:pb-0">
           <div
             data-beat="hero"
-            className="pt-10 lg:flex lg:min-h-[calc(100svh-4rem)] lg:flex-col lg:justify-center lg:py-16"
+            className="pt-10 lg:flex lg:min-h-[calc(100svh-4rem)] lg:flex-col lg:justify-center lg:pb-0 lg:pt-16"
           >
             <div className="max-w-[35rem]">
               <HeroCopy />
@@ -404,7 +404,7 @@ export function HomeStory() {
           ))}
 
           {/* Keeps the pinned stage in place while the last beat sits at the viewport center. */}
-          <div aria-hidden className="hidden h-[28vh] lg:block" />
+          <div aria-hidden className="hidden h-[20vh] lg:block" />
         </div>
 
         {isDesktop !== false ? (
