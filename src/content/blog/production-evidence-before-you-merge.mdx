@@ -1,0 +1,93 @@
+---
+title: 'Build-time checks aren’t enough'
+slug: 'production-evidence-before-you-merge'
+date: '2026-09-29'
+heroImage: '/images/blog/production-evidence-before-you-merge/hero.webp'
+listingImage: '/images/blog/production-evidence-before-you-merge/hero.webp'
+description: 'A remote can build, pass its checks, and still fail next to a particular host and set of remotes. Check the combination users will actually run, in production, before ordinary traffic moves.'
+authors: ['Zack Chapple']
+tags: ['micro-frontends', 'module-federation', 'deployment', 'architecture']
+readingTime: 6
+hideHero: true
+---
+
+import { ReleasePathFilm } from '@/components/release-path/film/ReleasePathFilm';
+import { LifecycleFigure } from '@/components/release-path/LifecycleFigure';
+import { ReleasePathCta } from '@/components/release-path/ReleasePathCta';
+import { SnapshotFigure } from '@/components/release-path/SnapshotFigure';
+
+<ReleasePathFilm cut="30" />
+
+In a federated application, a remote can build, pass its checks, and still fail when it runs with a particular host and a particular set of other remotes. That is not an edge case. It is the architecture.
+
+Checkout ships on a Tuesday. Catalog shipped last week. Search has not moved in a month. The host loads all of them and, for a moment, you have a product. Each piece was fine in isolation. Together they are not: a contract that drifted, a shared library that resolved two different ways, a screen that only exists when those versions meet.
+
+Build checks never saw that meeting. They inspected a package. People run a combination.
+
+This is for teams who already feel that gap — who are shipping pieces fast enough that a green build has stopped meaning the product will hold — and who have asked whether the check can happen against the runtime they actually serve, before that runtime becomes what everyone gets.
+
+## What the checks cannot see
+
+The old sequence assumed one application and one artifact. Review the change, merge it, then find out how it behaves. That order was never perfect. It was at least pointed at the same object users would get.
+
+Independently deployed frontends break the object. The thing that fails is not “checkout.” It is checkout, this week, sitting next to this host and these other remotes. Frequency makes the miss worse. The more often each team ships, the more combinations exist that no suite planned for.
+
+Previews help, and they are still a parallel universe. Integration tests help, and they cannot keep up with the rate. Flags help you hide a change. They are an awkward way to decide which version of checkout should stand next to which host.
+
+The request underneath all of that is simpler. Before this piece becomes what users receive, watch it run with the rest of the product it will actually meet.
+
+## Already there, not yet theirs
+
+Most pipelines treat deploy and release as one motion. Zephyr does not. A build can already exist — live, addressable, finished — while production keeps serving the version people already have. Pointing people at the new one is a later decision. You do not have to build it again to make that decision.
+
+That is the whole opening. The new checkout can be in the world without being the checkout the world sees.
+
+Most teams mean something straightforward when they say “check it before we deploy”: prove it works with the rest of the product, then let people have it.
+
+That is possible here because the new build can already exist without anyone being pointed at it. You choose the host and remotes it should run with. A QA user — or an automated one — gets that combination in production. Everyone else keeps the current one.
+
+If it holds together, you decide who else should see it. If it does not, ordinary traffic never moved.
+
+## Name the meeting
+
+The check only means something if you know what met.
+
+Say the host is 120, catalog is 211, search is 86, and checkout 54 is the candidate. That set is the thing you learned about. Checkout 54 next to a different host is a different meeting. If the pieces can slide independently while you are looking, you will end up trusting a combination nobody tested.
+
+<SnapshotFigure />
+
+So you hold the set still. Call it a snapshot if you need a word: the versions that ran together, named, unchanged while you decide who else should see them. What you write down afterward — that it held, that it did not, that the error you came for went quiet — has to point back at that same meeting. If someone edits the candidate and the pieces change, you are not looking at the same thing anymore. You look again.
+
+## After it holds
+
+Once you can watch the real combination without giving it to everyone, you are no longer standing on a cliff. You are standing on a path you can walk as far as you want.
+
+<LifecycleFigure active="exposure" />
+
+A QA user first, in production. Then a few real sessions. Then more, if it still holds. Some teams will stop there and bring a person to the diff. That is enough. The check they asked for already happened.
+
+Some teams will keep walking. The same combination can serve everyone, sit through a quiet period, and still wait for someone to read the code and say they want to keep it. Full traffic and an unmerged branch can be true at the same time. That is not the entrance. It is the far end of the same path: proof that putting the build in the world, letting people see it, and accepting the implementation do not have to be the same moment.
+
+If a check fails along the way, people go back to what they had. The candidate can stay where it is while you look. You do not have to merge a change in order to have something to undo.
+
+Compatibility is the floor, not the point. A combination can hold together and still miss what you came for — the error keeps firing, the feature is there and nobody uses it, the number you cared about does not move. Taking that candidate away before you keep it is the check working. Be honest about what you saw. A quiet stretch can tell you the product held. A number moving needs something to compare it to. Serving everyone does not, by itself, prove the change caused the thing you wanted.
+
+People still read the code. They should. They are no longer being asked to imagine the meeting and bless the implementation in the same sitting, with evidence for neither. Someone still decides how far a combination may go. Someone still decides whether the code is something the team can live with. If they say no after people have already been on it, that no has to move people back. It is not only a closed pull request. And moving people back does not rewind what already got written to a database.
+
+## Leave the flags for the experiment
+
+Teams reach for flags when they need to hide a version that has not yet met its host. Version, combination, rollout, and rollback belong in the release path instead. Flags still earn their keep inside a combination you have already decided to keep. They are the wrong tool when their only job is to swap one checkout for another.
+
+Some of this is already how Zephyr works. Every build puts itself on the edge. Versions stay put. Environments point. Remotes can follow an environment, a tag, or a range. Walking traffic automatically, wiring in the number you cared about, handing a reviewer the meeting and the diff together — that is the direction the split opens. It is not a tour of buttons that already exist.
+
+## You are not imagining it
+
+Fast, frequent remote deploys and a green build that cannot see the product: that risk is real. The thing worth watching is the combination people will run. The place that combination actually exists is production. The reason you can watch it there without handing it to everyone is that a build can be in the world without being what the world sees.
+
+We have been talking about that gap. We will not invent a crowd of identical requests to make the point. The miss is enough.
+
+If you are already in it, the next step is not a slogan. It is sitting down with your host, your remotes, what “it held” means for you, what happens when it does not, and how far you want people to go before someone accepts the code.
+
+We should talk through that release path together.
+
+<ReleasePathCta />

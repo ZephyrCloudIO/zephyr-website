@@ -22,6 +22,8 @@ export interface MDXBlogPost {
     authors?: (string | { id: string })[]; // Can be author names or objects with id
     tags: string[];
     readingTime?: number;
+    /** The post opens with its own figure, so the article page skips the hero image. It's still the social image. */
+    hideHero?: boolean;
   };
   default: React.ComponentType;
 }

@@ -321,6 +321,33 @@ html:root {
   animation-play-state: paused !important;
 }
 
+/* ─── Release path film (blog) ───────────────────────────────────────────────
+   The stage lays itself out from its measured width, so with JS it stays hidden
+   until measured; without JS the server-rendered poster frame shows.
+   ─────────────────────────────────────────────────────────────────────────── */
+[data-motion='on'] .film-body:not([data-measured]) {
+  visibility: hidden;
+}
+
+/* A connection in use: dashes flowing down the line. */
+.film-flow {
+  background-image: linear-gradient(to bottom, currentColor 55%, transparent 0);
+  background-size: 1px 6px;
+  animation: film-flow 0.7s linear infinite;
+}
+
+@keyframes film-flow {
+  to {
+    background-position: 0 6px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .film-flow {
+    animation: none;
+  }
+}
+
 /* Testimonials: phones show the first few until expanded; without JS, all of them. */
 @media (width < 48rem) {
   [data-motion='on'] .proof-quotes:not([data-expanded]) > .proof-extra {

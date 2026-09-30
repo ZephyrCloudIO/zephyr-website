@@ -33,6 +33,8 @@ Use `date: YYYY-MM-DD` in the post frontmatter. Dates are parsed as UTC (see `pa
 
 The blog index automatically features the **two most recent posts** (by `date`) — there is no per-post `featured` flag. Publishing a newer post promotes it into the Featured section and pushes the previous one down into the main listing. Selection lives in `src/components/pages/BlogIndexPage.tsx`.
 
+Set `hideHero: true` when the post opens with its own figure (for example an embedded film). The article page then skips the hero image, which is still the post's social image and listing card.
+
 1. Add the source MDX file:
 
 ```text
