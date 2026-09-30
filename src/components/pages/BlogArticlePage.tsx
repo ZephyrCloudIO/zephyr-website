@@ -101,7 +101,7 @@ export function BlogArticlePage({ slug, metadata, children }: BlogArticlePagePro
         </div>
       </ArticleHeader>
 
-      <ArticleHero src={heroImage} alt={post.title} />
+      {metadata.hideHero ? null : <ArticleHero src={heroImage} alt={post.title} />}
 
       <ArticleBody title={post.title}>{children}</ArticleBody>
 

@@ -80,6 +80,16 @@ Below `lg`, each chapter gets one inline `Stage` instead of one per beat. Its be
 - Layout rules for phones: anything a stage measures (`DeployRail`, `useElementWidth`) must start from a width that fits a phone, because the server-rendered layout is what iOS Safari sizes the page from. The layout wrapper clips horizontal overflow (`overflow-x: clip`, never `hidden`, which breaks sticky).
 - Demo data mirrors real shapes: `<app>.<project>.<org>#<buildId>`, version, tag (`t-<tag>-…`) and environment hosts, and the plugin's `ZEPHYR` log format. Numbers are illustrative and labelled "example output".
 
+## Release path film and figures
+
+`src/components/release-path/` holds the companion pieces for the "Build-time checks aren't enough" post: a captioned, silent film (`film/ReleasePathFilm.tsx`) and two static figures (`SnapshotFigure`, `LifecycleFigure`). They share `AppVersionCard` (one app at one numbered version), `SnapshotFrame` (a lockable frame around the versions that run together) and `AcceptanceChip` (`Unmerged` → `Review` → `Accepted`).
+
+- `film/timeline.ts` is the edit list: three cuts (1:30, 0:30, 0:15), each a list of timed cues. The frame at any time is every cue up to it applied in order, so playback, chapter jumps and scrubbing land on the same picture. Change copy in `CAPTIONS`, timing in the cues. The blog embeds the 0:30 cut; the other two are rendered to video from the same file.
+- Three ideas stay on screen once the snapshot is named, each on its own clock: composition (the frame), exposure (the `ordinary users` pointer on the track) and acceptance (the chip). Full traffic can sit next to `Unmerged`; don't tie the chip to the pointer.
+- Rollback is the pointer moving back to the previous snapshot. Alternate paths ("If a check fails") are tagged, then the main path resumes with a `cut` cue.
+- "Snapshot" is an informal word for a set of versions held still, not a product noun. Don't label the frame Project, Environment or Tag. Percentages and outcome numbers are illustrative, and outcome cards never collapse "composition held" and "intended outcome" into one success tile.
+- The stage is decorative (`aria-hidden`); the film's text alternative is its screen-reader transcript. It autoplays only while on screen, never under reduced motion, and `data-paused` freezes its CSS loops like the home stage.
+
 ## Claims
 
 The code in the product repos is the source of truth for what the site says.
