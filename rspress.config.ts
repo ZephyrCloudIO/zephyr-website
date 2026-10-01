@@ -113,6 +113,6 @@ export default defineConfig({
       defaultChangeFreq: 'weekly',
       defaultPriority: '0.6',
     }),
-    withZephyr<UserConfig>(),
+    ...(process.env.ZE_DEPLOY === 'false' ? [] : [withZephyr<UserConfig>()]),
   ],
 });

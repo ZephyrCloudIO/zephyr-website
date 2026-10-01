@@ -54,6 +54,44 @@ function PrivacyPolicy() {
           </li>
         </ul>
 
+        <h2 className={h2}>Connected assistants and site publishing</h2>
+        <p className={p}>
+          When you connect Zephyr to an assistant such as ChatGPT or Codex, we process your Zephyr account identifier,
+          available profile details such as name and email, organization memberships, and authorization credentials to
+          authenticate you and check which resources you can access. We save your selected organization, project,
+          application, and environment so later requests can use the same site configuration. When you request an
+          organization default, we also store that preference for your account or with an identifier used to associate
+          it with a particular chat or project. You can ask the connected assistant to clear a saved default.
+        </p>
+        <p className={p}>
+          When you request a deployment, we receive the file or bundle provided to the publishing tool, including its
+          contents, filenames, and download reference. We process those files to validate and host the site, and retain
+          build identifiers, file hashes, deployment results, and environment selections to support build history,
+          retries, and rollbacks. We also process operational logs to run and troubleshoot the service.
+        </p>
+        <h2 className={h2}>How publishing information is shared</h2>
+        <p className={p}>
+          We return requested organization, build, environment, and deployment information to the connected assistant.
+          Our infrastructure providers, including Cloudflare for the plugin’s built-in hosting, process information
+          needed to authenticate requests, store configuration, and serve deployments. The assistant provider handles
+          information it receives under its own privacy policy.
+        </p>
+        <p className={p}>
+          Files published through the plugin are accessible at public deployment URLs. Changing the build served by an
+          environment does not delete older builds or their individual URLs. Do not include secrets or information you
+          intend to keep private in a public deployment.
+        </p>
+        <h2 className={h2}>Retention and your choices</h2>
+        <p className={p}>
+          Hosted builds and saved site configuration persist beyond an individual assistant session. Disconnecting the
+          plugin does not itself delete those records or take a site offline. Contact{' '}
+          <a href="/support" className="text-ink underline underline-offset-4">
+            support
+          </a>{' '}
+          for help revoking access, obtaining your information, deleting hosted content or saved configuration, or
+          closing an account. Applicable agreements, security needs, and legal obligations may affect what we can delete
+          and when.
+        </p>
         <h2 className={h2}>Contact information</h2>
         <p className={p}>
           If you have any questions or concern about this privacy notice or the privacy practices at Zephyr, please
@@ -68,7 +106,7 @@ function PrivacyPolicy() {
         </p>
       </div>
 
-      <p className="m-0 mt-14 border-t border-line pt-6 text-sm text-ink-faint">Last updated: 4/16/2024</p>
+      <p className="m-0 mt-14 border-t border-line pt-6 text-sm text-ink-faint">Last updated: October 1, 2026.</p>
     </article>
   );
 }

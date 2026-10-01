@@ -24,6 +24,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
     title: 'Developers',
     links: [
       { label: 'Docs', href: 'https://docs.zephyr-cloud.io/', external: true },
+      { label: 'Support', href: '/support' },
       { label: 'npm packages', href: 'https://www.npmjs.com/org/zephyrcloud', external: true },
       { label: 'llms.txt', href: '/llms.txt' },
     ],
@@ -94,9 +95,14 @@ export const Footer: React.FC = () => {
 
         <div className="mt-14 flex flex-col gap-3 border-t border-line pt-6 text-xs text-ink-faint sm:flex-row sm:items-center sm:justify-between">
           <p className="m-0">&copy; {new Date().getFullYear()} Zephyr Cloud, Inc.</p>
-          <Link to="/privacy" className="transition-colors hover:text-ink-muted">
-            Privacy policy
-          </Link>
+          <nav aria-label="Legal" className="flex gap-5">
+            <Link to="/privacy" className="transition-colors hover:text-ink-muted">
+              Privacy policy
+            </Link>
+            <Link to="/terms" className="transition-colors hover:text-ink-muted">
+              Terms of service
+            </Link>
+          </nav>
         </div>
       </div>
     </footer>
