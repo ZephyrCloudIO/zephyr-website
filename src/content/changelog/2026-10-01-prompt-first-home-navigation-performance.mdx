@@ -1,0 +1,56 @@
+---
+title: 'Product Update: A Prompt-First Home, Better Navigation, and Faster Workflows'
+date: '2026-10-01'
+version: 'v2.26.0'
+summary: 'Zephyr gets a new prompt-first Home, a clearer workspace navigation system, richer mobile and chat experiences, and a broad set of performance and reliability improvements.'
+tags: ['product', 'home', 'navigation', 'mobile', 'performance', 'chat']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+Zephyr 2.26.0 makes it easier to start work, find the right workspace surface, and keep moving once a task is underway. The release introduces a prompt-first Home, redesigns secondary workspace navigation, expands Activity and direct-message capabilities on mobile and desktop, and reduces the amount of work the app does before it is ready.
+
+## A Prompt-First Workspace Home
+
+The workspace Home is now centered around the work you want to start. Instead of navigating through a collection of empty surfaces, you can begin with a prompt and move directly into the right workspace experience.
+
+- Start from a prompt-first Home designed around intent.
+- Reach the tools and workspace surfaces you need with less navigation.
+- Get a clearer starting point for conversations, projects, and workflows.
+
+## Clearer Workspace Navigation
+
+Workspace navigation has been redesigned to make the relationship between primary and secondary surfaces easier to understand. The new structure keeps the Apps rail distinct from Settings, including in shorter windows, and gives the workspace a more consistent way to move between its key areas.
+
+## Activity and Conversations, Wherever You Work
+
+Activity notifications are now easier to follow on mobile, with a dedicated mobile row and viewer-safe context. Direct-message replies are also supported, so conversations can branch into focused replies without losing the surrounding context.
+
+Chat and voice sessions pick up several smaller improvements as well:
+
+- Specialist dispatch failures now expose the original error details when more context is needed.
+- Active meetings are surfaced above the composer so they are easier to rejoin.
+- Voice negotiation retries are more resilient during transient conflicts.
+- Camera previews are mirrored consistently, and redundant voice controls have been removed.
+
+## Faster Startup and Settings
+
+The app now avoids unnecessary work during startup and navigation. Workspace home and recent-room data stay warm without using stale access, settings can load without waiting for the full model catalog, and the canonical model catalog is loaded lazily instead of on every room open or boot.
+
+The result is a faster path to the screens and conversations you use most, especially in workspaces with larger catalogs and more activity.
+
+## Better Team and Integration Workflows
+
+Workspace administrators can now send reviewed bulk invitations, with a flow that gives larger team changes a clearer approval boundary. Chloe also supports more flexible GitHub issue filters, while Bedrock settings now reflect whether credentials have actually been saved before enabling the provider.
+
+Miniapps and connected services receive reliability improvements across publishing, member assignment, provider-authored file mounts, and Wrangler container readback. These changes make installed experiences more predictable as teams manage access and move between local and hosted resources.
+
+## What This Means for Teams
+
+- A prompt-first Home gives everyone a more direct way to begin work.
+- The redesigned navigation makes large workspaces easier to understand.
+- Mobile Activity and direct-message replies keep conversations useful away from the desktop.
+- Lazy loading and cached workspace data reduce startup and navigation delays.
+- More visible errors and safer integration flows make troubleshooting and administration clearer.

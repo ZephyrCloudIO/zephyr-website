@@ -346,4 +346,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-10-01-prompt-first-home-navigation-performance',
+    metadata: {
+      title: 'Product Update: A Prompt-First Home, Better Navigation, and Faster Workflows',
+      date: '2026-10-01',
+      version: 'v2.26.0',
+      summary:
+        'Zephyr gets a new prompt-first Home, a clearer workspace navigation system, richer mobile and chat experiences, and a broad set of performance and reliability improvements.',
+      tags: ['product', 'home', 'navigation', 'mobile', 'performance', 'chat'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
