@@ -51,7 +51,7 @@
   },
   "devDependencies": {
     "@rspress/core": "2.0.23",
-    "@rspress/plugin-sitemap": "2.0.22",
+    "@rspress/plugin-sitemap": "2.0.23",
     "@tailwindcss/postcss": "4.2.2",
     "@types/node": "24.19.0",
     "@types/react": "19.2.14",
