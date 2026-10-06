@@ -1,15 +1,15 @@
 import { Check, ChevronDown, X } from 'lucide-react';
 import { AnimatePresence, motion, useReducedMotion, useScroll, useTransform } from 'motion/react';
 import { useEffect, useRef, useState } from 'react';
-import AicpaSoc2 from './assets/aicpa-soc2.png';
-import heroImage from './assets/hero-image.png';
-import agoda from './assets/logo-agoda.png';
-import bigCommerce from './assets/logo-bigcommerce.png';
-import callstack from './assets/logo-callstack.png';
-import nx from './assets/logo-nx.png';
-import rimac from './assets/logo-rimac.png';
-import sgws from './assets/logo-sgws.png';
-import ZephyrWordmark from './assets/logo-zephyr-wordmark.svg';
+import AicpaSoc2 from './assets/aicpa-soc2.png?url';
+import heroImage from './assets/hero-image.png?url';
+import agoda from './assets/logo-agoda.png?url';
+import bigCommerce from './assets/logo-bigcommerce.png?url';
+import callstack from './assets/logo-callstack.png?url';
+import nx from './assets/logo-nx.png?url';
+import rimac from './assets/logo-rimac.png?url';
+import sgws from './assets/logo-sgws.png?url';
+import ZephyrWordmark from './assets/logo-zephyr-wordmark.svg?url';
 import { HeroShader } from './HeroShader';
 import { HubspotInlineForm } from './HubspotInlineForm';
 
@@ -128,13 +128,13 @@ export function CityjsLondonLanderPage() {
   });
 
   return (
-    <main className="lander-shell overflow-hidden bg-[#0a0a0a] text-white [background-image:none]">
+    <main className="lander-shell overflow-hidden bg-[#0a0a0a] [background-image:none] text-white">
       <HeroShader reduceMotion={Boolean(reduceMotion)} />
 
       {/* Scroll-triggered sticky nav — same behavior & styling as main zephyr-cloud.io header */}
       <div
         aria-hidden={!navVisible}
-        className="fixed left-0 right-0 top-0 z-50 bg-black/90 backdrop-blur-md transition-all duration-300"
+        className="fixed top-0 right-0 left-0 z-50 bg-black/90 backdrop-blur-md transition-all duration-300"
         style={{
           transform: navVisible ? 'translateY(0)' : 'translateY(-100%)',
         }}
@@ -174,18 +174,18 @@ export function CityjsLondonLanderPage() {
       `}</style>
 
       <section className="relative z-[1] overflow-hidden">
-        <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pb-20 pt-6">
+        <div className="relative mx-auto flex min-h-screen max-w-[1200px] flex-col px-6 pt-6 pb-20">
           <header className="cityjs-rise flex items-center gap-6">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />
           </header>
 
           <div className="cityjs-rise flex flex-1 flex-col items-center justify-center gap-10 pt-20 text-center">
             <div className="max-w-[912px] space-y-8">
-              <p className="mx-auto inline-flex rounded-md bg-violet-600 px-2 py-0.5 font-mono text-[12px] font-medium uppercase tracking-[0.12em] text-white">
+              <p className="mx-auto inline-flex rounded-md bg-violet-600 px-2 py-0.5 font-mono text-[12px] font-medium tracking-[0.12em] text-white uppercase">
                 CityJS London
               </p>
               <div className="space-y-6">
-                <h1 className="text-balance text-5xl font-medium leading-none text-[#fafafa] md:text-7xl">
+                <h1 className="text-5xl leading-none font-medium text-balance text-[#fafafa] md:text-7xl">
                   Build federated systems.
                   <br />
                   Deploy instantly.
@@ -204,7 +204,7 @@ export function CityjsLondonLanderPage() {
             <div className="w-full max-w-[1136px]">
               <div className="rounded-[10px] bg-[rgba(255,255,255,0.15)] p-2 shadow-[0_32px_120px_rgba(0,0,0,0.55)]">
                 <div className="overflow-hidden rounded-[8px] bg-[#0f0f10]">
-                  <img src={heroImage} alt="Zephyr Cloud application interface" className="w-full h-auto block" />
+                  <img src={heroImage} alt="Zephyr Cloud application interface" className="block h-auto w-full" />
                 </div>
               </div>
             </div>
@@ -237,8 +237,8 @@ export function CityjsLondonLanderPage() {
         </div>
       </section>
 
-      <section className="relative z-[1] mx-auto max-w-[1200px] bg-[#0a0a0a] px-8 pb-20 pt-6">
-        <div ref={manifestoRef} className="py-64 text-4xl font-medium leading-[1.11]">
+      <section className="relative z-[1] mx-auto max-w-[1200px] bg-[#0a0a0a] px-8 pt-6 pb-20">
+        <div ref={manifestoRef} className="py-64 text-4xl leading-[1.11] font-medium">
           {manifesto
             .split('')
             .map((char, index) =>
@@ -405,9 +405,9 @@ export function CityjsLondonLanderPage() {
           </div>
         </section>
 
-        <section ref={bottomFormRef} id="cityjs-hubspot-form" className="space-y-8 pb-20 pt-4 text-center">
+        <section ref={bottomFormRef} id="cityjs-hubspot-form" className="space-y-8 pt-4 pb-20 text-center">
           <div className="mx-auto max-w-[912px] space-y-8">
-            <h2 className="text-balance text-4xl font-medium leading-none tracking-[-0.04em] text-[#faf5ff] md:text-6xl">
+            <h2 className="text-4xl leading-none font-medium tracking-[-0.04em] text-balance text-[#faf5ff] md:text-6xl">
               Ready to run your system live?
               <br />
               Start now
@@ -420,7 +420,7 @@ export function CityjsLondonLanderPage() {
         </section>
       </section>
 
-      <footer className="relative z-[1] mx-auto grid max-w-[1200px] gap-16 bg-[#0a0a0a] px-6 pb-20 pt-4 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
+      <footer className="relative z-[1] mx-auto grid max-w-[1200px] gap-16 bg-[#0a0a0a] px-6 pt-4 pb-20 text-sm md:grid-cols-[1fr_1fr] md:px-8 lg:px-10">
         <div className="space-y-8">
           <div className="space-y-4">
             <img src={ZephyrWordmark} alt="Zephyr Cloud" width={128} />

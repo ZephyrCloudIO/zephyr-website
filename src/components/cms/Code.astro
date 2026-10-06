@@ -1,0 +1,25 @@
+---
+import { Code } from 'astro:components';
+import { bundledLanguages, type BundledLanguage } from 'shiki';
+interface Props {
+  node: { code: string; language?: string };
+}
+const { node } = Astro.props;
+const language =
+  node.language && Object.prototype.hasOwnProperty.call(bundledLanguages, node.language)
+    ? (node.language as BundledLanguage)
+    : 'text';
+---
+
+<div class="my-7 overflow-hidden rounded-xl border border-line text-[0.8125rem]">
+  <Code code={node.code} lang={language} theme="github-dark" />
+</div>
+
+<style>
+  div :global(pre) {
+    padding: 1rem 1.25rem;
+    line-height: 1.75;
+    overflow-x: auto;
+    background: #0a0c11 !important;
+  }
+</style>

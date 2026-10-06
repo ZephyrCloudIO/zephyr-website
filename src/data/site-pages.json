@@ -1,0 +1,98 @@
+{
+  "all-links": {
+    "title": "Connect with Zephyr | Zephyr Cloud",
+    "description": "Scan a QR code to connect with Zephyr Cloud and The AI Platform across the web and social.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "brand": {
+    "title": "Zephyr Cloud Brand Guidelines",
+    "description": "Resources and guidelines for using Zephyr Cloud brand assets.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "cityjs-london": {
+    "title": "CityJS London | Zephyr Cloud",
+    "description": "Build federated systems and deploy instantly with Zephyr Cloud.",
+    "hideChrome": true,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "events": {
+    "title": "Events | Zephyr Cloud",
+    "description": "Conferences, workshops, webinars, and meetups from the Zephyr Cloud team.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "": {
+    "title": "Zephyr Cloud: Always deployed. Released when you're ready.",
+    "description": "Add one line to the bundler you already use. Every build deploys to its own live URL, and production only changes when you release, with no rebuild and no re-upload.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "partners": {
+    "title": "Partners | Zephyr Cloud",
+    "description": "Meet the Zephyr Cloud partners ecosystem.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "press": {
+    "title": "Press | Zephyr Cloud",
+    "description": "Latest news and announcements from Zephyr Cloud.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "pricing": {
+    "title": "Pricing | Zephyr Cloud",
+    "description": "Pricing that scales with your team. Start free and scale as you grow.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "privacy": {
+    "title": "Privacy Policy | Zephyr Cloud",
+    "description": "How Zephyr Cloud handles account information, connected assistants, site uploads, public deployments, and deletion requests.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "support": {
+    "title": "Support | Zephyr Cloud",
+    "description": "Contact Zephyr Cloud support for account access, deployment troubleshooting, ChatGPT and Codex connections, privacy, and abuse reports.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "terms": {
+    "title": "Terms of Service | Zephyr Cloud",
+    "description": "Zephyr Cloud terms for accounts, site deployments, organization access, subscriptions, and connected assistant tools.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "wifi": {
+    "title": "Conference Wi-Fi | Zephyr Cloud",
+    "description": "Conference Wi-Fi provided by Zephyr Cloud and Vika Siours Rex.",
+    "hideChrome": true,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "products/ai": {
+    "title": "Zephyr AI | Zephyr Cloud",
+    "description": "Zephyr AI is where humans and AI agents do real work.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "products/code-elimination-performance": {
+    "title": "Code Elimination & Performance (Research Preview) | Zephyr Cloud",
+    "description": "A research preview of feature flag shaking, Module Federation tree shaking and dictionary compression. These optimizations are not yet available in Zephyr.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "blog": {
+    "title": "Blog | Zephyr Cloud",
+    "description": "Insights, updates, and tutorials from the Zephyr team.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  },
+  "changelog": {
+    "title": "Changelog | Zephyr Cloud",
+    "description": "Latest updates and improvements to Zephyr Cloud.",
+    "hideChrome": false,
+    "image": "https://zephyr-cloud.io/images/og/default-1200x630.png"
+  }
+}

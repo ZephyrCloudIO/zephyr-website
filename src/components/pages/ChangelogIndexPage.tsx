@@ -1,4 +1,3 @@
-import { allChangelogEntries } from '@/content/changelog-data';
 import { formatMonthDay } from '@/date';
 import type { ChangelogEntry } from '@/lib/changelog/types';
 import type { CSSProperties } from 'react';
@@ -38,29 +37,29 @@ function ChangelogCard({ entry }: { entry: ChangelogEntry }) {
   return (
     <a
       href={`/changelog/${entry.slug}`}
-      className="group flex flex-col gap-5 overflow-hidden rounded-2xl border border-line bg-surface/70 p-5 transition-colors hover:border-line-strong sm:p-6 md:flex-row md:items-start md:gap-8"
+      className="group border-line bg-surface/70 hover:border-line-strong flex flex-col gap-5 overflow-hidden rounded-2xl border p-5 transition-colors sm:p-6 md:flex-row md:items-start md:gap-8"
     >
       <div className="flex min-w-0 flex-1 flex-col">
-        <p className="m-0 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-faint">
+        <p className="text-ink-faint m-0 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm">
           <time dateTime={entry.date.toISOString()}>{formatMonthDay(entry.date)}</time>
           <span aria-hidden>·</span>
           <ChangelogCategoryLabel category={entry.category} />
         </p>
-        <h3 className="text-title m-0 mt-3 text-ink transition-colors group-hover:text-released-ink">{entry.title}</h3>
+        <h3 className="text-title text-ink group-hover:text-released-ink m-0 mt-3 transition-colors">{entry.title}</h3>
         {entry.summary ? (
-          <p className="m-0 mt-2.5 line-clamp-3 max-w-2xl text-[0.9375rem] leading-relaxed text-pretty text-ink-muted">
+          <p className="text-ink-muted m-0 mt-2.5 line-clamp-3 max-w-2xl text-[0.9375rem] leading-relaxed text-pretty">
             {entry.summary}
           </p>
         ) : null}
       </div>
       {entry.image ? (
-        <span className="block aspect-[16/9] w-full shrink-0 overflow-hidden rounded-xl border border-line bg-surface-2 md:w-60">
+        <span className="border-line bg-surface-2 block aspect-[16/9] w-full shrink-0 overflow-hidden rounded-xl border md:w-60">
           <img
             src={entry.image}
             alt=""
             width={480}
             height={270}
-            className="h-full w-full object-cover transition-transform duration-700 ease-out-soft group-hover:scale-[1.03]"
+            className="ease-out-soft h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
             loading="lazy"
             decoding="async"
           />
@@ -70,15 +69,15 @@ function ChangelogCard({ entry }: { entry: ChangelogEntry }) {
   );
 }
 
-export function ChangelogIndexPage() {
-  const groups = groupByMonth(allChangelogEntries);
+export function ChangelogIndexPage({ entries }: { entries: ChangelogEntry[] }) {
+  const groups = groupByMonth(entries);
 
   return (
     <div className="mx-auto max-w-[1320px] px-5 pt-16 pb-24 sm:px-8 lg:px-10 lg:pt-24 lg:pb-32">
       <header className="max-w-3xl">
-        <p className="m-0 mb-4 text-sm text-ink-faint">Changelog</p>
-        <h1 className="text-display m-0 text-ink">What’s new in Zephyr.</h1>
-        <p className="text-lead m-0 mt-6 max-w-[36rem] text-ink-muted">
+        <p className="text-ink-faint m-0 mb-4 text-sm">Changelog</p>
+        <h1 className="text-display text-ink m-0">What’s new in Zephyr.</h1>
+        <p className="text-lead text-ink-muted m-0 mt-6 max-w-[36rem]">
           Product updates, improvements, and fixes to Zephyr Cloud, newest first.
         </p>
       </header>
@@ -88,11 +87,11 @@ export function ChangelogIndexPage() {
           <section
             key={group.key}
             aria-labelledby={`changelog-${group.key}`}
-            className="grid gap-5 border-t border-line py-10 lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-10 lg:py-12"
+            className="border-line grid gap-5 border-t py-10 lg:grid-cols-[12rem_minmax(0,1fr)] lg:gap-10 lg:py-12"
           >
             <h2
               id={`changelog-${group.key}`}
-              className="m-0 text-base font-medium text-ink lg:sticky lg:top-24 lg:self-start"
+              className="text-ink m-0 text-base font-medium lg:sticky lg:top-24 lg:self-start"
             >
               {group.month} <span className="text-ink-faint">{group.year}</span>
             </h2>

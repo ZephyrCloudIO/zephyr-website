@@ -1,10 +1,10 @@
 # Zephyr Cloud Website
 
-This is the Zephyr Cloud website built with React 19, Rspress SSG, Tailwind CSS 4, Shadcn UI, and Zephyr Cloud deployment.
+The Zephyr Cloud website runs on Astro and EmDash 1.1, with Cloudflare Workers, D1 for CMS content, and R2 for uploaded media. The existing React 19 pages, Tailwind CSS 4 design, forms, analytics, and article URLs are retained.
 
 ## Setup
 
-Install the dependencies:
+Use Node.js 22.16 or newer and the pinned pnpm version. Install the dependencies:
 
 ```bash
 pnpm install
@@ -24,7 +24,9 @@ Start the development server:
 pnpm dev
 ```
 
-Build the static site for production:
+On a fresh local database, open `http://localhost:4321/_emdash/api/setup/dev-bypass` once to initialize the CMS and import the existing articles. This endpoint is development-only. The admin is at `http://localhost:4321/_emdash/admin`.
+
+Build the Worker and browser assets without deploying:
 
 ```bash
 pnpm build
@@ -36,31 +38,44 @@ Run the type checker:
 pnpm run typecheck
 ```
 
-## Rspress SSG
+## Content and routes
 
-Rspress uses `docs/` as the static route root. The site does not use SSR and should not restore the old Rsbuild app shell.
+Astro owns routing and server rendering. EmDash owns the blog and changelog database, rich-text editor, drafts, revisions, scheduled publication, and uploaded media. Publishing in EmDash updates the site without a rebuild.
 
-- `docs/*.mdx`: static pages and route wrappers.
-- `docs/public/`: public files deployed at the site root, such as `robots.txt`, `llms.txt`, and `.well-known/*`.
-- `theme/index.tsx`: global layout, header/footer, providers, and page head rendering.
-- `src/routes/`: reusable page components rendered by thin `docs/*.mdx` wrappers.
-- `src/content/blog/`: canonical blog MDX source.
-- `src/content/changelog/`: canonical changelog MDX source.
-- `scripts/generate-rspress-content.mjs`: generates `docs/blog/*.mdx`, `docs/changelog/*.mdx`, and `src/generated/*-metadata.ts`.
+- `src/pages/`: public routes and the live sitemap.
+- `src/layouts/Base.astro`: SEO and EmDash page contributions.
+- `src/components/SiteShell.tsx`: header, footer, analytics, and Intercom providers.
+- `src/routes/`: existing React page components.
+- `src/data/site-pages.json`: metadata for repository-owned marketing and legal pages.
+- `docs/public/`: static assets, discovery files, and static response headers.
+- `src/content/blog/` and `src/content/changelog/`: original MDX migration sources, retained as an archive.
+- `.emdash/seed.json`: initial collection schema and converted content.
 
-After adding or editing blog/changelog content, regenerate static routes:
+The migration converts prose, code, tables, and images to Portable Text. Interactive release-path figures and installation tabs use explicit custom blocks. Imported content assets are copied to `docs/public/content/` during preparation. Rebuild the deterministic migration snapshot with:
 
 ```bash
-pnpm run generate:rspress-content
+pnpm emdash:prepare
+pnpm emdash:validate
+pnpm emdash:verify
 ```
 
-Commit both source content and generated route wrappers.
+This prepares the initial import. It does not overwrite articles in an existing CMS database. After the initial migration, publish blog and changelog changes through EmDash rather than editing the archived MDX.
 
-For detailed maintenance steps, see [`docs-internal/rspress-maintenance-guide.md`](docs-internal/rspress-maintenance-guide.md).
+See [`docs-internal/emdash-maintenance-guide.md`](docs-internal/emdash-maintenance-guide.md) for content ownership, validation, and deployment steps.
+
+## Cloudflare deployment
+
+`pnpm build` never uploads or reads a Zephyr deployment token. `pnpm deploy:dry` validates the Worker bundle locally. `pnpm run deploy` explicitly builds and deploys with Wrangler. The `run` is required because `pnpm deploy` is pnpm's separate workspace packaging command.
+
+Authenticate with `pnpm exec wrangler login`, select the intended Cloudflare account, and run `pnpm run deploy`. Wrangler can provision the declared D1 database and R2 bucket, plus the Astro session KV namespace. Do not attach the production domain yet.
+
+Open `/_emdash/admin` on the new Worker URL, complete setup with a real administrator account, and choose the seed content import to load all 59 existing articles. Verify the public routes, media, forms, and authentication there before attaching `zephyr-cloud.io`. No account IDs, resource IDs, credentials, or production domain routes are committed to this repository. Sandboxed plugins are not enabled by default.
+
+CI validates content, types, the production build, and the deployment bundle without requiring deployment credentials or changing the live site.
 
 ## Standalone Landers
 
-Special campaign landers live in `src/landers/<slug>` and are exposed through Rspress wrappers in `docs/<slug>.mdx`. Use `hideChrome: true` for landers that should not render the global header/footer.
+Campaign landers live in `src/landers/<slug>`. The scaffolder registers their metadata in `src/data/site-pages.json`. They only enter the generated route registry and browser bundle when enabled at dev/build time.
 
 Create one from the template:
 
@@ -74,7 +89,7 @@ Enable one or more landers:
 ZE_PUBLIC_ENABLED_LANDERS=founder-briefing,partner-launch
 ```
 
-If a lander should respect `ZE_PUBLIC_ENABLED_LANDERS`, render it with `LanderRoute` from the Rspress wrapper.
+Set `ZE_PUBLIC_ENABLED_LANDERS` for both development and builds. Disabled landers return 404 and are omitted from the sitemap and route bundle. The values `all` and `*` enable every lander.
 
 ## Image Conversion
 

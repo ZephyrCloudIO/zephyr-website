@@ -1,6 +1,6 @@
 ---
 title: AI readiness
-summary: Homepage fallback shell, freshness signals, llms files, and deploy-time security headers for IsAgentReady.
+summary: Server-rendered pages, live content discovery, llms files, and security headers for IsAgentReady.
 read_when:
   - changing homepage crawlability, semantic fallback content, or freshness metadata
   - updating llms.txt, llms-full.txt, robots.txt, or security headers
@@ -8,9 +8,12 @@ read_when:
 
 # AI readiness
 
-The site keeps crawler-readable static output through the Rspress homepage source in `docs/index.mdx`.
+Astro renders the site's content on the server so crawlers and visitors without JavaScript can read it. Blog and changelog pages load published content from EmDash.
 
-- `docs/index.mdx`: homepage route source and static metadata
+- `src/routes/index.tsx`: homepage components
+- `src/data/site-pages.json`: marketing page metadata
+- `src/layouts/Base.astro`: canonical links, social metadata, and structured data
+- `src/pages/sitemap.xml.ts`: live published article and enabled page URLs
 - `docs/public/robots.txt`: crawler allow rules plus sitemap
 - `docs/public/llms.txt`: short agent index
 - `docs/public/llms-full.txt`: expanded agent overview
@@ -25,27 +28,21 @@ The site keeps crawler-readable static output through the Rspress homepage sourc
 
 ## Social preview image
 
-The homepage and every static page expose a default Open Graph / Twitter image (`docs/public/images/og/default-1200x630.png`) through their frontmatter `head`, so links unfurl with a preview even without page-specific art. Replace it with a page-specific `og:image`/`twitter:image` when a page has its own social image. Blog and changelog pages get per-entry images (with the same default fallback) from `scripts/generate-rspress-content.mjs`.
+Marketing pages specify their social image in `src/data/site-pages.json`. The shared fallback is `docs/public/images/og/default-1200x630.png`. Blog and changelog pages read their images and SEO overrides from EmDash. `src/layouts/Base.astro` renders the metadata for both kinds of page.
 
 ## When homepage copy changes
 
 Update these together:
 
-- homepage content and metadata in `docs/index.mdx` and rendered route components
+- homepage content in React components and metadata in `src/data/site-pages.json`
 - JSON-LD and declarative WebMCP content where applicable
-- freshness tags in generated static metadata where applicable
+- publication dates on the articles linked from the homepage
 - `docs/public/llms.txt`
 - `docs/public/llms-full.txt`
 
 ## Freshness signals
 
-The homepage fallback publishes:
-
-- `article:published_time`
-- `article:modified_time`
-- visible `<time datetime>` text
-
-Keep `article:modified_time` aligned with the latest homepage refresh.
+Article pages and listings render their publication date as `<time datetime>`. The homepage's recent posts and the sitemap query EmDash at request time, so publication changes become visible without a rebuild. Marketing copy and the static discovery files still require a repository change and deployment.
 
 ## Security headers
 
@@ -55,5 +52,7 @@ Keep `article:modified_time` aligned with the latest homepage refresh.
 - `Referrer-Policy`
 - `X-Content-Type-Options`
 - `X-Frame-Options`
+
+Cloudflare applies that file to static assets. `src/middleware.ts` applies the public policy to Worker-rendered pages; EmDash handles its admin and API response headers.
 
 If you add a new third-party script, analytics endpoint, embed, or form submission target, update the CSP allowlist before deploying.

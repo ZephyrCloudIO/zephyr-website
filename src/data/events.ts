@@ -1,5 +1,5 @@
 import reactUniverse from '@/images/events/react_universe.webp';
-import { LucideIcon } from 'lucide-react';
+import type { LucideIcon } from 'lucide-react';
 
 export type EventType = 'conference' | 'webinar' | 'meetup' | 'workshop';
 

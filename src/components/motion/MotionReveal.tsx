@@ -10,7 +10,7 @@ const REVEAL_SELECTOR = '.reveal:not(.is-in)';
 
 /**
  * Adds `.is-in` to `.reveal` elements as they scroll into view. The head script
- * in rspress.config.ts only hides reveal targets once JS runs, and falls back to
+ * only hides reveal targets once JS runs, and falls back to
  * visible if this component never mounts.
  */
 export function MotionReveal() {
@@ -38,7 +38,6 @@ export function MotionReveal() {
     const observeAll = () => document.querySelectorAll(REVEAL_SELECTOR).forEach((el) => observer.observe(el));
     observeAll();
 
-    // Rspress swaps page content on client navigation; pick up new targets.
     const mutations = new MutationObserver(observeAll);
     mutations.observe(document.body, { childList: true, subtree: true });
 

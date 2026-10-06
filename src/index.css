@@ -35,38 +35,6 @@
   --ease-in-out-cam: cubic-bezier(0.65, 0, 0.35, 1);
 }
 
-/* Shiki code blocks and Rspress components used in MDX (e.g. <Tabs>) read these. Rspress only defines dark
-   values under html.rp-dark, which this site never sets; html:root outranks its :root/:where() rules. */
-html:root {
-  --shiki-background: #0a0c11;
-  --shiki-foreground: #d4d7e1;
-  --shiki-token-comment: #7f8498;
-  --shiki-token-keyword: #9fb3e8;
-  --shiki-token-function: #edeef3;
-  --shiki-token-parameter: #e6c89c;
-  --shiki-token-string: #dcc59f;
-  --shiki-token-string-expression: #dcc59f;
-  --shiki-token-constant: #e8ae8e;
-  --shiki-token-punctuation: #8a90a6;
-  --shiki-token-link: #9fb3e8;
-  --shiki-token-inserted: #8fd4ae;
-  --shiki-token-deleted: #f59aa6;
-  --rp-c-bg: var(--ze-surface);
-  --rp-c-bg-soft: var(--ze-surface-3);
-  --rp-c-bg-mute: var(--ze-surface-2);
-  --rp-c-divider: var(--ze-line-strong);
-  --rp-c-divider-light: var(--ze-line);
-  --rp-c-text-0: var(--ze-ink);
-  --rp-c-text-1: var(--ze-ink);
-  --rp-c-text-2: var(--ze-ink-muted);
-  --rp-code-title-bg: var(--ze-surface);
-  --rp-code-block-bg: #0a0c11;
-  --rp-code-block-border: 1px solid var(--ze-line);
-  --rp-code-block-shadow: none;
-  --rp-radius: 0.875rem;
-  --rp-radius-small: 0.5rem;
-}
-
 @theme inline {
   --color-night: var(--ze-night);
   --color-surface: var(--ze-surface);

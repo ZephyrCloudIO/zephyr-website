@@ -12,4 +12,4 @@ Sources checked September 30, 2026:
 - https://developers.openai.com/plugins/deploy/submission — accessible terms, support and privacy URLs required for MCP review.
 - https://www.ftc.gov/business-guidance/resources/advertising-faqs-guide-small-business — public service claims should be accurate and supported.
 
-Build locally with `ZE_DEPLOY=false pnpm build` to suppress deployment; then inspect `/terms`, `/support`, and `/privacy`. Verify all three public URLs after the website release before submission.
+Build locally with `pnpm build`, which does not deploy; then inspect `/terms`, `/support`, and `/privacy`. Verify all three public URLs after the website release before submission.

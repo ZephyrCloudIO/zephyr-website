@@ -1,4 +1,4 @@
-import { IntercomBootProps } from 'react-use-intercom';
+import type { IntercomBootProps } from 'react-use-intercom';
 
 export const INTERCOM_BOOT_PROPS: IntercomBootProps = {
   appId: 'xyxkmxlj',

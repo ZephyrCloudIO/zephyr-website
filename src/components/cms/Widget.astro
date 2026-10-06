@@ -1,0 +1,22 @@
+---
+import { ReleasePathFilm } from '@/components/release-path/film/ReleasePathFilm';
+import { SnapshotFigure } from '@/components/release-path/SnapshotFigure';
+import { LifecycleFigure, type LifecycleStage } from '@/components/release-path/LifecycleFigure';
+import { ReleasePathCta } from '@/components/release-path/ReleasePathCta';
+interface Props {
+  node: { component: string; props?: Record<string, unknown> };
+}
+const { node } = Astro.props;
+const cut = node.props?.cut;
+const active = node.props?.active;
+const stages: LifecycleStage[] = ['deploy', 'name', 'qa', 'exposure', 'review', 'accept'];
+---
+
+{node.component === 'ReleasePathFilm' && (
+  <ReleasePathFilm cut={cut === '90' || cut === '15' ? cut : '30'} client:visible />
+)}
+{node.component === 'SnapshotFigure' && <SnapshotFigure />}
+{node.component === 'LifecycleFigure' && (
+  <LifecycleFigure active={stages.includes(active as LifecycleStage) ? (active as LifecycleStage) : 'exposure'} />
+)}
+{node.component === 'ReleasePathCta' && <ReleasePathCta />}

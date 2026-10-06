@@ -1,0 +1,16 @@
+---
+import { SitePage } from '@/components/pages/SitePage';
+import pages from '@/generated/site-pages.json';
+import { listBlogPosts, listChangelogEntries } from '@/lib/cms';
+import Base from '@/layouts/Base.astro';
+
+const page = Astro.params.page?.replace(/\/$/, '') ?? '';
+if (!Object.prototype.hasOwnProperty.call(pages, page)) return Astro.rewrite('/404');
+const metadata = pages[page as keyof typeof pages];
+const posts = page === '' ? await listBlogPosts(3) : page === 'blog' ? await listBlogPosts() : [];
+const entries = page === 'changelog' ? await listChangelogEntries() : [];
+---
+
+<Base {...metadata}>
+  <SitePage page={page} hideChrome={metadata.hideChrome} posts={posts} entries={entries} client:load />
+</Base>

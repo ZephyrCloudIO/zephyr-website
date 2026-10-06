@@ -5,6 +5,7 @@ onlyBuiltDependencies:
   - '@tailwindcss/oxide'
   - core-js
   - esbuild
+  - workerd
 
 overrides:
   form-data: '4.0.6'

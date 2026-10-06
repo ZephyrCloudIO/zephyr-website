@@ -1,7 +1,11 @@
-# Add files here to ignore them from prettier formatting
-/dist
-/coverage
-/.nx/cache
+worker-configuration.d.ts
 pnpm-lock.yaml
-/.nx/workspace-data
-./src/routeTree.gen.ts
+coverage/
+.nx/cache/
+.nx/workspace-data/
+src/routeTree.gen.ts
+emdash-env.d.ts
+.wrangler/
+.astro/
+dist/
+docs/public/content/

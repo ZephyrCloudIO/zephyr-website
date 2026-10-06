@@ -1,13 +1,11 @@
-name: Run on PRs
+name: Validate EmDash site
 
 on:
   pull_request:
-    types: [opened, closed, synchronize]
+    types: [opened, reopened, synchronize]
 
 permissions:
-  deployments: write # allow creating deployments
-  pull-requests: write # allow commenting on PRs
-  contents: read # minimal read access to repo, if needed
+  contents: read
 
 jobs:
   build:
@@ -32,46 +30,29 @@ jobs:
           run_install: false
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install --frozen-lockfile
+
+      - name: Prepare and validate migrated content
+        run: |
+          pnpm emdash:prepare
+          pnpm emdash:validate
+          pnpm emdash:verify
+          pnpm emdash:verify --clean-checkout
 
       - name: Typecheck
-        if: github.event.action != 'closed'
         run: pnpm run typecheck
 
-      - name: Verify generated content is up to date
-        if: github.event.action != 'closed'
+      - name: Verify migration snapshot is up to date
         run: |
-          pnpm run generate:rspress-content
-          if [ -n "$(git status --porcelain docs/blog docs/changelog src/generated)" ]; then
-            echo "::error::Generated content is out of date. Run 'pnpm run generate:rspress-content' and commit the result."
-            git status --porcelain docs/blog docs/changelog src/generated
-            git --no-pager diff -- docs/blog docs/changelog src/generated
+          if [ -n "$(git status --porcelain .emdash/seed.json .emdash/migration-manifest.json)" ]; then
+            echo "::error::Migration snapshot is out of date. Run 'pnpm emdash:prepare' and commit the result."
+            git status --porcelain .emdash/seed.json .emdash/migration-manifest.json
+            git --no-pager diff -- .emdash/seed.json .emdash/migration-manifest.json
             exit 1
           fi
 
-      - name: Run build for non-merged PR
-        if: github.event.action != 'closed' && github.event.pull_request.merged != true
-        id: build_non_merge
-        env:
-          ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}
-        run: |
-          if [ -z "$ZE_SECRET_TOKEN" ]; then
-            echo "::error::ZE_SECRET_TOKEN is missing. The Zephyr build requires this token; without it the deploy falls back to an interactive login prompt and hangs. (Note: secrets are not available on PRs from forks.)"
-            exit 1
-          fi
-          pnpm run build
-
-      - name: Run build for merged PR on main or development
-        if: github.event.pull_request.merged == true &&
-          github.event.action == 'closed' &&
-          (github.event.pull_request.base.ref == 'main' || github.event.pull_request.base.ref == 'development')
-        id: build_merge
-        env:
-          ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}
+      - name: Build Worker and assets without deploying
         run: pnpm run build
 
-      - name: Zephyr deploy summary
-        uses: ZephyrCloudIO/zephyr-preview-environment-action@30036a8a1c2031c4f6c6706d2cbc1a9b48466ae2 # main
-        id: zephyr-summary
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
+      - name: Validate Worker deployment bundle
+        run: pnpm deploy:dry

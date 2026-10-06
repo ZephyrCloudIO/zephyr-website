@@ -2,25 +2,29 @@
 
 ## Project Structure & Module Organization
 
-- `docs/`: Rspress route root; files here become static SSG pages.
+- `src/pages/`: Astro server routes; EmDash injects its own admin and API routes.
 - `docs/public/`: public files deployed at the site root.
-- `src/routes/`: reusable page components rendered by thin `docs/*.mdx` wrappers.
+- `src/routes/`: reusable React marketing page components.
 - `src/components/`: shared UI, section blocks, and form components.
-- `src/content/`: MDX content for blog and changelog entries.
+- `src/content/`: archived MDX migration inputs. Blog and changelog publishing now belongs to EmDash.
+- `.emdash/seed.json`: generated initial schema and content import.
 - `src/lib/` and `src/data/`: loaders, helpers, and static data.
 - `src/images/`: site assets; keep optimized images here.
-- `src/landers/`: standalone campaign lander components exposed through Rspress wrappers. Read [`docs-internal/rspress-maintenance-guide.md`](docs-internal/rspress-maintenance-guide.md) before adding one.
+- `src/landers/`: allowlisted campaign components. Read [`docs-internal/emdash-maintenance-guide.md`](docs-internal/emdash-maintenance-guide.md) before adding one.
 - `scripts/`: maintenance utilities such as image conversion and lander scaffolding.
 
 ## Build, Test, and Development Commands
 
-- `pnpm dev`: generate Rspress content and start the local Rspress dev server.
-- `pnpm build`: generate content, build the Rspress SSG site, and run the Zephyr plugin.
+- `pnpm dev`: prepare the migration seed and start Astro with local Cloudflare bindings.
+- `pnpm build`: build the Worker and assets without deploying.
+- `pnpm run deploy`: explicitly deploy with Wrangler. The `run` avoids pnpm's built-in workspace deploy command.
+- `pnpm deploy:dry`: validate the production Worker bundle without deploying.
 - `pnpm preview`: preview the built output locally.
-- `pnpm typecheck`: run TypeScript without emitting files.
+- `pnpm typecheck`: run Astro diagnostics and TypeScript without emitting files.
 - `pnpm format`: format the repo with Prettier.
 - `pnpm create-lander <slug>`: scaffold a new standalone lander in `src/landers/<slug>`.
-- `pnpm run generate:rspress-content`: regenerate static blog/changelog route wrappers and metadata.
+- `pnpm emdash:prepare`: regenerate the initial import, copied assets, and route registries.
+- `pnpm emdash:validate` and `pnpm emdash:verify`: validate the migration snapshot.
 
 For gated landers, use the allowlist env var when building or previewing, for example:
 
@@ -28,7 +32,7 @@ For gated landers, use the allowlist env var when building or previewing, for ex
 ZE_PUBLIC_ENABLED_LANDERS=cityjs-london pnpm build
 ```
 
-Blog and changelog source lives in `src/content/**`; generated route wrappers live in `docs/blog/**` and `docs/changelog/**` and should be regenerated rather than hand-edited.
+Blog and changelog pages query EmDash at request time. Do not restore file-backed publishing or overwrite existing D1 content during a build. Repository-owned marketing metadata lives in `src/data/site-pages.json`.
 
 ## Coding Style & Naming Conventions
 
@@ -38,13 +42,13 @@ Blog and changelog source lives in `src/content/**`; generated route wrappers li
 - Keep files focused; split large sections into smaller components when needed.
 - Reuse existing UI primitives in `src/components/ui/` before creating new ones.
 - Follow [`docs-internal/design-system.md`](docs-internal/design-system.md) for tokens, type, motion, and which product claims the site can make.
-- Don't run `pnpm build` on a machine with a cached Zephyr token (`~/.zephyr`) unless you intend to deploy a preview: the build runs the Zephyr plugin and uploads.
+- Builds must remain non-deploying. Credentials belong in secret tooling or ignored local variables, never committed configuration.
 
 ## Testing Guidelines
 
 - There is no dedicated test runner yet; the minimum gate is `pnpm typecheck` plus `pnpm build`.
 - For UI/content changes, verify the affected route or lander in preview and include screenshots for major visual updates.
-- For SEO/content changes, verify generated metadata and direct route refresh on the Zephyr preview URL.
+- For SEO/content changes, verify live CMS metadata and direct refresh on the local Worker or an explicitly deployed Cloudflare preview.
 - If you add logic that can be unit tested later, keep it isolated in `src/lib/` or a small helper module.
 
 ## Commit & Pull Request Guidelines
