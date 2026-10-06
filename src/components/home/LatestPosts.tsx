@@ -1,4 +1,4 @@
-import { allBlogPosts } from '@/content/blog-data';
+import type { BlogPost } from '@/lib/blog/types';
 import { Link } from '@tanstack/react-router';
 import { ArrowRight } from 'lucide-react';
 import type { CSSProperties } from 'react';
@@ -7,23 +7,23 @@ import type { CSSProperties } from 'react';
 const formatDate = (date: Date) =>
   date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' });
 
-export function LatestPosts() {
+export function LatestPosts({ posts: allBlogPosts }: { posts: BlogPost[] }) {
   const posts = allBlogPosts.slice(0, 3);
   if (posts.length === 0) return null;
 
   return (
-    <section aria-labelledby="posts-title" className="border-t border-line py-24 lg:py-32">
+    <section aria-labelledby="posts-title" className="border-line border-t py-24 lg:py-32">
       <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-10">
         <div className="reveal flex flex-wrap items-end justify-between gap-6">
           <div>
-            <p className="mb-3 text-sm text-ink-faint">From the blog</p>
-            <h2 id="posts-title" className="text-headline m-0 text-ink">
+            <p className="text-ink-faint mb-3 text-sm">From the blog</p>
+            <h2 id="posts-title" className="text-headline text-ink m-0">
               What we’re shipping.
             </h2>
           </div>
           <Link
             to="/blog"
-            className="inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-ink"
+            className="text-ink-muted hover:text-ink inline-flex items-center gap-1.5 text-sm transition-colors"
           >
             All posts
             <ArrowRight className="size-3.5" aria-hidden />
@@ -35,26 +35,26 @@ export function LatestPosts() {
             <li key={post.slug} className="reveal" style={{ '--reveal-delay': `${i * 80}ms` } as CSSProperties}>
               <Link
                 to={`/blog/${post.slug}`}
-                className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface/70 transition-colors hover:border-line-strong"
+                className="group border-line bg-surface/70 hover:border-line-strong flex h-full flex-col overflow-hidden rounded-2xl border transition-colors"
               >
                 {post.listingImage ? (
-                  <span className="block aspect-[16/9] overflow-hidden border-b border-line bg-surface-2">
+                  <span className="border-line bg-surface-2 block aspect-[16/9] overflow-hidden border-b">
                     <img
                       src={post.listingImage}
                       alt=""
                       width={640}
                       height={360}
-                      className="h-full w-full object-cover transition-transform duration-700 ease-out-soft group-hover:scale-[1.03]"
+                      className="ease-out-soft h-full w-full object-cover transition-transform duration-700 group-hover:scale-[1.03]"
                       loading="lazy"
                     />
                   </span>
                 ) : null}
                 <span className="flex flex-1 flex-col p-5">
-                  <span className="text-title text-[1.125rem] text-ink transition-colors group-hover:text-released-ink">
+                  <span className="text-title text-ink group-hover:text-released-ink text-[1.125rem] transition-colors">
                     {post.title}
                   </span>
-                  <span className="mt-2 line-clamp-2 text-sm leading-relaxed text-ink-muted">{post.description}</span>
-                  <span className="mt-auto flex items-center gap-2.5 pt-5 text-xs text-ink-faint">
+                  <span className="text-ink-muted mt-2 line-clamp-2 text-sm leading-relaxed">{post.description}</span>
+                  <span className="text-ink-faint mt-auto flex items-center gap-2.5 pt-5 text-xs">
                     {post.authors[0] ? (
                       <img
                         src={post.authors[0].avatar}

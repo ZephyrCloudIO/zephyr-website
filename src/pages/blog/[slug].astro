@@ -1,0 +1,32 @@
+---
+import { ArticlePage } from '@/components/pages/ArticlePage';
+import ArticleContent from '@/components/cms/ArticleContent.astro';
+import Base from '@/layouts/Base.astro';
+import { blogMetadata, findArticle } from '@/lib/cms';
+import { getSeoMeta } from 'emdash';
+
+const post = await findArticle('blog', Astro.params.slug ?? '');
+if (!post) return Astro.rewrite('/404');
+const metadata = blogMetadata(post.data);
+const seo = getSeoMeta(post, {
+  siteTitle: 'Zephyr Cloud',
+  siteUrl: 'https://zephyr-cloud.io',
+  path: `/blog/${post.id}`,
+  defaultDescription: post.data.description,
+  defaultOgImage: post.data.hero_image || '/images/og/default-1200x630.png',
+});
+---
+
+<Base
+  title={seo.title}
+  description={seo.description ?? post.data.description}
+  image={seo.ogImage ?? undefined}
+  canonical={seo.canonical ?? undefined}
+  robots={seo.robots}
+  type="article"
+  content={{ collection: 'blog', id: post.data.id, slug: post.id }}
+>
+  <ArticlePage collection="blog" slug={post.id} metadata={metadata} client:load>
+    <ArticleContent value={post.data.content} />
+  </ArticlePage>
+</Base>

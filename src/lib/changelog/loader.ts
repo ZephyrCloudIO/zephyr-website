@@ -31,7 +31,7 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
     date: parseLocalDate(metadata.date),
     summary: metadata.summary,
     category: metadata.category,
-    image: images?.image || metadata.image,
+    image: metadata.image || images?.image || undefined,
     readingTime: metadata.readingTime,
   };
 }

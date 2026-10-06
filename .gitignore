@@ -19,3 +19,12 @@ target/
 .env
 doc_build
 migration-screenshots
+.astro/
+.wrangler/
+.dev.vars*
+.emdash/migrations.json
+.emdash/seed-state.json
+.emdash/*.sql
+docs/public/content/
+src/generated/landers.ts
+src/generated/site-pages.json

@@ -1,0 +1,28 @@
+---
+import { HtmlBlock } from 'emdash/ui';
+interface Props {
+  node: { _key: string; html: string };
+}
+const { node } = Astro.props;
+---
+
+<div class="my-8 overflow-x-auto [&_blockquote]:rounded-xl [&_blockquote]:border [&_blockquote]:border-line [&_blockquote]:bg-surface/70 [&_blockquote]:p-5">
+  <HtmlBlock node={{ _type: 'htmlBlock', _key: node._key, html: node.html }} />
+</div>
+
+<script>
+  const twitterWindow = window as Window & { twttr?: { widgets?: { load: () => void } } };
+  const loadTweets = () => twitterWindow.twttr?.widgets?.load();
+  const existing = document.getElementById('twitter-wjs');
+  if (existing) {
+    if (twitterWindow.twttr?.widgets) loadTweets();
+    else existing.addEventListener('load', loadTweets, { once: true });
+  } else {
+    const script = document.createElement('script');
+    script.id = 'twitter-wjs';
+    script.async = true;
+    script.src = 'https://platform.twitter.com/widgets.js';
+    script.addEventListener('load', loadTweets, { once: true });
+    document.body.appendChild(script);
+  }
+</script>

@@ -1,0 +1,37 @@
+---
+interface Props {
+  node: { style?: string; _key: string; children?: { text?: string }[] };
+}
+const { node } = Astro.props;
+const text = node.children?.map((span) => span.text ?? '').join('') ?? '';
+const id = text
+  .toLowerCase()
+  .replace(/[^\p{L}\p{N}\s-]/gu, '')
+  .replace(/\s+/g, '-');
+const tags = {
+  normal: 'p',
+  blockquote: 'blockquote',
+  h1: 'h2',
+  h2: 'h2',
+  h3: 'h3',
+  h4: 'h4',
+  h5: 'h5',
+  h6: 'h6',
+} as const;
+const Tag = tags[node.style as keyof typeof tags] ?? 'p';
+const heading = Tag.startsWith('h');
+---
+
+<Tag id={heading ? id : undefined} class={heading ? 'group scroll-mt-24' : undefined}>
+  <slot />
+  {heading && (
+    <a
+      href={`#${id}`}
+      aria-hidden="true"
+      tabindex="-1"
+      class="ml-2 opacity-0 transition-opacity group-hover:opacity-100"
+    >
+      #
+    </a>
+  )}
+</Tag>

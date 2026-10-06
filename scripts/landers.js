@@ -108,5 +108,15 @@ export async function createLanderFromTemplate(slug, rootDir = process.cwd()) {
 
   await replaceTemplateTokens(targetDir, slug);
 
+  const metadataPath = path.join(rootDir, 'src/data/site-pages.json');
+  const pages = JSON.parse(await readFile(metadataPath, 'utf8'));
+  pages[slug] = {
+    title: `${slugToTitle(slug)} | Zephyr Cloud`,
+    description: `${slugToTitle(slug)} from Zephyr Cloud.`,
+    hideChrome: true,
+    image: 'https://zephyr-cloud.io/images/og/default-1200x630.png',
+  };
+  await writeFile(metadataPath, `${JSON.stringify(pages, null, 2)}\n`);
+
   return targetDir;
 }

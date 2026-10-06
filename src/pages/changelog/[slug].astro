@@ -1,0 +1,32 @@
+---
+import { ArticlePage } from '@/components/pages/ArticlePage';
+import ArticleContent from '@/components/cms/ArticleContent.astro';
+import Base from '@/layouts/Base.astro';
+import { changelogMetadata, findArticle } from '@/lib/cms';
+import { getSeoMeta } from 'emdash';
+
+const entry = await findArticle('changelog', Astro.params.slug ?? '');
+if (!entry) return Astro.rewrite('/404');
+const metadata = changelogMetadata(entry.data, entry.id);
+const seo = getSeoMeta(entry, {
+  siteTitle: 'Zephyr Cloud',
+  siteUrl: 'https://zephyr-cloud.io',
+  path: `/changelog/${entry.id}`,
+  defaultDescription: entry.data.description,
+  defaultOgImage: entry.data.hero_image || '/images/og/default-1200x630.png',
+});
+---
+
+<Base
+  title={seo.title}
+  description={seo.description ?? entry.data.description}
+  image={seo.ogImage ?? undefined}
+  canonical={seo.canonical ?? undefined}
+  robots={seo.robots}
+  type="article"
+  content={{ collection: 'changelog', id: entry.data.id, slug: entry.id }}
+>
+  <ArticlePage collection="changelog" slug={entry.id} metadata={metadata} client:load>
+    <ArticleContent value={entry.data.content} />
+  </ArticlePage>
+</Base>

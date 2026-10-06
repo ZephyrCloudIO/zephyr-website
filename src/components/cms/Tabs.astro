@@ -1,0 +1,75 @@
+---
+import { PortableText } from 'emdash/ui';
+import type { PortableTextBlock } from 'emdash';
+import Code from './Code.astro';
+import Heading from './Heading.astro';
+interface Props {
+  node: { _key: string; defaultValue?: string; tabs: { value: string; label: string; content: PortableTextBlock[] }[] };
+}
+const { node } = Astro.props;
+const selected = node.tabs.some((tab) => tab.value === node.defaultValue) ? node.defaultValue : node.tabs[0]?.value;
+---
+
+<div data-cms-tabs data-selected={selected} class="my-8 rounded-xl border border-line bg-surface/70">
+  <div data-tab-list hidden class="flex flex-wrap gap-2 border-b border-line p-3">
+    {node.tabs.map((tab) => (
+      <button
+        type="button"
+        id={`${node._key}-${tab.value}-tab`}
+        data-tab={tab.value}
+        class="rounded-lg px-3 py-2 text-sm text-ink-muted hover:text-ink"
+      >
+        {tab.label}
+      </button>
+    ))}
+  </div>
+  {node.tabs.map((tab) => (
+    <section data-panel={tab.value} id={`${node._key}-${tab.value}-panel`} class="p-5">
+      <h3 data-tab-label>{tab.label}</h3>
+      <PortableText value={tab.content} components={{ block: Heading, type: { code: Code } }} />
+    </section>
+  ))}
+</div>
+
+<script>
+  for (const group of document.querySelectorAll<HTMLElement>('[data-cms-tabs]')) {
+    const list = group.querySelector<HTMLElement>('[data-tab-list]')!;
+    const buttons = [...group.querySelectorAll<HTMLButtonElement>('[data-tab]')];
+    const panels = [...group.querySelectorAll<HTMLElement>('[data-panel]')];
+    list.hidden = false;
+    list.setAttribute('role', 'tablist');
+    list.setAttribute('aria-label', 'Installation instructions');
+    function select(value: string, focus = false) {
+      for (const button of buttons) {
+        const active = button.dataset.tab === value;
+        button.setAttribute('role', 'tab');
+        button.setAttribute('aria-selected', String(active));
+        button.setAttribute('aria-controls', `${button.id.replace(/-tab$/, '')}-panel`);
+        button.tabIndex = active ? 0 : -1;
+        button.classList.toggle('bg-released/15', active);
+        if (active && focus) button.focus();
+      }
+      for (const panel of panels) {
+        panel.hidden = panel.dataset.panel !== value;
+        panel.setAttribute('role', 'tabpanel');
+        panel.setAttribute('aria-labelledby', panel.id.replace(/-panel$/, '-tab'));
+        panel.querySelector<HTMLElement>('[data-tab-label]')!.hidden = true;
+      }
+    }
+    select(group.dataset.selected ?? buttons[0].dataset.tab!);
+    buttons.forEach((button, index) => {
+      button.addEventListener('click', () => select(button.dataset.tab!));
+      button.addEventListener('keydown', (event) => {
+        if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+        event.preventDefault();
+        const next =
+          event.key === 'Home'
+            ? 0
+            : event.key === 'End'
+              ? buttons.length - 1
+              : (index + (event.key === 'ArrowRight' ? 1 : -1) + buttons.length) % buttons.length;
+        select(buttons[next].dataset.tab!, true);
+      });
+    });
+  }
+</script>

@@ -10,10 +10,10 @@ read_when:
 
 Landers live in `src/landers/<slug>`.
 
-- Separate HTML entrypoint.
+- Astro-rendered route with a hydrated React component.
 - No TanStack route tree dependency.
 - No shared header/footer requirement.
-- Runtime gate via `ZE_PUBLIC_ENABLED_LANDERS`.
+- Build-time gate via `ZE_PUBLIC_ENABLED_LANDERS`.
 
 ## Create
 
@@ -21,7 +21,7 @@ Landers live in `src/landers/<slug>`.
 pnpm create-lander founder-briefing
 ```
 
-That copies `src/landers/_template` into `src/landers/founder-briefing`.
+That copies `src/landers/_template` into `src/landers/founder-briefing` and registers its page metadata in `src/data/site-pages.json`.
 
 ## Enable
 
@@ -38,11 +38,10 @@ ZE_PUBLIC_ENABLED_LANDERS=all
 ZE_PUBLIC_ENABLED_LANDERS=*
 ```
 
-## Output
+## Routing
 
-- Main app: `dist/index.html`
-- Lander: `dist/<slug>/index.html`
+Astro handles `/<slug>` through the generated page registry. The lander's `<PascalCaseSlug>LanderPage` component is imported only when enabled during preparation. Its `hideChrome` metadata suppresses the shared header and footer.
 
-Dev/preview rewrites `/slug` to the lander entry HTML. Production routing can be handled separately at the Zephyr layer.
+Set the allowlist for `pnpm dev` or `pnpm build`. The generated route registry and browser bundle include only enabled landers. Production is a Cloudflare Worker, not separate lander HTML files.
 
-If a lander slug is not enabled, the runtime redirects back to `/` instead of rendering a disabled message.
+Disabled landers return 404 and do not appear in the sitemap. See `docs-internal/emdash-maintenance-guide.md` for validation and deployment.
