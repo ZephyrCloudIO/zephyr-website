@@ -22,12 +22,28 @@ function TermsOfService() {
           presented to you, you agree to them. If you use Zephyr for an organization, you must have authority to act for
           it. A separately signed agreement or order governs wherever it conflicts with these terms.
         </p>
-        <h2 className={heading}>2. Accounts and organization access</h2>
+        <h2 className={heading}>2. Accounts, credentials, and automation</h2>
         <p className={paragraph}>
           Provide accurate account information, protect your credentials, and use only accounts and organizations you
           are authorized to access. Organization administrators manage membership and permissions. Tell us promptly if
           you suspect unauthorized access. Connecting an assistant or other integration authorizes it to perform the
           actions you request within your Zephyr permissions; it does not give you access to another customer’s data.
+        </p>
+        <p className={paragraph}>
+          Each user account belongs to one individual. Do not share your login credentials, session tokens, or personal
+          access tokens with anyone else, and do not let more than one person use the same account. Everyone who uses
+          Zephyr for your organization needs their own account.
+        </p>
+        <p className={paragraph}>
+          Builds and deployments that run without a person directing each one, such as CI/CD pipelines, scripts, and
+          bots, must authenticate with CI or service tokens issued to your organization, not with a person’s login,
+          session, or personal access token. Do not store personal credentials in CI systems, build environments, or
+          shared secret stores.
+        </p>
+        <p className={paragraph}>
+          Activity under an account is attributed to its account holder, and activity under a CI or service token is
+          attributed to the organization that issued it. You are responsible for all activity under your accounts and
+          tokens, including activity by anyone you let use them.
         </p>
         <h2 className={heading}>3. Your content</h2>
         <p className={paragraph}>
@@ -57,8 +73,9 @@ function TermsOfService() {
         <p className={paragraph}>
           Do not use Zephyr to distribute malware, conduct phishing or fraud, infringe intellectual property or privacy
           rights, publish unlawful content, send unlawful spam, interfere with the service, or access systems without
-          authorization. Do not bypass access controls, misuse another user’s credentials, or evade service limits.
-          Report suspected abuse to support@zephyr-cloud.io with the relevant URL and details.
+          authorization. Do not bypass access controls, use another person’s account or credentials, or evade service
+          limits, including by sharing accounts to reduce the number of seats or users on your plan. Report suspected
+          abuse to support@zephyr-cloud.io with the relevant URL and details.
         </p>
         <h2 className={heading}>6. Plans and charges</h2>
         <p className={paragraph}>
@@ -66,6 +83,10 @@ function TermsOfService() {
           your applicable order or checkout and account settings. You must authorize a paid purchase or plan change.
           Connecting the Zephyr plugin or publishing through it does not, by itself, authorize a paid upgrade. Any
           mandatory consumer cancellation or refund rights remain available.
+        </p>
+        <p className={paragraph}>
+          Where a plan is priced or limited per user or seat, every individual who builds, deploys, or manages releases
+          through Zephyr needs their own seat. Sharing an account to reduce your seat count is evading a service limit.
         </p>
         <h2 className={heading}>7. Privacy</h2>
         <p className={paragraph}>
@@ -85,6 +106,11 @@ function TermsOfService() {
           closure, or ask about exporting or deleting content. Separate agreements and legal retention obligations may
           affect those requests.
         </p>
+        <p className={paragraph}>
+          We may detect shared accounts and automated use of personal accounts. If we do, we may require you to move
+          automation to CI or service tokens and give each person their own account, adjust your charges to reflect the
+          number of people actually using the services, or restrict or suspend access as described above.
+        </p>
         <h2 className={heading}>9. Availability and your rights</h2>
         <p className={paragraph}>
           Except for commitments in a separate agreement and rights that cannot lawfully be excluded, the services are
@@ -103,7 +129,7 @@ function TermsOfService() {
           .
         </p>
       </div>
-      <p className="m-0 mt-14 border-t border-line pt-6 text-sm text-ink-faint">Last updated: October 1, 2026.</p>
+      <p className="m-0 mt-14 border-t border-line pt-6 text-sm text-ink-faint">Last updated: October 15, 2026.</p>
     </article>
   );
 }
