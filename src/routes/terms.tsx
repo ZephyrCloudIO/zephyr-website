@@ -15,10 +15,12 @@ const LEGAL = {
   address: '[TODO: registered business address]',
   governingLaw: '[TODO: e.g. the State of Delaware]',
   venue: '[TODO: e.g. the state and federal courts located in Delaware]',
+  // No EU entity: appoint a DSA Art. 13 representative service, then add its name and address here.
   euRepresentative: '[TODO: EU legal representative under Article 13 of the Digital Services Act, name and address]',
-  dmcaAgent: '[TODO: designated DMCA agent name and address, as registered with the U.S. Copyright Office]',
+  // Must match the designation filed with the U.S. Copyright Office DMCA agent directory.
+  dmcaAgent: 'Legal Department, Zephyr Cloud, Inc., at the address in section 19',
   supportEmail: 'support@zephyr-cloud.io',
-  effectiveDate: 'November 16, 2026',
+  effectiveDate: 'October 30, 2026',
   lastUpdated: 'October 16, 2026',
 };
 
