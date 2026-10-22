@@ -7,6 +7,19 @@ import { withZephyr } from 'zephyr-rspress-plugin';
 const siteUrl = 'https://zephyr-cloud.io';
 const DOCS_ROOT = path.join(__dirname, 'docs');
 
+// Rspress does not load `.env` or expose `PUBLIC_*` variables to client code the way the Rsbuild
+// CLI does, so `import.meta.env.PUBLIC_POSTHOG_KEY` compiled to `undefined` and PostHog never
+// initialized. Load `.env` for local builds (CI sets these in the environment) and inline the
+// variables the theme reads.
+if (fs.existsSync(path.join(__dirname, '.env'))) {
+  process.loadEnvFile(path.join(__dirname, '.env'));
+}
+
+const CLIENT_ENV_KEYS = ['PUBLIC_POSTHOG_KEY', 'PUBLIC_POSTHOG_HOST'] as const;
+const clientEnvDefines = Object.fromEntries(
+  CLIENT_ENV_KEYS.map((key) => [`import.meta.env.${key}`, JSON.stringify(process.env[key] ?? '')]),
+);
+
 // Build-time lander gating.
 //
 // Lander wrappers live at `docs/<slug>.mdx` and render `<LanderRoute slug=...>`.
@@ -100,6 +113,9 @@ export default defineConfig({
     '<script>(function(d){d.dataset.motion="on";setTimeout(function(){if(!window.__zeMotionReady)d.dataset.motion="off"},3000)})(document.documentElement)</script>',
   ],
   builderConfig: {
+    source: {
+      define: clientEnvDefines,
+    },
     resolve: {
       alias: {
         '@': path.join(__dirname, 'src'),
