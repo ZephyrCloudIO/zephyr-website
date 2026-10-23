@@ -411,4 +411,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-10-23-ze-disabled-skip-mode-doctor-online',
+    metadata: {
+      title: 'Developer Update: ZE_DISABLED Skip Mode and ze-cli doctor --online',
+      date: '2026-10-23',
+      version: 'October 2026 Developer Update',
+      summary:
+        'Set ZE_DISABLED=true to build without Zephyr. Use ze-cli doctor --online to find out why Zephyr does not work for a project.',
+      tags: ['developer-tools', 'cli', 'ze-cli', 'reliability'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;

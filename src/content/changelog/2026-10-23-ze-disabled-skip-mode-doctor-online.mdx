@@ -1,0 +1,154 @@
+---
+title: 'Developer Update: ZE_DISABLED Skip Mode and ze-cli doctor --online'
+date: '2026-10-23'
+version: 'October 2026 Developer Update'
+summary: 'Set ZE_DISABLED=true to build without Zephyr. Use ze-cli doctor --online to find out why Zephyr does not work for a project.'
+tags: ['developer-tools', 'cli', 'ze-cli', 'reliability']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+Two new tools help when Zephyr is not available or does not work.
+
+- `ZE_DISABLED=true` builds your bundle without Zephyr.
+- `ze-cli doctor --online` checks the connection to Zephyr and shows the cause of a failure.
+
+## Build Without Zephyr
+
+Set `ZE_DISABLED=true` to skip Zephyr. The build runs as normal. Zephyr does not deploy the bundle.
+
+```bash
+ZE_DISABLED=true pnpm build
+```
+
+When skip mode is on, the plugin does these things:
+
+- It makes no request to Zephyr.
+- It does not ask for a token.
+- It does not read git information.
+
+After the bundle is built without errors, the plugin prints this line:
+
+```text
+The bundle is built. The bundle is not deployed. Zephyr is disabled (ZE_DISABLED).
+```
+
+Use skip mode when Zephyr is down or when you have no access to Zephyr. A build of a fork is one example.
+
+Skip mode has these rules:
+
+- Only the exact value `true` turns it on. Zephyr never turns it on by itself.
+- Skip mode is not the same as the fail-open behavior after an outage. In fail-open, Zephyr is still contacted.
+- A failed build still fails. Skip mode does not hide a build error.
+- Use it next to `ZE_FAIL_BUILD`. `ZE_FAIL_BUILD=true` makes a Zephyr failure fail the build.
+- With `vite-plugin-zephyr`, skip mode also removes the Zephyr runtime plugin and the `ZE_PUBLIC_*` rewrites. Remotes keep the URLs in your config.
+
+### ze-cli in Skip Mode
+
+| Command         | Result with `ZE_DISABLED=true`                                                        |
+| --------------- | ------------------------------------------------------------------------------------- |
+| `ze-cli run`    | Runs your build command. Does not detect the output. Does not upload.                 |
+| `ze-cli deploy` | Does nothing. With `--format json`, prints `{"skipped":true,"reason":"ZE_DISABLED"}`. |
+| `ze-cli watch`  | Does nothing. Does not start a watcher.                                               |
+
+A missing directory or a failed build command still fails.
+
+### Supported Integrations
+
+These packages read `ZE_DISABLED`:
+
+- `zephyr-webpack-plugin`
+- `zephyr-rspack-plugin`
+- `zephyr-rsbuild-plugin`
+- `zephyr-modernjs-plugin`
+- `vite-plugin-zephyr` (`withZephyr` and `withZephyrPartial`)
+- `zephyr-rspress-plugin`
+- `rollup-plugin-zephyr`
+- `zephyr-rolldown-plugin`
+- `parcel-reporter-zephyr`
+- `zephyr-astro-integration`
+- `zephyr-nuxt-module`
+- `vite-plugin-tanstack-start-zephyr`
+- `vite-plugin-vinext-zephyr`
+- `zephyr-metro-plugin`
+- `zephyr-repack-plugin`
+- `zephyr-cli`
+
+Modern.js can print the skip line one time for each environment.
+
+## Find the Cause of a Zephyr Failure
+
+`ze-cli doctor` makes no network request by default. Add `--online` to check that Zephyr works for your project.
+
+```bash
+ze-cli doctor . --online
+```
+
+Use `--timeout <milliseconds>` to change the limit for each check. The default is `5000`. The maximum is `60000`.
+
+### The Five Checks
+
+Doctor runs the checks one at a time. All checks are read-only.
+
+| Check         | Question                                               |
+| ------------- | ------------------------------------------------------ |
+| `api`         | Does the API (`ZE_API`) answer?                        |
+| `gateway`     | Does the gateway (`ZE_API_GATE`) answer?               |
+| `token`       | Does the gateway accept your token?                    |
+| `application` | Does Zephyr have a configuration for this application? |
+| `edge`        | Does the edge URL in that configuration answer?        |
+
+Each check has the result `passed`, `failed` or `skipped`. A check is `skipped` when an earlier check that it needs has failed. The finding code of the skipped check points to the finding that explains the reason.
+
+### Safe by Design
+
+- Doctor does not log in.
+- Doctor does not exchange tokens.
+- Doctor does not write stored state.
+- Doctor does not delete a token that the server rejects.
+
+A slow or silent server cannot make doctor hang. Each check stops at its own time limit.
+
+`ZE_CI_TOKEN` and `ZE_SERVER_TOKEN` need an exchange before use. Doctor does not exchange them. It reports `ZD0708` (info) and does not check the token.
+
+Doctor takes the application name from `package.json` and the git remote `origin`. If a `zephyr.config` file exists, doctor does not run it. It skips the application and edge checks and reports `ZD0709` (info).
+
+### Different Problems Have Different Codes
+
+Doctor uses a different code for each type of problem. This makes it easy to find the right action.
+
+| Problem                          | Codes                                  |
+| -------------------------------- | -------------------------------------- |
+| A server cannot be reached       | `ZD0701`, `ZD0703`, `ZD0714`           |
+| A server is down (HTTP 5xx)      | `ZD0702`, `ZD0704`, `ZD0715`, `ZD0713` |
+| The token is not valid           | `ZD0706`, `ZD0707`                     |
+| No token is found                | `ZD0705`                               |
+| The configuration is not correct | `ZD0710`, `ZD0711`, `ZD0712`, `ZD0716` |
+| A check was not done             | `ZD0708`, `ZD0709`                     |
+
+Each online finding has a `nextAction`. The values are the same as the MCP values:
+
+- `none`
+- `refresh_credentials`
+- `check_permissions`
+- `retry_later`
+- `correct_request`
+
+### Report Format
+
+The JSON report only gets new optional fields:
+
+- A report made with `--online` uses `schemaVersion` `1.1.0`. It has an optional `online` object. Findings have the optional fields `check`, `target` and `nextAction`.
+- A report made without `--online` does not change. It keeps `schemaVersion` `1.0.0`.
+- `target` is an origin. It is never a path or a token.
+
+The exit codes are the same: `0` to `3`. Online errors and warnings exit with `1`. A missing project (`2`) or a tool failure (`3`) has priority over them.
+
+## What This Means for Teams
+
+- Builds continue when Zephyr is not available. Set `ZE_DISABLED=true` and the bundle is still built.
+- A fork build without a token can use skip mode.
+- Doctor shows the cause of a failure. You know if the cause is the network, an outage, the token, or the configuration.
+- Agents and scripts can read the stable codes and `nextAction` values. They do not need to match message text.
