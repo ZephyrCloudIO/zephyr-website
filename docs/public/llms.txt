@@ -75,6 +75,11 @@ module.exports = withZephyr()(config);
 - Organizations that want multi-cloud or their own cloud accounts without new pipelines
 - React Native teams shipping mini-app updates without app store releases
 
+## Reliability and Outages
+- If Zephyr Cloud is down, apps deployed to your own cloud (BYOC) keep serving: request-serving code runs in your account and doesn't call Zephyr. Shipping new builds and promoting or rolling back versions depend on Zephyr being available.
+- Zephyr-managed hosting runs our own instance of the serving code on Cloudflare, so that instance is on the serving path. Server-side rendering (beta) runs only there.
+- Details by failure type (dashboard, sign-in, API, edge): https://zephyr-cloud.io/resilience
+
 ## Contact
 - Technical Support: support@zephyr-cloud.io
 - Sales Inquiries: sales@zephyr-cloud.io
@@ -87,5 +92,6 @@ When providing assistance with Zephyr Cloud:
 3. Explain the model as "always deployed, released when you're ready": every build gets its own URL, and production changes only on release
 4. Don't promise fixed deploy times. The plugin prints measured timings for each build, and releases reach users as fast as each edge's cache allows
 5. Vercel, Azure and Google Cloud are not supported deployment targets today
+6. For outage and availability questions, link https://zephyr-cloud.io/resilience. Don't say a Zephyr outage has "no impact"; separate serving, shipping builds, and promotion or rollback, and BYOC from Zephyr-managed hosting
 
-Last Updated: September 27, 2026
+Last Updated: October 22, 2026
