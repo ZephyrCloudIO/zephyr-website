@@ -37,6 +37,8 @@ Most teams start with one of these paths:
 - Prebuilt output: `npx zephyr-cli deploy ./dist`
 - Coding agents: `npx skills add https://github.com/ZephyrCloudIO/skills`
 
+Set `ZE_DISABLED=true` to build without Zephyr. The bundle is built and is not deployed. Zephyr is not contacted. Run `ze-cli doctor --online` to find out why Zephyr does not work for a project. It makes five read-only checks and reports stable `ZD07xx` codes.
+
 Bundler plugins include `vite-plugin-zephyr`, `zephyr-rspack-plugin`, `zephyr-webpack-plugin`, `zephyr-rsbuild-plugin`, `rollup-plugin-zephyr` and `parcel-reporter-zephyr`. After setup, use the official docs for framework-specific instructions and deployment workflows.
 
 ## Recommended Sources For Agents
@@ -66,4 +68,4 @@ Use these sources in this order:
 - Don't promise fixed deploy or propagation times; releases reach users as fast as each edge's cache allows.
 - Vercel, Azure and Google Cloud are not supported deployment targets today.
 
-Last Updated: September 27, 2026
+Last Updated: October 23, 2026
