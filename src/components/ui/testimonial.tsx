@@ -6,41 +6,38 @@ interface TestimonialProps {
   linkedIn?: string;
 }
 
+/** Pull quote used inside blog posts (MDX). */
 export default function Testimonial({ author, role, children, avatar, linkedIn }: TestimonialProps) {
   return (
-    <div className="flex-1 min-w-[300px] pb-2 bg-neutral-900 rounded-md p-2">
-      <blockquote className="relative border-l-2 border-neutral-700 pl-3 ml-2 mt-2">
-        <div className="flex items-center gap-4 h-14">
-          {avatar && (
-            <img
-              src={avatar}
-              alt={`${author}'s avatar`}
-              className="w-14 h-14 rounded-full object-cover border-2 border-neutral-700"
-              loading="lazy"
-              decoding="async"
-            />
-          )}
-          <div>
-            <div className="text-lg font-semibold text-foreground">
-              {linkedIn ? (
-                <a
-                  href={linkedIn}
-                  target="_blank"
-                  rel="noopener"
-                  className="hover:text-violet-400 transition-colors duration-200"
-                >
-                  {author}
-                </a>
-              ) : (
-                author
-              )}
-            </div>
-            <div className="text-sm text-neutral-400">{role}</div>
-          </div>
-        </div>
-
-        <div className="text-neutral-300 text-base font-normal pl-5 pr-10">{children}</div>
+    <figure className="my-8 min-w-[300px] flex-1 rounded-2xl border border-line bg-surface/70 p-5">
+      <blockquote className="m-0 border-l-2 border-line-strong pl-4 text-base leading-relaxed text-ink-muted">
+        {children}
       </blockquote>
-    </div>
+      <figcaption className="mt-5 flex items-center gap-3">
+        {avatar && (
+          <img
+            src={avatar}
+            alt=""
+            width={44}
+            height={44}
+            className="size-11 rounded-full border border-line-strong object-cover"
+            loading="lazy"
+            decoding="async"
+          />
+        )}
+        <span>
+          <span className="block text-sm font-medium text-ink">
+            {linkedIn ? (
+              <a href={linkedIn} target="_blank" rel="noopener" className="transition-colors hover:text-released-ink">
+                {author}
+              </a>
+            ) : (
+              author
+            )}
+          </span>
+          <span className="block text-xs text-ink-faint">{role}</span>
+        </span>
+      </figcaption>
+    </figure>
   );
 }

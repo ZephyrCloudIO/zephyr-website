@@ -1,13 +1,18 @@
-import { Code2 } from 'lucide-react';
+import { cn } from '@/lib/utils';
+import { Check } from 'lucide-react';
 
+/** Bottom-center confirmation, clear of the Intercom launcher in the bottom-right corner. */
 export function CopyToast({ message, visible }: { message: string; visible: boolean }) {
   return (
     <div
-      className={`fixed bottom-6 right-6 z-[2147483647] flex items-center gap-3 px-5 py-3.5 bg-card border border-border rounded-xl shadow-lg text-sm text-foreground transition-all duration-300 whitespace-nowrap ${
-        visible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-2 pointer-events-none'
-      }`}
+      role="status"
+      aria-live="polite"
+      className={cn(
+        'fixed bottom-6 left-1/2 z-[2147483647] flex -translate-x-1/2 items-center gap-2.5 rounded-xl border border-line-strong bg-surface-2 px-4 py-3 text-sm whitespace-nowrap text-ink shadow-lg transition-[opacity,translate] duration-300',
+        visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-2 opacity-0',
+      )}
     >
-      <Code2 className="h-4 w-4 text-muted-foreground shrink-0" />
+      <Check className="size-4 shrink-0 text-live" aria-hidden />
       <span>{message}</span>
     </div>
   );

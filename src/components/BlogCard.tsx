@@ -1,67 +1,86 @@
-import { formatDateLong } from '@/date';
+import { formatDateShort } from '@/date';
 import { tagLabels } from '@/lib/blog/tags';
-import type { BlogPost } from '@/lib/blog/types';
+import type { Author, BlogPost } from '@/lib/blog/types';
+import { cn } from '@/lib/utils';
 import { Link } from '@tanstack/react-router';
-import { Calendar } from 'lucide-react';
 
 interface BlogCardProps {
   post: BlogPost;
   featured?: boolean;
 }
 
+export function authorNames(authors: Author[]) {
+  if (authors.length === 0) return '';
+  if (authors.length === 1) return authors[0].displayName;
+  if (authors.length === 2) return `${authors[0].displayName} & ${authors[1].displayName}`;
+  return `${authors[0].displayName} +${authors.length - 1}`;
+}
+
 export function BlogCard({ post, featured = false }: BlogCardProps) {
   if (!post) return null;
 
+  const authors = post.authors ?? [];
+  const topics = (post.tags ?? []).slice(0, featured ? 3 : 2).map((tag) => tagLabels[tag] ?? tag);
+
   return (
-    <Link to={`/blog/${post.slug}`} className="group block">
-      <article className="h-full bg-neutral-900/50 backdrop-blur-lg rounded-2xl overflow-hidden transition-all duration-300 hover:bg-neutral-800/50 hover:shadow-xl">
-        <div className="aspect-video overflow-hidden">
+    <Link
+      to={`/blog/${post.slug}`}
+      className="group flex h-full flex-col overflow-hidden rounded-2xl border border-line bg-surface/70 transition-colors hover:border-line-strong"
+    >
+      <span className="block aspect-[16/9] overflow-hidden border-b border-line bg-surface-2">
+        {post.listingImage ? (
           <img
             src={post.listingImage}
-            alt={post.title}
-            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-105"
+            alt=""
+            width={featured ? 1200 : 640}
+            height={featured ? 675 : 360}
+            className="h-full w-full object-cover transition-transform duration-700 ease-out-soft group-hover:scale-[1.03]"
+            loading={featured ? 'eager' : 'lazy'}
+            decoding="async"
           />
-        </div>
-        <div className="p-6">
-          <div className="flex flex-wrap gap-2 mb-3">
-            {post.tags?.map((tag) => (
-              <span key={tag} className="text-xs px-2 py-1 rounded-full bg-violet-900/30 text-violet-400">
-                {tagLabels[tag] || tag}
-              </span>
-            ))}
-          </div>
-          <h3
-            className={`font-semibold mb-2 transition-colors group-hover:text-violet-400 text-balance ${
-              featured ? 'text-2xl' : 'text-xl'
-            }`}
+        ) : null}
+      </span>
+      <div className={cn('flex flex-1 flex-col', featured ? 'p-5 sm:p-6' : 'p-5')}>
+        {topics.length > 0 ? <p className="m-0 mb-3 text-xs text-ink-faint">{topics.join(' · ')}</p> : null}
+        {/* Not through cn(): tailwind-merge reads the custom `text-title` utility as a color and drops it. */}
+        <h3
+          className={`text-title m-0 text-ink transition-colors group-hover:text-released-ink ${featured ? '' : 'text-[1.125rem]'}`}
+        >
+          {post.title}
+        </h3>
+        {post.description ? (
+          <p
+            className={cn(
+              'm-0 mt-2 leading-relaxed text-pretty text-ink-muted',
+              featured ? 'line-clamp-3 text-[0.9375rem]' : 'line-clamp-2 text-sm',
+            )}
           >
-            {post.title}
-          </h3>
-          <div className="flex items-center gap-4 text-sm text-neutral-400 mb-3">
-            <div className="flex items-center gap-2">
-              <Calendar className="w-4 h-4" />
-              <time dateTime={post.date.toISOString()}>{formatDateLong(post.date)}</time>
-            </div>
-            {post.readingTime && <span>{post.readingTime} min read</span>}
-          </div>
-          <p className="text-neutral-300 line-clamp-3 mb-4 text-pretty">{post.description}</p>
-          <div className="flex items-center justify-between">
-            <div className="flex -space-x-2">
-              {post.authors?.map((author, index) => (
+            {post.description}
+          </p>
+        ) : null}
+        <div className="mt-auto flex items-center gap-2.5 pt-5 text-xs text-ink-faint">
+          {authors.length > 0 ? (
+            <span className="flex shrink-0 -space-x-1.5">
+              {authors.slice(0, 3).map((author) => (
                 <img
-                  key={index}
+                  key={author.displayName}
                   src={author.avatar}
-                  alt={author.displayName}
-                  className="w-8 h-8 rounded-full ring-2 ring-neutral-900"
+                  alt=""
+                  width={22}
+                  height={22}
+                  className="size-5.5 rounded-full object-cover ring-2 ring-surface"
+                  loading="lazy"
                 />
               ))}
-            </div>
-            <span className="text-muted-foreground text-sm font-medium group-hover:translate-x-1 transition-transform">
-              Read more →
             </span>
-          </div>
+          ) : null}
+          <span className="min-w-0 truncate">
+            {authors.length > 0 ? `${authorNames(authors)} · ` : ''}
+            <time dateTime={post.date.toISOString()}>{formatDateShort(post.date)}</time>
+            {post.readingTime ? ` · ${post.readingTime} min read` : ''}
+          </span>
         </div>
-      </article>
+      </div>
     </Link>
   );
 }

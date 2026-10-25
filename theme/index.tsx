@@ -1,9 +1,12 @@
 import { IntercomButton } from '@/components/IntercomButton';
+import { MotionReveal } from '@/components/motion/MotionReveal';
 import { NotFoundPage } from '@/components/pages/NotFoundPage';
 import { Footer } from '@/components/sections/Footer';
 import { Header } from '@/components/sections/Header';
 import '@/index.css';
 import { mdxComponents } from '@/mdx-components';
+import '@fontsource-variable/chivo-mono';
+import '@fontsource-variable/inter/opsz.css';
 import { MDXProvider } from '@mdx-js/react';
 import { PostHogProvider } from '@posthog/react';
 import { Content, Head, useFrontmatter, usePageData } from '@rspress/core/runtime';
@@ -80,11 +83,14 @@ export function Layout() {
       <IntercomProvider appId="xyxkmxlj">
         <PostHogProvider client={posthog}>
           <MDXProvider components={mdxComponents as any}>
-            <div className="dark bg-black text-neutral-300 min-h-screen font-sans">
+            {/* overflow-x: clip, not hidden: it keeps the header and pinned stage sticky, and stops
+                transformed demo layers from widening the page (iOS Safari keeps stale overflow). */}
+            <div className="dark bg-night text-ink-muted min-h-screen overflow-x-clip font-sans">
               {hideChrome ? null : <Header />}
-              <main>{isNotFound ? <NotFoundPage /> : <Content />}</main>
+              <main id="main">{isNotFound ? <NotFoundPage /> : <Content />}</main>
               {hideChrome ? null : <Footer />}
               {hideChrome ? null : <IntercomButton />}
+              <MotionReveal />
             </div>
           </MDXProvider>
         </PostHogProvider>

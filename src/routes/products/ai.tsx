@@ -2,6 +2,7 @@ import { AppScreenshot } from '@/components/AppScreenshot';
 import { SignupForm } from '@/components/SignupForm';
 import { UnicornBackground } from '@/components/UnicornBackground';
 import ZephyrLogo from '@/images/zephyr-logo.svg';
+import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
 import { useEffect, useState } from 'react';
 
@@ -24,7 +25,8 @@ function AIPage() {
 
   return (
     <div className="relative min-h-screen overflow-hidden">
-      {/* Scoped animations — only affect this page */}
+      {/* Scoped animations — only affect this page. The intro and screenshot wait for the shader, but only once
+          JS runs (html[data-motion='on']), so crawlers and no-JS visitors always see them. */}
       <style>{`
         @keyframes ai-shake {
           0%, 100% { transform: translateX(0); }
@@ -40,44 +42,64 @@ function AIPage() {
           to { mask-position: -50%; }
         }
         .animate-shake { animation: ai-shake 0.5s ease-in-out; }
-        .tilt-in {
+        [data-motion='on'] .ai-intro {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        [data-motion='on'] .ai-intro.is-ready {
+          opacity: 1;
+          transform: none;
+          transition: opacity 0.8s var(--ease-out-soft), transform 0.8s var(--ease-out-soft);
+        }
+        [data-motion='on'] .ai-shot {
+          opacity: 0;
+        }
+        [data-motion='on'] .ai-shot.is-ready {
+          opacity: 1;
           transform-origin: center top;
-          animation: ai-tilt-in 2.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+          transition: opacity 0.6s ease-out 0.15s;
+          animation: ai-tilt-in 2.4s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
         }
         .shimmer-text {
-          color: rgba(255, 255, 255, 0.75);
+          color: var(--ze-ink-muted);
           mask-image: linear-gradient(-60deg, rgba(0,0,0,0.6) 40%, rgb(0,0,0) 50%, rgba(0,0,0,0.6) 60%);
           mask-size: 300%;
           -webkit-mask-image: linear-gradient(-60deg, rgba(0,0,0,0.6) 40%, rgb(0,0,0) 50%, rgba(0,0,0,0.6) 60%);
           -webkit-mask-size: 300%;
           animation: ai-shimmer 3s ease-in-out infinite;
         }
+        @media (prefers-reduced-motion: reduce) {
+          .animate-shake, .shimmer-text { animation: none; }
+          [data-motion='on'] .ai-intro,
+          [data-motion='on'] .ai-shot {
+            opacity: 1;
+            transform: none;
+            transition: none;
+            animation: none;
+          }
+        }
       `}</style>
 
       {/* Background WebGL scene — positioned relative to this container, not viewport */}
-      <div className="pointer-events-none absolute inset-x-0 top-0 z-0 w-full">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 z-0 w-full">
         <UnicornBackground onLoad={() => setShaderReady(true)} />
       </div>
 
       {/* Content */}
-      <div className="relative z-10 mx-auto flex max-w-[1200px] flex-col items-center gap-2 px-6 pt-10 pb-28 md:pt-6">
+      <div className="relative z-10 mx-auto flex max-w-[1320px] flex-col items-center gap-2 px-5 pt-10 pb-28 sm:px-8 md:pt-6 lg:px-10">
         {/* Header row */}
         <div
-          className="flex w-full flex-col gap-6 px-0 md:flex-row md:items-center md:justify-between"
-          style={{
-            opacity: shaderReady ? 1 : 0,
-            transform: shaderReady ? 'translateY(0)' : 'translateY(10px)',
-            ...(shaderReady && {
-              transition: 'opacity 0.8s ease-out, transform 0.8s ease-out',
-            }),
-          }}
+          className={cn(
+            'ai-intro flex w-full flex-col gap-6 md:flex-row md:items-center md:justify-between',
+            shaderReady && 'is-ready',
+          )}
         >
           {/* Left: Logo + text */}
           <div className="flex items-center gap-4">
             <img src={ZephyrLogo} alt="Zephyr" width={49} height={49} className="shrink-0 rounded-[10px]" />
-            <div className="flex flex-col gap-1.5 text-white">
-              <p className="text-[15px] font-bold leading-[22px]">Zephyr is the AI Super App</p>
-              <p className="text-sm font-normal leading-[22px]">This is where humans and AI do real work.</p>
+            <div className="flex flex-col gap-1.5">
+              <h1 className="m-0 text-[0.9375rem] leading-[22px] font-semibold text-ink">Zephyr is the AI Super App</h1>
+              <p className="m-0 text-sm leading-[22px] text-ink-muted">This is where humans and AI do real work.</p>
             </div>
           </div>
 
