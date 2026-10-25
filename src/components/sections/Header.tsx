@@ -270,6 +270,9 @@ export const Header: React.FC = () => {
                 </NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <NavigationMenuLink href="/acceleration-week">Acceleration Week</NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <NavigationMenuLink href="/pricing">Pricing</NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -359,6 +362,13 @@ export const Header: React.FC = () => {
           >
             Docs
           </a>
+          <Link
+            to="/acceleration-week"
+            onClick={closeMobile}
+            className="block rounded-lg px-3 py-2.5 text-ink-muted hover:bg-surface-2 hover:text-ink"
+          >
+            Acceleration Week
+          </Link>
           <Link
             to="/pricing"
             onClick={closeMobile}
