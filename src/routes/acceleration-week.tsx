@@ -1,6 +1,9 @@
 import { Button } from '@/components/ui/button';
 import SGWSLogo from '@/images/companies/sgws.webp';
+import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
+import { Play } from 'lucide-react';
+import { useState } from 'react';
 
 export const Route = createFileRoute('/acceleration-week')({
   component: AccelerationWeekPage,
@@ -140,38 +143,80 @@ const layers = [
 
 const interviews = [
   {
-    src: '/videos/terry-fritsch.mp4',
+    videoId: '64814c3e93ecf40fdc10efbaf98593b2',
     poster: '/videos/terry-fritsch.jpg',
     name: 'Terry Fritsch',
     role: 'VP of Digital Engineering, Southern Glazer’s · 18 min',
   },
   {
-    src: '/videos/michael-mcmanus.mp4',
+    videoId: 'a573fa7df0b997a993067af35440c4af',
     poster: '/videos/michael-mcmanus.jpg',
     name: 'Michael McManus',
     role: 'Cloud, DevSecOps, and Engineering Enablement · 15 min',
   },
   {
-    src: '/videos/matthew-carver.mp4',
+    videoId: '55f040660cc603e61c507accbccfa4eb',
     poster: '/videos/matthew-carver.jpg',
     name: 'Matthew Carver',
     role: 'Engineering Manager, Marketing Technology · 8 min',
   },
 ];
 
+const STREAM_HOST = 'https://customer-vidz6bq21xzaovw8.cloudflarestream.com';
+
+// Shows the poster until clicked, so the page doesn't load a Stream player per video up front.
+function StreamVideo({
+  videoId,
+  poster,
+  title,
+  className,
+}: {
+  videoId: string;
+  poster: string;
+  title: string;
+  className?: string;
+}) {
+  const [playing, setPlaying] = useState(false);
+
+  if (playing) {
+    return (
+      <iframe
+        className={className}
+        src={`${STREAM_HOST}/${videoId}/iframe?autoplay=true`}
+        title={title}
+        allow="accelerometer; gyroscope; autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowFullScreen
+      />
+    );
+  }
+
+  return (
+    <button
+      type="button"
+      className={cn('group relative block overflow-hidden', className)}
+      onClick={() => setPlaying(true)}
+      aria-label={`Play ${title}`}
+    >
+      <img src={poster} alt="" className="h-full w-full object-cover" />
+      <span className="absolute inset-0 flex items-center justify-center bg-black/20 transition-colors group-hover:bg-black/40">
+        <span className="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 text-black">
+          <Play className="ml-1 h-7 w-7" fill="currentColor" />
+        </span>
+      </span>
+    </button>
+  );
+}
+
 function AccelerationWeekPage() {
   return (
     <div className="pb-24">
       <figure className="bg-black">
-        <video
-          className="aspect-video mx-auto w-full max-h-[78vh] bg-black object-cover"
-          controls
-          playsInline
-          preload="metadata"
+        <StreamVideo
+          className="aspect-video mx-auto w-full max-h-[78vh] bg-black"
+          videoId="fcbffd990a573c3d8f51166370c54d75"
           poster="/videos/acceleration-week-poster.jpg"
-        >
-          <source src="/videos/acceleration-week-2025.mp4" type="video/mp4" />
-        </video>
+          title="Acceleration Week 2025 recap"
+        />
         <figcaption className="mx-auto max-w-5xl px-4 pt-3 text-sm text-neutral-500 sm:px-6 lg:px-8">
           Southern Glazer’s Wine &amp; Spirits · Acceleration Week 2025 recap
         </figcaption>
@@ -339,16 +384,13 @@ function AccelerationWeekPage() {
           </p>
           <div className="mt-6 grid gap-6 lg:grid-cols-1">
             {interviews.map((item) => (
-              <figure key={item.src}>
-                <video
+              <figure key={item.videoId}>
+                <StreamVideo
                   className="aspect-video w-full rounded-xl border border-neutral-800 bg-neutral-950"
-                  controls
-                  playsInline
-                  preload="metadata"
+                  videoId={item.videoId}
                   poster={item.poster}
-                >
-                  <source src={item.src} type="video/mp4" />
-                </video>
+                  title={`${item.name} interview`}
+                />
                 <figcaption className="mt-2 text-sm text-neutral-400">
                   <span className="font-medium text-white">{item.name}</span>
                   <span className="text-neutral-500"> · {item.role}</span>
