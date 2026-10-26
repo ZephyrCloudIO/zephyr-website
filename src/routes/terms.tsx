@@ -11,17 +11,17 @@ const link = 'text-ink underline underline-offset-4';
 // TODO(legal): fill in every [bracketed] value before merging. They render on the live page.
 const LEGAL = {
   entity: 'Zephyr Cloud, Inc.',
-  incorporation: '[TODO: state of incorporation, e.g. a Delaware corporation]',
-  address: '[TODO: registered business address]',
-  governingLaw: '[TODO: e.g. the State of Delaware]',
-  venue: '[TODO: e.g. the state and federal courts located in Delaware]',
+  incorporation: 'a Delaware corporation',
+  address: '1226 King St, Wilmington, DE 19801, USA',
+  governingLaw: 'the State of Delaware',
+  venue: 'the state and federal courts located in Delaware',
   // No EU entity: appoint a DSA Art. 13 representative service, then add its name and address here.
   euRepresentative: '[TODO: EU legal representative under Article 13 of the Digital Services Act, name and address]',
   // Must match the designation filed with the U.S. Copyright Office DMCA agent directory.
   dmcaAgent: 'Legal Department, Zephyr Cloud, Inc., at the address in section 19',
   supportEmail: 'support@zephyr-cloud.io',
   effectiveDate: 'October 30, 2026',
-  lastUpdated: 'October 16, 2026',
+  lastUpdated: 'October 26, 2026',
 };
 
 function Mail({ to = LEGAL.supportEmail }: { to?: string }) {
@@ -54,7 +54,9 @@ function TermsOfService() {
         <p className={paragraph}>
           The services are built for developers and businesses. You must be at least 18 years old, or the age of
           majority where you live, to create an account. Some terms below apply differently to consumers, meaning
-          individuals using the services outside their trade, business, or profession; where they do, we say so.
+          individuals using the services outside their trade, business, or profession; where they do, we say so. A
+          “business customer” is anyone using the services for their trade, business, craft, or profession, including
+          through any organization account.
         </p>
 
         <h2 className={heading}>2. Accounts, credentials, and automation</h2>
@@ -66,8 +68,9 @@ function TermsOfService() {
         </p>
         <p className={paragraph}>
           Each user account belongs to one individual. Do not share your login credentials, session tokens, or personal
-          access tokens with anyone else, and do not let more than one person use the same account. Everyone who builds,
-          deploys, or manages releases through Zephyr for your organization needs their own account.
+          access tokens with anyone else, and do not let more than one person use the same account, whether at the same
+          time or at different times. Everyone who builds, deploys, or manages releases through Zephyr for your
+          organization needs their own account. Visitors to your deployed sites do not need Zephyr accounts.
         </p>
         <p className={paragraph}>
           Builds and deployments that run without a person directing each one, such as CI/CD pipelines, scripts, and
@@ -142,6 +145,13 @@ function TermsOfService() {
           account controls or contact support to revoke access, remove content, or manage your subscription.
         </p>
         <p className={paragraph}>
+          You decide which assistants, agents, API clients, and other automated integrations to connect, what
+          permissions to give them, and how to supervise them. Within those permissions, an integration can publish,
+          replace, promote, or delete content, and those actions are treated as yours. Review permissions and set
+          appropriate safeguards before enabling automated operations. We are not responsible for what a third-party
+          integration does outside our reasonable control, except where that liability cannot lawfully be excluded.
+        </p>
+        <p className={paragraph}>
           Features we label as beta, preview, or experimental may change or be withdrawn, and are provided without any
           service level commitment.
         </p>
@@ -153,6 +163,13 @@ function TermsOfService() {
           authorization. Do not bypass access controls or authorship verification, use another person’s account or
           credentials, or evade service limits, including by sharing accounts to reduce the number of editing users on
           your plan.
+        </p>
+        <p className={paragraph}>
+          Do not resell, sublicense, rent, or lease the services, or give third parties access to them, without our
+          written permission. This does not restrict members of your organization using their own accounts, or the
+          public visiting your deployed sites. Do not reverse engineer, decompile, or try to extract non-public source
+          code from the services, except where the law allows it; this does not restrict your own content or open-source
+          components under their licenses.
         </p>
 
         <h2 className={heading}>7. Reporting illegal content and copyright infringement</h2>
@@ -177,8 +194,10 @@ function TermsOfService() {
         </p>
         <p className={paragraph}>
           Plans include a set number of editing users. Every individual who builds, deploys, publishes, or manages
-          releases through Zephyr needs their own editing user; view-only users cannot do these things. Sharing an
-          account to stay within your editing user limit is evading a service limit.
+          releases through Zephyr needs their own editing user, however often they do it; view-only users cannot do
+          these things. Sharing an account to stay within your editing user limit is evading a service limit. Routing
+          several people through a shared interface, proxy, integration, or automated system does not reduce the number
+          of editing users needed when each of them directs builds or releases.
         </p>
         <p className={paragraph}>
           Paid subscriptions renew automatically for the same period until cancelled. You can cancel online at any time
@@ -260,9 +279,10 @@ function TermsOfService() {
         <h2 className={heading}>13. Limitation of liability</h2>
         <p className={conspicuous}>
           To the extent permitted by law, neither Zephyr nor its suppliers will be liable for indirect, incidental,
-          special, consequential, or punitive damages, or for lost profits, revenue, data, or goodwill. Our total
-          liability arising out of or relating to these terms or the services is limited to the greater of the amounts
-          you paid us for the services in the 12 months before the event giving rise to the claim and USD 100.
+          special, consequential, or punitive damages, or for lost profits, revenue, business opportunities, data, or
+          goodwill. Our total liability arising out of or relating to these terms or the services is limited to the
+          greater of the amounts you paid us for the services in the 12 months before the event giving rise to the claim
+          and USD 100.
         </p>
         <p className={paragraph}>
           These limits do not apply to liability for death or personal injury caused by negligence, fraud, intentional
@@ -272,10 +292,12 @@ function TermsOfService() {
 
         <h2 className={heading}>14. Indemnity</h2>
         <p className={paragraph}>
-          If you use the services for a business, you will defend Zephyr against third-party claims arising from your
-          content, your sites, or your breach of these terms or the law, and pay the resulting damages and reasonable
-          costs. We will notify you promptly of the claim, let you control its defense, and cooperate reasonably. This
-          section does not apply to consumers.
+          If you are a business customer, you will defend Zephyr and its officers, employees, and affiliates against
+          third-party claims arising from your content, your sites, your unlawful use of the services, your infringement
+          of third-party rights, or your material breach of these terms, and pay the resulting damages and reasonable
+          legal costs. This does not apply to the extent a claim results from our own unlawful conduct or breach of
+          these terms. We will notify you promptly of the claim, let you control its defense, and cooperate reasonably.
+          This section does not apply to consumers.
         </p>
 
         <h2 className={heading}>15. Export controls and sanctions</h2>
