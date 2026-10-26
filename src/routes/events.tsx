@@ -1,9 +1,10 @@
-import { pastEvents, upcomingEvents, type Event, type EventType } from '@/data/events';
+import { pastEvents, upcomingEvents, type Event, type EventResource, type EventType } from '@/data/events';
 import { cn } from '@/lib/utils';
 import { createFileRoute, Link } from '@tanstack/react-router';
 import {
+  ArrowRight,
+  ArrowUpRight,
   CalendarDays,
-  Clock,
   FileText,
   Globe,
   Link as LinkIcon,
@@ -15,373 +16,355 @@ import {
   Zap,
   type LucideIcon,
 } from 'lucide-react';
-import { useState } from 'react';
+import { useState, type CSSProperties, type ReactNode } from 'react';
 
 export const Route = createFileRoute('/events')({
   component: EventsPage,
 });
 
-function EventCard({ event }: { event: Event }) {
-  const typeConfig = {
-    conference: { bg: 'bg-violet-900/20', border: 'border-violet-700/50', text: 'text-violet-400', icon: Globe },
-    webinar: { bg: 'bg-blue-900/20', border: 'border-blue-700/50', text: 'text-blue-400', icon: Zap },
-    meetup: { bg: 'bg-violet-900/20', border: 'border-violet-700/50', text: 'text-violet-400', icon: Users },
-    workshop: { bg: 'bg-violet-900/20', border: 'border-violet-700/50', text: 'text-violet-400', icon: Sparkles },
-  };
+type Filter = 'all' | EventType;
 
-  const config = typeConfig[event.type];
-  const Icon = config.icon;
+const TYPE_META: Record<EventType, { label: string; icon: LucideIcon }> = {
+  conference: { label: 'Conference', icon: Globe },
+  webinar: { label: 'Webinar', icon: Zap },
+  meetup: { label: 'Meetup', icon: Users },
+  workshop: { label: 'Workshop', icon: Sparkles },
+};
+
+const FILTERS: { value: Filter; label: string; icon?: LucideIcon }[] = [
+  { value: 'all', label: 'All events' },
+  { value: 'conference', label: 'Conferences', icon: Globe },
+  { value: 'webinar', label: 'Webinars', icon: Zap },
+  { value: 'meetup', label: 'Meetups', icon: Users },
+  { value: 'workshop', label: 'Workshops', icon: Sparkles },
+];
+
+const RESOURCE_ICONS: Record<string, LucideIcon> = {
+  FileText,
+  Video,
+  Presentation,
+  Link: LinkIcon,
+};
+
+const container = 'mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-10';
+const primaryButton =
+  'inline-flex h-11 items-center justify-center gap-2 rounded-xl bg-released px-5 text-[0.9375rem] font-medium text-white transition-colors hover:bg-[#8b4df5] focus-visible:ring-2 focus-visible:ring-released-ink focus-visible:ring-offset-2 focus-visible:ring-offset-night';
+const secondaryButton =
+  'inline-flex h-11 items-center justify-center gap-2 rounded-xl border border-line-strong px-5 text-[0.9375rem] text-ink-muted transition-colors hover:border-deployed/60 hover:text-ink';
+const textLink = 'inline-flex items-center gap-1.5 text-sm text-ink-muted transition-colors hover:text-ink';
+
+// Handles ranges like "September 2-4, 2025" (start date) and month-only dates like "December 2024".
+function parseEventDate(dateStr: string): Date {
+  const cleanedDate = dateStr.replace(/(\d+)-\d+,/, '$1,');
+  if (/^[A-Za-z]+ \d{4}$/.test(cleanedDate)) {
+    return new Date(`${cleanedDate} 1`);
+  }
+  return new Date(cleanedDate);
+}
+
+function sortEventsByDate(events: Event[], ascending: boolean) {
+  return [...events].sort((a, b) => {
+    const dateA = parseEventDate(a.date).getTime();
+    const dateB = parseEventDate(b.date).getTime();
+    return ascending ? dateA - dateB : dateB - dateA;
+  });
+}
+
+const eventKey = (event: Event) => `${event.title}-${event.date}`;
+
+function resourceIcon(resource: EventResource): LucideIcon {
+  if (typeof resource.icon === 'string') return RESOURCE_ICONS[resource.icon] ?? LinkIcon;
+  return resource.icon ?? LinkIcon;
+}
+
+function TypeTag({ type }: { type: EventType }) {
+  const { label, icon: Icon } = TYPE_META[type];
+  return (
+    <span className="inline-flex items-center gap-1.5 rounded-full border border-line px-2.5 py-1 text-xs text-ink-muted">
+      <Icon className="size-3.5 text-deployed" aria-hidden />
+      {label}
+    </span>
+  );
+}
+
+function MetaRow({ icon: Icon, children }: { icon: LucideIcon; children: ReactNode }) {
+  return (
+    <li className="flex items-start gap-2.5">
+      <Icon className="mt-[0.2em] size-4 shrink-0 text-ink-faint" aria-hidden />
+      <span>{children}</span>
+    </li>
+  );
+}
+
+function EventMeta({ event, attendeesLabel = 'attendees' }: { event: Event; attendeesLabel?: string }) {
+  return (
+    <ul className="m-0 list-none space-y-2 p-0 text-sm text-ink-muted">
+      <MetaRow icon={CalendarDays}>
+        {event.date}
+        {event.time ? (
+          <>
+            <span className="text-ink-faint"> · </span>
+            {event.time} {event.timezone}
+          </>
+        ) : null}
+      </MetaRow>
+      <MetaRow icon={MapPin}>
+        {event.location}
+        {event.timezone && !event.time ? <span className="text-ink-faint"> · {event.timezone}</span> : null}
+      </MetaRow>
+      {event.attendees ? (
+        <MetaRow icon={Users}>
+          {event.attendees}+ {attendeesLabel}
+        </MetaRow>
+      ) : null}
+    </ul>
+  );
+}
+
+function EventLinks({ event }: { event: Event }) {
+  if (!event.isPast && event.link) {
+    return (
+      <a href={event.link} target="_blank" rel="noopener" className={textLink}>
+        {event.ctaText || 'Register now'}
+        <ArrowUpRight className="size-3.5" aria-hidden />
+      </a>
+    );
+  }
+
+  if (!event.isPast || !event.resources?.length) return null;
 
   return (
-    <div className="group relative overflow-hidden rounded-xl border border-neutral-800 bg-gradient-to-br from-neutral-900 to-neutral-900/50 p-6 transition-all duration-300 hover:-translate-y-1 hover:border-neutral-700 hover:shadow-2xl hover:shadow-violet-500/10">
-      <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity" />
-
-      <div className="relative z-10">
-        <div className="flex items-start justify-between mb-4">
-          <div
-            className={cn(
-              'inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-medium',
-              config.bg,
-              config.border,
-              config.text,
+    <ul className="m-0 flex list-none flex-wrap gap-x-5 gap-y-2 p-0">
+      {event.resources.map((resource) => {
+        const Icon = resourceIcon(resource);
+        return (
+          <li key={resource.link}>
+            {resource.external ? (
+              <a href={resource.link} target="_blank" rel="noopener" className={textLink}>
+                <Icon className="size-4 text-ink-faint" aria-hidden />
+                {resource.text}
+              </a>
+            ) : (
+              <Link to={resource.link} className={textLink}>
+                <Icon className="size-4 text-ink-faint" aria-hidden />
+                {resource.text}
+              </Link>
             )}
-          >
-            <Icon size={14} />
-            <span>{event.type.charAt(0).toUpperCase() + event.type.slice(1)}</span>
-          </div>
-          {event.isPast && <span className="text-xs text-neutral-500 bg-neutral-800/50 px-2 py-1 rounded">Past</span>}
-        </div>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
 
-        <h3 className="text-xl font-semibold mb-3 text-foreground">{event.title}</h3>
+function EventCard({ event }: { event: Event }) {
+  const hasLinks = (!event.isPast && Boolean(event.link)) || (event.isPast && Boolean(event.resources?.length));
 
-        <div className="space-y-2 mb-4">
-          <div className="flex items-center gap-2 text-sm text-neutral-400">
-            <CalendarDays size={14} className="text-neutral-500" />
-            <span>{event.date}</span>
-            {event.time && (
-              <>
-                <span className="text-neutral-600">•</span>
-                <Clock size={14} className="text-neutral-500" />
-                <span>
-                  {event.time} {event.timezone}
-                </span>
-              </>
-            )}
-          </div>
-          <div className="flex items-center gap-2 text-sm text-neutral-400">
-            <MapPin size={14} className="text-neutral-500" />
-            <span>{event.location}</span>
-            {event.timezone && !event.time && (
-              <>
-                <span className="text-neutral-600">•</span>
-                <span className="text-xs">{event.timezone}</span>
-              </>
-            )}
-          </div>
-          {event.attendees && (
-            <div className="flex items-center gap-2 text-sm text-neutral-400">
-              <Users size={14} className="text-neutral-500" />
-              <span>{event.attendees}+ attendees</span>
-            </div>
-          )}
-        </div>
-
-        <p className="text-neutral-300 mb-4 line-clamp-3">{event.description}</p>
-
-        {event.speakers && event.speakers.length > 0 && (
-          <div className="mb-4">
-            <p className="text-xs text-neutral-500 mb-1">Speakers</p>
-            <p className="text-sm text-neutral-300">{event.speakers.join(', ')}</p>
-          </div>
-        )}
-
-        {event.link && !event.isPast && (
-          <a
-            href={event.link}
-            target="_blank"
-            rel="noopener"
-            className="inline-flex items-center text-neutral-400 hover:text-neutral-200 transition-colors font-medium text-sm"
-          >
-            {event.ctaText || 'Register now'}
-            <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-            </svg>
-          </a>
-        )}
-
-        {event.isPast && event.resources && event.resources.length > 0 && (
-          <div className="flex flex-wrap gap-3 mt-4">
-            {event.resources.map((resource, index) => {
-              const iconMap: Record<string, any> = {
-                FileText: FileText,
-                Video: Video,
-                Presentation: Presentation,
-                Link: LinkIcon,
-              };
-              const IconComponent = typeof resource.icon === 'string' ? iconMap[resource.icon] || LinkIcon : LinkIcon;
-
-              if (resource.external) {
-                return (
-                  <a
-                    key={index}
-                    href={resource.link}
-                    target="_blank"
-                    rel="noopener"
-                    className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors"
-                  >
-                    <IconComponent size={16} />
-                    <span>{resource.text}</span>
-                  </a>
-                );
-              } else {
-                return (
-                  <Link
-                    key={index}
-                    to={resource.link}
-                    className="inline-flex items-center gap-2 text-sm text-neutral-400 hover:text-neutral-200 transition-colors"
-                  >
-                    <IconComponent size={16} />
-                    <span>{resource.text}</span>
-                  </Link>
-                );
-              }
-            })}
-          </div>
-        )}
+  return (
+    <article className="flex h-full flex-col rounded-2xl border border-line bg-surface/70 p-6 transition-colors hover:border-line-strong">
+      <div className="flex items-center justify-between gap-3">
+        <TypeTag type={event.type} />
+        {event.isPast ? <span className="text-xs text-ink-faint">Past</span> : null}
       </div>
-    </div>
+
+      <h3 className="text-title mt-5 mb-4 text-ink">{event.title}</h3>
+      <EventMeta event={event} />
+
+      <p className="mt-4 mb-0 line-clamp-3 text-[0.9375rem] leading-relaxed text-ink-muted">{event.description}</p>
+
+      {event.speakers?.length ? (
+        <div className="mt-5">
+          <p className="m-0 text-xs text-ink-faint">Speakers</p>
+          <p className="m-0 mt-1 text-sm text-ink-muted">{event.speakers.join(', ')}</p>
+        </div>
+      ) : null}
+
+      {hasLinks ? (
+        <div className="mt-auto pt-6">
+          <div className="border-t border-line pt-4">
+            <EventLinks event={event} />
+          </div>
+        </div>
+      ) : null}
+    </article>
+  );
+}
+
+function EventGrid({ events }: { events: Event[] }) {
+  return (
+    <ul className="m-0 mt-12 grid list-none gap-4 p-0 md:grid-cols-2 lg:grid-cols-3">
+      {events.map((event, i) => (
+        <li key={eventKey(event)} className="reveal" style={{ '--reveal-delay': `${(i % 3) * 70}ms` } as CSSProperties}>
+          <EventCard event={event} />
+        </li>
+      ))}
+    </ul>
+  );
+}
+
+function EventSection({ id, title, events }: { id: string; title: string; events: Event[] }) {
+  return (
+    <section aria-labelledby={id} className="border-t border-line py-24 lg:py-32">
+      <div className={container}>
+        <div className="reveal">
+          <p className="mb-3 text-sm text-ink-faint">
+            {events.length} {events.length === 1 ? 'event' : 'events'}
+          </p>
+          <h2 id={id} className="text-headline m-0 text-ink">
+            {title}
+          </h2>
+        </div>
+        <EventGrid events={events} />
+      </div>
+    </section>
+  );
+}
+
+function FeaturedEvent({ event }: { event: Event }) {
+  return (
+    <section aria-labelledby="featured-event-title" className="border-t border-line py-24 lg:py-32">
+      <div className={container}>
+        <div className="reveal grid items-center gap-10 rounded-2xl border border-line bg-surface/70 p-6 sm:p-8 lg:grid-cols-2 lg:gap-14 lg:p-12">
+          <div>
+            <div className="flex flex-wrap items-center gap-3">
+              <p className="m-0 text-sm text-ink-faint">Featured event</p>
+              <TypeTag type={event.type} />
+            </div>
+            <h2 id="featured-event-title" className="text-headline mt-5 mb-6 text-ink">
+              {event.title}
+            </h2>
+            <EventMeta event={event} attendeesLabel="expected attendees" />
+            <p className="mt-6 mb-0 text-[0.9375rem] leading-relaxed text-ink-muted">{event.description}</p>
+
+            {event.speakers?.length ? (
+              <div className="mt-6">
+                <p className="m-0 text-xs text-ink-faint">Featured speakers</p>
+                <p className="m-0 mt-1 text-ink">{event.speakers.join(', ')}</p>
+              </div>
+            ) : null}
+
+            {event.link ? (
+              <a href={event.link} target="_blank" rel="noopener" className={cn(primaryButton, 'mt-8')}>
+                {event.ctaText || 'Register now'}
+                <ArrowUpRight className="size-4" aria-hidden />
+              </a>
+            ) : null}
+          </div>
+
+          {event.thumbnail ? (
+            <img
+              src={event.thumbnail}
+              alt={event.title}
+              className="aspect-video w-full rounded-xl border border-line object-cover"
+              loading="lazy"
+            />
+          ) : null}
+        </div>
+      </div>
+    </section>
   );
 }
 
 function EventsPage() {
-  const [filter, setFilter] = useState<'all' | EventType>('all');
-
-  // Helper function to parse event dates
-  const parseEventDate = (dateStr: string): Date => {
-    // Handle date ranges like "September 2-4, 2025" by using the start date
-    const cleanedDate = dateStr.replace(/(\d+)-\d+,/, '$1,');
-
-    // Handle month-only dates like "December 2024"
-    if (/^[A-Za-z]+ \d{4}$/.test(cleanedDate)) {
-      // Add day 1 to make it parseable
-      return new Date(`${cleanedDate} 1`);
-    }
-
-    // Handle regular dates
-    return new Date(cleanedDate);
-  };
-
-  // Sort events by date
-  const sortEventsByDate = (events: Event[], ascending: boolean = true) => {
-    return [...events].sort((a, b) => {
-      const dateA = parseEventDate(a.date).getTime();
-      const dateB = parseEventDate(b.date).getTime();
-      return ascending ? dateA - dateB : dateB - dateA;
-    });
-  };
+  const [filter, setFilter] = useState<Filter>('all');
+  const matches = (event: Event) => filter === 'all' || event.type === filter;
 
   const featuredEvent = upcomingEvents.find((e) => e.featured);
-
-  // Filter and sort upcoming events (closest first, excluding featured)
+  // Upcoming: closest first, featured shown separately. Past: most recent first.
   const filteredUpcoming = sortEventsByDate(
-    upcomingEvents.filter((e) => !e.featured && (filter === 'all' || e.type === filter)),
-    true, // ascending order for future events
+    upcomingEvents.filter((e) => !e.featured && matches(e)),
+    true,
   );
-
-  // Filter and sort past events (most recent first)
-  const filteredPast = sortEventsByDate(
-    pastEvents.filter((e) => filter === 'all' || e.type === filter),
-    false, // descending order for past events
-  );
-
-  const filterButtons: { value: 'all' | EventType; label: string; icon?: LucideIcon }[] = [
-    { value: 'all', label: 'All Events' },
-    { value: 'conference', label: 'Conferences', icon: Globe },
-    { value: 'webinar', label: 'Webinars', icon: Zap },
-    { value: 'meetup', label: 'Meetups', icon: Users },
-    { value: 'workshop', label: 'Workshops', icon: Sparkles },
-  ];
+  const filteredPast = sortEventsByDate(pastEvents.filter(matches), false);
+  const activeFilter = FILTERS.find((f) => f.value === filter);
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-neutral-900 via-black to-neutral-900">
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_50%,rgba(124,58,237,0.1),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_50%,rgba(139,92,246,0.1),transparent_50%)]" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_100%,rgba(59,130,246,0.1),transparent_50%)]" />
-        </div>
-
-        <div className="relative container mx-auto px-4 py-24 max-w-6xl">
+    <>
+      <section className="pt-20 pb-16 lg:pt-28 lg:pb-20">
+        <div className={container}>
           <div className="max-w-3xl">
-            <h1 className="text-5xl lg:text-6xl font-medium leading-tighter mb-6 text-white">Build, Ship, Connect</h1>
-            <p className="text-xl text-muted-foreground mb-8">
+            <p className="mb-6 text-sm text-ink-faint">Events</p>
+            <h1 className="text-display m-0 text-ink">Build, ship, connect.</h1>
+            <p className="text-lead mt-7 mb-0 max-w-[36rem] text-ink-muted">
               Join our Zephyr Cloud community at conferences, workshops, and meetups worldwide.
             </p>
           </div>
-        </div>
-      </div>
 
-      <div className="container mx-auto px-4 py-12 max-w-6xl">
-        {/* Featured Event */}
-        {featuredEvent && (
-          <section className="mb-16">
-            <h2 className="text-2xl font-semibold mb-6 flex items-center gap-2">
-              <Sparkles className="text-neutral-400" size={24} />
-              Featured Event
-            </h2>
-            <div className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-violet-900/20 to-violet-900/5 border border-violet-700/50 p-8 lg:p-12">
-              <div className="absolute inset-0 bg-gradient-to-br from-violet-500/10 to-transparent" />
-
-              <div className="relative z-10 grid lg:grid-cols-2 gap-8 items-center">
-                <div>
-                  <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full text-sm font-medium bg-violet-900/50 text-violet-400 border border-violet-700/50 mb-4">
-                    <Globe size={16} />
-                    <span>{featuredEvent.type.charAt(0).toUpperCase() + featuredEvent.type.slice(1)}</span>
-                  </div>
-
-                  <h3 className="text-3xl lg:text-4xl font-bold mb-4 text-foreground">{featuredEvent.title}</h3>
-
-                  <div className="space-y-3 mb-6">
-                    <div className="flex items-center gap-3 text-neutral-300">
-                      <CalendarDays size={18} className="text-neutral-400" />
-                      <span>{featuredEvent.date}</span>
-                    </div>
-                    <div className="flex items-center gap-3 text-neutral-300">
-                      <MapPin size={18} className="text-neutral-400" />
-                      <span>{featuredEvent.location}</span>
-                    </div>
-                    {featuredEvent.attendees && (
-                      <div className="flex items-center gap-3 text-neutral-300">
-                        <Users size={18} className="text-neutral-400" />
-                        <span>{featuredEvent.attendees}+ expected attendees</span>
-                      </div>
-                    )}
-                  </div>
-
-                  <p className="text-neutral-300 mb-6">{featuredEvent.description}</p>
-
-                  {featuredEvent.speakers && (
-                    <div className="mb-6">
-                      <p className="text-sm text-neutral-400 mb-2">Featured Speakers</p>
-                      <p className="text-foreground font-medium">{featuredEvent.speakers.join(', ')}</p>
-                    </div>
-                  )}
-
-                  <a
-                    href={featuredEvent.link}
-                    target="_blank"
-                    rel="noopener"
-                    className="inline-flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-medium px-6 py-3 rounded-lg transition-colors"
-                  >
-                    {featuredEvent.ctaText || 'Register Now'}
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                    </svg>
-                  </a>
-                </div>
-
-                {featuredEvent.thumbnail && (
-                  <div className="relative aspect-video rounded-lg overflow-hidden">
-                    <img
-                      src={featuredEvent.thumbnail}
-                      alt={featuredEvent.title}
-                      className="w-full h-full object-cover"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent" />
-                  </div>
+          <div role="group" aria-label="Filter events by type" className="mt-10 flex flex-wrap gap-1.5">
+            {FILTERS.map(({ value, label, icon: Icon }) => (
+              <button
+                key={value}
+                type="button"
+                onClick={() => setFilter(value)}
+                aria-pressed={filter === value}
+                className={cn(
+                  'inline-flex h-9 items-center gap-2 rounded-full border px-3.5 text-sm outline-none transition-colors focus-visible:ring-2 focus-visible:ring-released-ink',
+                  filter === value
+                    ? 'border-line-strong bg-surface-2 text-ink'
+                    : 'border-line text-ink-muted hover:border-line-strong hover:text-ink',
                 )}
-              </div>
-            </div>
-          </section>
-        )}
-
-        {/* Filter Buttons */}
-        <div className="flex flex-wrap gap-2 mb-8">
-          {filterButtons.map(({ value, label, icon: Icon }) => (
-            <button
-              key={value}
-              onClick={() => setFilter(value)}
-              className={cn(
-                'inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-all',
-                filter === value
-                  ? 'bg-neutral-100 text-neutral-900'
-                  : 'bg-neutral-800 text-neutral-300 hover:bg-neutral-700 hover:text-neutral-100',
-              )}
-            >
-              {Icon && <Icon size={16} />}
-              {label}
-            </button>
-          ))}
+              >
+                {Icon ? <Icon className="size-3.5" aria-hidden /> : null}
+                {label}
+              </button>
+            ))}
+          </div>
         </div>
+      </section>
 
-        {/* Upcoming Events */}
-        {filteredUpcoming.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-2xl font-semibold mb-6">Upcoming Events</h2>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredUpcoming.map((event, index) => (
-                <EventCard key={index} event={event} />
-              ))}
-            </div>
-          </section>
-        )}
+      {featuredEvent ? <FeaturedEvent event={featuredEvent} /> : null}
 
-        {/* Past Events */}
-        {filteredPast.length > 0 && (
-          <section className="mb-16">
-            <h2 className="text-2xl font-semibold mb-6">Past Events</h2>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {filteredPast.map((event, index) => (
-                <EventCard key={index} event={event} />
-              ))}
-            </div>
-          </section>
-        )}
+      {filteredUpcoming.length > 0 ? (
+        <EventSection id="upcoming-events-title" title="Upcoming events" events={filteredUpcoming} />
+      ) : null}
 
-        {/* CTA Section */}
-        <section className="relative overflow-hidden rounded-2xl bg-gradient-to-br from-neutral-900 to-neutral-800 p-12 border border-neutral-700">
-          <div className="absolute inset-0 bg-gradient-to-br from-violet-500/5 via-transparent to-violet-500/5" />
+      {filteredPast.length > 0 ? (
+        <EventSection id="past-events-title" title="Past events" events={filteredPast} />
+      ) : null}
 
-          <div className="relative z-10 max-w-3xl mx-auto text-center">
-            <h2 className="text-3xl font-bold mb-4">Host a Zephyr Event</h2>
-            <p className="text-muted-foreground mb-8 text-lg">
-              Want to bring the power of runtime updates and Module Federation to your team? We offer custom workshops,
-              speaking engagements, and acceleration weeks tailored to your needs.
+      {filteredUpcoming.length === 0 && filteredPast.length === 0 ? (
+        <section className="border-t border-line py-16 lg:py-20">
+          <div className={container}>
+            <p className="m-0 text-ink-muted">
+              {filter === 'all' || !activeFilter ? 'No events yet.' : `No ${activeFilter.label.toLowerCase()} yet.`}{' '}
+              {filter === 'all' ? null : (
+                <button
+                  type="button"
+                  onClick={() => setFilter('all')}
+                  className="text-ink underline decoration-line-strong underline-offset-4 transition-colors hover:decoration-ink-muted"
+                >
+                  Show all events
+                </button>
+              )}
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <a
-                href="mailto:inbound@zephyr-cloud.io"
-                className="inline-flex items-center justify-center gap-2 bg-violet-600 hover:bg-violet-500 text-white font-medium px-6 py-3 rounded-lg transition-colors"
-              >
-                Contact Our Events Team
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                  />
-                </svg>
-              </a>
-              <a
-                href="/blog/sgws-case-study"
-                className="inline-flex items-center justify-center gap-2 bg-neutral-700 hover:bg-neutral-600 text-white font-medium px-6 py-3 rounded-lg transition-colors"
-              >
-                See Acceleration Week Success
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                  />
-                </svg>
-              </a>
-            </div>
           </div>
         </section>
-      </div>
-    </div>
+      ) : null}
+
+      <section aria-labelledby="host-event-title" className="border-t border-line py-24 lg:py-32">
+        <div className={container}>
+          <div className="reveal flex flex-col gap-10 lg:flex-row lg:items-end lg:justify-between">
+            <div className="max-w-2xl">
+              <h2 id="host-event-title" className="text-headline m-0 text-ink">
+                Host a Zephyr event
+              </h2>
+              <p className="text-lead mt-5 mb-0 text-ink-muted">
+                Want to bring the power of runtime updates and Module Federation to your team? We offer custom
+                workshops, speaking engagements, and acceleration weeks tailored to your needs.
+              </p>
+            </div>
+            <div className="flex flex-wrap gap-3 lg:shrink-0">
+              <a href="mailto:inbound@zephyr-cloud.io" className={primaryButton}>
+                Contact our events team
+                <ArrowRight className="size-4" aria-hidden />
+              </a>
+              <Link to="/blog/sgws-case-study" className={secondaryButton}>
+                See Acceleration Week success
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+    </>
   );
 }

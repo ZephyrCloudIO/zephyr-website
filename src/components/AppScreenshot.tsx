@@ -1,6 +1,9 @@
 import appMockup from '@/images/products/app-mockup.png';
+import { cn } from '@/lib/utils';
 import { useEffect, useRef, useState } from 'react';
 
+// Fades and tilts in once both the image and the page's shader are ready. The hidden starting state is
+// scoped to html[data-motion='on'] (see the page's <style>), so the image is visible without JS.
 export function AppScreenshot({ shaderReady }: { shaderReady: boolean }) {
   const [imageLoaded, setImageLoaded] = useState(false);
   const imageRef = useRef<HTMLImageElement>(null);
@@ -17,13 +20,12 @@ export function AppScreenshot({ shaderReady }: { shaderReady: boolean }) {
       ref={imageRef}
       src={appMockup}
       alt="Zephyr app interface"
-      className="tilt-in -mt-1 h-auto w-full max-w-[980px] md:-mt-3 md:w-[calc(100%+148px)] md:max-w-none md:-mx-[74px]"
-      style={{
-        opacity: ready ? 1 : 0,
-        ...(ready && { transition: 'opacity 0.6s ease-out 0.15s' }),
-        animationPlayState: ready ? 'running' : 'paused',
-        animationDelay: '0.15s',
-      }}
+      width={3600}
+      height={2264}
+      className={cn(
+        'ai-shot -mt-1 h-auto w-full max-w-[980px] md:-mx-[74px] md:-mt-3 md:w-[calc(100%+148px)] md:max-w-none',
+        ready && 'is-ready',
+      )}
       onLoad={() => setImageLoaded(true)}
     />
   );

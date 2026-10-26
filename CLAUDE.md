@@ -95,15 +95,12 @@ src/
 
 ### Styling System
 
-- Tailwind CSS with Zephyr brand colors:
-  - `emerald-700`: Primary green for Zephyr branding
-  - `blue-800`: Workflow section accent
-  - `red-500`: RAG section accent
-  - `violet-500`: Ops section accent
-  - `neutral-*` variants for UI elements
-- CSS animations for testimonial scrolling
-- Dark theme by default with `bg-black` base
-- Responsive design with Tailwind breakpoints (sm, md, lg)
+Read `docs-internal/design-system.md` before building or restyling UI. In short:
+
+- Tokens in `src/index.css`, used as Tailwind utilities: `night` background, `surface*` cards, `line*` borders, `ink*` text, and semantic colors `released` (violet `#7C3AED`: what users are served, primary action), `deployed` (steel), `live` (status dots only), `fault` (a reported bad release only). Don't use raw `neutral-*`/`violet-*`/`emerald-*` classes in new code.
+- Type utilities: `text-display`, `text-headline`, `text-title`, `text-lead`, and `text-ident` (Chivo Mono, for literal product identifiers only). Fonts are self-hosted via `@fontsource-variable/*`.
+- Motion: shared tokens in `src/components/motion/tokens.ts`; `.reveal` scroll entrances are enabled by a pre-paint head script and `MotionReveal`, so text is never hidden without JS; always respect `prefers-reduced-motion`.
+- Dark only, via the `.dark` layout wrapper in `theme/index.tsx`.
 
 ### Component Library
 
@@ -112,12 +109,12 @@ src/
 - Styled with Tailwind classes and cn() utility
 - Custom components:
   - `Header`: Navigation with logo dropdown menu for SVG copying
-  - `HeroSection`: Main landing area with copy-to-clipboard CTA
-  - `TestimonialsSection`: Auto-scrolling testimonials with company logos
-  - `FeatureSection`: Reusable feature showcase (used for agents/workflows/rag/ops)
-  - `BlogSection`: Blog posts grid with newsletter signup (automatically shows latest 4 posts)
+  - `Footer`: Multi-column footer with social links and the SOC 2 badge
+  - `src/components/home/story/HomeStory.tsx`: the home page "zoom-out" scrollytelling layout (copy beats + pinned `Stage`)
+  - `src/components/home/stage/*`: the stage scenes (deploy rail with release markers, terminal, config editor, agent session, product, clouds, full stack)
+  - `ProofSection`, `WaysIn`, `LatestPosts` (`src/components/home/`): testimonials and logos, the three ways to start, latest 3 posts
+  - `CommandChip` (`src/components/home/`): copyable shell command
   - `BlogCard`: Blog post card component used in listings
-  - `Footer`: Multi-column footer with social links
 
 ### Features
 
@@ -130,16 +127,18 @@ src/
 
 - Navigation includes dropdown menu for Blog, Changelog, Press, Events
 
-#### Scrolling Testimonials
+#### Home Page Story
 
-- Two-row auto-scrolling testimonial cards
-- Pauses on hover
+- Scroll-driven chapters: one app, with AI agents, teams and agents, multi-cloud, any framework
+- One pinned stage on desktop zooms out level by level; phones and tablets get one figure per chapter, with the chapter's steps as auto-advancing tabs
+- The hero demo is interactive: drag `production` onto a build, click a build, or run another build
+- Demo data mirrors real product shapes (version/tag/environment hosts, `ZEPHYR` log lines) and is labelled "example output"
+- See "Home page story" in `docs-internal/design-system.md` for how to add a beat
+
+#### Testimonials
+
+- Masonry grid of testimonial cards with company logos (`src/components/home/ProofSection.tsx`); phones show the first four with a "Show all" toggle
 - Includes social media links for testimonial authors
-
-#### Component Reusability
-
-- `FeatureSection` component accepts props for different sections
-- Configurable title prefix, color, code examples, and layout
 
 ## Development Notes
 
@@ -204,7 +203,8 @@ The website is built with Rspress SSG and deployed through the Zephyr Cloud webs
 
 ### Important Files
 
-- `rspress.config.ts` - Rspress configuration (aliases, route settings, sitemap)
+- `docs-internal/design-system.md` - Tokens, type, layout, motion, the home story, and the claims policy
+- `rspress.config.ts` - Rspress configuration (aliases, route settings, sitemap, pre-paint motion script)
 - `scripts/generate-rspress-content.mjs` - Generates static blog/changelog wrappers and metadata
 - `theme/index.tsx` - Site layout wrapper and head integration
 - `src/components/sections/Header.tsx` - Navigation with dropdown menus

@@ -227,6 +227,22 @@ export const blogMetadataEntries = [
     },
   },
   {
+    slug: 'production-evidence-before-you-merge',
+    metadata: {
+      title: 'Build-time checks aren’t enough',
+      slug: 'production-evidence-before-you-merge',
+      date: '2026-09-29',
+      heroImage: '/images/blog/production-evidence-before-you-merge/hero.webp',
+      listingImage: '/images/blog/production-evidence-before-you-merge/hero.webp',
+      description:
+        'A remote can build, pass its checks, and still fail next to a particular host and set of remotes. Check the combination users will actually run, in production, before ordinary traffic moves.',
+      authors: ['Zack Chapple'],
+      tags: ['micro-frontends', 'module-federation', 'deployment', 'architecture'],
+      readingTime: 6,
+      hideHero: true,
+    },
+  },
+  {
     slug: 'serve-time',
     metadata: {
       title: 'Introducing "Serve Time": The Third Phase of Modern Application Delivery',

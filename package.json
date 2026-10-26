@@ -18,6 +18,8 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@fontsource-variable/chivo-mono": "5.3.0",
+    "@fontsource-variable/inter": "5.3.0",
     "@mdx-js/react": "^3.1.1",
     "@posthog/react": "^1.8.2",
     "@radix-ui/react-avatar": "^1.1.11",
@@ -32,7 +34,7 @@
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.577.0",
     "motion": "^12.38.0",
-    "posthog-js": "^1.363.1",
+    "posthog-js": "^1.409.5",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "react-use-intercom": "^5.5.0",
@@ -48,40 +50,19 @@
     "unicornstudio-react": "2.1.4"
   },
   "devDependencies": {
-    "@rspress/core": "^2.0.5",
-    "@rspress/plugin-sitemap": "^2.0.5",
-    "@tailwindcss/postcss": "^4.2.2",
-    "@types/node": "^24.7.2",
-    "@types/react": "^19.2.14",
-    "@types/react-dom": "^19.2.3",
-    "husky": "^9.1.7",
-    "prettier": "^3.8.1",
-    "prettier-plugin-organize-imports": "^4.3.0",
-    "prettier-plugin-tailwindcss": "^0.7.2",
-    "tailwindcss": "^4.2.2",
-    "typescript": "^5.9.3",
-    "yaml": "^2.8.3",
-    "zephyr-rspress-plugin": "^1.1.1"
-  },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@tailwindcss/oxide",
-      "core-js",
-      "esbuild"
-    ],
-    "overrides": {
-      "form-data": "4.0.6",
-      "axios": ">=1.15.1",
-      "qs": "6.15.2",
-      "webpack": "5.105.4",
-      "protobufjs": "7.6.3",
-      "fast-uri": ">=3.1.2",
-      "dompurify@<3.4.0": ">=3.4.0",
-      "picomatch@>=2.0.0 <2.3.2": "2.3.2",
-      "picomatch@>=4.0.0 <4.0.4": "4.0.4",
-      "react-router": ">=7.14.2 <8",
-      "lodash-es": ">=4.18.0",
-      "postcss": ">=8.5.18"
-    }
+    "@rspress/core": "2.0.23",
+    "@rspress/plugin-sitemap": "2.0.23",
+    "@tailwindcss/postcss": "4.2.2",
+    "@types/node": "24.19.2",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "husky": "9.1.7",
+    "prettier": "3.8.1",
+    "prettier-plugin-organize-imports": "4.3.0",
+    "prettier-plugin-tailwindcss": "0.7.2",
+    "tailwindcss": "4.2.2",
+    "typescript": "5.9.3",
+    "yaml": "2.8.3",
+    "zephyr-rspress-plugin": "1.2.4"
   }
 }

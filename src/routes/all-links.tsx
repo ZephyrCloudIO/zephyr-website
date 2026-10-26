@@ -7,20 +7,9 @@ import xAiPlatformQr from '@/images/all-links/x-aiplatform.svg';
 import xZephyrQr from '@/images/all-links/x-zephyr.svg';
 import youtubeQr from '@/images/all-links/youtube.svg';
 import zephyrCloudQr from '@/images/all-links/zephyr-cloud.svg';
-import { cn } from '@/lib/utils';
 import { createFileRoute } from '@tanstack/react-router';
-import {
-  ArrowUpRight,
-  Github,
-  Globe,
-  Instagram,
-  Linkedin,
-  ScanLine,
-  Sparkles,
-  Youtube,
-  type LucideIcon,
-} from 'lucide-react';
-import { type ComponentType } from 'react';
+import { ArrowUpRight, Github, Globe, Instagram, Linkedin, Sparkles, Youtube, type LucideIcon } from 'lucide-react';
+import { type ComponentType, type CSSProperties } from 'react';
 
 export const Route = createFileRoute('/all-links')({
   component: AllLinksPage,
@@ -35,7 +24,6 @@ type QrLink = {
   href: string;
   qr: string;
   icon: IconComponent;
-  accent: string;
 };
 
 function XIcon({ className }: { className?: string }) {
@@ -62,7 +50,6 @@ const links: QrLink[] = [
     href: 'https://zephyr-cloud.io',
     qr: zephyrCloudQr,
     icon: Globe,
-    accent: 'text-violet-300',
   },
   {
     id: 'the-ai-platform',
@@ -71,7 +58,6 @@ const links: QrLink[] = [
     href: 'https://theaiplatform.app',
     qr: theAiPlatformQr,
     icon: Sparkles,
-    accent: 'text-emerald-300',
   },
   {
     id: 'github',
@@ -80,7 +66,6 @@ const links: QrLink[] = [
     href: 'https://github.com/ZephyrCloudIO',
     qr: githubQr,
     icon: Github,
-    accent: 'text-neutral-200',
   },
   {
     id: 'linkedin',
@@ -89,7 +74,6 @@ const links: QrLink[] = [
     href: 'https://www.linkedin.com/company/zephyr-cloud/',
     qr: linkedinQr,
     icon: Linkedin,
-    accent: 'text-sky-300',
   },
   {
     id: 'discord',
@@ -98,7 +82,6 @@ const links: QrLink[] = [
     href: 'https://discord.gg/zephyrcloud',
     qr: discordQr,
     icon: DiscordIcon,
-    accent: 'text-indigo-300',
   },
   {
     id: 'x-zephyr',
@@ -107,7 +90,6 @@ const links: QrLink[] = [
     href: 'https://x.com/ZephyrCloudIO',
     qr: xZephyrQr,
     icon: XIcon,
-    accent: 'text-neutral-200',
   },
   {
     id: 'x-ai-platform',
@@ -116,7 +98,6 @@ const links: QrLink[] = [
     href: 'https://x.com/_TheAIPlatform',
     qr: xAiPlatformQr,
     icon: XIcon,
-    accent: 'text-neutral-200',
   },
   {
     id: 'youtube',
@@ -125,7 +106,6 @@ const links: QrLink[] = [
     href: 'https://www.youtube.com/@ZephyrCloud',
     qr: youtubeQr,
     icon: Youtube,
-    accent: 'text-red-400',
   },
   {
     id: 'instagram',
@@ -134,7 +114,6 @@ const links: QrLink[] = [
     href: 'https://www.instagram.com/zephyrcloudio',
     qr: instagramQr,
     icon: Instagram,
-    accent: 'text-pink-400',
   },
 ];
 
@@ -142,63 +121,60 @@ function QrCard({ link }: { link: QrLink }) {
   const Icon = link.icon;
 
   return (
-    <article className="flex flex-col overflow-hidden rounded-3xl border border-white/10 bg-white/5 p-3 backdrop-blur sm:p-5">
-      <a
-        href={link.href}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label={`Open ${link.label}`}
-        className="block aspect-square w-full overflow-hidden rounded-2xl bg-white"
-      >
+    <a
+      href={link.href}
+      target="_blank"
+      rel="noopener"
+      aria-label={`Open ${link.label} (${link.handle})`}
+      className="group flex h-full flex-col rounded-2xl border border-line bg-surface/70 p-2.5 transition-colors hover:border-line-strong sm:p-3"
+    >
+      {/* QR codes need a light quiet zone to scan reliably. */}
+      <span className="block aspect-square overflow-hidden rounded-xl bg-white">
         <img
           src={link.qr}
           alt={`QR code for ${link.label}`}
-          className="h-full w-full object-contain p-2 sm:p-4"
+          className="h-full w-full object-contain p-2 sm:p-3"
           draggable={false}
         />
-      </a>
+      </span>
 
-      <div className="mt-4 flex flex-col gap-2 sm:mt-5 sm:flex-row sm:items-start sm:justify-between sm:gap-3">
-        <a href={link.href} target="_blank" rel="noopener noreferrer" className="min-w-0">
-          <div className="flex items-center gap-2">
-            <Icon className={cn('h-4 w-4 shrink-0', link.accent)} />
-            <h2 className="text-base font-semibold leading-tight text-white">{link.label}</h2>
-          </div>
-          <p className="mt-1 hidden break-words text-sm text-neutral-400 sm:block">{link.handle}</p>
-        </a>
-
-        <a
-          href={link.href}
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label={`Open ${link.label} in a new tab`}
-          className="hidden sm:inline-flex h-9 w-9 shrink-0 items-center justify-center rounded-full border border-white/15 text-neutral-300 transition-colors hover:border-white/30 hover:bg-white/10 hover:text-white"
-        >
-          <ArrowUpRight className="h-4 w-4" />
-        </a>
-      </div>
-    </article>
+      <span className="flex items-start justify-between gap-2 px-1.5 pt-3 pb-1 sm:px-2 sm:pt-4">
+        <span className="min-w-0">
+          <span className="flex items-start gap-2">
+            <Icon className="mt-0.5 size-4 shrink-0 text-ink-faint transition-colors group-hover:text-ink" />
+            <span className="text-sm leading-snug font-medium text-ink sm:text-[0.9375rem]">{link.label}</span>
+          </span>
+          <span className="text-ident mt-1 hidden text-ink-faint [overflow-wrap:anywhere] sm:block">{link.handle}</span>
+        </span>
+        <ArrowUpRight
+          className="mt-0.5 hidden size-4 shrink-0 text-ink-faint transition-colors group-hover:text-ink sm:block"
+          aria-hidden
+        />
+      </span>
+    </a>
   );
 }
 
 function AllLinksPage() {
   return (
-    <div className="mx-auto max-w-6xl px-4 py-20 sm:px-6 lg:px-8">
-      <header className="mx-auto max-w-2xl text-center">
-        <span className="inline-flex items-center gap-2 rounded-full border border-violet-400/20 bg-violet-400/10 px-4 py-2 text-sm font-medium text-violet-200">
-          <ScanLine className="h-4 w-4" />
-          Scan to connect
-        </span>
-        <h1 className="mt-6 text-4xl font-medium leading-tight text-white sm:text-5xl lg:text-6xl">
-          Connect with Zephyr
-        </h1>
-      </header>
+    <section className="pt-16 pb-24 lg:pt-24 lg:pb-32">
+      <div className="mx-auto max-w-[1320px] px-5 sm:px-8 lg:px-10">
+        <header className="mx-auto max-w-2xl text-center">
+          <p className="mb-6 text-sm text-ink-faint">All links</p>
+          <h1 className="text-display m-0 text-ink">Connect with Zephyr</h1>
+          <p className="text-lead mx-auto mt-6 mb-0 max-w-[30rem] text-ink-muted">
+            Scan a QR code to connect with Zephyr Cloud and The AI Platform across the web and social.
+          </p>
+        </header>
 
-      <div className="mt-12 grid grid-cols-2 gap-3 sm:gap-6 lg:grid-cols-3">
-        {links.map((link) => (
-          <QrCard key={link.id} link={link} />
-        ))}
+        <ul className="m-0 mx-auto mt-12 grid max-w-[54rem] list-none grid-cols-2 gap-3 p-0 sm:grid-cols-3 sm:gap-4 lg:mt-14">
+          {links.map((link, i) => (
+            <li key={link.id} className="reveal" style={{ '--reveal-delay': `${(i % 3) * 70}ms` } as CSSProperties}>
+              <QrCard link={link} />
+            </li>
+          ))}
+        </ul>
       </div>
-    </div>
+    </section>
   );
 }

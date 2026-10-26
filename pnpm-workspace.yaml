@@ -1,6 +1,29 @@
 packages:
   - .
 
+onlyBuiltDependencies:
+  - '@tailwindcss/oxide'
+  - core-js
+  - esbuild
+
+overrides:
+  form-data: '4.0.6'
+  axios: '>=1.15.1'
+  qs: '6.15.2'
+  webpack: '5.105.4'
+  protobufjs: '7.6.6'
+  'unhead@<2.1.13': '2.1.13'
+  'js-yaml@>=3.0.0 <3.15.0': '3.15.2'
+  'fast-uri@<3.1.5': '3.1.9'
+  'dompurify@<3.4.0': '>=3.4.0'
+  'picomatch@>=2.0.0 <2.3.2': '2.3.2'
+  'picomatch@>=4.0.0 <4.0.4': '4.0.7'
+  react-router: '>=7.14.2 <8'
+  lodash-es: '>=4.18.0'
+  postcss: '>=8.5.18'
+  '@toon-format/toon@<2.3.1': '2.3.1'
+  'toml@<4.2.0': '4.2.0'
+
 # Fails if trusted package stops being trusted
 trustPolicy: no-downgrade
 # Ignores trust policies for packages older than a week
@@ -16,3 +39,7 @@ minimumReleaseAgeExclude:
   - protobufjs@7.6.3
   # Renovate security update: yaml@2.8.3
   - yaml@2.8.3
+  # Renovate security update: fast-uri@3.1.6
+  - fast-uri@3.1.6
+allowBuilds:
+  core-js: true
