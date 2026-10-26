@@ -231,7 +231,7 @@ function TermsOfService() {
           If we remove your content or restrict your account, we will tell you what we did, why, which term or law we
           relied on, and whether automated means were involved, unless the law or a request from a competent authority
           prohibits telling you. You can contest any decision by replying to that notice or contacting <Mail />. A
-          person who did not make the original decision will review it, and we will reverse it if it was wrong.
+          person will review it, and we will reverse it if it was wrong.
         </p>
         <p className={paragraph}>
           If your use does not match your plan, for example several people deploying through one editing user or
@@ -260,8 +260,8 @@ function TermsOfService() {
           switching or data export fees for leaving Zephyr.
         </p>
         <p className={paragraph}>
-          Terms that by their nature should survive, including sections 4, 12 to 16, and 18, survive the end of the
-          agreement.
+          Terms that by their nature should survive, including sections 4, 12 to 16, and 18, and any amounts already
+          owed, survive the end of the agreement.
         </p>
 
         <h2 className={heading}>12. Disclaimer</h2>

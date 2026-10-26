@@ -177,8 +177,13 @@ function PrivacyPolicy() {
           details such as IP address and time, to detect stolen or shared credentials and abuse.
         </p>
 
-        <h3 className={h3}>Website visits and support</h3>
+        <h3 className={h3}>Website visits, sign-ups, and support</h3>
         <ul className={ul}>
+          <li>
+            Early-access and event sign-up forms on our website, through HubSpot: your email address, and on some forms
+            your name and a company name derived from your email domain, to reply to your request and send you related
+            updates about Zephyr.
+          </li>
           <li>
             Product analytics on our website through PostHog: pages viewed, clicks, referrer, approximate location, and
             device and browser details, to understand how the website is used. PostHog stores this with a cookie or
@@ -248,6 +253,12 @@ function PrivacyPolicy() {
           files from the assistant’s temporary download link without sending any Zephyr credentials. We do not save the
           link with your data; it can appear in request traces, as described under operational logs.
         </p>
+        <p className={p}>
+          Files you publish are available to anyone at their public deployment URLs. Pages published as React or Mermaid
+          artifacts load code from public CDNs (esm.sh, cdn.tailwindcss.com, and cdn.jsdelivr.net) when someone views
+          them, so those CDNs receive the viewer’s IP address and browser details. Do not publish secrets or information
+          you want to keep private.
+        </p>
 
         <h3 className={h3}>Zephyr API connector</h3>
         <p className={p}>
@@ -259,12 +270,6 @@ function PrivacyPolicy() {
           their names, usernames, and email addresses. Its errors can include up to 2,000 characters of the Zephyr API’s
           response. For each call we send PostHog your Zephyr user ID, the tool name, whether it succeeded, and how long
           it took, to understand how the connector is used.
-        </p>
-        <p className={p}>
-          Files you publish are available to anyone at their public deployment URLs. Pages published as React or Mermaid
-          artifacts load code from public CDNs (esm.sh, cdn.tailwindcss.com, and cdn.jsdelivr.net) when someone views
-          them, so those CDNs receive the viewer’s IP address and browser details. Do not publish secrets or information
-          you want to keep private.
         </p>
 
         <h2 className={h2}>4. Legal bases (EEA, UK, and Switzerland)</h2>
@@ -299,7 +304,8 @@ function PrivacyPolicy() {
           </li>
           <li>
             <span className="text-ink">PostHog</span> provides website analytics and usage events for the Zephyr API
-            connector, and <span className="text-ink">Intercom</span> provides support chat.
+            connector, <span className="text-ink">HubSpot</span> receives website sign-up forms and manages our contacts
+            and email, and <span className="text-ink">Intercom</span> provides support chat.
           </li>
           <li>
             <span className="text-ink">Other service providers</span> that help us run the services, such as payment,
@@ -351,6 +357,10 @@ function PrivacyPolicy() {
           </li>
           <li>Operational logs: up to 30 days.</li>
           <li>Website analytics and connector usage events: up to 24 months.</li>
+          <li>
+            Sign-up form submissions and marketing contacts: until you unsubscribe or ask us to delete them, and no more
+            than 24 months after our last interaction.
+          </li>
           <li>Support conversations: while your account exists, and up to 24 months after our last contact.</li>
           <li>Billing records: as long as tax and accounting laws require, typically up to 10 years.</li>
         </ul>
