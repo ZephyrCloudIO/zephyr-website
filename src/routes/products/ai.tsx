@@ -1,5 +1,5 @@
 import { AppScreenshot } from '@/components/AppScreenshot';
-import { SignupForm } from '@/components/SignupForm';
+import { EarlyAccessCta } from '@/components/EarlyAccessCta';
 import { UnicornBackground } from '@/components/UnicornBackground';
 import ZephyrLogo from '@/images/zephyr-logo.svg';
 import { cn } from '@/lib/utils';
@@ -103,8 +103,8 @@ function AIPage() {
             </div>
           </div>
 
-          {/* Right: Early access signup */}
-          <SignupForm />
+          {/* Right: Early access */}
+          <EarlyAccessCta />
         </div>
 
         {/* App mockup screenshot */}

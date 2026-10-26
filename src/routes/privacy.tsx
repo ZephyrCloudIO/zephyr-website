@@ -177,13 +177,8 @@ function PrivacyPolicy() {
           details such as IP address and time, to detect stolen or shared credentials and abuse.
         </p>
 
-        <h3 className={h3}>Website visits, sign-ups, and support</h3>
+        <h3 className={h3}>Website visits and support</h3>
         <ul className={ul}>
-          <li>
-            Early-access and event sign-up forms on our website, through HubSpot: your email address, and on some forms
-            your name and a company name derived from your email domain, to reply to your request and send you related
-            updates about Zephyr.
-          </li>
           <li>
             Product analytics on our website through PostHog: pages viewed, clicks, referrer, approximate location, and
             device and browser details, to understand how the website is used. PostHog stores this with a cookie or
@@ -304,8 +299,7 @@ function PrivacyPolicy() {
           </li>
           <li>
             <span className="text-ink">PostHog</span> provides website analytics and usage events for the Zephyr API
-            connector, <span className="text-ink">HubSpot</span> receives website sign-up forms and manages our contacts
-            and email, and <span className="text-ink">Intercom</span> provides support chat.
+            connector, and <span className="text-ink">Intercom</span> provides support chat.
           </li>
           <li>
             <span className="text-ink">Other service providers</span> that help us run the services, such as payment,
@@ -357,10 +351,6 @@ function PrivacyPolicy() {
           </li>
           <li>Operational logs: up to 30 days.</li>
           <li>Website analytics and connector usage events: up to 24 months.</li>
-          <li>
-            Sign-up form submissions and marketing contacts: until you unsubscribe or ask us to delete them, and no more
-            than 24 months after our last interaction.
-          </li>
           <li>Support conversations: while your account exists, and up to 24 months after our last contact.</li>
           <li>Billing records: as long as tax and accounting laws require, typically up to 10 years.</li>
         </ul>
