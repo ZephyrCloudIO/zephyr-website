@@ -8,15 +8,12 @@ const list = 'm-0 mt-5 list-disc space-y-2 pl-6 leading-relaxed text-ink-muted';
 const conspicuous = 'm-0 mt-5 leading-relaxed font-semibold text-ink';
 const link = 'text-ink underline underline-offset-4';
 
-// TODO(legal): fill in every [bracketed] value before merging. They render on the live page.
 const LEGAL = {
   entity: 'Zephyr Cloud, Inc.',
   incorporation: 'a Delaware corporation',
   address: '1226 King St, Wilmington, DE 19801, USA',
   governingLaw: 'the State of Delaware',
   venue: 'the state and federal courts located in Delaware',
-  // No EU entity: appoint a DSA Art. 13 representative service, then add its name and address here.
-  euRepresentative: '[TODO: EU legal representative under Article 13 of the Digital Services Act, name and address]',
   // Must match the designation filed with the U.S. Copyright Office DMCA agent directory.
   dmcaAgent: 'Legal Department, Zephyr Cloud, Inc., at the address in section 19',
   supportEmail: 'support@zephyr-cloud.io',
@@ -358,8 +355,7 @@ function TermsOfService() {
         <p className={paragraph}>
           {LEGAL.entity}, {LEGAL.address}. For questions, account issues, reports, or a concern about these terms,
           contact <Mail />. This address is also our point of contact for users and for authorities under the EU Digital
-          Services Act; we communicate in English. Our legal representative in the European Union is{' '}
-          {LEGAL.euRepresentative}.
+          Services Act; we communicate in English.
         </p>
       </div>
       <p className="m-0 mt-14 border-t border-line pt-6 text-sm text-ink-faint">
