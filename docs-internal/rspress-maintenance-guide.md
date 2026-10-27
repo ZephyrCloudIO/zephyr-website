@@ -24,7 +24,7 @@ pnpm preview
 - `src/components/pages/RouteRenderer.tsx`: renders legacy route components from `docs/*.mdx` wrappers.
 - `src/router-shim.tsx`: small compatibility shim for legacy `@tanstack/react-router` imports.
 - `src/content/blog/`: canonical blog MDX source.
-- `src/content/changelog/`: canonical changelog MDX source.
+- `src/content/changelog/`: canonical changelog MDX source (platform). Plugins and Workers release notes live in `src/content/changelog-plugins/` and `src/content/changelog-workers/`.
 - `scripts/generate-rspress-content.mjs`: generates static Rspress blog/changelog route wrappers and metadata files.
 
 ## Adding A Blog Post
@@ -96,6 +96,8 @@ src/content/changelog/<slug>.mdx
 docs/changelog/<slug>.mdx
 src/generated/changelog-metadata.ts
 ```
+
+For plugins and Workers release notes, and the writing rules for every entry, see [`changelog.md`](./changelog.md).
 
 ## Adding A Normal Page
 

@@ -1,0 +1,37 @@
+---
+title: 'Workers v0.8.0: Akamai Dash Delimiter and Authenticated Uploads Fix'
+date: '2026-10-13'
+version: 'v0.8.0'
+summary: 'Akamai integrations can serve version URLs with the "-" delimiter, like other clouds, and new Akamai properties can verify deployment tokens again.'
+tags: ['workers', 'akamai', 'edge', 'domains']
+category: 'integration'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+Akamai integrations can serve version URLs with the `-` delimiter, like other clouds, and new Akamai properties can verify deployment tokens again.
+
+## The `-` Delimiter on Akamai
+
+Akamai integrations previously only served `<prefix>.ze.<domain>`. They can now use `<prefix>-ze.<domain>`, the same `-` delimiter Cloudflare, Netlify, Kubernetes, and custom integrations support.
+
+- Choose the delimiter when you create the Akamai integration. `.` stays the default.
+- With `-`, point a wildcard DNS record `*.<domain>` to `ze.<domain>.edgesuite.net`. Records you have for specific hostnames still take precedence.
+- Certificate validation for the wildcard uses `_acme-challenge.<domain>`. Check that it does not clash with an existing ACME setup on that domain.
+- Changing the delimiter of an existing integration means recreating its Akamai property.
+
+## Authenticated Uploads on New Akamai Properties
+
+New Akamai properties failed authenticated uploads with `JWT secret not found`, because the EdgeWorker could not read the public key it uses to verify deployment tokens. The provisioning template now keeps that key hidden but readable. Token signature checks are still enforced.
+
+Existing properties need the same change in a new Property Manager version and activation. Updating the EdgeWorker alone does not change it. Contact the Zephyr team if you need help.
+
+## What This Means for Teams
+
+- Akamai customers get the same URL shape as on other clouds.
+- New Akamai integrations deploy without a manual property fix.
+
+## Support
+
+If you encounter unexpected behavior, please contact the Zephyr team via chat or join our Discord: [discord.gg/zephyrcloud](https://discord.gg/zephyrcloud).

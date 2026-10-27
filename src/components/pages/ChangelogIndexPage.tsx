@@ -1,8 +1,15 @@
-import { allChangelogEntries } from '@/content/changelog-data';
+import { allChangelogEntries, pluginChangelogEntries, workerChangelogEntries } from '@/content/changelog-data';
 import { formatMonthDay } from '@/date';
+import { CHANGELOG_PRODUCTS, type ChangelogProduct } from '@/lib/changelog/products';
 import type { ChangelogEntry } from '@/lib/changelog/types';
 import type { CSSProperties } from 'react';
 import { ChangelogCategoryLabel } from './ChangelogCategory';
+
+const ENTRIES_BY_PRODUCT: Record<ChangelogProduct, ChangelogEntry[]> = {
+  platform: allChangelogEntries,
+  plugins: pluginChangelogEntries,
+  workers: workerChangelogEntries,
+};
 
 interface MonthGroup {
   key: string;
@@ -34,14 +41,20 @@ function groupByMonth(entries: ChangelogEntry[]): MonthGroup[] {
   return [...groups.values()].sort((a, b) => b.key.localeCompare(a.key));
 }
 
-function ChangelogCard({ entry }: { entry: ChangelogEntry }) {
+function ChangelogCard({ entry, basePath }: { entry: ChangelogEntry; basePath: string }) {
   return (
     <a
-      href={`/changelog/${entry.slug}`}
+      href={`${basePath}/${entry.slug}`}
       className="group flex flex-col gap-5 overflow-hidden rounded-2xl border border-line bg-surface/70 p-5 transition-colors hover:border-line-strong sm:p-6 md:flex-row md:items-start md:gap-8"
     >
       <div className="flex min-w-0 flex-1 flex-col">
         <p className="m-0 flex flex-wrap items-center gap-x-2 gap-y-1 text-sm text-ink-faint">
+          {entry.version ? (
+            <>
+              <span className="text-ident text-ink-muted">{entry.version}</span>
+              <span aria-hidden>·</span>
+            </>
+          ) : null}
           <time dateTime={entry.date.toISOString()}>{formatMonthDay(entry.date)}</time>
           <span aria-hidden>·</span>
           <ChangelogCategoryLabel category={entry.category} />
@@ -70,17 +83,43 @@ function ChangelogCard({ entry }: { entry: ChangelogEntry }) {
   );
 }
 
-export function ChangelogIndexPage() {
-  const groups = groupByMonth(allChangelogEntries);
+// Links from the platform changelog to the product changelogs, and back.
+function ChangelogProductNav({ current }: { current: ChangelogProduct }) {
+  return (
+    <nav aria-label="Changelogs" className="mt-8 flex flex-wrap gap-2">
+      {(Object.keys(CHANGELOG_PRODUCTS) as ChangelogProduct[]).map((product) => {
+        const info = CHANGELOG_PRODUCTS[product];
+        const isCurrent = product === current;
+        return (
+          <a
+            key={product}
+            href={info.basePath}
+            aria-current={isCurrent ? 'page' : undefined}
+            className={
+              isCurrent
+                ? 'rounded-full border border-line-strong bg-surface-2 px-3.5 py-1.5 text-sm text-ink'
+                : 'rounded-full border border-line px-3.5 py-1.5 text-sm text-ink-muted transition-colors hover:border-line-strong hover:text-ink'
+            }
+          >
+            {info.navLabel}
+          </a>
+        );
+      })}
+    </nav>
+  );
+}
+
+export function ChangelogIndexPage({ product = 'platform' }: { product?: ChangelogProduct }) {
+  const info = CHANGELOG_PRODUCTS[product];
+  const groups = groupByMonth(ENTRIES_BY_PRODUCT[product]);
 
   return (
     <div className="mx-auto max-w-[1320px] px-5 pt-16 pb-24 sm:px-8 lg:px-10 lg:pt-24 lg:pb-32">
       <header className="max-w-3xl">
-        <p className="m-0 mb-4 text-sm text-ink-faint">Changelog</p>
-        <h1 className="text-display m-0 text-ink">What’s new in Zephyr.</h1>
-        <p className="text-lead m-0 mt-6 max-w-[36rem] text-ink-muted">
-          Product updates, improvements, and fixes to Zephyr Cloud, newest first.
-        </p>
+        <p className="m-0 mb-4 text-sm text-ink-faint">{info.eyebrow}</p>
+        <h1 className="text-display m-0 text-ink">{info.title}</h1>
+        <p className="text-lead m-0 mt-6 max-w-[36rem] text-ink-muted">{info.lead}</p>
+        <ChangelogProductNav current={product} />
       </header>
 
       <div className="mt-14 lg:mt-20">
@@ -104,7 +143,7 @@ export function ChangelogIndexPage() {
                   className={groupIndex === 0 ? undefined : 'reveal'}
                   style={groupIndex === 0 ? undefined : ({ '--reveal-delay': `${i * 70}ms` } as CSSProperties)}
                 >
-                  <ChangelogCard entry={entry} />
+                  <ChangelogCard entry={entry} basePath={info.basePath} />
                 </li>
               ))}
             </ol>

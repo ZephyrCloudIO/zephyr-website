@@ -8,13 +8,40 @@ const execFileAsync = promisify(execFile);
 
 const ROOT = process.cwd();
 const BLOG_SOURCE_DIR = path.join(ROOT, 'src/content/blog');
-const CHANGELOG_SOURCE_DIR = path.join(ROOT, 'src/content/changelog');
 const BLOG_DOCS_DIR = path.join(ROOT, 'docs/blog');
-const CHANGELOG_DOCS_DIR = path.join(ROOT, 'docs/changelog');
 const GENERATED_DIR = path.join(ROOT, 'src/generated');
 const DOCS_PUBLIC_DIR = path.join(ROOT, 'docs/public');
 const DEFAULT_SITE_URL = 'https://zephyr-cloud.io';
 const SITE_URL_SOCIALS = (process.env.SITE_URL_SOCIALS || DEFAULT_SITE_URL).replace(/\/+$/, '');
+
+// Each changelog collection has its own source folder, route base and metadata file.
+// The platform changelog lives at /changelog; product changelogs nest under it.
+const CHANGELOG_COLLECTIONS = [
+  {
+    contentDir: 'changelog',
+    docsDir: 'docs/changelog',
+    urlBase: '/changelog',
+    metadataFile: 'changelog-metadata.ts',
+    metadataExport: 'changelogMetadataEntries',
+    fallbackDescription: 'Zephyr Cloud changelog update',
+  },
+  {
+    contentDir: 'changelog-plugins',
+    docsDir: 'docs/changelog/plugins',
+    urlBase: '/changelog/plugins',
+    metadataFile: 'changelog-plugins-metadata.ts',
+    metadataExport: 'pluginChangelogMetadataEntries',
+    fallbackDescription: 'Zephyr plugins release notes',
+  },
+  {
+    contentDir: 'changelog-workers',
+    docsDir: 'docs/changelog/workers',
+    urlBase: '/changelog/workers',
+    metadataFile: 'changelog-workers-metadata.ts',
+    metadataExport: 'workerChangelogMetadataEntries',
+    fallbackDescription: 'Zephyr Workers release notes',
+  },
+];
 
 function rewriteSocialImageUrl(url) {
   try {
@@ -286,18 +313,23 @@ export const pageMetadata = ${asJsObject(metadata)}
   );
 }
 
-async function generateChangelogPages() {
-  const files = (await readdir(CHANGELOG_SOURCE_DIR)).filter((file) => file.endsWith('.mdx'));
-  await cleanGeneratedMdx(CHANGELOG_DOCS_DIR);
+async function generateChangelogPages(collection) {
+  const sourceDir = path.join(ROOT, 'src/content', collection.contentDir);
+  const docsDir = path.join(ROOT, collection.docsDir);
+  // Generated wrappers import components relative to their own folder.
+  const srcImportBase = path.relative(docsDir, path.join(ROOT, 'src')).split(path.sep).join('/');
+  const files = (await readdir(sourceDir)).filter((file) => file.endsWith('.mdx'));
+  await cleanGeneratedMdx(docsDir);
   const changelogMetadataEntries = [];
 
   for (const fileName of files) {
     const slug = fileName.replace(/\.mdx$/, '');
-    const sourcePath = path.join(CHANGELOG_SOURCE_DIR, fileName);
+    const sourcePath = path.join(sourceDir, fileName);
     const raw = await readFile(sourcePath, 'utf8');
     const metadata = extractFrontmatter(raw);
     const title = metadata.title || slug;
-    const description = metadata.summary || 'Zephyr Cloud changelog update';
+    const description = metadata.summary || collection.fallbackDescription;
+    const pageUrl = `https://zephyr-cloud.io${collection.urlBase}/${slug}`;
     const ogImage = await normalizeChangelogOgImage(slug, metadata);
 
     const imageMeta = getImageMeta(ogImage);
@@ -317,7 +349,7 @@ head:
       content: ${yamlSingleQuoted(description)}
   - - meta
     - property: og:url
-      content: ${yamlSingleQuoted(`https://zephyr-cloud.io/changelog/${slug}`)}
+      content: ${yamlSingleQuoted(pageUrl)}
   - - meta
     - property: og:image
       content: ${yamlSingleQuoted(ogImage)}
@@ -365,27 +397,29 @@ ${
       content: ${yamlSingleQuoted(ogImage)}
   - - link
     - rel: canonical
-      href: ${yamlSingleQuoted(`https://zephyr-cloud.io/changelog/${slug}`)}
+      href: ${yamlSingleQuoted(pageUrl)}
 ---
 
-import EntryBody from '@/content/changelog/${slug}.mdx'
-import { ChangelogArticlePage } from '../../src/components/pages/ChangelogArticlePage'
+import EntryBody from '@/content/${collection.contentDir}/${slug}.mdx'
+import { ChangelogArticlePage } from '${srcImportBase}/components/pages/ChangelogArticlePage'
 
 export const pageMetadata = ${asJsObject(metadata)}
 
-<ChangelogArticlePage slug={${jsSingleQuoted(slug)}} metadata={pageMetadata}>
+<ChangelogArticlePage slug={${jsSingleQuoted(slug)}} metadata={pageMetadata}${
+      collection.urlBase === '/changelog' ? '' : ` basePath=${jsSingleQuoted(collection.urlBase)}`
+    }>
   <EntryBody />
 </ChangelogArticlePage>
 `;
 
-    await writeFile(path.join(CHANGELOG_DOCS_DIR, `${slug}.mdx`), generated, 'utf8');
+    await writeFile(path.join(docsDir, `${slug}.mdx`), generated, 'utf8');
     changelogMetadataEntries.push({ slug, metadata });
   }
 
   await mkdir(GENERATED_DIR, { recursive: true });
   await writeFile(
-    path.join(GENERATED_DIR, 'changelog-metadata.ts'),
-    `export const changelogMetadataEntries = ${asJsObject(changelogMetadataEntries)} as const;\n`,
+    path.join(GENERATED_DIR, collection.metadataFile),
+    `export const ${collection.metadataExport} = ${asJsObject(changelogMetadataEntries)} as const;\n`,
     'utf8',
   );
 }
@@ -409,5 +443,7 @@ async function formatGeneratedOutput() {
 }
 
 await generateBlogPages();
-await generateChangelogPages();
+for (const collection of CHANGELOG_COLLECTIONS) {
+  await generateChangelogPages(collection);
+}
 await formatGeneratedOutput();

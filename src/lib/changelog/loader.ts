@@ -9,11 +9,15 @@ export interface MDXChangelogEntry {
     date: string;
     summary: string;
     category: ChangelogCategory;
+    version?: string;
     image?: string;
     readingTime?: number;
   };
   default: React.ComponentType;
 }
+
+// Platform entries use labels like "Platform Update" as their version; only show real release versions.
+const RELEASE_VERSION = /^v?\d+\.\d+\.\d+/;
 
 // Convert MDX metadata to ChangelogEntry format
 export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string): ChangelogEntry {
@@ -31,6 +35,7 @@ export function mdxToChangelogEntry(mdx: MDXChangelogEntry, moduleKey?: string):
     date: parseLocalDate(metadata.date),
     summary: metadata.summary,
     category: metadata.category,
+    version: metadata.version && RELEASE_VERSION.test(metadata.version) ? metadata.version : undefined,
     image: images?.image || metadata.image,
     readingTime: metadata.readingTime,
   };
