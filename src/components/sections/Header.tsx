@@ -158,8 +158,8 @@ export const Header: React.FC = () => {
         >
           Skip to content
         </a>
-        <div className="mx-auto flex h-16 max-w-[1320px] items-center justify-between gap-6 px-5 sm:px-8 lg:px-10">
-          <div className="flex items-center gap-2">
+        <div className="mx-auto flex h-16 max-w-[1320px] items-center justify-between gap-4 xl:gap-6 px-5 sm:px-8 lg:px-10">
+          <div className="flex shrink-0 items-center gap-2">
             <button
               type="button"
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -230,7 +230,7 @@ export const Header: React.FC = () => {
             </div>
           </div>
 
-          <NavigationMenu className="hidden lg:block">
+          <NavigationMenu className="hidden whitespace-nowrap lg:block">
             <NavigationMenuList>
               <NavigationMenuItem>
                 <NavigationMenuTrigger>Products</NavigationMenuTrigger>
@@ -273,6 +273,9 @@ export const Header: React.FC = () => {
                 <NavigationMenuLink href="/acceleration-week">Acceleration Week</NavigationMenuLink>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <NavigationMenuLink href="/customers">Customers</NavigationMenuLink>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <NavigationMenuLink href="/pricing">Pricing</NavigationMenuLink>
               </NavigationMenuItem>
             </NavigationMenuList>
@@ -283,7 +286,7 @@ export const Header: React.FC = () => {
               href="https://github.com/ZephyrCloudIO"
               target="_blank"
               rel="noopener"
-              className="hidden h-9 items-center gap-2 rounded-lg px-3 text-sm text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink sm:inline-flex"
+              className="hidden h-9 items-center gap-2 rounded-lg px-3 text-sm text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink sm:inline-flex lg:hidden xl:inline-flex"
             >
               <Github size={16} aria-hidden />
               GitHub
@@ -292,7 +295,7 @@ export const Header: React.FC = () => {
               href="https://www.npmjs.com/org/zephyrcloud"
               target="_blank"
               rel="noopener"
-              className="hidden h-9 items-center gap-2 rounded-lg px-3 text-sm text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink md:inline-flex"
+              className="hidden h-9 items-center gap-2 rounded-lg px-3 text-sm text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink md:inline-flex lg:hidden xl:inline-flex"
             >
               <Package size={16} aria-hidden />
               npm
@@ -301,7 +304,7 @@ export const Header: React.FC = () => {
               href="https://app.zephyr-cloud.io/"
               target="_blank"
               rel="noopener"
-              className="ml-1.5 inline-flex h-9 items-center gap-1.5 rounded-lg bg-released px-3.5 text-sm font-medium text-white transition-colors hover:bg-[#8b4df5] focus-visible:ring-2 focus-visible:ring-released-ink focus-visible:ring-offset-2 focus-visible:ring-offset-night"
+              className="ml-1.5 inline-flex h-9 whitespace-nowrap items-center gap-1.5 rounded-lg bg-released px-3.5 text-sm font-medium text-white transition-colors hover:bg-[#8b4df5] focus-visible:ring-2 focus-visible:ring-released-ink focus-visible:ring-offset-2 focus-visible:ring-offset-night"
             >
               Get started
               <ArrowRight className="size-3.5" aria-hidden />
@@ -368,6 +371,13 @@ export const Header: React.FC = () => {
             className="block rounded-lg px-3 py-2.5 text-ink-muted hover:bg-surface-2 hover:text-ink"
           >
             Acceleration Week
+          </Link>
+          <Link
+            to="/customers"
+            onClick={closeMobile}
+            className="block rounded-lg px-3 py-2.5 text-ink-muted hover:bg-surface-2 hover:text-ink"
+          >
+            Customers
           </Link>
           <Link
             to="/pricing"
