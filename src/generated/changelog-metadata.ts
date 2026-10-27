@@ -411,4 +411,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-10-26-audit-log-project-access-org-switcher',
+    metadata: {
+      title: 'Product Update: Audit Log Accuracy, Project Access Controls, and Organization Switcher',
+      date: '2026-10-26',
+      version: 'Late October 2026 Product Update',
+      summary:
+        'This release makes audit logs more complete and easier to filter, tightens what project viewers and organization viewers can access, and makes it faster to switch between organizations.',
+      tags: ['product', 'audit-logs', 'permissions', 'projects', 'cloudflare'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
