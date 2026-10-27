@@ -42,12 +42,15 @@ function CaseStudyMarker() {
   );
 }
 
-/** The logo wall. Cells with a published case study carry a marker and link to the story. */
+/**
+ * The logo wall. Cells with a published case study carry a marker and link to the story.
+ * Columns are fixed widths in a centered flex row, so a part-filled last row sits in the middle.
+ */
 export function UsedByGrid({ limitOnPhones = true, className }: { limitOnPhones?: boolean; className?: string }) {
   return (
     <ul
       className={cn(
-        'm-0 grid list-none grid-cols-2 gap-1 p-0 [--logo-scale:0.8] sm:grid-cols-4 sm:[--logo-scale:0.9] lg:grid-cols-7 lg:[--logo-scale:1]',
+        'm-0 flex list-none flex-wrap justify-center gap-1 p-0 [--logo-scale:0.8] sm:[--logo-scale:0.9] lg:[--logo-scale:1]',
         className,
       )}
     >
@@ -56,7 +59,13 @@ export function UsedByGrid({ limitOnPhones = true, className }: { limitOnPhones?
         const cell = 'relative flex h-20 items-center justify-center rounded-lg bg-surface lg:h-24';
 
         return (
-          <li key={company.name} className={cn(limitOnPhones && i >= PHONE_LOGOS && 'max-sm:hidden')}>
+          <li
+            key={company.name}
+            className={cn(
+              'w-[calc((100%-0.25rem)/2)] sm:w-[calc((100%-0.75rem)/4)] lg:w-[calc((100%-1.5rem)/7)]',
+              limitOnPhones && i >= PHONE_LOGOS && 'max-sm:hidden',
+            )}
+          >
             {post ? (
               <Link
                 to={`/blog/${post.slug}`}
