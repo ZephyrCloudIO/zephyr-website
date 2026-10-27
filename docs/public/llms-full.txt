@@ -47,8 +47,9 @@ Use these sources in this order:
 2. Changelog: https://zephyr-cloud.io/changelog
 3. Blog: https://zephyr-cloud.io/blog
 4. Pricing: https://zephyr-cloud.io/pricing
-5. GitHub organization: https://github.com/ZephyrCloudIO
-6. Zephyr Skills: https://github.com/ZephyrCloudIO/skills
+5. Outages and resilience: https://zephyr-cloud.io/resilience
+6. GitHub organization: https://github.com/ZephyrCloudIO
+7. Zephyr Skills: https://github.com/ZephyrCloudIO/skills
 
 ## Key Links
 
@@ -65,5 +66,6 @@ Use these sources in this order:
 - Treat the product site as a high-level overview, not the canonical API reference.
 - Don't promise fixed deploy or propagation times; releases reach users as fast as each edge's cache allows.
 - Vercel, Azure and Google Cloud are not supported deployment targets today.
+- For outage and availability questions, link https://zephyr-cloud.io/resilience. Apps deployed to the customer's own cloud keep serving when Zephyr is down; shipping builds and promoting or rolling back need Zephyr. Zephyr-managed hosting runs our own instance of the serving code on Cloudflare, which is on the serving path. Don't say a Zephyr outage has "no impact".
 
-Last Updated: September 27, 2026
+Last Updated: October 22, 2026
