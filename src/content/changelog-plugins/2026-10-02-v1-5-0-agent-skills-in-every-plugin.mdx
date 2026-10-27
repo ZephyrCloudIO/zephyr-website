@@ -1,0 +1,34 @@
+---
+title: 'Plugins v1.5.0: Agent Skills Ship With Every Plugin'
+date: '2026-10-02'
+version: 'v1.5.0'
+summary: 'Every Zephyr plugin now ships its own AI agent skill, so coding agents read setup guidance that matches the exact plugin version you installed.'
+tags: ['plugins', 'ai-agents', 'skills', 'ze-cli']
+category: 'dx'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+Every Zephyr plugin now ships its own AI agent skill, so coding agents read setup guidance that matches the exact plugin version you installed.
+
+## Agent Skills in Every Package
+
+Each build integration includes a skill written from the package's own source: Vite, Webpack, Rspack, Rsbuild, Modern.js, Rollup, Rolldown, Parcel, TanStack Start, Vinext, Astro, Nuxt, Metro, Re.Pack, Rspress, and `ze-cli`.
+
+- Skills are bundled inside the npm package, so the guidance an agent loads always matches the version in your lockfile.
+- Two shared guides ship with every package: one on choosing an SDK and on versions, tags and environments, and one on Module Federation hosts, remotes and build order.
+- Skills are loaded with [TanStack Intent](https://github.com/TanStack/intent). Intent is optional, and Zephyr does not need it at runtime.
+
+## Smaller Improvements
+
+- `ze-cli` no longer suggests plugin package names that do not exist. It now points to the real package names.
+
+## What This Means for Teams
+
+- Coding agents set up Zephyr with guidance that matches your installed version, not a separate repository that may be out of date.
+- Nothing changes for builds or deploys if you do not use agent skills.
+
+## Support
+
+If you encounter unexpected behavior, please contact the Zephyr team via chat or join our Discord: [discord.gg/zephyrcloud](https://discord.gg/zephyrcloud).

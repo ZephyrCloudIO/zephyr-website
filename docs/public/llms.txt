@@ -21,6 +21,8 @@ Zephyr Cloud deploys every build and lets teams release when they're ready. Add 
 - Framework integrations: `zephyr-astro-integration`, `zephyr-nuxt-module`, `zephyr-modernjs-plugin`, `zephyr-rspress-plugin`, `vite-plugin-tanstack-start-zephyr`, `vite-plugin-vinext-zephyr` (beta)
 - CLIs: `create-zephyr-apps`, `with-zephyr`, `zephyr-cli` (`ze-cli`)
 - All packages: https://www.npmjs.com/org/zephyrcloud
+- Plugin release notes: https://zephyr-cloud.io/changelog/plugins
+- Edge worker release notes: https://zephyr-cloud.io/changelog/workers
 
 ## Core Concepts
 - **Version**: every build, immutable, with its own live URL.
@@ -88,4 +90,4 @@ When providing assistance with Zephyr Cloud:
 4. Don't promise fixed deploy times. The plugin prints measured timings for each build, and releases reach users as fast as each edge's cache allows
 5. Vercel, Azure and Google Cloud are not supported deployment targets today
 
-Last Updated: September 27, 2026
+Last Updated: October 27, 2026
