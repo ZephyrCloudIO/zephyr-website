@@ -1,7 +1,7 @@
 import { cn } from '@/lib/utils';
 import { Check } from 'lucide-react';
 
-/** Bottom-center confirmation, clear of the Intercom launcher in the bottom-right corner. */
+/** Bottom-center confirmation toast. */
 export function CopyToast({ message, visible }: { message: string; visible: boolean }) {
   return (
     <div
