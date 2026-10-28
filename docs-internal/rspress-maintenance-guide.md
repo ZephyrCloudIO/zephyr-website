@@ -159,7 +159,7 @@ import { Route as ExampleRoute } from '../src/routes/example';
 
 Swap in a page-specific `og:image`/`twitter:image` when the page has its own social art; otherwise keep the shared `default-1200x630.png` so the page still has a social preview.
 
-Use `hideChrome: true` in frontmatter for standalone pages that should not render the global header, footer, or Intercom button.
+Use `hideChrome: true` in frontmatter for standalone pages that should not render the global header or footer.
 
 ## Adding A Standalone Lander
 

@@ -13,7 +13,7 @@ const link = 'text-ink underline underline-offset-4';
 const code = 'text-ident text-[0.92em] text-ink';
 
 const SUPPORT_EMAIL = 'support@zephyr-cloud.io';
-const LAST_UPDATED = 'October 26, 2026';
+const LAST_UPDATED = 'October 28, 2026';
 
 function Mail() {
   return (
@@ -185,8 +185,7 @@ function PrivacyPolicy() {
             similar identifier and builds a person profile only if you identify yourself to us.
           </li>
           <li>
-            Support chat through Intercom, and support email: what you write to us, your contact details, and the
-            conversation history, to answer you.
+            Support email: what you write to us, your contact details, and the conversation history, to answer you.
           </li>
         </ul>
 
@@ -299,7 +298,7 @@ function PrivacyPolicy() {
           </li>
           <li>
             <span className="text-ink">PostHog</span> provides website analytics and usage events for the Zephyr API
-            connector, and <span className="text-ink">Intercom</span> provides support chat.
+            connector.
           </li>
           <li>
             <span className="text-ink">Other service providers</span> that help us run the services, such as payment,

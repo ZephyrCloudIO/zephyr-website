@@ -1,4 +1,3 @@
-import { IntercomButton } from '@/components/IntercomButton';
 import { MotionReveal } from '@/components/motion/MotionReveal';
 import { NotFoundPage } from '@/components/pages/NotFoundPage';
 import { Footer } from '@/components/sections/Footer';
@@ -12,7 +11,6 @@ import { PostHogProvider } from '@posthog/react';
 import { Content, Head, useFrontmatter, usePageData } from '@rspress/core/runtime';
 import posthog from 'posthog-js';
 import { createElement, type ReactElement, useEffect } from 'react';
-import { IntercomProvider } from 'react-use-intercom';
 
 const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY;
 const POSTHOG_API_HOST = import.meta.env.PUBLIC_POSTHOG_HOST;
@@ -80,21 +78,18 @@ export function Layout() {
         {isNotFound ? <meta name="robots" content="noindex" /> : null}
         {renderFrontmatterHead(frontmatter.head)}
       </Head>
-      <IntercomProvider appId="xyxkmxlj">
-        <PostHogProvider client={posthog}>
-          <MDXProvider components={mdxComponents as any}>
-            {/* overflow-x: clip, not hidden: it keeps the header and pinned stage sticky, and stops
-                transformed demo layers from widening the page (iOS Safari keeps stale overflow). */}
-            <div className="dark bg-night text-ink-muted min-h-screen overflow-x-clip font-sans">
-              {hideChrome ? null : <Header />}
-              <main id="main">{isNotFound ? <NotFoundPage /> : <Content />}</main>
-              {hideChrome ? null : <Footer />}
-              {hideChrome ? null : <IntercomButton />}
-              <MotionReveal />
-            </div>
-          </MDXProvider>
-        </PostHogProvider>
-      </IntercomProvider>
+      <PostHogProvider client={posthog}>
+        <MDXProvider components={mdxComponents as any}>
+          {/* overflow-x: clip, not hidden: it keeps the header and pinned stage sticky, and stops
+              transformed demo layers from widening the page (iOS Safari keeps stale overflow). */}
+          <div className="dark bg-night text-ink-muted min-h-screen overflow-x-clip font-sans">
+            {hideChrome ? null : <Header />}
+            <main id="main">{isNotFound ? <NotFoundPage /> : <Content />}</main>
+            {hideChrome ? null : <Footer />}
+            <MotionReveal />
+          </div>
+        </MDXProvider>
+      </PostHogProvider>
     </>
   );
 }
