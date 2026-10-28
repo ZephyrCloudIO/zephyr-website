@@ -424,4 +424,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-10-28-invitations-domain-joining-navigation',
+    metadata: {
+      title: 'Product Update: Invitation Fixes, Verified-Domain Joining, and Navigation Polish',
+      date: '2026-10-28',
+      version: 'Late October 2026 Product Update',
+      summary:
+        'This release makes organization invitations more reliable, lets colleagues on a verified domain join without an extra step, and tidies up tables and navigation.',
+      tags: ['product', 'invitations', 'organizations', 'authentication', 'navigation'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
