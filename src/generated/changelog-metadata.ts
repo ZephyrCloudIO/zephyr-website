@@ -437,4 +437,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-11-05-leave-organizations-access-controls-polish',
+    metadata: {
+      title: 'Product Update: Leave Organizations, Tighter Access Controls, and UI Fixes',
+      date: '2026-11-05',
+      version: 'Early November 2026 Product Update',
+      summary:
+        'This release lets members leave an organization themselves and tells people when they have been added to one. It also limits audit logs to people who can edit, tightens who can see what across the platform, and fixes several layout issues.',
+      tags: ['product', 'organizations', 'permissions', 'audit-logs', 'security'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
