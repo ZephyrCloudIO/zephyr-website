@@ -1,0 +1,61 @@
+---
+title: 'Product Update: Leave Organizations, Tighter Access Controls, and UI Fixes'
+date: '2026-11-05'
+version: 'Early November 2026 Product Update'
+summary: 'This release lets members leave an organization themselves and tells people when they have been added to one. It also limits audit logs to people who can edit, tightens who can see what across the platform, and fixes several layout issues.'
+tags: ['product', 'organizations', 'permissions', 'audit-logs', 'security']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release lets members leave an organization themselves and tells people when they have been added to one. It also limits audit logs to people who can edit, tightens who can see what across the platform, and fixes several layout issues.
+
+## Leave an Organization Yourself
+
+Members no longer need an owner or admin to remove them. A new Organizations page in your profile settings lists every organization you belong to, and you can leave any of them in a couple of clicks.
+
+- See each organization's plan, its member, project and application counts, and your role.
+- Leave after a confirmation step. Your access ends right away and your seat is freed.
+- If you are the only owner, you'll be asked to make another member an owner first.
+
+## Know When You've Been Added
+
+When someone adds you directly, or you join automatically through your company's verified domain, you now get an email. It says who added you and what role you have.
+
+- Open the organization straight from the email.
+- Not expecting it? The email links to a page where you can leave.
+
+## Audit Logs Are Limited to Editors and Above
+
+Project and application audit logs can include sensitive details, such as environment variable changes and token names. Now only people who can edit the project or application can read them.
+
+- Editors, admins and owners keep full access.
+- Viewers no longer see the Activity log. Neither do people outside the organization who are looking at a public project.
+
+## Stronger Access Controls
+
+We reviewed how access is checked across the platform and closed several gaps.
+
+- Another user's profile shows only their public projects and the organizations you share. Their private projects, applications and account details stay private.
+- People removed from an organization no longer see its projects or applications.
+- Reading an application's configuration now requires access to that application.
+- Sensitive actions always check your current permissions, so role changes take effect immediately.
+
+## Smaller Improvements
+
+- Rows for bot-created versions on the Versions page are easier to read. Names and branches wrap instead of being cut off, and the bot name shows in full.
+- Activity log rows now line up, and chart axis labels in the Contributors view are no longer cut off.
+- Server token and CI token lists keep their column layout after the page finishes loading.
+- Pages outside an organization, such as your profile, no longer trigger a failed request from the sidebar search.
+- The dependency resolver now reports which tag or environment and which platform a result came from. Mobile apps can use this to detect when they fall back to the default environment or to web.
+- The unused Netlify deployment integration has been removed.
+- Third-party dependencies have been updated to fix known security issues.
+
+## What This Means for Teams
+
+- Members can manage their own organization memberships without waiting on an admin.
+- People always know when they've been added to an organization, and can leave if it was a mistake.
+- Only the people responsible for a project can see its sensitive audit history.
+- There are fewer ways for people to see data they shouldn't.
