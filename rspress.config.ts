@@ -1,11 +1,15 @@
+import { pluginModuleFederation } from '@module-federation/rspress-plugin';
 import { defineConfig, type UserConfig } from '@rspress/core';
 import { pluginSitemap } from '@rspress/plugin-sitemap';
 import fs from 'node:fs';
 import path from 'node:path';
 import { withZephyr } from 'zephyr-rspress-plugin';
+import campaigns from './marketing/inbound-pages/pages.json';
 
 const siteUrl = 'https://zephyr-cloud.io';
+
 const DOCS_ROOT = path.join(__dirname, 'docs');
+const campaignSitemap = pluginSitemap({ siteUrl, defaultChangeFreq: 'weekly', defaultPriority: '0.6' });
 
 // Rspress does not load `.env` or expose `PUBLIC_*` variables to client code the way the Rsbuild
 // CLI does, so `import.meta.env.PUBLIC_POSTHOG_KEY` compiled to `undefined` and PostHog never
@@ -124,11 +128,41 @@ export default defineConfig({
     },
   },
   plugins: [
-    pluginSitemap({
-      siteUrl,
-      defaultChangeFreq: 'weekly',
-      defaultPriority: '0.6',
-    }),
+    pluginModuleFederation(
+      {
+        name: 'zephyr_website',
+        remotes: {
+          campaigns: `campaigns@${process.env.CAMPAIGN_REMOTE_URL || 'http://localhost:4262/mf-manifest.json'}`,
+        },
+        dts: false,
+      },
+      { rebuildSearchIndex: false, rebuildLlms: false },
+    ),
+    {
+      ...campaignSitemap,
+      async afterBuild(config, isProd) {
+        await campaignSitemap.afterBuild?.(config, isProd);
+        if (!isProd) return;
+        const output = config.outDir || 'doc_build';
+        const sitemap = await fs.promises.readFile(path.join(output, 'sitemap.xml'), 'utf8');
+        for (const page of campaigns) {
+          const canonical = `${siteUrl}/${page.slug}`;
+          const html = await fs.promises.readFile(path.join(output, `${page.slug}.html`), 'utf8');
+          if (!sitemap.includes(`<loc>${canonical}</loc>`))
+            throw new Error(`Campaign missing from sitemap: ${page.slug}`);
+          if (
+            !html.includes(`data-page-id="${page.id}"`) ||
+            !html.includes('<h1') ||
+            !html.includes('data-lead-form')
+          ) {
+            throw new Error(`Campaign content was not statically rendered: ${page.slug}`);
+          }
+          if (/<meta[^>]*content="[^"]*noindex/.test(html) || !html.includes(`href="${canonical}"`)) {
+            throw new Error(`Campaign indexing metadata is invalid: ${page.slug}`);
+          }
+        }
+      },
+    },
     ...(process.env.ZE_DEPLOY === 'false' ? [] : [withZephyr<UserConfig>()]),
   ],
 });

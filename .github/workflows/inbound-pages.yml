@@ -1,18 +1,10 @@
 name: Inbound landing pages
 
 on:
-  pull_request:
-    paths:
-      - marketing/inbound-pages/**
-      - .github/workflows/inbound-pages.yml
-      - package.json
-      - pnpm-lock.yaml
-  push:
-    branches: [main]
-    paths:
-      - marketing/inbound-pages/**
-      - .github/workflows/inbound-pages.yml
-  workflow_dispatch:
+  workflow_call:
+    secrets:
+      ZEPHYR_AUTH_TOKEN:
+        required: true
 
 permissions:
   contents: read
@@ -23,7 +15,6 @@ concurrency:
 
 jobs:
   validate:
-    if: github.event_name == 'pull_request'
     runs-on: depot-ubuntu-latest
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
@@ -37,7 +28,7 @@ jobs:
       - run: pnpm run test:inbound-pages
 
   publish:
-    if: (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main')
+    needs: validate
     runs-on: depot-ubuntu-latest
     environment: production
     steps:
@@ -49,7 +40,6 @@ jobs:
         with:
           version: 10.34.9
       - run: pnpm install --frozen-lockfile
-      - run: pnpm run test:inbound-pages
       - name: Build and publish the review application with Rsbuild
         env:
           ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}

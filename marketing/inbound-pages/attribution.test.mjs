@@ -84,6 +84,7 @@ describe('asynchronous Turnstile script', () => {
     const options = { sitekey: 'public-site-key' };
     let script;
     const calls = [];
+    let apiReady = false;
     const result = loadTurnstile(element, options, {
       document: {
         createElement: () => ({}),
@@ -93,21 +94,69 @@ describe('asynchronous Turnstile script', () => {
           },
         },
       },
-      getApi: () => ({
-        ready: () => {
-          throw new Error('Async scripts cannot call ready');
-        },
-        render: (...args) => {
-          calls.push(args);
-          return 'widget-1';
-        },
-      }),
+      getApi: () =>
+        apiReady
+          ? {
+              ready: () => {
+                throw new Error('Async scripts cannot call ready');
+              },
+              render: (...args) => {
+                calls.push(args);
+                return 'widget-1';
+              },
+            }
+          : undefined,
     });
     expect(script.async).toBe(true);
     expect(calls).toHaveLength(0);
+    apiReady = true;
     script.onload();
     expect(await result).toBe('widget-1');
     expect(calls).toEqual([[element, options]]);
+  });
+});
+
+describe('campaign navigation verification', () => {
+  it('shares a pending script and does not render a departed page', async () => {
+    const inserted = [];
+    const rendered = [];
+    let api;
+    const dependencies = {
+      document: { createElement: () => ({}), head: { append: (script) => inserted.push(script) } },
+      getApi: () => api,
+    };
+    const departed = { isConnected: false };
+    const current = { isConnected: true };
+    const first = loadTurnstile(departed, {}, dependencies).catch((error) => error.message);
+    const second = loadTurnstile(current, {}, dependencies);
+    expect(inserted).toHaveLength(1);
+    api = {
+      render: (element) => {
+        rendered.push(element);
+        return 'current-widget';
+      },
+    };
+    inserted[0].onload();
+    expect(await first).toBe('The form is no longer open.');
+    expect(await second).toBe('current-widget');
+    expect(rendered).toEqual([current]);
+    await loadTurnstile(current, {}, dependencies);
+    expect(inserted).toHaveLength(1);
+  });
+
+  it('allows a fresh script after a failed script request', async () => {
+    const inserted = [];
+    const dependencies = {
+      document: { createElement: () => ({}), head: { append: (script) => inserted.push(script) } },
+      getApi: () => undefined,
+    };
+    const first = loadTurnstile({}, {}, dependencies);
+    inserted[0].onerror();
+    await expect(first).rejects.toThrow('Verification could not load');
+    const second = loadTurnstile({}, {}, dependencies);
+    expect(inserted).toHaveLength(2);
+    inserted[1].onerror();
+    await expect(second).rejects.toThrow('Verification could not load');
   });
 });
 
@@ -153,6 +202,14 @@ describe('complete review release', () => {
       env: { ...process.env, ZE_DEPLOY: 'false' },
     });
     const pages = JSON.parse(await readFile(new URL('./pages.json', root), 'utf8'));
+    const manifest = JSON.parse(await readFile(new URL('./dist/mf-manifest.json', root), 'utf8'));
+    expect(manifest.exposes.map((expose) => expose.path).sort()).toEqual(['./capture', './pages']);
+    expect(manifest.metaData.ssrRemoteEntry).toEqual({
+      path: 'server/',
+      name: 'remoteEntry.js',
+      type: 'commonjs-module',
+    });
+    expect((await readFile(new URL('./dist/server/remoteEntry.js', root))).length).toBeGreaterThan(0);
     expect(pages).toHaveLength(11);
     expect(new Set(pages.map((page) => page.id)).size).toBe(11);
     const files = await readdir(new URL('./dist/', root), { recursive: true });
@@ -174,9 +231,13 @@ describe('complete review release', () => {
       expect(scripts.length).toBeGreaterThan(0);
       expect(styles.length).toBeGreaterThan(0);
       for (const asset of [...scripts, ...styles]) {
-        expect((await readFile(new URL(`./dist${asset}`, root))).length).toBeGreaterThan(0);
+        expect(
+          (await readFile(new URL(`./dist${new URL(asset, 'https://assets.example').pathname}`, root))).length,
+        ).toBeGreaterThan(0);
       }
       expect(html).toContain('data-turnstile');
+      expect(html).not.toContain('noindex');
+      expect(html).toContain(`https://zephyr-cloud.io/${page.slug}`);
       // Text sections must remain available without loading a full-page image.
       const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
       expect(main.match(/<section\b/g).length).toBeGreaterThanOrEqual(4);

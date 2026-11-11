@@ -1,4 +1,4 @@
-# Inbound review pages
+# Inbound campaign pages
 
 Run these commands from the repository root:
 
@@ -15,10 +15,42 @@ Pages 10–11 retain the content and layout of the approved build:
 https://zackary-chapple-18690-zephyr-landing-pages-review-660647c05-ze.zephyrcloud.app/.
 Each campaign page has its own direct URL. The build has no review index or gallery.
 
-The `Inbound landing pages` workflow publishes through `zephyr-rsbuild-plugin` when `ZE_DEPLOY=true`.
-It uses the existing review application configured in `zephyr.config.mjs`.
-Trusted same-repository PRs and `main` can publish through this workflow.
+The Rsbuild application exposes `campaigns/pages` and `campaigns/capture` through Module Federation.
+The browser and Node build environments emit a public manifest and the server remote used during static generation.
+`federated-pages.mjs` returns the approved HTML and scoped styles without browser dependencies.
+`landing.css` supplies the shared designs for pages 1–9. Pages 10–11 keep their own inline CSS and SVGs.
+
+The main Rspress application imports these remote modules through `src/landers/campaigns/CampaignRoute.tsx`.
+The 11 `docs/<slug>.mdx` wrappers register public routes without navigation links.
+For example, `/always-deployed` renders the first campaign.
+Rspress generates complete HTML and adds each route to the main sitemap.
+The build fails if a campaign lacks static content, its canonical URL or its sitemap entry.
+`docs/public/llms.txt` lists the campaign URLs for agents.
+
+The website workflow calls `Inbound landing pages` before building the host.
+The reusable workflow publishes through `zephyr-rsbuild-plugin` with `ZE_DEPLOY=true`.
+It uses the existing application configured in `zephyr.config.mjs` and the Depot runner.
+Trusted same-repository PRs and pushes to `main` or `development` use this sequence.
+The root `zephyr:dependencies` selects the `marketing-pages` tag for production.
+That unlocked tag matches CI builds from `main`.
+PR builds set `CAMPAIGN_TAG` to the branch tag created by the existing Zack Chapple CI credential.
+`zephyr.config.ts` applies that override and requests selector URLs, so runtime resolution follows the selected tag.
 Local commands do not publish by default.
+
+To build the integrated site locally, first build and serve the remote in separate terminals:
+
+```bash
+pnpm run build:inbound-pages
+pnpm run preview:inbound-pages
+```
+
+Then build the main site against that local manifest:
+
+```bash
+ZE_DEPLOY=false CAMPAIGN_REMOTE_URL=http://localhost:4262/mf-manifest.json pnpm build
+```
+
+Keep the remote server running during static generation and local preview.
 
 The browser fetches the published `default/zephyr-book-a-demo` form definition.
 The CRM records the actual landing URL, incoming UTM values, form version and contact.

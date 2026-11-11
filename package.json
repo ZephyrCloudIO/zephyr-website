@@ -53,6 +53,8 @@
     "unicornstudio-react": "2.1.4"
   },
   "devDependencies": {
+    "@module-federation/rsbuild-plugin": "2.9.3",
+    "@module-federation/rspress-plugin": "2.9.3",
     "@rsbuild/core": "2.3.2",
     "@rspress/core": "2.0.23",
     "@rspress/plugin-sitemap": "2.0.23",
@@ -69,6 +71,9 @@
     "typescript": "5.9.3",
     "yaml": "2.8.3",
     "zephyr-rsbuild-plugin": "1.7.0",
-    "zephyr-rspress-plugin": "1.2.4"
+    "zephyr-rspress-plugin": "1.7.0"
+  },
+  "zephyr:dependencies": {
+    "campaigns": "zephyr-landing-pages-review.with-tap.zephyrcloudio@marketing-pages"
   }
 }

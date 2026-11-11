@@ -1,8 +1,10 @@
-name: Run on PRs
+name: Website and campaign pages
 
 on:
   pull_request:
-    types: [opened, closed, synchronize]
+    types: [opened, synchronize, reopened]
+  push:
+    branches: [main, development]
 
 permissions:
   deployments: write # allow creating deployments
@@ -10,9 +12,16 @@ permissions:
   contents: read # minimal read access to repo, if needed
 
 jobs:
+  campaigns:
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
+    uses: ./.github/workflows/inbound-pages.yml
+    secrets: inherit
+
   build:
+    needs: campaigns
     runs-on: depot-ubuntu-latest
     env:
+      ZE_FAIL_BUILD: 'true'
       PUBLIC_POSTHOG_KEY: ${{ secrets.PUBLIC_POSTHOG_KEY }}
       PUBLIC_POSTHOG_HOST: ${{ secrets.PUBLIC_POSTHOG_HOST }}
       ZE_PUBLIC_ENABLED_LANDERS: ${{ vars.ZE_PUBLIC_ENABLED_LANDERS || '' }}
@@ -32,14 +41,22 @@ jobs:
           run_install: false
 
       - name: Install dependencies
-        run: pnpm i
+        run: pnpm install --frozen-lockfile
+
+      - name: Select the campaign review tag
+        if: github.event_name == 'pull_request' || github.ref_name != 'main'
+        env:
+          CAMPAIGN_BRANCH: ${{ github.head_ref || github.ref_name }}
+        run: |
+          campaign_branch_tag="${CAMPAIGN_BRANCH//[^a-zA-Z0-9_-]/-}"
+          echo "CAMPAIGN_TAG=web_${campaign_branch_tag}_zackary_chapple" >> "$GITHUB_ENV"
 
       - name: Typecheck
-        if: github.event.action != 'closed'
+        if: github.event_name == 'pull_request'
         run: pnpm run typecheck
 
       - name: Verify generated content is up to date
-        if: github.event.action != 'closed'
+        if: github.event_name == 'pull_request'
         run: |
           pnpm run generate:rspress-content
           if [ -n "$(git status --porcelain docs/blog docs/changelog src/generated)" ]; then
@@ -50,7 +67,7 @@ jobs:
           fi
 
       - name: Run build for non-merged PR
-        if: github.event.action != 'closed' && github.event.pull_request.merged != true
+        if: github.event_name == 'pull_request'
         id: build_non_merge
         env:
           ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}
@@ -61,10 +78,8 @@ jobs:
           fi
           pnpm run build
 
-      - name: Run build for merged PR on main or development
-        if: github.event.pull_request.merged == true &&
-          github.event.action == 'closed' &&
-          (github.event.pull_request.base.ref == 'main' || github.event.pull_request.base.ref == 'development')
+      - name: Publish main or development
+        if: github.event_name == 'push'
         id: build_merge
         env:
           ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}
