@@ -145,7 +145,7 @@ describe('CRM acceptance', () => {
 
 describe('complete review release', () => {
   it('builds all eleven concepts as text pages with one attributed CRM form each', async () => {
-    const { readFile } = await import('node:fs/promises');
+    const { readFile, readdir } = await import('node:fs/promises');
     const { execFileSync } = await import('node:child_process');
     const root = new URL('./', import.meta.url);
     execFileSync('pnpm', ['run', 'build:inbound-pages'], {
@@ -155,16 +155,20 @@ describe('complete review release', () => {
     const pages = JSON.parse(await readFile(new URL('./pages.json', root), 'utf8'));
     expect(pages).toHaveLength(11);
     expect(new Set(pages.map((page) => page.id)).size).toBe(11);
-    const index = await readFile(new URL('./dist/index.html', root), 'utf8');
+    const files = await readdir(new URL('./dist/', root), { recursive: true });
+    expect(files.filter((file) => file.endsWith('.html')).sort()).toEqual(
+      pages.map((page) => `${page.path}/index.html`).sort(),
+    );
     for (const page of pages) {
       const html = await readFile(new URL(`./dist/${page.path}/index.html`, root), 'utf8');
-      expect(index).toContain(`href="${page.path}/"`);
       expect(html).toContain(`data-page-id="${page.id}"`);
       expect(html.match(/<h1\b/g)).toHaveLength(1);
       expect(html.match(/<form\b/g)).toHaveLength(1);
       expect(html).toContain('data-lead-form');
       expect(html).not.toContain('<%');
       expect(html).not.toContain('onsubmit=');
+      expect(html).not.toContain('class="review"');
+      expect(html).not.toContain('All pages');
       const scripts = [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map((match) => match[1]);
       const styles = [...html.matchAll(/<link[^>]+href="([^"]+)"[^>]*rel="stylesheet"/g)].map((match) => match[1]);
       expect(scripts.length).toBeGreaterThan(0);

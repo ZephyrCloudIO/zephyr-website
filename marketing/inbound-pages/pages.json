@@ -3,88 +3,77 @@
     "id": "always-deployed",
     "path": "01-always-deployed",
     "title": "Always deployed",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/01-always-deployed/page.jpg",
     "html": "pages/01-always-deployed.html",
-    "entry": "./landing-entry.mjs"
+    "entry": ["./entry.mjs", "./landing.css"]
   },
   {
     "id": "saaspocalypse",
     "path": "02-saaspocalypse",
     "title": "SaaSpocalypse",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/02-saaspocalypse/page.jpg",
     "html": "pages/02-saaspocalypse.html",
-    "entry": "./landing-entry.mjs"
+    "entry": ["./entry.mjs", "./landing.css"]
   },
   {
     "id": "composable-enterprise",
     "path": "03-composable-enterprise",
     "title": "Composable enterprise",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/03-composable-enterprise/page.jpg",
     "html": "pages/03-composable-enterprise.html",
-    "entry": "./landing-entry.mjs"
+    "entry": ["./entry.mjs", "./landing.css"]
   },
   {
     "id": "agents-deploy",
     "path": "04-agents-deploy",
     "title": "Agents deploy",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/04-agents-deploy/page.jpg",
     "html": "pages/04-agents-deploy.html",
-    "entry": "./landing-entry.mjs"
+    "entry": ["./entry.mjs", "./landing.css"]
   },
   {
     "id": "kill-the-release-train",
     "path": "05-kill-the-release-train",
     "title": "Kill the release train",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/05-kill-the-release-train/page.jpg",
     "html": "pages/05-kill-the-release-train.html",
-    "entry": "./landing-entry.mjs"
+    "entry": ["./entry.mjs", "./landing.css"]
   },
   {
     "id": "rollback-isnt-a-rebuild",
     "path": "06-rollback-isnt-a-rebuild",
     "title": "Rollback isn't a rebuild",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/06-rollback-isnt-a-rebuild/page.jpg",
     "html": "pages/06-rollback-isnt-a-rebuild.html",
-    "entry": "./landing-entry.mjs"
+    "entry": ["./entry.mjs", "./landing.css"]
   },
   {
     "id": "one-line",
     "path": "07-one-line",
     "title": "One line",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/07-one-line/page.jpg",
     "html": "pages/07-one-line.html",
-    "entry": "./landing-entry.mjs"
+    "entry": ["./entry.mjs", "./landing.css"]
   },
   {
     "id": "cloud-is-a-commodity",
     "path": "08-cloud-is-a-commodity",
     "title": "Cloud is a commodity",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/08-cloud-is-a-commodity/page.jpg",
     "html": "pages/08-cloud-is-a-commodity.html",
-    "entry": "./landing-entry.mjs"
+    "entry": ["./entry.mjs", "./landing.css"]
   },
   {
     "id": "ship-everywhere",
     "path": "09-ship-everywhere",
     "title": "Ship everywhere",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/09-ship-everywhere/page.jpg",
     "html": "pages/09-ship-everywhere.html",
-    "entry": "./landing-entry.mjs"
+    "entry": ["./entry.mjs", "./landing.css"]
   },
   {
     "id": "stop-making-users-wait",
     "path": "10-stop-making-users-wait",
     "title": "Stop making users wait",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/10-stop-making-users-wait/page.jpg",
     "html": "pages/10-stop-making-users-wait.html",
-    "entry": "./entry.mjs"
+    "entry": ["./entry.mjs"]
   },
   {
     "id": "ship-the-part",
     "path": "11-ship-the-part",
     "title": "Ship the part, not the app",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/11-ship-the-part/page.jpg",
     "html": "pages/11-ship-the-part.html",
-    "entry": "./entry.mjs"
+    "entry": ["./entry.mjs"]
   }
 ]

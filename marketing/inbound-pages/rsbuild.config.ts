@@ -12,18 +12,14 @@ const leadForm = readFileSync(path.join(root, 'partials/lead-form.html'), 'utf8'
 export default defineConfig({
   root,
   source: {
-    entry: {
-      index: './index-entry.mjs',
-      ...Object.fromEntries(Object.entries(pageEntries).map(([entry, page]) => [entry, page.entry])),
-    },
+    entry: Object.fromEntries(Object.entries(pageEntries).map(([entry, page]) => [entry, page.entry])),
   },
   html: {
-    template: ({ entryName }) => path.join(root, pageEntries[entryName]?.html ?? 'index.html'),
+    template: ({ entryName }) => path.join(root, pageEntries[entryName].html),
     templateParameters: (defaults, { entryName }) => ({
       ...defaults,
-      pageId: pageEntries[entryName]?.id ?? 'landing-page-index',
+      pageId: pageEntries[entryName].id,
       leadForm,
-      pages,
     }),
   },
   output: {

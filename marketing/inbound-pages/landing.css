@@ -23,38 +23,6 @@ body {
 a {
   color: inherit;
 }
-.review {
-  position: sticky;
-  top: 0;
-  z-index: 20;
-  display: flex;
-  gap: 16px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 20px;
-  background: rgba(7, 7, 11, 0.94);
-  backdrop-filter: blur(8px);
-  border-bottom: 1px solid #23232e;
-  font-size: 14px;
-}
-.review b {
-  font-weight: 700;
-}
-.review small {
-  color: #9a9aab;
-  margin-left: 8px;
-}
-.review nav {
-  display: flex;
-  gap: 14px;
-  color: #9a9aab;
-}
-.review nav a {
-  text-decoration: none;
-}
-.review nav a:hover {
-  color: #f4f4f7;
-}
 .wrap {
   max-width: 1200px;
   margin: 0 auto;

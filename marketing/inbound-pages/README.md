@@ -3,7 +3,7 @@
 Run these commands from the repository root:
 
 - `pnpm run dev:inbound-pages` starts the Rsbuild development server.
-- `pnpm run build:inbound-pages` builds all 11 pages and the review index without publishing.
+- `pnpm run build:inbound-pages` builds the 11 campaign pages without publishing.
 - `pnpm run preview:inbound-pages` serves the production build locally.
 - `pnpm run test:inbound-pages` tests attribution and builds all pages to verify the HTML and asset links.
 
@@ -13,7 +13,7 @@ Rsbuild bundles JavaScript, CSS and imported fonts, injects asset URLs, and copi
 Page templates include the shared `partials/lead-form.html` through Rsbuild template parameters.
 Pages 10–11 retain the content and layout of the approved build:
 https://zackary-chapple-18690-zephyr-landing-pages-review-660647c05-ze.zephyrcloud.app/.
-The index uses the original design images as thumbnails only.
+Each campaign page has its own direct URL. The build has no review index or gallery.
 
 The `Inbound landing pages` workflow publishes through `zephyr-rsbuild-plugin` when `ZE_DEPLOY=true`.
 It uses the existing review application configured in `zephyr.config.mjs`.
