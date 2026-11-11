@@ -17,6 +17,8 @@ Each campaign page has its own direct URL. The build has no review index or gall
 
 The Rsbuild application exposes `campaigns/pages` and `campaigns/capture` through Module Federation.
 The browser and Node build environments emit a public manifest and the server remote used during static generation.
+Zephyr publishes both environments as one static `csr` snapshot.
+The Node remote is a build input for the host, so it does not need a deployed HTTP server entrypoint.
 `federated-pages.mjs` returns the approved HTML and scoped styles without browser dependencies.
 `landing.css` supplies the shared designs for pages 1–9. Pages 10–11 keep their own inline CSS and SVGs.
 

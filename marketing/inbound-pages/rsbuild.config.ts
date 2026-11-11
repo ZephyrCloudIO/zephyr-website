@@ -67,6 +67,6 @@ export default defineConfig({
       { target: 'web', environment: 'web' },
     ),
     pluginModuleFederation({ ...federation, manifest: false }, { target: 'node', environment: 'server' }),
-    ...(process.env.ZE_DEPLOY === 'true' ? [withZephyr()] : []),
+    ...(process.env.ZE_DEPLOY === 'true' ? [withZephyr({ snapshotType: 'csr' })] : []),
   ],
 });
