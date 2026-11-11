@@ -1,5 +1,5 @@
 import { describe, expect, it } from '@rstest/core';
-import { PostHog } from 'posthog-js';
+import { PostHog } from 'posthog-js/lib/src/posthog-core.js';
 import { pageAttribution, scrubAnalyticsEvent, sendSubmission } from './attribution.mjs';
 import { loadTurnstile } from './turnstile.mjs';
 
