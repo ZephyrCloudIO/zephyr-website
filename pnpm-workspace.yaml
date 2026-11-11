@@ -33,6 +33,13 @@ minimumReleaseAge: 1440
 # no git/tarball dependencies, only from trusted registry
 blockExoticSubdeps: true
 minimumReleaseAgeExclude:
+  # Zephyr 1.8.0 exposes the remote resolver required by Rspress static generation.
+  - zephyr-agent@1.8.0
+  - zephyr-edge-contract@1.8.0
+  - zephyr-rsbuild-plugin@1.8.0
+  - zephyr-rspack-plugin@1.8.0
+  - zephyr-rspress-plugin@1.8.0
+  - zephyr-xpack-internal@1.8.0
   # Renovate security update: axios@1.15.0
   - axios@1.15.0
   # Renovate security update: protobufjs@7.6.3

@@ -70,8 +70,9 @@
     "tailwindcss": "4.2.2",
     "typescript": "5.9.3",
     "yaml": "2.8.3",
-    "zephyr-rsbuild-plugin": "1.7.0",
-    "zephyr-rspress-plugin": "1.7.0"
+    "zephyr-agent": "1.8.0",
+    "zephyr-rsbuild-plugin": "1.8.0",
+    "zephyr-rspress-plugin": "1.8.0"
   },
   "zephyr:dependencies": {
     "campaigns": "zephyr-landing-pages-review.with-tap.zephyrcloudio@marketing-pages"

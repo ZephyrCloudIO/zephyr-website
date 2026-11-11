@@ -37,6 +37,9 @@ The root `zephyr:dependencies` selects the `marketing-pages` tag for production.
 That unlocked tag matches CI builds from `main`.
 PR builds set `CAMPAIGN_TAG` to the branch tag created by the existing Zack Chapple CI credential.
 `zephyr.config.ts` applies that override and requests selector URLs, so runtime resolution follows the selected tag.
+The Rspress config hook calls the public Zephyr Agent resolver before configuring Module Federation.
+The Rspress SSG deployment adapter does not perform this resolution itself.
+A missing manifest or a selector that matches a different entity stops the build.
 Local commands do not publish by default.
 
 To build the integrated site locally, first build and serve the remote in separate terminals:
@@ -53,6 +56,13 @@ ZE_DEPLOY=false CAMPAIGN_REMOTE_URL=http://localhost:4262/mf-manifest.json pnpm 
 ```
 
 Keep the remote server running during static generation and local preview.
+To verify a published tag without publishing the host, use an existing Zephyr login:
+
+```bash
+ZE_DEPLOY=false CAMPAIGN_TAG=web_feat-inbound-lead-capture_zackary_chapple pnpm build
+```
+
+This command resolves the tag through Zephyr and builds against the published remote. It does not start a deployment.
 
 The browser fetches the published `default/zephyr-book-a-demo` form definition.
 The CRM records the actual landing URL, incoming UTM values, form version and contact.

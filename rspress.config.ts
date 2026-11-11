@@ -3,13 +3,20 @@ import { defineConfig, type UserConfig } from '@rspress/core';
 import { pluginSitemap } from '@rspress/plugin-sitemap';
 import fs from 'node:fs';
 import path from 'node:path';
+import { getZephyrConfig, parseZeDependency, resolve_remote_dependency } from 'zephyr-agent';
 import { withZephyr } from 'zephyr-rspress-plugin';
 import campaigns from './marketing/inbound-pages/pages.json';
+import packageJson from './package.json';
 
 const siteUrl = 'https://zephyr-cloud.io';
 
 const DOCS_ROOT = path.join(__dirname, 'docs');
 const campaignSitemap = pluginSitemap({ siteUrl, defaultChangeFreq: 'weekly', defaultPriority: '0.6' });
+const campaignFederation = {
+  name: 'zephyr_website',
+  remotes: { campaigns: `campaigns@${process.env.CAMPAIGN_REMOTE_URL || 'http://localhost:4262/mf-manifest.json'}` },
+  dts: false,
+};
 
 // Rspress does not load `.env` or expose `PUBLIC_*` variables to client code the way the Rsbuild
 // CLI does, so `import.meta.env.PUBLIC_POSTHOG_KEY` compiled to `undefined` and PostHog never
@@ -128,16 +135,33 @@ export default defineConfig({
     },
   },
   plugins: [
-    pluginModuleFederation(
-      {
-        name: 'zephyr_website',
-        remotes: {
-          campaigns: `campaigns@${process.env.CAMPAIGN_REMOTE_URL || 'http://localhost:4262/mf-manifest.json'}`,
-        },
-        dts: false,
+    {
+      name: 'resolve-campaign-tag',
+      async config(config) {
+        if (process.env.ZE_DEPLOY === 'false' && !process.env.CAMPAIGN_TAG) return config;
+        const zephyrConfig = getZephyrConfig(__dirname);
+        const reference = zephyrConfig.remoteDependencies?.campaigns ?? packageJson['zephyr:dependencies'].campaigns;
+        const dependency = parseZeDependency('campaigns', reference);
+        const resolved = await resolve_remote_dependency({
+          application_uid: dependency.app_uid!,
+          version: dependency.version,
+          platform: 'web',
+          // Explicit tags do not use workspace branch/user matching.
+          build_context: '',
+          dependencyUrlMode: 'selector',
+        });
+        if (resolved.entity_type && resolved.entity_type !== 'tag') {
+          throw new Error(`The campaign selector did not resolve to a Zephyr tag: ${reference}`);
+        }
+        if (!resolved.manifest_url || new URL(resolved.manifest_url).protocol !== 'https:') {
+          throw new Error(`The campaign tag has no HTTPS Module Federation manifest: ${reference}`);
+        }
+        campaignFederation.remotes.campaigns = `campaigns@${resolved.manifest_url}`;
+        console.info(`[campaigns] Resolved ${reference} to ${resolved.manifest_url}`);
+        return config;
       },
-      { rebuildSearchIndex: false, rebuildLlms: false },
-    ),
+    },
+    pluginModuleFederation(campaignFederation, { rebuildSearchIndex: false, rebuildLlms: false }),
     {
       ...campaignSitemap,
       async afterBuild(config, isProd) {
