@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@rstest/core';
-import { pageAttribution, sendSubmission } from './attribution.mjs';
+import { pageAttribution, scrubAnalyticsEvent, sendSubmission } from './attribution.mjs';
+import { loadTurnstile } from './turnstile.mjs';
 
 describe('landing page attribution', () => {
   it('keeps page identity separate from the incoming campaign and excludes other query values from analytics', () => {
@@ -19,6 +20,73 @@ describe('landing page attribution', () => {
       landingUrl: 'https://pages.example/ship-the-part/',
       utm: {},
     });
+  });
+});
+
+describe('complete PostHog event privacy', () => {
+  it('removes SDK session and initial URLs and form answers before transmission', () => {
+    const page = pageAttribution(
+      'https://pages.example/demo/?utm_campaign=launch&email=private@example.com',
+      'https://mail.example/?secret=private',
+      'demo',
+    ).analytics;
+    const result = scrubAnalyticsEvent(
+      {
+        event: 'marketing_form_submitted',
+        properties: {
+          $session_entry_url: 'https://pages.example/?email=private@example.com',
+          $session_entry_referrer: 'https://mail.example/?secret=private',
+          $initial_current_url: 'https://pages.example/?email=private@example.com',
+          $set_once: { $initial_referrer: 'https://mail.example/?secret=private' },
+          $current_url: 'https://pages.example/?email=private@example.com',
+          email: 'private@example.com',
+          message: 'private form answer',
+          $session_id: 'anonymous-session',
+          submission_id: 'crm-accepted',
+        },
+      },
+      page,
+    );
+    expect(JSON.stringify(result)).not.toContain('private');
+    expect(result.properties.$current_url).toBe('https://pages.example/demo/?utm_campaign=launch');
+    expect(result.properties.$session_id).toBe('anonymous-session');
+    expect(result.properties.submission_id).toBe('crm-accepted');
+  });
+  it('drops SDK events outside the explicit page and form measurements', () => {
+    expect(scrubAnalyticsEvent({ event: '$autocapture', properties: { email: 'private@example.com' } }, {})).toBeNull();
+  });
+});
+
+describe('asynchronous Turnstile script', () => {
+  it('renders on script load without calling ready, which rejects asynchronous scripts', async () => {
+    const element = {};
+    const options = { sitekey: 'public-site-key' };
+    let script;
+    const calls = [];
+    const result = loadTurnstile(element, options, {
+      document: {
+        createElement: () => ({}),
+        head: {
+          append: (value) => {
+            script = value;
+          },
+        },
+      },
+      getApi: () => ({
+        ready: () => {
+          throw new Error('Async scripts cannot call ready');
+        },
+        render: (...args) => {
+          calls.push(args);
+          return 'widget-1';
+        },
+      }),
+    });
+    expect(script.async).toBe(true);
+    expect(calls).toHaveLength(0);
+    script.onload();
+    expect(await result).toBe('widget-1');
+    expect(calls).toEqual([[element, options]]);
   });
 });
 

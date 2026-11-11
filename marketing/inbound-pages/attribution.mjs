@@ -1,5 +1,32 @@
 const UTM_KEYS = ['source', 'medium', 'campaign', 'term', 'content'];
 
+const ANALYTICS_EVENTS = new Set(['$pageview', 'marketing_form_started', 'marketing_form_submitted']);
+const ANALYTICS_CONTEXT = new Set([
+  'distinct_id',
+  '$device_id',
+  '$session_id',
+  '$window_id',
+  '$lib',
+  '$lib_version',
+  '$insert_id',
+  '$time',
+  'form_slug',
+  'form_version',
+  'submission_id',
+]);
+
+/** Filter the complete SDK event after it adds session and initial URL properties. */
+export function scrubAnalyticsEvent(event, page) {
+  if (!ANALYTICS_EVENTS.has(event.event)) return null;
+  return {
+    ...event,
+    properties: {
+      ...Object.fromEntries(Object.entries(event.properties ?? {}).filter(([key]) => ANALYTICS_CONTEXT.has(key))),
+      ...page,
+    },
+  };
+}
+
 export function pageAttribution(href, referrer, pageId) {
   const url = new URL(href);
   const utm = Object.fromEntries(

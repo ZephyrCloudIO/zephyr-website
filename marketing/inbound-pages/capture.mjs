@@ -1,4 +1,5 @@
-import { pageAttribution, sendSubmission } from './attribution.mjs';
+import { pageAttribution, scrubAnalyticsEvent, sendSubmission } from './attribution.mjs';
+import { loadTurnstile } from './turnstile.mjs';
 
 const form = document.querySelector('[data-lead-form]');
 const pageId = document.body.dataset.pageId;
@@ -21,6 +22,7 @@ if (analytics) {
       person_profiles: 'identified_only',
       persistence: 'sessionStorage',
       respect_dnt: true,
+      before_send: (event) => scrubAnalyticsEvent(event, attribution.analytics),
       loaded: (client) => client.capture('$pageview', attribution.analytics),
     });
   } catch {
@@ -96,35 +98,27 @@ if (form) {
       fields.append(label);
     }
     if (definition.turnstile) {
-      const script = document.createElement('script');
-      script.src = 'https://challenges.cloudflare.com/turnstile/v0/api.js?render=explicit';
-      script.async = true;
-      script.onload = () =>
-        window.turnstile.ready(() => {
-          widgetId = window.turnstile.render(widget, {
-            sitekey: '0x4AAAAAAFizSajOXwBAbiFy',
-            action: 'turnstile-spin-v1',
-            theme: 'dark',
-            callback: (value) => {
-              token = value;
-              message('');
-              ready();
-            },
-            'expired-callback': () => {
-              token = '';
-              message('Complete verification again.');
-              ready();
-            },
-            'error-callback': () => {
-              token = '';
-              message('Verification is unavailable. Refresh the page and try again.', true);
-              ready();
-            },
-          });
-        });
-      script.onerror = () => message('Verification could not load. Refresh the page and try again.', true);
-      document.head.append(script);
       message('Complete verification before sending.');
+      widgetId = await loadTurnstile(widget, {
+        sitekey: '0x4AAAAAAFizSajOXwBAbiFy',
+        action: 'turnstile-spin-v1',
+        theme: 'dark',
+        callback: (value) => {
+          token = value;
+          message('');
+          ready();
+        },
+        'expired-callback': () => {
+          token = '';
+          message('Complete verification again.');
+          ready();
+        },
+        'error-callback': () => {
+          token = '';
+          message('Verification is unavailable. Refresh the page and try again.', true);
+          ready();
+        },
+      });
     } else message('');
     ready();
   }

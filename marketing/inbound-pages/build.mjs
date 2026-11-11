@@ -9,7 +9,7 @@ const escape = (text) =>
   String(text).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 await rm(out, { recursive: true, force: true });
 await mkdir(out, { recursive: true });
-for (const file of ['style.css', 'form.css', 'capture.mjs', 'attribution.mjs'])
+for (const file of ['style.css', 'form.css', 'capture.mjs', 'attribution.mjs', 'turnstile.mjs'])
   await cp(path.join(root, file), path.join(out, file));
 await cp(path.join(root, '../../node_modules/posthog-js/dist/array.js'), path.join(out, 'posthog.js'));
 const head = (title) =>

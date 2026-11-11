@@ -24,7 +24,7 @@ concurrency:
 jobs:
   validate:
     if: github.event_name == 'pull_request'
-    runs-on: [self-hosted, home, ubuntu-latest]
+    runs-on: depot-ubuntu-latest
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
       - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
@@ -39,7 +39,7 @@ jobs:
 
   publish:
     if: (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main')
-    runs-on: [self-hosted, home, ubuntu-latest]
+    runs-on: depot-ubuntu-latest
     environment: production
     steps:
       - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803

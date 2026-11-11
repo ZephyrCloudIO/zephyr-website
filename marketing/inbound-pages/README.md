@@ -20,7 +20,8 @@ Events include `page_id`, `page_path` and incoming UTM values.
 `marketing_form_submitted` includes the CRM submission ID.
 Form answers are not sent to analytics.
 Autocapture, session recording and surveys are disabled.
-Analytics URLs retain only UTM query values.
+The final SDK event filter retains only UTM query values in analytics URLs.
+It removes session-entry URLs, initial URLs and unexpected SDK events.
 
 Before a hostname collects leads, add that exact hostname to the existing Turnstile widget.
 Add its origin to the published CRM form's allowed origins.
