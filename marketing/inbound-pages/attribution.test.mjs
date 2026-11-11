@@ -1,4 +1,5 @@
 import { describe, expect, it } from '@rstest/core';
+import { PostHog } from 'posthog-js';
 import { pageAttribution, scrubAnalyticsEvent, sendSubmission } from './attribution.mjs';
 import { loadTurnstile } from './turnstile.mjs';
 
@@ -24,6 +25,24 @@ describe('landing page attribution', () => {
 });
 
 describe('complete PostHog event privacy', () => {
+  it('preserves the project key required by the installed SDK ingestion guard', () => {
+    const client = new PostHog();
+    client.config.before_send = (event) =>
+      scrubAnalyticsEvent(event, { page_id: 'demo', $current_url: 'https://pages.example/demo/' });
+    const result = client._runBeforeSend({
+      event: '$pageview',
+      properties: {
+        token: 'public-project-key',
+        distinct_id: 'anonymous-visitor',
+        $process_person_profile: false,
+        $session_entry_url: 'https://pages.example/?private=value',
+      },
+    });
+    expect(result).not.toBeNull();
+    expect(result.properties.token).toBe('public-project-key');
+    expect(result.properties.$process_person_profile).toBe(false);
+    expect(JSON.stringify(result)).not.toContain('private');
+  });
   it('removes SDK session and initial URLs and form answers before transmission', () => {
     const page = pageAttribution(
       'https://pages.example/demo/?utm_campaign=launch&email=private@example.com',

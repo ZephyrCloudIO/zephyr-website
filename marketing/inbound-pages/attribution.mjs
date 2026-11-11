@@ -2,6 +2,9 @@ const UTM_KEYS = ['source', 'medium', 'campaign', 'term', 'content'];
 
 const ANALYTICS_EVENTS = new Set(['$pageview', 'marketing_form_started', 'marketing_form_submitted']);
 const ANALYTICS_CONTEXT = new Set([
+  'token',
+  '$process_person_profile',
+  '$is_identified',
   'distinct_id',
   '$device_id',
   '$session_id',
