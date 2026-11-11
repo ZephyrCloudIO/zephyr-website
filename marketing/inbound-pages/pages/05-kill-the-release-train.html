@@ -9,20 +9,19 @@
       name="description"
       content="Release windows, code freezes and merge queues exist because deploys are risky. Make deploys boring, and let every team release when its work is ready."
     />
-    <link rel="stylesheet" href="../landing.css" />
     <style>
-      :root {
+      body {
         --a: #ffe000;
         --ar: 255, 224, 0;
         --b: #ffad00;
       }
     </style>
   </head>
-  <body>
+  <body data-page-id="<%= pageId %>">
     <div class="wrap">
       <header class="top">
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Main">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a
@@ -187,12 +186,12 @@
               <li>Per-team release and rollback, live</li>
             </ul>
           </div>
-          <form class="card"><button disabled>Loading the form…</button></form>
+          <%= leadForm %>
         </section>
       </main>
       <footer>
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Footer">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a

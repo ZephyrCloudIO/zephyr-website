@@ -148,7 +148,10 @@ describe('complete review release', () => {
     const { readFile } = await import('node:fs/promises');
     const { execFileSync } = await import('node:child_process');
     const root = new URL('./', import.meta.url);
-    execFileSync(process.execPath, [new URL('./build.mjs', root).pathname]);
+    execFileSync('pnpm', ['run', 'build:inbound-pages'], {
+      cwd: new URL('../../', root),
+      env: { ...process.env, ZE_DEPLOY: 'false' },
+    });
     const pages = JSON.parse(await readFile(new URL('./pages.json', root), 'utf8'));
     expect(pages).toHaveLength(11);
     expect(new Set(pages.map((page) => page.id)).size).toBe(11);
@@ -160,7 +163,15 @@ describe('complete review release', () => {
       expect(html.match(/<h1\b/g)).toHaveLength(1);
       expect(html.match(/<form\b/g)).toHaveLength(1);
       expect(html).toContain('data-lead-form');
-      expect(html).toContain('../capture.mjs');
+      expect(html).not.toContain('<%');
+      expect(html).not.toContain('onsubmit=');
+      const scripts = [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map((match) => match[1]);
+      const styles = [...html.matchAll(/<link[^>]+href="([^"]+)"[^>]*rel="stylesheet"/g)].map((match) => match[1]);
+      expect(scripts.length).toBeGreaterThan(0);
+      expect(styles.length).toBeGreaterThan(0);
+      for (const asset of [...scripts, ...styles]) {
+        expect((await readFile(new URL(`./dist${asset}`, root))).length).toBeGreaterThan(0);
+      }
       expect(html).toContain('data-turnstile');
       // Text sections must remain available without loading a full-page image.
       const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
@@ -174,5 +185,5 @@ describe('complete review release', () => {
       expect(main).not.toContain('page.jpg');
       expect(main).not.toContain('placeholder/customer-quote');
     }
-  });
+  }, 30_000);
 });

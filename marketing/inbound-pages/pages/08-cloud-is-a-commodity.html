@@ -9,20 +9,19 @@
       name="description"
       content="Zephyr deploys the same build to Cloudflare, AWS, Fastly, Akamai or your own edge. Pick the best cloud per environment, and move when a better deal shows up."
     />
-    <link rel="stylesheet" href="../landing.css" />
     <style>
-      :root {
+      body {
         --a: #60a5fa;
         --ar: 96, 165, 250;
         --b: #25c6ae;
       }
     </style>
   </head>
-  <body>
+  <body data-page-id="<%= pageId %>">
     <div class="wrap">
       <header class="top">
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Main">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a
@@ -177,12 +176,12 @@
               <li>A plan for your next renewal</li>
             </ul>
           </div>
-          <form class="card"><button disabled>Loading the form…</button></form>
+          <%= leadForm %>
         </section>
       </main>
       <footer>
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Footer">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a

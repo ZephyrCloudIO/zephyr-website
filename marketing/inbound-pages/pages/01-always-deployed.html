@@ -9,20 +9,19 @@
       name="description"
       content="Every build gets its own live URL the moment it finishes. Production changes only when you say so. You decide what ships and when."
     />
-    <link rel="stylesheet" href="../landing.css" />
     <style>
-      :root {
+      body {
         --a: #22f5a3;
         --ar: 34, 245, 163;
         --b: #10cfe0;
       }
     </style>
   </head>
-  <body>
+  <body data-page-id="<%= pageId %>">
     <div class="wrap">
       <header class="top">
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Main">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a
@@ -181,12 +180,12 @@ plugins: [react(), withZephyr()]
               <li>Your questions answered by the team</li>
             </ul>
           </div>
-          <form class="card"><button disabled>Loading the form…</button></form>
+          <%= leadForm %>
         </section>
       </main>
       <footer>
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Footer">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a

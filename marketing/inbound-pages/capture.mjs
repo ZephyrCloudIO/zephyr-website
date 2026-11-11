@@ -1,10 +1,11 @@
+import posthog from 'posthog-js';
 import { pageAttribution, scrubAnalyticsEvent, sendSubmission } from './attribution.mjs';
 import { loadTurnstile } from './turnstile.mjs';
 
 const form = document.querySelector('[data-lead-form]');
 const pageId = document.body.dataset.pageId;
 const attribution = pageAttribution(location.href, document.referrer, pageId);
-const analytics = window.posthog;
+const analytics = posthog;
 if (analytics) {
   try {
     analytics.init('phc_2BnQabLbt7YVrKbGN02UBKA9kBFH17SXme0Cf5G2iob', {

@@ -35,7 +35,6 @@ jobs:
           version: 10.34.9
       - run: pnpm install --frozen-lockfile
       - run: pnpm run test:inbound-pages
-      - run: pnpm run build:inbound-pages
 
   publish:
     if: (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main')
@@ -51,13 +50,12 @@ jobs:
           version: 10.34.9
       - run: pnpm install --frozen-lockfile
       - run: pnpm run test:inbound-pages
-      - run: pnpm run build:inbound-pages
-      - name: Upload the existing review application through Zephyr
-        working-directory: marketing/inbound-pages
+      - name: Build and publish the review application with Rsbuild
         env:
           ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}
           ZE_FAIL_BUILD: 'true'
+          ZE_DEPLOY: 'true'
         run: |
           test -n "$ZE_SECRET_TOKEN" || { echo 'Missing Zephyr deployment credential.' >&2; exit 1; }
           git diff --exit-code
-          ../../node_modules/.bin/ze-cli deploy ./dist --target web
+          pnpm run build:inbound-pages

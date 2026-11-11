@@ -1,17 +1,24 @@
 # Inbound review pages
 
-Run `pnpm run test:inbound-pages` from the repository root.
-Run `pnpm run build:inbound-pages` to generate this application's `dist/`.
-The `Inbound landing pages` workflow uploads the existing review application from trusted PRs and `main`.
-It does not deploy the main website or add website navigation.
+Run these commands from the repository root:
 
-`pages/` contains complete HTML sources for all 11 pages.
-Pages 1–9 implement the published designs with text, responsive sections and native diagrams.
-Pages 10–11 use the content and layout from the approved build:
+- `pnpm run dev:inbound-pages` starts the Rsbuild development server.
+- `pnpm run build:inbound-pages` builds all 11 pages and the review index without publishing.
+- `pnpm run preview:inbound-pages` serves the production build locally.
+- `pnpm run test:inbound-pages` tests attribution and builds all pages to verify the HTML and asset links.
+
+`rsbuild.config.ts` defines the multi-page application from `pages.json`.
+Each entry names its HTML template and browser entry module.
+Rsbuild bundles JavaScript, CSS and imported fonts, injects asset URLs, and copies `public/`.
+Page templates include the shared `partials/lead-form.html` through Rsbuild template parameters.
+Pages 10–11 retain the content and layout of the approved build:
 https://zackary-chapple-18690-zephyr-landing-pages-review-660647c05-ze.zephyrcloud.app/.
-The generator replaces each page's form and adds capture scripts and scoped form styles.
-Every manifest entry must name an HTML source. There is no screenshot-page fallback.
 The index uses the original design images as thumbnails only.
+
+The `Inbound landing pages` workflow publishes through `zephyr-rsbuild-plugin` when `ZE_DEPLOY=true`.
+It uses the existing review application configured in `zephyr.config.mjs`.
+Trusted same-repository PRs and `main` can publish through this workflow.
+Local commands do not publish by default.
 
 The browser fetches the published `default/zephyr-book-a-demo` form definition.
 The CRM records the actual landing URL, incoming UTM values, form version and contact.
@@ -22,7 +29,7 @@ PostHog uses the existing Zephyr website project.
 Events include `page_id`, `page_path` and incoming UTM values.
 `marketing_form_submitted` includes the CRM submission ID.
 Form answers are not sent to analytics.
-Autocapture, session recording and surveys are disabled.
+Autocapture, heatmaps, session recording and surveys are disabled.
 The final SDK event filter retains only UTM query values in analytics URLs.
 It removes session-entry URLs, initial URLs and unexpected SDK events.
 
@@ -30,4 +37,3 @@ Before a hostname collects leads, add that exact hostname to the existing Turnst
 Add its origin to the published CRM form's allowed origins.
 Do not authorize all of `zephyrcloud.app`.
 Keep the widget secret in the CRM API.
-Promote a verified workflow build through Zephyr to keep one stable review URL.

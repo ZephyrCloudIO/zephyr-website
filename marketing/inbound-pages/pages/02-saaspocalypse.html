@@ -9,20 +9,19 @@
       name="description"
       content="Agents and small teams now build in days what you used to buy for years. Zephyr makes owning it safe: every build live, every release your decision."
     />
-    <link rel="stylesheet" href="../landing.css" />
     <style>
-      :root {
+      body {
         --a: #ff6b22;
         --ar: 255, 107, 34;
         --b: #ffc247;
       }
     </style>
   </head>
-  <body>
+  <body data-page-id="<%= pageId %>">
     <div class="wrap">
       <header class="top">
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Main">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a
@@ -165,12 +164,12 @@
               <li>Release and rollback, shown live</li>
             </ul>
           </div>
-          <form class="card"><button disabled>Loading the form…</button></form>
+          <%= leadForm %>
         </section>
       </main>
       <footer>
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Footer">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a

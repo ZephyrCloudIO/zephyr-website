@@ -9,20 +9,19 @@
       name="description"
       content="Your agents write more code than your team can read. Zephyr gives every attempt its own live URL, so people judge running software and release only the winner."
     />
-    <link rel="stylesheet" href="../landing.css" />
     <style>
-      :root {
+      body {
         --a: #e879f9;
         --ar: 232, 121, 249;
         --b: #a78bfa;
       }
     </style>
   </head>
-  <body>
+  <body data-page-id="<%= pageId %>">
     <div class="wrap">
       <header class="top">
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Main">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a
@@ -154,12 +153,12 @@
               <li>Guardrails for who can release</li>
             </ul>
           </div>
-          <form class="card"><button disabled>Loading the form…</button></form>
+          <%= leadForm %>
         </section>
       </main>
       <footer>
         <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
-          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+          ><img class="logo" src="/zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
         /></a>
         <nav aria-label="Footer">
           <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a

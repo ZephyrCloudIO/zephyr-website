@@ -15,9 +15,11 @@
     "imgc-help": "./image-converter/target/release/imgc --help",
     "prepare": "husky",
     "preview": "rspress preview",
-    "typecheck": "tsc --noEmit",
-    "build:inbound-pages": "node marketing/inbound-pages/build.mjs",
-    "test:inbound-pages": "rstest run marketing/inbound-pages/attribution.test.mjs"
+    "typecheck": "tsc --noEmit && tsc --noEmit -p marketing/inbound-pages/tsconfig.json",
+    "build:inbound-pages": "pnpm --dir marketing/inbound-pages run build",
+    "test:inbound-pages": "rstest run marketing/inbound-pages/attribution.test.mjs",
+    "dev:inbound-pages": "pnpm --dir marketing/inbound-pages run dev",
+    "preview:inbound-pages": "pnpm --dir marketing/inbound-pages run preview"
   },
   "dependencies": {
     "@fontsource-variable/chivo-mono": "5.3.0",
@@ -51,6 +53,7 @@
     "unicornstudio-react": "2.1.4"
   },
   "devDependencies": {
+    "@rsbuild/core": "2.2.11",
     "@rspress/core": "2.0.23",
     "@rspress/plugin-sitemap": "2.0.23",
     "@rstest/core": "0.12.6",
@@ -65,7 +68,7 @@
     "tailwindcss": "4.2.2",
     "typescript": "5.9.3",
     "yaml": "2.8.3",
-    "zephyr-cli": "1.7.0",
+    "zephyr-rsbuild-plugin": "1.7.0",
     "zephyr-rspress-plugin": "1.2.4"
   }
 }

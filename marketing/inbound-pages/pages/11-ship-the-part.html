@@ -674,11 +674,8 @@
         }
       }
     </style>
-    <script type="importmap">
-      { "imports": { "env:vars:zephyr-landing-pages-review.with-tap.zephyrcloudio": "/zephyr-manifest.json" } }
-    </script>
   </head>
-  <body>
+  <body data-page-id="<%= pageId %>">
     <div class="review">
       <div><b>11 · Ship the part, not the app</b><small>Design review · not live</small></div>
       <nav><a href="../">All pages</a><a href="../10-stop-making-users-wait/">← Prev</a></nav>
@@ -901,31 +898,7 @@
               <li>How it fits your team structure</li>
             </ul>
           </div>
-          <form
-            class="card"
-            onsubmit="
-              event.preventDefault();
-              this.querySelector('.msg').textContent = 'Preview page: this form is not connected yet.';
-            "
-          >
-            <label class="full">Work email *<input type="email" placeholder="you@company.com" required /></label>
-            <label>First name *<input required /></label><label>Last name<input /></label>
-            <label>Company *<input required /></label><label>Role<input /></label>
-            <label class="full"
-              >Engineering team size<select>
-                <option value="">Select…</option>
-                <option>1–10</option>
-                <option>11–50</option>
-                <option>51–200</option>
-                <option>201–1,000</option>
-                <option>1,000+</option>
-              </select></label
-            >
-            <label class="full">What do you want to see?<textarea></textarea></label>
-            <button class="btn primary full" type="submit">Book a demo</button>
-            <p class="msg" aria-live="polite"></p>
-            <p class="alt">Rather pick a time yourself? <a href="#demo">Book a call →</a></p>
-          </form>
+          <%= leadForm %>
         </section>
       </main>
       <footer>

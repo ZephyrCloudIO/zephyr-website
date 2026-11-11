@@ -80,3 +80,11 @@ body {
     gap: 8px;
   }
 }
+@media (max-width: 360px) {
+  .proof {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .proof > div {
+    border-right: 0;
+  }
+}

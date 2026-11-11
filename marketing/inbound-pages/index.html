@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Zephyr Cloud landing pages</title>
+  </head>
+  <body data-page-id="<%= pageId %>">
+    <header>Zephyr Cloud</header>
+    <main class="intro">
+      <h1>Zephyr Cloud landing pages</h1>
+      <p>Explore 11 concepts. Each page has a demo request form.</p>
+    </main>
+    <div class="grid">
+      <% pages.forEach(function(page) { %>
+      <a class="tile" href="<%= page.path %>/"
+        ><img src="<%= page.thumbnail %>" alt="" loading="lazy" />
+        <h2><%= page.title %></h2></a
+      >
+      <% }); %>
+    </div>
+  </body>
+</html>
