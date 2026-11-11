@@ -1,0 +1,63 @@
+name: Inbound landing pages
+
+on:
+  pull_request:
+    paths:
+      - marketing/inbound-pages/**
+      - .github/workflows/inbound-pages.yml
+      - package.json
+      - pnpm-lock.yaml
+  push:
+    branches: [main]
+    paths:
+      - marketing/inbound-pages/**
+      - .github/workflows/inbound-pages.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: inbound-pages-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  validate:
+    if: github.event_name == 'pull_request'
+    runs-on: [self-hosted, home, ubuntu-latest]
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 10.34.9
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run test:inbound-pages
+      - run: pnpm run build:inbound-pages
+
+  publish:
+    if: (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository) || (github.event_name != 'pull_request' && github.ref == 'refs/heads/main')
+    runs-on: [self-hosted, home, ubuntu-latest]
+    environment: production
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1
+        with:
+          version: 10.34.9
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm run test:inbound-pages
+      - run: pnpm run build:inbound-pages
+      - name: Upload the existing review application through Zephyr
+        working-directory: marketing/inbound-pages
+        env:
+          ZE_SECRET_TOKEN: ${{ secrets.ZEPHYR_AUTH_TOKEN }}
+          ZE_FAIL_BUILD: 'true'
+        run: |
+          test -n "$ZE_SECRET_TOKEN" || { echo 'Missing Zephyr deployment credential.' >&2; exit 1; }
+          git diff --exit-code
+          ../../node_modules/.bin/ze-cli deploy ./dist --target web

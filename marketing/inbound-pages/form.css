@@ -1,0 +1,67 @@
+body {
+  overflow-x: clip;
+}
+[data-lead-form] {
+  display: block !important;
+}
+[data-form-fields] {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+[data-form-fields] label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 14px;
+}
+[data-form-fields] .wide {
+  grid-column: 1/-1;
+}
+[data-form-fields] input,
+[data-form-fields] select,
+[data-form-fields] textarea {
+  width: 100%;
+  min-width: 0;
+  font: inherit;
+  font-size: 16px;
+  color: #f4f4f7;
+  background: #0b0b11;
+  border: 1px solid #2c2c38;
+  border-radius: 10px;
+  padding: 10px 12px;
+  min-height: 46px;
+}
+[data-turnstile] {
+  margin: 20px 0;
+  max-width: 100%;
+}
+[data-form-status] {
+  min-height: 24px;
+}
+[data-lead-form] [role='alert'] {
+  color: #ff9292;
+}
+[data-lead-form] button[type='submit'] {
+  width: 100%;
+  margin-top: 16px;
+}
+[data-lead-form] button:disabled {
+  opacity: 0.5;
+  cursor: default;
+}
+.hp {
+  position: absolute;
+  left: -10000px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+@media (max-width: 600px) {
+  [data-form-fields] {
+    grid-template-columns: 1fr;
+  }
+  [data-form-fields] .wide {
+    grid-column: auto;
+  }
+}

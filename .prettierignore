@@ -5,3 +5,6 @@
 pnpm-lock.yaml
 /.nx/workspace-data
 ./src/routeTree.gen.ts
+
+# Original approved HTML retained as source material.
+marketing/inbound-pages/approved/
