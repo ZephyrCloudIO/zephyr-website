@@ -52,6 +52,8 @@ describe('complete PostHog event privacy', () => {
     const result = scrubAnalyticsEvent(
       {
         event: 'marketing_form_submitted',
+        $set_once: { $initial_current_url: 'https://pages.example/?private=value' },
+        $set: { email: 'private@example.com' },
         properties: {
           $session_entry_url: 'https://pages.example/?email=private@example.com',
           $session_entry_referrer: 'https://mail.example/?secret=private',

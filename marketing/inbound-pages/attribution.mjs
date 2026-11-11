@@ -21,13 +21,17 @@ const ANALYTICS_CONTEXT = new Set([
 /** Filter the complete SDK event after it adds session and initial URL properties. */
 export function scrubAnalyticsEvent(event, page) {
   if (!ANALYTICS_EVENTS.has(event.event)) return null;
-  return {
+  const result = {
     ...event,
     properties: {
       ...Object.fromEntries(Object.entries(event.properties ?? {}).filter(([key]) => ANALYTICS_CONTEXT.has(key))),
       ...page,
     },
   };
+  delete result.$set;
+  delete result.$set_once;
+  delete result.$unset;
+  return result;
 }
 
 export function pageAttribution(href, referrer, pageId) {
