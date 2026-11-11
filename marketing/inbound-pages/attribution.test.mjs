@@ -142,3 +142,37 @@ describe('CRM acceptance', () => {
     ).rejects.toThrow('Complete verification.');
   });
 });
+
+describe('complete review release', () => {
+  it('builds all eleven concepts as text pages with one attributed CRM form each', async () => {
+    const { readFile } = await import('node:fs/promises');
+    const { execFileSync } = await import('node:child_process');
+    const root = new URL('./', import.meta.url);
+    execFileSync(process.execPath, [new URL('./build.mjs', root).pathname]);
+    const pages = JSON.parse(await readFile(new URL('./pages.json', root), 'utf8'));
+    expect(pages).toHaveLength(11);
+    expect(new Set(pages.map((page) => page.id)).size).toBe(11);
+    const index = await readFile(new URL('./dist/index.html', root), 'utf8');
+    for (const page of pages) {
+      const html = await readFile(new URL(`./dist/${page.path}/index.html`, root), 'utf8');
+      expect(index).toContain(`href="${page.path}/"`);
+      expect(html).toContain(`data-page-id="${page.id}"`);
+      expect(html.match(/<h1\b/g)).toHaveLength(1);
+      expect(html.match(/<form\b/g)).toHaveLength(1);
+      expect(html).toContain('data-lead-form');
+      expect(html).toContain('../capture.mjs');
+      expect(html).toContain('data-turnstile');
+      // Text sections must remain available without loading a full-page image.
+      const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
+      expect(main.match(/<section\b/g).length).toBeGreaterThanOrEqual(4);
+      expect(
+        main
+          .replace(/<[^>]+>/g, ' ')
+          .trim()
+          .split(/\s+/).length,
+      ).toBeGreaterThan(300);
+      expect(main).not.toContain('page.jpg');
+      expect(main).not.toContain('placeholder/customer-quote');
+    }
+  });
+});

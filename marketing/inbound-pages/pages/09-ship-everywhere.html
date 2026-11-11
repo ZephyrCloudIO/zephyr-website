@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>Web. Mobile. Desktop. One release. | Zephyr Cloud</title>
+    <meta
+      name="description"
+      content="Build a feature once as a federated module. Zephyr delivers it to browsers, to React Native apps and to desktop apps, and you release all three the same way."
+    />
+    <link rel="stylesheet" href="../landing.css" />
+    <style>
+      :root {
+        --a: #ff6b86;
+        --ar: 255, 107, 134;
+        --b: #ffb47b;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
+          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+        /></a>
+        <nav aria-label="Main">
+          <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a
+          ><a class="btn small" href="#demo">Book a demo</a>
+        </nav>
+      </header>
+      <main>
+        <div class="hero">
+          <div class="glow"></div>
+          <p class="eyebrow">Ship everywhere</p>
+          <h1>Web. Mobile. Desktop.<span>One release.</span></h1>
+          <p class="sub">
+            Build a feature once as a federated module. Zephyr delivers it to browsers, to React Native apps and to
+            desktop apps, and you release all three the same way.
+          </p>
+          <div class="ctas">
+            <a class="btn primary" href="#demo">Book a demo</a
+            ><a class="btn ghost" href="https://app.zephyr-cloud.io">Start free →</a>
+          </div>
+          <div class="card visual">
+            <div class="remote-pill">checkout remote · v3.2 · production</div>
+            <svg class="platform-lines" viewBox="0 0 1000 70" aria-hidden="true" preserveAspectRatio="none">
+              <path
+                d="M500 0 C500 30 170 20 170 70"
+                fill="none"
+                stroke="var(--a)"
+                stroke-opacity=".6"
+                stroke-width="1.5"
+              />
+              <path d="M500 0 L500 70" fill="none" stroke="var(--a)" stroke-opacity=".6" stroke-width="1.5" />
+              <path
+                d="M500 0 C500 30 820 20 820 70"
+                fill="none"
+                stroke="var(--a)"
+                stroke-opacity=".6"
+                stroke-width="1.5"
+              />
+            </svg>
+            <div class="platforms">
+              <div class="device browser">
+                <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="device-content"><span>checkout@3.2</span><i aria-hidden="true"></i></div>
+                <b>Web · every build has a URL</b>
+              </div>
+              <div class="device phone">
+                <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="device-content"><span>checkout@3.2</span></div>
+                <b>React Native</b>
+              </div>
+              <div class="device desktop">
+                <div class="device-bar" aria-hidden="true"><i></i><i></i><i></i></div>
+                <div class="device-content"><span>checkout@3.2</span></div>
+                <b>Desktop · installed app, same remote</b>
+              </div>
+            </div>
+            <p class="note">Illustrative. One remote, three hosts.</p>
+          </div>
+          <div class="proof">
+            <div><b>Web</b><span>every build gets a live URL.</span></div>
+            <div><b>Mobile</b><span>React Native mini-apps from the edge.</span></div>
+            <div><b>Desktop</b><span>federated remotes in installed apps.</span></div>
+          </div>
+        </div>
+        <section aria-labelledby="comparison">
+          <p class="eyebrow">Three pipelines vs. one</p>
+          <h2 class="h2" id="comparison">Stop shipping the same feature three times.</h2>
+          <div class="cmp">
+            <div class="card old">
+              <h3>One pipeline per platform</h3>
+              <ol>
+                <li>Web ships today</li>
+                <li>Mobile waits for app store review</li>
+                <li>Desktop waits for the next installer</li>
+                <li>Three versions of the truth in prod</li>
+              </ol>
+              <div class="foot"><code>3 releases · 3 rollbacks · 3 teams</code></div>
+            </div>
+            <div class="card new">
+              <h3>One federated release</h3>
+              <ol>
+                <li>Build the feature once as a remote</li>
+                <li>Web, mobile and desktop load it</li>
+                <li>Release once, per environment</li>
+                <li>Roll back once, everywhere</li>
+              </ol>
+              <div class="foot"><code>1 release · 1 rollback · every platform</code></div>
+            </div>
+          </div>
+        </section>
+        <section aria-label="Benefits">
+          <div class="vals">
+            <article class="card">
+              <div class="g" aria-hidden="true">www</div>
+              <h3>Web</h3>
+              <p>
+                Every build is deployed with its own URL. Release moves production. SSR at the edge where you need it.
+              </p>
+            </article>
+            <article class="card">
+              <div class="g" aria-hidden="true">RN</div>
+              <h3>Mobile</h3>
+              <p>React Native apps built with Re.Pack or Metro load mini-apps from the edge.</p>
+            </article>
+            <article class="card">
+              <div class="g" aria-hidden="true">[ ]</div>
+              <h3>Desktop</h3>
+              <p>Desktop apps load the same federated remotes. Ship features without a new installer.</p>
+            </article>
+          </div>
+        </section>
+        <section id="how" aria-labelledby="how-title">
+          <p class="eyebrow">How it works</p>
+          <h2 class="h2" id="how-title">Write once. Release once.</h2>
+          <div class="how">
+            <div>
+              <span class="n">01</span><b>Build a remote</b>
+              <p>Package a feature as a Module Federation remote with Zephyr.</p>
+            </div>
+            <div>
+              <span class="n">02</span><b>Load it in every host</b>
+              <p>Web app, React Native app and desktop app resolve the same remote.</p>
+            </div>
+            <div>
+              <span class="n">03</span><b>Release it everywhere</b>
+              <p>Move production once. Every platform follows. Roll back the same way.</p>
+            </div>
+          </div>
+        </section>
+
+        <section id="demo" class="lead" aria-labelledby="demo-title">
+          <div class="glow"></div>
+          <div>
+            <p class="eyebrow">Book a demo</p>
+            <h2 class="h2" id="demo-title">One feature.<span>Every screen.</span></h2>
+            <p class="b">30 minutes with an engineer. See one remote released to web and mobile at the same time.</p>
+            <ul>
+              <li>A shared remote across platforms</li>
+              <li>React Native over-the-edge delivery</li>
+              <li>One release, one rollback</li>
+            </ul>
+          </div>
+          <form class="card"><button disabled>Loading the form…</button></form>
+        </section>
+      </main>
+      <footer>
+        <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
+          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+        /></a>
+        <nav aria-label="Footer">
+          <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a
+          ><a href="https://zephyr-cloud.io/privacy">Privacy</a><a href="https://zephyr-cloud.io/terms">Terms</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

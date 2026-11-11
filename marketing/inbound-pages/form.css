@@ -65,3 +65,18 @@ body {
     grid-column: auto;
   }
 }
+/* Contain the approved pages' decorative glows on narrow screens. */
+.glow,
+.lead .glow {
+  right: 0;
+  max-width: 100%;
+}
+@media (max-width: 600px) {
+  .mf .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .mf .mod.shell {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+}

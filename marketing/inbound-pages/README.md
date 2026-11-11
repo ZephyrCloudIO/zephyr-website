@@ -5,10 +5,13 @@ Run `pnpm run build:inbound-pages` to generate this application's `dist/`.
 The `Inbound landing pages` workflow uploads the existing review application from trusted PRs and `main`.
 It does not deploy the main website or add website navigation.
 
-The designs for pages 1–9 remain at their original immutable Zephyr asset URLs.
-`approved/` preserves pages 10–11 from the approved HTML build:
+`pages/` contains complete HTML sources for all 11 pages.
+Pages 1–9 implement the published designs with text, responsive sections and native diagrams.
+Pages 10–11 preserve the HTML from the approved build:
 https://zackary-chapple-18690-zephyr-landing-pages-review-660647c05-ze.zephyrcloud.app/.
-The generator replaces only their form and adds capture scripts and scoped form styles.
+The generator replaces each page's form and adds capture scripts and scoped form styles.
+Every manifest entry must name an HTML source. There is no screenshot-page fallback.
+The index uses the original design images as thumbnails only.
 
 The browser fetches the published `default/zephyr-book-a-demo` form definition.
 The CRM records the actual landing URL, incoming UTM values, form version and contact.

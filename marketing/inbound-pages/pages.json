@@ -3,92 +3,77 @@
     "id": "always-deployed",
     "path": "01-always-deployed",
     "title": "Always deployed",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/01-always-deployed/page.jpg",
-    "width": 1440,
-    "height": 3900
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/01-always-deployed/page.jpg",
+    "html": "pages/01-always-deployed.html"
   },
   {
     "id": "saaspocalypse",
     "path": "02-saaspocalypse",
     "title": "SaaSpocalypse",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/02-saaspocalypse/page.jpg",
-    "width": 1440,
-    "height": 3900
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/02-saaspocalypse/page.jpg",
+    "html": "pages/02-saaspocalypse.html"
   },
   {
     "id": "composable-enterprise",
     "path": "03-composable-enterprise",
     "title": "Composable enterprise",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/03-composable-enterprise/page.jpg",
-    "width": 1440,
-    "height": 3900
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/03-composable-enterprise/page.jpg",
+    "html": "pages/03-composable-enterprise.html"
   },
   {
     "id": "agents-deploy",
     "path": "04-agents-deploy",
     "title": "Agents deploy",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/04-agents-deploy/page.jpg",
-    "width": 1440,
-    "height": 3900
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/04-agents-deploy/page.jpg",
+    "html": "pages/04-agents-deploy.html"
   },
   {
     "id": "kill-the-release-train",
     "path": "05-kill-the-release-train",
     "title": "Kill the release train",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/05-kill-the-release-train/page.jpg",
-    "width": 1440,
-    "height": 3900
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/05-kill-the-release-train/page.jpg",
+    "html": "pages/05-kill-the-release-train.html"
   },
   {
     "id": "rollback-isnt-a-rebuild",
     "path": "06-rollback-isnt-a-rebuild",
     "title": "Rollback isn't a rebuild",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/06-rollback-isnt-a-rebuild/page.jpg",
-    "width": 1440,
-    "height": 3900
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/06-rollback-isnt-a-rebuild/page.jpg",
+    "html": "pages/06-rollback-isnt-a-rebuild.html"
   },
   {
     "id": "one-line",
     "path": "07-one-line",
     "title": "One line",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/07-one-line/page.jpg",
-    "width": 1440,
-    "height": 3900
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/07-one-line/page.jpg",
+    "html": "pages/07-one-line.html"
   },
   {
     "id": "cloud-is-a-commodity",
     "path": "08-cloud-is-a-commodity",
     "title": "Cloud is a commodity",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/08-cloud-is-a-commodity/page.jpg",
-    "width": 1440,
-    "height": 3900
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/08-cloud-is-a-commodity/page.jpg",
+    "html": "pages/08-cloud-is-a-commodity.html"
   },
   {
     "id": "ship-everywhere",
     "path": "09-ship-everywhere",
     "title": "Ship everywhere",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/09-ship-everywhere/page.jpg",
-    "width": 1440,
-    "height": 3900
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/09-ship-everywhere/page.jpg",
+    "html": "pages/09-ship-everywhere.html"
   },
   {
     "id": "stop-making-users-wait",
     "path": "10-stop-making-users-wait",
     "title": "Stop making users wait",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/10-stop-making-users-wait/page.jpg",
-    "width": 1440,
-    "height": 3200,
-    "approvedHtml": "approved/10-stop-making-users-wait.html",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/10-stop-making-users-wait/page.jpg"
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/10-stop-making-users-wait/page.jpg",
+    "html": "pages/10-stop-making-users-wait.html"
   },
   {
     "id": "ship-the-part",
     "path": "11-ship-the-part",
     "title": "Ship the part, not the app",
-    "image": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/11-ship-the-part/page.jpg",
-    "width": 1440,
-    "height": 3600,
-    "approvedHtml": "approved/11-ship-the-part.html",
-    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/11-ship-the-part/page.jpg"
+    "thumbnail": "https://zackary-chapple-18683-zephyr-landing-pages-review-cdec3407e-ze.zephyrcloud.app/11-ship-the-part/page.jpg",
+    "html": "pages/11-ship-the-part.html"
   }
 ]

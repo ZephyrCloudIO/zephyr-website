@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,nofollow" />
+    <title>One line. Not a platform team. | Zephyr Cloud</title>
+    <meta
+      name="description"
+      content="Add Zephyr to the bundler you already use. Get preview URLs, environments, release and rollback, without building and staffing your own CD platform."
+    />
+    <link rel="stylesheet" href="../landing.css" />
+    <style>
+      :root {
+        --a: #b4e51d;
+        --ar: 180, 229, 29;
+        --b: #f0db20;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <header class="top">
+        <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
+          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+        /></a>
+        <nav aria-label="Main">
+          <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a
+          ><a class="btn small" href="#demo">Book a demo</a>
+        </nav>
+      </header>
+      <main>
+        <div class="hero">
+          <div class="glow"></div>
+          <p class="eyebrow">CD without the platform</p>
+          <h1>One line.<span>Not a platform team.</span></h1>
+          <p class="sub">
+            Add Zephyr to the bundler you already use. Get preview URLs, environments, release and rollback, without
+            building and staffing your own CD platform.
+          </p>
+          <div class="ctas">
+            <a class="btn primary" href="#demo">Book a demo</a
+            ><a class="btn ghost" href="https://app.zephyr-cloud.io">Start free →</a
+            ><code class="command">$ npx with-zephyr</code>
+          </div>
+          <div class="card visual">
+            <div class="integration">
+              <div>
+                <div class="file">● ● ● &nbsp; vite.config.ts</div>
+                <pre><code>import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+<span>+ import { withZephyr } from 'vite-plugin-zephyr';</span>
+export default defineConfig({
+<span>+   plugins: [react(), withZephyr()],</span>
+});</code></pre>
+                <p class="mono">→ build · upload what changed · live URL</p>
+              </div>
+              <div>
+                <h3>BUNDLERS</h3>
+                <div class="chips">
+                  <span class="chip">Vite</span><span class="chip">Rsbuild</span><span class="chip">Rspack</span
+                  ><span class="chip">webpack</span><span class="chip">Rollup</span><span class="chip">Parcel</span
+                  ><span class="chip">Rolldown beta</span>
+                </div>
+                <h3>FRAMEWORKS</h3>
+                <div class="chips">
+                  <span class="chip">Astro</span><span class="chip">Nuxt</span><span class="chip">Modern.js</span
+                  ><span class="chip">Rspress</span><span class="chip">TanStack Start</span
+                  ><span class="chip">Vinext beta</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="proof">
+            <div><b>1 line</b><span>or one npx command.</span></div>
+            <div><b>7 bundlers</b><span>keep the build you already trust.</span></div>
+            <div><b>Free</b><span>for personal projects.</span></div>
+          </div>
+        </div>
+        <section aria-labelledby="comparison">
+          <p class="eyebrow">Build vs. add</p>
+          <h2 class="h2" id="comparison">Your CD platform is not your product.</h2>
+          <div class="cmp">
+            <div class="card old">
+              <h3>Build your own</h3>
+              <ol>
+                <li>Preview environments per branch</li>
+                <li>Versioned asset storage and CDN</li>
+                <li>Promotion, rollback, permissions</li>
+                <li>A team to run it, forever</li>
+              </ol>
+              <div class="foot"><code>months to build · headcount to keep</code></div>
+            </div>
+            <div class="card new">
+              <h3>Add Zephyr</h3>
+              <ol>
+                <li>A live URL for every build</li>
+                <li>Uploads only what changed</li>
+                <li>Environments, release and rollback</li>
+                <li>Roles and protected environments</li>
+              </ol>
+              <div class="foot"><code>one line · this afternoon</code></div>
+            </div>
+          </div>
+        </section>
+        <section aria-label="Benefits">
+          <div class="vals">
+            <article class="card">
+              <div class="g" aria-hidden="true">+1</div>
+              <h3>Keep your build</h3>
+              <p>No new build system, no migration. Zephyr plugs into the bundler config you already have.</p>
+            </article>
+            <article class="card">
+              <div class="g" aria-hidden="true">Δ</div>
+              <h3>Upload only the diff</h3>
+              <p>Files are fingerprinted, so only what changed goes up. Big apps deploy like small ones.</p>
+            </article>
+            <article class="card">
+              <div class="g" aria-hidden="true">→|</div>
+              <h3>Release built in</h3>
+              <p>Environments, tags, release and rollback come with it. Nothing extra to wire up.</p>
+            </article>
+          </div>
+        </section>
+        <section id="how" aria-labelledby="how-title">
+          <p class="eyebrow">How it works</p>
+          <h2 class="h2" id="how-title">Live before your coffee is cold.</h2>
+          <div class="how">
+            <div>
+              <span class="n">01</span><b>Run npx with-zephyr</b>
+              <p>Or add withZephyr() to your config by hand.</p>
+            </div>
+            <div>
+              <span class="n">02</span><b>Build</b>
+              <p>Your normal build command. The result is live at its own URL.</p>
+            </div>
+            <div>
+              <span class="n">03</span><b>Release</b>
+              <p>Point production at the build when you are ready.</p>
+            </div>
+          </div>
+        </section>
+        <figure class="card testimonial">
+          <blockquote>
+            Sub second builds and sub second and versioned deploys combined with instant rollbacks help avoid Sev1
+            downtime.
+          </blockquote>
+          <figcaption>Zhang Lei · WebInfra @ ByteDance</figcaption>
+        </figure>
+        <section id="demo" class="lead" aria-labelledby="demo-title">
+          <div class="glow"></div>
+          <div>
+            <p class="eyebrow">Book a demo</p>
+            <h2 class="h2" id="demo-title">Add the line<span>on the call.</span></h2>
+            <p class="b">30 minutes with an engineer. Bring a repo and leave with a live URL.</p>
+            <ul>
+              <li>Zephyr added to your bundler</li>
+              <li>Your first build live</li>
+              <li>What you can stop maintaining</li>
+            </ul>
+          </div>
+          <form class="card"><button disabled>Loading the form…</button></form>
+        </section>
+      </main>
+      <footer>
+        <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home"
+          ><img class="logo" src="../zephyr-logo.svg" alt="Zephyr Cloud" width="175" height="31"
+        /></a>
+        <nav aria-label="Footer">
+          <a href="https://docs.zephyr-cloud.io">Docs</a><a href="https://zephyr-cloud.io/pricing">Pricing</a
+          ><a href="https://zephyr-cloud.io/privacy">Privacy</a><a href="https://zephyr-cloud.io/terms">Terms</a>
+        </nav>
+      </footer>
+    </div>
+  </body>
+</html>

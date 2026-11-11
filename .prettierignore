@@ -7,4 +7,5 @@ pnpm-lock.yaml
 ./src/routeTree.gen.ts
 
 # Original approved HTML retained as source material.
-marketing/inbound-pages/approved/
+marketing/inbound-pages/pages/10-stop-making-users-wait.html
+marketing/inbound-pages/pages/11-ship-the-part.html
