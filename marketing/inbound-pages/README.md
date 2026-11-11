@@ -7,7 +7,7 @@ It does not deploy the main website or add website navigation.
 
 `pages/` contains complete HTML sources for all 11 pages.
 Pages 1–9 implement the published designs with text, responsive sections and native diagrams.
-Pages 10–11 preserve the HTML from the approved build:
+Pages 10–11 use the content and layout from the approved build:
 https://zackary-chapple-18690-zephyr-landing-pages-review-660647c05-ze.zephyrcloud.app/.
 The generator replaces each page's form and adds capture scripts and scoped form styles.
 Every manifest entry must name an HTML source. There is no screenshot-page fallback.
