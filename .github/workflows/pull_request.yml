@@ -12,13 +12,48 @@ permissions:
   contents: read # minimal read access to repo, if needed
 
 jobs:
+  validate:
+    runs-on: depot-ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+
+      - name: Setup pnpm
+        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4
+        with:
+          version: 10.34.9
+          run_install: false
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Verify generated content is up to date
+        run: |
+          pnpm run generate:rspress-content
+          if [ -n "$(git status --porcelain docs/blog docs/changelog src/generated)" ]; then
+            echo "::error::Generated content is out of date. Run 'pnpm run generate:rspress-content' and commit the result."
+            git status --porcelain docs/blog docs/changelog src/generated
+            git --no-pager diff -- docs/blog docs/changelog src/generated
+            exit 1
+          fi
+
   campaigns:
     if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name == github.repository
     uses: ./.github/workflows/inbound-pages.yml
     secrets: inherit
 
   build:
-    needs: campaigns
+    needs: [campaigns, validate]
     runs-on: depot-ubuntu-latest
     env:
       ZE_FAIL_BUILD: 'true'
@@ -50,21 +85,6 @@ jobs:
         run: |
           campaign_branch_tag="${CAMPAIGN_BRANCH//[^a-zA-Z0-9_-]/-}"
           echo "CAMPAIGN_TAG=web_${campaign_branch_tag}_zackary_chapple" >> "$GITHUB_ENV"
-
-      - name: Typecheck
-        if: github.event_name == 'pull_request'
-        run: pnpm run typecheck
-
-      - name: Verify generated content is up to date
-        if: github.event_name == 'pull_request'
-        run: |
-          pnpm run generate:rspress-content
-          if [ -n "$(git status --porcelain docs/blog docs/changelog src/generated)" ]; then
-            echo "::error::Generated content is out of date. Run 'pnpm run generate:rspress-content' and commit the result."
-            git status --porcelain docs/blog docs/changelog src/generated
-            git --no-pager diff -- docs/blog docs/changelog src/generated
-            exit 1
-          fi
 
       - name: Run build for non-merged PR
         if: github.event_name == 'pull_request'

@@ -29,6 +29,8 @@ Rspress generates complete HTML and adds each route to the main sitemap.
 The build fails if a campaign lacks static content, its canonical URL or its sitemap entry.
 `docs/public/llms.txt` lists the campaign URLs for agents.
 
+The website workflow runs type checking and generated-content verification in an independent validation job.
+That job also runs for fork PRs with read-only permissions and no deployment credentials.
 The website workflow calls `Inbound landing pages` before building the host.
 The reusable workflow publishes through `zephyr-rsbuild-plugin` with `ZE_DEPLOY=true`.
 It uses the existing application configured in `zephyr.config.mjs` and the Depot runner.
