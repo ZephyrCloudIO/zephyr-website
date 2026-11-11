@@ -5,20 +5,27 @@ const pageId = document.body.dataset.pageId;
 const attribution = pageAttribution(location.href, document.referrer, pageId);
 const analytics = window.posthog;
 if (analytics) {
-  analytics.init('phc_2BnQabLbt7YVrKbGN02UBKA9kBFH17SXme0Cf5G2iob', {
-    api_host: 'https://m.zephyr-cloud.io',
-    ui_host: 'https://us.posthog.com',
-    autocapture: false,
-    capture_pageview: false,
-    capture_pageleave: false,
-    disable_session_recording: true,
-    disable_surveys: true,
-    advanced_disable_feature_flags: true,
-    person_profiles: 'identified_only',
-    persistence: 'sessionStorage',
-    respect_dnt: true,
-    loaded: (client) => client.capture('$pageview', attribution.analytics),
-  });
+  try {
+    analytics.init('phc_2BnQabLbt7YVrKbGN02UBKA9kBFH17SXme0Cf5G2iob', {
+      api_host: 'https://m.zephyr-cloud.io',
+      ui_host: 'https://us.posthog.com',
+      autocapture: false,
+      capture_pageview: false,
+      capture_pageleave: false,
+      capture_dead_clicks: false,
+      capture_performance: false,
+      capture_exceptions: false,
+      disable_session_recording: true,
+      disable_surveys: true,
+      advanced_disable_feature_flags: true,
+      person_profiles: 'identified_only',
+      persistence: 'sessionStorage',
+      respect_dnt: true,
+      loaded: (client) => client.capture('$pageview', attribution.analytics),
+    });
+  } catch {
+    /* Lead capture remains available when analytics cannot initialize. */
+  }
 }
 function track(event, properties = {}) {
   try {
@@ -178,5 +185,5 @@ if (form) {
       ready();
     }
   });
-  load().catch((error) => message(error.message, true));
+  load().catch(() => message('The form could not load. Refresh this page and try again.', true));
 }
