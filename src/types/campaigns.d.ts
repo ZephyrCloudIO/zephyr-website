@@ -1,7 +1,5 @@
-declare module 'campaigns/pages' {
-  export function getCampaign(pageId: string, logoUrl: string): { html: string; css: string };
-}
-
-declare module 'campaigns/capture' {
-  export function mountCampaign(root: HTMLElement): () => void;
+declare module 'campaigns/*' {
+  import type { ComponentType } from 'react';
+  const CampaignPage: ComponentType;
+  export default CampaignPage;
 }

@@ -25,5 +25,5 @@
       "@tanstack/react-router": ["./src/router-shim.tsx"]
     }
   },
-  "include": ["src", "theme", "rspress.config.ts", "zephyr.config.ts"]
+  "include": ["src", "theme", "rspress.config.ts", "zephyr.config.ts", "campaigns.ts"]
 }

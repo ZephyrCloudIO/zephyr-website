@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { getZephyrConfig, parseZeDependency, resolve_remote_dependency } from 'zephyr-agent';
 import { withZephyr } from 'zephyr-rspress-plugin';
-import campaigns from './marketing/inbound-pages/pages.json';
+import { campaignRoutes as campaigns } from './campaigns';
 import packageJson from './package.json';
 
 const siteUrl = 'https://zephyr-cloud.io';
@@ -14,7 +14,7 @@ const DOCS_ROOT = path.join(__dirname, 'docs');
 const campaignSitemap = pluginSitemap({ siteUrl, defaultChangeFreq: 'weekly', defaultPriority: '0.6' });
 const campaignFederation = {
   name: 'zephyr_website',
-  remotes: { campaigns: `campaigns@${process.env.CAMPAIGN_REMOTE_URL || 'http://localhost:4262/mf-manifest.json'}` },
+  remotes: {} as Record<string, string>,
   dts: false,
 };
 
@@ -138,7 +138,18 @@ export default defineConfig({
     {
       name: 'resolve-campaign-tag',
       async config(config) {
-        if (process.env.ZE_DEPLOY === 'false' && !process.env.CAMPAIGN_TAG) return config;
+        if (process.env.ZE_DEPLOY === 'false' && !process.env.CAMPAIGN_TAG) {
+          const localManifest = process.env.CAMPAIGN_REMOTE_URL;
+          if (!localManifest)
+            throw new Error(
+              'Set CAMPAIGN_REMOTE_URL to the campaign manifest for a local build, or set CAMPAIGN_TAG to resolve a published Zephyr tag.',
+            );
+          const url = new URL(localManifest);
+          if (!['http:', 'https:'].includes(url.protocol))
+            throw new Error('CAMPAIGN_REMOTE_URL must be an HTTP or HTTPS manifest URL.');
+          campaignFederation.remotes.campaigns = `campaigns@${url.href}`;
+          return config;
+        }
         const zephyrConfig = getZephyrConfig(__dirname);
         const reference = zephyrConfig.remoteDependencies?.campaigns ?? packageJson['zephyr:dependencies'].campaigns;
         const dependency = parseZeDependency('campaigns', reference);
@@ -185,10 +196,22 @@ export default defineConfig({
             throw new Error(`Campaign missing from sitemap: ${page.slug}`);
           if (
             !html.includes(`data-page-id="${page.id}"`) ||
-            !html.includes('<h1') ||
-            !html.includes('data-lead-form')
+            (html.match(/<h1\b/g)?.length ?? 0) !== 1 ||
+            (html.match(/<form\b/g)?.length ?? 0) !== 1 ||
+            !html.includes('data-lead-form') ||
+            !html.includes('data-turnstile')
           ) {
             throw new Error(`Campaign content was not statically rendered: ${page.slug}`);
+          }
+          const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
+          if (
+            (main.match(/<section\b/g)?.length ?? 0) < 4 ||
+            main
+              .replace(/<[^>]+>/g, ' ')
+              .trim()
+              .split(/\s+/).length < 300
+          ) {
+            throw new Error(`Campaign sections were not statically rendered: ${page.slug}`);
           }
           if (/<meta[^>]*content="[^"]*noindex/.test(html) || !html.includes(`href="${canonical}"`)) {
             throw new Error(`Campaign indexing metadata is invalid: ${page.slug}`);

@@ -1,5 +1,4 @@
 {
   "extends": "../../tsconfig.json",
-  "compilerOptions": { "rootDir": "." },
-  "include": ["rsbuild.config.ts"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.mts", "../../campaigns.ts"]
 }

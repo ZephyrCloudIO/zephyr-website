@@ -11,7 +11,7 @@ import { PostHogProvider } from '@posthog/react';
 import { Content, Head, useFrontmatter, usePageData } from '@rspress/core/runtime';
 import posthog from 'posthog-js';
 import { createElement, type ReactElement, useEffect } from 'react';
-import campaigns from '../marketing/inbound-pages/pages.json';
+import { campaignRoutes as campaigns } from '../campaigns';
 
 const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY;
 const POSTHOG_API_HOST = import.meta.env.PUBLIC_POSTHOG_HOST;

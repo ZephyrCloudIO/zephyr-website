@@ -5,29 +5,34 @@ Run these commands from the repository root:
 - `pnpm run dev:inbound-pages` starts the Rsbuild development server.
 - `pnpm run build:inbound-pages` builds the 11 campaign pages without publishing.
 - `pnpm run preview:inbound-pages` serves the production build locally.
-- `pnpm run test:inbound-pages` tests attribution and builds all pages to verify the HTML and asset links.
+- `pnpm run test:inbound-pages` tests attribution, independent remote exports, review URLs and emitted asset links.
 
-`rsbuild.config.ts` defines the multi-page application from `pages.json`.
-Each entry names its HTML template and browser entry module.
-Rsbuild bundles JavaScript, CSS and imported fonts, injects asset URLs, and copies `public/`.
-Page templates include the shared `partials/lead-form.html` through Rsbuild template parameters.
-Pages 10–11 retain the content and layout of the approved build:
-https://zackary-chapple-18690-zephyr-landing-pages-review-660647c05-ze.zephyrcloud.app/.
-Each campaign page has its own direct URL. The build has no review index or gallery.
+`rsbuild.config.ts` defines eleven review entries and eleven Module Federation page exports.
+Each `pages/<slug>.tsx` file composes shared layout, section, form and logo components.
+`design/base.css` contains the common design rules.
+The modern and classic styles preserve the existing page variants.
+Fonts and the logo belong to the remote and use its asset URLs.
+The remote has no HTML parser or registry that imports every page.
 
-The Rsbuild application exposes `campaigns/pages` and `campaigns/capture` through Module Federation.
-The browser and Node build environments emit a public manifest and the server remote used during static generation.
-Zephyr publishes both environments as one static `csr` snapshot.
-The Node remote is a build input for the host, so it does not need a deployed HTTP server entrypoint.
-`federated-pages.mjs` returns the approved HTML and scoped styles without browser dependencies.
-`landing.css` supplies the shared designs for pages 1–9. Pages 10–11 keep their own inline CSS and SVGs.
-
-The main Rspress application imports these remote modules through `src/landers/campaigns/CampaignRoute.tsx`.
-The 11 `docs/<slug>.mdx` wrappers register public routes without navigation links.
-For example, `/always-deployed` renders the first campaign.
-Rspress generates complete HTML and adds each route to the main sitemap.
+The main Rspress application imports each page directly, for example `campaigns/always-deployed`.
+The root `campaigns.ts` contract contains only route IDs and SEO metadata.
+The host does not import the remote's components, styles, fonts or page content from local source.
+The eleven `docs/<slug>.mdx` wrappers register public routes without navigation links.
+Rspress renders complete page HTML through the Node remote and adds each route to the main sitemap.
+The browser loads the matching page export for hydration.
 The build fails if a campaign lacks static content, its canonical URL or its sitemap entry.
 `docs/public/llms.txt` lists the campaign URLs for agents.
+
+The browser and Node environments share one asset root.
+Node JavaScript files live under `server/`, including their asynchronous chunks.
+Both environments therefore render the same font and logo URLs.
+Zephyr publishes the remote as one static `csr` snapshot.
+The Node remote serves as a static-generation input, so it does not need a deployed HTTP server entrypoint.
+
+The existing numbered review URLs remain available, for example `/01-always-deployed/`.
+These review entries render the same React components in the browser.
+The canonical main-site routes contain complete HTML before JavaScript runs.
+The build has no review index or gallery.
 
 The website workflow runs type checking and generated-content verification in an independent validation job.
 That job also runs for fork PRs with read-only permissions and no deployment credentials.
@@ -47,7 +52,7 @@ Local commands do not publish by default.
 To build the integrated site locally, first build and serve the remote in separate terminals:
 
 ```bash
-pnpm run build:inbound-pages
+CAMPAIGN_ASSET_ORIGIN=http://localhost:4262/ pnpm run build:inbound-pages
 pnpm run preview:inbound-pages
 ```
 

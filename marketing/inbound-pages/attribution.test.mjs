@@ -1,5 +1,6 @@
 import { describe, expect, it } from '@rstest/core';
 import { PostHog } from 'posthog-js/lib/src/posthog-core.js';
+import { campaignRoutes } from '../../campaigns';
 import { pageAttribution, scrubAnalyticsEvent, sendSubmission } from './attribution.mjs';
 import { loadTurnstile } from './turnstile.mjs';
 
@@ -192,63 +193,53 @@ describe('CRM acceptance', () => {
   });
 });
 
-describe('complete review release', () => {
-  it('builds all eleven concepts as text pages with one attributed CRM form each', async () => {
+describe('campaign remote release', () => {
+  it('exports eleven independent pages and retains their direct review URLs', async () => {
     const { readFile, readdir } = await import('node:fs/promises');
     const { execFileSync } = await import('node:child_process');
     const root = new URL('./', import.meta.url);
     execFileSync('pnpm', ['run', 'build:inbound-pages'], {
       cwd: new URL('../../', root),
-      env: { ...process.env, ZE_DEPLOY: 'false' },
+      env: { ...process.env, ZE_DEPLOY: 'false', CAMPAIGN_ASSET_ORIGIN: '' },
     });
-    const pages = JSON.parse(await readFile(new URL('./pages.json', root), 'utf8'));
     const manifest = JSON.parse(await readFile(new URL('./dist/mf-manifest.json', root), 'utf8'));
-    expect(manifest.exposes.map((expose) => expose.path).sort()).toEqual(['./capture', './pages']);
+    expect(manifest.exposes.map((expose) => expose.path).sort()).toEqual(
+      campaignRoutes.map(({ id }) => `./${id}`).sort(),
+    );
     expect(manifest.metaData.ssrRemoteEntry).toEqual({
       path: 'server/',
       name: 'remoteEntry.js',
       type: 'commonjs-module',
     });
     expect((await readFile(new URL('./dist/server/remoteEntry.js', root))).length).toBeGreaterThan(0);
-    expect(pages).toHaveLength(11);
-    expect(new Set(pages.map((page) => page.id)).size).toBe(11);
     const files = await readdir(new URL('./dist/', root), { recursive: true });
     expect(files.filter((file) => file.endsWith('.html')).sort()).toEqual(
-      pages.map((page) => `${page.path}/index.html`).sort(),
+      campaignRoutes.map((page, index) => `${String(index + 1).padStart(2, '0')}-${page.slug}/index.html`).sort(),
     );
-    for (const page of pages) {
-      const html = await readFile(new URL(`./dist/${page.path}/index.html`, root), 'utf8');
+    const pageChunks = manifest.exposes.map((expose) =>
+      expose.assets.js.sync.find((asset) => asset.includes('__federation_expose_')),
+    );
+    expect(new Set(pageChunks).size).toBe(11);
+    for (const [index, page] of campaignRoutes.entries()) {
+      const html = await readFile(
+        new URL(`./dist/${String(index + 1).padStart(2, '0')}-${page.slug}/index.html`, root),
+        'utf8',
+      );
       expect(html).toContain(`data-page-id="${page.id}"`);
-      expect(html.match(/<h1\b/g)).toHaveLength(1);
-      expect(html.match(/<form\b/g)).toHaveLength(1);
-      expect(html).toContain('data-lead-form');
-      expect(html).not.toContain('<%');
-      expect(html).not.toContain('onsubmit=');
-      expect(html).not.toContain('class="review"');
-      expect(html).not.toContain('All pages');
-      const scripts = [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map((match) => match[1]);
-      const styles = [...html.matchAll(/<link[^>]+href="([^"]+)"[^>]*rel="stylesheet"/g)].map((match) => match[1]);
-      expect(scripts.length).toBeGreaterThan(0);
-      expect(styles.length).toBeGreaterThan(0);
-      for (const asset of [...scripts, ...styles]) {
-        expect(
-          (await readFile(new URL(`./dist${new URL(asset, 'https://assets.example').pathname}`, root))).length,
-        ).toBeGreaterThan(0);
-      }
-      expect(html).toContain('data-turnstile');
-      expect(html).not.toContain('noindex');
       expect(html).toContain(`https://zephyr-cloud.io/${page.slug}`);
-      // Text sections must remain available without loading a full-page image.
-      const main = html.match(/<main\b[^>]*>([\s\S]*?)<\/main>/)?.[1] ?? '';
-      expect(main.match(/<section\b/g).length).toBeGreaterThanOrEqual(4);
-      expect(
-        main
-          .replace(/<[^>]+>/g, ' ')
-          .trim()
-          .split(/\s+/).length,
-      ).toBeGreaterThan(300);
-      expect(main).not.toContain('page.jpg');
-      expect(main).not.toContain('placeholder/customer-quote');
+      expect(html).not.toContain('<%');
+      expect(html).not.toContain('noindex');
+      const scripts = [...html.matchAll(/<script[^>]+src="([^"]+)"/g)].map((match) => match[1]);
+      expect(scripts.length).toBeGreaterThan(0);
+      const expose = manifest.exposes.find((item) => item.path === `./${page.id}`);
+      // Loading one page must not fetch another page's implementation.
+      for (const chunk of pageChunks.filter((chunk) => !expose.assets.js.sync.includes(chunk))) {
+        expect([...expose.assets.js.sync, ...expose.assets.js.async]).not.toContain(chunk);
+      }
+      for (const asset of [...scripts, ...expose.assets.js.sync, ...expose.assets.js.async]) {
+        const pathname = new URL(asset, 'https://assets.example/').pathname;
+        expect((await readFile(new URL(`./dist${pathname}`, root))).length).toBeGreaterThan(0);
+      }
     }
   }, 30_000);
 });

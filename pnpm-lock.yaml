@@ -123,6 +123,9 @@ importers:
       '@rsbuild/core':
         specifier: 2.3.2
         version: 2.3.2(@module-federation/runtime-tools@2.9.3)(core-js@3.50.0)
+      '@rsbuild/plugin-react':
+        specifier: 2.1.0
+        version: 2.1.0(@rsbuild/core@2.3.2(@module-federation/runtime-tools@2.9.3)(core-js@3.50.0))(@rspack/core@2.3.2(@module-federation/runtime-tools@2.9.3)(@swc/helpers@0.5.24))
       '@rspress/core':
         specifier: 2.0.23
         version: 2.0.23(@module-federation/runtime-tools@2.9.3)(@rspack/core@2.3.2(@module-federation/runtime-tools@2.9.3)(@swc/helpers@0.5.24))(core-js@3.50.0)(micromark-util-types@2.0.2)(micromark@4.0.2)
