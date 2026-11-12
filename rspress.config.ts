@@ -149,6 +149,15 @@ export default defineConfig({
           // Explicit tags do not use workspace branch/user matching.
           build_context: '',
           dependencyUrlMode: 'selector',
+        }).catch((error: unknown) => {
+          const detail = error instanceof Error ? error.message : 'Unknown Zephyr resolution error.';
+          const guidance =
+            process.env.CI === 'true'
+              ? 'Check the CI Zephyr credential, selected tag and Zephyr service connection.'
+              : 'Your Zephyr login may be missing or expired. Refresh your Zephyr login. ' +
+                'For a local build, build and serve the campaign remote, then run ' +
+                '`CAMPAIGN_TAG= ZE_DEPLOY=false CAMPAIGN_REMOTE_URL=http://localhost:4262/mf-manifest.json pnpm build`.';
+          throw new Error(`Campaign tag resolution failed for ${reference}. ${guidance}\n${detail}`);
         });
         if (resolved.entity_type && resolved.entity_type !== 'tag') {
           throw new Error(`The campaign selector did not resolve to a Zephyr tag: ${reference}`);

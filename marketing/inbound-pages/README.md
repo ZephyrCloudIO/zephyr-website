@@ -65,6 +65,8 @@ ZE_DEPLOY=false CAMPAIGN_TAG=web_feat-inbound-lead-capture_zackary_chapple pnpm 
 ```
 
 This command resolves the tag through Zephyr and builds against the published remote. It does not start a deployment.
+If Zephyr rejects your login, refresh that login before retrying a tagged build.
+For local development without Zephyr credentials, clear `CAMPAIGN_TAG` and use the local manifest command above.
 
 The browser fetches the published `default/zephyr-book-a-demo` form definition.
 The CRM records the actual landing URL, incoming UTM values, form version and contact.
