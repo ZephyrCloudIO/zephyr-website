@@ -7,20 +7,21 @@ import formCss from '../design/form.css?raw';
 import type { CampaignDesign } from '../design/types';
 import { CampaignFooter, CampaignHeader } from './chrome';
 
-const fonts = `@font-face { font-family: Inter; font-style: normal; font-weight: 100 900; font-display: swap; src: url('${interUrl}') format('woff2'); }
-@font-face { font-family: 'Chivo Mono'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('${chivoUrl}') format('woff2'); }`;
-
 export function CampaignFrame({
   id,
+  assetBaseUrl,
   design,
   accents,
   children,
 }: {
   id: CampaignId;
+  assetBaseUrl: string;
   design: CampaignDesign;
   accents: Record<`--${string}`, string>;
   children: ReactNode;
 }) {
+  const fonts = `@font-face { font-family: Inter; font-style: normal; font-weight: 100 900; font-display: swap; src: url('${new URL(interUrl, assetBaseUrl).href}') format('woff2'); }
+@font-face { font-family: 'Chivo Mono'; font-style: normal; font-weight: 100 900; font-display: swap; src: url('${new URL(chivoUrl, assetBaseUrl).href}') format('woff2'); }`;
   const root = useRef<HTMLDivElement>(null);
   useEffect(() => {
     let cancelled = false;
@@ -56,9 +57,9 @@ export function CampaignFrame({
         style={{ ...accents, '--campaign-mono': design.mono } as CSSProperties}
       >
         <div className="wrap">
-          <CampaignHeader variant={design.name} />
+          <CampaignHeader variant={design.name} assetBaseUrl={assetBaseUrl} />
           <main>{children}</main>
-          <CampaignFooter variant={design.name} />
+          <CampaignFooter variant={design.name} assetBaseUrl={assetBaseUrl} />
         </div>
       </div>
     </>

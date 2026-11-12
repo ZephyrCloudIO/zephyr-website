@@ -1,10 +1,10 @@
 import { BrandMark } from './BrandMark';
 
-export function CampaignHeader({ variant }: { variant: 'modern' | 'classic' }) {
+export function CampaignHeader({ variant, assetBaseUrl }: { variant: 'modern' | 'classic'; assetBaseUrl: string }) {
   return variant === 'modern' ? (
     <header className="top">
       <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home">
-        <BrandMark />
+        <BrandMark assetBaseUrl={assetBaseUrl} />
       </a>
       <nav aria-label="Main">
         <a href="https://docs.zephyr-cloud.io">Docs</a>
@@ -16,7 +16,7 @@ export function CampaignHeader({ variant }: { variant: 'modern' | 'classic' }) {
     </header>
   ) : (
     <header className="top">
-      <BrandMark />
+      <BrandMark assetBaseUrl={assetBaseUrl} />
       <nav>
         <a href="#how">How it works</a>
         <a href="https://docs.zephyr-cloud.io">Docs</a>
@@ -27,11 +27,11 @@ export function CampaignHeader({ variant }: { variant: 'modern' | 'classic' }) {
     </header>
   );
 }
-export function CampaignFooter({ variant }: { variant: 'modern' | 'classic' }) {
+export function CampaignFooter({ variant, assetBaseUrl }: { variant: 'modern' | 'classic'; assetBaseUrl: string }) {
   return variant === 'modern' ? (
     <footer>
       <a href="https://zephyr-cloud.io" aria-label="Zephyr Cloud home">
-        <BrandMark />
+        <BrandMark assetBaseUrl={assetBaseUrl} />
       </a>
       <nav aria-label="Footer">
         <a href="https://docs.zephyr-cloud.io">Docs</a>
@@ -42,7 +42,7 @@ export function CampaignFooter({ variant }: { variant: 'modern' | 'classic' }) {
     </footer>
   ) : (
     <footer>
-      <BrandMark />
+      <BrandMark assetBaseUrl={assetBaseUrl} />
       <span>© 2026 Zephyr Cloud</span>
     </footer>
   );

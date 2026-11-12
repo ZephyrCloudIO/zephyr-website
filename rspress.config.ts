@@ -18,6 +18,22 @@ const campaignFederation = {
   dts: false,
 };
 
+function withCampaignAssets(config: UserConfig, manifest: string): UserConfig {
+  return {
+    ...config,
+    builderConfig: {
+      ...config.builderConfig,
+      source: {
+        ...config.builderConfig?.source,
+        define: {
+          ...config.builderConfig?.source?.define,
+          'import.meta.env.PUBLIC_CAMPAIGN_ASSET_BASE_URL': JSON.stringify(new URL('.', manifest).href),
+        },
+      },
+    },
+  };
+}
+
 // Rspress does not load `.env` or expose `PUBLIC_*` variables to client code the way the Rsbuild
 // CLI does, so `import.meta.env.PUBLIC_POSTHOG_KEY` compiled to `undefined` and PostHog never
 // initialized. Load `.env` for local builds (CI sets these in the environment) and inline the
@@ -148,7 +164,7 @@ export default defineConfig({
           if (!['http:', 'https:'].includes(url.protocol))
             throw new Error('CAMPAIGN_REMOTE_URL must be an HTTP or HTTPS manifest URL.');
           campaignFederation.remotes.campaigns = `campaigns@${url.href}`;
-          return config;
+          return withCampaignAssets(config, url.href);
         }
         const zephyrConfig = getZephyrConfig(__dirname);
         const reference = zephyrConfig.remoteDependencies?.campaigns ?? packageJson['zephyr:dependencies'].campaigns;
@@ -178,7 +194,7 @@ export default defineConfig({
         }
         campaignFederation.remotes.campaigns = `campaigns@${resolved.manifest_url}`;
         console.info(`[campaigns] Resolved ${reference} to ${resolved.manifest_url}`);
-        return config;
+        return withCampaignAssets(config, resolved.manifest_url);
       },
     },
     pluginModuleFederation(campaignFederation, { rebuildSearchIndex: false, rebuildLlms: false }),
@@ -212,6 +228,10 @@ export default defineConfig({
               .split(/\s+/).length < 300
           ) {
             throw new Error(`Campaign sections were not statically rendered: ${page.slug}`);
+          }
+          const assetBase = new URL('.', campaignFederation.remotes.campaigns.slice('campaigns@'.length)).href;
+          if (!html.includes(`src="${assetBase}static/svg/`) || !html.includes(`url('${assetBase}static/font/`)) {
+            throw new Error(`Campaign assets do not use the resolved remote URL: ${page.slug}`);
           }
           if (/<meta[^>]*content="[^"]*noindex/.test(html) || !html.includes(`href="${canonical}"`)) {
             throw new Error(`Campaign indexing metadata is invalid: ${page.slug}`);

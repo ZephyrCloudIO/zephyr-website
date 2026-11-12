@@ -1,3 +1,4 @@
+import type { CampaignPageProps } from '../../../campaigns';
 import { CampaignFrame } from '../components/CampaignFrame';
 import {
   Benefit,
@@ -12,9 +13,10 @@ import {
 } from '../components/sections';
 import { modernDesign } from '../design/modern';
 
-export default function CampaignPage() {
+export default function CampaignPage({ assetBaseUrl }: CampaignPageProps) {
   return (
     <CampaignFrame
+      assetBaseUrl={assetBaseUrl}
       id="rollback-isnt-a-rebuild"
       design={modernDesign}
       accents={{ '--a': '#10cee1', '--ar': '16, 206, 225', '--b': '#3887ff' }}

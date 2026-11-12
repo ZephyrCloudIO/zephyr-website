@@ -1,3 +1,4 @@
+import type { CampaignPageProps } from '../../../campaigns';
 import { CampaignFrame } from '../components/CampaignFrame';
 import {
   Benefit,
@@ -12,9 +13,14 @@ import {
 } from '../components/sections';
 import { classicDesign } from '../design/classic';
 
-export default function CampaignPage() {
+export default function CampaignPage({ assetBaseUrl }: CampaignPageProps) {
   return (
-    <CampaignFrame id="ship-the-part" design={classicDesign} accents={{ '--a': '#818cf8', '--ar': '129, 140, 248' }}>
+    <CampaignFrame
+      assetBaseUrl={assetBaseUrl}
+      id="ship-the-part"
+      design={classicDesign}
+      accents={{ '--a': '#818cf8', '--ar': '129, 140, 248' }}
+    >
       <Hero>
         <div className="glow"></div>
         <p className="eyebrow">Granular OTA · Module Federation</p>

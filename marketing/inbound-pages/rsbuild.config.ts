@@ -47,7 +47,7 @@ export default defineConfig({
     },
     server: {
       source: { entry: { remote: { import: './components/CampaignFrame.tsx', html: false } } },
-      output: { target: 'node', distPath: { root: 'dist', js: 'server', jsAsync: 'server' } },
+      output: { target: 'node', assetPrefix: 'auto', distPath: { root: 'dist/server' } },
       html: { inject: false },
       server: { publicDir: false },
     },
@@ -71,10 +71,7 @@ export default defineConfig({
       },
       { target: 'web', environment: 'web' },
     ),
-    pluginModuleFederation(
-      { ...federation, filename: 'server/remoteEntry.js', manifest: false },
-      { target: 'node', environment: 'server' },
-    ),
+    pluginModuleFederation({ ...federation, manifest: false }, { target: 'node', environment: 'server' }),
     ...(process.env.ZE_DEPLOY === 'true' ? [withZephyr({ snapshotType: 'csr' })] : []),
   ],
 });

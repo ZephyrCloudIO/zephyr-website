@@ -196,12 +196,29 @@ describe('CRM acceptance', () => {
 describe('campaign remote release', () => {
   it('exports eleven independent pages and retains their direct review URLs', async () => {
     const { readFile, readdir } = await import('node:fs/promises');
-    const { execFileSync } = await import('node:child_process');
+    const { fileURLToPath } = await import('node:url');
+    const { createRsbuild, loadConfig } = await import('@rsbuild/core');
     const root = new URL('./', import.meta.url);
-    execFileSync('pnpm', ['run', 'build:inbound-pages'], {
-      cwd: new URL('../../', root),
-      env: { ...process.env, ZE_DEPLOY: 'false', CAMPAIGN_ASSET_ORIGIN: '' },
-    });
+    const previousDeploy = process.env.ZE_DEPLOY;
+    process.env.ZE_DEPLOY = 'false';
+    try {
+      const cwd = fileURLToPath(root);
+      const { content } = await loadConfig({ cwd, command: 'build' });
+      const rsbuild = await createRsbuild({ cwd, rsbuildConfig: content });
+      const result = await rsbuild.build();
+      try {
+        const compilers = result.stats.stats;
+        // Zephyr emits a separate manifest per compiler. Their roots must differ.
+        const outputPaths = compilers.map((stats) => stats.compilation.outputOptions.path);
+        expect(compilers).toHaveLength(2);
+        expect(new Set(outputPaths).size).toBe(compilers.length);
+      } finally {
+        await result.close();
+      }
+    } finally {
+      if (previousDeploy === undefined) delete process.env.ZE_DEPLOY;
+      else process.env.ZE_DEPLOY = previousDeploy;
+    }
     const manifest = JSON.parse(await readFile(new URL('./dist/mf-manifest.json', root), 'utf8'));
     expect(manifest.exposes.map((expose) => expose.path).sort()).toEqual(
       campaignRoutes.map(({ id }) => `./${id}`).sort(),

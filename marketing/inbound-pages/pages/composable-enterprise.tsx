@@ -1,3 +1,4 @@
+import type { CampaignPageProps } from '../../../campaigns';
 import { CampaignFrame } from '../components/CampaignFrame';
 import {
   Benefit,
@@ -13,9 +14,10 @@ import {
 } from '../components/sections';
 import { modernDesign } from '../design/modern';
 
-export default function CampaignPage() {
+export default function CampaignPage({ assetBaseUrl }: CampaignPageProps) {
   return (
     <CampaignFrame
+      assetBaseUrl={assetBaseUrl}
       id="composable-enterprise"
       design={modernDesign}
       accents={{ '--a': '#a78bfa', '--ar': '167, 139, 250', '--b': '#14c9e2' }}

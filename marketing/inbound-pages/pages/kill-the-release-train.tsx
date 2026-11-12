@@ -1,3 +1,4 @@
+import type { CampaignPageProps } from '../../../campaigns';
 import { CampaignFrame } from '../components/CampaignFrame';
 import {
   Benefit,
@@ -13,9 +14,10 @@ import {
 } from '../components/sections';
 import { modernDesign } from '../design/modern';
 
-export default function CampaignPage() {
+export default function CampaignPage({ assetBaseUrl }: CampaignPageProps) {
   return (
     <CampaignFrame
+      assetBaseUrl={assetBaseUrl}
       id="kill-the-release-train"
       design={modernDesign}
       accents={{ '--a': '#ffe000', '--ar': '255, 224, 0', '--b': '#ffad00' }}

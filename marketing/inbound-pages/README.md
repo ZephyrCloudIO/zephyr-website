@@ -23,9 +23,12 @@ The browser loads the matching page export for hydration.
 The build fails if a campaign lacks static content, its canonical URL or its sitemap entry.
 `docs/public/llms.txt` lists the campaign URLs for agents.
 
-The browser and Node environments share one asset root.
-Node JavaScript files live under `server/`, including their asynchronous chunks.
-Both environments therefore render the same font and logo URLs.
+The browser and Node environments use separate output directories.
+Node files and its Zephyr manifest live under `server/`.
+This prevents collisions between the two deployment manifests.
+The host passes the asset base URL from the resolved Module Federation manifest into each page.
+Both environments therefore render the same absolute font and logo URLs from the remote's browser assets.
+The Node chunk loader resolves its chunks relative to the server remote entry.
 Zephyr publishes the remote as one static `csr` snapshot.
 The Node remote serves as a static-generation input, so it does not need a deployed HTTP server entrypoint.
 

@@ -1,3 +1,4 @@
+import type { CampaignPageProps } from '../../../campaigns';
 import { CampaignFrame } from '../components/CampaignFrame';
 import {
   Benefit,
@@ -12,9 +13,10 @@ import {
 } from '../components/sections';
 import { classicDesign } from '../design/classic';
 
-export default function CampaignPage() {
+export default function CampaignPage({ assetBaseUrl }: CampaignPageProps) {
   return (
     <CampaignFrame
+      assetBaseUrl={assetBaseUrl}
       id="stop-making-users-wait"
       design={classicDesign}
       accents={{ '--a': '#2dd4bf', '--ar': '45, 212, 191' }}

@@ -77,3 +77,7 @@ export const campaignRoutes = [
 ] as const;
 
 export type CampaignId = (typeof campaignRoutes)[number]['id'];
+
+export interface CampaignPageProps {
+  assetBaseUrl: string;
+}
