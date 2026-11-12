@@ -11,13 +11,11 @@ import { PostHogProvider } from '@posthog/react';
 import { Content, Head, useFrontmatter, usePageData } from '@rspress/core/runtime';
 import posthog from 'posthog-js';
 import { createElement, type ReactElement, useEffect } from 'react';
-import { campaignRoutes as campaigns } from '../campaigns';
 
 const POSTHOG_KEY = import.meta.env.PUBLIC_POSTHOG_KEY;
 const POSTHOG_API_HOST = import.meta.env.PUBLIC_POSTHOG_HOST;
 const POSTHOG_UI_HOST = 'https://us.posthog.com';
 let hasInitializedPostHog = false;
-const campaignPaths = new Set(campaigns.map((page) => `/${page.slug}`));
 
 function renderFrontmatterHead(frontmatterHead: unknown): ReactElement[] {
   if (!Array.isArray(frontmatterHead)) {
@@ -60,16 +58,6 @@ export function Layout() {
   const isCampaign = frontmatter.campaign === true;
 
   useEffect(() => {
-    if (isCampaign) {
-      if (hasInitializedPostHog) {
-        const wasRecording = posthog.sessionRecordingStarted();
-        posthog.stopSessionRecording();
-        return () => {
-          if (wasRecording) posthog.startSessionRecording();
-        };
-      }
-      return;
-    }
     if (!POSTHOG_KEY || hasInitializedPostHog) {
       return;
     }
@@ -80,9 +68,8 @@ export function Layout() {
       ui_host: POSTHOG_UI_HOST,
       defaults: '2026-01-30',
       person_profiles: 'identified_only',
-      before_send: (event) => (campaignPaths.has(window.location.pathname.replace(/\/$/, '')) ? null : event),
     } as const);
-  }, [isCampaign]);
+  }, []);
 
   const head = (
     <Head>

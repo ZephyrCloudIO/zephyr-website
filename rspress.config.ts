@@ -1,38 +1,13 @@
-import { pluginModuleFederation } from '@module-federation/rspress-plugin';
 import { defineConfig, type UserConfig } from '@rspress/core';
 import { pluginSitemap } from '@rspress/plugin-sitemap';
 import fs from 'node:fs';
 import path from 'node:path';
-import { getZephyrConfig, parseZeDependency, resolve_remote_dependency } from 'zephyr-agent';
 import { withZephyr } from 'zephyr-rspress-plugin';
-import { campaignRoutes as campaigns } from './campaigns';
-import packageJson from './package.json';
+import { campaignRoutes as campaigns } from './src/campaigns/routes';
 
 const siteUrl = 'https://zephyr-cloud.io';
-
 const DOCS_ROOT = path.join(__dirname, 'docs');
-const campaignSitemap = pluginSitemap({ siteUrl, defaultChangeFreq: 'weekly', defaultPriority: '0.6' });
-const campaignFederation = {
-  name: 'zephyr_website',
-  remotes: {} as Record<string, string>,
-  dts: false,
-};
-
-function withCampaignAssets(config: UserConfig, manifest: string): UserConfig {
-  return {
-    ...config,
-    builderConfig: {
-      ...config.builderConfig,
-      source: {
-        ...config.builderConfig?.source,
-        define: {
-          ...config.builderConfig?.source?.define,
-          'import.meta.env.PUBLIC_CAMPAIGN_ASSET_BASE_URL': JSON.stringify(new URL('.', manifest).href),
-        },
-      },
-    },
-  };
-}
+const sitemap = pluginSitemap({ siteUrl, defaultChangeFreq: 'weekly', defaultPriority: '0.6' });
 
 // Rspress does not load `.env` or expose `PUBLIC_*` variables to client code the way the Rsbuild
 // CLI does, so `import.meta.env.PUBLIC_POSTHOG_KEY` compiled to `undefined` and PostHog never
@@ -152,63 +127,18 @@ export default defineConfig({
   },
   plugins: [
     {
-      name: 'resolve-campaign-tag',
-      async config(config) {
-        if (process.env.ZE_DEPLOY === 'false' && !process.env.CAMPAIGN_TAG) {
-          const localManifest = process.env.CAMPAIGN_REMOTE_URL;
-          if (!localManifest)
-            throw new Error(
-              'Set CAMPAIGN_REMOTE_URL to the campaign manifest for a local build, or set CAMPAIGN_TAG to resolve a published Zephyr tag.',
-            );
-          const url = new URL(localManifest);
-          if (!['http:', 'https:'].includes(url.protocol))
-            throw new Error('CAMPAIGN_REMOTE_URL must be an HTTP or HTTPS manifest URL.');
-          campaignFederation.remotes.campaigns = `campaigns@${url.href}`;
-          return withCampaignAssets(config, url.href);
-        }
-        const zephyrConfig = getZephyrConfig(__dirname);
-        const reference = zephyrConfig.remoteDependencies?.campaigns ?? packageJson['zephyr:dependencies'].campaigns;
-        const dependency = parseZeDependency('campaigns', reference);
-        const resolved = await resolve_remote_dependency({
-          application_uid: dependency.app_uid!,
-          version: dependency.version,
-          platform: 'web',
-          // Explicit tags do not use workspace branch/user matching.
-          build_context: '',
-          dependencyUrlMode: 'selector',
-        }).catch((error: unknown) => {
-          const detail = error instanceof Error ? error.message : 'Unknown Zephyr resolution error.';
-          const guidance =
-            process.env.CI === 'true'
-              ? 'Check the CI Zephyr credential, selected tag and Zephyr service connection.'
-              : 'Your Zephyr login may be missing or expired. Refresh your Zephyr login. ' +
-                'For a local build, build and serve the campaign remote, then run ' +
-                '`CAMPAIGN_TAG= ZE_DEPLOY=false CAMPAIGN_REMOTE_URL=http://localhost:4262/mf-manifest.json pnpm build`.';
-          throw new Error(`Campaign tag resolution failed for ${reference}. ${guidance}\n${detail}`);
-        });
-        if (resolved.entity_type && resolved.entity_type !== 'tag') {
-          throw new Error(`The campaign selector did not resolve to a Zephyr tag: ${reference}`);
-        }
-        if (!resolved.manifest_url || new URL(resolved.manifest_url).protocol !== 'https:') {
-          throw new Error(`The campaign tag has no HTTPS Module Federation manifest: ${reference}`);
-        }
-        campaignFederation.remotes.campaigns = `campaigns@${resolved.manifest_url}`;
-        console.info(`[campaigns] Resolved ${reference} to ${resolved.manifest_url}`);
-        return withCampaignAssets(config, resolved.manifest_url);
-      },
-    },
-    pluginModuleFederation(campaignFederation, { rebuildSearchIndex: false, rebuildLlms: false }),
-    {
-      ...campaignSitemap,
+      ...sitemap,
+      // The campaign pages exist to be found and to capture leads, so a build that drops one from
+      // the sitemap, or renders it without its content and form, fails here instead of in production.
       async afterBuild(config, isProd) {
-        await campaignSitemap.afterBuild?.(config, isProd);
+        await sitemap.afterBuild?.(config, isProd);
         if (!isProd) return;
         const output = config.outDir || 'doc_build';
-        const sitemap = await fs.promises.readFile(path.join(output, 'sitemap.xml'), 'utf8');
+        const sitemapXml = await fs.promises.readFile(path.join(output, 'sitemap.xml'), 'utf8');
         for (const page of campaigns) {
           const canonical = `${siteUrl}/${page.slug}`;
           const html = await fs.promises.readFile(path.join(output, `${page.slug}.html`), 'utf8');
-          if (!sitemap.includes(`<loc>${canonical}</loc>`))
+          if (!sitemapXml.includes(`<loc>${canonical}</loc>`))
             throw new Error(`Campaign missing from sitemap: ${page.slug}`);
           if (
             !html.includes(`data-page-id="${page.id}"`) ||
@@ -228,10 +158,6 @@ export default defineConfig({
               .split(/\s+/).length < 300
           ) {
             throw new Error(`Campaign sections were not statically rendered: ${page.slug}`);
-          }
-          const assetBase = new URL('.', campaignFederation.remotes.campaigns.slice('campaigns@'.length)).href;
-          if (!html.includes(`src="${assetBase}static/svg/`) || !html.includes(`url('${assetBase}static/font/`)) {
-            throw new Error(`Campaign assets do not use the resolved remote URL: ${page.slug}`);
           }
           if (/<meta[^>]*content="[^"]*noindex/.test(html) || !html.includes(`href="${canonical}"`)) {
             throw new Error(`Campaign indexing metadata is invalid: ${page.slug}`);

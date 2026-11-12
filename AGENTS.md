@@ -10,6 +10,7 @@
 - `src/lib/` and `src/data/`: loaders, helpers, and static data.
 - `src/images/`: site assets; keep optimized images here.
 - `src/landers/`: standalone campaign lander components exposed through Rspress wrappers. Read [`docs-internal/rspress-maintenance-guide.md`](docs-internal/rspress-maintenance-guide.md) before adding one.
+- `src/campaigns/`: the inbound lead-capture pages. Their form's logic is in `src/lib/lead-form/`. Read [`src/campaigns/README.md`](src/campaigns/README.md) before changing one.
 - `scripts/`: maintenance utilities such as image conversion and lander scaffolding.
 
 ## Build, Test, and Development Commands
@@ -42,7 +43,7 @@ Blog and changelog source lives in `src/content/**`; generated route wrappers li
 
 ## Testing Guidelines
 
-- There is no dedicated test runner yet; the minimum gate is `pnpm typecheck` plus `pnpm build`.
+- `pnpm test` runs the unit tests (Rstest, `*.test.ts` next to the code). The minimum gate is `pnpm typecheck`, `pnpm test` and `pnpm build`.
 - For UI/content changes, verify the affected route or lander in preview and include screenshots for major visual updates.
 - For SEO/content changes, verify generated metadata and direct route refresh on the Zephyr preview URL.
 - If you add logic that can be unit tested later, keep it isolated in `src/lib/` or a small helper module.

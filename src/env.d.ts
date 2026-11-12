@@ -1,5 +1,4 @@
 interface ImportMetaEnv {
-  readonly PUBLIC_CAMPAIGN_ASSET_BASE_URL: string;
   readonly VITE_GA_MEASUREMENT_ID?: string;
   readonly PUBLIC_POSTHOG_KEY?: string;
   readonly PUBLIC_POSTHOG_HOST?: string;
@@ -38,4 +37,14 @@ declare module '*.gif' {
 declare module '*.webm' {
   const src: string;
   export default src;
+}
+
+declare module '*.woff2' {
+  const src: string;
+  export default src;
+}
+
+declare module '*.css?raw' {
+  const css: string;
+  export default css;
 }
