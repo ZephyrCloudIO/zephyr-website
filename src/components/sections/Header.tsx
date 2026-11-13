@@ -6,12 +6,13 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu';
+import { GithubIcon } from '@/components/ui/github-icon';
 import { PRODUCTS, RESOURCES } from '@/constants/navItems';
 import LogoLight from '@/images/logo-light.svg';
 import WordmarkLight from '@/images/wordmark-light.svg';
 import { cn } from '@/lib/utils';
 import { Link, useNavigate } from '@tanstack/react-router';
-import { ArrowRight, BookOpen, Check, ChevronDown, Download, Github, Menu, Package, Type, X } from 'lucide-react';
+import { ArrowRight, BookOpen, Check, ChevronDown, Download, Menu, Package, Type, X } from 'lucide-react';
 import React, { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 import {
@@ -288,7 +289,7 @@ export const Header: React.FC = () => {
               rel="noopener"
               className="hidden h-9 items-center gap-2 rounded-lg px-3 text-sm text-ink-muted transition-colors hover:bg-surface-2 hover:text-ink sm:inline-flex lg:hidden xl:inline-flex"
             >
-              <Github size={16} aria-hidden />
+              <GithubIcon size={16} />
               GitHub
             </a>
             <a
@@ -396,7 +397,7 @@ export const Header: React.FC = () => {
             onClick={closeMobile}
             className={mobileLinkClass}
           >
-            <Github size={16} aria-hidden />
+            <GithubIcon size={16} />
             GitHub
           </a>
           <a
