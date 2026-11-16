@@ -10,7 +10,7 @@ overrides:
   qs: 6.15.2
   webpack: 5.105.4
   protobufjs: 7.6.6
-  unhead@<2.1.13: 2.1.13
+  unhead@<2.1.13: 2.1.17
   js-yaml@>=3.0.0 <3.15.0: 3.15.2
   fast-uri@<3.1.5: 3.1.9
   dompurify@<3.4.0: '>=3.4.0'
@@ -1018,6 +1018,11 @@ packages:
 
   ajv-formats@2.1.1:
     resolution: {integrity: sha512-Wx0Kx52hxE7C18hkMEggYlEifqWZtYaRgouJor+WMdPnQyEK13vgEWyVNup7SoeeoLMsr4kf5h6dOW11I15MUA==}
+    peerDependencies:
+      ajv: ^8.0.0
+    peerDependenciesMeta:
+      ajv:
+        optional: true
 
   ajv-keywords@5.1.0:
     resolution: {integrity: sha512-YCS/JNFAUyr5vAuhk1DWm1CBxRHW9LbJ2ozWeemrIqpbsqKjHVxYPyi5GC0rjZIT5JxJ3virVTS8wk4i/Z+krw==}
