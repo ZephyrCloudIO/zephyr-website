@@ -450,4 +450,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-11-17-audit-log-filters-mobile-dashboard',
+    metadata: {
+      title: 'Product Update: Audit Log Filters, Mobile Dashboard, and Access Fixes',
+      date: '2026-11-17',
+      version: 'Mid November 2026 Product Update',
+      summary:
+        'This release makes audit logs easier to search and shows when actions were denied. It also makes the dashboard usable on phones, improves the dependency graph, and tightens who can see what.',
+      tags: ['product', 'audit-logs', 'mobile', 'security', 'permissions'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
