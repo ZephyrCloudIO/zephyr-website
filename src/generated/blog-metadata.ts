@@ -113,6 +113,21 @@ export const blogMetadataEntries = [
     },
   },
   {
+    slug: 'how-zephyr-publishes-an-emdash-site',
+    metadata: {
+      title: 'One Immutable Version',
+      slug: 'how-zephyr-publishes-an-emdash-site',
+      date: '2026-11-17',
+      heroImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
+      listingImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
+      description: 'The Code and Content ship together',
+      authors: [],
+      tags: ['engineering', 'deployment', 'cloud', 'architecture'],
+      readingTime: 4,
+      hideHero: true,
+    },
+  },
+  {
     slug: 'infrastructureless',
     metadata: {
       title: 'The Future of Infrastructure: Beyond Serverless',
