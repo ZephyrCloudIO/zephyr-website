@@ -1,0 +1,66 @@
+---
+title: 'Product Update: Audit Log Filters, Mobile Dashboard, and Access Fixes'
+date: '2026-11-17'
+version: 'Mid November 2026 Product Update'
+summary: 'This release makes audit logs easier to search and shows when actions were denied. It also makes the dashboard usable on phones, improves the dependency graph, and tightens who can see what.'
+tags: ['product', 'audit-logs', 'mobile', 'security', 'permissions']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release makes audit logs easier to search and shows when actions were denied. It also makes the dashboard usable on phones, improves the dependency graph, and tightens who can see what.
+
+## Clearer, Searchable Audit Logs
+
+Project and application audit logs now record what happened, and also whether it was allowed. Filters help you find a specific event quickly.
+
+- Filter the log by action, such as create, update, delete or deploy.
+- Filter by result to see only denied or failed actions.
+- Denied attempts are now logged with the reason, so you can see who tried to do something they weren't allowed to do.
+- Action names are clearer and more consistent across projects and applications.
+
+## The Dashboard Works on Your Phone
+
+You can now check on projects and applications from a phone. We reworked layouts, filters and navigation across the dashboard to fit small screens.
+
+- Navigation moves into a mobile menu instead of overflowing off-screen.
+- Filters, settings forms, version history and deployment integrations stack properly on narrow screens.
+- Danger zone actions and form buttons stay reachable without sideways scrolling.
+
+## A Better Dependency Graph
+
+The dependency graph view is easier to read and filter.
+
+- The filter panel is no longer cut off.
+- The version picker shows when each version was published and who published it.
+- Long version labels and tags are shortened neatly, with the full value on hover.
+- "Show unlinked" now reliably shows applications that aren't connected to the rest of the graph.
+
+## Stronger Access Controls
+
+We continued tightening how access is checked across the platform.
+
+- Member email addresses are now visible only to organization owners and admins.
+- Revoked tokens and removed users lose access immediately.
+- If a subscription downgrade changes members' roles, the new roles take effect right away.
+- Project contributors are limited to members of the organization.
+- Private applications, and their versions in the side panel, show only to people who can read them.
+- A team maintainer can no longer be demoted to organization Viewer.
+- Every request is now checked for permission before any work is done.
+
+## Smaller Improvements
+
+- Browser tabs now show the current page and the organization, project or application you're viewing, so it's easier to tell tabs apart.
+- Applications with scoped names (like `@team/app`) keep their full name in search and sidebar navigation.
+- The API reference now marks public endpoints as not requiring authentication, and several reference errors are fixed.
+- Some pages that list tags and profiles load faster.
+- Third-party dependencies have been updated to fix known security issues.
+
+## What This Means for Teams
+
+- Admins can quickly find who did what, including attempts that were blocked.
+- Teams can check deployments and versions from a phone.
+- Large dependency graphs are easier to explore.
+- Sensitive details like member emails stay with the people who need them.
