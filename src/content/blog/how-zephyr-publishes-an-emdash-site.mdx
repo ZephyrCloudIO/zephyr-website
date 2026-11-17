@@ -4,10 +4,10 @@ slug: 'how-zephyr-publishes-an-emdash-site'
 date: '2026-11-17'
 heroImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
 listingImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
-description: 'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This post records that path and the limits that remain.'
+description: 'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This proof of concept shows how our marketing site publishes with EmDash and Zephyr.'
 authors: []
 tags: ['engineering', 'deployment', 'cloud', 'architecture']
-readingTime: 7
+readingTime: 4
 hideHero: true
 ---
 
@@ -44,8 +44,6 @@ The content team, the platform team, and the company open the same URL. A rollba
 ## A save is not a release
 
 An editor saves a landing page or the site root in EmDash. The CMS commits that save first.
-
-We built that capture for this marketing site. It is not available as a published plugin. Official plugins are coming soon.
 
 After the commit, the capture can store the page. The capture includes these parts:
 
@@ -92,41 +90,6 @@ The last good build is still deployed. Production moves to that build. The words
   alt="Restore builds a new version from the retained historical manifest of the last good build. The last good build is still deployed. Production moves to that build. The public site returns to the retained bytes. Newer CMS drafts stay in the CMS."
 />
 
-## What an agent edits
+## From proof of concept to plugins
 
-The renderer and the content model are files. An agent can change those files. The agent can open the build URL before a person releases the page. A person still releases the page. Roles decide who can release the page.
-
-A team with a WordPress WXR export can convert the export on the machine:
-
-```bash
-npx emdash import wordpress export.xml
-npx emdash import wordpress export.xml --execute
-```
-
-The first command writes a migration config. The command does not connect to an EmDash site. The command does not write the database. `--execute` writes JSON files.
-
-Password-protected posts are drafts. The admin importer is a separate path. That path can add menus from the EmDash exporter.
-
-The import is the entry step. The release is still one Zephyr version.
-
-Read the [EmDash 1.5 notes](https://emdashcms.com/blog/emdash-1-5) before an EmDash upgrade. Those notes cover sandboxed plugins.
-
-## What this does not do
-
-The capture is native code. The code runs only on our Cloudflare host. Official plugins are coming soon.
-
-A registry sandbox cannot read the host binding. A registry sandbox cannot run the Astro renderers.
-
-The current example uses one operational writer.
-
-External promotion races remain a limit.
-
-Broad server-token authority remains a limit.
-
-A preview of an old version uses the retained sealed HTML and the retained assets. The preview does not query the current CMS. The preview does not run the live form, Turnstile, or analytics.
-
-The control Worker keeps deployment credentials in Cloudflare secrets. The browser does not receive the credentials.
-
-## Where to read the campaign
-
-The public page is `/one-version` on the marketing site. The page is a draft until an editor publishes it. For a buyer, the page states the same story. The story is one version, one URL, and one tag.
+We built this integration as a proof of concept for our marketing site. We plan to release official EmDash plugins in the near future.

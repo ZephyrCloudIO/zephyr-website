@@ -121,10 +121,10 @@ export const blogMetadataEntries = [
       heroImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
       listingImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
       description:
-        'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This post records that path and the limits that remain.',
+        'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This proof of concept shows how our marketing site publishes with EmDash and Zephyr.',
       authors: [],
       tags: ['engineering', 'deployment', 'cloud', 'architecture'],
-      readingTime: 7,
+      readingTime: 4,
       hideHero: true,
     },
   },
