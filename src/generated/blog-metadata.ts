@@ -113,6 +113,22 @@ export const blogMetadataEntries = [
     },
   },
   {
+    slug: 'how-zephyr-publishes-an-emdash-site',
+    metadata: {
+      title: 'One version. The words and the site.',
+      slug: 'how-zephyr-publishes-an-emdash-site',
+      date: '2026-11-17',
+      heroImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
+      listingImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
+      description:
+        'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This post records that path and the limits that remain.',
+      authors: [],
+      tags: ['engineering', 'deployment', 'cloud', 'architecture'],
+      readingTime: 7,
+      hideHero: true,
+    },
+  },
+  {
     slug: 'infrastructureless',
     metadata: {
       title: 'The Future of Infrastructure: Beyond Serverless',

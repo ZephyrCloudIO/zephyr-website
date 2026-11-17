@@ -1,0 +1,132 @@
+---
+title: 'One version. The words and the site.'
+slug: 'how-zephyr-publishes-an-emdash-site'
+date: '2026-11-17'
+heroImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+listingImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+description: 'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This post records that path and the limits that remain.'
+authors: []
+tags: ['engineering', 'deployment', 'cloud', 'architecture']
+readingTime: 7
+hideHero: true
+---
+
+import twoReleases from '@/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png';
+import savesAndCaptures from '@/images/blog/how-zephyr-publishes-an-emdash-site/saves-and-captures.png';
+import releaseMovesATag from '@/images/blog/how-zephyr-publishes-an-emdash-site/release-moves-a-tag.png';
+import rollbackReturnsBoth from '@/images/blog/how-zephyr-publishes-an-emdash-site/rollback-returns-both.png';
+
+A CMS and a deploy pipeline are two releases. The content team publishes the words. The platform team ships a build. Brand, legal, and engineering can see three versions of the same page.
+
+EmDash and Zephyr remove that split for the marketing site. EmDash holds the content. Zephyr deploys each captured site to its own URL. Production is one tag. That tag is the words and the site.
+
+Each product does one half of the work. EmDash alone keeps a draft. Zephyr alone deploys a build. A content save can then become the version that you release.
+
+In this post, a capture is the stored input for one page. A sealed site is the build of a capture. The Zephyr tag is the public site. The tag refers to one sealed site.
+
+## The enterprise split
+
+A large company already has a content system, a pipeline, a CDN, and a review habit for each one. A copy change and a code change follow different calendars. A rollback of one release leaves the other release in place.
+
+This release is one artifact. The artifact is smaller than a new platform.
+
+<img
+  src={twoReleases}
+  alt="Two releases keep one public pointer for the words and one public pointer for the build. A rollback of one pointer leaves the other pointer in place. One artifact has one Zephyr tag on one sealed build. The build contains the EmDash page, the renderer, and the shared shell. A rollback moves that tag."
+/>
+
+- The content is the EmDash page.
+- The site is the sealed build of that page, the renderer, and the shared shell.
+- The public site is the Zephyr tag for one of those builds.
+
+The content team, the platform team, and the company open the same URL. A rollback moves that tag. The previous words return with the previous site. The words and the site were stored as one version.
+
+## A save is not a release
+
+An editor saves a landing page or the site root in EmDash. The CMS commits that save first.
+
+We built that capture for this marketing site. It is not available as a published plugin. Official plugins are coming soon.
+
+After the commit, the capture can store the page. The capture includes these parts:
+
+- the page layout
+- the shared shell settings
+- the SEO dependencies
+
+The build-control Worker stores that input. The Worker builds a sealed site from the input. Zephyr deploys that build to an immutable URL.
+
+The capture runs after the commit. The capture does not recover every accepted save. That guarantee still requires a transactional outbox.
+
+A newer save with no capture shows **Capture latest** on the Deployments page. History contains the retained publishing captures. History does not contain every autosave.
+
+<img
+  src={savesAndCaptures}
+  alt="EmDash commits each save. Only some saves have a capture. Each capture becomes a sealed site at an immutable URL. A newer save with no capture shows Capture latest. History contains the retained publishing captures. History does not contain every autosave."
+/>
+
+## Release moves a tag
+
+A person selects one captured version. The publish request records an idempotency key. The request also records the expected production snapshot.
+
+The Worker combines that page with the current production versions of the other pages. Current shared site settings apply. The builder verifies the candidate. The builder uploads the candidate.
+
+A durable publication intent promotes that exact version. The intent uses the native release path in Zephyr.
+
+The release does not rebuild the selected version. The Worker records the publication only after the environment reports that version. A stale production base stops the promotion. If you close the browser, the close does not cancel an accepted publication.
+
+<img
+  src={releaseMovesATag}
+  alt="A person selects one captured version. The Worker combines that version with the current production versions of the other pages and the current shared site settings. The builder verifies the candidate. The builder uploads the candidate. A stale production base stops the promotion. A durable publication intent promotes that exact version. The release does not rebuild the selected version. The Worker records the publication only after the environment reports that version."
+/>
+
+The company releases one snapshot of the pages. The release is not a content publish plus a separate deploy.
+
+## Rollback returns both
+
+Restore builds a new version from the retained historical manifest of the last good build. Newer CMS drafts stay in the CMS. The public site returns to the retained bytes.
+
+The last good build is still deployed. Production moves to that build. The words in that build are the words that return.
+
+<img
+  src={rollbackReturnsBoth}
+  alt="Restore builds a new version from the retained historical manifest of the last good build. The last good build is still deployed. Production moves to that build. The public site returns to the retained bytes. Newer CMS drafts stay in the CMS."
+/>
+
+## What an agent edits
+
+The renderer and the content model are files. An agent can change those files. The agent can open the build URL before a person releases the page. A person still releases the page. Roles decide who can release the page.
+
+A team with a WordPress WXR export can convert the export on the machine:
+
+```bash
+npx emdash import wordpress export.xml
+npx emdash import wordpress export.xml --execute
+```
+
+The first command writes a migration config. The command does not connect to an EmDash site. The command does not write the database. `--execute` writes JSON files.
+
+Password-protected posts are drafts. The admin importer is a separate path. That path can add menus from the EmDash exporter.
+
+The import is the entry step. The release is still one Zephyr version.
+
+Read the [EmDash 1.5 notes](https://emdashcms.com/blog/emdash-1-5) before an EmDash upgrade. Those notes cover sandboxed plugins.
+
+## What this does not do
+
+The capture is native code. The code runs only on our Cloudflare host. Official plugins are coming soon.
+
+A registry sandbox cannot read the host binding. A registry sandbox cannot run the Astro renderers.
+
+The current example uses one operational writer.
+
+External promotion races remain a limit.
+
+Broad server-token authority remains a limit.
+
+A preview of an old version uses the retained sealed HTML and the retained assets. The preview does not query the current CMS. The preview does not run the live form, Turnstile, or analytics.
+
+The control Worker keeps deployment credentials in Cloudflare secrets. The browser does not receive the credentials.
+
+## Where to read the campaign
+
+The public page is `/one-version` on the marketing site. The page is a draft until an editor publishes it. For a buyer, the page states the same story. The story is one version, one URL, and one tag.

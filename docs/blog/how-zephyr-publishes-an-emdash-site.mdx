@@ -1,0 +1,68 @@
+---
+title: 'One version. The words and the site. | Zephyr Cloud'
+description: 'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This post records that path and the limits that remain.'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'One version. The words and the site.'
+  - - meta
+    - property: og:description
+      content: 'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This post records that path and the limits that remain.'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/how-zephyr-publishes-an-emdash-site'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+  - - meta
+    - property: og:image:type
+      content: 'image/png'
+  - - meta
+    - property: og:image:secure_url
+      content: 'https://zephyr-cloud.io/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'One version. The words and the site.'
+  - - meta
+    - name: twitter:description
+      content: 'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This post records that path and the limits that remain.'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+  - - meta
+    - name: twitter:image:type
+      content: 'image/png'
+  - - meta
+    - name: twitter:image:src
+      content: 'https://zephyr-cloud.io/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/how-zephyr-publishes-an-emdash-site'
+---
+
+import PostBody from '@/content/blog/how-zephyr-publishes-an-emdash-site.mdx';
+import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'One version. The words and the site.',
+  slug: 'how-zephyr-publishes-an-emdash-site',
+  date: '2026-11-17',
+  heroImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
+  listingImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
+  description:
+    'EmDash holds the content. Zephyr deploys the sealed site. One production tag releases both. This post records that path and the limits that remain.',
+  authors: [],
+  tags: ['engineering', 'deployment', 'cloud', 'architecture'],
+  readingTime: 7,
+  hideHero: true,
+};
+
+<BlogArticlePage slug={'how-zephyr-publishes-an-emdash-site'} metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>
