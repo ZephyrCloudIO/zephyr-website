@@ -7,29 +7,40 @@ const heading = 'text-headline m-0 text-ink';
 const question = 'text-title m-0 text-ink';
 const paragraph = 'm-0 mt-4 leading-relaxed text-ink-muted';
 
-const SCENARIOS = [
+const SCENARIOS: {
+  down: string;
+  users: ReactNode;
+  builds: ReactNode;
+  changes: ReactNode;
+}[] = [
   {
     down: 'Dashboard',
     users: 'No effect',
-    builds: 'No effect; builds and uploads don’t use the dashboard',
-    changes: 'Not in the dashboard; the API and CI tokens keep working',
+    builds: 'No effect. Builds and uploads do not use the dashboard',
+    changes: 'Not in the dashboard. The API and CI tokens keep working',
   },
   {
     down: 'Sign-in service',
     users: 'No effect',
-    builds: 'CI tokens keep working; interactive sign-in, personal tokens and connected assistants may not',
+    builds: 'CI tokens keep working. Interactive sign-in, personal tokens, and connected assistants may not',
     changes: 'With a CI token, yes. Through the dashboard, no',
   },
   {
     down: 'Zephyr API or deploy gateway',
     users: 'No effect',
-    builds: 'Your build still runs; the upload and deploy step can’t complete',
+    builds: (
+      <>
+        Your bundler runs, but the upload and deploy step cannot complete. CI builds with{' '}
+        <code className="text-ident">ZE_CI_TOKEN</code> fail by default unless you set{' '}
+        <code className="text-ident">ZE_FAIL_BUILD=false</code> or <code className="text-ident">ZE_DISABLED=true</code>
+      </>
+    ),
     changes: 'No. Environments keep serving the version they serve now',
   },
   {
     down: 'Zephyr-managed edge',
     users: 'Zephyr-hosted apps are affected. Apps on your own cloud are not',
-    builds: 'Uploads to Zephyr-hosted targets fail; deploys to your own cloud aren’t affected',
+    builds: 'Uploads to Zephyr-hosted targets fail. Deploys to your own cloud are not affected',
     changes: 'Only for Zephyr-hosted environments',
   },
   {
@@ -64,11 +75,31 @@ const FAQ: { q: string; a: ReactNode[] }[] = [
   {
     q: 'Can we still run builds and deploy during an outage?',
     a: [
-      'Your CI keeps running, because the build happens in your pipeline. The upload and deploy step needs Zephyr. By default, the Zephyr plugin logs the failure and lets the build finish, so a pipeline can succeed without a deployment.',
       <>
-        If your process needs a failed Zephyr step to fail the pipeline, set{' '}
-        <code className="text-ident">ZE_FAIL_BUILD=true</code>. Check your pipeline’s own handling of a failed or
-        skipped deploy. Don’t assume a green build means a new version is live.
+        Your CI keeps running because the build happens in your pipeline, while the upload and deploy step needs Zephyr.
+        When a Zephyr step fails, the plugin decides whether to fail the build in this order: first the{' '}
+        <code className="text-ident">failBuild</code> option on <code className="text-ident">withZephyr</code> (webpack
+        and Rspack plugins), then <code className="text-ident">ZE_FAIL_BUILD</code> (
+        <code className="text-ident">true</code> fails the build and any other value logs the error), and otherwise the
+        default. By default, builds fail in CI when <code className="text-ident">ZE_CI_TOKEN</code> is set, and log the
+        error without deploying everywhere else.
+      </>,
+      <>
+        Set <code className="text-ident">ZE_FAIL_BUILD=true</code> to fail explicitly or{' '}
+        <code className="text-ident">ZE_FAIL_BUILD=false</code> to log errors and continue, including in CI. Do not
+        assume a green build without a CI token or with <code className="text-ident">ZE_FAIL_BUILD=false</code> means a
+        new version is live.
+      </>,
+      <>
+        To produce a bundle during an outage without contacting Zephyr, set{' '}
+        <code className="text-ident">ZE_DISABLED=true</code>. Supported Zephyr plugins and{' '}
+        <code className="text-ident">ze-cli</code> skip every Zephyr step, need no token, make no network requests, and
+        print that the bundle is built and not deployed. Only the exact value <code className="text-ident">true</code>{' '}
+        enables skip mode, and nothing turns it on automatically. See the{' '}
+        <a href="https://docs.zephyr-cloud.io/features/automation" target="_blank" rel="noopener" className={link}>
+          automation guide
+        </a>{' '}
+        for details.
       </>,
     ],
   },
@@ -95,13 +126,28 @@ const FAQ: { q: string; a: ReactNode[] }[] = [
   {
     q: 'How should we prepare?',
     a: [
-      'Use CI tokens in pipelines instead of personal tokens, and create and store them before you need them. Decide whether a failed Zephyr step should fail your pipeline. Know which environment points at which version, and keep your own record of what was last released. Follow our status page, and write down who in your organization decides to hold or proceed with a release when Zephyr is unavailable.',
+      <>
+        Use CI tokens (<code className="text-ident">ZE_CI_TOKEN</code>) in pipelines instead of personal tokens, and
+        create and store them before you need them. Decide whether a failed Zephyr step should fail your pipeline (
+        <code className="text-ident">ZE_FAIL_BUILD=true</code>, the default with{' '}
+        <code className="text-ident">ZE_CI_TOKEN</code>), continue without deploying (
+        <code className="text-ident">ZE_FAIL_BUILD=false</code>), or skip Zephyr completely during an outage (
+        <code className="text-ident">ZE_DISABLED=true</code>).
+      </>,
+      <>
+        Run <code className="text-ident">ze-cli doctor --online</code> to run read-only, bounded-timeout checks against
+        the Zephyr API, gateway, stored token, application configuration, and edge. Note that{' '}
+        <code className="text-ident">ZE_CI_TOKEN</code> requires an exchange and is not verified by{' '}
+        <code className="text-ident">doctor --online</code>. Know which environment points at which version, keep your
+        own record of what was last released, follow our status page, and write down who in your organization decides to
+        hold or proceed with a release when Zephyr is unavailable.
+      </>,
     ],
   },
   {
     q: 'Do you hold credentials for our cloud account?',
     a: [
-      'To deploy to your cloud, Zephyr uses the credentials you connect to create the serving resources and write files and routing data into your account. Rotate or revoke the credentials you gave us from your cloud provider at any time; doing so stops new deployments, not serving.',
+      'To deploy to your cloud, Zephyr uses the credentials you connect to create the serving resources and write files and routing data into your account. Rotate or revoke the credentials you gave us from your cloud provider at any time. Doing so stops new deployments, not serving.',
     ],
   },
   {
@@ -122,7 +168,7 @@ function Resilience() {
           For apps on your own cloud, your users keep being served. What stops is shipping new releases and changing
           which version is live. This page says which is which, so you can plan for it.
         </p>
-        <p className="mt-5 mb-0 text-sm text-ink-faint">Last reviewed October 2026</p>
+        <p className="mt-5 mb-0 text-sm text-ink-faint">Last reviewed November 2026</p>
       </header>
 
       <div className="mt-12 space-y-16 border-t border-line pt-12">
