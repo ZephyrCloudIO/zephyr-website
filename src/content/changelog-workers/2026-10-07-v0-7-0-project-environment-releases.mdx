@@ -1,0 +1,39 @@
+---
+title: 'Workers v0.7.0: Project Environment Releases and Clearer Akamai Errors'
+date: '2026-10-07'
+version: 'v0.7.0'
+summary: 'The Cloudflare workers can release a host and its remotes to an environment together, and failed Akamai activations show the validation errors Akamai reported.'
+tags: ['workers', 'environments', 'cloudflare', 'akamai']
+category: 'platform'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+The Cloudflare workers can release a host and its remotes to an environment together, and failed Akamai activations show the validation errors Akamai reported.
+
+## Project Environment Releases
+
+The API gateway and the static upload worker now support opt-in project environment releases, where Zephyr releases a project's applications to an environment as one coordinated change. Projects that do not opt in keep their current independent environments.
+
+- Available for static apps on Zephyr's global Cloudflare targets.
+- A delayed or out-of-order release cannot overwrite a newer one.
+- Release commands only travel on an internal hostname, so your app's own routes are never intercepted, including a route named `/project-release`.
+- If storage fails during a release, the worker returns a retryable error instead of reporting a false conflict, and retrying the same release completes it.
+
+## Clearer Akamai Activation Errors
+
+When Akamai rejects a property activation, the Akamai worker now includes up to 10 of the validation errors Akamai returned, with their type, title, and detail. Secrets are redacted and each error is capped in length.
+
+## Smaller Improvements
+
+- Dependencies with reported security advisories were updated across the workers.
+
+## What This Means for Teams
+
+- Projects with a host and remotes can move to coordinated environment releases as the feature rolls out.
+- Akamai setup failures are easier to diagnose without opening a support request.
+
+## Support
+
+If you encounter unexpected behavior, please contact the Zephyr team via chat or join our Discord: [discord.gg/zephyrcloud](https://discord.gg/zephyrcloud).

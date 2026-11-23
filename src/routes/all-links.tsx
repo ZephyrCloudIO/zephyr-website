@@ -1,3 +1,7 @@
+import { GithubIcon } from '@/components/ui/github-icon';
+import { InstagramIcon } from '@/components/ui/instagram-icon';
+import { LinkedinIcon } from '@/components/ui/linkedin-icon';
+import { YoutubeIcon } from '@/components/ui/youtube-icon';
 import discordQr from '@/images/all-links/discord.svg';
 import githubQr from '@/images/all-links/github.svg';
 import instagramQr from '@/images/all-links/instagram.svg';
@@ -8,7 +12,7 @@ import xZephyrQr from '@/images/all-links/x-zephyr.svg';
 import youtubeQr from '@/images/all-links/youtube.svg';
 import zephyrCloudQr from '@/images/all-links/zephyr-cloud.svg';
 import { createFileRoute } from '@tanstack/react-router';
-import { ArrowUpRight, Github, Globe, Instagram, Linkedin, Sparkles, Youtube, type LucideIcon } from 'lucide-react';
+import { ArrowUpRight, Globe, Sparkles, type LucideIcon } from 'lucide-react';
 import { type ComponentType, type CSSProperties } from 'react';
 
 export const Route = createFileRoute('/all-links')({
@@ -65,7 +69,7 @@ const links: QrLink[] = [
     handle: 'github.com/ZephyrCloudIO',
     href: 'https://github.com/ZephyrCloudIO',
     qr: githubQr,
-    icon: Github,
+    icon: GithubIcon,
   },
   {
     id: 'linkedin',
@@ -73,7 +77,7 @@ const links: QrLink[] = [
     handle: 'linkedin.com/company/zephyr-cloud',
     href: 'https://www.linkedin.com/company/zephyr-cloud/',
     qr: linkedinQr,
-    icon: Linkedin,
+    icon: LinkedinIcon,
   },
   {
     id: 'discord',
@@ -105,7 +109,7 @@ const links: QrLink[] = [
     handle: 'youtube.com/@ZephyrCloud',
     href: 'https://www.youtube.com/@ZephyrCloud',
     qr: youtubeQr,
-    icon: Youtube,
+    icon: YoutubeIcon,
   },
   {
     id: 'instagram',
@@ -113,7 +117,7 @@ const links: QrLink[] = [
     handle: 'instagram.com/zephyrcloudio',
     href: 'https://www.instagram.com/zephyrcloudio',
     qr: instagramQr,
-    icon: Instagram,
+    icon: InstagramIcon,
   },
 ];
 

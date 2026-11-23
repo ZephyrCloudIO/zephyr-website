@@ -1,0 +1,65 @@
+---
+title: 'Product Update: Audit Log Accuracy, Project Access Controls, and Organization Switcher'
+date: '2026-10-26'
+version: 'Late October 2026 Product Update'
+summary: 'This release makes audit logs more complete and easier to filter, tightens what project viewers and organization viewers can access, and makes it faster to switch between organizations.'
+tags: ['product', 'audit-logs', 'permissions', 'projects', 'cloudflare']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release makes audit logs more complete and easier to filter, tightens what project viewers and organization viewers can access, and makes it faster to switch between organizations.
+
+## Audit Logs Capture More and Filter Correctly
+
+Project audit logs now record the organization they belong to, and the action filters match what you select.
+
+- Failed deployments are recorded in the audit log, so you can see attempts that did not complete.
+- Denied version uploads are shown and recorded.
+- Searches by log ID are validated, and the application-logs toggle behaves as expected.
+- Actions taken through CI and by environment members keep the correct attribution.
+
+## Project Access Matches Your Role
+
+Viewers and organization viewers can no longer reach areas they are not meant to manage.
+
+- Project viewers cannot open project settings or DevOps pages.
+- Users without app edit access no longer see DevOps pages.
+- Organization viewers cannot be given project editor or admin roles, or team maintainer roles.
+- Changes to a project author's contributor role now save.
+
+## Easier Project Collaborator Management
+
+Adding people to a project works the way you would expect.
+
+- Collaborator search finds users.
+- The member and team pickers are usable and load results page by page.
+- The owner no longer appears in the role list, since their access is fixed.
+
+## Cloudflare Integrations Stay Connected
+
+Cloudflare connections are more durable.
+
+- Idle connections are refreshed daily, so they stay active between deploys.
+- Connections that have expired can be reconnected without starting over.
+- Editing an integration keeps its credentials current.
+
+## Two-Pane Organization Switcher
+
+The organization switcher now shows a two-pane layout with your recently used organizations, so you can jump back to the one you were working in.
+
+## Smaller Improvements
+
+- Team creation explains why a name is taken when a duplicate conflicts.
+- The CI token notice wording matches the current token deprecation status.
+- Emails use the hosted Zephyr wordmark, so the logo displays correctly.
+- Ephemeral environments now follow the lifecycle of their pull request, and a pool of 20 reusable database branches is available.
+
+## What This Means for Teams
+
+- Audit logs give a more complete and accurate record of who did what, including failed and denied actions.
+- Project and organization roles are enforced more consistently, reducing accidental access.
+- Adding collaborators and switching organizations takes fewer steps.
+- Cloudflare integrations need less manual reconnecting.

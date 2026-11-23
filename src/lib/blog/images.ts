@@ -8,6 +8,7 @@ import createZephyrAppsHeroImage from '@/images/blog/create-zephyr-apps/hero.web
 import doraMetricsHeroImage from '@/images/blog/dora-metrics/hero.webp';
 import envVariablesAndZephyrHeroImage from '@/images/blog/env-variables/hero.webp';
 import geoHeroImage from '@/images/blog/generative-engine-optimization/hero.webp';
+import oneVersionImage from '@/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png';
 import infrastructurelessHeroImage from '@/images/blog/infrastructureless/hero.webp';
 import microFrontendCanvasOverviewImage from '@/images/blog/micro-frontend-canvas/canvas-overview.webp';
 import microFrontendCanvasDesignPhaseImage from '@/images/blog/micro-frontend-canvas/design-phase.webp';
@@ -129,5 +130,9 @@ export const blogImages = {
   'micro-frontend-canvas': {
     heroImage: microFrontendCanvasDesignPhaseImage,
     listingImage: microFrontendCanvasOverviewImage,
+  },
+  'how-zephyr-publishes-an-emdash-site': {
+    heroImage: oneVersionImage,
+    listingImage: oneVersionImage,
   },
 };

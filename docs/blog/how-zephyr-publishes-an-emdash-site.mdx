@@ -1,0 +1,67 @@
+---
+title: 'One Immutable Version | Zephyr Cloud'
+description: 'The Code and Content ship together'
+head:
+  - - meta
+    - property: og:type
+      content: article
+  - - meta
+    - property: og:title
+      content: 'One Immutable Version'
+  - - meta
+    - property: og:description
+      content: 'The Code and Content ship together'
+  - - meta
+    - property: og:url
+      content: 'https://zephyr-cloud.io/blog/how-zephyr-publishes-an-emdash-site'
+  - - meta
+    - property: og:image
+      content: 'https://zephyr-cloud.io/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+  - - meta
+    - property: og:image:type
+      content: 'image/png'
+  - - meta
+    - property: og:image:secure_url
+      content: 'https://zephyr-cloud.io/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+  - - meta
+    - name: twitter:card
+      content: summary_large_image
+  - - meta
+    - name: twitter:title
+      content: 'One Immutable Version'
+  - - meta
+    - name: twitter:description
+      content: 'The Code and Content ship together'
+  - - meta
+    - name: twitter:image
+      content: 'https://zephyr-cloud.io/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+  - - meta
+    - name: twitter:image:type
+      content: 'image/png'
+  - - meta
+    - name: twitter:image:src
+      content: 'https://zephyr-cloud.io/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png'
+  - - link
+    - rel: canonical
+      href: 'https://zephyr-cloud.io/blog/how-zephyr-publishes-an-emdash-site'
+---
+
+import PostBody from '@/content/blog/how-zephyr-publishes-an-emdash-site.mdx';
+import { BlogArticlePage } from '../../src/components/pages/BlogArticlePage';
+
+export const pageMetadata = {
+  title: 'One Immutable Version',
+  slug: 'how-zephyr-publishes-an-emdash-site',
+  date: '2026-11-17',
+  heroImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
+  listingImage: '/images/blog/how-zephyr-publishes-an-emdash-site/two-releases-or-one-artifact.png',
+  description: 'The Code and Content ship together',
+  authors: [],
+  tags: ['engineering', 'deployment', 'cloud', 'architecture'],
+  readingTime: 4,
+  hideHero: true,
+};
+
+<BlogArticlePage slug={'how-zephyr-publishes-an-emdash-site'} metadata={pageMetadata}>
+  <PostBody />
+</BlogArticlePage>

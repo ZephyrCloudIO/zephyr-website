@@ -1,0 +1,43 @@
+---
+title: 'Plugins v1.7.0: JSON Deploy Output and Vinext on Cloudflare Vite Plugin 2.x'
+date: '2026-10-18'
+version: 'v1.7.0'
+summary: 'ze-cli can print the deploy result as JSON, Vinext apps get the right plugin from with-zephyr and deploy with the Cloudflare Vite plugin 2.x, and federated containers are described once.'
+tags: ['plugins', 'ze-cli', 'vinext', 'cloudflare', 'module-federation']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+`ze-cli` can print the deploy result as JSON, Vinext apps get the right plugin from `with-zephyr` and deploy with the Cloudflare Vite plugin 2.x, and federated containers are described once.
+
+## JSON Deploy Result From `ze-cli`
+
+`ze-cli deploy <dir> --format json` prints one machine-readable line on stdout when a deploy succeeds:
+
+```json
+{ "applicationUid": "…", "versionUrl": "https://…", "targetUrls": ["https://…"] }
+```
+
+- `versionUrl` is the immutable URL of the deployed version, and `targetUrls` lists the tag and environment URLs now serving it.
+- Logs and warnings go to stderr in this mode, so scripts and coding agents can read the result without parsing log lines.
+- Text output is unchanged when you leave out the flag.
+
+## Vinext Apps on Cloudflare
+
+- `with-zephyr` now adds `vite-plugin-vinext-zephyr` to Vinext projects instead of the generic Vite plugin. Running it again repairs projects set up by earlier releases.
+- `vite-plugin-vinext-zephyr` supports the output layout of `@cloudflare/vite-plugin` 2.x. These builds previously failed with `ZE20024`. Projects on 1.x behave as before.
+
+## Smaller Improvements
+
+- When client and server compilers both build the same federated container, the published snapshot describes it once. Containers built only for the server keep their metadata.
+
+## What This Means for Teams
+
+- CI pipelines and agents get a stable contract for where a deploy went.
+- Existing Vinext + Cloudflare apps can be set up and deployed without manual changes.
+
+## Support
+
+If you encounter unexpected behavior, please contact the Zephyr team via chat or join our Discord: [discord.gg/zephyrcloud](https://discord.gg/zephyrcloud).

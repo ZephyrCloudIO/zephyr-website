@@ -2,7 +2,6 @@ import { LinkedinIcon } from '@/components/ui/linkedin-icon';
 import { TwitchIcon } from '@/components/ui/twitch-icon';
 import { XIcon } from '@/components/ui/x-icon';
 import { YoutubeIcon } from '@/components/ui/youtube-icon';
-import { COMPANY_LOGOS } from '@/constants/companyLogos';
 import { cn } from '@/lib/utils';
 import { Testimonials, type TestimonialSocialPlatform } from '@/testimonials';
 import type { LucideIcon } from 'lucide-react';
@@ -31,25 +30,10 @@ export function ProofSection() {
           </h2>
         </div>
 
-        <ul className="reveal m-0 mt-12 flex list-none flex-wrap items-center gap-x-14 gap-y-8 p-0">
-          {COMPANY_LOGOS.map((logo) => (
-            <li key={logo.alt}>
-              <a
-                href={logo.url}
-                target="_blank"
-                rel="noopener"
-                className="block opacity-55 grayscale transition-[opacity,filter] duration-300 hover:opacity-100 hover:grayscale-0 focus-visible:opacity-100"
-              >
-                <img src={logo.src} alt={logo.alt} height={48} className="h-12 w-auto object-contain" loading="lazy" />
-              </a>
-            </li>
-          ))}
-        </ul>
-
         <div
           id="proof-quotes"
           data-expanded={expanded || undefined}
-          className="proof-quotes mt-16 columns-1 gap-4 md:columns-2 lg:columns-3"
+          className="proof-quotes mt-12 columns-1 gap-4 md:columns-2 lg:columns-3"
         >
           {Testimonials.map((t, i) => (
             <figure

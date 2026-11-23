@@ -1,4 +1,5 @@
 import { authorNames } from '@/components/BlogCard';
+import { GithubIcon } from '@/components/ui/github-icon';
 import { LinkedinIcon } from '@/components/ui/linkedin-icon';
 import { TwitchIcon } from '@/components/ui/twitch-icon';
 import { XIcon } from '@/components/ui/x-icon';
@@ -8,7 +9,7 @@ import { mdxToBlogPost, type MDXBlogPost } from '@/lib/blog/loader';
 import { tagLabels } from '@/lib/blog/tags';
 import type { Author } from '@/lib/blog/types';
 import { cn } from '@/lib/utils';
-import { ArrowLeft, Github, type LucideIcon } from 'lucide-react';
+import { ArrowLeft, type LucideIcon } from 'lucide-react';
 import { Fragment, useRef, type ReactNode } from 'react';
 import { ARTICLE_COLUMN, ArticleBody, ArticleHeader, ArticleHero, SECONDARY_BUTTON } from './ArticleLayout';
 import { ReadingProgress } from './ReadingProgress';
@@ -24,7 +25,7 @@ type SocialPlatform = NonNullable<Author['socialLinks']>[number]['platform'];
 const SOCIAL_ICONS: Record<SocialPlatform, LucideIcon> = {
   X: XIcon,
   LinkedIn: LinkedinIcon,
-  Github: Github,
+  Github: GithubIcon,
   YouTube: YoutubeIcon,
   Twitch: TwitchIcon,
 };

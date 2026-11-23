@@ -1,0 +1,53 @@
+---
+title: 'Plugins v1.6.0: Change Attribution, Expo EAS Build, and Rstack Setup'
+date: '2026-10-06'
+version: 'v1.6.0'
+summary: 'Builds from uncommitted changes can record who or which agent made them, ZE_CI_TOKEN works inside Expo EAS Build, and with-zephyr sets up Rstack projects.'
+tags: ['plugins', 'ci', 'expo', 'rstack', 'codemod', 'ai-agents']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+Builds from uncommitted changes can record who or which agent made them, `ZE_CI_TOKEN` works inside Expo EAS Build, and `with-zephyr` sets up Rstack projects.
+
+## Change Attribution for Builds With Uncommitted Changes
+
+Two Zephyr versions can be built from different uncommitted changes on the same commit. Optional change attribution gives each of these versions its own source fingerprint and can record whether a change came from a person or a coding agent, including the agent, model and session.
+
+- Turn it on through `with-zephyr`, which asks for consent and can add hooks for Codex, Claude, and Grok/T3. Running `with-zephyr` non-interactively never turns tracking on.
+- Attribution is stored **locally** by default, inside your repository's Git directory. In local mode nothing about attribution is uploaded.
+- Remote storage is opt-in. If Zephyr cannot accept the attribution, the deploy still continues with a warning and the evidence stays local.
+- Full source snapshots and raw prompts or transcripts are never uploaded.
+- After it is enabled, manage the setting with `ze-cli attribution configure --storage local|remote`.
+
+## `ZE_CI_TOKEN` Works on Expo EAS Build
+
+The Metro and Re.Pack plugins can now authenticate and publish entirely inside EAS Build and EAS Workflows with `ZE_CI_TOKEN`. Previously these builds failed with `ZE10037`.
+
+- Store `ZE_CI_TOKEN` as an EAS secret environment variable.
+- Zephyr identifies the deployer from the commit's author and committer emails. If none are available, the deployment is authorized through the CI token and attributed to the Expo account that ran the build.
+- When `eas build --local` runs inside GitHub Actions or GitLab CI, that provider's identity takes precedence.
+
+## Rstack Projects Set Up With `with-zephyr`
+
+The `with-zephyr` codemod now recognizes `rstack.config.*` files and adds the right Zephyr plugin to each section: the Rsbuild plugin for apps and libraries, and the Rspress plugin for docs.
+
+- Other plugins and their order are preserved, and the dependency is added to the nearest `package.json`.
+- Deploys are skipped while Rstest runs your tests.
+- Dry runs stay read-only, and configurations the codemod cannot safely change are reported for manual setup.
+
+## Smaller Improvements
+
+- Every package with an agent skill documents the optional TanStack Intent setup in its README.
+
+## What This Means for Teams
+
+- Reviewers can tell versions built from the same commit apart, and see which changes came from an agent.
+- Expo teams can deploy from EAS Build with the same CI token they use elsewhere.
+- Rstack projects can be onboarded with one command.
+
+## Support
+
+If you encounter unexpected behavior, please contact the Zephyr team via chat or join our Discord: [discord.gg/zephyrcloud](https://discord.gg/zephyrcloud).

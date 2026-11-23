@@ -24,7 +24,7 @@ pnpm preview
 - `src/components/pages/RouteRenderer.tsx`: renders legacy route components from `docs/*.mdx` wrappers.
 - `src/router-shim.tsx`: small compatibility shim for legacy `@tanstack/react-router` imports.
 - `src/content/blog/`: canonical blog MDX source.
-- `src/content/changelog/`: canonical changelog MDX source.
+- `src/content/changelog/`: canonical changelog MDX source (platform). Plugins and Workers release notes live in `src/content/changelog-plugins/` and `src/content/changelog-workers/`.
 - `scripts/generate-rspress-content.mjs`: generates static Rspress blog/changelog route wrappers and metadata files.
 
 ## Adding A Blog Post
@@ -97,6 +97,8 @@ docs/changelog/<slug>.mdx
 src/generated/changelog-metadata.ts
 ```
 
+For plugins and Workers release notes, and the writing rules for every entry, see [`changelog.md`](./changelog.md).
+
 ## Adding A Normal Page
 
 Keep page UI in `src/routes/` and expose it with a thin Rspress wrapper in `docs/`.
@@ -157,7 +159,7 @@ import { Route as ExampleRoute } from '../src/routes/example';
 
 Swap in a page-specific `og:image`/`twitter:image` when the page has its own social art; otherwise keep the shared `default-1200x630.png` so the page still has a social preview.
 
-Use `hideChrome: true` in frontmatter for standalone pages that should not render the global header, footer, or Intercom button.
+Use `hideChrome: true` in frontmatter for standalone pages that should not render the global header or footer.
 
 ## Adding A Standalone Lander
 

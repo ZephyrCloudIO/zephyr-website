@@ -411,4 +411,56 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-10-26-audit-log-project-access-org-switcher',
+    metadata: {
+      title: 'Product Update: Audit Log Accuracy, Project Access Controls, and Organization Switcher',
+      date: '2026-10-26',
+      version: 'Late October 2026 Product Update',
+      summary:
+        'This release makes audit logs more complete and easier to filter, tightens what project viewers and organization viewers can access, and makes it faster to switch between organizations.',
+      tags: ['product', 'audit-logs', 'permissions', 'projects', 'cloudflare'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-10-28-invitations-domain-joining-navigation',
+    metadata: {
+      title: 'Product Update: Invitation Fixes, Verified-Domain Joining, and Navigation Polish',
+      date: '2026-10-28',
+      version: 'Late October 2026 Product Update',
+      summary:
+        'This release makes organization invitations more reliable, lets colleagues on a verified domain join without an extra step, and tidies up tables and navigation.',
+      tags: ['product', 'invitations', 'organizations', 'authentication', 'navigation'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-11-05-leave-organizations-access-controls-polish',
+    metadata: {
+      title: 'Product Update: Leave Organizations, Tighter Access Controls, and UI Fixes',
+      date: '2026-11-05',
+      version: 'Early November 2026 Product Update',
+      summary:
+        'This release lets members leave an organization themselves and tells people when they have been added to one. It also limits audit logs to people who can edit, tightens who can see what across the platform, and fixes several layout issues.',
+      tags: ['product', 'organizations', 'permissions', 'audit-logs', 'security'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
+  {
+    slug: '2026-11-17-audit-log-filters-mobile-dashboard',
+    metadata: {
+      title: 'Product Update: Audit Log Filters, Mobile Dashboard, and Access Fixes',
+      date: '2026-11-17',
+      version: 'Mid November 2026 Product Update',
+      summary:
+        'This release makes audit logs easier to search and shows when actions were denied. It also makes the dashboard usable on phones, improves the dependency graph, and tightens who can see what.',
+      tags: ['product', 'audit-logs', 'mobile', 'security', 'permissions'],
+      category: 'feature',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;

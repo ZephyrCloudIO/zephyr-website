@@ -11,7 +11,7 @@ import rimac from './assets/logo-rimac.png';
 import sgws from './assets/logo-sgws.png';
 import ZephyrWordmark from './assets/logo-zephyr-wordmark.svg';
 import { HeroShader } from './HeroShader';
-import { HubspotInlineForm } from './HubspotInlineForm';
+import { StartCta } from './StartCta';
 
 const partners = [
   { name: 'SGWS', logo: sgws },
@@ -196,7 +196,7 @@ export function CityjsLondonLanderPage() {
               </div>
               <div className="mx-auto max-w-[620px] space-y-4">
                 <div className="rounded-[24px] border border-white/10 bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] p-8 shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-                  <HubspotInlineForm mode="hero" />
+                  <StartCta mode="hero" />
                 </div>
               </div>
             </div>
@@ -307,7 +307,7 @@ export function CityjsLondonLanderPage() {
 
             <div className="mt-6 flex justify-center">
               <a
-                href="#cityjs-hubspot-form"
+                href="#cityjs-start"
                 className="inline-flex h-9 items-center justify-center rounded-md border border-white/20 bg-transparent px-4 text-sm font-medium text-[#fafafa] transition hover:bg-white/10"
               >
                 Get started
@@ -324,10 +324,7 @@ export function CityjsLondonLanderPage() {
                 <div className="px-5 py-5 text-neutral-200">Frontend cloud</div>
                 <div className="px-5 py-5 text-[#faf5ff]">
                   <div>Zephyr Cloud</div>
-                  <a
-                    href="#cityjs-hubspot-form"
-                    className="mt-1 inline-flex text-[#8a8a8a] transition hover:text-[#faf5ff]"
-                  >
+                  <a href="#cityjs-start" className="mt-1 inline-flex text-[#8a8a8a] transition hover:text-[#faf5ff]">
                     Get started -&gt;
                   </a>
                 </div>
@@ -405,7 +402,7 @@ export function CityjsLondonLanderPage() {
           </div>
         </section>
 
-        <section ref={bottomFormRef} id="cityjs-hubspot-form" className="space-y-8 pb-20 pt-4 text-center">
+        <section ref={bottomFormRef} id="cityjs-start" className="space-y-8 pb-20 pt-4 text-center">
           <div className="mx-auto max-w-[912px] space-y-8">
             <h2 className="text-balance text-4xl font-medium leading-none tracking-[-0.04em] text-[#faf5ff] md:text-6xl">
               Ready to run your system live?
@@ -415,7 +412,7 @@ export function CityjsLondonLanderPage() {
           </div>
 
           <div className="mx-auto w-full max-w-[460px] rounded-[24px] bg-[linear-gradient(180deg,rgba(13,13,13,0.96)_0%,rgba(10,10,10,0.98)_100%)] shadow-[0_24px_80px_rgba(0,0,0,0.45)] backdrop-blur-xl">
-            <HubspotInlineForm />
+            <StartCta />
           </div>
         </section>
       </section>
