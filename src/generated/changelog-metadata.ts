@@ -472,7 +472,7 @@ export const changelogMetadataEntries = [
       summary:
         'This release fixes private remotes that stopped loading after the last update, smooths out the new audit log filters, and adds version IDs and branches to the side panel API. The API spec is now also served at /openapi.json.',
       tags: ['product', 'audit-logs', 'api', 'fixes'],
-      category: 'improvement',
+      category: 'feature',
       author: 'Zephyr Team',
     },
   },
