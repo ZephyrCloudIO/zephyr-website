@@ -16,6 +16,7 @@ const COLUMNS: { title: string; links: FooterLink[] }[] = [
     links: [
       { label: 'Pricing', href: '/pricing' },
       { label: 'Changelog', href: '/changelog' },
+      { label: 'Resilience', href: '/resilience' },
       { label: 'Service status', href: 'https://status.zephyr-cloud.io/', external: true },
       { label: 'The AI Platform', href: 'https://theaiplatform.app', external: true },
     ],
