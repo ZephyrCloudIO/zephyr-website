@@ -1,0 +1,36 @@
+---
+title: 'Product Update: Private Remotes Restored, Audit Log Fixes, and API Additions'
+date: '2026-11-24'
+version: 'Late November 2026 Product Update'
+summary: 'This release fixes private remotes that stopped loading after the last update, smooths out the new audit log filters, and adds version IDs and branches to the side panel API. The API spec is now also served at /openapi.json.'
+tags: ['product', 'audit-logs', 'api', 'fixes']
+category: 'improvement'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release fixes private remotes that stopped loading after the last update, smooths out the new audit log filters, and adds version IDs and branches to the side panel API. The API spec is now also served at `/openapi.json`.
+
+## Private Remotes Load Again
+
+After the mid-November update, apps that loaded private remotes without an access token got a "not found" error, so those remotes stopped loading. Private applications now resolve the same way they did before that update, and these remotes load again.
+
+## Audit Log Filter Fixes
+
+We followed up on last week's audit log filters with a few fixes.
+
+- A new "Clear all" button resets every filter on the project audit log at once.
+- Filtering by date now includes the last day you pick. Before, events from that day were left out.
+- With "Show application logs" turned on, an application's settings changes now link to that application's settings page instead of the project's.
+
+## API Additions
+
+- The side panel version list now returns each version's ID and branch. The environment and tag lists return the ID of the version each one points to. The version ID is the one unique key for a version, so scripts can pass it straight back to the API.
+- The OpenAPI document is now also available at `/openapi.json`, the path most tools look for. It's the same public document served at `/api-json`, and it doesn't need authentication.
+
+## What This Means for Teams
+
+- Apps that load private remotes work again without changes on your side.
+- Audit log searches return the results you'd expect, and clearing filters is one click.
+- Tools that read the API spec from `/openapi.json` work without extra setup.

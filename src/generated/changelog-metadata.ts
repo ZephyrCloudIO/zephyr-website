@@ -463,4 +463,17 @@ export const changelogMetadataEntries = [
       author: 'Zephyr Team',
     },
   },
+  {
+    slug: '2026-11-24-private-remotes-audit-log-fixes-openapi',
+    metadata: {
+      title: 'Product Update: Private Remotes Restored, Audit Log Fixes, and API Additions',
+      date: '2026-11-24',
+      version: 'Late November 2026 Product Update',
+      summary:
+        'This release fixes private remotes that stopped loading after the last update, smooths out the new audit log filters, and adds version IDs and branches to the side panel API. The API spec is now also served at /openapi.json.',
+      tags: ['product', 'audit-logs', 'api', 'fixes'],
+      category: 'improvement',
+      author: 'Zephyr Team',
+    },
+  },
 ] as const;
