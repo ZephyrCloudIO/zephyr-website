@@ -1,0 +1,35 @@
+---
+title: 'Product Update: Remote Loading Fix, Audit Log Fixes, and /openapi.json'
+date: '2026-11-24'
+version: 'Late November 2026 Product Update'
+summary: 'This release fixes remotes that stopped loading after the last update and smooths out the new audit log filters. The API spec is now also served at /openapi.json.'
+tags: ['product', 'audit-logs', 'api', 'fixes']
+category: 'feature'
+author: 'Zephyr Team'
+---
+
+## Summary
+
+This release fixes remotes that stopped loading after the last update and smooths out the new audit log filters. The API spec is now also served at `/openapi.json`.
+
+## Remote Loading Fix
+
+After the mid-November update, some apps couldn't load remotes from private applications and got a "not found" error. This is fixed, and those remotes load again with no changes needed on your side.
+
+## Audit Log Filter Fixes
+
+We followed up on last week's audit log filters with a few fixes.
+
+- A new "Clear all" button resets every filter on the project audit log at once.
+- Filtering by date now includes the last day you pick. Before, events from that day were left out.
+- With "Show application logs" turned on, an application's settings changes now link to that application's settings page instead of the project's.
+
+## API Spec at /openapi.json
+
+The OpenAPI document is now also available at `/openapi.json`, the path most tools look for. It's the same public document served at `/api-json`, and it doesn't need authentication.
+
+## What This Means for Teams
+
+- Remotes that stopped loading after the last update work again.
+- Audit log searches return the results you'd expect, and clearing filters is one click.
+- Tools that read the API spec from `/openapi.json` work without extra setup.
